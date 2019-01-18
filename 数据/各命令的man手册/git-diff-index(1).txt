@@ -1,0 +1,6 @@
+
+       Compares the content and mode of the blobs found in a tree object
+       with the corresponding tracked files in the working tree, or with the
+       corresponding paths in the index. When <path> arguments are present,
+       compares only paths matching those patterns. Otherwise all tracked
+       files are compared.

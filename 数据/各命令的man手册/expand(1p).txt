@@ -1,0 +1,7 @@
+
+       The expand utility shall write files or the standard input to the
+       standard output with <tab> characters replaced with one or more
+       <space> characters needed to pad to the next tab stop. Any
+       <backspace> characters shall be copied to the output and cause the
+       column position count for tab stop calculations to be decremented;
+       the column position count shall not be decremented below zero.

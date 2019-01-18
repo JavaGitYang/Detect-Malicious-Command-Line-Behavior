@@ -1,0 +1,9 @@
+
+       The dirname() function shall take a pointer to a character string
+       that contains a pathname, and return a pointer to a string that is a
+       pathname of the parent directory of that file. Trailing '/'
+       characters in the path are not counted as part of the path.
+       If path does not contain a '/', then dirname() shall return a pointer
+       to the string ".".  If path is a null pointer or points to an empty
+       string, dirname() shall return a pointer to the string ".".
+       The dirname() function need not be thread-safe.

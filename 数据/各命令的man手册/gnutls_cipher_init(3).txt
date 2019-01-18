@@ -1,0 +1,5 @@
+
+       This function will initialize the  handle context to be usable for
+       encryption/decryption of data. This will effectively use the current
+       crypto backend in use by gnutls or the cryptographic accelerator in
+       use.

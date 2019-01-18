@@ -1,0 +1,58 @@
+
+       memfd_create() creates an anonymous file and returns a file
+       descriptor that refers to it.  The file behaves like a regular file,
+       and so can be modified, truncated, memory-mapped, and so on.
+       However, unlike a regular file, it lives in RAM and has a volatile
+       backing storage.  Once all references to the file are dropped, it is
+       automatically released.  Anonymous memory is used for all backing
+       pages of the file.  Therefore, files created by memfd_create() have
+       the same semantics as other anonymous memory allocations such as
+       those allocated using mmap(2) with the MAP_ANONYMOUS flag.
+       The initial size of the file is set to 0.  Following the call, the
+       file size should be set using ftruncate(2).  (Alternatively, the file
+       may be populated by calls to write(2) or similar.)
+       The name supplied in name is used as a filename and will be displayed
+       as the target of the corresponding symbolic link in the directory
+       /proc/self/fd/.  The displayed name is always prefixed with memfd:
+       and serves only for debugging purposes.  Names do not affect the
+       behavior of the file descriptor, and as such multiple files can have
+       the same name without any side effects.
+       The following values may be bitwise ORed in flags to change the
+       behavior of memfd_create():
+       MFD_CLOEXEC
+              Set the close-on-exec (FD_CLOEXEC) flag on the new file
+              descriptor.  See the description of the O_CLOEXEC flag in
+              open(2) for reasons why this may be useful.
+       MFD_ALLOW_SEALING
+              Allow sealing operations on this file.  See the discussion of
+              the F_ADD_SEALS and F_GET_SEALS operations in fcntl(2), and
+              also NOTES, below.  The initial set of seals is empty.  If
+              this flag is not set, the initial set of seals will be
+              F_SEAL_SEAL, meaning that no other seals can be set on the
+              file.
+       MFD_HUGETLB (since Linux 4.14)
+              The anonymous file will be created in the hugetlbfs filesystem
+              using huge pages.  See the Linux kernel source file
+              Documentation/vm/hugetlbpage.txt for more information about
+              hugetlbfs.  The hugetlbfs filesystem does not support file-
+              sealing operations.  Therefore, specifying both MFD_HUGETLB
+              and MFD_ALLOW_SEALING in flags is disallowed.
+       MFD_HUGE_2MB, MFD_HUGE_1GB, ...
+              Used in conjunction with MFD_HUGETLB to select alternative
+              hugetlb page sizes (respectively, 2 MB, 1 GB, ...)  on systems
+              that support multiple hugetlb page sizes.  Definitions for
+              known huge page sizes are included in the header file
+              <sys/memfd.h>.
+              For details on encoding huge page sizes not included in the
+              header file, see the discussion of the similarly named
+              constants in mmap(2).
+       Unused bits in flags must be 0.
+       As its return value, memfd_create() returns a new file descriptor
+       that can be used to refer to the file.  This file descriptor is
+       opened for both reading and writing (O_RDWR) and O_LARGEFILE is set
+       for the file descriptor.
+       With respect to fork(2) and execve(2), the usual semantics apply for
+       the file descriptor created by memfd_create().  A copy of the file
+       descriptor is inherited by the child produced by fork(2) and refers
+       to the same file.  The file descriptor is preserved across execve(2),
+       unless the close-on-exec flag has been set.

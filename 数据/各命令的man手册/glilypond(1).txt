@@ -1,0 +1,7 @@
+
+       glilypond transforms sheet music written in the lilypond language
+       into the groff(7) language using the .PSPIC request, such that
+       groff(1) can transform it into a format that can be displayed
+       directly.  .PDFPIC is available, but does on yet work with lilypond.
+       Files in groff language and standard input can be provided as
+       arguments.

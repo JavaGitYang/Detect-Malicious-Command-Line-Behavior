@@ -1,0 +1,43 @@
+
+       ip tcp_metrics is used to manipulate entries in the kernel that keep
+       TCP information for IPv4 and IPv6 destinations. The entries are
+       created when TCP sockets want to share information for destinations
+       and are stored in a cache keyed by the destination address. The saved
+       information may include values for metrics (initially obtained from
+       routes), recent TSVAL for TIME-WAIT recycling purposes, state for the
+       Fast Open feature, etc.  For performance reasons the cache can not
+       grow above configured limit and the older entries are replaced with
+       fresh information, sometimes reclaimed and used for new destinations.
+       The kernel never removes entries, they can be flushed only with this
+       tool.
+   ip tcp_metrics show - show cached entries
+       address PREFIX (default)
+              IPv4/IPv6 prefix or address. If no prefix is provided all
+              entries are shown.
+       The output may contain the following information:
+       age <S.MMM>sec - time after the entry was created, reset or updated
+       with metrics from sockets. The entry is reset and refreshed on use
+       with metrics from route if the metrics are not updated in last hour.
+       Not all cached values reset the age on update.
+       cwnd <N> - CWND metric value
+       fo_cookie <HEX-STRING> - Cookie value received in SYN-ACK to be used
+       by Fast Open for next SYNs
+       fo_mss <N> - MSS value received in SYN-ACK to be used by Fast Open
+       for next SYNs
+       fo_syn_drops <N>/<S.MMM>sec ago - Number of drops of initial outgoing
+       Fast Open SYNs with data detected by monitoring the received SYN-ACK
+       after SYN retransmission.  The seconds show the time after last SYN
+       drop and together with the drop count can be used to disable Fast
+       Open for some time.
+       reordering <N> - Reordering metric value
+       rtt <N>us - RTT metric value
+       rttvar <N>us - RTTVAR metric value
+       ssthresh <SSTHRESH> - SSTHRESH metric value
+       tw_ts <TSVAL>/<SEC>sec ago - recent TSVAL and the seconds after
+       saving it into TIME-WAIT socket
+   ip tcp_metrics delete - delete single entry
+       address ADDRESS (default)
+              IPv4/IPv6 address. The address is a required argument.
+   ip tcp_metrics flush - flush entries
+       This command flushes the entries selected by some criteria.
+       This command has the same arguments as show.

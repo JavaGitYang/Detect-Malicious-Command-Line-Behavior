@@ -1,0 +1,11 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The feraiseexcept() function shall attempt to raise the supported
+       floating-point exceptions represented by the argument excepts.  The
+       order in which these floating-point exceptions are raised is
+       unspecified. Whether the feraiseexcept() function additionally raises
+       the inexact floating-point exception whenever it raises the overflow
+       or underflow floating-point exception is implementation-defined.

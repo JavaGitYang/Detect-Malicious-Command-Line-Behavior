@@ -1,0 +1,22 @@
+
+       ausearch is a tool that can query the audit daemon logs based for
+       events based on different search criteria. The ausearch utility can
+       also take input from stdin as long as the input is the raw log data.
+       Each commandline option given forms an "and" statement. For example,
+       searching with -m and -ui means return events that have both the
+       requested type and match the user id given. An exception is the -m
+       and -n options; multiple record types and nodes are allowed in a
+       search which will return any matching node and record.
+       It should also be noted that each syscall excursion from user space
+       into the kernel and back into user space has one event ID that is
+       unique. Any auditable event that is triggered during this trip share
+       this ID so that they may be correlated.
+       Different parts of the kernel may add supplemental records. For
+       example, an audit event on the syscall "open" will also cause the
+       kernel to emit a PATH record with the file name. The ausearch utility
+       will present all records that make up one event together. This could
+       mean that even though you search for a specific kind of record, the
+       resulting events may contain SYSCALL records.
+       Also be aware that not all record types have the requested
+       information. For example, a PATH record does not have a hostname or a
+       loginuid.

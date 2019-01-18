@@ -1,0 +1,5 @@
+
+       The trace-cmd(1) show displays the contents of one of the Ftrace
+       Linux kernel tracing files: trace, snapshot, or trace_pipe. It is
+       basically the equivalent of doing:
+           cat /sys/kernel/debug/tracing/trace

@@ -1,0 +1,17 @@
+
+       avc_add_callback() is used to register callback functions on security
+       events.  The purpose of this functionality is to allow userspace
+       object managers to take additional action when a policy change,
+       usually a policy reload, causes permissions to be granted or revoked.
+       events is the bitwise-or of security events on which to register the
+       callback; see SECURITY EVENTS below.
+       ssid, tsid, tclass, and perms specify the source and target SID's,
+       target class, and specific permissions that the callback wishes to
+       monitor.  The special symbol SECSID_WILD may be passed as the source
+       or target and will cause any SID to match.
+       callback is the callback function provided by the userspace object
+       manager.  The event argument indicates the security event which
+       occurred; the remaining arguments are interpreted according to the
+       event as described below.  The return value of the callback should be
+       zero on success, -1 on error with errno set appropriately (but see
+       RETURN VALUE below).

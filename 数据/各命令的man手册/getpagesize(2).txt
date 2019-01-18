@@ -1,0 +1,4 @@
+
+       The function getpagesize() returns the number of bytes in a memory
+       page, where "page" is a fixed-length block, the unit for memory
+       allocation and file mapping performed by mmap(2).

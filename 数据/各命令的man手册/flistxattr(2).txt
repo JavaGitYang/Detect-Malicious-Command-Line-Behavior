@@ -1,0 +1,37 @@
+
+       Extended attributes are name:value pairs associated with inodes
+       (files, directories, symbolic links, etc.).  They are extensions to
+       the normal attributes which are associated with all inodes in the
+       system (i.e., the stat(2) data).  A complete overview of extended
+       attributes concepts can be found in xattr(7).
+       listxattr() retrieves the list of extended attribute names associated
+       with the given path in the filesystem.  The retrieved list is placed
+       in list, a caller-allocated buffer whose size (in bytes) is specified
+       in the argument size.  The list is the set of (null-terminated)
+       names, one after the other.  Names of extended attributes to which
+       the calling process does not have access may be omitted from the
+       list.  The length of the attribute name list is returned.
+       llistxattr() is identical to listxattr(), except in the case of a
+       symbolic link, where the list of names of extended attributes
+       associated with the link itself is retrieved, not the file that it
+       refers to.
+       flistxattr() is identical to listxattr(), only the open file referred
+       to by fd (as returned by open(2)) is interrogated in place of path.
+       A single extended attribute name is a null-terminated string.  The
+       name includes a namespace prefix; there may be several, disjoint
+       namespaces associated with an individual inode.
+       If size is specified as zero, these calls return the current size of
+       the list of extended attribute names (and leave list unchanged).
+       This can be used to determine the size of the buffer that should be
+       supplied in a subsequent call.  (But, bear in mind that there is a
+       possibility that the set of extended attributes may change between
+       the two calls, so that it is still necessary to check the return
+       status from the second call.)
+   Example
+       The list of names is returned as an unordered array of null-
+       terminated character strings (attribute names are separated by null
+       bytes ('\0')), like this:
+           user.name1\0system.name1\0user.name2\0
+       Filesystems that implement POSIX ACLs using extended attributes might
+       return a list like this:
+           system.posix_acl_access\0system.posix_acl_default\0

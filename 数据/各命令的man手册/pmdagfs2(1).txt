@@ -1,0 +1,24 @@
+
+       pmdagfs2 is a Performance Metrics Domain Agent (PMDA) which exports
+       metric values about mounted GFS2 filesystems from the debugfs
+       filesystem.  This PMDA requires debugfs along with at least one
+       mounted GFS2 filesystem to be mounted in order to be able to provide
+       metric data.
+       This PMDA can be used with GFS2 filesystems which are both mounted as
+       local filesystems and filesystems which are  mounted as shared
+       storage within a clustered environment. However there are some
+       metrics which specifically require GFS2 to be setup in a clustered
+       environment to be able to provide metric data. This is due to them
+       expecting locking messages to be passed via the distributed lock
+       manager (DLM) between nodes of a cluster in order to generate their
+       output.
+       These cluster-environment-only metrics can be distinguished by the
+       inclusion of their corresponding control metrics so that they can be
+       optionally enabled or disabled on systems where they are not desired
+       to be monitored or not supported.
+       pmstore(3) can be used to assign values to these control metrics in
+       order to enable (1) or disable (0) them.  This mechanism is also
+       useful on distributions that do not currently have full support for
+       the GFS2 trace-points or provide older versions of the GFS2 driver.
+       Further details on clustering and GFS2 can be found at
+       http://redhat.com

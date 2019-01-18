@@ -1,0 +1,9 @@
+
+       These routines are used to allocate/deallocate memory used/returned
+       by the LDAP library.  ldap_memalloc(), ldap_memcalloc(),
+       ldap_memrealloc(), and ldap_memfree() are used exactly like the
+       standard malloc(3), calloc(3), realloc(3), and free(3) routines,
+       respectively.  The ldap_memvfree() routine is used to free a
+       dynamically allocated array of pointers to arbitrary dynamically
+       allocated objects.  The ldap_strdup() routine is used exactly like
+       the standard strdup(3) routine.

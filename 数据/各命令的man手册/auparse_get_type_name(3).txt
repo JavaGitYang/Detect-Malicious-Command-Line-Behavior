@@ -1,0 +1,3 @@
+
+       The auparse_get_type_name function will return the text
+       representation of the name of the current record type.

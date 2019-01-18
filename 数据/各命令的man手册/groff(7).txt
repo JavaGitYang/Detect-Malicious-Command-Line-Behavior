@@ -1,0 +1,53 @@
+
+       Important: This file is only a short version of the complete
+       documentation that is found in the groff info(1) file, which contains
+       more detailed, actual, and concise information.
+       The name groff stands for GNU roff and is the free implementation of
+       the roff type-setting system.  See roff(7) for a survey and the
+       background of the groff system.
+       This document gives only short descriptions of the predefined roff
+       language elements as used in groff.  Both the classical features and
+       the groff extensions are provided.
+       Historically, the roff language was called troff.  groff is
+       compatible with the classical system and provides proper extensions.
+       So in GNU, the terms roff, troff, and groff language could be used as
+       synonyms.  However troff slightly tends to refer more to the
+       classical aspects, whereas groff emphasizes the GNU extensions, and
+       roff is the general term for the language.
+       The general syntax for writing groff documents is relatively easy,
+       but writing extensions to the roff language can be a bit harder.
+       The roff language is line-oriented.  There are only two kinds of
+       lines, control lines and text lines.  The control lines start with a
+       control character, by default a period “.”  or a single quote “'”;
+       all other lines are text lines.
+       Control lines represent commands, optionally with arguments.  They
+       have the following syntax.  The leading control character can be
+       followed by a command name; arguments, if any, are separated by
+       spaces (but not tab characters) from the command name and among
+       themselves, for example,
+              .command_name arg1 arg2
+       For indentation, any number of space or tab characters can be
+       inserted between the leading control character and the command name,
+       but the control character must be on the first position of the line.
+       Text lines represent the parts that is printed.  They can be modified
+       by escape sequences, which are recognized by a leading backslash ‘\’.
+       These are in-line or even in-word formatting elements or functions.
+       Some of these take arguments separated by single quotes “'”, others
+       are regulated by a length encoding introduced by an open parenthesis
+       ‘(’ or enclosed in brackets ‘[’ and ‘]’.
+       The roff language provides flexible instruments for writing language
+       extension, such as macros.  When interpreting macro definitions, the
+       roff system enters a special operating mode, called the copy mode.
+       The copy mode behaviour can be quite tricky, but there are some rules
+       that ensure a safe usage.
+       1.     Printable backslashes must be denoted as \e.  To be more
+              precise, \e represents the current escape character.  To get a
+              backslash glyph, use \(rs or \[rs].
+       2.     Double all backslashes.
+       3.     Begin all text lines with the special non-spacing character
+              \&.
+       This does not produce the most efficient code, but it should work as
+       a first measure.  For better strategies, see the groff info file and
+       groff_tmac(5).
+       Reading roff source files is easier, just reduce all double
+       backslashes to a single one in all macro definitions.

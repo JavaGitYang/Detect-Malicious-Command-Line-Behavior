@@ -1,0 +1,17 @@
+
+       To assist in the development of Performance Metric Domain Agents
+       (PMDAs) for the Performance Co-Pilot (PCP), a procedural interface is
+       provided that extends the Performance Metrics Application Programming
+       Interface ( PMAPI(3)) library.  These procedures are designed to
+       enable a programmer to quickly build a PMDA which can then be tested
+       and refined.  However, this also implies that a PMDA has a particular
+       structure which may not be suitable for all PMDA implementations.
+       Once you are familiar with the PCP and PMDA frameworks, you can
+       quickly implement a new PMDA with only a few data structures and
+       functions.  This is covered in far greater detail in the Performance
+       Co-Pilot Programmer's Guide.
+       A PMDA is responsible for a set of performance metrics, in the sense
+       that it must respond to requests from pmcd(1) for information about
+       performance metrics, instance domains, and instantiated values.
+       This man page contains sections of the simple PMDA which is located
+       at $PCP_PMDAS_DIR/simple.

@@ -1,0 +1,5 @@
+
+       The functions ecvt_r(), fcvt_r(), qecvt_r(), and qfcvt_r() are
+       identical to ecvt(3), fcvt(3), qecvt(3), and qfcvt(3), respectively,
+       except that they do not return their result in a static buffer, but
+       instead use the supplied buf of size len.  See ecvt(3) and qecvt(3).

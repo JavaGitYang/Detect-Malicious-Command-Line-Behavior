@@ -1,0 +1,9 @@
+
+     ssh-keysign is used by ssh(1) to access the local host keys and gener‐
+     ate the digital signature required during host-based authentication.
+     ssh-keysign is disabled by default and can only be enabled in the
+     global client configuration file /etc/ssh/ssh_config by setting
+     EnableSSHKeysign to “yes”.
+     ssh-keysign is not intended to be invoked by the user, but from ssh(1).
+     See ssh(1) and sshd(8) for more information about host-based authenti‐
+     cation.

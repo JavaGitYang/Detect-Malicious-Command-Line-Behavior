@@ -1,0 +1,12 @@
+
+       The realpath() function shall derive, from the pathname pointed to by
+       file_name, an absolute pathname that resolves to the same directory
+       entry, whose resolution does not involve '.', '..', or symbolic
+       links. If resolved_name is a null pointer, the generated pathname
+       shall be stored as a null-terminated string in a buffer allocated as
+       if by a call to malloc().  Otherwise, if {PATH_MAX} is defined as a
+       constant in the <limits.h> header, then the generated pathname shall
+       be stored as a null-terminated string, up to a maximum of {PATH_MAX}
+       bytes, in the buffer pointed to by resolved_name.
+       If resolved_name is not a null pointer and {PATH_MAX} is not defined
+       as a constant in the <limits.h> header, the behavior is undefined.

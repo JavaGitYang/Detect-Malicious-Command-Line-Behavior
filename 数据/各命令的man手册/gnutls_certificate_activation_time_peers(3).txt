@@ -1,0 +1,2 @@
+
+       This function will return the peer's certificate activation time.

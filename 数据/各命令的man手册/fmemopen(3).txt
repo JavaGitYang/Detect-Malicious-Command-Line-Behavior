@@ -1,0 +1,50 @@
+
+       The fmemopen() function opens a stream that permits the access
+       specified by mode.  The stream allows I/O to be performed on the
+       string or memory buffer pointed to by buf.
+       The mode argument specifies the semantics of I/O on the stream, and
+       is one of the following:
+       r       The stream is opened for reading.
+       w       The stream is opened for writing.
+       a       Append; open the stream for writing, with the initial buffer
+               position set to the first null byte.
+       r+      Open the stream for reading and writing.
+       w+      Open the stream for reading and writing.  The buffer contents
+               are truncated (i.e., '\0' is placed in the first byte of the
+               buffer).
+       a+      Append; open the stream for reading and writing, with the
+               initial buffer position set to the first null byte.
+       The stream maintains the notion of a current position, the location
+       where the next I/O operation will be performed.  The current position
+       is implicitly updated by I/O operations.  It can be explicitly
+       updated using fseek(3), and determined using ftell(3).  In all modes
+       other than append, the initial position is set to the start of the
+       buffer.  In append mode, if no null byte is found within the buffer,
+       then the initial position is size+1.
+       If buf is specified as NULL, then fmemopen() allocates a buffer of
+       size bytes.  This is useful for an application that wants to write
+       data to a temporary buffer and then read it back again.  The initial
+       position is set to the start of the buffer.  The buffer is
+       automatically freed when the stream is closed.  Note that the caller
+       has no way to obtain a pointer to the temporary buffer allocated by
+       this call (but see open_memstream(3)).
+       If buf is not NULL, then it should point to a buffer of at least len
+       bytes allocated by the caller.
+       When a stream that has been opened for writing is flushed (fflush(3))
+       or closed (fclose(3)), a null byte is written at the end of the
+       buffer if there is space.  The caller should ensure that an extra
+       byte is available in the buffer (and that size counts that byte) to
+       allow for this.
+       In a stream opened for reading, null bytes ('\0') in the buffer do
+       not cause read operations to return an end-of-file indication.  A
+       read from the buffer will indicate end-of-file only when the current
+       buffer position advances size bytes past the start of the buffer.
+       Write operations take place either at the current position (for modes
+       other than append), or at the current size of the stream (for append
+       modes).
+       Attempts to write more than size bytes to the buffer result in an
+       error.  By default, such errors will be visible (by the absence of
+       data) only when the stdio buffer is flushed.  Disabling buffering
+       with the following call may be useful to detect errors at the time of
+       an output operation:
+           setbuf(stream, NULL);

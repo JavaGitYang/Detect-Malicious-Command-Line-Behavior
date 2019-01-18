@@ -1,0 +1,5 @@
+
+       This function will verify the provided data against the signature
+       present in the SignedData of the PKCS 7 structure. If the data
+       provided are NULL then the data in the encapsulatedContent field will
+       be used instead.

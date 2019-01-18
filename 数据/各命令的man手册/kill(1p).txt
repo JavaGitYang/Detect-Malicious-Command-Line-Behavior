@@ -1,0 +1,10 @@
+
+       The kill utility shall send a signal to the process or processes
+       specified by each pid operand.
+       For each pid operand, the kill utility shall perform actions
+       equivalent to the kill() function defined in the System Interfaces
+       volume of POSIX.1‐2008 called with the following arguments:
+        *  The value of the pid operand shall be used as the pid argument.
+        *  The sig argument is the value specified by the −s option,
+           −signal_number option, or the −signal_name option, or by SIGTERM,
+           if none of these options is specified.

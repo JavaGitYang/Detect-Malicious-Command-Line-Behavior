@@ -1,0 +1,3 @@
+
+       This function will check if the given certificate is revoked.  It is
+       assumed that the CRLs have been verified before.

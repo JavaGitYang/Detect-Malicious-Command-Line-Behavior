@@ -1,0 +1,21 @@
+
+       The pam_putenv function is used to add or change the value of PAM
+       environment variables as associated with the pamh handle.
+       The pamh argument is an authentication handle obtained by a prior
+       call to pam_start(). The name_value argument is a single NUL
+       terminated string of one of the following forms:
+       NAME=value of variable
+           In this case the environment variable of the given NAME is set to
+           the indicated value: value of variable. If this variable is
+           already known, it is overwritten. Otherwise it is added to the
+           PAM environment.
+       NAME=
+           This function sets the variable to an empty value. It is listed
+           separately to indicate that this is the correct way to achieve
+           such a setting.
+       NAME
+           Without an '=' the pam_putenv() function will delete the
+           corresponding variable from the PAM environment.
+       pam_putenv() operates on a copy of name_value, which means in
+       contrast to putenv(3), the application is responsible to free the
+       data.

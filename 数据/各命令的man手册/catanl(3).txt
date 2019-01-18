@@ -1,0 +1,6 @@
+
+       These functions calculate the complex arc tangent of z.  If
+       y = catan(z), then z = ctan(y).  The real part of y is chosen in the
+       interval [-pi/2,pi/2].
+       One has:
+           catan(z) = (clog(1 + i * z) - clog(1 - i * z)) / (2 * i)

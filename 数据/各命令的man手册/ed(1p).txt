@@ -1,0 +1,6 @@
+
+       The ed utility is a line-oriented text editor that uses two modes:
+       command mode and input mode.  In command mode the input characters
+       shall be interpreted as commands, and in input mode they shall be
+       interpreted as text. See the EXTENDED DESCRIPTION section.
+       If an operand is '−', the results are unspecified.

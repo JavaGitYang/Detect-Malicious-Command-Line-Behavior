@@ -1,0 +1,24 @@
+
+     rpcinfo makes an RPC call to an RPC server and reports what it finds.
+     In the first synopsis, rpcinfo lists all the registered RPC services
+     with rpcbind on host.  If host is not specified, the local host is the
+     default.  If -s is used, the information is displayed in a concise for‐
+     mat.
+     In the second synopsis, rpcinfo lists all the RPC services registered
+     with rpcbind, version 2.  Also note that the format of the information
+     is different in the first and the second synopsis.  This is because the
+     second synopsis is an older protocol used to collect the information
+     displayed (version 2 of the rpcbind protocol).
+     The third synopsis makes an RPC call to procedure 0 of prognum and
+     versnum on the specified host and reports whether a response was
+     received.  transport is the transport which has to be used for contact‐
+     ing the given service.  The remote address of the service is obtained
+     by making a call to the remote rpcbind.
+     The prognum argument is a number that represents an RPC program number.
+     If a versnum is specified, rpcinfo attempts to call that version of the
+     specified prognum.  Otherwise, rpcinfo attempts to find all the regis‐
+     tered version numbers for the specified prognum by calling version 0,
+     which is presumed not to exist; if it does exist, rpcinfo attempts to
+     obtain this information by calling an extremely high version number
+     instead, and attempts to call each registered version.  Note: the ver‐
+     sion number is required for -b and -d options.

@@ -1,0 +1,13 @@
+
+       Behavior:
+              The exists function will return 0 if a matching key is not
+              found, and 1 otherwise.
+       Parameters:
+              The handle is used to track persistent state across semanage
+              calls, and for error reporting. The key identifies the object
+              being checked. The result of the test will be stored in the
+              address pointed by response The key is a property of the
+              caller, and will not be stored or modified internally.
+       Requirements:
+              This function requires an semanage connection to be
+              established (see semanage_connect(3) )

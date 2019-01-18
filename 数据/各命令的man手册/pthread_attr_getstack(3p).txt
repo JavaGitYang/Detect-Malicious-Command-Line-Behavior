@@ -1,0 +1,17 @@
+
+       The pthread_attr_getstack() and pthread_attr_setstack() functions,
+       respectively, shall get and set the thread creation stack attributes
+       stackaddr and stacksize in the attr object.
+       The stack attributes specify the area of storage to be used for the
+       created thread's stack. The base (lowest addressable byte) of the
+       storage shall be stackaddr, and the size of the storage shall be
+       stacksize bytes. The stacksize shall be at least {PTHREAD_STACK_MIN}.
+       The pthread_attr_setstack() function may fail with [EINVAL] if
+       stackaddr does not meet implementation-defined alignment
+       requirements.  All pages within the stack described by stackaddr and
+       stacksize shall be both readable and writable by the thread.
+       If the pthread_attr_getstack() function is called before the
+       stackaddr attribute has been set, the behavior is unspecified.
+       The behavior is undefined if the value specified by the attr argument
+       to pthread_attr_getstack() or pthread_attr_setstack() does not refer
+       to an initialized thread attributes object.

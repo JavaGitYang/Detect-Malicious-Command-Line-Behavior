@@ -1,0 +1,24 @@
+
+       The wcscasecmp() and wcsncasecmp() functions are the wide-character
+       equivalent of the strcasecmp() and strncasecmp() functions,
+       respectively.
+       The wcscasecmp() and wcscasecmp_l() functions shall compare, while
+       ignoring differences in case, the wide-character string pointed to by
+       ws1 to the wide-character string pointed to by ws2.
+       The wcsncasecmp() and wcsncasecmp_l() functions shall compare, while
+       ignoring differences in case, not more than n wide-characters from
+       the wide-character string pointed to by ws1 to the wide-character
+       string pointed to by ws2.
+       The wcscasecmp() and wcsncasecmp() functions use the current locale
+       to determine the case of the wide characters.
+       The wcscasecmp_l() and wcsncasecmp_l() functions use the locale
+       represented by locale to determine the case of the wide characters.
+       When the LC_CTIME category of the locale being used is from the POSIX
+       locale, these functions shall behave as if the wide-character strings
+       had been converted to lowercase and then a comparison of wide-
+       character codes performed.  Otherwise, the results are unspecified.
+       The information for wcscasecmp_l() and wcsncasecmp_l() about the case
+       of the characters comes from the locale represented by locale.
+       The behavior is undefined if the locale argument to wcscasecmp_l() or
+       wcsncasecmp_l() is the special locale object LC_GLOBAL_LOCALE or is
+       not a valid locale object handle.

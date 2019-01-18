@@ -1,0 +1,4 @@
+
+       These functions return the imaginary part of the complex number z.
+       One has:
+           z = creal(z) + I * cimag(z)

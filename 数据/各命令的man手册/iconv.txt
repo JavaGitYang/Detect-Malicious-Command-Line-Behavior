@@ -1,0 +1,11 @@
+
+       The <iconv.h> header shall define the following types:
+       iconv_t     Identifies the conversion from one codeset to another.
+       size_t      As described in <sys/types.h>.
+       The following shall be declared as functions and may also be defined
+       as macros. Function prototypes shall be provided.
+           size_t  iconv(iconv_t, char **restrict, size_t *restrict,
+                       char **restrict, size_t *restrict);
+           int     iconv_close(iconv_t);
+           iconv_t iconv_open(const char *, const char *);
+       The following sections are informative.

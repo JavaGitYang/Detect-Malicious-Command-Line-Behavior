@@ -1,0 +1,45 @@
+
+   Overview
+       curses supports color attributes on terminals with that capability.
+       To use these routines start_color must be called, usually right after
+       initscr.  Colors are always used in pairs (referred to as color-
+       pairs).  A color-pair consists of a foreground color (for characters)
+       and a background color (for the blank field on which the characters
+       are displayed).  A programmer initializes a color-pair with the
+       routine init_pair.  After it has been initialized, COLOR_PAIR(n) can
+       be used to convert the pair to a video attribute.
+       If a terminal is capable of redefining colors, the programmer can use
+       the routine init_color to change the definition of a color.  The
+       routines has_colors and can_change_color return TRUE or FALSE,
+       depending on whether the terminal has color capabilities and whether
+       the programmer can change the colors.  The routine color_content
+       allows a programmer to extract the amounts of red, green, and blue
+       components in an initialized color.  The routine pair_content allows
+       a programmer to find out how a given color-pair is currently defined.
+   Color Rendering
+       The curses library combines these inputs to produce the actual
+       foreground and background colors shown on the screen:
+       ·   per-character video attributes (e.g., via waddch),
+       ·   the window attribute (e.g., by wattrset), and
+       ·   the background character (e.g., wbkgdset).
+       Per-character and window attributes are usually set by a parameter
+       containing video attributes including a color pair value.  Some
+       functions such as wattr_set use a separate parameter which is the
+       color pair number.
+       The background character is a special case: it includes a character
+       value, just as if it were passed to waddch.
+       The curses library does the actual work of combining these color
+       pairs in an internal function called from waddch:
+       ·   If the parameter passed to waddch is blank, and it uses the
+           special color pair 0,
+           ·   curses next checks the window attribute.
+           ·   If the window attribute does not use color pair 0, curses
+               uses the color pair from the window attribute.
+           ·   Otherwise, curses uses the background character.
+       ·   If the parameter passed to waddch is not blank, or it does not
+           use the special color pair 0, curses prefers the color pair from
+           the parameter, if it is nonzero.  Otherwise, it tries the window
+           attribute next, and finally the background character.
+       Some curses functions such as wprintw call waddch.  Those do not
+       combine its parameter with a color pair.  Consequently those calls
+       use only the window attribute or the background character.

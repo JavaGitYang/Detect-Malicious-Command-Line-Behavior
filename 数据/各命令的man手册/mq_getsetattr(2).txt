@@ -1,0 +1,5 @@
+
+       Do not use this system call.
+       This is the low-level system call used to implement mq_getattr(3) and
+       mq_setattr(3).  For an explanation of how this system call operates,
+       see the description of mq_setattr(3).

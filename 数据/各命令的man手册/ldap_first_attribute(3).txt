@@ -1,0 +1,17 @@
+
+       The ldap_first_attribute() and ldap_next_attribute() routines are
+       used to step through the attributes in an LDAP entry.
+       ldap_first_attribute() takes an entry as returned by
+       ldap_first_entry(3) or ldap_next_entry(3) and returns a pointer to
+       character string containing the first attribute description in the
+       entry.  ldap_next_attribute() returns the next attribute description
+       in the entry.
+       It also returns, in berptr, a pointer to a BerElement it has
+       allocated to keep track of its current position.  This pointer should
+       be passed to subsequent calls to ldap_next_attribute() and is used to
+       effectively step through the entry's attributes.  The caller is
+       solely responsible for freeing the BerElement pointed to by berptr
+       when it is no longer needed by calling ber_free(3).  When calling
+       ber_free(3) in this instance, be sure the second argument is 0.
+       The attribute names returned are suitable for inclusion in a call to
+       ldap_get_values(3) to retrieve the attribute's values.

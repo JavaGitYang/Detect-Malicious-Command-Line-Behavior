@@ -1,0 +1,8 @@
+
+       Git differs from CVS in that every working tree contains a repository
+       with a full copy of the project history, and no repository is
+       inherently more important than any other. However, you can emulate
+       the CVS model by designating a single shared repository which people
+       can synchronize with; this document explains how to do that.
+       Some basic familiarity with Git is required. Having gone through
+       gittutorial(7) and gitglossary(7) should be sufficient.

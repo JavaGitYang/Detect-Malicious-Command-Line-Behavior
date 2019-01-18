@@ -1,0 +1,10 @@
+
+       The sigwait() function suspends execution of the calling thread until
+       one of the signals specified in the signal set set becomes pending.
+       The function accepts the signal (removes it from the pending list of
+       signals), and returns the signal number in sig.
+       The operation of sigwait() is the same as sigwaitinfo(2), except
+       that:
+       * sigwait() returns only the signal number, rather than a siginfo_t
+         structure describing the signal.
+       * The return values of the two functions are different.

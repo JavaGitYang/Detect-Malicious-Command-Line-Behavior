@@ -1,0 +1,7 @@
+
+       This function will convert the given DER or PEM encoded key to the
+       native gnutls_x509_privkey_t format. The output will be stored in
+        key .
+       If the key is PEM encoded it should have a header that contains
+       "PRIVATE KEY". Note that this function falls back to PKCS 8 decoding
+       without password, if the default format fails to import.

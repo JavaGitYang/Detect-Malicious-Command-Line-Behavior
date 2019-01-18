@@ -1,0 +1,58 @@
+
+       systemd-analyze may be used to determine system boot-up performance
+       statistics and retrieve other state and tracing information from the
+       system and service manager, and to verify the correctness of unit
+       files.
+       systemd-analyze time prints the time spent in the kernel before
+       userspace has been reached, the time spent in the initial RAM disk
+       (initrd) before normal system userspace has been reached, and the
+       time normal system userspace took to initialize. Note that these
+       measurements simply measure the time passed up to the point where all
+       system services have been spawned, but not necessarily until they
+       fully finished initialization or the disk is idle.
+       systemd-analyze blame prints a list of all running units, ordered by
+       the time they took to initialize. This information may be used to
+       optimize boot-up times. Note that the output might be misleading as
+       the initialization of one service might be slow simply because it
+       waits for the initialization of another service to complete.
+       systemd-analyze critical-chain [UNIT...]  prints a tree of the
+       time-critical chain of units (for each of the specified UNITs or for
+       the default target otherwise). The time after the unit is active or
+       started is printed after the "@" character. The time the unit takes
+       to start is printed after the "+" character. Note that the output
+       might be misleading as the initialization of one service might depend
+       on socket activation and because of the parallel execution of units.
+       systemd-analyze plot prints an SVG graphic detailing which system
+       services have been started at what time, highlighting the time they
+       spent on initialization.
+       systemd-analyze dot generates textual dependency graph description in
+       dot format for further processing with the GraphViz dot(1) tool. Use
+       a command line like systemd-analyze dot | dot -Tsvg > systemd.svg to
+       generate a graphical dependency tree. Unless --order or --require is
+       passed, the generated graph will show both ordering and requirement
+       dependencies. Optional pattern globbing style specifications (e.g.
+       *.target) may be given at the end. A unit dependency is included in
+       the graph if any of these patterns match either the origin or
+       destination node.
+       systemd-analyze dump outputs a (usually very long) human-readable
+       serialization of the complete server state. Its format is subject to
+       change without notice and should not be parsed by applications.
+       systemd-analyze set-log-level LEVEL changes the current log level of
+       the systemd daemon to LEVEL (accepts the same values as --log-level=
+       described in systemd(1)).
+       systemd-analyze set-log-target TARGET changes the current log target
+       of the systemd daemon to TARGET (accepts the same values as
+       --log-target=, described in systemd(1)).
+       systemd-analyze syscall-filter [SET...]  will list system calls
+       contained in the specified system call set SET, or all known sets if
+       no sets are specified. Argument SET must include the "@" prefix.
+       systemd-analyze verify will load unit files and print warnings if any
+       errors are detected. Files specified on the command line will be
+       loaded, but also any other units referenced by them. The full unit
+       search path is formed by combining the directories for all command
+       line arguments, and the usual unit load paths (variable
+       $SYSTEMD_UNIT_PATH is supported, and may be used to replace or
+       augment the compiled in set of unit load paths; see systemd.unit(5)).
+       All units files present in the directories containing the command
+       line arguments will be used in preference to the other paths.
+       If no command is passed, systemd-analyze time is implied.

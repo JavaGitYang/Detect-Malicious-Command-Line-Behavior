@@ -1,0 +1,5 @@
+
+       capng_get_caps_process will get the capabilities and bounding set of
+       the pid stored inside libcap-ng's state table. The default is the pid
+       of the running process. This can be changed by using the capng_setpid
+       function.

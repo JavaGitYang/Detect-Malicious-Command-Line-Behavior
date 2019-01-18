@@ -1,0 +1,31 @@
+
+       grn is a preprocessor for including gremlin pictures in groff input.
+       grn writes to standard output, processing only input lines between
+       two that start with .GS and .GE.  Those lines must contain grn
+       commands (see below).  These commands request a gremlin file, and the
+       picture in that file is converted and placed in the troff input
+       stream.  The .GS request may be followed by a C, L, or R to center,
+       left, or right justify the whole gremlin picture (default
+       justification is center).  If no file is mentioned, the standard
+       input is read.  At the end of the picture, the position on the page
+       is the bottom of the gremlin picture.  If the grn entry is ended with
+       .GF instead of .GE, the position is left at the top of the picture.
+       Please note that currently only the -me macro package has support for
+       .GS, .GE, and .GF.
+       The following command-line options are understood:
+       -Tdev  Prepare output for printer dev.  The default device is ps.
+              See groff(1) for acceptable devices.
+       -Mdir  Prepend dir to the default search path for gremlin files.  The
+              default path is (in that order) the current directory, the
+              home directory, /usr/local/lib/groff/site-tmac,
+              /usr/local/share/groff/site-tmac, and
+              /usr/local/share/groff/1.22.3/tmac.
+       -Fdir  Search dir for subdirectories devname (name is the name of the
+              device) for the DESC file before the default font directories
+              /usr/local/share/groff/site-font,
+              /usr/local/share/groff/1.22.3/font, and /usr/lib/font.
+       -C     Recognize .GS and .GE (and .GF) even when followed by a
+              character other than space or newline.
+       -v     Print the version number.
+       It is possible to have whitespace between a command-line option and
+       its parameter.

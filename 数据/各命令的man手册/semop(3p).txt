@@ -1,0 +1,88 @@
+
+       The semop() function operates on XSI semaphores (see the Base
+       Definitions volume of POSIX.1‐2008, Section 4.16, Semaphore).  It is
+       unspecified whether this function interoperates with the realtime
+       interprocess communication facilities defined in Section 2.8,
+       Realtime.
+       The semop() function shall perform atomically a user-defined array of
+       semaphore operations in array order on the set of semaphores
+       associated with the semaphore identifier specified by the argument
+       semid.
+       The argument sops is a pointer to a user-defined array of semaphore
+       operation structures. The implementation shall not modify elements of
+       this array unless the application uses implementation-defined
+       extensions.
+       The argument nsops is the number of such structures in the array.
+       Each structure, sembuf, includes the following members:
+            ┌───────────────┬───────────────┬──────────────────────────┐
+            │ Member Type   │ Member Name   │       Description        │
+            ├───────────────┼───────────────┼──────────────────────────┤
+            │unsigned short │ sem_num       │Semaphore number.         │
+            │short          │ sem_op        │Semaphore operation.      │
+            │short          │ sem_flg       │Operation flags.          │
+            └───────────────┴───────────────┴──────────────────────────┘
+       Each semaphore operation specified by sem_op is performed on the
+       corresponding semaphore specified by semid and sem_num.
+       The variable sem_op specifies one of three semaphore operations:
+        1. If sem_op is a negative integer and the calling process has alter
+           permission, one of the following shall occur:
+            *  If semval(see <sys/sem.h>) is greater than or equal to the
+               absolute value of sem_op, the absolute value of sem_op is
+               subtracted from semval.  Also, if (sem_flg &SEM_UNDO) is non-
+               zero, the absolute value of sem_op shall be added to the
+               semadj value of the calling process for the specified
+               semaphore.
+            *  If semval is less than the absolute value of sem_op and
+               (sem_flg &IPC_NOWAIT) is non-zero, semop() shall return
+               immediately.
+            *  If semval is less than the absolute value of sem_op and
+               (sem_flg &IPC_NOWAIT) is 0, semop() shall increment the
+               semncnt associated with the specified semaphore and suspend
+               execution of the calling thread until one of the following
+               conditions occurs:
+               --  The value of semval becomes greater than or equal to the
+                   absolute value of sem_op.  When this occurs, the value of
+                   semncnt associated with the specified semaphore shall be
+                   decremented, the absolute value of sem_op shall be
+                   subtracted from semval and, if (sem_flg &SEM_UNDO) is
+                   non-zero, the absolute value of sem_op shall be added to
+                   the semadj value of the calling process for the specified
+                   semaphore.
+               --  The semid for which the calling thread is awaiting action
+                   is removed from the system. When this occurs, errno shall
+                   be set to [EIDRM] and −1 shall be returned.
+               --  The calling thread receives a signal that is to be
+                   caught. When this occurs, the value of semncnt associated
+                   with the specified semaphore shall be decremented, and
+                   the calling thread shall resume execution in the manner
+                   prescribed in sigaction(3p).
+        2. If sem_op is a positive integer and the calling process has alter
+           permission, the value of sem_op shall be added to semval and, if
+           (sem_flg &SEM_UNDO) is non-zero, the value of sem_op shall be
+           subtracted from the semadj value of the calling process for the
+           specified semaphore.
+        3. If sem_op is 0 and the calling process has read permission, one
+           of the following shall occur:
+            *  If semval is 0, semop() shall return immediately.
+            *  If semval is non-zero and (sem_flg &IPC_NOWAIT) is non-zero,
+               semop() shall return immediately.
+            *  If semval is non-zero and (sem_flg &IPC_NOWAIT) is 0, semop()
+               shall increment the semzcnt associated with the specified
+               semaphore and suspend execution of the calling thread until
+               one of the following occurs:
+               --  The value of semval becomes 0, at which time the value of
+                   semzcnt associated with the specified semaphore shall be
+                   decremented.
+               --  The semid for which the calling thread is awaiting action
+                   is removed from the system. When this occurs, errno shall
+                   be set to [EIDRM] and −1 shall be returned.
+               --  The calling thread receives a signal that is to be
+                   caught. When this occurs, the value of semzcnt associated
+                   with the specified semaphore shall be decremented, and
+                   the calling thread shall resume execution in the manner
+                   prescribed in sigaction(3p).
+       Upon successful completion, the value of sempid for each semaphore
+       specified in the array pointed to by sops shall be set to the process
+       ID of the calling process. Also, the sem_otime timestamp shall be set
+       to the current time, as described in Section 2.7.1, IPC General
+       Description.

@@ -1,0 +1,4 @@
+
+       Gets the certificate as sent to the peer in the last handshake.  The
+       certificate is in raw (DER) format.  No certificate list is being
+       returned. Only the first certificate.

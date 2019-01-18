@@ -1,0 +1,10 @@
+
+       The sched_getparam() function shall return the scheduling parameters
+       of a process specified by pid in the sched_param structure pointed to
+       by param.
+       If a process specified by pid exists, and if the calling process has
+       permission, the scheduling parameters for the process whose process
+       ID is equal to pid shall be returned.
+       If pid is zero, the scheduling parameters for the calling process
+       shall be returned. The behavior of the sched_getparam() function is
+       unspecified if the value of pid is negative.

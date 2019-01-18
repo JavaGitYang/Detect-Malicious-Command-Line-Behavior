@@ -1,0 +1,45 @@
+
+       GNU as is really a family of assemblers.  If you use (or have used)
+       the GNU assembler on one architecture, you should find a fairly
+       similar environment when you use it on another architecture.  Each
+       version has much in common with the others, including object file
+       formats, most assembler directives (often called pseudo-ops) and
+       assembler syntax.
+       as is primarily intended to assemble the output of the GNU C compiler
+       "gcc" for use by the linker "ld".  Nevertheless, we've tried to make
+       as assemble correctly everything that other assemblers for the same
+       machine would assemble.  Any exceptions are documented explicitly.
+       This doesn't mean as always uses the same syntax as another assembler
+       for the same architecture; for example, we know of several
+       incompatible versions of 680x0 assembly language syntax.
+       Each time you run as it assembles exactly one source program.  The
+       source program is made up of one or more files.  (The standard input
+       is also a file.)
+       You give as a command line that has zero or more input file names.
+       The input files are read (from left file name to right).  A command
+       line argument (in any position) that has no special meaning is taken
+       to be an input file name.
+       If you give as no file names it attempts to read one input file from
+       the as standard input, which is normally your terminal.  You may have
+       to type ctl-D to tell as there is no more program to assemble.
+       Use -- if you need to explicitly name the standard input file in your
+       command line.
+       If the source is empty, as produces a small, empty object file.
+       as may write warnings and error messages to the standard error file
+       (usually your terminal).  This should not happen when  a compiler
+       runs as automatically.  Warnings report an assumption made so that as
+       could keep assembling a flawed program; errors report a grave problem
+       that stops the assembly.
+       If you are invoking as via the GNU C compiler, you can use the -Wa
+       option to pass arguments through to the assembler.  The assembler
+       arguments must be separated from each other (and the -Wa) by commas.
+       For example:
+               gcc -c -g -O -Wa,-alh,-L file.c
+       This passes two options to the assembler: -alh (emit a listing to
+       standard output with high-level and assembly source) and -L (retain
+       local symbols in the symbol table).
+       Usually you do not need to use this -Wa mechanism, since many
+       compiler command-line options are automatically passed to the
+       assembler by the compiler.  (You can call the GNU compiler driver
+       with the -v option to see precisely what options it passes to each
+       compilation pass, including the assembler.)

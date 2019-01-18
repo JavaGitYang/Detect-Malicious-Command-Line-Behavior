@@ -1,0 +1,3 @@
+
+       dh_installpam is a debhelper program that is responsible for
+       installing files used by PAM into package build directories.

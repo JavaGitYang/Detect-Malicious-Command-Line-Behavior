@@ -1,0 +1,4 @@
+
+       This is the inverse of gnutls_sec_param_to_pk_bits(). Given an
+       algorithm and the number of bits, it will return the security
+       parameter. This is a rough indication.

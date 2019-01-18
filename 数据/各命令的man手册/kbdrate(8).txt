@@ -1,0 +1,9 @@
+
+       kbdrate is used to change the keyboard repeat rate and delay time.
+       The delay is the amount of time that a key must be depressed before
+       it will start to repeat.
+       Using kbdrate without any options will reset the repeat rate to 10.9
+       characters per second (cps) and the delay to 250 milliseconds (ms)
+       for Intel- and M68K-based systems.  These are the IBM defaults. On
+       SPARC-based systems it will reset the repeat rate to 5 cps and the
+       delay to 200 ms.

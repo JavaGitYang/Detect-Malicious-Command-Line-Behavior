@@ -1,0 +1,16 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The gets() function shall read bytes from the standard input stream,
+       stdin, into the array pointed to by s, until a <newline> is read or
+       an end-of-file condition is encountered. Any <newline> shall be
+       discarded and a null byte shall be placed immediately after the last
+       byte read into the array.
+       The gets() function may mark the last data access timestamp of the
+       file associated with stream for update. The last data access
+       timestamp shall be marked for update by the first successful
+       execution of fgetc(), fgets(), fread(), fscanf(), getc(), getchar(),
+       getdelim(), getline(), gets(), or scanf() using stream that returns
+       data not supplied by a prior call to ungetc().

@@ -1,0 +1,11 @@
+
+       The nice utility shall invoke a utility, requesting that it be run
+       with a different nice value (see the Base Definitions volume of
+       POSIX.1‐2008, Section 3.240, Nice Value).  With no options, the
+       executed utility shall be run with a nice value that is some
+       implementation-defined quantity greater than or equal to the nice
+       value of the current process. If the user lacks appropriate
+       privileges to affect the nice value in the requested manner, the nice
+       utility shall not affect the nice value; in this case, a warning
+       message may be written to standard error, but this shall not prevent
+       the invocation of utility or affect the exit status.

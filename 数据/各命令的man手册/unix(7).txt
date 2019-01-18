@@ -1,0 +1,189 @@
+
+       The AF_UNIX (also known as AF_LOCAL) socket family is used to
+       communicate between processes on the same machine efficiently.
+       Traditionally, UNIX domain sockets can be either unnamed, or bound to
+       a filesystem pathname (marked as being of type socket).  Linux also
+       supports an abstract namespace which is independent of the
+       filesystem.
+       Valid socket types in the UNIX domain are: SOCK_STREAM, for a stream-
+       oriented socket; SOCK_DGRAM, for a datagram-oriented socket that
+       preserves message boundaries (as on most UNIX implementations, UNIX
+       domain datagram sockets are always reliable and don't reorder
+       datagrams); and (since Linux 2.6.4) SOCK_SEQPACKET, for a sequenced-
+       packet socket that is connection-oriented, preserves message
+       boundaries, and delivers messages in the order that they were sent.
+       UNIX domain sockets support passing file descriptors or process
+       credentials to other processes using ancillary data.
+   Address format
+       A UNIX domain socket address is represented in the following
+       structure:
+           struct sockaddr_un {
+               sa_family_t sun_family;               /* AF_UNIX */
+               char        sun_path[108];            /* pathname */
+           };
+       The sun_family field always contains AF_UNIX.  On Linux sun_path is
+       108 bytes in size; see also NOTES, below.
+       Various systems calls (for example, bind(2), connect(2), and
+       sendto(2)) take a sockaddr_un argument as input.  Some other system
+       calls (for example, getsockname(2), getpeername(2), recvfrom(2), and
+       accept(2)) return an argument of this type.
+       Three types of address are distinguished in the sockaddr_un struc‐
+       ture:
+       *  pathname: a UNIX domain socket can be bound to a null-terminated
+          filesystem pathname using bind(2).  When the address of a pathname
+          socket is returned (by one of the system calls noted above), its
+          length is
+              offsetof(struct sockaddr_un, sun_path) + strlen(sun_path) + 1
+          and sun_path contains the null-terminated pathname.  (On Linux,
+          the above offsetof() expression equates to the same value as
+          sizeof(sa_family_t), but some other implementations include other
+          fields before sun_path, so the offsetof() expression more portably
+          describes the size of the address structure.)
+          For further details of pathname sockets, see below.
+       *  unnamed: A stream socket that has not been bound to a pathname
+          using bind(2) has no name.  Likewise, the two sockets created by
+          socketpair(2) are unnamed.  When the address of an unnamed socket
+          is returned, its length is sizeof(sa_family_t), and sun_path
+          should not be inspected.
+       *  abstract: an abstract socket address is distinguished (from a
+          pathname socket) by the fact that sun_path[0] is a null byte
+          ('\0').  The socket's address in this namespace is given by the
+          additional bytes in sun_path that are covered by the specified
+          length of the address structure.  (Null bytes in the name have no
+          special significance.)  The name has no connection with filesystem
+          pathnames.  When the address of an abstract socket is returned,
+          the returned addrlen is greater than sizeof(sa_family_t) (i.e.,
+          greater than 2), and the name of the socket is contained in the
+          first (addrlen - sizeof(sa_family_t)) bytes of sun_path.
+   Pathname sockets
+       When binding a socket to a pathname, a few rules should be observed
+       for maximum portability and ease of coding:
+       *  The pathname in sun_path should be null-terminated.
+       *  The length of the pathname, including the terminating null byte,
+          should not exceed the size of sun_path.
+       *  The addrlen argument that describes the enclosing sockaddr_un
+          structure should have a value of at least:
+              offsetof(struct sockaddr_un, sun_path)+strlen(addr.sun_path)+1
+          or, more simply, addrlen can be specified as sizeof(struct sock‐
+          addr_un).
+       There is some variation in how implementations handle UNIX domain
+       socket addresses that do not follow the above rules.  For example,
+       some (but not all) implementations append a null terminator if none
+       is present in the supplied sun_path.
+       When coding portable applications, keep in mind that some implementa‐
+       tions have sun_path as short as 92 bytes.
+       Various system calls (accept(2), recvfrom(2), getsockname(2),
+       getpeername(2)) return socket address structures.  When applied to
+       UNIX domain sockets, the value-result addrlen argument supplied to
+       the call should be initialized as above.  Upon return, the argument
+       is set to indicate the actual size of the address structure.  The
+       caller should check the value returned in this argument: if the out‐
+       put value exceeds the input value, then there is no guarantee that a
+       null terminator is present in sun_path.  (See BUGS.)
+   Pathname socket ownership and permissions
+       In the Linux implementation, pathname sockets honor the permissions
+       of the directory they are in.  Creation of a new socket fails if the
+       process does not have write and search (execute) permission on the
+       directory in which the socket is created.
+       On Linux, connecting to a stream socket object requires write permis‐
+       sion on that socket; sending a datagram to a datagram socket likewise
+       requires write permission on that socket.  POSIX does not make any
+       statement about the effect of the permissions on a socket file, and
+       on some systems (e.g., older BSDs), the socket permissions are
+       ignored.  Portable programs should not rely on this feature for secu‐
+       rity.
+       When creating a new socket, the owner and group of the socket file
+       are set according to the usual rules.  The socket file has all per‐
+       missions enabled, other than those that are turned off by the process
+       umask(2).
+       The owner, group, and permissions of a pathname socket can be changed
+       (using chown(2) and chmod(2)).
+   Abstract sockets
+       Socket permissions have no meaning for abstract sockets: the process
+       umask(2) has no effect when binding an abstract socket, and changing
+       the ownership and permissions of the object (via fchown(2) and
+       fchmod(2)) has no effect on the accessibility of the socket.
+       Abstract sockets automatically disappear when all open references to
+       the socket are closed.
+       The abstract socket namespace is a nonportable Linux extension.
+   Socket options
+       For historical reasons, these socket options are specified with a
+       SOL_SOCKET type even though they are AF_UNIX specific.  They can be
+       set with setsockopt(2) and read with getsockopt(2) by specifying
+       SOL_SOCKET as the socket family.
+       SO_PASSCRED
+              Enables the receiving of the credentials of the sending
+              process in an ancillary message.  When this option is set and
+              the socket is not yet connected a unique name in the abstract
+              namespace will be generated automatically.  Expects an integer
+              boolean flag.
+   Autobind feature
+       If a bind(2) call specifies addrlen as sizeof(sa_family_t), or the
+       SO_PASSCRED socket option was specified for a socket that was not
+       explicitly bound to an address, then the socket is autobound to an
+       abstract address.  The address consists of a null byte followed by 5
+       bytes in the character set [0-9a-f].  Thus, there is a limit of 2^20
+       autobind addresses.  (From Linux 2.1.15, when the autobind feature
+       was added, 8 bytes were used, and the limit was thus 2^32 autobind
+       addresses.  The change to 5 bytes came in Linux 2.3.15.)
+   Sockets API
+       The following paragraphs describe domain-specific details and unsup‐
+       ported features of the sockets API for UNIX domain sockets on Linux.
+       UNIX domain sockets do not support the transmission of out-of-band
+       data (the MSG_OOB flag for send(2) and recv(2)).
+       The send(2) MSG_MORE flag is not supported by UNIX domain sockets.
+       Before Linux 3.4, the use of MSG_TRUNC in the flags argument of
+       recv(2) was not supported by UNIX domain sockets.
+       The SO_SNDBUF socket option does have an effect for UNIX domain sock‐
+       ets, but the SO_RCVBUF option does not.  For datagram sockets, the
+       SO_SNDBUF value imposes an upper limit on the size of outgoing data‐
+       grams.  This limit is calculated as the doubled (see socket(7))
+       option value less 32 bytes used for overhead.
+   Ancillary messages
+       Ancillary data is sent and received using sendmsg(2) and recvmsg(2).
+       For historical reasons the ancillary message types listed below are
+       specified with a SOL_SOCKET type even though they are AF_UNIX spe‐
+       cific.  To send them set the cmsg_level field of the struct cmsghdr
+       to SOL_SOCKET and the cmsg_type field to the type.  For more informa‐
+       tion see cmsg(3).
+       SCM_RIGHTS
+              Send or receive a set of open file descriptors from another
+              process.  The data portion contains an integer array of the
+              file descriptors.  The passed file descriptors behave as
+              though they have been created with dup(2).
+       SCM_CREDENTIALS
+              Send or receive UNIX credentials.  This can be used for
+              authentication.  The credentials are passed as a struct ucred
+              ancillary message.  Thus structure is defined in
+              <sys/socket.h> as follows:
+                  struct ucred {
+                      pid_t pid;    /* process ID of the sending process */
+                      uid_t uid;    /* user ID of the sending process */
+                      gid_t gid;    /* group ID of the sending process */
+                  };
+              Since glibc 2.8, the _GNU_SOURCE feature test macro must be
+              defined (before including any header files) in order to obtain
+              the definition of this structure.
+              The credentials which the sender specifies are checked by the
+              kernel.  A process with effective user ID 0 is allowed to
+              specify values that do not match its own.  The sender must
+              specify its own process ID (unless it has the capability
+              CAP_SYS_ADMIN), its real user ID, effective user ID, or saved
+              set-user-ID (unless it has CAP_SETUID), and its real group ID,
+              effective group ID, or saved set-group-ID (unless it has
+              CAP_SETGID).  To receive a struct ucred message the SO_PASS‐
+              CRED option must be enabled on the socket.
+   Ioctls
+       The following ioctl(2) calls return information in value.  The cor‐
+       rect syntax is:
+              int value;
+              error = ioctl(unix_socket, ioctl_type, &value);
+       ioctl_type can be:
+       SIOCINQ
+              For SOCK_STREAM socket the function returns the amount of
+              queued unread data in the receive buffer.  The socket must not
+              be in LISTEN state, otherwise an error (EINVAL) is returned.
+              SIOCINQ is defined in <linux/sockios.h>.  Alternatively, you
+              can use the synonymous FIONREAD, defined in <sys/ioctl.h>.
+              For SOCK_DGRAM socket, the returned value is the same as for
+              Internet domain datagram socket; see udp(7).

@@ -1,0 +1,11 @@
+
+       pmmgr manages a collection of PCP daemons for a set of discovered
+       local and remote hosts running the Performance Metrics Collection
+       Daemon (PMCD), according to zero or more configuration directories.
+       It keeps a matching set of pmie, pmlogger, pmrep and other daemons
+       running, and their archives/logs merged/rotated.  It provides an
+       alternative to the default pmlogger_daily and pmie_daily scripts that
+       administer pmlogger and pmie ``farms'' using cron(3).
+       pmmgr is largely self-configuring and perseveres despite most run-
+       time errors.  pmmgr runs in the foreground until interrupted.  When
+       signaled, it will stop its running daemons before exiting.

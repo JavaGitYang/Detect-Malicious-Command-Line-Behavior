@@ -1,0 +1,31 @@
+
+       get_ordered_context_list() invokes the security_compute_user(3)
+       function to obtain the list of contexts for the specified user that
+       are reachable from the specified fromcon context.  The function then
+       orders the resulting list based on the global
+       /etc/selinux/{SELINUXTYPE}/contexts/default_contexts file and the
+       per-user /etc/selinux/{SELINUXTYPE}/contexts/users/<username> file if
+       it exists.  The fromcon parameter may be NULL to indicate that the
+       current context should be used.  The function returns the number of
+       contexts in the list, or -1 upon errors.  The list must be freed
+       using the freeconary(3) function.
+       get_ordered_context_list_with_level() invokes the
+       get_ordered_context_list() function and applies the specified level.
+       get_default_context() is the same as get_ordered_context_list() but
+       only returns a single context which has to be freed with freecon(3).
+       get_default_context_with_level() invokes the get_default_context()
+       function and applies the specified level.
+       get_default_context_with_role() is the same as get_default_context()
+       but only returns a context with the specified role, returning -1 if
+       no such context is reachable for the user.
+       get_default_context_with_rolelevel() invokes the
+       get_default_context_with_role() function and applies the specified
+       level.
+       query_user_context() takes a list of contexts, queries the user via
+       stdin/stdout as to which context they want, and returns a new context
+       as selected by the user (which has to be freed with freecon(3)).
+       manual_user_enter_context() allows the user to manually enter a
+       context as a fallback if a list of authorized contexts could not be
+       obtained. Caller must free via freecon(3).
+       get_default_type() Get the default type (domain) for role and set
+       type to refer to it, which has to be freed with free.

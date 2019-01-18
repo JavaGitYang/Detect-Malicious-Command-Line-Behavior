@@ -1,0 +1,14 @@
+
+       ac prints out a report of connect time (in hours) based on the
+       logins/logouts in the current wtmp file.  A total is also printed
+       out.
+       The accounting file wtmp is maintained by init(8) and login(1).
+       Neither ac nor login creates the wtmp if it doesn't exist, no
+       accounting is done.  To begin accounting, create the file with a
+       length of zero.
+       NOTE:  The wtmp file can get really big, really fast.  You might want
+       to trim it every once and a while.
+       GNU ac works nearly the same UNIX ac, though it's a little smarter in
+       several ways.  You should therefore expect differences in the output
+       of GNU ac and the output of ac's on other systems.  Use the command
+       info accounting to get additional information.

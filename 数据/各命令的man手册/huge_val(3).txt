@@ -1,0 +1,10 @@
+
+       The macro INFINITY expands to a float constant representing positive
+       infinity.
+       The macro NAN expands to a float constant representing a quiet NaN
+       (when supported).  A quiet NaN is a NaN ("not-a-number") that does
+       not raise exceptions when it is used in arithmetic.  The opposite is
+       a signaling NaN.  See IEC 60559:1989.
+       The macros HUGE_VAL, HUGE_VALF, HUGE_VALL expand to constants of
+       types double, float and long double, respectively, that represent a
+       large positive value, possibly positive infinity.

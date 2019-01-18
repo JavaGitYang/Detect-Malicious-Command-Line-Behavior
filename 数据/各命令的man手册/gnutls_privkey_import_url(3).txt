@@ -1,0 +1,3 @@
+
+       This function will import a PKCS11 or TPM URL as a private key. The
+       supported URL types can be checked using gnutls_url_is_supported().

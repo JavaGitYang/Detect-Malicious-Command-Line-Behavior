@@ -1,0 +1,16 @@
+
+       A really simple TCP Git daemon that normally listens on port
+       "DEFAULT_GIT_PORT" aka 9418. It waits for a connection asking for a
+       service, and will serve that service if it is enabled.
+       It verifies that the directory has the magic file
+       "git-daemon-export-ok", and it will refuse to export any Git
+       directory that hasn’t explicitly been marked for export this way
+       (unless the --export-all parameter is specified). If you pass some
+       directory paths as git daemon arguments, you can further restrict the
+       offers to a whitelist comprising of those.
+       By default, only upload-pack service is enabled, which serves git
+       fetch-pack and git ls-remote clients, which are invoked from git
+       fetch, git pull, and git clone.
+       This is ideally suited for read-only updates, i.e., pulling from Git
+       repositories.
+       An upload-archive also exists to serve git archive.

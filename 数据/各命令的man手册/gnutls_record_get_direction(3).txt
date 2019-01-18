@@ -1,0 +1,9 @@
+
+       This function provides information about the internals of the record
+       protocol and is only useful if a prior gnutls function call, e.g.
+       gnutls_handshake(), was interrupted for some reason. That is, if a
+       function returned GNUTLS_E_INTERRUPTED or GNUTLS_E_AGAIN. In such a
+       case, you might want to call select() or poll() before restoring the
+       interrupted gnutls function.
+       This function's output is unreliable if you are using the same
+        session in different threads, for sending and receiving.

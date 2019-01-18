@@ -1,0 +1,5 @@
+
+       This function refreshes the random generator state.  That is the
+       current precise time, CPU usage, and other values are input into its
+       state.
+       On a slower rate input from /dev/urandom is mixed too.

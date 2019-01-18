@@ -1,0 +1,2 @@
+
+       Get a list of supported public key signature algorithms.

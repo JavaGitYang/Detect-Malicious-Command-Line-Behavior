@@ -1,0 +1,6 @@
+
+       This function will return the last alert number received.  This
+       function should be called when GNUTLS_E_WARNING_ALERT_RECEIVED or
+       GNUTLS_E_FATAL_ALERT_RECEIVED errors are returned by a gnutls
+       function.  The peer may send alerts if he encounters an error.  If no
+       alert has been received the returned value is undefined.

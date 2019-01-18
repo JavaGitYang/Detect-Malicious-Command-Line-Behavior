@@ -1,0 +1,5 @@
+
+       Return the Certificate's Issuer DN as a gnutls_x509_dn_t data type,
+       that can be decoded using gnutls_x509_dn_get_rdn_ava().
+       Note that  dn should be treated as constant. Because it points into
+       the  cert object, you should not use  dn after  cert is deallocated.

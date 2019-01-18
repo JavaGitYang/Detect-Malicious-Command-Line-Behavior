@@ -1,0 +1,6 @@
+
+       This function will decode the provided  sig_value , into  r and  s
+       elements. The Dss-Sig-Value is used for DSA and ECDSA signatures.
+       The output values may be padded with a zero byte to prevent them from
+       being interpreted as negative values. The value should be deallocated
+       using gnutls_free().

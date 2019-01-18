@@ -1,0 +1,2 @@
+
+       The pthread_equal() function compares two thread identifiers.

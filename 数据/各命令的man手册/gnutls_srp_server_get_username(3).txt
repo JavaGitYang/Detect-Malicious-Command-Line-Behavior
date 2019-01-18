@@ -1,0 +1,4 @@
+
+       This function will return the username of the peer.  This should only
+       be called in case of SRP authentication and in case of a server.
+       Returns NULL in case of an error.

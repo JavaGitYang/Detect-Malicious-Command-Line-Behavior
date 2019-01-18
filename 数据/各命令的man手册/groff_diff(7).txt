@@ -1,0 +1,8 @@
+
+       This manual page describes the language differences between groff,
+       the GNU roff text processing system, and the classical roff formatter
+       of the freely available Unix 7 of the 1970s, documented in the Troff
+       User's Manual by Ossanna and Kernighan.  This includes the roff
+       language as well as the intermediate output format (troff output).
+       The section SEE ALSO gives pointers to both the classical roff and
+       the modern groff documentation.

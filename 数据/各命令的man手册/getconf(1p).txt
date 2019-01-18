@@ -1,0 +1,12 @@
+
+       In the first synopsis form, the getconf utility shall write to the
+       standard output the value of the variable specified by the system_var
+       operand.
+       In the second synopsis form, the getconf utility shall write to the
+       standard output the value of the variable specified by the path_var
+       operand for the path specified by the pathname operand.
+       The value of each configuration variable shall be determined as if it
+       were obtained by calling the function from which it is defined to be
+       available by this volume of POSIX.1‐2008 or by the System Interfaces
+       volume of POSIX.1‐2008 (see the OPERANDS section). The value shall
+       reflect conditions in the current operating environment.

@@ -1,0 +1,2 @@
+
+       Convert a gnutls_certificate_type_t type to a string.

@@ -1,0 +1,7 @@
+
+       The automount program is used to manage mount points for autofs, the
+       inlined Linux automounter.  automount works by reading the
+       auto.master(5) map and sets up mount points for each entry in the
+       master map allowing them to be automatically mounted when accessed.
+       The file systems are then automatically umounted after a period of
+       inactivity.

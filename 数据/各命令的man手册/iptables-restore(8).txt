@@ -1,0 +1,39 @@
+
+       iptables-restore and ip6tables-restore are used to restore IP and
+       IPv6 Tables from data specified on STDIN or in file. Use I/O
+       redirection provided by your shell to read from a file or specify
+       file as an argument.
+       -c, --counters
+              restore the values of all packet and byte counters
+       -h, --help
+              Print a short option summary.
+       -n, --noflush
+              don't flush the previous contents of the table. If not
+              specified, both commands flush (delete) all previous contents
+              of the respective table.
+       -t, --test
+              Only parse and construct the ruleset, but do not commit it.
+       -v, --verbose
+              Print additional debug info during ruleset processing.
+       -V, --version
+              Print the program version number.
+       -w, --wait [seconds]
+              Wait for the xtables lock.  To prevent multiple instances of
+              the program from running concurrently, an attempt will be made
+              to obtain an exclusive lock at launch.  By default, the
+              program will exit if the lock cannot be obtained.  This option
+              will make the program wait (indefinitely or for optional
+              seconds) until the exclusive lock can be obtained.
+       -W, --wait-interval microseconds
+              Interval to wait per each iteration.  When running latency
+              sensitive applications, waiting for the xtables lock for
+              extended durations may not be acceptable. This option will
+              make each iteration take the amount of time specified. The
+              default interval is 1 second. This option only works with -w.
+       -M, --modprobe modprobe_program
+              Specify the path to the modprobe program. By default,
+              iptables-restore will inspect /proc/sys/kernel/modprobe to
+              determine the executable's path.
+       -T, --table name
+              Restore only the named table even if the input stream contains
+              other ones.

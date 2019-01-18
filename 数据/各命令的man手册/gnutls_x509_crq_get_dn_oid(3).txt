@@ -1,0 +1,3 @@
+
+       This function will extract the requested OID of the name of the
+       certificate request subject, specified by the given index.

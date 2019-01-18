@@ -1,0 +1,20 @@
+
+       This plugin extends yum with some commands that give verification
+       information on the installed system, much like rpm -V. You can change
+       how the verification is done and which files it applies to. In case
+       any mismatches are found, the exit status is set to 1.
+       added yum commands are:
+        * verify
+        * verify-rpm
+        * verify-all
+       all of which take the same arguments as the list yum command. You can
+       only verify packages that are installed on the system.
+       verify Is the generic verification command, and is intended to give
+              the most useful output. It removes all false matches due to
+              multilib and ignores changes to configuration files by
+              default.
+       verify-rpm
+              Does the same checks as rpm -V.
+       verify-all
+              Is used to list all the differences, including some that rpm
+              itself will ignore.

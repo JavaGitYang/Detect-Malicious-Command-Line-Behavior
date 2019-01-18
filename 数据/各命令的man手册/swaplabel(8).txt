@@ -1,0 +1,9 @@
+
+       swaplabel will display or change the label or UUID of a swap
+       partition located on device (or regular file).
+       If the optional arguments -L and -U are not given, swaplabel will
+       simply display the current swap-area label and UUID of device.
+       If an optional argument is present, then swaplabel will change the
+       appropriate value on device.  These values can also be set during
+       swap creation using mkswap(8).  The swaplabel utility allows to
+       change the label or UUID on an actively used swap device.

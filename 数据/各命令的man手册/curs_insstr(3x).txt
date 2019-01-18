@@ -1,0 +1,10 @@
+
+       These routines insert a character string (as many characters as will
+       fit on the line) before the character under the cursor.  All
+       characters to the right of the cursor are shifted right with the
+       possibility of the rightmost characters on the line being lost.  The
+       cursor position does not change (after moving to y, x, if specified).
+       The functions with n as the last argument insert a leading substring
+       of at most n characters.  If n<=0, then the entire string is
+       inserted.
+       Special characters are handled as in addch.

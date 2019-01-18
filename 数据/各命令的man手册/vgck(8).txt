@@ -1,0 +1,2 @@
+
+       vgck checks LVM metadata for consistency.

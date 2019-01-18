@@ -1,0 +1,14 @@
+
+       pmdalio is a Performance Metrics Domain Agent (PMDA) which exports
+       metric values about the Linux I/O target subsystem, which provides
+       for protocols like iSCSI, FCP, FCoE.  These allow storage available
+       on one host to be exported and consumed by other hosts using industry
+       standard protocols.
+       This PMDA exports summary metrics which are performance value
+       aggregations and configuration per LIO target instance.  Additional,
+       it provides per LUN performance metrics including IOPS, and READ and
+       WRITE throughput.
+       The LIO configuration is maintained within the kernel's configfs
+       virtual filesystem.  The python-rtslib module provides an interface
+       to configfs, allowing tools like pmdalio to interact with the
+       settings and metadata held in configfs.

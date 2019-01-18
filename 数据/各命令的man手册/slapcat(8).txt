@@ -1,0 +1,16 @@
+
+       Slapcat is used to generate an LDAP Directory Interchange Format
+       (LDIF) output based upon the contents of a slapd(8) database.  It
+       opens the given database determined by the database number or suffix
+       and writes the corresponding LDIF to standard output or the specified
+       file.  Databases configured as subordinate of this one are also
+       output, unless -g is specified.
+       The entry records are presented in database order, not superior first
+       order.  The entry records will include all (user and operational)
+       attributes stored in the database.  The entry records will not
+       include dynamically generated attributes (such as subschemaSubentry).
+       The output of slapcat is intended to be used as input to slapadd(8).
+       The output of slapcat cannot generally be used as input to ldapadd(1)
+       or other LDAP clients without first editing the output.  This editing
+       would normally include reordering the records into superior first
+       order and removing no-user-modification operational attributes.

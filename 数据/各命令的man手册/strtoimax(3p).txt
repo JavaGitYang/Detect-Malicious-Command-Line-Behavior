@@ -1,0 +1,9 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       These functions shall be equivalent to the strtol(), strtoll(),
+       strtoul(), and strtoull() functions, except that the initial portion
+       of the string shall be converted to intmax_t and uintmax_t
+       representation, respectively.

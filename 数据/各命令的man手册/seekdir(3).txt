@@ -1,0 +1,4 @@
+
+       The seekdir() function sets the location in the directory stream from
+       which the next readdir(2) call will start.  The loc argument should
+       be a value returned by a previous call to telldir(3).

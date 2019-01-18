@@ -1,0 +1,9 @@
+
+       systemd-machined is a system service that keeps track of virtual
+       machines and containers, and processes belonging to them.
+       See systemd-nspawn(1) for some examples on how to run containers with
+       OS tools.
+       Use nss-mymachines(8) to make the names of local containers known to
+       systemd-machined locally resolvable as host names.
+       See the machined D-Bus API Documentation[1] for information about the
+       APIs systemd-machined provides.

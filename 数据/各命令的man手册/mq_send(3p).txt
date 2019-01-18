@@ -1,0 +1,46 @@
+
+       The mq_send() function shall add the message pointed to by the
+       argument msg_ptr to the message queue specified by mqdes.  The
+       msg_len argument specifies the length of the message, in bytes,
+       pointed to by msg_ptr.  The value of msg_len shall be less than or
+       equal to the mq_msgsize attribute of the message queue, or mq_send()
+       shall fail.
+       If the specified message queue is not full, mq_send() shall behave as
+       if the message is inserted into the message queue at the position
+       indicated by the msg_prio argument. A message with a larger numeric
+       value of msg_prio shall be inserted before messages with lower values
+       of msg_prio.  A message shall be inserted after other messages in the
+       queue, if any, with equal msg_prio.  The value of msg_prio shall be
+       less than {MQ_PRIO_MAX}.
+       If the specified message queue is full and O_NONBLOCK is not set in
+       the message queue description associated with mqdes, mq_send() shall
+       block until space becomes available to enqueue the message, or until
+       mq_send() is interrupted by a signal. If more than one thread is
+       waiting to send when space becomes available in the message queue and
+       the Priority Scheduling option is supported, then the thread of the
+       highest priority that has been waiting the longest shall be unblocked
+       to send its message. Otherwise, it is unspecified which waiting
+       thread is unblocked. If the specified message queue is full and
+       O_NONBLOCK is set in the message queue description associated with
+       mqdes, the message shall not be queued and mq_send() shall return an
+       error.
+       The mq_timedsend() function shall add a message to the message queue
+       specified by mqdes in the manner defined for the mq_send() function.
+       However, if the specified message queue is full and O_NONBLOCK is not
+       set in the message queue description associated with mqdes, the wait
+       for sufficient room in the queue shall be terminated when the
+       specified timeout expires. If O_NONBLOCK is set in the message queue
+       description, this function shall be equivalent to mq_send().
+       The timeout shall expire when the absolute time specified by abstime
+       passes, as measured by the clock on which timeouts are based (that
+       is, when the value of that clock equals or exceeds abstime), or if
+       the absolute time specified by abstime has already been passed at the
+       time of the call.
+       The timeout shall be based on the CLOCK_REALTIME clock.  The
+       resolution of the timeout shall be the resolution of the clock on
+       which it is based. The timespec argument is defined in the <time.h>
+       header.
+       Under no circumstance shall the operation fail with a timeout if
+       there is sufficient room in the queue to add the message immediately.
+       The validity of the abstime parameter need not be checked when there
+       is sufficient room in the queue.

@@ -1,0 +1,42 @@
+
+       pmdamailq is a Performance Metrics Domain Agent (PMDA) which extracts
+       performance metrics describing the state of the e-mail queues managed
+       by sendmail(1) and other mail transfer agents.
+       The mailq PMDA exports metrics that measure the total number of
+       entries in the mail queue, and the subtotals for entries that have
+       been queued for various time periods.
+       A brief description of the pmdamailq command line options follows:
+       -b   The binlist argument specifies a list of delay thresholds used
+            to ``bin'' the entries in the queue into a a histogram based on
+            how long the entry has been in the mail queue.  The default
+            thresholds are: 1 hour, 4 hours, 8 hours, 1 day, 3 days and 7
+            days.  The entries in binlist are comma separated time
+            intervals, using the syntax described in PCPIntro(1) for an
+            update or reporting interval, e.g. the default list could be
+            specified using the value 1hr,4hrs,8hrs,1day,3days,7days.
+            Values in binlist are assumed to be in ascending order, and mail
+            items in the queue less than the first threshold are binned into
+            a special bin labeled ``recent''.
+       -d   It is absolutely crucial that the performance metrics domain
+            number specified here is unique and consistent.  That is, domain
+            should be different for every PMDA on the one host, and the same
+            domain number should be used for the same PMDA on all hosts.
+       -l   Location of the log file.  By default, a log file named
+            mailq.log is written in the current directory of pmcd(1) when
+            pmdamailq is started, i.e.  $PCP_LOG_DIR/pmcd .  If the log file
+            cannot be created or is not writable, output is written to the
+            standard error instead.
+       -r   Use an extended regular expression to match file names in the
+            mail queue directory, rather than assuming all "df" prefixed
+            files in the directory are mail files (the "df" prefix is the
+            sendmail convention, but this convention is not followed by
+            other mail daemons).  The regex pattern specified should conform
+            to the POSIX format described in regex(3), and it describes file
+            names that should be considered mail.
+       -U   User account under which to run the agent.  The default is the
+            unprivileged "pcp" account in current versions of PCP, but in
+            older versions the superuser account ("root") was used by
+            default.
+       The optional queuedir argument defines the directory in which
+       pmdamailq expects to find the mail queue.  The default is
+       /var/spool/mqueue.

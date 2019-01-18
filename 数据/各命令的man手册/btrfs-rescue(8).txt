@@ -1,0 +1,2 @@
+
+       btrfs rescue is used to try to recover a damaged btrfs filesystem.

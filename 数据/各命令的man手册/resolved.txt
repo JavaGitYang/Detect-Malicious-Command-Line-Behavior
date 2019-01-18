@@ -1,0 +1,3 @@
+
+       These configuration files control local DNS and LLMNR name
+       resolution.

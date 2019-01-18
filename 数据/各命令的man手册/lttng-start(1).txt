@@ -1,0 +1,17 @@
+
+       The lttng start command starts the various LTTng tracers for a given
+       inactive tracing session.
+       Starting the LTTng tracers has the effect that all enabled event
+       rules within enabled channels can make their target event sources
+       emit trace events. Whether they are recorded to the local file
+       system, sent over the network, or not recorded at all depends on the
+       specific configuration of the tracing session in which tracing is
+       started. See lttng-create(1) for different session modes.
+       A tracing session with running tracers is said to be active. Active
+       tracing sessions can return to the inactive state using the
+       lttng-stop(1) command.
+       If SESSION is omitted, the LTTng tracers are started for the current
+       tracing session (see lttng-create(1) for more information about the
+       current tracing session). Otherwise, they are started for the
+       existing tracing session named SESSION. lttng list outputs all the
+       existing tracing sessions (see lttng-list(1)).

@@ -1,0 +1,11 @@
+
+       The grantpt() function shall change the mode and ownership of the
+       slave pseudo-terminal device associated with its master pseudo-
+       terminal counterpart. The fildes argument is a file descriptor that
+       refers to a master pseudo-terminal device. The user ID of the slave
+       shall be set to the real UID of the calling process and the group ID
+       shall be set to an unspecified group ID. The permission mode of the
+       slave pseudo-terminal shall be set to readable and writable by the
+       owner, and writable by the group.
+       The behavior of the grantpt() function is unspecified if the
+       application has installed a signal handler to catch SIGCHLD signals.

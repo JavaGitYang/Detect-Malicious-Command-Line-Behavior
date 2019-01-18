@@ -1,0 +1,25 @@
+
+       The pthread_rwlock_unlock() function shall release a lock held on the
+       read-write lock object referenced by rwlock.  Results are undefined
+       if the read-write lock rwlock is not held by the calling thread.
+       If this function is called to release a read lock from the read-write
+       lock object and there are other read locks currently held on this
+       read-write lock object, the read-write lock object remains in the
+       read locked state. If this function releases the last read lock for
+       this read-write lock object, the read-write lock object shall be put
+       in the unlocked state with no owners.
+       If this function is called to release a write lock for this read-
+       write lock object, the read-write lock object shall be put in the
+       unlocked state.
+       If there are threads blocked on the lock when it becomes available,
+       the scheduling policy shall determine which thread(s) shall acquire
+       the lock.  If the Thread Execution Scheduling option is supported,
+       when threads executing with the scheduling policies SCHED_FIFO,
+       SCHED_RR, or SCHED_SPORADIC are waiting on the lock, they shall
+       acquire the lock in priority order when the lock becomes available.
+       For equal priority threads, write locks shall take precedence over
+       read locks.  If the Thread Execution Scheduling option is not
+       supported, it is implementation-defined whether write locks take
+       precedence over read locks.
+       Results are undefined if this function is called with an
+       uninitialized read-write lock.

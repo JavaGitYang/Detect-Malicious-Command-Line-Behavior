@@ -1,0 +1,17 @@
+
+       windmc reads message definitions from an input file (.mc) and
+       translate them into a set of output files.  The output files may be
+       of four kinds:
+       "h" A C header file containing the message definitions.
+       "rc"
+           A resource file compilable by the windres tool.
+       "bin"
+           One or more binary files containing the resource data for a
+           specific message language.
+       "dbg"
+           A C include file that maps message id's to their symbolic name.
+       The exact description of these different formats is available in
+       documentation from Microsoft.
+       When windmc converts from the "mc" format to the "bin" format, "rc",
+       "h", and optional "dbg" it is acting like the Windows Message
+       Compiler.

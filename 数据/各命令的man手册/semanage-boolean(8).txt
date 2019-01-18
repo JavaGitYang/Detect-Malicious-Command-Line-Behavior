@@ -1,0 +1,7 @@
+
+       semanage is used to configure certain elements of SELinux policy
+       without requiring modification to or recompilation from policy
+       sources.  semanage boolean command controls the settings of booleans
+       in SELinux policy.  booleans are if-then-else rules written in
+       SELinux Policy.  They can be used to customize the way that SELinux
+       Policy rules effect a confined domain.

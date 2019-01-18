@@ -1,0 +1,25 @@
+
+       pmtrace provides a simple command line interface to the trace
+       Performance Metrics Domain Agent (PMDA) and the associated pcp_trace
+       library.
+       The default pmtrace behavior is to provide point trace data to the
+       trace PMDA, using the tag argument as the identifying name associated
+       with each trace point.  The tag then becomes an instance identifier
+       within the set of trace.point metrics.
+       The -e option allows an arbitrary command to be executed.  This
+       command will be measured as a transaction since it has well defined
+       start and end points.  The information is made available through the
+       trace.transact metrics.
+       Trace data can be sent to the trace PMDA running on host, rather than
+       the localhost, using the -h option.  This overrides use of the
+       environment variable PCP_TRACE_HOST.
+       The -q option suppresses messages from a successful trace, so that
+       pmtrace runs quietly.
+       The -c option allows an arbitrary counter value to be exported
+       through the trace.count metrics, while the -v option allows an
+       arbitrary floating point value to be exported through the
+       trace.observe metrics
+       The -S option enables internal debugging and tracing.  The value of
+       state is a bit-wise combination of debug flags as defined in
+       pmtracestate(3), and may be specified using the decimal or
+       hexadecimal syntax prescribed by strtol(3).

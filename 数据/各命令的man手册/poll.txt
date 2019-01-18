@@ -1,0 +1,33 @@
+
+       The <poll.h> header shall define the pollfd structure, which shall
+       include at least the following members:
+           int    fd       The following descriptor being polled.
+           short  events   The input event flags (see below).
+           short  revents  The output event flags (see below).
+       The <poll.h> header shall define the following type through typedef:
+       nfds_t        An unsigned integer type used for the number of file
+                     descriptors.
+       The implementation shall support one or more programming environments
+       in which the width of nfds_t is no greater than the width of type
+       long.  The names of these programming environments can be obtained
+       using the confstr() function or the getconf utility.
+       The <poll.h> header shall define the following symbolic constants,
+       zero or more of which may be OR'ed together to form the events or
+       revents members in the pollfd structure:
+       POLLIN        Data other than high-priority data may be read without
+                     blocking.
+       POLLRDNORM    Normal data may be read without blocking.
+       POLLRDBAND    Priority data may be read without blocking.
+       POLLPRI       High priority data may be read without blocking.
+       POLLOUT       Normal data may be written without blocking.
+       POLLWRNORM    Equivalent to POLLOUT.
+       POLLWRBAND    Priority data may be written.
+       POLLERR       An error has occurred (revents only).
+       POLLHUP       Device has been disconnected (revents only).
+       POLLNVAL      Invalid fd member (revents only).
+       The significance and semantics of normal, priority, and high-priority
+       data are file and device-specific.
+       The following shall be declared as a function and may also be defined
+       as a macro. A function prototype shall be provided.
+           int   poll(struct pollfd [], nfds_t, int);
+       The following sections are informative.

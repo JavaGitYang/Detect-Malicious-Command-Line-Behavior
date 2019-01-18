@@ -1,0 +1,12 @@
+
+       The logsave program will execute cmd_prog with the specified
+       argument(s), and save a copy of its output to logfile.  If the
+       containing directory for logfile does not exist, logsave will
+       accumulate the output in memory until it can be written out.  A copy
+       of the output will also be written to standard output.
+       If cmd_prog is a single hyphen ('-'), then instead of executing a
+       program, logsave will take its input from standard input and save it
+       in logfile
+       logsave is useful for saving the output of initial boot scripts until
+       the /var partition is mounted, so the output can be written to
+       /var/log.

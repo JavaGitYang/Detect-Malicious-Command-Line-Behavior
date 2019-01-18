@@ -1,0 +1,2 @@
+
+       This function will initialize a CRL distribution points type.

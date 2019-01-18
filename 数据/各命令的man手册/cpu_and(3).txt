@@ -1,0 +1,52 @@
+
+       The cpu_set_t data structure represents a set of CPUs.  CPU sets are
+       used by sched_setaffinity(2) and similar interfaces.
+       The cpu_set_t data type is implemented as a bit mask.  However, the
+       data structure treated as considered opaque: all manipulation of CPU
+       sets should be done via the macros described in this page.
+       The following macros are provided to operate on the CPU set set:
+       CPU_ZERO()       Clears set, so that it contains no CPUs.
+       CPU_SET()        Add CPU cpu to set.
+       CPU_CLR()        Remove CPU cpu from set.
+       CPU_ISSET()      Test to see if CPU cpu is a member of set.
+       CPU_COUNT()      Return the number of CPUs in set.
+       Where a cpu argument is specified, it should not produce side
+       effects, since the above macros may evaluate the argument more than
+       once.
+       The first CPU on the system corresponds to a cpu value of 0, the next
+       CPU corresponds to a cpu value of 1, and so on.  No assumptions
+       should be made about particular CPUs being available, or the set of
+       CPUs being contiguous, since CPUs can be taken offline dynamically or
+       be otherwise absent.  The constant CPU_SETSIZE (currently 1024)
+       specifies a value one greater than the maximum CPU number that can be
+       stored in cpu_set_t.
+       The following macros perform logical operations on CPU sets:
+       CPU_AND()        Store the intersection of the sets srcset1 and
+                        srcset2 in destset (which may be one of the source
+                        sets).
+       CPU_OR()         Store the union of the sets srcset1 and srcset2 in
+                        destset (which may be one of the source sets).
+       CPU_XOR()        Store the XOR of the sets srcset1 and srcset2 in
+                        destset (which may be one of the source sets).  The
+                        XOR means the set of CPUs that are in either srcset1
+                        or srcset2, but not both.
+       CPU_EQUAL()      Test whether two CPU set contain exactly the same
+                        CPUs.
+   Dynamically sized CPU sets
+       Because some applications may require the ability to dynamically size
+       CPU sets (e.g., to allocate sets larger than that defined by the
+       standard cpu_set_t data type), glibc nowadays provides a set of
+       macros to support this.
+       The following macros are used to allocate and deallocate CPU sets:
+       CPU_ALLOC()      Allocate a CPU set large enough to hold CPUs in the
+                        range 0 to num_cpus-1.
+       CPU_ALLOC_SIZE() Return the size in bytes of the CPU set that would
+                        be needed to hold CPUs in the range 0 to num_cpus-1.
+                        This macro provides the value that can be used for
+                        the setsize argument in the CPU_*_S() macros
+                        described below.
+       CPU_FREE()       Free a CPU set previously allocated by CPU_ALLOC().
+       The macros whose names end with "_S" are the analogs of the similarly
+       named macros without the suffix.  These macros perform the same tasks
+       as their analogs, but operate on the dynamically allocated CPU set(s)
+       whose size is setsize bytes.

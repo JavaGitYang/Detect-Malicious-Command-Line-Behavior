@@ -1,0 +1,10 @@
+
+       The malloc_trim() function attempts to release free memory at the top
+       of the heap (by calling sbrk(2) with a suitable argument).
+       The pad argument specifies the amount of free space to leave
+       untrimmed at the top of the heap.  If this argument is 0, only the
+       minimum amount of memory is maintained at the top of the heap (i.e.,
+       one page or less).  A nonzero argument can be used to maintain some
+       trailing space at the top of the heap in order to allow future
+       allocations to be made without having to extend the heap with
+       sbrk(2).

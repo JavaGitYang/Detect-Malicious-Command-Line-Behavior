@@ -1,0 +1,3 @@
+
+       dh_lintian is a debhelper program that is responsible for installing
+       override files used by lintian into package build directories.

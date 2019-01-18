@@ -1,0 +1,4 @@
+
+       This function will set the DN on the provided certificate.  The input
+       string should be plain ASCII or UTF-8 encoded. On DN parsing error
+       GNUTLS_E_PARSING_ERROR is returned.

@@ -1,0 +1,45 @@
+
+       The write utility shall read lines from the standard input and write
+       them to the terminal of the specified user. When first invoked, it
+       shall write the message:
+           Message from sender-login-id (sending-terminal) [date]...
+       to user_name.  When it has successfully completed the connection, the
+       sender's terminal shall be alerted twice to indicate that what the
+       sender is typing is being written to the recipient's terminal.
+       If the recipient wants to reply, this can be accomplished by typing:
+           write sender-login-id [sending-terminal]
+       upon receipt of the initial message. Whenever a line of input as
+       delimited by an NL, EOF, or EOL special character (see the Base
+       Definitions volume of POSIX.1‐2008, Chapter 11, General Terminal
+       Interface) is accumulated while in canonical input mode, the
+       accumulated data shall be written on the other user's terminal.
+       Characters shall be processed as follows:
+        *  Typing <alert> shall write the <alert> character to the
+           recipient's terminal.
+        *  Typing the erase and kill characters shall affect the sender's
+           terminal in the manner described by the termios interface in the
+           Base Definitions volume of POSIX.1‐2008, Chapter 11, General
+           Terminal Interface.
+        *  Typing the interrupt or end-of-file characters shall cause write
+           to write an appropriate message ("EOT\n" in the POSIX locale) to
+           the recipient's terminal and exit.
+        *  Typing characters from LC_CTYPE classifications print or space
+           shall cause those characters to be sent to the recipient's
+           terminal.
+        *  When and only when the stty iexten local mode is enabled, the
+           existence and processing of additional special control characters
+           and multi-byte or single-byte functions is implementation-
+           defined.
+        *  Typing other non-printable characters shall cause implementation-
+           defined sequences of printable characters to be written to the
+           recipient's terminal.
+       To write to a user who is logged in more than once, the terminal
+       argument can be used to indicate which terminal to write to;
+       otherwise, the recipient's terminal is selected in an implementation-
+       defined manner and an informational message is written to the
+       sender's standard output, indicating which terminal was chosen.
+       Permission to be a recipient of a write message can be denied or
+       granted by use of the mesg utility. However, a user's privilege may
+       further constrain the domain of accessibility of other users'
+       terminals. The write utility shall fail when the user lacks
+       appropriate privileges to perform the requested action.

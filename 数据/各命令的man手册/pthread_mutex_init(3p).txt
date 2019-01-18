@@ -1,0 +1,2 @@
+
+       Refer to pthread_mutex_destroy(3p).

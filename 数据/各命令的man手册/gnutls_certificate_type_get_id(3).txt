@@ -1,0 +1,2 @@
+
+       The names are compared in a case insensitive way.

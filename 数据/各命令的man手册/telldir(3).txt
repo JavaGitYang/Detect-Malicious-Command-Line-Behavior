@@ -1,0 +1,3 @@
+
+       The telldir() function returns the current location associated with
+       the directory stream dirp.

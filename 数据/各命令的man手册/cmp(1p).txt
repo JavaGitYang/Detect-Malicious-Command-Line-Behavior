@@ -1,0 +1,6 @@
+
+       The cmp utility shall compare two files. The cmp utility shall write
+       no output if the files are the same. Under default options, if they
+       differ, it shall write to standard output the byte and line number at
+       which the first difference occurred. Bytes and lines shall be
+       numbered beginning with 1.

@@ -1,0 +1,35 @@
+
+       The border_set and wborder_set functions draw a border around the
+       edges of the current or specified window.  These functions do not
+       change the cursor position, and do not wrap.
+       Other than the window, each argument is a complex character with
+       attributes:
+              ls - left side,
+              rs - right side,
+              ts - top side,
+              bs - bottom side,
+              tl - top left-hand corner,
+              tr - top right-hand corner,
+              bl - bottom left-hand corner, and
+              br - bottom right-hand corner.
+       If any of these arguments is zero, then the corresponding default
+       values (defined in curses.h) are used instead:
+              WACS_VLINE,
+              WACS_VLINE,
+              WACS_HLINE,
+              WACS_HLINE,
+              WACS_ULCORNER,
+              WACS_URCORNER,
+              WACS_LLCORNER, and
+              WACS_LRCORNER.
+       box_set(win, verch, horch); is a shorthand for the following call:
+       wborder_set(win, verch, verch,
+           horch, horch, NULL, NULL, NULL, NULL);
+       The *line_set functions use wch to draw a line starting at the
+       current cursor position in the window.  The line is at most n
+       characters long or as many as fit into the window.  The current
+       cursor position is not changed.
+       The hline_set, mvhline_set, mvwhline_set, and whline_set functions
+       draw a line proceeding toward the last column of the same line.
+       The vline_set, mvvline_set, mvwvline_set, and wvline_set functions
+       draw a line proceeding toward the last line of the window.

@@ -1,0 +1,4 @@
+
+       Display SELinux AVC statistics.  If the interval parameter is
+       specified, the program will loop, displaying updated statistics every
+       interval seconds.  Relative values are displayed by default.

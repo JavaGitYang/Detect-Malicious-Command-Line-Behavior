@@ -1,0 +1,23 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       If s is not a null pointer, mbrlen() shall determine the number of
+       bytes constituting the character pointed to by s.  It shall be
+       equivalent to:
+           mbstate_t internal;
+           mbrtowc(NULL, s, n, ps != NULL ? ps : &internal);
+       If ps is a null pointer, the mbrlen() function shall use its own
+       internal mbstate_t object, which is initialized at program start-up
+       to the initial conversion state. Otherwise, the mbstate_t object
+       pointed to by ps shall be used to completely describe the current
+       conversion state of the associated character sequence. The
+       implementation shall behave as if no function defined in this volume
+       of POSIX.1‐2008 calls mbrlen().
+       The behavior of this function is affected by the LC_CTYPE category of
+       the current locale.
+       The mbrlen() function need not be thread-safe if called with a NULL
+       ps argument.
+       The mbrlen() function shall not change the setting of errno if
+       successful.

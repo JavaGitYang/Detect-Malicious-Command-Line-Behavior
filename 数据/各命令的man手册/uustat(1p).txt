@@ -1,0 +1,13 @@
+
+       The uustat utility shall display the status of, or cancel, previously
+       specified uucp requests, or provide general status on uucp
+       connections to other systems.
+       When no options are given, uustat shall write to standard output the
+       status of all uucp requests issued by the current user.
+       Typical implementations of this utility require a communications line
+       configured to use the Base Definitions volume of POSIX.1‐2008,
+       Chapter 11, General Terminal Interface, but other communications
+       means may be used. On systems where there are no available
+       communications means (either temporarily or permanently), this
+       utility shall write an error message describing the problem and exit
+       with a non-zero exit status.

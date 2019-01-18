@@ -1,0 +1,15 @@
+
+       The aio_suspend() function suspends the calling thread until one of
+       the following occurs:
+       *  One or more of the asynchronous I/O requests in the list
+          aiocb_list has completed.
+       *  A signal is delivered.
+       *  timeout is not NULL and the specified time interval has passed.
+          (For details of the timespec structure, see nanosleep(2).)
+       The nitems argument specifies the number of items in aiocb_list.
+       Each item in the list pointed to by aiocb_list must be either NULL
+       (and then is ignored), or a pointer to a control block on which I/O
+       was initiated using aio_read(3), aio_write(3), or lio_listio(3).
+       (See aio(7) for a description of the aiocb structure.)
+       If CLOCK_MONOTONIC is supported, this clock is used to measure the
+       timeout interval (see clock_gettime(3)).

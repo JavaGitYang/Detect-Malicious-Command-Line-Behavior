@@ -1,0 +1,3 @@
+
+       Description can be found in traceroute(8), all the references to IP
+       replaced to IPv6. It is needless to copy the description from there.

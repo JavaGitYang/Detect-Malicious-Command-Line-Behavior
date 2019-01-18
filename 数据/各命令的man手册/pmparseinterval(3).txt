@@ -1,0 +1,7 @@
+
+       pmParseInterval parses the argument string specifying an interval of
+       time and fills in the tv_sec and tv_usec components of the rslt
+       structure to represent that interval.
+       The input string is most commonly the argument following a -t command
+       line option to a PCP application, and the syntax is fully described
+       in PCPIntro(1).

@@ -1,0 +1,33 @@
+
+       The posix_trace_clear() function shall reinitialize the trace stream
+       identified by the argument trid as if it were returning from the
+       posix_trace_create() function, except that the same allocated
+       resources shall be reused, the mapping of trace event type
+       identifiers to trace event names shall be unchanged, and the trace
+       stream status shall remain unchanged (that is, if it was running, it
+       remains running and if it was suspended, it remains suspended).
+       All trace events in the trace stream recorded before the call to
+       posix_trace_clear() shall be lost. The posix_stream_full_status
+       status shall be set to POSIX_TRACE_NOT_FULL.  There is no guarantee
+       that all trace events that occurred during the posix_trace_clear()
+       call are recorded; the behavior with respect to trace points that may
+       occur during this call is unspecified.
+       If the Trace Log option is supported and the trace stream has been
+       created with a log, the posix_trace_clear() function shall
+       reinitialize the trace stream with the same behavior as if the trace
+       stream was created without the log, plus it shall reinitialize the
+       trace log associated with the trace stream identified by the argument
+       trid as if it were returning from the posix_trace_create_withlog()
+       function, except that the same allocated resources, for the trace
+       log, may be reused and the associated trace stream status remains
+       unchanged.  The first trace event recorded in the trace log after the
+       call to posix_trace_clear() shall be the same as the first trace
+       event recorded in the active trace stream after the call to
+       posix_trace_clear().  The posix_log_full_status status shall be set
+       to POSIX_TRACE_NOT_FULL. There is no guarantee that all trace events
+       that occurred during the posix_trace_clear() call are recorded in the
+       trace log; the behavior with respect to trace points that may occur
+       during this call is unspecified. If the log full policy is
+       POSIX_TRACE_APPEND, the effect of a call to this function is
+       unspecified for the trace log associated with the trace stream
+       identified by the trid argument.

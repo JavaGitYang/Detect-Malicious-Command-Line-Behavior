@@ -1,0 +1,18 @@
+
+       dh_systemd_enable is a debhelper program that is responsible for
+       enabling and disabling systemd unit files.
+       In the simple case, it finds all unit files installed by a package
+       (e.g.  bacula-fd.service) and enables them. It is not necessary that
+       the machine actually runs systemd during package installation time,
+       enabling happens on all machines in order to be able to switch from
+       sysvinit to systemd and back.
+       In the complex case, you can call dh_systemd_enable and
+       dh_systemd_start manually (by overwriting the debian/rules targets)
+       and specify flags per unit file. An example is colord, which ships
+       colord.service, a dbus-activated service without an [Install]
+       section. This service file cannot be enabled or disabled (a state
+       called "static" by systemd) because it has no [Install] section.
+       Therefore, running dh_systemd_enable does not make sense.
+       For only generating blocks for specific service files, you need to
+       pass them as arguments, e.g. dh_systemd_enable quota.service and
+       dh_systemd_enable --name=quotarpc quotarpc.service.

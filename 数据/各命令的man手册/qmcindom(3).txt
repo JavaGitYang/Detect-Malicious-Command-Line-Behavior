@@ -1,0 +1,19 @@
+
+       A QmcIndom object represents a PMAPI(3) instance domain.  This
+       includes a description of all the instances in the instance domain.
+       A QmcInstance is a structure used to describe each instance in the
+       instance domain.  This includes:
+          - internal identifier. If this is less than zero, the instance is
+          treated as a NULL entry in the instance table.
+          - external name
+          - reference count, ie. the number of QmcMetric objects referring
+          to this instance.
+          - the likely position of the instance in the pmResult from a
+          pmFetch(3).  This is also used to indicate the position of the
+          next NULL instance in the instance table, if this entry is also
+          NULL.
+          - a flag indicating if the instance was in the last pmGetInDom(3).
+       The QmcIndom object has a list of QmcInstance structures, and various
+       flags and counters to support dynamic instance domains where
+       instances may come and go with each fetch and efficient profile
+       generation.

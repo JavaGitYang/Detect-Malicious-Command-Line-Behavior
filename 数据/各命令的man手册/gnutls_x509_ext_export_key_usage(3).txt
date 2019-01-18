@@ -1,0 +1,4 @@
+
+       This function will convert the keyUsage bit string to a DER encoded
+       PKIX extension. The  ext data will be allocated using
+       gnutls_malloc().

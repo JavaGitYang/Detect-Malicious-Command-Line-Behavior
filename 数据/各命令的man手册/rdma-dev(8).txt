@@ -1,0 +1,4 @@
+
+   rdma dev show - display rdma device attributes
+       DEV - specifies the RDMA device to show.  If this argument is omitted
+       all devices are listed.

@@ -1,0 +1,3 @@
+
+       Request that the client should attempt session resumption using
+       SessionTicket.

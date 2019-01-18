@@ -1,0 +1,20 @@
+
+       The aio_cancel() function shall attempt to cancel one or more
+       asynchronous I/O requests currently outstanding against file
+       descriptor fildes.  The aiocbp argument points to the asynchronous
+       I/O control block for a particular request to be canceled. If aiocbp
+       is NULL, then all outstanding cancelable asynchronous I/O requests
+       against fildes shall be canceled.
+       Normal asynchronous notification shall occur for asynchronous I/O
+       operations that are successfully canceled. If there are requests that
+       cannot be canceled, then the normal asynchronous completion process
+       shall take place for those requests when they are completed.
+       For requested operations that are successfully canceled, the
+       associated error status shall be set to [ECANCELED] and the return
+       status shall be −1. For requested operations that are not
+       successfully canceled, the aiocbp shall not be modified by
+       aio_cancel().
+       If aiocbp is not NULL, then if fildes does not have the same value as
+       the file descriptor with which the asynchronous operation was
+       initiated, unspecified results occur.
+       Which operations are cancelable is implementation-defined.

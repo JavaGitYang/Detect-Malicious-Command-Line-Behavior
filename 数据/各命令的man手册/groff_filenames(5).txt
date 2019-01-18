@@ -1,0 +1,7 @@
+
+       Since the evolution of roff in the 1970s, a whole bunch of filename
+       extensions for roff files were used.
+       The roff extensions refer to preprocessors or macro packages.  These
+       extensions are fixed in all Unix-like operating systems.
+       Later on, groff added some more extensions.  This man page is about
+       these filename extensions.

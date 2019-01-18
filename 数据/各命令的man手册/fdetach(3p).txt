@@ -1,0 +1,15 @@
+
+       The fdetach() function shall detach a STREAMS-based file from the
+       file to which it was attached by a previous call to fattach().  The
+       path argument points to the pathname of the attached STREAMS file.
+       The process shall have appropriate privileges or be the owner of the
+       file.  A successful call to fdetach() shall cause all pathnames that
+       named the attached STREAMS file to again name the file to which the
+       STREAMS file was attached. All subsequent operations on path shall
+       operate on the underlying file and not on the STREAMS file.
+       All open file descriptions established while the STREAMS file was
+       attached to the file referenced by path shall still refer to the
+       STREAMS file after the fdetach() has taken effect.
+       If there are no open file descriptors or other references to the
+       STREAMS file, then a successful call to fdetach() shall be equivalent
+       to performing the last close() on the attached file.

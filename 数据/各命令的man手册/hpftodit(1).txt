@@ -1,0 +1,44 @@
+
+       hpftodit creates a font file for use with a Hewlett-Packard
+       LaserJet 4-series (or newer) printer with groff -Tlj4, using data
+       from an HP tagged font metric (TFM) file.  tfm-file is the name of
+       the TFM file for the font; Intellifont and TrueType TFM files are
+       supported, but symbol set TFM files are not.  map-file is a file
+       giving the groff names for characters in the font; this file should
+       consist of a sequence of lines of the form:
+              m u c1 c2 ... [# comment]
+       where m is a decimal integer giving the MSL (Master Symbol List) num‐
+       ber of the character, u is a hexadecimal integer giving the Unicode
+       value of the character, and c1, c2, ...  are the groff names of the
+       character (see groff_char(7) for a list).  The values can be sepa‐
+       rated by any whitespace; the Unicode value must use uppercase digits
+       A–F, and must be without a leading ‘0x’, ‘u’, or ‘U+’.  Unicode val‐
+       ues corresponding to composite glyphs are decomposed; e.g., ‘u00C0’
+       becomes ‘u0041_0300’.  The name for a glyph without a groff name may
+       be given as uXXXX if the glyph corresponds to a Unicode value, or as
+       an unnamed glyph ‘---’.  If the given Unicode value is in the Private
+       Use Area (0xE000–0xF8FF), the glyph is included as an unnamed glyph.
+       Refer to groff_diff(1) for additional information about unnamed
+       glyphs and how to access them.
+       Blank lines and lines beginning with ‘#’ are ignored.  A ‘#’ follow‐
+       ing one or more groff names begins a comment.  Because ‘#’ is a valid
+       groff name, it must appear first in a list of groff names if a com‐
+       ment is included, e.g.,
+              3   0023   #   # number sign
+       or
+              3   0023   # sh   # number sign
+       rather than
+              3   0023   sh #   # number sign
+       which will treat the first ‘#’ as the beginning of the comment.
+       The groff font file is written to the specified output-font; if this
+       operand is ‘-’, the font file is written to the standard output.
+       The -s option should be given if the font is special (a font is “spe‐
+       cial” if groff should search it whenever a character is not found in
+       the current font).  If the font is special, it should be listed in
+       the fonts command in the DESC file; if it is not special, there is no
+       need to list it, since groff can automatically mount it when it's
+       first used.
+       If the -i option is used, hpftodit automatically will generate an
+       italic correction, a left italic correction and a subscript correc‐
+       tion for each character (the significance of these parameters is
+       explained in groff_font(5)).

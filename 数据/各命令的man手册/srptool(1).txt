@@ -1,0 +1,9 @@
+
+       Simple program that emulates the programs in the Stanford SRP (Secure
+       Remote Password) libraries using GnuTLS.  It is intended for use in
+       places where you don't expect SRP authentication to be the used for
+       system users.
+       In  brief,  to use SRP you need to create two files. These are the
+       password file that holds the users and the verifiers associated with
+       them  and  the configuration file to hold the group parameters
+       (called tpasswd.conf).

@@ -1,0 +1,158 @@
+
+       The first synopsis form is denoted by two operands, neither of which
+       are existing files of type directory. The cp utility shall copy the
+       contents of source_file (or, if source_file is a file of type
+       symbolic link, the contents of the file referenced by source_file) to
+       the destination path named by target_file.
+       The second synopsis form is denoted by two or more operands where the
+       −R option is not specified and the first synopsis form is not
+       applicable. It shall be an error if any source_file is a file of type
+       directory, if target does not exist, or if target does not name a
+       directory. The cp utility shall copy the contents of each source_file
+       (or, if source_file is a file of type symbolic link, the contents of
+       the file referenced by source_file) to the destination path named by
+       the concatenation of target, a single <slash> character if target did
+       not end in a <slash>, and the last component of source_file.
+       The third synopsis form is denoted by two or more operands where the
+       −R option is specified. The cp utility shall copy each file in the
+       file hierarchy rooted in each source_file to a destination path named
+       as follows:
+        *  If target exists and names an existing directory, the name of the
+           corresponding destination path for each file in the file
+           hierarchy shall be the concatenation of target, a single <slash>
+           character if target did not end in a <slash>, and the pathname of
+           the file relative to the directory containing source_file.
+        *  If target does not exist and two operands are specified, the name
+           of the corresponding destination path for source_file shall be
+           target; the name of the corresponding destination path for all
+           other files in the file hierarchy shall be the concatenation of
+           target, a <slash> character, and the pathname of the file
+           relative to source_file.
+       It shall be an error if target does not exist and more than two
+       operands are specified, or if target exists and does not name a
+       directory.
+       In the following description, the term dest_file refers to the file
+       named by the destination path. The term source_file refers to the
+       file that is being copied, whether specified as an operand or a file
+       in a file hierarchy rooted in a source_file operand. If source_file
+       is a file of type symbolic link:
+        *  If the −R option was not specified, cp shall take actions based
+           on the type and contents of the file referenced by the symbolic
+           link, and not by the symbolic link itself, unless the −P option
+           was specified.
+        *  If the −R option was specified:
+           --  If none of the options −H, −L, nor −P were specified, it is
+               unspecified which of −H, −L, or −P will be used as a default.
+           --  If the −H option was specified, cp shall take actions based
+               on the type and contents of the file referenced by any
+               symbolic link specified as a source_file operand.
+           --  If the −L option was specified, cp shall take actions based
+               on the type and contents of the file referenced by any
+               symbolic link specified as a source_file operand or any
+               symbolic links encountered during traversal of a file
+               hierarchy.
+           --  If the −P option was specified, cp shall copy any symbolic
+               link specified as a source_file operand and any symbolic
+               links encountered during traversal of a file hierarchy, and
+               shall not follow any symbolic links.
+       For each source_file, the following steps shall be taken:
+        1. If source_file references the same file as dest_file, cp may
+           write a diagnostic message to standard error; it shall do nothing
+           more with source_file and shall go on to any remaining files.
+        2. If source_file is of type directory, the following steps shall be
+           taken:
+            a. If the −R option was not specified, cp shall write a
+               diagnostic message to standard error, do nothing more with
+               source_file, and go on to any remaining files.
+            b. If source_file was not specified as an operand and
+               source_file is dot or dot-dot, cp shall do nothing more with
+               source_file and go on to any remaining files.
+            c. If dest_file exists and it is a file type not specified by
+               the System Interfaces volume of POSIX.1‐2008, the behavior is
+               implementation-defined.
+            d. If dest_file exists and it is not of type directory, cp shall
+               write a diagnostic message to standard error, do nothing more
+               with source_file or any files below source_file in the file
+               hierarchy, and go on to any remaining files.
+            e. If the directory dest_file does not exist, it shall be
+               created with file permission bits set to the same value as
+               those of source_file, modified by the file creation mask of
+               the user if the −p option was not specified, and then
+               bitwise-inclusively OR'ed with S_IRWXU. If dest_file cannot
+               be created, cp shall write a diagnostic message to standard
+               error, do nothing more with source_file, and go on to any
+               remaining files. It is unspecified if cp attempts to copy
+               files in the file hierarchy rooted in source_file.
+            f. The files in the directory source_file shall be copied to the
+               directory dest_file, taking the four steps (1 to 4) listed
+               here with the files as source_files.
+            g. If dest_file was created, its file permission bits shall be
+               changed (if necessary) to be the same as those of
+               source_file, modified by the file creation mask of the user
+               if the −p option was not specified.
+            h. The cp utility shall do nothing more with source_file and go
+               on to any remaining files.
+        3. If source_file is of type regular file, the following steps shall
+           be taken:
+            a. The behavior is unspecified if dest_file exists and was
+               written by a previous step. Otherwise, if dest_file exists,
+               the following steps shall be taken:
+                i.  If the −i option is in effect, the cp utility shall
+                    write a prompt to the standard error and read a line
+                    from the standard input. If the response is not
+                    affirmative, cp shall do nothing more with source_file
+                    and go on to any remaining files.
+               ii.  A file descriptor for dest_file shall be obtained by
+                    performing actions equivalent to the open() function
+                    defined in the System Interfaces volume of POSIX.1‐2008
+                    called using dest_file as the path argument, and the
+                    bitwise-inclusive OR of O_WRONLY and O_TRUNC as the
+                    oflag argument.
+               iii. If the attempt to obtain a file descriptor fails and the
+                    −f option is in effect, cp shall attempt to remove the
+                    file by performing actions equivalent to the unlink()
+                    function defined in the System Interfaces volume of
+                    POSIX.1‐2008 called using dest_file as the path
+                    argument. If this attempt succeeds, cp shall continue
+                    with step 3b.
+            b. If dest_file does not exist, a file descriptor shall be
+               obtained by performing actions equivalent to the open()
+               function defined in the System Interfaces volume of
+               POSIX.1‐2008 called using dest_file as the path argument, and
+               the bitwise-inclusive OR of O_WRONLY and O_CREAT as the oflag
+               argument. The file permission bits of source_file shall be
+               the mode argument.
+            c. If the attempt to obtain a file descriptor fails, cp shall
+               write a diagnostic message to standard error, do nothing more
+               with source_file, and go on to any remaining files.
+            d. The contents of source_file shall be written to the file
+               descriptor. Any write errors shall cause cp to write a
+               diagnostic message to standard error and continue to step 3e.
+            e. The file descriptor shall be closed.
+            f. The cp utility shall do nothing more with source_file.  If a
+               write error occurred in step 3d, it is unspecified if cp
+               continues with any remaining files. If no write error
+               occurred in step 3d, cp shall go on to any remaining files.
+        4. Otherwise, the −R option was specified, and the following steps
+           shall be taken:
+            a. The dest_file shall be created with the same file type as
+               source_file.
+            b. If source_file is a file of type FIFO, the file permission
+               bits shall be the same as those of source_file, modified by
+               the file creation mask of the user if the −p option was not
+               specified. Otherwise, the permissions, owner ID, and group ID
+               of dest_file are implementation-defined.
+               If this creation fails for any reason, cp shall write a
+               diagnostic message to standard error, do nothing more with
+               source_file, and go on to any remaining files.
+            c. If source_file is a file of type symbolic link, and the
+               options require the symbolic link itself to be acted upon,
+               the pathname contained in dest_file shall be the same as the
+               pathname contained in source_file.
+               If this fails for any reason, cp shall write a diagnostic
+               message to standard error, do nothing more with source_file,
+               and go on to any remaining files.
+       If the implementation provides additional or alternate access control
+       mechanisms (see the Base Definitions volume of POSIX.1‐2008, Section
+       4.4, File Access Permissions), their effect on copies of files is
+       implementation-defined.

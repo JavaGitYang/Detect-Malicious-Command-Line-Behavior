@@ -1,0 +1,7 @@
+
+       Write totally ordered list consistent with the partial ordering in
+       FILE.
+       With no FILE, or when FILE is -, read standard input.
+       --help display this help and exit
+       --version
+              output version information and exit

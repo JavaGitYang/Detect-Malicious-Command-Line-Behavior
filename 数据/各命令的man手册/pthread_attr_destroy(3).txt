@@ -1,0 +1,15 @@
+
+       The pthread_attr_init() function initializes the thread attributes
+       object pointed to by attr with default attribute values.  After this
+       call, individual attributes of the object can be set using various
+       related functions (listed under SEE ALSO), and then the object can be
+       used in one or more pthread_create(3) calls that create threads.
+       Calling pthread_attr_init() on a thread attributes object that has
+       already been initialized results in undefined behavior.
+       When a thread attributes object is no longer required, it should be
+       destroyed using the pthread_attr_destroy() function.  Destroying a
+       thread attributes object has no effect on threads that were created
+       using that object.
+       Once a thread attributes object has been destroyed, it can be
+       reinitialized using pthread_attr_init().  Any other use of a
+       destroyed thread attributes object has undefined results.

@@ -1,0 +1,5 @@
+
+       Slaptest is used to check the conformance of the slapd(8)
+       configuration.  It opens the slapd.conf(5) configuration file or the
+       slapd-config(5) backend, and parses it according to the general and
+       the backend-specific rules, checking its sanity.

@@ -1,0 +1,4 @@
+
+       These functions return the (real) cube root of x.  This function
+       cannot fail; every representable real value has a representable real
+       cube root.

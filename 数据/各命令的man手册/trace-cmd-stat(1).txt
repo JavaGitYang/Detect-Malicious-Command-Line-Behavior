@@ -1,0 +1,21 @@
+
+       The trace-cmd(1) stat displays the various status of the tracing
+       (ftrace) system. The status that it shows is:
+       Tracer: if one of the tracers (like function_graph) is active.
+       Otherwise nothing is displayed.
+       Events: Lists the events that are enable.
+       Event filters: Shows any filters that are set for any events
+       Function filters: Shows any filters for the function tracers
+       Graph functions: Shows any functions that the function graph tracer
+       should graph
+       Buffers: Shows the trace buffer size if they have been expanded. By
+       default, tracing buffers are in a compressed format until they are
+       used. If they are compressed, the buffer display will not be shown.
+       Trace clock: If the tracing clock is anything other than the default
+       "local" it will be displayed.
+       Trace CPU mask: If not all available CPUs are in the tracing CPU
+       mask, then the tracing CPU mask will be displayed.
+       Trace max latency: Shows the value of the trace max latency if it is
+       other than zero.
+       Kprobes: Shows any kprobes that are defined for tracing.
+       Uprobes: Shows any uprobes that are defined for tracing.

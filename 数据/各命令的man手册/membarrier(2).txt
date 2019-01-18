@@ -1,0 +1,109 @@
+
+       The membarrier() system call helps reducing the overhead of the
+       memory barrier instructions required to order memory accesses on
+       multi-core systems.  However, this system call is heavier than a
+       memory barrier, so using it effectively is not as simple as replacing
+       memory barriers with this system call, but requires understanding of
+       the details below.
+       Use of memory barriers needs to be done taking into account that a
+       memory barrier always needs to be either matched with its memory
+       barrier counterparts, or that the architecture's memory model doesn't
+       require the matching barriers.
+       There are cases where one side of the matching barriers (which we
+       will refer to as "fast side") is executed much more often than the
+       other (which we will refer to as "slow side").  This is a prime
+       target for the use of membarrier().  The key idea is to replace, for
+       these matching barriers, the fast-side memory barriers by simple
+       compiler barriers, for example:
+           asm volatile ("" : : : "memory")
+       and replace the slow-side memory barriers by calls to membarrier().
+       This will add overhead to the slow side, and remove overhead from the
+       fast side, thus resulting in an overall performance increase as long
+       as the slow side is infrequent enough that the overhead of the mem‐
+       barrier() calls does not outweigh the performance gain on the fast
+       side.
+       The cmd argument is one of the following:
+       MEMBARRIER_CMD_QUERY (since Linux 4.3)
+              Query the set of supported commands.  The return value of the
+              call is a bit mask of supported commands.  MEMBAR‐
+              RIER_CMD_QUERY, which has the value 0, is not itself included
+              in this bit mask.  This command is always supported (on ker‐
+              nels where membarrier() is provided).
+       MEMBARRIER_CMD_GLOBAL (since Linux 4.16)
+              Ensure that all threads from all processes on the system pass
+              through a state where all memory accesses to user-space
+              addresses match program order between entry to and return from
+              the membarrier() system call.  All threads on the system are
+              targeted by this command.
+       MEMBARRIER_CMD_GLOBAL_EXPEDITED (since Linux 4.16)
+              Execute a memory barrier on all running threads of all pro‐
+              cesses that previously registered with MEMBARRIER_CMD_REGIS‐
+              TER_GLOBAL_EXPEDITED.
+              Upon return from the system call, the calling thread has a
+              guarantee that all running threads have passed through a state
+              where all memory accesses to user-space addresses match pro‐
+              gram order between entry to and return from the system call
+              (non-running threads are de facto in such a state).  This
+              guarantee is provided only for the threads of processes that
+              previously registered with MEMBARRIER_CMD_REGIS‐
+              TER_GLOBAL_EXPEDITED.
+              Given that registration is about the intent to receive the
+              barriers, it is valid to invoke MEMBARRIER_CMD_GLOBAL_EXPE‐
+              DITED from a process that has not employed MEMBARRIER_CMD_REG‐
+              ISTER_GLOBAL_EXPEDITED.
+              The "expedited" commands complete faster than the non-expe‐
+              dited ones; they never block, but have the downside of causing
+              extra overhead.
+       MEMBARRIER_CMD_REGISTER_GLOBAL_EXPEDITED (since Linux 4.16)
+              Register the process's intent to receive MEMBAR‐
+              RIER_CMD_GLOBAL_EXPEDITED memory barriers.
+       MEMBARRIER_CMD_PRIVATE_EXPEDITED (since Linux 4.14)
+              Execute a memory barrier on each running thread belonging to
+              the same process as the calling thread.
+              Upon return from the system call, the calling thread has a
+              guarantee that all its running thread siblings have passed
+              through a state where all memory accesses to user-space
+              addresses match program order between entry to and return from
+              the system call (non-running threads are de facto in such a
+              state).  This guarantee is provided only for threads in the
+              same process as the calling thread.
+              The "expedited" commands complete faster than the non-expe‐
+              dited ones; they never block, but have the downside of causing
+              extra overhead.
+              A process must register its intent to use the private expe‐
+              dited command prior to using it.
+       MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED (since Linux 4.14)
+              Register the process's intent to use MEMBARRIER_CMD_PRI‐
+              VATE_EXPEDITED.
+       MEMBARRIER_CMD_PRIVATE_EXPEDITED_SYNC_CORE (since Linux 4.16)
+              In addition to providing the memory ordering guarantees
+              described in MEMBARRIER_CMD_PRIVATE_EXPEDITED, upon return
+              from system call the calling thread has a guarantee that all
+              its running thread siblings have executed a core serializing
+              instruction.  This guarantee is provided only for threads in
+              the same process as the calling thread.
+              The "expedited" commands complete faster than the non-expe‐
+              dited ones, they never block, but have the downside of causing
+              extra overhead.
+              A process must register its intent to use the private expe‐
+              dited sync core command prior to using it.
+       MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED_SYNC_CORE (since Linux
+       4.16)
+              Register the process's intent to use MEMBARRIER_CMD_PRI‐
+              VATE_EXPEDITED_SYNC_CORE.
+       MEMBARRIER_CMD_SHARED (since Linux 4.3)
+              This is an alias for MEMBARRIER_CMD_GLOBAL that exists for
+              header backward compatibility.
+       The flags argument is currently unused and must be specified as 0.
+       All memory accesses performed in program order from each targeted
+       thread are guaranteed to be ordered with respect to membarrier().
+       If we use the semantic barrier() to represent a compiler barrier
+       forcing memory accesses to be performed in program order across the
+       barrier, and smp_mb() to represent explicit memory barriers forcing
+       full memory ordering across the barrier, we have the following order‐
+       ing table for each pairing of barrier(), membarrier() and smp_mb().
+       The pair ordering is detailed as (O: ordered, X: not ordered):
+                              barrier()  smp_mb()  membarrier()
+              barrier()          X          X          O
+              smp_mb()           X          O          O
+              membarrier()       O          O          O

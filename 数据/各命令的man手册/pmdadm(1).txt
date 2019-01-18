@@ -1,0 +1,8 @@
+
+       pmdadm is a Performance Metrics Domain Agent (PMDA) which exports
+       metric values for Device Mapper on the local system.
+       This PMDA collects its data through the dmsetup(8) utility, dmstats
+       API and requires that the program is installed in order to function.
+       In addition, at least a statistics region must be created to use
+       dmstats(8) in order to get the basic counter value.
+       Further details on device mapper can be found at http://redhat.com

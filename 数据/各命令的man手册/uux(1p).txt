@@ -1,0 +1,57 @@
+
+       The uux utility shall gather zero or more files from various systems,
+       execute a shell pipeline (see Section 2.9, Shell Commands) on a
+       specified system, and then send the standard output of the command to
+       a file on a specified system. Only the first command of a pipeline
+       can have a system-name!  prefix. All other commands in the pipeline
+       shall be executed on the system of the first command.
+       The following restrictions are applicable to the shell pipeline
+       processed by uux:
+        *  In gathering files from different systems, pathname expansion
+           shall not be performed by uux.  Thus, a request such as:
+               uux "c99 remsys!~/*.c"
+           would attempt to copy the file named literally *.c to the local
+           system.
+        *  The redirection operators ">>", "<<", ">|", and ">&" shall not be
+           accepted. Any use of these redirection operators shall cause this
+           utility to write an error message describing the problem and exit
+           with a non-zero exit status.
+        *  The reserved word !  cannot be used at the head of the pipeline
+           to modify the exit status.  (See the command-string operand
+           description below.)
+        *  Alias substitution shall not be performed.
+       A filename can be specified as for uucp; it can be an absolute
+       pathname, a pathname preceded by ~name (which is replaced by the
+       corresponding login directory), a pathname specified as ~/dest (dest
+       is prefixed by the public directory called PUBDIR; the actual
+       location of PUBDIR is implementation-defined), or a simple filename
+       (which is prefixed by uux with the current directory). See uucp(1p)
+       for the details.
+       The execution of commands on remote systems shall take place in an
+       execution directory known to the uucp system. All files required for
+       the execution shall be put into this directory unless they already
+       reside on that machine. Therefore, the application shall ensure that
+       non-local filenames (without path or machine reference) are unique
+       within the uux request.
+       The uux utility shall attempt to get all files to the execution
+       system. For files that are output files, the application shall ensure
+       that the filename is escaped using parentheses.
+       The remote system shall notify the user by mail if the requested
+       command on the remote system was disallowed or the files were not
+       accessible. This notification can be turned off by the −n option.
+       Typical implementations of this utility require a communications line
+       configured to use the Base Definitions volume of POSIX.1‐2008,
+       Chapter 11, General Terminal Interface, but other communications
+       means may be used. On systems where there are no available
+       communications means (either temporarily or permanently), this
+       utility shall write an error message describing the problem and exit
+       with a non-zero exit status.
+       The uux utility cannot guarantee support for all character encodings
+       in all circumstances. For example, transmission data may be
+       restricted to 7 bits by the underlying network, 8-bit data and
+       filenames need not be portable to non-internationalized systems, and
+       so on. Under these circumstances, it is recommended that only
+       characters defined in the ISO/IEC 646:1991 standard International
+       Reference Version (equivalent to ASCII) 7-bit range of characters be
+       used and that only characters defined in the portable filename
+       character set be used for naming files.

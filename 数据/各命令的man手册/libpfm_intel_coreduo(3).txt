@@ -1,0 +1,3 @@
+
+       The library supports all Intel Yonah-based processors such as Intel
+       Core Duo and Intel Core Solo processors.

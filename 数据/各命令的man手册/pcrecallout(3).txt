@@ -1,0 +1,34 @@
+
+       PCRE provides a feature called "callout", which is a means of
+       temporarily passing control to the caller of PCRE in the middle of
+       pattern matching. The caller of PCRE provides an external function by
+       putting its entry point in the global variable pcre_callout
+       (pcre16_callout for the 16-bit library, pcre32_callout for the 32-bit
+       library). By default, this variable contains NULL, which disables all
+       calling out.
+       Within a regular expression, (?C) indicates the points at which the
+       external function is to be called. Different callout points can be
+       identified by putting a number less than 256 after the letter C. The
+       default value is zero.  For example, this pattern has two callout
+       points:
+         (?C1)abc(?C2)def
+       If the PCRE_AUTO_CALLOUT option bit is set when a pattern is
+       compiled, PCRE automatically inserts callouts, all with number 255,
+       before each item in the pattern. For example, if PCRE_AUTO_CALLOUT is
+       used with the pattern
+         A(\d{2}|--)
+       it is processed as if it were
+       (?C255)A(?C255)((?C255)\d{2}(?C255)|(?C255)-(?C255)-(?C255))(?C255)
+       Notice that there is a callout before and after each parenthesis and
+       alternation bar. If the pattern contains a conditional group whose
+       condition is an assertion, an automatic callout is inserted
+       immediately before the condition. Such a callout may also be inserted
+       explicitly, for example:
+         (?(?C9)(?=a)ab|de)
+       This applies only to assertion conditions (because they are
+       themselves independent groups).
+       Automatic callouts can be used for tracking the progress of pattern
+       matching.  The pcretest program has a pattern qualifier (/C) that
+       sets automatic callouts; when it is used, the output indicates how
+       the pattern is being matched. This is useful information when you are
+       trying to optimize the performance of a particular pattern.

@@ -1,0 +1,11 @@
+
+       The posix_openpt() function opens an unused pseudoterminal master
+       device, returning a file descriptor that can be used to refer to that
+       device.
+       The flags argument is a bit mask that ORs together zero or more of
+       the following flags:
+       O_RDWR Open the device for both reading and writing.  It is usual to
+              specify this flag.
+       O_NOCTTY
+              Do not make this device the controlling terminal for the
+              process.

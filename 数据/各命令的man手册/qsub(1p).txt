@@ -1,0 +1,24 @@
+
+       To submit a script is to create a batch job that executes the script.
+       A script is submitted by a request to a batch server. The qsub
+       utility is a user-accessible batch client that submits a script.
+       Upon successful completion, the qsub utility shall have created a
+       batch job that will execute the submitted script.
+       The qsub utility shall submit a script by sending a Queue Job Request
+       to a batch server.
+       The qsub utility shall place the value of the following environment
+       variables in the Variable_List attribute of the batch job: HOME,
+       LANG, LOGNAME, PATH, MAIL, SHELL, and TZ.  The name of the
+       environment variable shall be the current name prefixed with the
+       string PBS_O_.
+       Note:     If the current value of the HOME variable in the
+                 environment space of the qsub utility is /aa/bb/cc, then
+                 qsub shall place PBS_O_HOME=/aa/bb/cc in the Variable_List
+                 attribute of the batch job.
+       In addition to the variables described above, the qsub utility shall
+       add the following variables with the indicated values to the variable
+       list:
+       PBS_O_WORKDIR The absolute path of the current working directory of
+                     the qsub utility process.
+       PBS_O_HOST    The name of the host on which the qsub utility is
+                     running.

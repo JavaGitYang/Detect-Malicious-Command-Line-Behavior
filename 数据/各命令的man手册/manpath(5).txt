@@ -1,0 +1,7 @@
+
+       The manpath configuration file is used by the manual page utilities
+       to assess users' manpaths at run time, to indicate which manual page
+       hierarchies (manpaths) are to be treated as system hierarchies and to
+       assign them directories to be used for storing cat files.
+       If the environment variable $MANPATH is already set, the information
+       contained within /usr/local/etc/man_db.conf will not override it.

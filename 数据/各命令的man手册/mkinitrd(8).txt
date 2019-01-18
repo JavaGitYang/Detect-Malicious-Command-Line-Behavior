@@ -1,0 +1,6 @@
+
+       mkinitrd creates an initramfs image <initrd-image> for the kernel
+       with version <kernel-version> by calling "dracut".
+           Important
+           If a more fine grained control over the resulting image is
+           needed, "dracut" should be called directly.

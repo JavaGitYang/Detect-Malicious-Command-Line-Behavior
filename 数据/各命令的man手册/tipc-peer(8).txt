@@ -1,0 +1,4 @@
+
+   Peer remove
+       Remove an offline peer node from the local data structures. The peer
+       is identified by its address

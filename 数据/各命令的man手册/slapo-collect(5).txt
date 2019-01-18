@@ -1,0 +1,9 @@
+
+       The collect overlay is used to provide a relatively coarse
+       implementation of RFC 3671 collective attributes.  In X.500, a
+       collective attribute is "a user attribute whose values are the same
+       for each member of an entry collection".
+       Collective attributes are added to entries returned by a search
+       operation when the entry is within the scope of the related ancestor.
+       Collective attributes can only be modified when the modification
+       affects the related ancestor.

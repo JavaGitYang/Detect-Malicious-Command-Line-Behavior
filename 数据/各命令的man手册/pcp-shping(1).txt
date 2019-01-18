@@ -1,0 +1,16 @@
+
+       pcp-shping samples and reports on the shell-ping service metrics
+       exported by the pmdashping(1) agent.
+       The default report from pcp-shping shows two columns for each service
+       tag, the first showing service status (zero indicating success) and
+       the second service response time, for the last pmdashping command
+       refresh cycle.
+       When invoked via the pcp(1) command, the -h/--host, -a/--archive,
+       -O/--origin, -s/--samples, -t/--interval, -Z/--timezone and several
+       other options become indirectly available.
+   Options
+       The -c/--status switch displays a summary of the current shell-ping
+       collector - information about service refresh interval, the current
+       command timeout setting, count of refreshes, and the full command
+       line associated with each tag.
+       The -l/--tags switch displays the valid tags.

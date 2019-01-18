@@ -1,0 +1,8 @@
+
+       selinux_getenforcemode() Reads the contents of the
+       /etc/selinux/config file to determine how the system was setup to run
+       SELinux.
+       Sets the value of enforce to 1 if SELinux should be run in enforcing
+       mode.  Sets the value of enforce to 0 if SELinux should be run in
+       permissive mode.  Sets the value of enforce to -1 if SELinux should
+       be disabled.

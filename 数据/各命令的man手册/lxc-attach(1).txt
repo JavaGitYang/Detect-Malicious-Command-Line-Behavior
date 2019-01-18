@@ -1,0 +1,19 @@
+
+       lxc-attach runs the specified command inside the container specified
+       by name. The container has to be running already.
+       If no command is specified, the current default shell of the user
+       running lxc-attach will be looked up inside the container and
+       executed. This will fail if no such user exists inside the container
+       or the container does not have a working nsswitch mechanism.
+       Previous versions of lxc-attach simply attached to the specified
+       namespaces of a container and ran a shell or the specified command
+       without first allocating a pseudo terminal. This made them vulnerable
+       to input faking via a TIOCSTI ioctl call after switching between
+       userspace execution contexts with different privilege levels. Newer
+       versions of lxc-attach will try to allocate a pseudo terminal
+       master/slave pair on the host and attach any standard file
+       descriptors which refer to a terminal to the slave side of the pseudo
+       terminal before executing a shell or command. Note, that if none of
+       the standard file descriptors refer to a terminal lxc-attach will not
+       try to allocate a pseudo terminal. Instead it will simply attach to
+       the containers namespaces and run a shell or the specified command.

@@ -1,0 +1,5 @@
+
+       The hardware database is a key-value store for associating
+       modalias-like keys to udev-property-like values. It is used primarily
+       by udev to add the relevant properties to matching devices, but it
+       can also be queried directly.

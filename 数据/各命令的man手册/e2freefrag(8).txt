@@ -1,0 +1,11 @@
+
+       e2freefrag is used to report free space fragmentation on ext2/3/4
+       file systems.  filesys is the filesystem device name (e.g.
+       /dev/hdc1, /dev/md0).  The e2freefrag program will scan the block
+       bitmap information to check how many free blocks are present as
+       contiguous and aligned free space. The percentage of contiguous free
+       blocks of size and of alignment chunk_kb is reported.  It also
+       displays the minimum/maximum/average free chunk size in the
+       filesystem, along with a histogram of all free chunks.  This
+       information can be used to gauge the level of free space
+       fragmentation in the filesystem.

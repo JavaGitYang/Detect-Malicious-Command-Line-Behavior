@@ -1,0 +1,4 @@
+
+       The library supports the Intel Broadwell Server Home Agent (HA)
+       uncore PMU.  This PMU model only exists on various Broadwell models
+       (79, 86).

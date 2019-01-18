@@ -1,0 +1,112 @@
+
+       pmwebd is a network daemon that binds a subset of the Performance Co-
+       Pilot (PCP) client API (PMAPI(3)) to RESTful web applications using
+       the HTTP (PMWEBAPI(3)) protocol.  Web clients request a URI with the
+       prefix /pmapi to access the bindings.  pmwebd creates PCP contexts as
+       requested by a dynamic pool of remote clients, and maintains them as
+       long as the clients regularly reconnect to request PMAPI operations.
+       Otherwise, PCP contexts are closed after a timeout.  Permanent
+       contexts may be requested on the command line.
+       In addition to the API binding, pmwebd may be optionally configured
+       as a simple HTTP file server, in order to feed the web application
+       itself to a web browser.  URIs not matching the /pmapi prefix are
+       mapped to files under the configured resource directory, if the -R
+       option was given.
+       In addition, pmwebd may be optionally configured as a server of a
+       subset of the graphite 0.9.12 web API, for URLs with the /graphite
+       prefix, in order to expose PCP archives to interactive data-graphing
+       web applications.
+       The options to pmwebd are as follows.
+       -p port
+              Set the TCP port number on which pmwebd will listen for HTTP
+              requests.  The default is 44323.
+       -4 or -6
+              Listen only on IPv4 or IPv6.  By default, pmwebd will listen
+              on both protocols, if possible.
+       -A archdir
+              Limit remote access to archives to only those beneath the
+              given directory.  For performance, symbolic links to other
+              directories may not be followed.  By default, only files
+              beneath the initial pmwebd working directory may be accessed.
+       -R resdir
+              Activate file serving beneath the given resource directory.
+              All regular files there may be read and transcribed to remote
+              clients.  By default, file serving is disabled.
+       -G     Activate servicing of a subset of the graphite webapi.  This
+              exposes all PCP archives under the -A directory to remote
+              clients.  By default, graphite webapi serving is disabled.  To
+              use the graphite and/or grafana web applications included with
+              pmwebd, use both -G and -R, and connect your web browser to
+              http://127.0.0.1:43323/ 
+       -X     Disable encoding of common characters for metric names, which
+              allows shorter graphite metric names.
+       -i min-interval
+              Set the minimum sampling interval for graphite time series in
+              seconds.  The default is 60.  Smaller values give higher pre‐
+              cision (but not necessarily accuracy) data, but may cost extra
+              processing time at pmwebd or the web browser; and vice versa.
+       -J     When constructing graphite metric names, use the stored host‐
+              name instead of a archive pathname as the first component.
+              This virtually unifies all archives found with the same host‐
+              name into a single time series.  The host name is canonical‐
+              ized: any symbol characters other than _ (underscore), space,
+              - (hyphen), and / (slash) are replaced by _ (underscore).
+       -t timeout
+              Set the maximum timeout (in seconds) after the last operation
+              on a pmapi web context, before it is closed by pmwebd.  A
+              smaller timeout may be requested by the web client. The de‐
+              fault is 300.
+       -c number
+              Reset the next PMWEBAPI permanent context identifier as given.
+              The default is 1.
+       -h hostname or -a archive or -L
+              Assign the next permanent PMWEBAPI context identifier to a
+              PMAPI connection to the given host (with an extended syntax as
+              given in PCPIntro(1)), or archive file, or the PM_CONTEXT_LO‐
+              CAL.
+       -C     Mandatory authentication mode, where all host specifications
+              at context creation time must be accompanied by credentials
+              (username and password).  These are then passed to pmcd(1)
+              when creating the context.  In addition, subsequent PMAPI con‐
+              text operations require matching HTTP Basic authentication
+              credentials.  This setting is incompatible with the permissive
+              mode of operation.
+       -P     Run in permissive mode, allowing Unix domain socket connec‐
+              tions and/or local PMDA contexts.  By default these are not
+              allowed due to the automatic authentication that is performed
+              on the server in these modes.  Only enable this option if you
+              understand the risks involved, and are sure that all remote
+              pmwebd accesses will be from benevolent users.  If enabled,
+              unauthenticated remote PMWEBAPI(3) clients will be able to ac‐
+              cess potentially sensitive performance metric values which an
+              unauthenticated PMAPI(3) client usually would not be able to.
+              Refer to CVE-2012-3419 for additional details.
+       -N     Disable creation of new PMWEBAPI contexts via HTTP requests,
+              leaving only permanent ones accessible.
+       -K spec
+              When fetching metrics from a local context, the -K option may
+              be used to control the DSO PMDAs that should be made accessi‐
+              ble.  The spec argument conforms to the syntax described in
+              pmSpecLocalPMDA(3).  More than one -K option may be used.
+       -l logfile
+              By default, logging goes to standard output/error file han‐
+              dles.  The verbosity flag -v affects the amount of traffic.
+              The -l option causes the log file to be written to logfile in‐
+              stead.  If the log file cannot be created or is not writable,
+              output is written to the standard error instead.
+       -U username
+              If invoked as root, assume the identity of username before
+              starting to accept incoming requests from web clients.
+       -S     Disable service advertisement.  By default, pmwebd will adver‐
+              tise its presence on the network using any available mecha‐
+              nisms (such as Avahi/DNS-SD), assisting remote monitoring
+              tools with finding it.  These mechanisms are disabled with
+              this option.
+       -x file
+              Before the pmwebd logfile can be opened, pmwebd may encounter
+              a fatal error which prevents it from starting.  By default,
+              the output describing this error is sent to /dev/tty but it
+              may redirected to file.
+       -v     Increase the verbosity of pmwebd as it logs to its standard
+              output/error.
+       -?     Show pmwebd invocation help and exit.

@@ -1,0 +1,4 @@
+
+       This is the function where you can override the default system time
+       function.  The application provided function should behave the same
+       as the standard function.

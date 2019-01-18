@@ -1,0 +1,27 @@
+
+       The fold utility is a filter that shall fold lines from its input
+       files, breaking the lines to have a maximum of width column positions
+       (or bytes, if the −b option is specified). Lines shall be broken by
+       the insertion of a <newline> such that each output line (referred to
+       later in this section as a segment) is the maximum width possible
+       that does not exceed the specified number of column positions (or
+       bytes). A line shall not be broken in the middle of a character. The
+       behavior is undefined if width is less than the number of columns any
+       single character in the input would occupy.
+       If the <carriage-return>, <backspace>, or <tab> characters are
+       encountered in the input, and the −b option is not specified, they
+       shall be treated specially:
+       <backspace>
+                 The current count of line width shall be decremented by
+                 one, although the count never shall become negative. The
+                 fold utility shall not insert a <newline> immediately
+                 before or after any <backspace>, unless the following
+                 character has a width greater than 1 and would cause the
+                 line width to exceed width.
+       <carriage-return>
+                 The current count of line width shall be set to zero. The
+                 fold utility shall not insert a <newline> immediately
+                 before or after any <carriage-return>.
+       <tab>     Each <tab> encountered shall advance the column position
+                 pointer to the next tab stop. Tab stops shall be at each
+                 column position n such that n modulo 8 equals 1.

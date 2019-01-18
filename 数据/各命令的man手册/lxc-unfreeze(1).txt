@@ -1,0 +1,3 @@
+
+       lxc-unfreeze will thaw all the processes previously frozen by the
+       lxc-freeze command.

@@ -1,0 +1,12 @@
+
+       readline will read a line from the terminal and return it, using
+       prompt as a prompt.  If prompt is NULL or the empty string, no prompt
+       is issued.  The line returned is allocated with malloc(3); the caller
+       must free it when finished.  The line returned has the final newline
+       removed, so only the text of the line remains.
+       readline offers editing capabilities while the user is entering the
+       line.  By default, the line editing commands are similar to those of
+       emacs.  A vi-style line editing interface is also available.
+       This manual page describes only the most basic use of readline.  Much
+       more functionality is available; see The GNU Readline Library and The
+       GNU History Library for additional information.

@@ -1,0 +1,5 @@
+
+       setarch currently only affects the output of uname -m.  For example,
+       on an AMD64 system, running setarch i386 program will cause program
+       to see i686 instead of x86_64 as the machine type.  It also allows to
+       set various personality options.  The default program is /bin/sh.

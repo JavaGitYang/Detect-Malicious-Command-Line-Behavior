@@ -1,0 +1,13 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The vfwprintf(), vswprintf(), and vwprintf() functions shall be
+       equivalent to fwprintf(), swprintf(), and wprintf() respectively,
+       except that instead of being called with a variable number of
+       arguments, they are called with an argument list as defined by
+       <stdarg.h>.
+       These functions shall not invoke the va_end macro. However, as these
+       functions do invoke the va_arg macro, the value of ap after the
+       return is unspecified.

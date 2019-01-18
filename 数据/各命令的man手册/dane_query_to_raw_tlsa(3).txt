@@ -1,0 +1,8 @@
+
+       This function will provide the DANE data from the query response.
+       The pointers dane_data and dane_data_len are allocated with
+       gnutls_malloc() to contain the data from the query result structure
+       (individual
+        dane_data items simply point to the original data and are not
+       allocated separately).  The returned  dane_data are only valid during
+       the lifetime of  q .

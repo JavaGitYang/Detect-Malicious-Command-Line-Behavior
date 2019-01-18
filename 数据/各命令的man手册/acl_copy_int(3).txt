@@ -1,0 +1,8 @@
+
+     The acl_copy_int() function copies an exportable, contiguous, persis‐
+     tent form of an ACL, pointed to by buf_p, to the internal representa‐
+     tion.
+     This function may cause memory to be allocated.  The caller should free
+     any releasable memory, when the new ACL is no longer required, by call‐
+     ing acl_free(3) with the (void*)acl_t returned by acl_copy_int() as an
+     argument.

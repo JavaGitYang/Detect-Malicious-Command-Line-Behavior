@@ -1,0 +1,131 @@
+
+       sd_notify() may be called by a service to notify the service manager
+       about state changes. It can be used to send arbitrary information,
+       encoded in an environment-block-like string. Most importantly, it can
+       be used for start-up completion notification.
+       If the unset_environment parameter is non-zero, sd_notify() will
+       unset the $NOTIFY_SOCKET environment variable before returning
+       (regardless of whether the function call itself succeeded or not).
+       Further calls to sd_notify() will then fail, but the variable is no
+       longer inherited by child processes.
+       The state parameter should contain a newline-separated list of
+       variable assignments, similar in style to an environment block. A
+       trailing newline is implied if none is specified. The string may
+       contain any kind of variable assignments, but the following shall be
+       considered well-known:
+       READY=1
+           Tells the service manager that service startup is finished. This
+           is only used by systemd if the service definition file has
+           Type=notify set. Since there is little value in signaling
+           non-readiness, the only value services should send is "READY=1"
+           (i.e.  "READY=0" is not defined).
+       RELOADING=1
+           Tells the service manager that the service is reloading its
+           configuration. This is useful to allow the service manager to
+           track the service's internal state, and present it to the user.
+           Note that a service that sends this notification must also send a
+           "READY=1" notification when it completed reloading its
+           configuration.
+       STOPPING=1
+           Tells the service manager that the service is beginning its
+           shutdown. This is useful to allow the service manager to track
+           the service's internal state, and present it to the user.
+       STATUS=...
+           Passes a single-line UTF-8 status string back to the service
+           manager that describes the service state. This is free-form and
+           can be used for various purposes: general state feedback,
+           fsck-like programs could pass completion percentages and failing
+           programs could pass a human-readable error message. Example:
+           "STATUS=Completed 66% of file system check..."
+       ERRNO=...
+           If a service fails, the errno-style error code, formatted as
+           string. Example: "ERRNO=2" for ENOENT.
+       BUSERROR=...
+           If a service fails, the D-Bus error-style error code. Example:
+           "BUSERROR=org.freedesktop.DBus.Error.TimedOut"
+       MAINPID=...
+           The main process ID (PID) of the service, in case the service
+           manager did not fork off the process itself. Example:
+           "MAINPID=4711"
+       WATCHDOG=1
+           Tells the service manager to update the watchdog timestamp. This
+           is the keep-alive ping that services need to issue in regular
+           intervals if WatchdogSec= is enabled for it. See
+           systemd.service(5) for information how to enable this
+           functionality and sd_watchdog_enabled(3) for the details of how
+           the service can check whether the watchdog is enabled.
+       FDSTORE=1
+           Stores additional file descriptors in the service manager. File
+           descriptors sent this way will be maintained per-service by the
+           service manager and will later be handed back using the usual
+           file descriptor passing logic at the next invocation of the
+           service, see sd_listen_fds(3). This is useful for implementing
+           services that can restart after an explicit request or a crash
+           without losing state. Any open sockets and other file descriptors
+           which should not be closed during the restart may be stored this
+           way. Application state can either be serialized to a file in
+           /run, or better, stored in a memfd_create(2) memory file
+           descriptor. Note that the service manager will accept messages
+           for a service only if its FileDescriptorStoreMax= setting is
+           non-zero (defaults to zero, see systemd.service(5)). If file
+           descriptors sent are pollable (see epoll_ctl(2)), then any
+           EPOLLHUP or EPOLLERR event seen on them will result in their
+           automatic removal from the store. Multiple arrays of file
+           descriptors may be sent in separate messages, in which case the
+           arrays are combined. Note that the service manager removes
+           duplicate (pointing to the same object) file descriptors before
+           passing them to the service. Use sd_pid_notify_with_fds() to send
+           messages with "FDSTORE=1", see below.
+       FDNAME=...
+           When used in combination with FDSTORE=1, specifies a name for the
+           submitted file descriptors. This name is passed to the service
+           during activation, and may be queried using
+           sd_listen_fds_with_names(3). File descriptors submitted without
+           this field set, will implicitly get the name "stored" assigned.
+           Note that, if multiple file descriptors are submitted at once,
+           the specified name will be assigned to all of them. In order to
+           assign different names to submitted file descriptors, submit them
+           in separate invocations of sd_pid_notify_with_fds(). The name may
+           consist of any ASCII character, but must not contain control
+           characters or ":". It may not be longer than 255 characters. If a
+           submitted name does not follow these restrictions, it is ignored.
+       WATCHDOG_USEC=...
+           Reset watchdog_usec value during runtime. Notice that this is not
+           available when using sd_event_set_watchdog() or
+           sd_watchdog_enabled(). Example : "WATCHDOG_USEC=20000000"
+       It is recommended to prefix variable names that are not listed above
+       with X_ to avoid namespace clashes.
+       Note that systemd will accept status data sent from a service only if
+       the NotifyAccess= option is correctly set in the service definition
+       file. See systemd.service(5) for details.
+       Note that sd_notify() notifications may be attributed to units
+       correctly only if either the sending process is still around at the
+       time PID 1 processes the message, or if the sending process is
+       explicitly runtime-tracked by the service manager. The latter is the
+       case if the service manager originally forked off the process, i.e.
+       on all processes that match NotifyAccess=main or NotifyAccess=exec.
+       Conversely, if an auxiliary process of the unit sends an sd_notify()
+       message and immediately exits, the service manager might not be able
+       to properly attribute the message to the unit, and thus will ignore
+       it, even if NotifyAccess=all is set for it.
+       sd_notifyf() is similar to sd_notify() but takes a printf()-like
+       format string plus arguments.
+       sd_pid_notify() and sd_pid_notifyf() are similar to sd_notify() and
+       sd_notifyf() but take a process ID (PID) to use as originating PID
+       for the message as first argument. This is useful to send
+       notification messages on behalf of other processes, provided the
+       appropriate privileges are available. If the PID argument is
+       specified as 0, the process ID of the calling process is used, in
+       which case the calls are fully equivalent to sd_notify() and
+       sd_notifyf().
+       sd_pid_notify_with_fds() is similar to sd_pid_notify() but takes an
+       additional array of file descriptors. These file descriptors are sent
+       along the notification message to the service manager. This is
+       particularly useful for sending "FDSTORE=1" messages, as described
+       above. The additional arguments are a pointer to the file descriptor
+       array plus the number of file descriptors in the array. If the number
+       of file descriptors is passed as 0, the call is fully equivalent to
+       sd_pid_notify(), i.e. no file descriptors are passed. Note that
+       sending file descriptors to the service manager on messages that do
+       not expect them (i.e. without "FDSTORE=1") they are immediately
+       closed on reception.

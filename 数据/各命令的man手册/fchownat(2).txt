@@ -1,0 +1,51 @@
+
+       These system calls change the owner and group of a file.  The
+       chown(), fchown(), and lchown() system calls differ only in how the
+       file is specified:
+       * chown() changes the ownership of the file specified by pathname,
+         which is dereferenced if it is a symbolic link.
+       * fchown() changes the ownership of the file referred to by the open
+         file descriptor fd.
+       * lchown() is like chown(), but does not dereference symbolic links.
+       Only a privileged process (Linux: one with the CAP_CHOWN capability)
+       may change the owner of a file.  The owner of a file may change the
+       group of the file to any group of which that owner is a member.  A
+       privileged process (Linux: with CAP_CHOWN) may change the group
+       arbitrarily.
+       If the owner or group is specified as -1, then that ID is not
+       changed.
+       When the owner or group of an executable file is changed by an
+       unprivileged user, the S_ISUID and S_ISGID mode bits are cleared.
+       POSIX does not specify whether this also should happen when root does
+       the chown(); the Linux behavior depends on the kernel version, and
+       since Linux 2.2.13, root is treated like other users.  In case of a
+       non-group-executable file (i.e., one for which the S_IXGRP bit is not
+       set) the S_ISGID bit indicates mandatory locking, and is not cleared
+       by a chown().
+       When the owner or group of an executable file is changed (by any
+       user), all capability sets for the file are cleared.
+   fchownat()
+       The fchownat() system call operates in exactly the same way as
+       chown(), except for the differences described here.
+       If the pathname given in pathname is relative, then it is interpreted
+       relative to the directory referred to by the file descriptor dirfd
+       (rather than relative to the current working directory of the calling
+       process, as is done by chown() for a relative pathname).
+       If pathname is relative and dirfd is the special value AT_FDCWD, then
+       pathname is interpreted relative to the current working directory of
+       the calling process (like chown()).
+       If pathname is absolute, then dirfd is ignored.
+       The flags argument is a bit mask created by ORing together 0 or more
+       of the following values;
+       AT_EMPTY_PATH (since Linux 2.6.39)
+              If pathname is an empty string, operate on the file referred
+              to by dirfd (which may have been obtained using the open(2)
+              O_PATH flag).  In this case, dirfd can refer to any type of
+              file, not just a directory.  If dirfd is AT_FDCWD, the call
+              operates on the current working directory.  This flag is
+              Linux-specific; define _GNU_SOURCE to obtain its definition.
+       AT_SYMLINK_NOFOLLOW
+              If pathname is a symbolic link, do not dereference it: instead
+              operate on the link itself, like lchown().  (By default,
+              fchownat() dereferences symbolic links, like chown().)
+       See openat(2) for an explanation of the need for fchownat().

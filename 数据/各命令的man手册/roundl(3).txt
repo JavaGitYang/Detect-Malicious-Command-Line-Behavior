@@ -1,0 +1,5 @@
+
+       These functions round x to the nearest integer, but round halfway
+       cases away from zero (regardless of the current rounding direction,
+       see fenv(3)), instead of to the nearest even integer like rint(3).
+       For example, round(0.5) is 1.0, and round(-0.5) is -1.0.

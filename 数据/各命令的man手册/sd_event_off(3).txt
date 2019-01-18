@@ -1,0 +1,24 @@
+
+       sd_event_source_set_enabled() may be used to enable or disable the
+       event source object specified as source. The enabled parameter takes
+       one of SD_EVENT_ON (to enable), SD_EVENT_OFF (to disable) or
+       SD_EVENT_ONESHOT. If invoked with SD_EVENT_ONESHOT the event source
+       will be enabled but automatically reset to SD_EVENT_OFF after the
+       event source was dispatched once.
+       Event sources that are disabled will not result in event loop wakeups
+       and will not be dispatched, until they are enabled again.
+       sd_event_source_get_enabled() may be used to query whether the event
+       source object source is currently enabled or not. It returns the
+       enablement state in enabled.
+       Event source objects are enabled when they are first created with
+       calls such as sd_event_add_io(3), sd_event_add_time(3). However,
+       depending on the event source type they are enabled continuously
+       (SD_EVENT_ON) or only for a single invocation of the event source
+       handler (SD_EVENT_ONESHOT). For details see the respective manual
+       pages.
+       As event source objects stay active and may be dispatched as long as
+       there is at least one reference to them, in many cases it is a good
+       idea to combine a call to sd_event_source_unref(3) with a prior call
+       to sd_event_source_set_enabled() with SD_EVENT_OFF, to ensure the
+       event source is not dispatched again until all other remaining
+       references are dropped.

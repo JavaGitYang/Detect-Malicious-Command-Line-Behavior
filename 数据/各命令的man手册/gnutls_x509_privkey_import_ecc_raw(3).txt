@@ -1,0 +1,4 @@
+
+       This function will convert the given elliptic curve parameters to the
+       native gnutls_x509_privkey_t format.  The output will be stored in
+       key . For EdDSA keys, the  x and  k values will be read.

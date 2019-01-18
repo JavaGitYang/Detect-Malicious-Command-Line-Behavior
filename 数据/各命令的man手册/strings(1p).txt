@@ -1,0 +1,7 @@
+
+       The strings utility shall look for printable strings in regular files
+       and shall write those strings to standard output. A printable string
+       is any sequence of four (by default) or more printable characters
+       terminated by a <newline> or NUL character. Additional
+       implementation-defined strings may be written; see localedef.
+       If the first argument is '−', the results are unspecified.

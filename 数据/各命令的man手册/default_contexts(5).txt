@@ -1,0 +1,20 @@
+
+       The default contexts configuration file default_contexts contains
+       entries that allow SELinux-aware login applications such as PAM(8)
+       SELinux-aware login applications generally use one or more of the
+       following libselinux functions that read these files from the active
+       policy path:
+              get_default_context(3)
+              get_ordered_context_list(3)
+              get_ordered_context_list_with_level(3)
+              get_default_context_with_level(3)
+              get_default_context_with_role(3)
+              get_default_context_with_rolelevel(3)
+              query_user_context(3)
+              manual_user_enter_context(3)
+       The default context configuration file path for the active policy is
+       returned by selinux_default_contexts_path(3). The default, default
+       contexts file is:
+              /etc/selinux/{SELINUXTYPE}/contexts/default_contexts
+       Where {SELINUXTYPE} is the entry from the selinux configuration file
+       config (see selinux_config(5)).

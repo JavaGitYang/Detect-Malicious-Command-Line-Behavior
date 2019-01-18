@@ -1,0 +1,4 @@
+
+       This function will return the expiration and activation times of the
+       private key of the certificate. It relies on the PKIX extension
+       2.5.29.16 being present.

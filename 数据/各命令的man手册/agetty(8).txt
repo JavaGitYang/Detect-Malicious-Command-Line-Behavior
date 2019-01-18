@@ -1,0 +1,29 @@
+
+       agetty  opens  a  tty  port, prompts for a login name and invokes the
+       /bin/login command.  It is normally invoked by init(8).
+       agetty  has  several  non-standard  features  that  are  useful   for
+       hardwired and for dial-in lines:
+       ·      Adapts  the  tty  settings  to parity bits and to erase, kill,
+              end-of-line and uppercase characters when  it  reads  a  login
+              name.  The program can handle 7-bit characters with even, odd,
+              none or space parity, and 8-bit  characters  with  no  parity.
+              The  following  special  characters  are recognized: Control-U
+              (kill); DEL and backspace (erase); carriage  return  and  line
+              feed   (end   of   line).   See  also  the  --erase-chars  and
+              --kill-chars options.
+       ·      Optionally deduces the baud rate  from  the  CONNECT  messages
+              produced by Hayes(tm)-compatible modems.
+       ·      Optionally does not hang up when it is given an already opened
+              line (useful for call-back applications).
+       ·      Optionally does not display the  contents  of  the  /etc/issue
+              file.
+       ·      Optionally  displays  an  alternative  issue file or directory
+              instead of /etc/issue or /etc/issue.d.
+       ·      Optionally does not ask for a login name.
+       ·      Optionally invokes a non-standard  login  program  instead  of
+              /bin/login.
+       ·      Optionally turns on hardware flow control.
+       ·      Optionally  forces  the  line  to  be  local  with no need for
+              carrier detect.
+       This  program  does  not  use  the  /etc/gettydefs  (System   V)   or
+       /etc/gettytab (SunOS 4) files.

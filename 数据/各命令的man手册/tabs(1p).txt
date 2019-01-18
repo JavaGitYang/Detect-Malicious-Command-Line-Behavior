@@ -1,0 +1,14 @@
+
+       The tabs utility shall display a series of characters that first
+       clears the hardware terminal tab settings and then initializes the
+       tab stops at the specified positions and optionally adjusts the
+       margin.
+       The phrase ``tab-stop position N'' shall be taken to mean that, from
+       the start of a line of output, tabbing to position N shall cause the
+       next character output to be in the (N+1)th column position on that
+       line. The maximum number of tab stops allowed is terminal-dependent.
+       It need not be possible to implement tabs on certain terminals. If
+       the terminal type obtained from the TERM environment variable or −T
+       option represents such a terminal, an appropriate diagnostic message
+       shall be written to standard error and tabs shall exit with a status
+       greater than zero.

@@ -1,0 +1,39 @@
+
+       The ftw() function shall recursively descend the directory hierarchy
+       rooted in path.  For each object in the hierarchy, ftw() shall call
+       the function pointed to by fn, passing it a pointer to a null-
+       terminated character string containing the name of the object, a
+       pointer to a stat structure containing information about the object,
+       filled in as if stat() or lstat() had been called to retrieve the
+       information. Possible values of the integer, defined in the <ftw.h>
+       header, are:
+       FTW_D     For a directory.
+       FTW_DNR   For a directory that cannot be read.
+       FTW_F     For a non-directory file.
+       FTW_SL    For a symbolic link (but see also FTW_NS below).
+       FTW_NS    For an object other than a symbolic link on which stat()
+                 could not successfully be executed. If the object is a
+                 symbolic link and stat() failed, it is unspecified whether
+                 ftw() passes FTW_SL or FTW_NS to the user-supplied
+                 function.
+       If the integer is FTW_DNR, descendants of that directory shall not be
+       processed. If the integer is FTW_NS, the stat structure contains
+       undefined values. An example of an object that would cause FTW_NS to
+       be passed to the function pointed to by fn would be a file in a
+       directory with read but without execute (search) permission.
+       The ftw() function shall visit a directory before visiting any of its
+       descendants.
+       The ftw() function shall use at most one file descriptor for each
+       level in the tree.
+       The argument ndirs should be in the range [1,{OPEN_MAX}].
+       The tree traversal shall continue until either the tree is exhausted,
+       an invocation of fn returns a non-zero value, or some error, other
+       than [EACCES], is detected within ftw().
+       The ndirs argument shall specify the maximum number of directory
+       streams or file descriptors or both available for use by ftw() while
+       traversing the tree. When ftw() returns it shall close any directory
+       streams and file descriptors it uses not counting any opened by the
+       application-supplied fn function.
+       The results are unspecified if the application-supplied fn function
+       does not preserve the current working directory.
+       The ftw() function need not be thread-safe.

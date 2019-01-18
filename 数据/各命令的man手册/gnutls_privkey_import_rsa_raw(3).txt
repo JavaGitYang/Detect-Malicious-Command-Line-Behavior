@@ -1,0 +1,4 @@
+
+       This function will convert the given RSA raw parameters to the native
+       gnutls_privkey_t format.  The output will be stored in
+        key .

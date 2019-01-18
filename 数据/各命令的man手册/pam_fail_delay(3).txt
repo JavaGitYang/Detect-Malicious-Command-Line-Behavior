@@ -1,0 +1,34 @@
+
+       The pam_fail_delay function provides a mechanism by which an
+       application or module can suggest a minimum delay of usec
+       micro-seconds. The function keeps a record of the longest time
+       requested with this function. Should pam_authenticate(3) fail, the
+       failing return to the application is delayed by an amount of time
+       randomly distributed (by up to 50%) about this longest value.
+       Independent of success, the delay time is reset to its zero default
+       value when the PAM service module returns control to the application.
+       The delay occurs after all authentication modules have been called,
+       but before control is returned to the service application.
+       When using this function the programmer should check if it is
+       available with:
+           #ifdef HAVE_PAM_FAIL_DELAY
+               ....
+           #endif /* HAVE_PAM_FAIL_DELAY */
+       For applications written with a single thread that are event driven
+       in nature, generating this delay may be undesirable. Instead, the
+       application may want to register the delay in some other way. For
+       example, in a single threaded server that serves multiple
+       authentication requests from a single event loop, the application
+       might want to simply mark a given connection as blocked until an
+       application timer expires. For this reason the delay function can be
+       changed with the PAM_FAIL_DELAY item. It can be queried and set with
+       pam_get_item(3) and pam_set_item (3) respectively. The value used to
+       set it should be a function pointer of the following prototype:
+           void (*delay_fn)(int retval, unsigned usec_delay, void *appdata_ptr);
+       The arguments being the retval return code of the module stack, the
+       usec_delay micro-second delay that libpam is requesting and the
+       appdata_ptr that the application has associated with the current
+       pamh. This last value was set by the application when it called
+       pam_start(3) or explicitly with pam_set_item(3). Note, if
+       PAM_FAIL_DELAY item is unset (or set to NULL), then no delay will be
+       performed.

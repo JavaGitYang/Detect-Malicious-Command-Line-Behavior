@@ -1,0 +1,11 @@
+
+       This function returns the current file creation mask.  It is
+       equivalent to
+           mode_t getumask(void)
+           {
+               mode_t mask = umask( 0 );
+               umask(mask);
+               return mask;
+           }
+       except that it is documented to be thread-safe (that is, shares a
+       lock with the umask(2) library call).

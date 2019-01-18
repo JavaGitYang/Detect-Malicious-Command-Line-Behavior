@@ -1,0 +1,9 @@
+
+       This program is invoked by request-key on behalf of the kernel when
+       kernel services (such as NFS, CIFS and AFS) want to perform a
+       hostname lookup and the kernel does not have the key cached.  It is
+       not ordinarily intended to be called directly.
+       It can be called in debugging mode to test its functionality by
+       passing a -D flag on the command line.  For this to work, the key
+       description and the callout information must be supplied.  Verbosity
+       can be increased by supplying one or more -v flags.

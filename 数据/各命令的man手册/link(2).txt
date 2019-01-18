@@ -1,0 +1,44 @@
+
+       link() creates a new link (also known as a hard link) to an existing
+       file.
+       If newpath exists, it will not be overwritten.
+       This new name may be used exactly as the old one for any operation;
+       both names refer to the same file (and so have the same permissions
+       and ownership) and it is impossible to tell which name was the
+       "original".
+   linkat()
+       The linkat() system call operates in exactly the same way as link(),
+       except for the differences described here.
+       If the pathname given in oldpath is relative, then it is interpreted
+       relative to the directory referred to by the file descriptor olddirfd
+       (rather than relative to the current working directory of the calling
+       process, as is done by link() for a relative pathname).
+       If oldpath is relative and olddirfd is the special value AT_FDCWD,
+       then oldpath is interpreted relative to the current working directory
+       of the calling process (like link()).
+       If oldpath is absolute, then olddirfd is ignored.
+       The interpretation of newpath is as for oldpath, except that a
+       relative pathname is interpreted relative to the directory referred
+       to by the file descriptor newdirfd.
+       The following values can be bitwise ORed in flags:
+       AT_EMPTY_PATH (since Linux 2.6.39)
+              If oldpath is an empty string, create a link to the file
+              referenced by olddirfd (which may have been obtained using the
+              open(2) O_PATH flag).  In this case, olddirfd can refer to any
+              type of file except a directory.  This will generally not work
+              if the file has a link count of zero (files created with
+              O_TMPFILE and without O_EXCL are an exception).  The caller
+              must have the CAP_DAC_READ_SEARCH capability in order to use
+              this flag.  This flag is Linux-specific; define _GNU_SOURCE to
+              obtain its definition.
+       AT_SYMLINK_FOLLOW (since Linux 2.6.18)
+              By default, linkat(), does not dereference oldpath if it is a
+              symbolic link (like link()).  The flag AT_SYMLINK_FOLLOW can
+              be specified in flags to cause oldpath to be dereferenced if
+              it is a symbolic link.  If procfs is mounted, this can be used
+              as an alternative to AT_EMPTY_PATH, like this:
+                  linkat(AT_FDCWD, "/proc/self/fd/<fd>", newdirfd,
+                         newname, AT_SYMLINK_FOLLOW);
+       Before kernel 2.6.18, the flags argument was unused, and had to be
+       specified as 0.
+       See openat(2) for an explanation of the need for linkat().

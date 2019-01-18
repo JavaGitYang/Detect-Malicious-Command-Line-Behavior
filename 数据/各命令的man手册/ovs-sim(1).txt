@@ -1,0 +1,41 @@
+
+       ovs-sim provides a convenient environment for running one or more
+       Open vSwitch instances and related software in a sandboxed simulation
+       environment.
+       To use ovs-sim, first build Open vSwitch, then invoke it directly
+       from the build directory, e.g.:
+       git clone https://github.com/openvswitch/ovs.git
+       cd ovs
+       ./configure
+       make
+       utilities/ovs-sim
+       When invoked in the most ordinary way as shown above, ovs-sim does
+       the following:
+              1.
+                Creates a directory sandbox as a subdirectory of the current
+                directory (first destroying such a directory if it already
+                exists) and cds into that directory.
+              2.
+                Installs all of the Open vSwitch manpages into a man
+                subdirectory of sandbox and adjusts the MANPATH environment
+                variable so that man and other manpage viewers can find
+                them.
+              3.
+                Creates a simulated Open vSwitch named main and sets it up
+                as the default target for OVS commands, as if the following
+                ovs-sim commands had been run:
+                          sim_add main
+                          as main
+                See Commands, below, for an explanation.
+              4.
+                Runs any scripts specified on the command line (see Options
+                below). The scripts can use arbitrary Bash syntax, plus the
+                additional commands described under Commands, below.
+              5.
+                If no scripts were specified, or if -i or --interactive was
+                specified, invokes an interactive Bash subshell. The user
+                can use arbitrary Bash commands, plus the additional
+                commands described under Commands, below.
+       ovs-sim and the sandbox environment that it creates does not require
+       superuser or other special privileges. Generally, it should not be
+       run with such privileges.

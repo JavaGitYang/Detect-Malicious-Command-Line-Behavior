@@ -1,0 +1,15 @@
+
+       pcap_setnonblock() puts a capture handle into ``non-blocking'' mode,
+       or takes it out of ``non-blocking'' mode, depending on whether the
+       nonblock argument is non-zero or zero.  It has no effect on
+       ``savefiles''.  If there is an error, -1 is returned and errbuf is
+       filled in with an appropriate error message; otherwise, 0 is
+       returned.  In ``non-blocking'' mode, an attempt to read from the
+       capture descriptor with pcap_dispatch() will, if no packets are
+       currently available to be read, return 0 immediately rather than
+       blocking waiting for packets to arrive.  pcap_loop() and pcap_next()
+       will not work in ``non-blocking'' mode.
+       When first activated with pcap_activate() or opened with
+       pcap_open_live() , a capture handle is not in ``non-blocking mode'';
+       a call to pcap_setnonblock() is required in order to put it into
+       ``non-blocking'' mode.

@@ -1,0 +1,3 @@
+
+       pcap_statustostr() converts a PCAP_ERROR_ or PCAP_WARNING_ value
+       returned by a libpcap routine to an error string.

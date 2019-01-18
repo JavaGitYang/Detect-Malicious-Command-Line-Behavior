@@ -1,0 +1,223 @@
+
+       This series of shell scripts and associated control files may be used
+       to create a customized regime of administration and management for
+       Performance Co-Pilot (see PCPintro(1)) archive log files.
+       pmlogger_daily is intended to be run once per day, preferably in the
+       early morning, as soon after midnight as practicable.  Its task is to
+       aggregate and rotate one or more sets of PCP archives.  After some
+       period, old PCP archives are discarded.  This period is 14 days by
+       default, but may be changed using the -k option.  Some special values
+       are recognized for the period (discard), namely 0 to keep no archives
+       beyond the current one, and forever or never to prevent any archives
+       being discarded.  Note that the semantics of discard are that it is
+       measured from the time of last modification of each archive, and not
+       from the current day.  This has subtle implications for compression
+       (see below) - the compression process results in the creation of new
+       archive files which have new modification times.  In this case, the
+       discard period (re)starts from the time of compression.
+       Archive data files can optionally be compressed after some period to
+       conserve disk space.  This is particularly useful for large numbers
+       of pmlogger processes under the control of pmlogger_check.  If
+       transparent_decompress is enabled when libpcp was built (can be
+       checked with pmconfig -L), then the default behaviour is compression
+       ``as soon as possible'' otherwise the default behaviour is to not
+       compress files (which matches the historical default behaviour in
+       earlier PCP releases).
+       The -x option controls compression and compress specifies the number
+       of days after which to compress archive data files.  If compress is 0
+       then compression will be applied as soon as possible.  If compress is
+       never or forever then no compression will be done.  The environment
+       variable PCP_COMPRESSAFTER may be used as an alternative mechanism to
+       define compress.  If both PCP_COMPRESSAFTER and -x specify different
+       values for compress then the environment variable value is used and a
+       warning is issued.
+       The -X option specifies the program to use for compression - by
+       default this is xz(1).  The environment variable PCP_COMPRESS may be
+       used as an alternative mechanism to define program.  If both
+       PCP_COMPRESS and -X specify different compression programs then the
+       environment variable value is used and a warning is issued.
+       Use of the -Y option allows a regular expression to be specified
+       causing files in the set of files matched for compression to be
+       omitted - this allows only the data file to be compressed, and also
+       prevents the program from attempting to compress it more than once.
+       The default regex is ".(meta|index|Z|gz|bz2|zip|xz|lzma|lzo|lz4)$" -
+       such files are filtered using the -v option to egrep(1).  The
+       environment variable PCP_COMPRESSREGEX may be used as an alternative
+       mechanism to define regex.  If both PCP_COMPRESSREGEX and -Y specify
+       different values for regex then the environment variable value is
+       used and a warning is issued.
+       To accommodate the evolution of PMDAs and changes in production
+       logging environments, pmlogger_daily is integrated with
+       pmlogrewrite(1) to allow optional and automatic rewriting of archives
+       before merging.  If there are global rewriting rules to be applied
+       across all archives mentioned in the control file(s), then create the
+       directory $PCP_SYSCONF_DIR/pmlogrewrite and place any pmlogrewrite(1)
+       rewriting rules in this directory.  For rewriting rules that are
+       specific to only one family of archives, use the directory name from
+       the control file(s) - i.e. the fourth field - and create a file, or a
+       directory, or a symbolic link named pmlogrewrite within this
+       directory and place the required rewriting rule(s) in the
+       pmlogrewrite file or in files within the pmlogrewrite subdirectory.
+       pmlogger_daily will choose rewriting rules from the archive directory
+       if they exist, else rewriting rules from
+       $PCP_SYSCONF_DIR/pmlogrewrite if that directory exists, else no
+       rewriting is attempted.
+       The -r command line option acts as an over-ride and prevents all
+       archive rewriting with pmlogrewrite(1) independent of the presence of
+       any rewriting rule files or directories.
+       By default all possible archives will be merged.  The -o option
+       reinstates the old behaviour in which only yesterday's archives will
+       be considered as merge candidates.
+       In the special case where only a single input archive needs to be
+       merged, pmlogmv(1) is used to rename the archive, rather than copy
+       the input archive using pmlogger_merge.
+       The -M option may be used to disable archive merging (or renaming)
+       and rewriting (-M implies -r).  This is most useful in cases where
+       the archives are being incrementally copied to a remote repository,
+       e.g. using rsync(1).  Merging, renaming and rewriting all risk an
+       increase in the synchronization load, especially immediately after
+       pmlogger_daily has run, so -M may be useful in these cases.
+       To assist with debugging or diagnosing intermittent failures the -t
+       option may be used.  This will turn on very verbose tracing (-VV) and
+       capture the trace output in a file named
+       $PCP_LOG_DIR/pmlogger/daily.datestamp.trace, where datestamp is the
+       time pmlogger_daily was run in the format YYYYMMDD.HH.MM.  In
+       addition, the want argument will ensure that trace files created with
+       -t will be kept for want days and then discarded.
+       In addition, if the PCP ``notices'' file ($PCP_LOG_DIR/NOTICES) is
+       larger than 20480 bytes, pmlogger_daily will rename the file with a
+       ``.old'' suffix, and start a new ``notices'' file.  The rotate
+       threshold may be changed from 20480 to size bytes using the -s
+       option.
+       Use of the -m option causes pmlogger_daily to construct a summary of
+       the ``notices'' file entries which were generated in the last 24
+       hours, and e-mail that summary to the set of space-separated
+       addresses.  This daily summary is stored in the file
+       $PCP_LOG_DIR/NOTICES.daily, which will be empty when no new
+       ``notices'' entries were made in the previous 24 hour period.
+       If the -K option is specified for pmlogger_daily then only the
+       compression tasks are attempted, so no pmlogger(1) rotation, no
+       culling, no rewriting, etc.  When -K is used and a compress value of
+       0 is in effect (from -x on the command line or PCP_COMPRESSAFTER in
+       the environment or via the control file) this is intended for
+       environments where compression of archives is desired before the
+       scheduled daily processing happens.  To achieve this, once
+       pmlogger_check has completed regular processing, it calls
+       pmlogger_daily with just the -K option.  Provided PCP_COMPRESSAFTER
+       is set to 0 along with any other required compression options to
+       match the scheduled invocation of pmlogger_daily, then this will
+       compress all volumes except the ones being currently written by
+       pmlogger(1).
+       The script $PCP_BINADM_DIR/pmlogger_daily could be copied and
+       modified to implement a site-specific procedure for end-of-week
+       and/or end-of-month management for a set of PCP archives.
+       pmlogger_check may be run at any time, and is intended to check that
+       the desired set of pmlogger(1) processes are running, and if not to
+       re-launch any failed loggers.  Use of the -s option provides the
+       reverse functionality, allowing the set of pmlogger processes to be
+       cleanly shutdown.  Use of the -C option queries the system service
+       runlevel information for pmlogger, and uses that to determine whether
+       to start processes.
+       The -T option provides a terser form of output for pmlogger_check
+       that is most suitable for a pmlogger ``farm'' where many instances of
+       pmlogger are expected to be running.
+       pmlogger_merge is a wrapper script for pmlogextract(1) that merges
+       all of the archive logs matching the input-basename arguments, and
+       creates a new archive using output-name as the base name for the
+       physical files that constitute an archive log.  The input-basename
+       arguments may contain meta characters in the style of sh(1).  If
+       specified, the -f option causes all of the input files to be removed
+       once the output archive has been created.
+       pmlogger_merge is used by pmlogger_daily.
+       Both pmlogger_daily and pmlogger_check are controlled by PCP logger
+       control file(s) that specifies the pmlogger instances to be managed.
+       The default control file is $PCP_PMLOGGERCONTROL_PATH, but an
+       alternate may be specified using the -c option.  If the directory
+       $PCP_PMLOGGERCONTROL_PATH.d (or control.d from the -c option) exists,
+       then the contents of any additional control files therein will be
+       appended to the main control file (which must exist).
+       Warning: The $PCP_PMLOGGERCONTROL_PATH and
+       $PCP_PMLOGGERCONTROL_PATH.d files must not be writable by any user
+       other than root.
+       The control file(s) should be customized according to the following
+       rules that define for the current version (1.1) of the control file
+       format.
+       1.  Lines beginning with a ``#'' are comments.
+       2.  Lines beginning with a ``$'' are assumed to be assignments to
+           environment variables in the style of sh(1), and all text
+           following the ``$'' will be eval'ed by the script reading the
+           control file, and the corresponding variable exported into the
+           environment.  This is particularly useful to set and export
+           variables into the environment of the administrative scripts,
+           e.g.
+               $ PMCD_CONNECT_TIMEOUT=20
+       3.  There must be a version line in the initial control file of the
+           form:
+               $ version=1.1
+       4.  There should be one line in the control file(s) for each pmlogger
+           instance of the form:
+               host y|n y|n directory args
+       5.  Fields within a line of the control file(s) are usually separated
+           by one or more spaces or tabs (although refer to the description
+           of the directory field for some important exceptions).
+       6.  The first field is the name of the host that is the source of the
+           performance metrics for this pmlogger instance.
+       7.  The second field indicates if this is a primary pmlogger instance
+           (y) or not (n).  Since the primary logger must run on the local
+           host, and there may be at most one primary logger for a
+           particular host, this field can be y for at most one pmlogger
+           instance, in which case the host name must be the name of the
+           local host.
+       8.  The third field indicates if this pmlogger instance needs to be
+           started under the control of pmsocks(1) to connect to a pmcd
+           through a firewall (y or n).
+       9.  The fourth field is a directory name.  All files associated with
+           this pmlogger instance will be created in this directory, and
+           this will be the current directory for the execution of any
+           programs required in the maintenance of those archives.  A useful
+           convention is that primary logger archives for the local host
+           with hostname myhost are maintained in the directory
+           $PCP_LOG_DIR/pmlogger/myhost (this is where the default pmlogger
+           start-up script in $PCP_RC_DIR/pcp will create the archives),
+           while archives for the remote host mumble are maintained in
+           $PCP_LOG_DIR/pmlogger/mumble.
+       10. The directory field may contain embedded shell syntax that will
+           be evaluated by sh(1) to produce the real directory name to be
+           used.  The allowed constructs are:
+           · Any text (including white space) enclosed with $( and ).
+           · Any text (including white space) enclosed with ` and ` (back
+             quotes).
+           · Any text (including white space) enclosed with " and " (double
+             quotes).
+           · Any word containing a $ (assumed to introduce an environment
+             variable name).
+       11. All other fields are interpreted as arguments to be passed to
+           pmlogger(1) and/or pmnewlog(1).  Most typically this would be the
+           -c option.
+       The following sample control lines specify a primary logger on the
+       local host (bozo), and non-primary loggers to collect and log
+       performance metrics from the hosts wobbly and boing.
+       $version=1.1
+       bozo   y  n  $PCP_LOG_DIR/pmlogger/bozo   -c config.default
+       wobbly n  n  "/store/wobbly/$(date +%Y)"  -c ./wobbly.config
+       boing  n  n  $PCP_LOG_DIR/pmlogger/boing  -c ./pmlogger.config
+       Typical crontab(5) entries for periodic execution of pmlogger_daily
+       and pmlogger_check are given in $PCP_SYSCONF_DIR/pmlogger/crontab
+       (unless installed by default in /etc/cron.d already) and shown below.
+       # daily processing of archive logs
+       14      0       *       *       *       $PCP_BINADM_DIR/pmlogger_daily
+       # every 30 minutes, check pmlogger instances are running
+       25,55   *       *       *       *       $PCP_BINADM_DIR/pmlogger_check
+       In order to ensure that mail is not unintentionally sent when these
+       scripts are run from cron(8) diagnostics are always sent to a log
+       file.  By default, this file is
+       $PCP_LOG_DIR/pmlogger/pmlogger_daily.log or
+       $PCP_LOG_DIR/pmlogger/pmlogger_check.log but this can be changed
+       using the -l option.  If this log file already exists when the script
+       starts, it will be renamed with a .prev suffix (overwriting any log
+       file saved earlier) before diagnostics are generated to the log file.
+       The -l and -t options cannot be used together.
+       The output from the cron execution of the scripts may be extended
+       using the -V option to the scripts which will enable verbose tracing
+       of their activity.  By default the scripts generate no output unless
+       some error or warning condition is encountered.

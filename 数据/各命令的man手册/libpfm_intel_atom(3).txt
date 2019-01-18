@@ -1,0 +1,3 @@
+
+       The library supports all Intel Atom-based processors that includes
+       family 6 model 28.

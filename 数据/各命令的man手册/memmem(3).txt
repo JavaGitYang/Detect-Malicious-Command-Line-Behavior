@@ -1,0 +1,4 @@
+
+       The memmem() function finds the start of the first occurrence of the
+       substring needle of length needlelen in the memory area haystack of
+       length haystacklen.

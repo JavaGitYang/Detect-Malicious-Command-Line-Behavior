@@ -1,0 +1,11 @@
+
+       The sample action allows sampling packets matching classifier.
+       The packets are chosen randomly according to the rate parameter, and
+       are sampled using the psample generic netlink channel. The user can
+       also specify packet truncation to save user-kernel traffic. Each
+       sample includes some informative metadata about the original packet,
+       which is sent using netlink attributes, alongside the original packet
+       data.
+       The user can either specify the sample action parameters as presented
+       in the first form above, or use an existing sample action using its
+       index, as presented in the second form.

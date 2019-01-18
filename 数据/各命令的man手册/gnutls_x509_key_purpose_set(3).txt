@@ -1,0 +1,2 @@
+
+       This function will store the specified key purpose in the purposes.

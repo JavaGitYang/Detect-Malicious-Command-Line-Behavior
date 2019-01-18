@@ -1,0 +1,3 @@
+
+       coredumpctl is a tool that can be used to retrieve and process core
+       dumps and metadata which were saved by systemd-coredump(8).

@@ -1,0 +1,18 @@
+
+       The Babeltrace source.text.dmesg component class, provided by the
+       babeltrace-plugin-text(7) plugin, once instantiated, reads the lines
+       of a Linux kernel ring buffer, as printed by the dmesg(1) tool, and
+       emits corresponding event notifications on its output port.
+       The events created by a source.text.dmesg component are named string
+       and contain a single payload string field named str which contains
+       the corresponding ring buffer line.
+       By default, a source.text.dmesg component reads the lines of the
+       standard input stream. You can make the component read the lines of a
+       text file instead with the path parameter.
+       By default, the component tries to extract the timestamps of the
+       kernel ring buffer lines and use them as the created events’s
+       timestamps. A typical dmesg(1) line looks like this:
+           [87166.510937] PM: Finishing wakeup.
+       In the last example, the [87166.510937] part is the timestamp to
+       extract. You can make the component not extract timestamps from lines
+       with the no-extract-timestamp parameter.

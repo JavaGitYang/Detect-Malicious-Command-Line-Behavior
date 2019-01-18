@@ -1,0 +1,27 @@
+
+       Reads a PIC program as input; produces an image file (by default in
+       Portable Network Graphics format) suitable for the Web as output.
+       Also translates eqn(1) constructs, so it can be used for generating
+       images of mathematical formulae.
+       PIC is a rather expressive graphics minilanguage suitable for
+       producing box-and-arrow diagrams of the kind frequently used in
+       technical papers and textbooks.  The language is sufficiently
+       flexible to be quite useful for state charts, Petri-net diagrams,
+       flow charts, simple circuit schematics, jumper layouts, and other
+       kinds of illustration involving repetitive uses of simple geometric
+       forms and splines.  Because PIC descriptions are procedural and
+       object-based, they are both compact and easy to modify.
+       The PIC language is fully documented in Making Pictures With GNU PIC,
+       a document which is part of the groff(1) distribution.
+       Your input PIC code should not be wrapped with the .PS and .PE macros
+       that normally guard it within groff(1) macros.
+       The output image will be clipped to the smallest possible bounding
+       box that contains all the black pixels.  Older versions of convert(1)
+       will produce a black-on-white graphic; newer ones may produce a
+       black-on-transparent graphic.  By specifying command-line options to
+       be passed to convert(1) you can give it a border, force the
+       background transparent, set the image's pixel density, or perform
+       other useful transformations.
+       This program uses pic(1), eqn(1), groff(1), gs(1), and the
+       ImageMagick convert(1) program.  These programs must be installed on
+       your system and accessible on your $PATH for pic2graph to work.

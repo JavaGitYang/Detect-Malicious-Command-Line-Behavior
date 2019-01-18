@@ -1,0 +1,24 @@
+
+       The capabilities associated with a file or process are never edited
+       directly.  Instead, working storage is allocated to contain a
+       representation of the capability state.  Capabilities are edited and
+       manipulated only within this working storage area.  Once editing of
+       the capability state is complete, the updated capability state is
+       used to replace the capability state associated with the file or
+       process.
+       cap_init() creates a capability state in working storage and returns
+       a pointer to the capability state.  The initial value of all flags
+       are cleared.  The caller should free any releasable memory, when the
+       capability state in working storage is no longer required, by calling
+       cap_free() with the cap_t as an argument.
+       cap_free() liberates any releasable memory that has been allocated to
+       the capability state identified by obj_d.  The obj_d argument may
+       identify either a cap_t entity, or a char * entity allocated by the
+       cap_to_text() function.
+       cap_dup() returns a duplicate capability state in working storage
+       given by the source object cap_p, allocating any memory necessary,
+       and returning a pointer to the newly created capability state.  Once
+       duplicated, no operation on either capability state affects the other
+       in any way.  When the duplicated capability state in working storage
+       is no longer required, the caller should free any releasable memory
+       by calling cap_free() with the cap_t as an argument.

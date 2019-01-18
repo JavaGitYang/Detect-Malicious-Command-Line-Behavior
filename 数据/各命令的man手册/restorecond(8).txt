@@ -1,0 +1,6 @@
+
+       This manual page describes the restorecond program.
+       This daemon uses inotify to watch files listed in the
+       /etc/selinux/restorecond.conf, when they are created, this daemon
+       will make sure they have the correct file context associated with the
+       policy.

@@ -1,0 +1,8 @@
+
+       This function should be used when it is required to hide the length
+       of very long data that cannot be directly provided to
+       gnutls_record_send_range().  In that case this function should be
+       called with the desired length hiding range in  orig . The returned
+       next value should then be used in the next call to
+       gnutls_record_send_range() with the partial data.  That process
+       should be repeated until  remainder is (0,0).

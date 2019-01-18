@@ -1,0 +1,21 @@
+
+       The file /etc/networks is a plain ASCII file that describes known
+       DARPA networks and symbolic names for these networks.  Each line
+       represents a network and has the following structure:
+              name number aliases ...
+       where the fields are delimited by spaces or tabs.  Empty lines are
+       ignored.  The hash character (#) indicates the start of a comment:
+       this character, and the remaining characters up to the end of the
+       current line, are ignored by library functions that process the file.
+       The field descriptions are:
+       name   The symbolic name for the network.  Network names can contain
+              any printable characters except white-space characters or the
+              comment character.
+       number The official number for this network in numbers-and-dots
+              notation (see inet(3)).  The trailing ".0" (for the host
+              component of the network address) may be omitted.
+       aliases
+              Optional aliases for the network.
+       This file is read by the route(8) and netstat(8) utilities.  Only
+       Class A, B or C networks are supported, partitioned networks (i.e.,
+       network/26 or network/28) are not supported by this facility.

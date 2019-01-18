@@ -1,0 +1,28 @@
+
+       pmdabash is an experimental Performance Metrics Domain Agent (PMDA)
+       which exports "xtrace" events from a traced bash(1) process.  This
+       includes the command execution information that would usually be sent
+       to standard error with the set -x option to the shell.
+       Event metrics are exported showing each command executed, the
+       function name and line number in the script, and a timestamp.
+       Additionally, the process identifier for the shell and its parent
+       process are exported.
+       This requires bash version 4 or later.
+       A brief description of the pmdabash command line options follows:
+       -d   It is absolutely crucial that the performance metrics domain
+            number specified here is unique and consistent.  That is, domain
+            should be different for every PMDA on the one host, and the same
+            domain number should be used for the same PMDA on all hosts.
+       -l   Location of the log file.  By default, a log file named bash.log
+            is written in the current directory of pmcd(1) when pmdabash is
+            started, i.e.  $PCP_LOG_DIR/pmcd.  If the log file cannot be
+            created or is not writable, output is written to the standard
+            error instead.
+       -s   Amount of time (in seconds) between subsequent evaluations of
+            the shell trace file descriptor(s).  The default is 2 seconds.
+       -m   Maximum amount of memory to be allowed for each event queue (one
+            per traced process).  The default is 2 megabytes.
+       -U   User account under which to run the agent.  The default is the
+            unprivileged "pcp" account in current versions of PCP, but in
+            older versions the superuser account ("root") was used by
+            default.

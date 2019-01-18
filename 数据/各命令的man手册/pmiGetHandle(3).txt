@@ -1,0 +1,16 @@
+
+       As part of the Performance Co-Pilot Log Import API (see
+       LOGIMPORT(3)), pmiGetHandle creates a handle for a given metric and
+       instance.  The handle is returned as the value from the pmiGetHandle
+       call and can be used in subsequent calls to pmiPutValueHandle(3).
+       The metric's name should match one defined earlier in a call to
+       pmiAddMetric(3).
+       For singular metrics (those defined with an instance domain of
+       PM_INDOM_NULL), the instance should be NULL or an empty string,
+       otherwise instance should match the name of an instance defined
+       earlier in a call to pmiAddInstance(3) for the metric's instance
+       domain.
+       When combined with pmiPutValueHandle(3), the use of handles provide a
+       performance improvement over the alternative lookup for a metric name
+       and an instance name for each data value that is required for
+       pmiPutValue(3).

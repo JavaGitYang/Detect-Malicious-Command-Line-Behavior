@@ -1,0 +1,7 @@
+
+       The dirfd() function shall return a file descriptor referring to the
+       same directory as the dirp argument. This file descriptor shall be
+       closed by a call to closedir().  If any attempt is made to close the
+       file descriptor, or to modify the state of the associated
+       description, other than by means of closedir(), readdir(),
+       readdir_r(), rewinddir(), or seekdir(), the behavior is undefined.

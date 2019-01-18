@@ -1,0 +1,9 @@
+
+       The sockatmark() function shall determine whether the socket
+       specified by the descriptor s is at the out-of-band data mark (see
+       Section 2.10.12, Socket Out-of-Band Data State).  If the protocol for
+       the socket supports out-of-band data by marking the stream with an
+       out-of-band data mark, the sockatmark() function shall return 1 when
+       all data preceding the mark has been read and the out-of-band data
+       mark is the first element in the receive queue. The sockatmark()
+       function shall not remove the mark from the stream.

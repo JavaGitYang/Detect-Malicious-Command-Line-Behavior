@@ -1,0 +1,4 @@
+
+       The tmpfile() function opens a unique temporary file in binary
+       read/write (w+b) mode.  The file will be automatically deleted when
+       it is closed or the program terminates.

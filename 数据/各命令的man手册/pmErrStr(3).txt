@@ -1,0 +1,11 @@
+
+       Translate an error code into a text string, suitable for generating a
+       diagnostic message.  The pmErrStr_r function does the same, but
+       stores the result in a user-supplied buffer buf of length buflen,
+       which should have room for at least PM_MAXERRMSGLEN bytes.
+       By convention, all error codes are negative.  The small values are
+       assumed to be negated versions of the Unix error codes as defined in
+       <errno.h> and the strings returned are as per strerror(3).  The
+       larger, negative error codes are Performance Metrics Application
+       Programming Interface (PMAPI) error conditions and pmErrStr(3)
+       returns an appropriate PMAPI error string, as determined by code.

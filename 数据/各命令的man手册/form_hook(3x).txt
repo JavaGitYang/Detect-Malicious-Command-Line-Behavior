@@ -1,0 +1,19 @@
+
+       These functions make it possible to set hook functions to be called
+       at various points in the automatic processing of input event codes by
+       form_driver.
+       The function set_field_init sets a hook to be called at form-post
+       time and each time the selected field changes (after the change).
+       field_init returns the current field init hook, if any (NULL if there
+       is no such hook).
+       The function set_field_term sets a hook to be called at form-unpost
+       time and each time the selected field changes (before the change).
+       field_term returns the current field term hook, if any (NULL if there
+       is no such hook).
+       The function set_form_init sets a hook to be called at form-post time
+       and just after a page change once it is posted.  form_init returns
+       the current form init hook, if any (NULL if there is no such hook).
+       The function set_form_term sets a hook to be called at form-unpost
+       time and just before a page change once it is posted.  form_init
+       returns the current form term hook, if any (NULL if there is no such
+       hook).

@@ -1,0 +1,16 @@
+
+       arch_prctl() sets architecture-specific process or thread state.
+       code selects a subfunction and passes argument addr to it; addr is
+       interpreted as either an unsigned long for the "set" operations, or
+       as an unsigned long *, for the "get" operations.
+       Subfunctions for x86-64 are:
+       ARCH_SET_FS
+              Set the 64-bit base for the FS register to addr.
+       ARCH_GET_FS
+              Return the 64-bit base value for the FS register of the
+              current thread in the unsigned long pointed to by addr.
+       ARCH_SET_GS
+              Set the 64-bit base for the GS register to addr.
+       ARCH_GET_GS
+              Return the 64-bit base value for the GS register of the
+              current thread in the unsigned long pointed to by addr.

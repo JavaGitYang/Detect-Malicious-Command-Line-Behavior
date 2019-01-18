@@ -1,0 +1,2 @@
+
+       You can manage variables in a configuration file with this command.

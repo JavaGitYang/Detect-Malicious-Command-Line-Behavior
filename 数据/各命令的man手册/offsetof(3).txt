@@ -1,0 +1,10 @@
+
+       The macro offsetof() returns the offset of the field member from the
+       start of the structure type.
+       This macro is useful because the sizes of the fields that compose a
+       structure can vary across implementations, and compilers may insert
+       different numbers of padding bytes between fields.  Consequently, an
+       element's offset is not necessarily given by the sum of the sizes of
+       the previous elements.
+       A compiler error will result if member is not aligned to a byte
+       boundary (i.e., it is a bit field).

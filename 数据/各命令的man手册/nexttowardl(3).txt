@@ -1,0 +1,9 @@
+
+       The nextafter(), nextafterf(), and nextafterl() functions return the
+       next representable floating-point value following x in the direction
+       of y.  If y is less than x, these functions will return the largest
+       representable number less than x.
+       If x equals y, the functions return y.
+       The nexttoward(), nexttowardf(), and nexttowardl() functions do the
+       same as the corresponding nextafter() functions, except that they
+       have a long double second argument.

@@ -1,0 +1,3 @@
+
+       This function will parse and convert the othername data to a virtual
+       type supported by gnutls.

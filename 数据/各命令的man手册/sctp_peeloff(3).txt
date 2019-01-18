@@ -1,0 +1,18 @@
+
+       sctp_peeloff branches off an existing association assoc_id on a one-
+       to-many style socket sd into a separate socket. The new socket is a
+       one-to-one style socket.
+       This is particularly desirable when, for instance, the application
+       wishes to have a number of sporadic message senders/receivers remain
+       under the original one-to-many style socket, but branch off those
+       assocations carrying high volume data traffic into their own separate
+       socket descriptors.
+       sctp_peeloff_flags is a variant of sctp_peeloff, in which flags
+       describing the behavior of the newly peeled off socket can be
+       specified.  Currently the supported flags are:
+       SOCK_NONBLOCK
+              Specifies that the new socket should not block on io
+              operations.
+       SOCK_CLOEXEC
+              Specifies that the new socket should be closed when the owning
+              process calls exec.

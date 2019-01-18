@@ -1,0 +1,13 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The fputws() function shall write a character string corresponding to
+       the (null-terminated) wide-character string pointed to by ws to the
+       stream pointed to by stream.  No character corresponding to the
+       terminating null wide-character code shall be written.
+       The last data modification and last file status change timestamps of
+       the file shall be marked for update between the successful execution
+       of fputws() and the next successful completion of a call to fflush()
+       or fclose() on the same stream or a call to exit() or abort().

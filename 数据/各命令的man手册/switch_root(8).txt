@@ -1,0 +1,6 @@
+
+       switch_root moves already mounted /proc, /dev, /sys and /run to
+       newroot and makes newroot the new root filesystem and starts init
+       process.
+       WARNING: switch_root removes recursively all files and directories on
+       the current root filesystem.

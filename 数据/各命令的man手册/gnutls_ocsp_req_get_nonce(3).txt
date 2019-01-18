@@ -1,0 +1,4 @@
+
+       This function will return the OCSP request nonce extension data.
+       The caller needs to deallocate memory by calling gnutls_free() on
+        nonce ->data.

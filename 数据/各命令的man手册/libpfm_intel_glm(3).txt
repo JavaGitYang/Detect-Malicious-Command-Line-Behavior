@@ -1,0 +1,7 @@
+
+       The library supports the Intel Goldmont core PMU. It should be noted
+       that this PMU model only covers each core's PMU and not the socket
+       level PMU.
+       On Goldmont, the number of generic counters is 4. There is no
+       HyperThreading support.  The pfm_get_pmu_info() function returns the
+       maximum number of generic counters in num_cntrs.

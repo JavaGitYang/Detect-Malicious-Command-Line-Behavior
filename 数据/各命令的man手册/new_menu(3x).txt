@@ -1,0 +1,5 @@
+
+       The function new_menu creates a new menu connected to a specified
+       item pointer array (which must be NULL-terminated).
+       The function free_menu disconnects menu from its item array and frees
+       the storage allocated for the menu.

@@ -1,0 +1,5 @@
+
+       These routines move the cursor associated with the window to line y
+       and column x.  This routine does not move the physical cursor of the
+       terminal until refresh(3X) is called.  The position specified is
+       relative to the upper left-hand corner of the window, which is (0,0).

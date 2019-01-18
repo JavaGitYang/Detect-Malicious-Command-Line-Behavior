@@ -1,0 +1,6 @@
+
+       accessdb will output the data contained within a man-db database in a
+       human readable form.  By default, it will dump the data from
+       /var/cache/man/index.<db-type>, where <db-type> is dependent on the
+       database library in use.
+       Supplying an argument to accessdb will override this default.

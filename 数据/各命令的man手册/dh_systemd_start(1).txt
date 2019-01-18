@@ -1,0 +1,9 @@
+
+       dh_systemd_start is a debhelper program that is responsible for
+       starting/stopping or restarting systemd unit files in case no
+       corresponding sysv init script is available.
+       As with dh_installinit, the unit file is stopped before upgrades and
+       started afterwards (unless --restart-after-upgrade is specified, in
+       which case it will only be restarted after the upgrade).  This logic
+       is not used when there is a corresponding SysV init script because
+       invoke-rc.d performs the stop/start/restart in that case.

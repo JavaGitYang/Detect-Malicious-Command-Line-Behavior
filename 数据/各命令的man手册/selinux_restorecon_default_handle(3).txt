@@ -1,0 +1,14 @@
+
+       selinux_restorecon_default_handle() sets default parameters for
+       selinux_restorecon(3) by calling selabel_open(3) with the
+       SELABEL_OPT_DIGEST option only. This will enable a digest to be
+       calculated on the currently loaded policy file_contexts(5) set of
+       files as described in the NOTES section of selinux_restorecon(3).
+       Calling selinux_restorecon_default_handle() is optional, however if
+       used then selinux_restorecon_set_sehandle(3) should be called with
+       the returned handle to set this for use by selinux_restorecon(3).
+       selinux_restorecon_default_handle() is optional as
+       selinux_restorecon(3) will automatically call this and
+       selinux_restorecon_set_sehandle(3) provided a handle has not already
+       been set, for example by selinux_restorecon_set_sehandle(3) to set
+       customised selabel_open(3) parameters.

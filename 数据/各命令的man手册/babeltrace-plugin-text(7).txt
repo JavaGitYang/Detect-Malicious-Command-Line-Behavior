@@ -1,0 +1,5 @@
+
+       The Babeltrace text plugin contains component classes which read or
+       write plain text data.
+       See babeltrace-intro(7) to learn more about the Babeltrace project
+       and its core concepts.

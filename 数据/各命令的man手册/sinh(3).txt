@@ -1,0 +1,4 @@
+
+       These functions return the hyperbolic sine of x, which is defined
+       mathematically as:
+           sinh(x) = (exp(x) - exp(-x)) / 2

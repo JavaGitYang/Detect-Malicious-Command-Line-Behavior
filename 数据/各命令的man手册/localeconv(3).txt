@@ -1,0 +1,6 @@
+
+       The localeconv() function returns a pointer to a struct lconv for the
+       current locale.  This structure is shown in locale(7), and contains
+       all values associated with the locale categories LC_NUMERIC and
+       LC_MONETARY.  Programs may also use the functions printf(3) and
+       strfmon(3), which behave according to the actual locale in use.

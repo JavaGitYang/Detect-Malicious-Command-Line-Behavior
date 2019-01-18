@@ -1,0 +1,3 @@
+
+       lxc-wait waits for a specific container state before exiting, this is
+       useful for scripting.

@@ -1,0 +1,7 @@
+
+       The lttng set-session command sets the current tracing session.
+       SESSION is the name of an existing tracing session. lttng list
+       outputs all the existing tracing sessions (see lttng-list(1)).
+       The current tracing session is used by default when a session can be
+       specified in other commands. See lttng-create(1) for more information
+       about the current tracing session.

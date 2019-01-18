@@ -1,0 +1,6 @@
+
+       As part of the Performance Metrics Domain Agent (PMDA) API (see
+       PMDA(3)), pmdaProfile is the default callback which handles the
+       receipt of a pmProfile from pmcd(1).  A profile describes the
+       instances that pmcd requires in the pmResult structure returned by
+       the next fetch.  pmdaProfile simply stores the new profile.

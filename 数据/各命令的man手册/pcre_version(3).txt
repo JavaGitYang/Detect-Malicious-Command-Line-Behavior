@@ -1,0 +1,6 @@
+
+       This function (even in the 16-bit and 32-bit libraries) returns a
+       zero-terminated, 8-bit character string that gives the version number
+       of the PCRE library and the date of its release.
+       There is a complete description of the PCRE native API in the pcreapi
+       page and a description of the POSIX API in the pcreposix page.

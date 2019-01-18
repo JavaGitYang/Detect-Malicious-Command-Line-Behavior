@@ -1,0 +1,9 @@
+
+       lxc-user-nic is a setuid-root program with which unprivileged users
+       may create network interfaces for use by a lxc container.
+       It will consult the configuration file /usr/local/etc/lxc/lxc-usernet
+       to determine the number of interfaces which the calling user is
+       allowed to create, and which bridge he may attach them to. It tracks
+       the number of interfaces each user has created using the file
+       /run/lxc/nics. It ensures that the calling user is privileged over
+       the network namespace to which the interface will be attached.

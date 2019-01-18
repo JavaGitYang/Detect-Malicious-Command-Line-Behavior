@@ -1,0 +1,18 @@
+
+       The Referential Integrity overlay can be used with a backend database
+       such as slapd-bdb(5) to maintain the cohesiveness of a schema which
+       utilizes reference attributes.
+       Integrity is maintained by updating database records which contain
+       the named attributes to match the results of a modrdn or delete
+       operation. For example, if the integrity attribute were configured as
+       manager, deletion of the record
+       "uid=robert,ou=people,dc=example,dc=com" would trigger a search for
+       all other records which have a manager attribute containing that DN.
+       Entries matching that search would have their manager attribute
+       removed.  Or, renaming the same record into
+       "uid=george,ou=people,dc=example,dc=com" would trigger a search for
+       all other records which have a manager attribute containing that DN.
+       Entries matching that search would have their manager attribute
+       deleted and replaced by the new DN.
+       rootdn must be set for the database.  refint runs as the rootdn to
+       gain access to make its updates.  rootpw is not needed.

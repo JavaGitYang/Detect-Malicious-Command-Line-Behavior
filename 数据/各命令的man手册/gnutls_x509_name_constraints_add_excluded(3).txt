@@ -1,0 +1,7 @@
+
+       This function will add a name constraint to the list of excluded
+       constraints. The constraints  type can be any of the following types:
+       GNUTLS_SAN_DNSNAME, GNUTLS_SAN_RFC822NAME, GNUTLS_SAN_DN,
+       GNUTLS_SAN_URI, GNUTLS_SAN_IPADDRESS. For the latter, an IP address
+       in network byte order is expected, followed by its network mask
+       (which is 4 bytes in IPv4 or 16-bytes in IPv6).

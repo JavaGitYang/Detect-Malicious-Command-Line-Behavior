@@ -1,0 +1,25 @@
+
+       File locks are not part of persistent file system state.  Lock state
+       is thus lost when a host reboots.
+       Network file systems must also detect when lock state is lost because
+       a remote host has rebooted.  After an NFS client reboots, an NFS
+       server must release all file locks held by applications that were
+       running on that client.  After a server reboots, a client must remind
+       the server of file locks held by applications running on that client.
+       For NFS version 2 [RFC1094] and NFS version 3 [RFC1813], the Network
+       Status Monitor protocol (or NSM for short) is used to notify NFS
+       peers of reboots.  On Linux, two separate user-space components
+       constitute the NSM service:
+       rpc.statd
+              A daemon that listens for reboot notifications from other
+              hosts, and manages the list of hosts to be notified when the
+              local system reboots
+       sm-notify
+              A helper program that notifies NFS peers after the local
+              system reboots
+       The local NFS lock manager alerts its local rpc.statd of each remote
+       peer that should be monitored.  When the local system reboots, the
+       sm-notify command notifies the NSM service on monitored peers of the
+       reboot.  When a remote reboots, that peer notifies the local
+       rpc.statd, which in turn passes the reboot notification back to the
+       local NFS lock manager.

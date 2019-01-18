@@ -1,0 +1,54 @@
+
+       init_module() loads an ELF image into kernel space, performs any
+       necessary symbol relocations, initializes module parameters to values
+       provided by the caller, and then runs the module's init function.
+       This system call requires privilege.
+       The module_image argument points to a buffer containing the binary
+       image to be loaded; len specifies the size of that buffer.  The
+       module image should be a valid ELF image, built for the running
+       kernel.
+       The param_values argument is a string containing space-delimited
+       specifications of the values for module parameters (defined inside
+       the module using module_param() and module_param_array()).  The
+       kernel parses this string and initializes the specified parameters.
+       Each of the parameter specifications has the form:
+               name[=value[,value...]]
+       The parameter name is one of those defined within the module using
+       module_param() (see the Linux kernel source file
+       include/linux/moduleparam.h).  The parameter value is optional in the
+       case of bool and invbool parameters.  Values for array parameters are
+       specified as a comma-separated list.
+   finit_module()
+       The finit_module() system call is like init_module(), but reads the
+       module to be loaded from the file descriptor fd.  It is useful when
+       the authenticity of a kernel module can be determined from its
+       location in the filesystem; in cases where that is possible, the
+       overhead of using cryptographically signed modules to determine the
+       authenticity of a module can be avoided.  The param_values argument
+       is as for init_module().
+       The flags argument modifies the operation of finit_module().  It is a
+       bit mask value created by ORing together zero or more of the
+       following flags:
+       MODULE_INIT_IGNORE_MODVERSIONS
+              Ignore symbol version hashes.
+       MODULE_INIT_IGNORE_VERMAGIC
+              Ignore kernel version magic.
+       There are some safety checks built into a module to ensure that it
+       matches the kernel against which it is loaded.  These checks are
+       recorded when the module is built and verified when the module is
+       loaded.  First, the module records a "vermagic" string containing the
+       kernel version number and prominent features (such as the CPU type).
+       Second, if the module was built with the CONFIG_MODVERSIONS
+       configuration option enabled, a version hash is recorded for each
+       symbol the module uses.  This hash is based on the types of the
+       arguments and return value for the function named by the symbol.  In
+       this case, the kernel version number within the "vermagic" string is
+       ignored, as the symbol version hashes are assumed to be sufficiently
+       reliable.
+       Using the MODULE_INIT_IGNORE_VERMAGIC flag indicates that the
+       "vermagic" string is to be ignored, and the
+       MODULE_INIT_IGNORE_MODVERSIONS flag indicates that the symbol version
+       hashes are to be ignored.  If the kernel is built to permit forced
+       loading (i.e., configured with CONFIG_MODULE_FORCE_LOAD), then
+       loading continues, otherwise it fails with the error ENOEXEC as
+       expected for malformed modules.

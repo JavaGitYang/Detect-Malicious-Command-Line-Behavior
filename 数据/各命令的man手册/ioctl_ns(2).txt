@@ -1,0 +1,58 @@
+
+   Discovering namespace relationships
+       The following ioctl(2) operations are provided to allow discovery of
+       namespace relationships (see user_namespaces(7) and
+       pid_namespaces(7)).  The form of the calls is:
+           new_fd = ioctl(fd, request);
+       In each case, fd refers to a /proc/[pid]/ns/* file.  Both operations
+       return a new file descriptor on success.
+       NS_GET_USERNS (since Linux 4.9)
+              Returns a file descriptor that refers to the owning user
+              namespace for the namespace referred to by fd.
+       NS_GET_PARENT (since Linux 4.9)
+              Returns a file descriptor that refers to the parent namespace
+              of the namespace referred to by fd.  This operation is valid
+              only for hierarchical namespaces (i.e., PID and user names‐
+              paces).  For user namespaces, NS_GET_PARENT is synonymous with
+              NS_GET_USERNS.
+       The new file descriptor returned by these operations is opened with
+       the O_RDONLY and O_CLOEXEC (close-on-exec; see fcntl(2)) flags.
+       By applying fstat(2) to the returned file descriptor, one obtains a
+       stat structure whose st_dev (resident device) and st_ino (inode num‐
+       ber) fields together identify the owning/parent namespace.  This
+       inode number can be matched with the inode number of another
+       /proc/[pid]/ns/{pid,user} file to determine whether that is the own‐
+       ing/parent namespace.
+       Either of these ioctl(2) operations can fail with the following
+       errors:
+       EPERM  The requested namespace is outside of the caller's namespace
+              scope.  This error can occur if, for example, the owning user
+              namespace is an ancestor of the caller's current user names‐
+              pace.  It can also occur on attempts to obtain the parent of
+              the initial user or PID namespace.
+       ENOTTY The operation is not supported by this kernel version.
+       Additionally, the NS_GET_PARENT operation can fail with the following
+       error:
+       EINVAL fd refers to a nonhierarchical namespace.
+       See the EXAMPLE section for an example of the use of these opera‐
+       tions.
+   Discovering the namespace type
+       The NS_GET_NSTYPE operation (available since Linux 4.11) can be used
+       to discover the type of namespace referred to by the file descriptor
+       fd:
+           nstype = ioctl(fd, NS_GET_NSTYPE);
+       fd refers to a /proc/[pid]/ns/* file.
+       The return value is one of the CLONE_NEW* values that can be speci‐
+       fied to clone(2) or unshare(2) in order to create a namespace.
+   Discovering the owner of a user namespace
+       The NS_GET_OWNER_UID operation (available since Linux 4.11) can be
+       used to discover the owner user ID of a user namespace (i.e., the
+       effective user ID of the process that created the user namespace).
+       The form of the call is:
+           uid_t uid;
+           ioctl(fd, NS_GET_OWNER_UID, &uid);
+       fd refers to a /proc/[pid]/ns/user file.
+       The owner user ID is returned in the uid_t pointed to by the third
+       argument.
+       This operation can fail with the following error:
+       EINVAL fd does not refer to a user namespace.

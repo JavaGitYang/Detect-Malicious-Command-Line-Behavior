@@ -1,0 +1,24 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       If s is not a null pointer, mblen() shall determine the number of
+       bytes constituting the character pointed to by s.  Except that the
+       shift state of mbtowc() is not affected, it shall be equivalent to:
+           mbtowc((wchar_t *)0, s, n);
+       The implementation shall behave as if no function defined in this
+       volume of POSIX.1‐2008 calls mblen().
+       The behavior of this function is affected by the LC_CTYPE category of
+       the current locale. For a state-dependent encoding, this function
+       shall be placed into its initial state by a call for which its
+       character pointer argument, s, is a null pointer. Subsequent calls
+       with s as other than a null pointer shall cause the internal state of
+       the function to be altered as necessary. A call with s as a null
+       pointer shall cause this function to return a non-zero value if
+       encodings have state dependency, and 0 otherwise. If the
+       implementation employs special bytes to change the shift state, these
+       bytes shall not produce separate wide-character codes, but shall be
+       grouped with an adjacent character. Changing the LC_CTYPE category
+       causes the shift state of this function to be unspecified.
+       The mblen() function need not be thread-safe.

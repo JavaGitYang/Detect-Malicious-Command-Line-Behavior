@@ -1,0 +1,3 @@
+
+       This function checks if there pending corked data in the gnutls
+       buffers --see gnutls_record_cork().

@@ -1,0 +1,3 @@
+
+       The uuid_clear function sets the value of the supplied uuid variable
+       uu to the NULL value.

@@ -1,0 +1,3 @@
+
+       pcp-ipcs provides information on the inter-process communication
+       facilities for which the calling process has read access.

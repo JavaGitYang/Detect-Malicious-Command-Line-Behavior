@@ -1,0 +1,19 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The setvbuf() function may be used after the stream pointed to by
+       stream is associated with an open file but before any other operation
+       (other than an unsuccessful call to setvbuf()) is performed on the
+       stream. The argument type determines how stream shall be buffered, as
+       follows:
+        *  {_IOFBF} shall cause input/output to be fully buffered.
+        *  {_IOLBF} shall cause input/output to be line buffered.
+        *  {_IONBF} shall cause input/output to be unbuffered.
+       If buf is not a null pointer, the array it points to may be used
+       instead of a buffer allocated by setvbuf() and the argument size
+       specifies the size of the array; otherwise, size may determine the
+       size of a buffer allocated by the setvbuf() function. The contents of
+       the array at any time are unspecified.
+       For information about streams, see Section 2.5, Standard I/O Streams.

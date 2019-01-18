@@ -1,0 +1,24 @@
+
+       The zbxpcp loadable module extends Zabbix agent by making Performance
+       Co-Pilot (PCP) metrics available to it.  With the zbxpcp module
+       configured in zabbix_agentd.conf all the PCP metrics are available
+       from the Zabbix agent like any other agent items.  As a loadable
+       module (DSO) zbxpcp does not rely on any external programs but
+       directly uses the PCP APIs to fetch PCP metrics when requested.
+       A typical Linux PCP installation offers over 1,000 metrics by default
+       and is in turn extensible with its own plugins, or PMDAs
+       (``Performance Metrics Domain Agents'').  In addition to very
+       complete /proc based statistics, readily available PCP PMDAs provide
+       support for such system and application level components as 389
+       Directory Server, Apache, containers, HAProxy, GFS2, Gluster,
+       libvirt, MySQL, NFS, Oracle, Postfix, PostgreSQL, Samba, and
+       Sendmail, among others.  PCP also runs on many platforms, including
+       Linux, Mac OS X, FreeBSD, NetBSD, Solaris, and Windows.
+       For PCP introduction, see PCPIntro(1).  To investigate the available
+       PCP metrics, use for example pminfo(1).  The PCP Quick Reference
+       Guide is available at the PCP home page http://pcp.io/.
+       For general information about Zabbix data collection and loadable
+       modules, see
+       https://www.zabbix.com/documentation/3.0/manual/config/items.  For
+       Zabbix introduction and downloads, see http://www.zabbix.com/.
+       zbxpcp is compatible with the Zabbix module API version 1.

@@ -1,0 +1,22 @@
+
+       The setsockopt() function shall set the option specified by the
+       option_name argument, at the protocol level specified by the level
+       argument, to the value pointed to by the option_value argument for
+       the socket associated with the file descriptor specified by the
+       socket argument.
+       The level argument specifies the protocol level at which the option
+       resides. To set options at the socket level, specify the level
+       argument as SOL_SOCKET. To set options at other levels, supply the
+       appropriate level identifier for the protocol controlling the option.
+       For example, to indicate that an option is interpreted by the TCP
+       (Transport Control Protocol), set level to IPPROTO_TCP as defined in
+       the <netinet/in.h> header.
+       The option_name argument specifies a single option to set. It can be
+       one of the socket-level options defined in sys_socket.h(0p) and
+       described in Section 2.10.16, Use of Options.  If option_name is
+       equal to SO_RCVTIMEO or SO_SNDTIMEO and the implementation supports
+       setting the option, it is unspecified whether the struct timeval
+       pointed to by option_value is stored as provided by this function or
+       is rounded up to align with the resolution of the clock being used.
+       If setsockopt() is called with option_name equal to SO_ACCEPTCONN,
+       SO_ERROR, or SO_TYPE, the behavior is unspecified.

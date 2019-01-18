@@ -1,0 +1,3 @@
+
+       This function will return the number of bits that correspond to
+       symmetric cipher strength for the given security parameter.

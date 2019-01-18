@@ -1,0 +1,23 @@
+
+     A tutorial sampler for writing BSD manual pages with the -mdoc macro
+     package, a content-based and domain-based formatting package for
+     troff(1).  Its predecessor, the -man(7) package, addressed page layout,
+     leaving the manipulation of fonts and other typesetting details to the
+     individual author.  In -mdoc, page layout macros make up the page
+     structure domain which consists of macros for titles, section headers,
+     displays and lists.  Essentially items which affect the physical posi‐
+     tion of text on a formatted page.  In addition to the page structure
+     domain, there are two more domains, the manual domain and the general
+     text domain.  The general text domain is defined as macros which per‐
+     form tasks such as quoting or emphasizing pieces of text.  The manual
+     domain is defined as macros that are a subset of the day to day infor‐
+     mal language used to describe commands, routines and related BSD files.
+     Macros in the manual domain handle command names, command-line argu‐
+     ments and options, function names, function parameters, pathnames,
+     variables, cross references to other manual pages, and so on.  These
+     domain items have value for both the author and the future user of the
+     manual page.  It is hoped the consistency gained across the manual set
+     will provide easier translation to future documentation tools.
+     Throughout the UNIX manual pages, a manual entry is simply referred to
+     as a man page, regardless of actual length and without sexist inten‐
+     tion.

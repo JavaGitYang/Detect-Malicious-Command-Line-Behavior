@@ -1,0 +1,40 @@
+
+       MariaDB distributions on Unix include a script named mysql.server. It
+       can be used on systems such as Linux and Solaris that use System
+       V-style run directories to start and stop system services. It is also
+       used by the Mac OS X Startup Item for MariaDB.
+       mysql.server can be found in the support-files directory under your
+       MariaDB installation directory or in a MariaDB source distribution.
+       If you use the Linux server RPM package (MySQL-server-VERSION.rpm),
+       the mysql.server script will be installed in the /etc/init.d
+       directory with the name mysql. You need not install it manually.
+       Some vendors provide RPM packages that install a startup script under
+       a different name such as mysqld.
+       If you install MariaDB from a source distribution or using a binary
+       distribution format that does not install mysql.server automatically,
+       you can install it manually.
+       mysql.server reads options from the [mysql.server] and [mysqld]
+       sections of option files. For backward compatibility, it also reads
+       [mysql_server] sections, although you should rename such sections to
+       [mysql.server]&.
+       mysql.server supports the following options.
+       ·   --basedir=path
+           The path to the MariaDB installation directory.
+       ·   --datadir=path
+           The path to the MariaDB data directory.
+       ·   --pid-file=file_name
+           The path name of the file in which the server should write its
+           process ID. If not provided, the default, "host_name.pid" is
+           used.
+       ·   --service-startup-timeout=file_name
+           How long in seconds to wait for confirmation of server startup.
+           If the server does not start within this time, mysql.server exits
+           with an error. The default value is 900. A value of 0 means not
+           to wait at all for startup. Negative values mean to wait forever
+           (no timeout).
+       ·   --use-mysqld_safe
+           Use mysqld_safe to start the server. This is the default.
+       ·   --use-manager
+           Use Instance Manager to start the server.
+       ·   --user=user_name
+           The login user name to use for running mysqld.

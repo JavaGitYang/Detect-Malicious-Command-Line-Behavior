@@ -1,0 +1,4 @@
+
+       The pthread_getcpuclockid() function shall return in clock_id the
+       clock ID of the CPU-time clock of the thread specified by thread_id,
+       if the thread specified by thread_id exists.

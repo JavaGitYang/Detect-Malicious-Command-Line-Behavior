@@ -1,0 +1,5 @@
+
+       keyctl_revoke() marks a key as being revoked.
+       After this operation has been performed on a key, attempts to access
+       it will meet with error EKEYREVOKED.
+       The caller must have write permission on a key to be able revoke it.

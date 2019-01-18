@@ -1,0 +1,10 @@
+
+       pcap_list_datalinks() is used to get a list of the supported link-
+       layer header types of the interface associated with the pcap
+       descriptor.  pcap_list_datalinks() allocates an array to hold the
+       list and sets *dlt_buf to point to that array.
+       The caller is responsible for freeing the array with
+       pcap_free_datalinks(), which frees the list of link-layer header
+       types pointed to by dlt_list.
+       It must not be called on a pcap descriptor created by pcap_create()
+       that has not yet been activated by pcap_activate().

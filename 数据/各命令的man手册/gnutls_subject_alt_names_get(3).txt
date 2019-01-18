@@ -1,0 +1,4 @@
+
+       This function will return a specific alternative name as stored in
+       the  sans type. The returned values should be treated as constant and
+       valid for the lifetime of  sans .

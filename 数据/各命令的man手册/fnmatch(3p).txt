@@ -1,0 +1,31 @@
+
+       The fnmatch() function shall match patterns as described in the Shell
+       and Utilities volume of POSIX.1‐2008, Section 2.13.1, Patterns
+       Matching a Single Character and Section 2.13.2, Patterns Matching
+       Multiple Characters.  It checks the string specified by the string
+       argument to see if it matches the pattern specified by the pattern
+       argument.
+       The flags argument shall modify the interpretation of pattern and
+       string.  It is the bitwise-inclusive OR of zero or more of the flags
+       defined in <fnmatch.h>.  If the FNM_PATHNAME flag is set in flags,
+       then a <slash> character ('/') in string shall be explicitly matched
+       by a <slash> in pattern; it shall not be matched by either the
+       <asterisk> or <question-mark> special characters, nor by a bracket
+       expression. If the FNM_PATHNAME flag is not set, the <slash>
+       character shall be treated as an ordinary character.
+       If FNM_NOESCAPE is not set in flags, a <backslash> character in
+       pattern followed by any other character shall match that second
+       character in string.  In particular, "\\" shall match a <backslash>
+       in string.  If FNM_NOESCAPE is set, a <backslash> character shall be
+       treated as an ordinary character.
+       If FNM_PERIOD is set in flags, then a leading <period> ('.')  in
+       string shall match a <period> in pattern; as described by rule 2 in
+       the Shell and Utilities volume of POSIX.1‐2008, Section 2.13.3,
+       Patterns Used for Filename Expansion where the location of
+       ``leading'' is indicated by the value of FNM_PATHNAME:
+        *  If FNM_PATHNAME is set, a <period> is ``leading'' if it is the
+           first character in string or if it immediately follows a <slash>.
+        *  If FNM_PATHNAME is not set, a <period> is ``leading'' only if it
+           is the first character of string.
+       If FNM_PERIOD is not set, then no special restrictions are placed on
+       matching a period.

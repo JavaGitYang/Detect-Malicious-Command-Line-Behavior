@@ -1,0 +1,19 @@
+
+       confstr() gets the value of configuration-dependent string variables.
+       The name argument is the system variable to be queried.  The
+       following variables are supported:
+       _CS_GNU_LIBC_VERSION (GNU C library only; since glibc 2.3.2)
+              A string which identifies the GNU C library version on this
+              system (e.g., "glibc 2.3.4").
+       _CS_GNU_LIBPTHREAD_VERSION (GNU C library only; since glibc 2.3.2)
+              A string which identifies the POSIX implementation supplied by
+              this C library (e.g., "NPTL 2.3.4" or "linuxthreads-0.10").
+       _CS_PATH
+              A value for the PATH variable which indicates where all the
+              POSIX.2 standard utilities can be found.
+       If buf is not NULL and len is not zero, confstr() copies the value of
+       the string to buf truncated to len - 1 bytes if necessary, with a
+       null byte ('\0') as terminator.  This can be detected by comparing
+       the return value of confstr() against len.
+       If len is zero and buf is NULL, confstr() just returns the value as
+       defined below.

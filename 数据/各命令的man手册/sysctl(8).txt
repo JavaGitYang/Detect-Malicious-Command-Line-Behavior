@@ -1,0 +1,5 @@
+
+       sysctl is used to modify kernel parameters at runtime.  The
+       parameters available are those listed under /proc/sys/.  Procfs is
+       required for sysctl support in Linux.  You can use sysctl to both
+       read and write sysctl data.

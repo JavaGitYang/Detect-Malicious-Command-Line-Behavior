@@ -1,0 +1,11 @@
+
+       This function will convert the provided UTF-8 domain name, to its
+       IDNA mapping in an allocated variable. Note that depending on the
+       flags the used gnutls library was compiled with, the output of this
+       function may vary (i.e., may be IDNA2008, or IDNA2003).
+       To force IDNA2008 specify the flag GNUTLS_IDNA_FORCE_2008. In the
+       case GnuTLS is not compiled with the necessary dependencies,
+       GNUTLS_E_UNIMPLEMENTED_FEATURE will be returned to indicate that
+       gnutls is unable to perform the requested conversion.
+       Note also, that this function will return an empty string if an empty
+       string is provided as input.

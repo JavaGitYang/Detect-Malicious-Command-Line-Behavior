@@ -1,0 +1,3 @@
+
+       The sigemptyset() function initializes the signal set pointed to by
+       set, such that all signals defined in POSIX.1‐2008 are excluded.

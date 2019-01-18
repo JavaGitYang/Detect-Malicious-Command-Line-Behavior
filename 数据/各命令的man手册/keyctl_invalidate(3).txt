@@ -1,0 +1,7 @@
+
+       keyctl_invalidate() invalidates a key.  The key is scheduled for
+       immediate removal from all the keyrings that point to it, after which
+       it will be deleted.  The key will be ignored by all searches once
+       this function is called even if it is not yet fully dealt with.
+       The caller must have search permission on a key to be able to
+       invalidate it.

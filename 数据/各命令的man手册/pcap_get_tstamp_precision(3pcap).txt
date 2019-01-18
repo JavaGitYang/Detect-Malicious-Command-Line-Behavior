@@ -1,0 +1,3 @@
+
+       pcap_get_tstamp_precision() returns the precision of the time stamp
+       returned in packet captures on the pcap descriptor.

@@ -1,0 +1,6 @@
+
+       pmsocks allows Performance Co-Pilot (PCP) clients running on hosts
+       located on the internal side of a TCP/IP firewall to monitor remote
+       hosts on the other side of the firewall.  This assumes the firewall
+       has been configured with a compliant sockd daemon and the necessary
+       access controls are satisfied.

@@ -1,0 +1,37 @@
+
+       This implementation provides functions which return properties set in
+       the WINDOW structure, allowing it to be “opaque” if the symbol
+       NCURSES_OPAQUE is defined:
+       is_cleared
+            returns the value set in clearok
+       is_idcok
+            returns the value set in idcok
+       is_idlok
+            returns the value set in idlok
+       is_immedok
+            returns the value set in immedok
+       is_keypad
+            returns the value set in keypad
+       is_leaveok
+            returns the value set in leaveok
+       is_nodelay
+            returns the value set in nodelay
+       is_notimeout
+            returns the value set in notimeout
+       is_pad
+            returns TRUE if the window is a pad i.e., created by newpad
+       is_scrollok
+            returns the value set in scrollok
+       is_subwin
+            returns TRUE if the window is a subwindow, i.e., created by
+            subwin or derwin
+       is_syncok
+            returns the value set in syncok
+       wgetdelay
+            returns the delay timeout as set in wtimeout.
+       wgetparent
+            returns the parent WINDOW pointer for subwindows, or NULL for
+            windows having no parent.
+       wgetscrreg
+            returns the top and bottom rows for the scrolling margin as set
+            in wsetscrreg.

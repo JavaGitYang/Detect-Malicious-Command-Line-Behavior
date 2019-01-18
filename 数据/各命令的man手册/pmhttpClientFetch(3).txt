@@ -1,0 +1,16 @@
+
+       pmhttpNewClient allocates and initializes an opaque HTTP client that
+       is ready to make requests from a server.
+       The URL request interface pmhttpClientFetch issues an HTTP GET
+       request to the server specified in the supplied url.  The body of the
+       response is returned in the caller supplied bodybuf buffer, of
+       bodylen bytes length.  An optional typebuf buffer, of typelen bytes
+       length, can also be supplied and (if non-NULL) will contain the value
+       of the content-type header returned from the server.
+       The url parameter is an RFC1630 format URL.  This will typically be
+       prefixed with "http://", however these interfaces also support Unix
+       domain sockets.  Those are instead prefixed by "unix://", followed by
+       the full filesystem path to the desired Unix domain socket.
+       To free up resources associated with an HTTP client, including
+       closing any persistent server connection that has been established
+       earlier, is accomplished using the pmhttpFreeClient routine.

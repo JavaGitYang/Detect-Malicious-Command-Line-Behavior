@@ -1,0 +1,5 @@
+
+       The skbmod action is intended as a usability upgrade to the existing
+       pedit action. Instead of having to manually edit 8-, 16-, or 32-bit
+       chunks of an ethernet header, skbmod allows complete substitution of
+       supported elements.

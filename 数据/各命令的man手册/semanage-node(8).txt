@@ -1,0 +1,4 @@
+
+       semanage is used to configure certain elements of SELinux policy
+       without requiring modification to or recompilation from policy
+       sources.  semanage controls the ipaddress to node type definitions.

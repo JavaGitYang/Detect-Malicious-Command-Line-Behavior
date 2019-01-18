@@ -1,0 +1,8 @@
+
+       The library supports the Intel SkyLake core PMU. It should be noted
+       that this PMU model only covers each core's PMU and not the socket
+       level PMU.
+       On SkyLake, the number of generic counters depends on the
+       Hyperthreading (HT) mode.
+       counters are available. The pfm_get_pmu_info() function returns the
+       maximum number of generic counters in num_cntrs.

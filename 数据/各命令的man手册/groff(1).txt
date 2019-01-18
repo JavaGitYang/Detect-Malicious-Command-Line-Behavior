@@ -1,0 +1,9 @@
+
+       This document describes the groff program, the main front-end for the
+       groff document formatting system.  The groff program and macro suite
+       is the implementation of a roff(7) system within the free software
+       collection GNU ⟨http://www.gnu.org⟩.  The groff system has all fea‐
+       tures of the classical roff, but adds many extensions.
+       The groff program allows control of the whole groff system by com‐
+       mand-line options.  This is a great simplification in comparison to
+       the classical case (which uses pipes only).

@@ -1,0 +1,242 @@
+
+       xfsrestore restores filesystems from dumps produced by xfsdump(8).
+       Two modes of operation are available: simple and cumulative.
+       The default is simple mode.  xfsrestore populates the specified
+       destination directory, dest, with the files contained in the dump
+       media.
+       The -r option specifies the cumulative mode.  Successive invocations
+       of xfsrestore are used to apply a chronologically ordered sequence of
+       delta dumps to a base (level 0) dump.  The contents of the filesystem
+       at the time each dump was produced is reproduced.  This can involve
+       adding, deleting, renaming, linking, and unlinking files and
+       directories.
+       A delta dump is defined as either an incremental dump (xfsdump -l
+       option with level > 0) or a resumed dump (xfsdump -R option).  The
+       deltas must be applied in the order they were produced.  Each delta
+       applied must have been produced with the previously applied delta as
+       its base.
+       xfsrestore keeps state information in the xfsrestorehousekeepingdir,
+       to inform subsequent invocations when used in cumulative mode, or in
+       the event a restore is interrupted.  To ensure that the state
+       information can be processed, a compatible version of xfsrestore must
+       be used for each subsequent invocation. Additionally, each invocation
+       must run on a system of the same endianness and page size.
+       The options to xfsrestore are:
+       -a housekeeping
+            Each invocation of xfsrestore creates a directory called
+            xfsrestorehousekeepingdir.  This directory is normally created
+            directly under the dest directory.  The -a option allows the
+            operator to specify an alternate directory, housekeeping, in
+            which xfsrestore creates the xfsrestorehousekeepingdir
+            directory.  When performing a cumulative (-r option) restore or
+            resuming (-R option) a restore, each successive invocation must
+            specify the same alternate directory.
+       -b blocksize
+            Specifies the blocksize, in bytes, to be used for the restore.
+            For other drives such as DAT or 8 mm , the same blocksize used
+            for the xfsdump operation must be specified to restore the tape.
+            The default block size is 1Mb.
+       -c progname
+            Use the specified program to alert the operator when a media
+            change is required. The alert program is typically a script to
+            send a mail or flash a window to draw the operator's attention.
+       -e   Prevents xfsrestore from overwriting existing files in the dest
+            directory.
+       -f source [ -f source ... ]
+            Specifies a source of the dump to be restored.  This can be the
+            pathname of a device (such as a tape drive), a regular file or a
+            remote tape drive (see rmt(8)).  This option must be omitted if
+            the standard input option (a lone - preceding the dest
+            specification) is specified.
+       -i   Selects interactive operation.  Once the on-media directory
+            hierarchy has been read, an interactive dialogue is begun.  The
+            operator uses a small set of commands to peruse the directory
+            hierarchy, selecting files and subtrees for extraction.  The
+            available commands are given below.  Initially nothing is
+            selected, except for those subtrees specified with -s command
+            line options.
+            ls [arg]       List the entries in the current directory or the
+                           specified directory, or the specified non-
+                           directory file entry.  Both the entry's original
+                           inode number and name are displayed.  Entries
+                           that are directories are appended with a `/'.
+                           Entries that have been selected for extraction
+                           are prepended with a `*'.
+            cd [arg]       Change the current working directory to the
+                           specified argument, or to the filesystem root
+                           directory if no argument is specified.
+            pwd            Print the pathname of the current directory,
+                           relative to the filesystem root.
+            add [arg]      The current directory or specified file or
+                           directory within the current directory is
+                           selected for extraction.  If a directory is
+                           specified, then it and all its descendents are
+                           selected.  Entries that are selected for
+                           extraction are prepended with a `*' when they are
+                           listed by ls.
+            delete [arg]   The current directory or specified file or
+                           directory within the current directory is
+                           deselected for extraction.  If a directory is
+                           specified, then it and all its descendents are
+                           deselected.  The most expedient way to extract
+                           most of the files from a directory is to select
+                           the directory and then deselect those files that
+                           are not needed.
+            extract        Ends the interactive dialogue, and causes all
+                           selected subtrees to be restored.
+            quit           xfsrestore ends the interactive dialogue and
+                           immediately exits, even if there are files or
+                           subtrees selected for extraction.
+            help           List a summary of the available commands.
+       -m   Use the minimal tape protocol.  This option cannot be used
+            without specifying a blocksize to be used (see -b option above).
+       -n file
+            Allows xfsrestore to restore only files newer than file.  The
+            modification time of file (i.e., as displayed with the ls -l
+            command) is compared to the inode modification time of each file
+            on the source media (i.e., as displayed with the ls -lc
+            command).  A file is restored from media only if its inode
+            modification time is greater than or equal to the modification
+            time of file.
+       -o   Restore file and directory owner/group even if not root.  When
+            run with an effective user id of root, xfsrestore restores owner
+            and group of each file and directory.  When run with any other
+            effective user id it does not, unless this option is specified.
+       -p interval
+            Causes progress reports to be printed at intervals of interval
+            seconds.  The interval value is approximate, xfsrestore will
+            delay progress reports to avoid undue processing overhead.
+       -q   Source tape drive is a QIC tape.  QIC tapes only use a 512 byte
+            blocksize, for which xfsrestore must make special allowances.
+       -r   Selects the cumulative mode of operation. The -a and destination
+            options must be the same for each invocation.
+       -s subtree
+            Specifies a subtree to restore.  Any number of -s options are
+            allowed.  The restore is constrained to the union of all
+            subtrees specified.  Each subtree is specified as a pathname
+            relative to the restore dest.  If a directory is specified, the
+            directory and all files beneath that directory are restored.
+       -t   Displays the contents of the dump, but does not create or modify
+            any files or directories.  It may be desirable to set the
+            verbosity level to silent when using this option.
+       -v verbosity
+       -v subsys=verbosity[,subsys=verbosity,...]
+            Specifies the level of detail used for messages displayed during
+            the course of the restore. The verbosity argument can be passed
+            as either a string or an integer. If passed as a string the
+            following values may be used: silent, verbose, trace, debug, or
+            nitty.  If passed as an integer, values from 0-5 may be used.
+            The values 0-4 correspond to the strings already listed. The
+            value 5 can be used to produce even more verbose debug output.
+            The first form of this option activates message logging across
+            all restore subsystems. The second form allows the message
+            logging level to be controlled on a per-subsystem basis. The two
+            forms can be combined (see the example below). The argument
+            subsys can take one of the following values: general, proc,
+            drive, media, inventory, and tree.
+            For example, to restore the root filesystem with tracing
+            activated for all subsystems:
+                 # xfsrestore -v trace -f /dev/tape /
+            To enable debug-level tracing for drive and media operations:
+                 # xfsrestore -v drive=debug,media=debug -f /dev/tape /
+            To enable tracing for all subsystems, and debug level tracing
+            for drive operations only:
+                 # xfsrestore -v trace,drive=debug -f /dev/tape /
+       -A   Do not restore extended file attributes.  When restoring a
+            filesystem managed within a DMF environment this option should
+            not be used. DMF stores file migration status within extended
+            attributes associated with each file. If these attributes are
+            not preserved when the filesystem is restored, files that had
+            been in migrated state will not be recallable by DMF. Note that
+            dumping of extended file attributes is also optional.
+       -B   Change the ownership and permissions of the destination
+            directory to match those of the root directory of the dump.
+       -D   Restore DMAPI (Data Management Application Programming
+            Interface) event settings. If the restored filesystem will be
+            managed within the same DMF environment as the original dump it
+            is essential that the -D option be used. Otherwise it is not
+            usually desirable to restore these settings.
+       -E   Prevents xfsrestore from overwriting newer versions of files.
+            The inode modification time of the on-media file is compared to
+            the inode modification time of corresponding file in the dest
+            directory.  The file is restored only if the on-media version is
+            newer than the version in the dest directory.  The inode
+            modification time of a file can be displayed with the ls -lc
+            command.
+       -F   Inhibit interactive operator prompts.  This option inhibits
+            xfsrestore from prompting the operator for verification of the
+            selected dump as the restore target and from prompting for any
+            media change.
+       -I   Causes the xfsdump inventory to be displayed (no restore is
+            performed).  Each time xfsdump is used, an online inventory in
+            /var/lib/xfsdump/inventory is updated.  This is used to
+            determine the base for incremental dumps.  It is also useful for
+            manually identifying a dump session to be restored (see the -L
+            and -S options).  Suboptions to filter the inventory display are
+            described later.
+       -J   Inhibits inventory update when on-media session inventory
+            encountered during restore.  xfsrestore opportunistically
+            updates the online inventory when it encounters an on-media
+            session inventory, but only if run with an effective user id of
+            root and only if this option is not given.
+       -K   Force xfsrestore to use dump format 2 generation numbers.
+            Normally the need for this is determined automatically, but this
+            option is required on the first xfsrestore invocation in the
+            rare case that a cumulative restore begins with a format 3 (or
+            newer) dump and will be followed by a format 2 dump.
+       -L session_label
+            Specifies the label of the dump session to be restored.  The
+            source media is searched for this label.  It is any arbitrary
+            string up to 255 characters long.  The label of the desired dump
+            session can be copied from the inventory display produced by the
+            -I option.
+       -O options_file
+            Insert the options contained in options_file into the beginning
+            of the command line.  The options are specified just as they
+            would appear if typed into the command line.  In addition,
+            newline characters (\n) can be used as whitespace.  The options
+            are placed before all options actually given on the command
+            line, just after the command name.  Only one -O option can be
+            used.  Recursive use is ignored.  The destination directory
+            cannot be specified in options_file.
+       -Q   Force completion of an interrupted restore session.  This option
+            is required to work around one specific pathological scenario.
+            When restoring a dump session which was interrupted due to an
+            EOM condition and no online session inventory is available,
+            xfsrestore cannot know when the restore of that dump session is
+            complete.  The operator is forced to interrupt the restore
+            session.  In that case, if the operator tries to subsequently
+            apply a resumed dump (using the -r option), xfsrestore refuses
+            to do so.  The operator must tell xfsrestore to consider the
+            base restore complete by using this option when applying the
+            resumed dump.
+       -R   Resume a previously interrupted restore.  xfsrestore can be
+            interrupted at any time by pressing the terminal interrupt
+            character (see stty(1)).  Use this option to resume the restore.
+            The -a and destination options must be the same.
+       -S session_id
+            Specifies the session UUID of the dump session to be restored.
+            The source media is searched for this UUID.  The UUID of the
+            desired dump session can be copied from the inventory display
+            produced by the -I option.
+       -T   Inhibits interactive dialogue timeouts.  xfsrestore prompts the
+            operator for media changes.  This dialogue normally times out if
+            no response is supplied.  This option prevents the timeout.
+       -X subtree
+            Specifies a subtree to exclude.  This is the converse of the -s
+            option.  Any number of -X options are allowed.  Each subtree is
+            specified as a pathname relative to the restore dest.  If a
+            directory is specified, the directory and all files beneath that
+            directory are excluded.
+       -Y io_ring_length
+            Specify I/O buffer ring length.  xfsrestore uses a ring of input
+            buffers to achieve maximum throughput when restoring from tape
+            drives.  The default ring length is 3.  However, this is not
+            currently enabled on Linux yet, making this option benign.
+       -    A lone - causes the standard input to be read as the source of
+            the dump to be restored.  Standard input can be a pipe from
+            another utility (such as xfsdump(8)) or a redirected file.  This
+            option cannot be used with the -f option.  The - must follow all
+            other options, and precede the dest specification.
+       The dumped filesystem is restored into the dest directory.  There is
+       no default; the dest must be specified.

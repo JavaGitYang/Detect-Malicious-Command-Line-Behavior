@@ -1,0 +1,12 @@
+
+       When processing event records, if pmUnpackEventRecords(3) is used to
+       unpack event records from a metric within a pmResult structure with a
+       value of type PM_TYPE_EVENT then the structure returned from
+       pmUnpackEventRecords(3) is a NULL pointer terminated array of
+       pointers to pmResult structures, one for each event record.
+       pmFreeEventResult is a convenience method that frees all of the
+       pmResult structures and the array of pointers (rset).
+       Similarly, pmFreeHighResEventResult may be used to free the
+       pmHighResResult structures and array returned from the
+       pmUnpackHighResEventRecords routine when using PM_TYPE_HIGHRES_EVENT
+       metrics.

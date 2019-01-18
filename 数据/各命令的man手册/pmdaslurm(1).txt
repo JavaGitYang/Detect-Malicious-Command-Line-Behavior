@@ -1,0 +1,4 @@
+
+       pmdaslurm is a Performance Metrics Domain Agent (PMDA) which exports
+       metric values from the slurm perlapi interface to provide information
+       on slurm jobs, nodes and users.

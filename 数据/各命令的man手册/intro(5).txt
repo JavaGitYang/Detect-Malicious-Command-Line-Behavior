@@ -1,0 +1,5 @@
+
+       Section 5 of the manual describes various file formats, as well as
+       the corresponding C structures, if any.
+       In addition, this section contains a number of pages that document
+       various filesystems.

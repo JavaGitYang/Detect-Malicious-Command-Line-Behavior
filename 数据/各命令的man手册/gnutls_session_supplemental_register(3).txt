@@ -1,0 +1,7 @@
+
+       This function will register a new supplemental data type (rfc4680).
+       The registered supplemental functions will be used for that specific
+       session. The provided  type must be an unassigned type in
+       gnutls_supplemental_data_format_type_t.
+       If the type is already registered or handled by GnuTLS internally
+       GNUTLS_E_ALREADY_REGISTERED will be returned.

@@ -1,0 +1,23 @@
+
+       LDAP authenticated binds, TLS encrypted connections and certification
+       may be used by setting appropriate values in the autofs
+       authentication configuration file and configuring the LDAP client
+       with appropriate settings.  The default location of this file is
+       @mapdir@/autofs_ldap_auth.conf.  If this file exists it will be used
+       to establish whether TLS or authentication should be used.
+       An example of this file is:
+         <?xml version="1.0" ?>
+         <autofs_ldap_sasl_conf
+                 usetls="yes"
+                 tlsrequired="no"
+                 authrequired="no"
+                 authtype="DIGEST-MD5"
+                 user="xyz"
+                 secret="abc"
+         />
+       If TLS encryption is to be used the location of the Certificate Au‐
+       thority certificate must be set within the LDAP client configuration
+       in order to validate the server certificate. If, in addition, a cer‐
+       tified connection is to be used then the client certificate and pri‐
+       vate key file locations must also be configured within the LDAP
+       client.

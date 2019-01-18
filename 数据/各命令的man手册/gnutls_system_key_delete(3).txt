@@ -1,0 +1,2 @@
+
+       This function will delete the key and certificate pair.

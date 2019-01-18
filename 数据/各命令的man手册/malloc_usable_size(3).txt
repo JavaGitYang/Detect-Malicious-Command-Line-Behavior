@@ -1,0 +1,4 @@
+
+       The malloc_usable_size() function returns the number of usable bytes
+       in the block pointed to by ptr, a pointer to a block of memory
+       allocated by malloc(3) or a related function.

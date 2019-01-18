@@ -1,0 +1,6 @@
+
+       This function will pretty print a signed PKCS 7 structure, suitable
+       for display to a human.
+       Currently the supported formats are GNUTLS_CRT_PRINT_FULL and
+       GNUTLS_CRT_PRINT_COMPACT.
+       The output  out needs to be deallocated using gnutls_free().

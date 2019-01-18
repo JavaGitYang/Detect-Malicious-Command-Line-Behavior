@@ -1,0 +1,27 @@
+
+       The posix_trace_get_attr() function shall copy the attributes of the
+       active trace stream identified by trid into the object pointed to by
+       the attr argument.  If the Trace Log option is supported, trid may
+       represent a pre-recorded trace log.
+       The posix_trace_get_status() function shall return, in the structure
+       pointed to by the statusinfo argument, the current trace status for
+       the trace stream identified by the trid argument. These status values
+       returned in the structure pointed to by statusinfo shall have been
+       appropriately read to ensure that the returned values are consistent.
+       If the Trace Log option is supported and the trid argument refers to
+       a pre-recorded trace stream, the status shall be the status of the
+       completed trace stream.
+       Each time the posix_trace_get_status() function is used, the overrun
+       status of the trace stream shall be reset to POSIX_TRACE_NO_OVERRUN
+       immediately after the call completes.  If the Trace Log option is
+       supported, the posix_trace_get_status() function shall behave the
+       same as when the option is not supported except for the following
+       differences:
+        *  If the trid argument refers to a trace stream with log, each time
+           the posix_trace_get_status() function is used, the log overrun
+           status of the trace stream shall be reset to
+           POSIX_TRACE_NO_OVERRUN and the flush_error status shall be reset
+           to zero immediately after the call completes.
+        *  If the trid argument refers to a pre-recorded trace stream, the
+           status returned shall be the status of the completed trace stream
+           and the status values of the trace stream shall not be reset.

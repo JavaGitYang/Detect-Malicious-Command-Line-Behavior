@@ -1,0 +1,11 @@
+
+       This manual page describes the checkmodule command.
+       checkmodule is a program that checks and compiles a SELinux security
+       policy module into a binary representation.  It can generate either a
+       base policy module (default) or a non-base policy module (-m option);
+       typically, you would build a non-base policy module to add to an
+       existing module store that already has a base module provided by the
+       base policy.  Use semodule_package to combine this module with its
+       optional file contexts to create a policy package, and then use
+       semodule to install the module package into the module store and load
+       the resulting policy.

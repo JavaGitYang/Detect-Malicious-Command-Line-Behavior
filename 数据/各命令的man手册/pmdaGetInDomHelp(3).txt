@@ -1,0 +1,15 @@
+
+       As part of the Performance Metrics Domain Agent (PMDA) API (see
+       PMDA(3)), this group of routines is used to implement the processing
+       of a PMDA's metric help information.
+       These routines are really intended for internal use, and should not
+       need to be called directly from any PMDA code.
+       Briefly, the base name of the help text file (as created by
+       newhelp(1)) is passed in via a -h command line option for a daemon
+       PMDA or as an argument to pmdaDaemon(3) or pmdaDSO(3).  Then
+       pmdaOpenHelp is called from pmdaInit(3) and returns a handle that is
+       used in subsequent calls to identify a particular help text
+       collection (each PMDA typically has only one such collection).
+       Requests for help text are passed to pmdaText(3) which calls
+       pmdaGetHelp or pmdaGetInDomHelp as required.
+       Other than error cases in pmdaOpenHelp, pmdaCloseHelp is not called.

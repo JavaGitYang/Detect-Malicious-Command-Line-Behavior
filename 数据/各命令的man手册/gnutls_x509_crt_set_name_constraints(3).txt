@@ -1,0 +1,4 @@
+
+       This function will set the provided name constraints to the
+       certificate extension list. This extension is always marked as
+       critical.

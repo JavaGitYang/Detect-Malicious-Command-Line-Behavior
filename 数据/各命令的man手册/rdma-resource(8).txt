@@ -1,0 +1,4 @@
+
+   rdma resource show - display rdma resource tracking information
+       DEV/PORT_INDEX - specifies the RDMA link to show.  If this argument
+       is omitted all links are listed.

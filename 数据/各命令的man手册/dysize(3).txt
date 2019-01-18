@@ -1,0 +1,6 @@
+
+       The function returns 365 for a normal year and 366 for a leap year.
+       The calculation for leap year is based on:
+           (year) %4 == 0 && ((year) %100 != 0 || (year) %400 == 0)
+       The formula is defined in the macro __isleap(year) also found in
+       <time.h>.

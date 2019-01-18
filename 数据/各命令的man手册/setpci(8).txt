@@ -1,0 +1,6 @@
+
+       setpci is a utility for querying and configuring PCI devices.
+       All numbers are entered in hexadecimal notation.
+       Root privileges are necessary for almost all operations, excluding
+       reads of the standard header of the configuration space on some
+       operating systems.  Please see lspci(8) for details on access rights.

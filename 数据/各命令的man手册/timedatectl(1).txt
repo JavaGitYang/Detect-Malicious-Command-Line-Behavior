@@ -1,0 +1,5 @@
+
+       timedatectl may be used to query and change the system clock and its
+       settings.
+       Use systemd-firstboot(1) to initialize the system time zone for
+       mounted (but not booted) system images.

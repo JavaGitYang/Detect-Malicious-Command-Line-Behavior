@@ -1,0 +1,28 @@
+
+       These functions are the reentrant equivalents of the functions
+       described in random(3).  They are suitable for use in multithreaded
+       programs where each thread needs to obtain an independent,
+       reproducible sequence of random numbers.
+       The random_r() function is like random(3), except that instead of
+       using state information maintained in a global variable, it uses the
+       state information in the argument pointed to by buf, which must have
+       been previously initialized by initstate_r().  The generated random
+       number is returned in the argument result.
+       The srandom_r() function is like srandom(3), except that it
+       initializes the seed for the random number generator whose state is
+       maintained in the object pointed to by buf, which must have been
+       previously initialized by initstate_r(), instead of the seed
+       associated with the global state variable.
+       The initstate_r() function is like initstate(3) except that it
+       initializes the state in the object pointed to by buf, rather than
+       initializing the global state variable.  Before calling this
+       function, the buf.state field must be initialized to NULL.  The
+       initstate_r() function records a pointer to the statebuf argument
+       inside the structure pointed to by buf.  Thus, statebuf should not be
+       deallocated so long as buf is still in use.  (So, statebuf should
+       typically be allocated as a static variable, or allocated on the heap
+       using malloc(3) or similar.)
+       The setstate_r() function is like setstate(3) except that it modifies
+       the state in the object pointed to by buf, rather than modifying the
+       global state variable.  state must first have been initialized using
+       initstate_r() or be the result of a previous call of setstate_r().

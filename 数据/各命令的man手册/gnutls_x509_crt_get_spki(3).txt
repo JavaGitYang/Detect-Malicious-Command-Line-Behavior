@@ -1,0 +1,3 @@
+
+       This function will return the public key information of an X.509
+       certificate. The provided  spki must be initialized.

@@ -1,0 +1,7 @@
+
+       As part of the Performance Metrics Domain Agent (PMDA) API (see
+       PMDA(3)), pmdaStore is the generic callback for storing a value into
+       a metric.  pmdaStore is usually a no-op as, by default, no metrics
+       can be altered.  Also, the implementation of a store callback which
+       does permit metrics to be altered by pmstore(1) is very application
+       dependent.

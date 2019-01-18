@@ -1,0 +1,10 @@
+
+       Within the framework of the Performance Co-Pilot (PCP), client
+       applications are developed using the Performance Metrics Application
+       Programming Interface (PMAPI) that defines a procedural interface
+       with services suited to the development of applications with a
+       particular interest in performance metrics.
+       This description presents an overview of the PMAPI and the context in
+       which PMAPI applications are run.  The PMAPI is more fully described
+       in the Performance Co-Pilot Programmer's Guide, and the manual pages
+       for the individual PMAPI routines.

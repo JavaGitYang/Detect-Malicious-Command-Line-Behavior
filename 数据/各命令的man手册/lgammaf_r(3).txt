@@ -1,0 +1,10 @@
+
+       For the definition of the Gamma function, see tgamma(3).
+       The lgamma(), lgammaf(), and lgammal() functions return the natural
+       logarithm of the absolute value of the Gamma function.  The sign of
+       the Gamma function is returned in the external integer signgam
+       declared in <math.h>.  It is 1 when the Gamma function is positive or
+       zero, -1 when it is negative.
+       Since using a constant location signgam is not thread-safe, the
+       functions lgamma_r(), lgammaf_r(), and lgammal_r() have been
+       introduced; they return the sign via the argument signp.

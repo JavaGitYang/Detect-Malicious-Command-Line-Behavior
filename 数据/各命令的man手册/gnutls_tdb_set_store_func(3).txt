@@ -1,0 +1,8 @@
+
+       This function will associate a storage function with the trust
+       storage structure. The function is of the following form.
+       int gnutls_tdb_store_func(const char* db_name, const char* host,
+       const char* service, time_t expiration, const gnutls_datum_t*
+       pubkey);
+       The  db_name should be used to pass any private data to this
+       function.

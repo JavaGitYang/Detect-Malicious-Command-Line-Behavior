@@ -1,0 +1,156 @@
+
+       The posix_spawn() and posix_spawnp() functions shall create a new
+       process (child process) from the specified process image. The new
+       process image shall be constructed from a regular executable file
+       called the new process image file.
+       When a C program is executed as the result of this call, it shall be
+       entered as a C-language function call as follows:
+           int main(int argc, char *argv[]);
+       where argc is the argument count and argv is an array of character
+       pointers to the arguments themselves. In addition, the following
+       variable:
+           extern char **environ;
+       shall be initialized as a pointer to an array of character pointers
+       to the environment strings.
+       The argument argv is an array of character pointers to null-
+       terminated strings. The last member of this array shall be a null
+       pointer and is not counted in argc.  These strings constitute the
+       argument list available to the new process image. The value in
+       argv[0] should point to a filename string that is associated with the
+       process image being started by the posix_spawn() or posix_spawnp()
+       function.
+       The argument envp is an array of character pointers to null-
+       terminated strings. These strings constitute the environment for the
+       new process image. The environment array is terminated by a null
+       pointer.
+       The number of bytes available for the combined argument and
+       environment lists of the child process is {ARG_MAX}.  The
+       implementation shall specify in the system documentation (see the
+       Base Definitions volume of POSIX.1‐2008, Chapter 2, Conformance)
+       whether any list overhead, such as length words, null terminators,
+       pointers, or alignment bytes, is included in this total.
+       The path argument to posix_spawn() is a pathname that identifies the
+       new process image file to execute.
+       The file parameter to posix_spawnp() shall be used to construct a
+       pathname that identifies the new process image file. If the file
+       parameter contains a <slash> character, the file parameter shall be
+       used as the pathname for the new process image file. Otherwise, the
+       path prefix for this file shall be obtained by a search of the
+       directories passed as the environment variable PATH (see the Base
+       Definitions volume of POSIX.1‐2008, Chapter 8, Environment
+       Variables).  If this environment variable is not defined, the results
+       of the search are implementation-defined.
+       If file_actions is a null pointer, then file descriptors open in the
+       calling process shall remain open in the child process, except for
+       those whose close-on-exec flag FD_CLOEXEC is set (see fcntl(3p)).
+       For those file descriptors that remain open, all attributes of the
+       corresponding open file descriptions, including file locks (see
+       fcntl(3p)), shall remain unchanged.
+       If file_actions is not NULL, then the file descriptors open in the
+       child process shall be those open in the calling process as modified
+       by the spawn file actions object pointed to by file_actions and the
+       FD_CLOEXEC flag of each remaining open file descriptor after the
+       spawn file actions have been processed. The effective order of
+       processing the spawn file actions shall be:
+        1. The set of open file descriptors for the child process shall
+           initially be the same set as is open for the calling process. All
+           attributes of the corresponding open file descriptions, including
+           file locks (see fcntl(3p)), shall remain unchanged.
+        2. The signal mask, signal default actions, and the effective user
+           and group IDs for the child process shall be changed as specified
+           in the attributes object referenced by attrp.
+        3. The file actions specified by the spawn file actions object shall
+           be performed in the order in which they were added to the spawn
+           file actions object.
+        4. Any file descriptor that has its FD_CLOEXEC flag set (see
+           fcntl(3p)) shall be closed.
+       If file descriptor 0, 1, or 2 would otherwise be closed in the new
+       process image created by posix_spawn() or posix_spawnp(),
+       implementations may open an unspecified file for the file descriptor
+       in the new process image. If a standard utility or a conforming
+       application is executed with file descriptor 0 not open for reading
+       or with file descriptor 1 or 2 not open for writing, the environment
+       in which the utility or application is executed shall be deemed non-
+       conforming, and consequently the utility or application might not
+       behave as described in this standard.
+       The posix_spawnattr_t spawn attributes object type is defined in
+       <spawn.h>.  It shall contain at least the attributes defined below.
+       If the POSIX_SPAWN_SETPGROUP flag is set in the spawn-flags attribute
+       of the object referenced by attrp, and the spawn-pgroup attribute of
+       the same object is non-zero, then the child's process group shall be
+       as specified in the spawn-pgroup attribute of the object referenced
+       by attrp.
+       As a special case, if the POSIX_SPAWN_SETPGROUP flag is set in the
+       spawn-flags attribute of the object referenced by attrp, and the
+       spawn-pgroup attribute of the same object is set to zero, then the
+       child shall be in a new process group with a process group ID equal
+       to its process ID.
+       If the POSIX_SPAWN_SETPGROUP flag is not set in the spawn-flags
+       attribute of the object referenced by attrp, the new child process
+       shall inherit the parent's process group.
+       If the POSIX_SPAWN_SETSCHEDPARAM flag is set in the spawn-flags
+       attribute of the object referenced by attrp, but
+       POSIX_SPAWN_SETSCHEDULER is not set, the new process image shall
+       initially have the scheduling policy of the calling process with the
+       scheduling parameters specified in the spawn-schedparam attribute of
+       the object referenced by attrp.
+       If the POSIX_SPAWN_SETSCHEDULER flag is set in the spawn-flags
+       attribute of the object referenced by attrp (regardless of the
+       setting of the POSIX_SPAWN_SETSCHEDPARAM flag), the new process image
+       shall initially have the scheduling policy specified in the spawn-
+       schedpolicy attribute of the object referenced by attrp and the
+       scheduling parameters specified in the spawn-schedparam attribute of
+       the same object.
+       The POSIX_SPAWN_RESETIDS flag in the spawn-flags attribute of the
+       object referenced by attrp governs the effective user ID of the child
+       process. If this flag is not set, the child process shall inherit the
+       effective user ID of the parent process. If this flag is set, the
+       effective user ID of the child process shall be reset to the parent's
+       real user ID. In either case, if the set-user-ID mode bit of the new
+       process image file is set, the effective user ID of the child process
+       shall become that file's owner ID before the new process image begins
+       execution.
+       The POSIX_SPAWN_RESETIDS flag in the spawn-flags attribute of the
+       object referenced by attrp also governs the effective group ID of the
+       child process. If this flag is not set, the child process shall
+       inherit the effective group ID of the parent process. If this flag is
+       set, the effective group ID of the child process shall be reset to
+       the parent's real group ID. In either case, if the set-group-ID mode
+       bit of the new process image file is set, the effective group ID of
+       the child process shall become that file's group ID before the new
+       process image begins execution.
+       If the POSIX_SPAWN_SETSIGMASK flag is set in the spawn-flags
+       attribute of the object referenced by attrp, the child process shall
+       initially have the signal mask specified in the spawn-sigmask
+       attribute of the object referenced by attrp.
+       If the POSIX_SPAWN_SETSIGDEF flag is set in the spawn-flags attribute
+       of the object referenced by attrp, the signals specified in the
+       spawn-sigdefault attribute of the same object shall be set to their
+       default actions in the child process. Signals set to the default
+       action in the parent process shall be set to the default action in
+       the child process.
+       Signals set to be caught by the calling process shall be set to the
+       default action in the child process.
+       Except for SIGCHLD, signals set to be ignored by the calling process
+       image shall be set to be ignored by the child process, unless
+       otherwise specified by the POSIX_SPAWN_SETSIGDEF flag being set in
+       the spawn-flags attribute of the object referenced by attrp and the
+       signals being indicated in the spawn-sigdefault attribute of the
+       object referenced by attrp.
+       If the SIGCHLD signal is set to be ignored by the calling process, it
+       is unspecified whether the SIGCHLD signal is set to be ignored or to
+       the default action in the child process, unless otherwise specified
+       by the POSIX_SPAWN_SETSIGDEF flag being set in the spawn_flags
+       attribute of the object referenced by attrp and the SIGCHLD signal
+       being indicated in the spawn_sigdefault attribute of the object
+       referenced by attrp.
+       If the value of the attrp pointer is NULL, then the default values
+       are used.
+       All process attributes, other than those influenced by the attributes
+       set in the object referenced by attrp as specified above or by the
+       file descriptor manipulations specified in file_actions, shall appear
+       in the new process image as though fork() had been called to create a
+       child process and then a member of the exec family of functions had
+       been called by the child process to execute the new process image.
+       It is implementation-defined whether the fork handlers are run when
+       posix_spawn() or posix_spawnp() is called.

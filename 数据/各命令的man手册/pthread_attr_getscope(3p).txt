@@ -1,0 +1,12 @@
+
+       The pthread_attr_getscope() and pthread_attr_setscope() functions,
+       respectively, shall get and set the contentionscope attribute in the
+       attr object.
+       The contentionscope attribute may have the values
+       PTHREAD_SCOPE_SYSTEM, signifying system scheduling contention scope,
+       or PTHREAD_SCOPE_PROCESS, signifying process scheduling contention
+       scope. The symbols PTHREAD_SCOPE_SYSTEM and PTHREAD_SCOPE_PROCESS are
+       defined in the <pthread.h> header.
+       The behavior is undefined if the value specified by the attr argument
+       to pthread_attr_getscope() or pthread_attr_setscope() does not refer
+       to an initialized thread attributes object.

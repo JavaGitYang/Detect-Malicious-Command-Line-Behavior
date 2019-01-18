@@ -1,0 +1,7 @@
+
+       This man page is an introduction to the Babeltrace project.
+       The WHAT IS BABELTRACE? section lists the parts of the project and
+       shows the major changes from Babeltrace 1 to Babeltrace 2 while the
+       BABELTRACE CONCEPTS section defines the core concepts of Babeltrace.
+       The TRACE PROCESSING GRAPH REPRESENTATION section shows how some
+       concepts are visually represented in other Babeltrace man pages.

@@ -1,0 +1,34 @@
+
+       pmdatxmon is an example Performance Metrics Domain Agent (PMDA) which
+       exports a small number of performance metrics from a simulated
+       transaction monitor.
+       The txmon PMDA is shipped as both binary and source code and is
+       designed to be an aid for PMDA developers; the txmon PMDA
+       demonstrates how performance data can be exported from an application
+       (in this case txrecord) to the PCP infrastructure via a shared memory
+       segment.  As a matter of convenience, pmdatxmon creates (and destroys
+       on exit) the shared memory segment.
+       The tx_type arguments are arbitrary unique tags used to identify
+       different transaction types.
+       The txrecord application simulates the processing of one or more
+       transactions identified by tx_type and with an observed service time
+       of servtime .
+       With the -l option, txrecord displays the current summary of the
+       transaction activity from the shared memory segment.
+       genload is a shell and awk(1) script that acts as a front-end to
+       txrecord to generate a constant load of simulated transaction
+       activity.
+       A brief description of the pmdatxmon command line options follows:
+       -d   It is absolutely crucial that the performance metrics domain
+            number specified here is unique and consistent.  That is, domain
+            should be different for every PMDA on the one host, and the same
+            domain number should be used for the same PMDA on all hosts.
+       -l   Location of the log file.  By default, a log file named
+            txmon.log is written in the current directory of pmcd(1) when
+            pmdatxmon is started, i.e.  $PCP_LOG_DIR/pmcd.  If the log file
+            cannot be created or is not writable, output is written to the
+            standard error instead.
+       -U   User account under which to run the agent.  The default is the
+            unprivileged "pcp" account in current versions of PCP, but in
+            older versions the superuser account ("root") was used by
+            default.

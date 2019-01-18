@@ -1,0 +1,6 @@
+
+       This function will extract the type OID of an otherName Subject
+       Alternative Name, contained in the given certificate, and return the
+       type as an enumerated element.
+       This function is only useful if
+       gnutls_x509_crq_get_subject_alt_name() returned GNUTLS_SAN_OTHERNAME.

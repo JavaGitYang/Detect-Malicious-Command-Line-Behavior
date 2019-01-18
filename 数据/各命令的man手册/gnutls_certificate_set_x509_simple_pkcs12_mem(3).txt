@@ -1,0 +1,24 @@
+
+       This function sets a certificate/private key pair and/or a CRL in the
+       gnutls_certificate_credentials_t type.  This function may be called
+       more than once (in case multiple keys/certificates exist for the
+       server).
+       Encrypted PKCS12 bags and PKCS8 private keys are supported.  However,
+       only password based security, and the same password for all
+       operations, are supported.
+       PKCS12 file may contain many keys and/or certificates, and this
+       function will try to auto-detect based on the key ID the certificate
+       and key pair to use. If the PKCS12 file contain the issuer of the
+       selected certificate, it will be appended to the certificate to form
+       a chain.
+       If more than one private keys are stored in the PKCS12 file, then
+       only one key will be read (and it is undefined which one).
+       It is believed that the limitations of this function is acceptable
+       for most usage, and that any more flexibility would introduce
+       complexity that would make it harder to use this functionality at
+       all.
+       Note that, this function by default returns zero on success and a
+       negative value on error.  Since 3.5.6, when the flag
+       GNUTLS_CERTIFICATE_API_V2 is set using gnutls_certificate_set_flags()
+       it returns an index (greater or equal to zero). That index can be
+       used to other functions to refer to the added key-pair.

@@ -1,0 +1,8 @@
+
+       Plipconfig is used to (hopefully) improve PLIP performance by
+       changing the default timing parameters used by the PLIP protocol.
+       Results are dependent on the parallel port hardware, cable, and the
+       CPU speed of each machine on each end of the PLIP link.
+       If the single interface argument is given, plipconfig displays the
+       status of the given interface only.  Otherwise, it will try to set
+       the options.

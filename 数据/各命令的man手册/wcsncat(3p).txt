@@ -1,0 +1,13 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The wcsncat() function shall append not more than n wide-character
+       codes (a null wide-character code and wide-character codes that
+       follow it are not appended) from the array pointed to by ws2 to the
+       end of the wide-character string pointed to by ws1.  The initial
+       wide-character code of ws2 shall overwrite the null wide-character
+       code at the end of ws1.  A terminating null wide-character code shall
+       always be appended to the result. If copying takes place between
+       objects that overlap, the behavior is undefined.

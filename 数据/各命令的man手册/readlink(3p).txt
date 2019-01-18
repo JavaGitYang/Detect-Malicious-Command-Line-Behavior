@@ -1,0 +1,23 @@
+
+       The readlink() function shall place the contents of the symbolic link
+       referred to by path in the buffer buf which has size bufsize.  If the
+       number of bytes in the symbolic link is less than bufsize, the
+       contents of the remainder of buf are unspecified. If the buf argument
+       is not large enough to contain the link content, the first bufsize
+       bytes shall be placed in buf.
+       If the value of bufsize is greater than {SSIZE_MAX}, the result is
+       implementation-defined.
+       Upon successful completion, readlink() shall mark for update the last
+       data access timestamp of the symbolic link.
+       The readlinkat() function shall be equivalent to the readlink()
+       function except in the case where path specifies a relative path. In
+       this case the symbolic link whose content is read is relative to the
+       directory associated with the file descriptor fd instead of the
+       current working directory. If the file descriptor was opened without
+       O_SEARCH, the function shall check whether directory searches are
+       permitted using the current permissions of the directory underlying
+       the file descriptor. If the file descriptor was opened with O_SEARCH,
+       the function shall not perform the check.
+       If readlinkat() is passed the special value AT_FDCWD in the fd
+       parameter, the current working directory shall be used and the
+       behavior shall be identical to a call to readlink().

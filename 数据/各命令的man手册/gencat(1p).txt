@@ -1,0 +1,7 @@
+
+       The gencat utility shall merge the message text source file msgfile
+       into a formatted message catalog catfile.  The file catfile shall be
+       created if it does not already exist. If catfile does exist, its
+       messages shall be included in the new catfile.  If set and message
+       numbers collide, the new message text defined in msgfile shall
+       replace the old message text currently contained in catfile.

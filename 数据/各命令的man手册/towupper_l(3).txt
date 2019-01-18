@@ -1,0 +1,13 @@
+
+       The towupper() function is the wide-character equivalent of the
+       toupper(3) function.  If wc is a lowercase wide character, and there
+       exists an uppercase equivalent in the current locale, it returns the
+       uppercase equivalent of wc.  In all other cases, wc is returned
+       unchanged.
+       The towupper_l() function performs the same task, but performs the
+       conversion based on the character type information in the locale
+       specified by locale.  The behavior of towupper_l() is undefined if
+       locale is the special locale object LC_GLOBAL_LOCALE (see
+       duplocale(3)) or is not a valid locale object handle.
+       The argument wc must be representable as a wchar_t and be a valid
+       character in the locale or be the value WEOF.

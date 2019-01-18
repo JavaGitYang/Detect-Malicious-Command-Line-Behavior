@@ -1,0 +1,15 @@
+
+       Behavior:
+              The list function will return an array of all the objects in
+              the selected location.
+       Parameters:
+              The handle is used to track persistent state across semanage
+              calls, and for error reporting. The function will allocate and
+              populate the the array of objects, and store it at the
+              location pointed by objects.  It will write the number of
+              objects at the location pointed by count.  The array, and all
+              its objects become property of the caller. Each object must be
+              freed with semanage_OBJECT_free.
+       Requirements:
+              This function requires an semanage connection to be
+              established (see semanage_connect(3) )

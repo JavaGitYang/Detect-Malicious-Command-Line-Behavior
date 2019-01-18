@@ -1,0 +1,6 @@
+
+       The get utility shall generate a text file from each named SCCS file
+       according to the specifications given by its options.
+       The generated text shall normally be written into a file called the
+       g-file whose name is derived from the SCCS filename by simply
+       removing the leading "s.".

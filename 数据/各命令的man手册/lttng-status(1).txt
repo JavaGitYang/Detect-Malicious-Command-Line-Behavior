@@ -1,0 +1,7 @@
+
+       The lttng status command shows the status of the current tracing
+       session.
+       This command is the exact equivalent of:
+           $ lttng list CURSESSION
+       where CURSESSION is the name of the current tracing session. Use
+       lttng-set-session(1) to set the current tracing session.

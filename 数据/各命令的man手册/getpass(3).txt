@@ -1,0 +1,8 @@
+
+       This function is obsolete.  Do not use it.  If you want to read input
+       without terminal echoing enabled, see the description of the ECHO
+       flag in termios(3).
+       The getpass() function opens /dev/tty (the controlling terminal of
+       the process), outputs the string prompt, turns off echoing, reads one
+       line (the "password"), restores the terminal state and closes
+       /dev/tty again.

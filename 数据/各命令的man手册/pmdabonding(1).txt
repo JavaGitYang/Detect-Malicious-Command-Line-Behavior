@@ -1,0 +1,4 @@
+
+       pmdabonding is a Performance Metrics Domain Agent (PMDA) which
+       exports metric values from bonded network interfaces in the Linux
+       kernel.

@@ -1,0 +1,20 @@
+
+       This function should never be used.  Use free(3) instead.  Starting
+       with version 2.26, it has been removed from glibc.
+   1-arg cfree
+       In glibc, the function cfree() is a synonym for free(3), "added for
+       compatibility with SunOS".
+       Other systems have other functions with this name.  The declaration
+       is sometimes in <stdlib.h> and sometimes in <malloc.h>.
+   3-arg cfree
+       Some SCO and Solaris versions have malloc libraries with a 3-argument
+       cfree(), apparently as an analog to calloc(3).
+       If you need it while porting something, add
+           #define cfree(p, n, s) free((p))
+       to your file.
+       A frequently asked question is "Can I use free(3) to free memory
+       allocated with calloc(3), or do I need cfree()?"  Answer: use
+       free(3).
+       An SCO manual writes: "The cfree routine is provided for compliance
+       to the iBCSe2 standard and simply calls free.  The num and size argu‐
+       ments to cfree are not used."

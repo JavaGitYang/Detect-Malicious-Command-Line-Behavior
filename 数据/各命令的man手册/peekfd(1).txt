@@ -1,0 +1,4 @@
+
+       peekfd attaches to a running process and intercepts all reads and
+       writes to file descriptors.  You can specify the desired file
+       descriptor numbers or dump all of them.

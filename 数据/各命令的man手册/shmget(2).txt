@@ -1,0 +1,68 @@
+
+       shmget() returns the identifier of the System V shared memory segment
+       associated with the value of the argument key.  It may be used either
+       to obtain the identifier of a previously created shared memory
+       segment (when shmflg is zero and key does not have the value
+       IPC_PRIVATE), or to create a new set.
+       A new shared memory segment, with size equal to the value of size
+       rounded up to a multiple of PAGE_SIZE, is created if key has the
+       value IPC_PRIVATE or key isn't IPC_PRIVATE, no shared memory segment
+       corresponding to key exists, and IPC_CREAT is specified in shmflg.
+       If shmflg specifies both IPC_CREAT and IPC_EXCL and a shared memory
+       segment already exists for key, then shmget() fails with errno set to
+       EEXIST.  (This is analogous to the effect of the combination O_CREAT
+       | O_EXCL for open(2).)
+       The value shmflg is composed of:
+       IPC_CREAT   Create a new segment.  If this flag is not used, then
+                   shmget() will find the segment associated with key and
+                   check to see if the user has permission to access the
+                   segment.
+       IPC_EXCL    This flag is used with IPC_CREAT to ensure that this call
+                   creates the segment.  If the segment already exists, the
+                   call fails.
+       SHM_HUGETLB (since Linux 2.6)
+                   Allocate the segment using "huge pages."  See the Linux
+                   kernel source file Documentation/vm/hugetlbpage.txt for
+                   further information.
+       SHM_HUGE_2MB, SHM_HUGE_1GB (since Linux 3.8)
+                   Used in conjunction with SHM_HUGETLB to select
+                   alternative hugetlb page sizes (respectively, 2 MB and
+                   1 GB) on systems that support multiple hugetlb page
+                   sizes.
+                   More generally, the desired huge page size can be
+                   configured by encoding the base-2 logarithm of the
+                   desired page size in the six bits at the offset
+                   SHM_HUGE_SHIFT.  Thus, the above two constants are
+                   defined as:
+                       #define SHM_HUGE_2MB    (21 << SHM_HUGE_SHIFT)
+                       #define SHM_HUGE_1GB    (30 << SHM_HUGE_SHIFT)
+                   For some additional details, see the discussion of the
+                   similarly named constants in mmap(2).
+       SHM_NORESERVE (since Linux 2.6.15)
+                   This flag serves the same purpose as the mmap(2)
+                   MAP_NORESERVE flag.  Do not reserve swap space for this
+                   segment.  When swap space is reserved, one has the guar‐
+                   antee that it is possible to modify the segment.  When
+                   swap space is not reserved one might get SIGSEGV upon a
+                   write if no physical memory is available.  See also the
+                   discussion of the file /proc/sys/vm/overcommit_memory in
+                   proc(5).
+       In addition to the above flags, the least significant 9 bits of shm‐
+       flg specify the permissions granted to the owner, group, and others.
+       These bits have the same format, and the same meaning, as the mode
+       argument of open(2).  Presently, execute permissions are not used by
+       the system.
+       When a new shared memory segment is created, its contents are ini‐
+       tialized to zero values, and its associated data structure, shmid_ds
+       (see shmctl(2)), is initialized as follows:
+              shm_perm.cuid and shm_perm.uid are set to the effective user
+              ID of the calling process.
+              shm_perm.cgid and shm_perm.gid are set to the effective group
+              ID of the calling process.
+              The least significant 9 bits of shm_perm.mode are set to the
+              least significant 9 bit of shmflg.
+              shm_segsz is set to the value of size.
+              shm_lpid, shm_nattch, shm_atime, and shm_dtime are set to 0.
+              shm_ctime is set to the current time.
+       If the shared memory segment already exists, the permissions are ver‐
+       ified, and a check is made to see if it is marked for destruction.

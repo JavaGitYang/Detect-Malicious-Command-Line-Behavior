@@ -1,0 +1,61 @@
+
+       The confstr() function shall return configuration-defined string
+       values. Its use and purpose are similar to sysconf(), but it is used
+       where string values rather than numeric values are returned.
+       The name argument represents the system variable to be queried. The
+       implementation shall support the following name values, defined in
+       <unistd.h>.  It may support others:
+       _CS_PATH
+       _CS_POSIX_V7_ILP32_OFF32_CFLAGS
+       _CS_POSIX_V7_ILP32_OFF32_LDFLAGS
+       _CS_POSIX_V7_ILP32_OFF32_LIBS
+       _CS_POSIX_V7_ILP32_OFFBIG_CFLAGS
+       _CS_POSIX_V7_ILP32_OFFBIG_LDFLAGS
+       _CS_POSIX_V7_ILP32_OFFBIG_LIBS
+       _CS_POSIX_V7_LP64_OFF64_CFLAGS
+       _CS_POSIX_V7_LP64_OFF64_LDFLAGS
+       _CS_POSIX_V7_LP64_OFF64_LIBS
+       _CS_POSIX_V7_LPBIG_OFFBIG_CFLAGS
+       _CS_POSIX_V7_LPBIG_OFFBIG_LDFLAGS
+       _CS_POSIX_V7_LPBIG_OFFBIG_LIBS
+       _CS_POSIX_V7_THREADS_CFLAGS
+       _CS_POSIX_V7_THREADS_LDFLAGS
+       _CS_POSIX_V7_WIDTH_RESTRICTED_ENVS
+       _CS_V7_ENV
+       _CS_POSIX_V6_ILP32_OFF32_CFLAGS
+       _CS_POSIX_V6_ILP32_OFF32_LDFLAGS
+       _CS_POSIX_V6_ILP32_OFF32_LIBS
+       _CS_POSIX_V6_ILP32_OFFBIG_CFLAGS
+       _CS_POSIX_V6_ILP32_OFFBIG_LDFLAGS
+       _CS_POSIX_V6_ILP32_OFFBIG_LIBS
+       _CS_POSIX_V6_LP64_OFF64_CFLAGS
+       _CS_POSIX_V6_LP64_OFF64_LDFLAGS
+       _CS_POSIX_V6_LP64_OFF64_LIBS
+       _CS_POSIX_V6_LPBIG_OFFBIG_CFLAGS
+       _CS_POSIX_V6_LPBIG_OFFBIG_LDFLAGS
+       _CS_POSIX_V6_LPBIG_OFFBIG_LIBS
+       _CS_POSIX_V6_WIDTH_RESTRICTED_ENVS
+       _CS_V6_ENV
+       If len is not 0, and if name has a configuration-defined value,
+       confstr() shall copy that value into the len-byte buffer pointed to
+       by buf.  If the string to be returned is longer than len bytes,
+       including the terminating null, then confstr() shall truncate the
+       string to len−1 bytes and null-terminate the result. The application
+       can detect that the string was truncated by comparing the value
+       returned by confstr() with len.
+       If len is 0 and buf is a null pointer, then confstr() shall still
+       return the integer value as defined below, but shall not return a
+       string. If len is 0 but buf is not a null pointer, the result is
+       unspecified.
+       After a call to:
+           confstr(_CS_V7_ENV, buf, sizeof(buf))
+       the string stored in buf will contain the <space>-separated list of
+       variable=value environment variable pairs required by the
+       implementation to create a conforming environment, as described in
+       the implementations' conformance documentation.
+       If the implementation supports the POSIX shell option, the string
+       stored in buf after a call to:
+           confstr(_CS_PATH, buf, sizeof(buf))
+       can be used as a value of the PATH environment variable that accesses
+       all of the standard utilities of POSIX.1‐2008, if the return value is
+       less than or equal to sizeof(buf).

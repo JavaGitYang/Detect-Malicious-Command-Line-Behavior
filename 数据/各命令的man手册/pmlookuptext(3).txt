@@ -1,0 +1,10 @@
+
+       Retrieve descriptive text about the performance metric identified by
+       pmid.
+       The argument level should be  either PM_TEXT_ONELINE for a one-line
+       summary, else PM_TEXT_HELP for a more verbose description, suited to
+       a help dialog.
+       The space pointed to by buffer will have been allocated in
+       pmLookupText with malloc(3), and it is the responsibility of the
+       caller to free(3) the space when it is no longer required.
+       pmLookupText returns zero on success.

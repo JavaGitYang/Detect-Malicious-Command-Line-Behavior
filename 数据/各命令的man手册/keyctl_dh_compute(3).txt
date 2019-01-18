@@ -1,0 +1,17 @@
+
+       keyctl_dh_compute() computes a Diffie-Hellman public key or shared
+       secret.  That computation is:
+              base ^ private ( mod prime )
+       When base is a key containing the shared generator value, the remote
+       public key is computed.  When base is a key containing the remote
+       public key, the shared secret is computed.
+       base, private, and prime must all refer to user-type keys containing
+       the parameters for the computation.  Each of these keys must grant
+       the caller read permission in order for them to be used.
+       buffer and buflen specify the buffer into which the computed result
+       will be placed.  buflen may be zero, in which case the buffer is not
+       used and the minimum buffer length is fetched.
+       keyctl_dh_compute_alloc() is similar to keyctl_dh_compute() except
+       that it allocates a buffer big enough to hold the payload data and
+       places the data in it.  If successful, a pointer to the buffer is
+       placed in *_buffer.  The caller must free the buffer.

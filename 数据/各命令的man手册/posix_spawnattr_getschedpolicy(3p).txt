@@ -1,0 +1,11 @@
+
+       The posix_spawnattr_getschedpolicy() function shall obtain the value
+       of the spawn-schedpolicy attribute from the attributes object
+       referenced by attr.
+       The posix_spawnattr_setschedpolicy() function shall set the spawn-
+       schedpolicy attribute in an initialized attributes object referenced
+       by attr.
+       The spawn-schedpolicy attribute represents the scheduling policy to
+       be assigned to the new process image in a spawn operation (if
+       POSIX_SPAWN_SETSCHEDULER is set in the spawn-flags attribute). The
+       default value of this attribute is unspecified.

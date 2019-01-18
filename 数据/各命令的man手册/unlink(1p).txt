@@ -1,0 +1,4 @@
+
+       The unlink utility shall perform the function call:
+           unlink(file);
+       A user may need appropriate privileges to invoke the unlink utility.

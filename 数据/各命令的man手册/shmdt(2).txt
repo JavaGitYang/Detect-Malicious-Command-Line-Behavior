@@ -1,0 +1,52 @@
+
+   shmat()
+       shmat() attaches the System V shared memory segment identified by
+       shmid to the address space of the calling process.  The attaching
+       address is specified by shmaddr with one of the following criteria:
+       *  If shmaddr is NULL, the system chooses a suitable (unused) page-
+          aligned address to attach the segment.
+       *  If shmaddr isn't NULL and SHM_RND is specified in shmflg, the
+          attach occurs at the address equal to shmaddr rounded down to the
+          nearest multiple of SHMLBA.
+       *  Otherwise, shmaddr must be a page-aligned address at which the
+          attach occurs.
+       In addition to SHM_RND, the following flags may be specified in the
+       shmflg bit-mask argument:
+       SHM_EXEC (Linux-specific; since Linux 2.6.9)
+              Allow the contents of the segment to be executed.  The caller
+              must have execute permission on the segment.
+       SHM_RDONLY
+              Attach the segment for read-only access.  The process must
+              have read permission for the segment.  If this flag is not
+              specified, the segment is attached for read and write access,
+              and the process must have read and write permission for the
+              segment.  There is no notion of a write-only shared memory
+              segment.
+       SHM_REMAP (Linux-specific)
+              This flag specifies that the mapping of the segment should
+              replace any existing mapping in the range starting at shmaddr
+              and continuing for the size of the segment.  (Normally, an
+              EINVAL error would result if a mapping already exists in this
+              address range.)  In this case, shmaddr must not be NULL.
+       The brk(2) value of the calling process is not altered by the attach.
+       The segment will automatically be detached at process exit.  The same
+       segment may be attached as a read and as a read-write one, and more
+       than once, in the process's address space.
+       A successful shmat() call updates the members of the shmid_ds
+       structure (see shmctl(2)) associated with the shared memory segment
+       as follows:
+              shm_atime is set to the current time.
+              shm_lpid is set to the process-ID of the calling process.
+              shm_nattch is incremented by one.
+   shmdt()
+       shmdt() detaches the shared memory segment located at the address
+       specified by shmaddr from the address space of the calling process.
+       The to-be-detached segment must be currently attached with shmaddr
+       equal to the value returned by the attaching shmat() call.
+       On a successful shmdt() call, the system updates the members of the
+       shmid_ds structure associated with the shared memory segment as
+       follows:
+              shm_dtime is set to the current time.
+              shm_lpid is set to the process-ID of the calling process.
+              shm_nattch is decremented by one.  If it becomes 0 and the
+              segment is marked for deletion, the segment is deleted.

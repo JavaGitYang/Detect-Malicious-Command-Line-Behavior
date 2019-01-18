@@ -1,0 +1,2 @@
+
+       Checks the status of the private key token.

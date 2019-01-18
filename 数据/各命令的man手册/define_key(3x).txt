@@ -1,0 +1,8 @@
+
+       This is an extension to the curses library.  It permits an
+       application to define keycodes with their corresponding control
+       strings, so that the ncurses library will interpret them just as it
+       would the predefined codes in the terminfo database.
+       If the given string is null, any existing definition for the keycode
+       is removed.  Similarly, if the given keycode is negative or zero, any
+       existing string for the given definition is removed.

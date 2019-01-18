@@ -1,0 +1,4 @@
+
+       The pam_debug PAM module is intended as a debugging aide for
+       determining how the PAM stack is operating. This module returns what
+       its module arguments tell it to return.

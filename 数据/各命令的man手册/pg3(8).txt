@@ -1,0 +1,7 @@
+
+       ipg is not a program, it is script which should be sourced to bash.
+       When sourced it loads module pg3 and exports a few of functions
+       accessible from parent shell. These macros are pg to start packet
+       injection and to get the results of run; and pgset to setup packet
+       generator.
+       pgset can send the following commands to module pg3:

@@ -1,0 +1,25 @@
+
+       The pthread_attr_setinheritsched() function sets the inherit-
+       scheduler attribute of the thread attributes object referred to by
+       attr to the value specified in inheritsched.  The inherit-scheduler
+       attribute determines whether a thread created using the thread
+       attributes object attr will inherit its scheduling attributes from
+       the calling thread or whether it will take them from attr.
+       The following scheduling attributes are affected by the inherit-
+       scheduler attribute: scheduling policy
+       (pthread_attr_setschedpolicy(3)), scheduling priority
+       (pthread_attr_setschedparam(3)), and contention scope
+       (pthread_attr_setscope(3)).
+       The following values may be specified in inheritsched:
+       PTHREAD_INHERIT_SCHED
+              Threads that are created using attr inherit scheduling
+              attributes from the creating thread; the scheduling attributes
+              in attr are ignored.
+       PTHREAD_EXPLICIT_SCHED
+              Threads that are created using attr take their scheduling
+              attributes from the values specified by the attributes object.
+       The default setting of the inherit-scheduler attribute in a newly
+       initialized thread attributes object is PTHREAD_INHERIT_SCHED.
+       The pthread_attr_getinheritsched() returns the inherit-scheduler
+       attribute of the thread attributes object attr in the buffer pointed
+       to by inheritsched.

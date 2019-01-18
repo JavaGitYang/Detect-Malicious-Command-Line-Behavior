@@ -1,0 +1,12 @@
+
+       The trace-cmd(1) stop is a complement to trace-cmd-start(1). This
+       will disable Ftrace from writing to the ring buffer. This does not
+       stop the overhead that the tracing may incur. Only the updating of
+       the ring buffer is disabled, the Ftrace tracing may still be inducing
+       overhead.
+       After stopping the trace, the trace-cmd-extract(1) may strip out the
+       data from the ring buffer and create a trace.dat file. The Ftrace
+       pseudo file system may also be examined.
+       To disable the tracing completely to remove the overhead it causes,
+       use trace-cmd-reset(1). But after a reset is performed, the data that
+       has been recorded is lost.

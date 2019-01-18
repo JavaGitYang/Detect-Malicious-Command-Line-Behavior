@@ -1,0 +1,11 @@
+
+       systemd-tmpfiles creates, deletes, and cleans up volatile and
+       temporary files and directories, based on the configuration file
+       format and location specified in tmpfiles.d(5).
+       If invoked with no arguments, it applies all directives from all
+       configuration files. If one or more absolute filenames are passed on
+       the command line, only the directives in these files are applied. If
+       "-" is specified instead of a filename, directives are read from
+       standard input. If only the basename of a configuration file is
+       specified, all configuration directories as specified in
+       tmpfiles.d(5) are searched for a matching file.

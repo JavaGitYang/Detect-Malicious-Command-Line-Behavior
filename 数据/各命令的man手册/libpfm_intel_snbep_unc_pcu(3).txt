@@ -1,0 +1,4 @@
+
+       The library supports the Intel Sandy Bridge Power Controller Unit
+       uncore PMU.  This PMU model only exists on Sandy Bridge model 45.
+       There is only one PCU PMU per processor socket.

@@ -1,0 +1,17 @@
+
+       repquota prints a summary of the disc usage and quotas for the
+       specified file systems.  For each user the current number of files
+       and amount of space (in kilobytes) is printed, along with any quota
+       limits set with edquota(8) or setquota(8).  In the second column
+       repquota prints two characters marking which limits are exceeded. If
+       user is over his space softlimit or reaches his space hardlimit in
+       case softlimit is unset, the first character is '+'. Otherwise the
+       character printed is '-'. The second character denotes the state of
+       inode usage analogously.
+       repquota has to translate ids of all users/groups/projects to names
+       (unless option -n was specified) so it may take a while to print all
+       the information. To make translating as fast as possible repquota
+       tries to detect (by reading /etc/nsswitch.conf) whether entries are
+       stored in standard plain text file or in a database and either
+       translates chunks of 1024 names or each name individually. You can
+       override this autodetection by -c or -C options.

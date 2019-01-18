@@ -1,0 +1,80 @@
+
+       These functions create, access, and modify a database.
+       A datum consists of at least two members, dptr and dsize.  The dptr
+       member points to an object that is dsize bytes in length. Arbitrary
+       binary data, as well as character strings, may be stored in the
+       object pointed to by dptr.
+       A database shall be stored in one or two files. When one file is
+       used, the name of the database file shall be formed by appending the
+       suffix .db to the file argument given to dbm_open().  When two files
+       are used, the names of the database files shall be formed by
+       appending the suffixes .dir and .pag respectively to the file
+       argument.
+       The dbm_open() function shall open a database. The file argument to
+       the function is the pathname of the database. The open_flags argument
+       has the same meaning as the flags argument of open() except that a
+       database opened for write-only access opens the files for read and
+       write access and the behavior of the O_APPEND flag is unspecified.
+       The file_mode argument has the same meaning as the third argument of
+       open().
+       The dbm_open() function need not accept pathnames longer than
+       {PATH_MAX}−4 bytes (including the terminating null), or pathnames
+       with a last component longer than {NAME_MAX}−4 bytes (excluding the
+       terminating null).
+       The dbm_close() function shall close a database. The application
+       shall ensure that argument db is a pointer to a dbm structure that
+       has been returned from a call to dbm_open().
+       These database functions shall support an internal block size large
+       enough to support key/content pairs of at least 1023 bytes.
+       The dbm_fetch() function shall read a record from a database. The
+       argument db is a pointer to a database structure that has been
+       returned from a call to dbm_open().  The argument key is a datum that
+       has been initialized by the application to the value of the key that
+       matches the key of the record the program is fetching.
+       The dbm_store() function shall write a record to a database. The
+       argument db is a pointer to a database structure that has been
+       returned from a call to dbm_open().  The argument key is a datum that
+       has been initialized by the application to the value of the key that
+       identifies (for subsequent reading, writing, or deleting) the record
+       the application is writing. The argument content is a datum that has
+       been initialized by the application to the value of the record the
+       program is writing. The argument store_mode controls whether
+       dbm_store() replaces any pre-existing record that has the same key
+       that is specified by the key argument. The application shall set
+       store_mode to either DBM_INSERT or DBM_REPLACE. If the database
+       contains a record that matches the key argument and store_mode is
+       DBM_REPLACE, the existing record shall be replaced with the new
+       record. If the database contains a record that matches the key
+       argument and store_mode is DBM_INSERT, the existing record shall be
+       left unchanged and the new record ignored. If the database does not
+       contain a record that matches the key argument and store_mode is
+       either DBM_INSERT or DBM_REPLACE, the new record shall be inserted in
+       the database.
+       If the sum of a key/content pair exceeds the internal block size, the
+       result is unspecified. Moreover, the application shall ensure that
+       all key/content pairs that hash together fit on a single block. The
+       dbm_store() function shall return an error in the event that a disk
+       block fills with inseparable data.
+       The dbm_delete() function shall delete a record and its key from the
+       database. The argument db is a pointer to a database structure that
+       has been returned from a call to dbm_open().  The argument key is a
+       datum that has been initialized by the application to the value of
+       the key that identifies the record the program is deleting.
+       The dbm_firstkey() function shall return the first key in the
+       database. The argument db is a pointer to a database structure that
+       has been returned from a call to dbm_open().
+       The dbm_nextkey() function shall return the next key in the database.
+       The argument db is a pointer to a database structure that has been
+       returned from a call to dbm_open().  The application shall ensure
+       that the dbm_firstkey() function is called before calling
+       dbm_nextkey().  Subsequent calls to dbm_nextkey() return the next key
+       until all of the keys in the database have been returned.
+       The dbm_error() function shall return the error condition of the
+       database. The argument db is a pointer to a database structure that
+       has been returned from a call to dbm_open().
+       The dbm_clearerr() function shall clear the error condition of the
+       database. The argument db is a pointer to a database structure that
+       has been returned from a call to dbm_open().
+       The dptr pointers returned by these functions may point into static
+       storage that may be changed by subsequent calls.
+       These functions need not be thread-safe.

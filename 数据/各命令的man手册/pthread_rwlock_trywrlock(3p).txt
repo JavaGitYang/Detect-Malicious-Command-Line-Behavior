@@ -1,0 +1,20 @@
+
+       The pthread_rwlock_trywrlock() function shall apply a write lock like
+       the pthread_rwlock_wrlock() function, with the exception that the
+       function shall fail if any thread currently holds rwlock (for reading
+       or writing).
+       The pthread_rwlock_wrlock() function shall apply a write lock to the
+       read-write lock referenced by rwlock.  The calling thread acquires
+       the write lock if no other thread (reader or writer) holds the read-
+       write lock rwlock.  Otherwise, the thread shall block until it can
+       acquire the lock. The calling thread may deadlock if at the time the
+       call is made it holds the read-write lock (whether a read or write
+       lock).
+       Implementations may favor writers over readers to avoid writer
+       starvation.
+       Results are undefined if any of these functions are called with an
+       uninitialized read-write lock.
+       If a signal is delivered to a thread waiting for a read-write lock
+       for writing, upon return from the signal handler the thread resumes
+       waiting for the read-write lock for writing as if it was not
+       interrupted.

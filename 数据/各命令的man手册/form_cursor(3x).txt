@@ -1,0 +1,5 @@
+
+       The function pos_form_cursor restores the cursor to the position
+       required for the forms driver to continue processing requests.  This
+       is useful after curses routines have been called to do screen-
+       painting in response to a form operation.

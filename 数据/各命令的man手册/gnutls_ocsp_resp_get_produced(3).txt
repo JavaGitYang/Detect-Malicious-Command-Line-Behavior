@@ -1,0 +1,2 @@
+
+       This function will return the time when the OCSP response was signed.

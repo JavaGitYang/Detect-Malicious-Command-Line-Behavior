@@ -1,0 +1,7 @@
+
+       xfs_admin uses the xfs_db(8) command to modify various parameters of
+       a filesystem.
+       Devices that are mounted cannot be modified.  Administrators must
+       unmount filesystems before xfs_admin or xfs_db(8) can convert
+       parameters.  A number of parameters of a mounted filesystem can be
+       examined and modified using the xfs_growfs(8) command.

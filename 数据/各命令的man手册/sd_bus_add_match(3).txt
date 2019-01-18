@@ -1,0 +1,22 @@
+
+       sd_bus_add_match() installs a match rule for incoming messages
+       received on the specified bus connection object bus. The syntax of
+       the match rule expression passed in match is described in the D-Bus
+       Specification[1]. The specified handler function callback is called
+       for eaching incoming message matching the specified expression, the
+       userdata parameter is passed as-is to the callback function.
+       On success, and if non-NULL, the slot return parameter will be set to
+       a slot object that may be used as a reference to the installed match,
+       and may be utilized to remove it again at a later time with
+       sd_bus_slot_unref(3). If specified as NULL the lifetime of the match
+       is bound to the lifetime of the bus object itself, and the match
+       cannot be removed independently.
+       The message m passed to the callback is only borrowed, that is, the
+       callback should not call sd_bus_message_unref(3) on it. If the
+       callback wants to hold on to the message beyond the lifetime of the
+       callback, it needs to call sd_bus_message_ref(3) to create a new
+       reference.
+       If an error occurs during the callback invocation, the callback
+       should return a negative error number. If it wants other callbacks
+       that match the same rule to be called, it should return 0. Otherwise
+       it should return a positive integer.

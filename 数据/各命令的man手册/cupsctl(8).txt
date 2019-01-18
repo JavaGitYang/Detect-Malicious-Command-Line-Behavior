@@ -1,0 +1,4 @@
+
+       cupsctl updates or queries the cupsd.conf file for a server. When no
+       changes are requested, the current configuration values are written
+       to the standard output in the format "name=value", one per line.

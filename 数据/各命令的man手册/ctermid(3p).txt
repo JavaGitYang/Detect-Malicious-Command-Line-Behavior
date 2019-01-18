@@ -1,0 +1,7 @@
+
+       The ctermid() function shall generate a string that, when used as a
+       pathname, refers to the current controlling terminal for the current
+       process. If ctermid() returns a pathname, access to the file is not
+       guaranteed.
+       The ctermid() function need not be thread-safe if called with a NULL
+       parameter.

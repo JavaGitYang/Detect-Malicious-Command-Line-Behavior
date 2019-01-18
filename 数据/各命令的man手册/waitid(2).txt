@@ -1,0 +1,130 @@
+
+       All of these system calls are used to wait for state changes in a
+       child of the calling process, and obtain information about the child
+       whose state has changed.  A state change is considered to be: the
+       child terminated; the child was stopped by a signal; or the child was
+       resumed by a signal.  In the case of a terminated child, performing a
+       wait allows the system to release the resources associated with the
+       child; if a wait is not performed, then the terminated child remains
+       in a "zombie" state (see NOTES below).
+       If a child has already changed state, then these calls return
+       immediately.  Otherwise, they block until either a child changes
+       state or a signal handler interrupts the call (assuming that system
+       calls are not automatically restarted using the SA_RESTART flag of
+       sigaction(2)).  In the remainder of this page, a child whose state
+       has changed and which has not yet been waited upon by one of these
+       system calls is termed waitable.
+   wait() and waitpid()
+       The wait() system call suspends execution of the calling thread until
+       one of its children terminates.  The call wait(&wstatus) is
+       equivalent to:
+           waitpid(-1, &wstatus, 0);
+       The waitpid() system call suspends execution of the calling thread
+       until a child specified by pid argument has changed state.  By
+       default, waitpid() waits only for terminated children, but this
+       behavior is modifiable via the options argument, as described below.
+       The value of pid can be:
+       < -1   meaning wait for any child process whose process group ID is
+              equal to the absolute value of pid.
+       -1     meaning wait for any child process.
+       0      meaning wait for any child process whose process group ID is
+              equal to that of the calling process.
+       > 0    meaning wait for the child whose process ID is equal to the
+              value of pid.
+       The value of options is an OR of zero or more of the following con‐
+       stants:
+       WNOHANG     return immediately if no child has exited.
+       WUNTRACED   also return if a child has stopped (but not traced via
+                   ptrace(2)).  Status for traced children which have
+                   stopped is provided even if this option is not specified.
+       WCONTINUED (since Linux 2.6.10)
+                   also return if a stopped child has been resumed by deliv‐
+                   ery of SIGCONT.
+       (For Linux-only options, see below.)
+       If wstatus is not NULL, wait() and waitpid() store status information
+       in the int to which it points.  This integer can be inspected with
+       the following macros (which take the integer itself as an argument,
+       not a pointer to it, as is done in wait() and waitpid()!):
+       WIFEXITED(wstatus)
+              returns true if the child terminated normally, that is, by
+              calling exit(3) or _exit(2), or by returning from main().
+       WEXITSTATUS(wstatus)
+              returns the exit status of the child.  This consists of the
+              least significant 8 bits of the status argument that the child
+              specified in a call to exit(3) or _exit(2) or as the argument
+              for a return statement in main().  This macro should be
+              employed only if WIFEXITED returned true.
+       WIFSIGNALED(wstatus)
+              returns true if the child process was terminated by a signal.
+       WTERMSIG(wstatus)
+              returns the number of the signal that caused the child process
+              to terminate.  This macro should be employed only if WIFSIG‐
+              NALED returned true.
+       WCOREDUMP(wstatus)
+              returns true if the child produced a core dump.  This macro
+              should be employed only if WIFSIGNALED returned true.
+              This macro is not specified in POSIX.1-2001 and is not avail‐
+              able on some UNIX implementations (e.g., AIX, SunOS).  There‐
+              fore, enclose its use inside #ifdef WCOREDUMP ... #endif.
+       WIFSTOPPED(wstatus)
+              returns true if the child process was stopped by delivery of a
+              signal; this is possible only if the call was done using WUN‐
+              TRACED or when the child is being traced (see ptrace(2)).
+       WSTOPSIG(wstatus)
+              returns the number of the signal which caused the child to
+              stop.  This macro should be employed only if WIFSTOPPED
+              returned true.
+       WIFCONTINUED(wstatus)
+              (since Linux 2.6.10) returns true if the child process was
+              resumed by delivery of SIGCONT.
+   waitid()
+       The waitid() system call (available since Linux 2.6.9) provides more
+       precise control over which child state changes to wait for.
+       The idtype and id arguments select the child(ren) to wait for, as
+       follows:
+       idtype == P_PID
+              Wait for the child whose process ID matches id.
+       idtype == P_PGID
+              Wait for any child whose process group ID matches id.
+       idtype == P_ALL
+              Wait for any child; id is ignored.
+       The child state changes to wait for are specified by ORing one or
+       more of the following flags in options:
+       WEXITED     Wait for children that have terminated.
+       WSTOPPED    Wait for children that have been stopped by delivery of a
+                   signal.
+       WCONTINUED  Wait for (previously stopped) children that have been
+                   resumed by delivery of SIGCONT.
+       The following flags may additionally be ORed in options:
+       WNOHANG     As for waitpid().
+       WNOWAIT     Leave the child in a waitable state; a later wait call
+                   can be used to again retrieve the child status informa‐
+                   tion.
+       Upon successful return, waitid() fills in the following fields of the
+       siginfo_t structure pointed to by infop:
+       si_pid      The process ID of the child.
+       si_uid      The real user ID of the child.  (This field is not set on
+                   most other implementations.)
+       si_signo    Always set to SIGCHLD.
+       si_status   Either the exit status of the child, as given to _exit(2)
+                   (or exit(3)), or the signal that caused the child to ter‐
+                   minate, stop, or continue.  The si_code field can be used
+                   to determine how to interpret this field.
+       si_code     Set to one of: CLD_EXITED (child called _exit(2));
+                   CLD_KILLED (child killed by signal); CLD_DUMPED (child
+                   killed by signal, and dumped core); CLD_STOPPED (child
+                   stopped by signal); CLD_TRAPPED (traced child has
+                   trapped); or CLD_CONTINUED (child continued by SIGCONT).
+       If WNOHANG was specified in options and there were no children in a
+       waitable state, then waitid() returns 0 immediately and the state of
+       the siginfo_t structure pointed to by infop depends on the implemen‐
+       tation.  To (portably) distinguish this case from that where a child
+       was in a waitable state, zero out the si_pid field before the call
+       and check for a nonzero value in this field after the call returns.
+       POSIX.1-2008 Technical Corrigendum 1 (2013) adds the requirement that
+       when WNOHANG is specified in options and there were no children in a
+       waitable state, then waitid() should zero out the si_pid and si_signo
+       fields of the structure.  On Linux and other implementations that
+       adhere to this requirement, it is not necessary to zero out the
+       si_pid field before calling waitid().  However, not all implementa‐
+       tions follow the POSIX.1 specification on this point.

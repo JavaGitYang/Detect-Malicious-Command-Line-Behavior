@@ -1,0 +1,123 @@
+
+       These functions return information about a file, in the buffer
+       pointed to by statbuf.  No permissions are required on the file
+       itself, but—in the case of stat(), fstatat(), and lstat()—execute
+       (search) permission is required on all of the directories in pathname
+       that lead to the file.
+       stat() and fstatat() retrieve information about the file pointed to
+       by pathname; the differences for fstatat() are described below.
+       lstat() is identical to stat(), except that if pathname is a symbolic
+       link, then it returns information about the link itself, not the file
+       that it refers to.
+       fstat() is identical to stat(), except that the file about which
+       information is to be retrieved is specified by the file descriptor
+       fd.
+   The stat structure
+       All of these system calls return a stat structure, which contains the
+       following fields:
+           struct stat {
+               dev_t     st_dev;         /* ID of device containing file */
+               ino_t     st_ino;         /* Inode number */
+               mode_t    st_mode;        /* File type and mode */
+               nlink_t   st_nlink;       /* Number of hard links */
+               uid_t     st_uid;         /* User ID of owner */
+               gid_t     st_gid;         /* Group ID of owner */
+               dev_t     st_rdev;        /* Device ID (if special file) */
+               off_t     st_size;        /* Total size, in bytes */
+               blksize_t st_blksize;     /* Block size for filesystem I/O */
+               blkcnt_t  st_blocks;      /* Number of 512B blocks allocated */
+               /* Since Linux 2.6, the kernel supports nanosecond
+                  precision for the following timestamp fields.
+                  For the details before Linux 2.6, see NOTES. */
+               struct timespec st_atim;  /* Time of last access */
+               struct timespec st_mtim;  /* Time of last modification */
+               struct timespec st_ctim;  /* Time of last status change */
+           #define st_atime st_atim.tv_sec      /* Backward compatibility */
+           #define st_mtime st_mtim.tv_sec
+           #define st_ctime st_ctim.tv_sec
+           };
+       Note: the order of fields in the stat structure varies somewhat
+       across architectures.  In addition, the definition above does not
+       show the padding bytes that may be present between some fields on
+       various architectures.  Consult the glibc and kernel source code if
+       you need to know the details.
+       Note: for performance and simplicity reasons, different fields in the
+       stat structure may contain state information from different moments
+       during the execution of the system call.  For example, if st_mode or
+       st_uid is changed by another process by calling chmod(2) or chown(2),
+       stat() might return the old st_mode together with the new st_uid, or
+       the old st_uid together with the new st_mode.
+       The fields in the stat structure are as follows:
+       st_dev This field describes the device on which this file resides.
+              (The major(3) and minor(3) macros may be useful to decompose
+              the device ID in this field.)
+       st_ino This field contains the file's inode number.
+       st_mode
+              This field contains the file type and mode.  See inode(7) for
+              further information.
+       st_nlink
+              This field contains the number of hard links to the file.
+       st_uid This field contains the user ID of the owner of the file.
+       st_gid This field contains the ID of the group owner of the file.
+       st_rdev
+              This field describes the device that this file (inode) repre‐
+              sents.
+       st_size
+              This field gives the size of the file (if it is a regular file
+              or a symbolic link) in bytes.  The size of a symbolic link is
+              the length of the pathname it contains, without a terminating
+              null byte.
+       st_blksize
+              This field gives the "preferred" block size for efficient
+              filesystem I/O.
+       st_blocks
+              This field indicates the number of blocks allocated to the
+              file, in 512-byte units.  (This may be smaller than
+              st_size/512 when the file has holes.)
+       st_atime
+              This is the file's last access timestamp.
+       st_mtime
+              This is the file's last modification timestamp.
+       st_ctime
+              This is the file's last status change timestamp.
+       For further information on the above fields, see inode(7).
+   fstatat()
+       The fstatat() system call is a more general interface for accessing
+       file information which can still provide exactly the behavior of each
+       of stat(), lstat(), and fstat().
+       If the pathname given in pathname is relative, then it is interpreted
+       relative to the directory referred to by the file descriptor dirfd
+       (rather than relative to the current working directory of the calling
+       process, as is done by stat() and lstat() for a relative pathname).
+       If pathname is relative and dirfd is the special value AT_FDCWD, then
+       pathname is interpreted relative to the current working directory of
+       the calling process (like stat() and lstat()).
+       If pathname is absolute, then dirfd is ignored.
+       flags can either be 0, or include one or more of the following flags
+       ORed:
+       AT_EMPTY_PATH (since Linux 2.6.39)
+              If pathname is an empty string, operate on the file referred
+              to by dirfd (which may have been obtained using the open(2)
+              O_PATH flag).  In this case, dirfd can refer to any type of
+              file, not just a directory, and the behavior of fstatat() is
+              similar to that of fstat().  If dirfd is AT_FDCWD, the call
+              operates on the current working directory.  This flag is
+              Linux-specific; define _GNU_SOURCE to obtain its definition.
+       AT_NO_AUTOMOUNT (since Linux 2.6.38)
+              Don't automount the terminal ("basename") component of path‐
+              name if it is a directory that is an automount point.  This
+              allows the caller to gather attributes of an automount point
+              (rather than the location it would mount).  Since Linux 4.14,
+              also don't instantiate a nonexistent name in an on-demand
+              directory such as used for automounter indirect maps.  This
+              flag can be used in tools that scan directories to prevent
+              mass-automounting of a directory of automount points.  The
+              AT_NO_AUTOMOUNT flag has no effect if the mount point has
+              already been mounted over.  This flag is Linux-specific;
+              define _GNU_SOURCE to obtain its definition.  Both stat() and
+              lstat() act as though AT_NO_AUTOMOUNT was set.
+       AT_SYMLINK_NOFOLLOW
+              If pathname is a symbolic link, do not dereference it: instead
+              return information about the link itself, like lstat().  (By
+              default, fstatat() dereferences symbolic links, like stat().)
+       See openat(2) for an explanation of the need for fstatat().

@@ -1,0 +1,13 @@
+
+       Most of the interaction with PCI devices is already handled by the
+       kernel PCI layer, and thus these calls should not normally need to be
+       accessed from user space.
+       pciconfig_read()
+              Reads to buf from device dev at offset off value.
+       pciconfig_write()
+              Writes from buf to device dev at offset off value.
+       pciconfig_iobase()
+              You pass it a bus/devfn pair and get a physical address for
+              either the memory offset (for things like prep, this is
+              0xc0000000), the IO base for PIO cycles, or the ISA holes if
+              any.

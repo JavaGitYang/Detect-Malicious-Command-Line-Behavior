@@ -1,0 +1,5 @@
+
+       The isfdtype() function tests whether the file descriptor fd refers
+       to a file of type fdtype.  The fdtype argument specifies one of the
+       S_IF* constants defined in <sys/stat.h> and documented in stat(2)
+       (e.g., S_IFREG).

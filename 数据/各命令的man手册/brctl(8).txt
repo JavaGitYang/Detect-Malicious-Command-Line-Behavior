@@ -1,0 +1,10 @@
+
+       brctl is used to set up, maintain, and inspect the ethernet bridge
+       configuration in the Linux kernel.
+       An ethernet bridge is a device commonly used to connect different
+       networks of ethernets together, so that these ethernets will appear
+       as one ethernet to the participants.
+       Each of the ethernets being connected corresponds to one physical
+       interface in the bridge. These individual ethernets are bundled into
+       one bigger ('logical') ethernet, this bigger ethernet corresponds to
+       the bridge network interface.

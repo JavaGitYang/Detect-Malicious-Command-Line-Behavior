@@ -1,0 +1,13 @@
+
+       The posix_openpt() function shall establish a connection between a
+       master device for a pseudo-terminal and a file descriptor. The file
+       descriptor is used by other I/O functions that refer to that pseudo-
+       terminal.
+       The file status flags and file access modes of the open file
+       description shall be set according to the value of oflag.
+       Values for oflag are constructed by a bitwise-inclusive OR of flags
+       from the following list, defined in <fcntl.h>:
+       O_RDWR      Open for reading and writing.
+       O_NOCTTY    If set posix_openpt() shall not cause the terminal device
+                   to become the controlling terminal for the process.
+       The behavior of other values for the oflag argument is unspecified.

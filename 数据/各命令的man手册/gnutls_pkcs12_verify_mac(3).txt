@@ -1,0 +1,2 @@
+
+       This function will verify the MAC for the PKCS12 structure.

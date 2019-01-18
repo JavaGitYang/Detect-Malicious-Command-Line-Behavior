@@ -1,0 +1,3 @@
+
+       This function will extract the CRL distribution points extension
+       (2.5.29.31) and store it into the provided type.

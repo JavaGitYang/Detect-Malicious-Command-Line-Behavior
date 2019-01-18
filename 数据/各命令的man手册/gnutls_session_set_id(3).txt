@@ -1,0 +1,6 @@
+
+       This function sets the session ID to be used in a client hello.  This
+       is a function intended for exceptional uses. Do not use this function
+       unless you are implementing a custom protocol.
+       To set session resumption parameters use gnutls_session_set_data()
+       instead.

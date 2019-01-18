@@ -1,0 +1,4 @@
+
+       The isascii() function shall test whether c is a 7-bit US-ASCII
+       character code.
+       The isascii() function is defined on all integer values.

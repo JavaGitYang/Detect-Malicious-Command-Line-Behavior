@@ -1,0 +1,4 @@
+
+       dh_installdeb is a debhelper program that is responsible for
+       installing files into the DEBIAN directories in package build
+       directories with the correct permissions.

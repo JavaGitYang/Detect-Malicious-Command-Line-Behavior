@@ -1,0 +1,3 @@
+
+       auparse_get_field_str allows access to the value in the current field
+       of the current record in the current event.

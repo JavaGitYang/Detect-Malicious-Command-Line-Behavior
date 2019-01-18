@@ -1,0 +1,3 @@
+
+       This function will convert the given elliptic curve parameters to a
+       gnutls_pubkey_t.  The output will be stored in  key .

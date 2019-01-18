@@ -1,0 +1,27 @@
+
+       sigwaitinfo() suspends execution of the calling thread until one of
+       the signals in set is pending (If one of the signals in set is
+       already pending for the calling thread, sigwaitinfo() will return
+       immediately.)
+       sigwaitinfo() removes the signal from the set of pending signals and
+       returns the signal number as its function result.  If the info
+       argument is not NULL, then the buffer that it points to is used to
+       return a structure of type siginfo_t (see sigaction(2)) containing
+       information about the signal.
+       If multiple signals in set are pending for the caller, the signal
+       that is retrieved by sigwaitinfo() is determined according to the
+       usual ordering rules; see signal(7) for further details.
+       sigtimedwait() operates in exactly the same way as sigwaitinfo()
+       except that it has an additional argument, timeout, which specifies
+       the interval for which the thread is suspended waiting for a signal.
+       (This interval will be rounded up to the system clock granularity,
+       and kernel scheduling delays mean that the interval may overrun by a
+       small amount.)  This argument is of the following type:
+           struct timespec {
+               long    tv_sec;         /* seconds */
+               long    tv_nsec;        /* nanoseconds */
+           }
+       If both fields of this structure are specified as 0, a poll is per‐
+       formed: sigtimedwait() returns immediately, either with information
+       about a signal that was pending for the caller, or with an error if
+       none of the signals in set was pending.

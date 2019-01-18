@@ -1,0 +1,4 @@
+
+       This function will extract the key purposes in the provided
+       DER-encoded ExtKeyUsageSyntax PKIX extension, to a
+       gnutls_x509_key_purposes_t type.  The data must be initialized.

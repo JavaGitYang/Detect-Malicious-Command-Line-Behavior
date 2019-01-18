@@ -1,0 +1,55 @@
+
+       nfs4_setfacl manipulates the NFSv4 Access Control List (ACL) of one
+       or more files (or directories), provided they are on a mounted NFSv4
+       filesystem which supports ACLs.
+       nfs4_editfacl is equivalent to nfs4_setfacl -e.
+       Refer to the nfs4_acl(5) manpage for information about NFSv4 ACL
+       terminology and syntax.
+   COMMANDS
+       -a acl_spec [index]
+              add the ACEs from acl_spec to file's ACL.  ACEs are inserted
+              starting at the indexth position (DEFAULT: 1) of file's ACL.
+       -A acl_file [index]
+              add the ACEs from the acl_spec in acl_file to file's ACL.
+              ACEs are inserted starting at the indexth position (DEFAULT:
+              1) of file's ACL.
+       -x acl_spec | index
+              delete ACEs matched from acl_spec - or delete the indexth ACE
+              - from file's ACL.  Note that the ordering of the ACEs in
+              acl_spec does not matter.
+       -X acl_file
+              delete ACEs matched from the acl_spec in acl_file from file's
+              ACL.  Note that the ordering of the ACEs in the acl_spec does
+              not matter.
+       -s acl_spec
+              set file's ACL to acl_spec.
+       -S acl_file
+              set file's ACL to the acl_spec in acl_file.
+       -e, --edit
+              edit file's ACL in the editor defined in the EDITOR
+              environment variable (DEFAULT: vi(1)) and set the resulting
+              ACL upon a clean exit, assuming changes made in the editor
+              were saved.  Note that if multiple files are specified, the
+              editor will be serially invoked once per file.
+       -m from_ace to_ace
+              modify file's ACL in-place by replacing from_ace with to_ace.
+       -?, -h, --help
+              display help text and exit.
+       --version
+              display this program's version and exit.
+       NOTE: if '-' is given as the acl_file with the -A/-X/-S flags, the
+       acl_spec will be read from stdin.
+   OPTIONS
+       -R, --recursive
+              recursively apply to a directory's files and subdirectories.
+              Similar to setfacl(1), the default behavior is to follow
+              symlinks given on the command line and to skip symlinks
+              encountered while recursing through directories.
+       -L, --logical
+              in conjunction with -R/--recursive, a logical walk follows all
+              symbolic links.
+       -P, --physical
+              in conjunction with -R/--recursive, a physical walk skips all
+              symbolic links.
+       --test
+              display results of COMMAND, but do not save changes.

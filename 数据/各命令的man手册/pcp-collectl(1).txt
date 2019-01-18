@@ -1,0 +1,21 @@
+
+       pcp-collectl is a system-level performance monitoring utility that
+       records or displays specific operating system data for one or more
+       sets of subsystems.  Any of the subsystems (such as CPU, Disks,
+       Memory or Sockets) can be included or excluded from data collection.
+       Data can either be displayed immediately to a terminal, or stored in
+       files for retrospective analysis.
+       pcp-collectl is a python(1) script providing much of the
+       functionality available from the collectl(1) Linux utility (which
+       happens to be written in perl(1)).
+       It makes use of the Performance Co-Pilot (PCP) toolkit to simplify
+       its implementation, as well as provide more of the collectl
+       functionality on platforms other than Linux.
+       pcp-collectl has two primary modes of operation:
+       1. Record Mode (-f or --filename option) which reads data from a live
+          system and writes output to a file or displays it on a terminal.
+       2. Playback Mode (-p or -a option) which reads data from one or more
+          PCP archive files and displays output on a terminal.  Note that
+          these files are not raw collectl format data, rather they are
+          archives created by the pmlogger(1) utility (possibly indirectly,
+          through use of the -f option to pcp-collectl).

@@ -1,0 +1,8 @@
+
+       The current reporting timezone effects the timezone used by
+       pmCtime(3) and pmLocaltime(3).
+       pmWhichZone returns the handle of the current timezone, as previously
+       established by a call to pmNewZone(3) or pmNewContextZone(3).  If the
+       call is successful (i.e. there exists a current reporting timezone)
+       then a non-negative integer is returned and tz is set to point to a
+       static buffer containing the timezone string itself.

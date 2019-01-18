@@ -1,0 +1,3 @@
+
+       pmdaDesc uses the standard PMDA(3) data structures to return the
+       pmDesc description in desc for the metric identified by pmid.

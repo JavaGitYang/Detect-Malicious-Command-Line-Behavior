@@ -1,0 +1,3 @@
+
+       cupsenable starts the named printers or classes while cupsdisable
+       stops the named printers or classes.

@@ -1,0 +1,11 @@
+
+       dpkg-deb packs, unpacks and provides information about Debian
+       archives.
+       Use dpkg to install and remove packages from your system.
+       You can also invoke dpkg-deb by calling dpkg with whatever options
+       you want to pass to dpkg-deb. dpkg will spot that you wanted dpkg-deb
+       and run it for you.
+       For most commands taking an input archive argument, the archive can
+       be read from standard input if the archive name is given as a single
+       minus character («-»); otherwise lack of support will be documented
+       in their respective command description.

@@ -1,0 +1,5 @@
+
+       auparse_find_field will scan all records in an event to find the
+       first occurrence of the field name passed to it. Searching begins
+       from the cursor's current position. The field name is stored for
+       subsequent searching.

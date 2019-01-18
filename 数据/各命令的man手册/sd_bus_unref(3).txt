@@ -1,0 +1,34 @@
+
+       sd_bus_new() creates a new bus object. This object is
+       reference-counted, and will be destroyed when all references are
+       gone. Initially, the caller of this function owns the sole reference
+       and the bus object will not be connected to any bus. To connect it to
+       a bus, make sure to set an address with sd_bus_set_address(3) or a
+       related call, and then start the connection with sd_bus_start(3).
+       In most cases, it is a better idea to invoke sd_bus_default_user(3),
+       sd_bus_default_system(3) or related calls instead of the more
+       low-level sd_bus_new() and sd_bus_start(). The higher-level calls not
+       only allocate a bus object but also start the connection to a
+       well-known bus in a single function invocation.
+       sd_bus_ref() increases the reference counter of bus by one.
+       sd_bus_unref() decreases the reference counter of bus by one. Once
+       the reference count has dropped to zero, bus is destroyed and cannot
+       be used anymore, so further calls to sd_bus_ref() or sd_bus_unref()
+       are illegal.
+       sd_bus_unrefp() is similar to sd_bus_unref() but takes a pointer to a
+       pointer to an sd_bus object. This call is useful in conjunction with
+       GCC's and LLVM's Clean-up Variable Attribute[1]. Note that this
+       function is defined as inline function. Use a declaration like the
+       following, in order to allocate a bus object that is freed
+       automatically as the code block is left:
+           {
+                   __attribute__((cleanup(sd_bus_unrefp)) sd_bus *bus = NULL;
+                   int r;
+                   ...
+                   r = sd_bus_default(&bus);
+                   if (r < 0)
+                           fprintf(stderr, "Failed to allocate bus: %s\n", strerror(-r));
+                   ...
+           }
+       sd_bus_ref(), sd_bus_unref() and sd_bus_unrefp() execute no operation
+       if the passed in bus object is NULL.

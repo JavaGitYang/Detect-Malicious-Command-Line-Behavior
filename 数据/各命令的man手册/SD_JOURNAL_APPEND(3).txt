@@ -1,0 +1,64 @@
+
+       sd_journal_get_fd() returns a file descriptor that may be
+       asynchronously polled in an external event loop and is signaled as
+       soon as the journal changes, because new entries or files were added,
+       rotation took place, or files have been deleted, and similar. The
+       file descriptor is suitable for usage in poll(2). Use
+       sd_journal_get_events() for an events mask to watch for. The call
+       takes one argument: the journal context object. Note that not all
+       file systems are capable of generating the necessary events for
+       wakeups from this file descriptor for changes to be noticed
+       immediately. In particular network files systems do not generate
+       suitable file change events in all cases. Cases like this can be
+       detected with sd_journal_reliable_fd(), below.
+       sd_journal_get_timeout() will ensure in these cases that wake-ups
+       happen frequently enough for changes to be noticed, although with a
+       certain latency.
+       sd_journal_get_events() will return the poll() mask to wait for. This
+       function will return a combination of POLLIN and POLLOUT and similar
+       to fill into the ".events" field of struct pollfd.
+       sd_journal_get_timeout() will return a timeout value for usage in
+       poll(). This returns a value in microseconds since the epoch of
+       CLOCK_MONOTONIC for timing out poll() in timeout_usec. See
+       clock_gettime(2) for details about CLOCK_MONOTONIC. If there is no
+       timeout to wait for, this will fill in (uint64_t) -1 instead. Note
+       that poll() takes a relative timeout in milliseconds rather than an
+       absolute timeout in microseconds. To convert the absolute 'us'
+       timeout into relative 'ms', use code like the following:
+           uint64_t t;
+           int msec;
+           sd_journal_get_timeout(m, &t);
+           if (t == (uint64_t) -1)
+             msec = -1;
+           else {
+             struct timespec ts;
+             uint64_t n;
+             clock_gettime(CLOCK_MONOTONIC, &ts);
+             n = (uint64_t) ts.tv_sec * 1000000 + ts.tv_nsec / 1000;
+             msec = t > n ? (int) ((t - n + 999) / 1000) : 0;
+           }
+       The code above does not do any error checking for brevity's sake. The
+       calculated msec integer can be passed directly as poll()'s timeout
+       parameter.
+       After each poll() wake-up sd_journal_process() needs to be called to
+       process events. This call will also indicate what kind of change has
+       been detected (see below; note that spurious wake-ups are possible).
+       A synchronous alternative for using sd_journal_get_fd(),
+       sd_journal_get_events(), sd_journal_get_timeout() and
+       sd_journal_process() is sd_journal_wait(). It will synchronously wait
+       until the journal gets changed. The maximum time this call sleeps may
+       be controlled with the timeout_usec parameter. Pass (uint64_t) -1 to
+       wait indefinitely. Internally this call simply combines
+       sd_journal_get_fd(), sd_journal_get_events(),
+       sd_journal_get_timeout(), poll() and sd_journal_process() into one.
+       sd_journal_reliable_fd() may be used to check whether the wakeup
+       events from the file descriptor returned by sd_journal_get_fd() are
+       known to be immediately triggered. On certain file systems where file
+       change events from the OS are not available (such as NFS) changes
+       need to be polled for repeatedly, and hence are detected only with a
+       certain latency. This call will return a positive value if the
+       journal changes are detected immediately and zero when they need to
+       be polled for and hence might be noticed only with a certain latency.
+       Note that there is usually no need to invoke this function directly
+       as sd_journal_get_timeout() on these file systems will ask for
+       timeouts explicitly anyway.

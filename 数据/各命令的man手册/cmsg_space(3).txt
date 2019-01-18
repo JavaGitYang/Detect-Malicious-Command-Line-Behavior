@@ -1,0 +1,51 @@
+
+       These macros are used to create and access control messages (also
+       called ancillary data) that are not a part of the socket payload.
+       This control information may include the interface the packet was
+       received on, various rarely used header fields, an extended error
+       description, a set of file descriptors or UNIX credentials.  For
+       instance, control messages can be used to send additional header
+       fields such as IP options.  Ancillary data is sent by calling
+       sendmsg(2) and received by calling recvmsg(2).  See their manual
+       pages for more information.
+       Ancillary data is a sequence of cmsghdr structures with appended
+       data.  See the specific protocol man pages for the available control
+       message types.  The maximum ancillary buffer size allowed per socket
+       can be set using /proc/sys/net/core/optmem_max; see socket(7).
+       The cmsghdr structure is defined as follows:
+           struct cmsghdr {
+               size_t cmsg_len;    /* Data byte count, including header
+                                      (type is socklen_t in POSIX) */
+               int    cmsg_level;  /* Originating protocol */
+               int    cmsg_type;   /* Protocol-specific type */
+           /* followed by
+              unsigned char cmsg_data[]; */
+           };
+       The sequence of cmsghdr structures should never be accessed directly.
+       Instead, use only the following macros:
+       *  CMSG_FIRSTHDR() returns a pointer to the first cmsghdr in the
+          ancillary data buffer associated with the passed msghdr.
+       *  CMSG_NXTHDR() returns the next valid cmsghdr after the passed cms‐
+          ghdr.  It returns NULL when there isn't enough space left in the
+          buffer.
+       *  CMSG_ALIGN(), given a length, returns it including the required
+          alignment.  This is a constant expression.
+       *  CMSG_SPACE() returns the number of bytes an ancillary element with
+          payload of the passed data length occupies.  This is a constant
+          expression.
+       *  CMSG_DATA() returns a pointer to the data portion of a cmsghdr.
+       *  CMSG_LEN() returns the value to store in the cmsg_len member of
+          the cmsghdr structure, taking into account any necessary align‐
+          ment.  It takes the data length as an argument.  This is a con‐
+          stant expression.
+       To create ancillary data, first initialize the msg_controllen member
+       of the msghdr with the length of the control message buffer.  Use
+       CMSG_FIRSTHDR() on the msghdr to get the first control message and
+       CMSG_NXTHDR() to get all subsequent ones.  In each control message,
+       initialize cmsg_len (with CMSG_LEN()), the other cmsghdr header
+       fields, and the data portion using CMSG_DATA().  Finally, the
+       msg_controllen field of the msghdr should be set to the sum of the
+       CMSG_SPACE() of the length of all control messages in the buffer.
+       For more information on the msghdr, see recvmsg(2).
+       When the control message buffer is too short to store all messages,
+       the MSG_CTRUNC flag is set in the msg_flags member of the msghdr.

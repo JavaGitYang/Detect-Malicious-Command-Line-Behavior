@@ -1,0 +1,9 @@
+
+       ausearch_add_regex adds one search condition based on a regular
+       expression to the current audit search expression. The search
+       conditions can then be used to scan logs, files, or buffers for
+       something of interest. The regular expression follows the posix
+       extended regular expression conventions, and is matched against the
+       full record (without interpreting field values).
+       If an existing search expression E is already defined, this function
+       replaces it by (E && this_regexp).

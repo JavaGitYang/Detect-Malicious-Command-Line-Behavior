@@ -1,0 +1,9 @@
+
+       xfs_growfs expands an existing XFS filesystem (see xfs(5)).  The
+       mount-point argument is the pathname of the directory where the
+       filesystem is mounted. The filesystem must be mounted to be grown
+       (see mount(8)).  The existing contents of the filesystem are
+       undisturbed, and the added space becomes available for additional
+       file storage.
+       xfs_info is equivalent to invoking xfs_growfs with the -n option (see
+       discussion below).

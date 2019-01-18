@@ -1,0 +1,34 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The longjmp() function shall restore the environment saved by the
+       most recent invocation of setjmp() in the same process, with the
+       corresponding jmp_buf argument. If the most recent invocation of
+       setjmp() with the corresponding jmp_buf occurred in another thread,
+       or if there is no such invocation, or if the function containing the
+       invocation of setjmp() has terminated execution in the interim, or if
+       the invocation of setjmp() was within the scope of an identifier with
+       variably modified type and execution has left that scope in the
+       interim, the behavior is undefined.  It is unspecified whether
+       longjmp() restores the signal mask, leaves the signal mask unchanged,
+       or restores it to its value at the time setjmp() was called.
+       All accessible objects have values, and all other components of the
+       abstract machine have state (for example, floating-point status flags
+       and open files), as of the time longjmp() was called, except that the
+       values of objects of automatic storage duration are unspecified if
+       they meet all the following conditions:
+        *  They are local to the function containing the corresponding
+           setjmp() invocation.
+        *  They do not have volatile-qualified type.
+        *  They are changed between the setjmp() invocation and longjmp()
+           call.
+       As it bypasses the usual function call and return mechanisms,
+       longjmp() shall execute correctly in contexts of interrupts, signals,
+       and any of their associated functions. However, if longjmp() is
+       invoked from a nested signal handler (that is, from a function
+       invoked as a result of a signal raised during the handling of another
+       signal), the behavior is undefined.
+       The effect of a call to longjmp() where initialization of the jmp_buf
+       structure was not performed in the calling thread is undefined.

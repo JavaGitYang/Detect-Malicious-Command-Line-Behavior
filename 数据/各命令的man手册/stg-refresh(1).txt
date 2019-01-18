@@ -1,0 +1,21 @@
+
+       Include the latest work tree and index changes in the current patch.
+       This command generates a new git commit object for the patch; the old
+       commit is no longer visible.
+       Refresh will warn if the index is dirty, and require use of either
+       the --index or --force options to override this check. This is to
+       prevent accidental full refresh when only some changes were staged
+       using git add interative mode.
+       You may optionally list one or more files or directories relative to
+       the current working directory; if you do, only matching files will be
+       updated.
+       Behind the scenes, stg refresh first creates a new temporary patch
+       with your updates, and then merges that patch into the patch you
+       asked to have refreshed. If you asked to refresh a patch other than
+       the topmost patch, there can be conflicts; in that case, the
+       temporary patch will be left for you to take care of, for example
+       with stg squash.
+       The creation of the temporary patch is recorded in a separate entry
+       in the patch stack log; this means that one undo step will undo the
+       merge between the other patch and the temp patch, and two undo steps
+       will additionally get rid of the temp patch.

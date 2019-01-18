@@ -1,0 +1,7 @@
+
+       Sets the priorities to use on the ciphers, key exchange methods, and
+       macs.  This function avoids keeping a priority cache and is used to
+       directly set string priorities to a TLS session.  For documentation
+       check the gnutls_priority_init().
+       To use a reasonable default, consider using
+       gnutls_set_default_priority(), instead of this function.

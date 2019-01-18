@@ -1,0 +1,5 @@
+
+       capng_clear sets to 0 all bits in the selected posix capabilities
+       set. The options are CAPNG_SELECT_CAPS for the traditional
+       capabilities, CAPNG_SELECT_BOUNDS for the bounding set, or
+       CAPNG_SELECT_BOTH if clearing both is desired.

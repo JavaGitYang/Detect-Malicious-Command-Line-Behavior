@@ -1,0 +1,4 @@
+
+       This function allows an extension handler to store data in the
+       current session and retrieve them later on. The set data will be
+       deallocated using the gnutls_ext_deinit_data_func.

@@ -1,0 +1,10 @@
+
+       The paste utility shall concatenate the corresponding lines of the
+       given input files, and write the resulting lines to standard output.
+       The default operation of paste shall concatenate the corresponding
+       lines of the input files. The <newline> of every line except the line
+       from the last input file shall be replaced with a <tab>.
+       If an end-of-file condition is detected on one or more input files,
+       but not all input files, paste shall behave as though empty lines
+       were read from the files on which end-of-file was detected, unless
+       the −s option is specified.

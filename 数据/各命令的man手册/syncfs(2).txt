@@ -1,0 +1,5 @@
+
+       sync() causes all pending modifications to filesystem metadata and
+       cached file data to be written to the underlying filesystems.
+       syncfs() is like sync(), but synchronizes just the filesystem
+       containing file referred to by the open file descriptor fd.

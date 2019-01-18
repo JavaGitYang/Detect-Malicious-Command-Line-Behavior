@@ -1,0 +1,7 @@
+
+       The getwchar() function is the wide-character equivalent of the
+       getchar(3) function.  It reads a wide character from stdin and
+       returns it.  If the end of stream is reached, or if ferror(stdin)
+       becomes true, it returns WEOF.  If a wide-character conversion error
+       occurs, it sets errno to EILSEQ and returns WEOF.
+       For a nonlocking counterpart, see unlocked_stdio(3).

@@ -1,0 +1,4 @@
+
+       Refer to PMAPI(3) for general information about the external
+       interfaces defined in <pcp/pmapi.h>.  The interfaces described here
+       assume that context.

@@ -1,0 +1,6 @@
+
+       sd_bus_get_fd() returns the file descriptor used to communicate with
+       the message bus. This descriptor can be used with select(3), poll(3),
+       or similar functions to wait for incoming messages.
+       If the bus was created with the sd_bus_set_fd(3) function, then the
+       input_fd used in that call is returned.

@@ -1,0 +1,7 @@
+
+       pmPathSeparator is a convenience method that returns ``/'' in  the
+       civilized world.  For Windows platforms you may get ``/'' or ``\''
+       depending on the run-time environment.
+       The most common use scenario is to use pmPathSeparator to construct
+       the full pathname for a file from a known directory name and a
+       relative file name.

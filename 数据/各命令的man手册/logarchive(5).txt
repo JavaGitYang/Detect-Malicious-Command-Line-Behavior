@@ -1,0 +1,31 @@
+
+       Performance Co-Pilot (PCP) archives store historical values about
+       arbitrary metrics recorded from a single host.  Archives are machine
+       independent and self-contained - all metadata required for off-line
+       or off-site analysis is stored.
+       The format is stable in order to allow long-term historical storage
+       and processing by PMAPI client tools.
+       Archives may be read by most PCP client tools, using the -a/--archive
+       NAME option, or dumped raw by pmdumplog(1).  Archives are created
+       primarily by pmlogger(1), however they can also be created using the
+       LOGIMPORT(3) programming interface.
+       Archives may be merged, analyzed, modified and subsampled using
+       pmlogreduce(1), pmlogsummary(1), pmlogrewrite(1) and pmlogextract(1).
+       In addition, PCP archives may be examined in sets or grouped together
+       into "archive folios", which are created and managed by the mkaf(1)
+       and pmafm(1) tools.
+       Archives consist of several physical files that share a common
+       arbitrary prefix, e.g.  myarchive.
+       myarchive.0, myarchive.1, ...
+              One or more data volumes containing the metric values and any
+              error codes encountered during metric sampling.  Typically the
+              largest of the files and may grow very rapidly, depending on
+              the pmlogger sampling interval(s) being used.
+       myarchive.meta
+              Information for PMAPI functions such as pmLookupDesc(3),
+              pmLookupLabels(3) and pmLookupInDom(3).  The metadata file may
+              grow sporadically as logged metrics, instance domains and
+              labels vary over time.
+       myarchive.index
+              A temporal index, mapping timestamps to offsets in the other
+              files.

@@ -1,0 +1,4 @@
+
+       This function will add an nonce extension to the OCSP request.
+       Calling this function multiple times will overwrite values from
+       earlier calls.

@@ -1,0 +1,34 @@
+
+       The <utmpx.h> header shall define the utmpx structure that shall
+       include at least the following members:
+           char            ut_user[]  User login name.
+           char            ut_id[]    Unspecified initialization process identifier.
+           char            ut_line[]  Device name.
+           pid_t           ut_pid     Process ID.
+           short           ut_type    Type of entry.
+           struct timeval  ut_tv      Time entry was made.
+       The <utmpx.h> header shall define the pid_t type through typedef, as
+       described in <sys/types.h>.
+       The <utmpx.h> header shall define the timeval structure as described
+       in <sys/time.h>.
+       Inclusion of the <utmpx.h> header may also make visible all symbols
+       from <sys/time.h>.
+       The <utmpx.h> header shall define the following symbolic constants as
+       possible values for the ut_type member of the utmpx structure:
+       EMPTY         No valid user accounting information.
+       BOOT_TIME     Identifies time of system boot.
+       OLD_TIME      Identifies time when system clock changed.
+       NEW_TIME      Identifies time after system clock changed.
+       USER_PROCESS  Identifies a process.
+       INIT_PROCESS  Identifies a process spawned by the init process.
+       LOGIN_PROCESS Identifies the session leader of a logged-in user.
+       DEAD_PROCESS  Identifies a session leader who has exited.
+       The following shall be declared as functions and may also be defined
+       as macros. Function prototypes shall be provided.
+           void          endutxent(void);
+           struct utmpx *getutxent(void);
+           struct utmpx *getutxid(const struct utmpx *);
+           struct utmpx *getutxline(const struct utmpx *);
+           struct utmpx *pututxline(const struct utmpx *);
+           void          setutxent(void);
+       The following sections are informative.

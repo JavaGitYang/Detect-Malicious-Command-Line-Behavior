@@ -1,0 +1,9 @@
+
+       The Linux Trace Toolkit: next generation <http://lttng.org/> is an
+       open source software package used for correlated tracing of the Linux
+       kernel, user applications, and user libraries.
+       LTTng consists of Linux kernel modules (for Linux kernel tracing) and
+       dynamically loaded libraries (for user application and library
+       tracing).
+       The lttng-crash command-line tool is used to recover and view LTTng
+       trace buffers in the event of a system crash.

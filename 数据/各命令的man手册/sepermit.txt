@@ -1,0 +1,19 @@
+
+       The lines of the configuration file have the following syntax:
+       <user>[:<option>:<option>...]
+       The user can be specified in the following manner:
+       ·   a username
+       ·   a groupname, with @group syntax. This should not be confused with
+           netgroups.
+       ·   a SELinux user name with %seuser syntax.
+       The recognized options are:
+       exclusive
+           Only single login session will be allowed for the user and the
+           user's processes will be killed on logout.
+       ignore
+           The module will never return PAM_SUCCESS status for the user. It
+           will return PAM_IGNORE if SELinux is in the enforcing mode, and
+           PAM_AUTH_ERR otherwise. It is useful if you want to support
+           passwordless guest users and other confined users with passwords
+           simultaneously.
+       The lines which start with # character are comments and are ignored.

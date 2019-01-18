@@ -1,0 +1,9 @@
+
+       The pam_mail PAM module provides the "you have new mail" service to
+       the user. It can be plugged into any application that has credential
+       or session hooks. It gives a single message indicating the newness of
+       any mail it finds in the user's mail folder. This module also sets
+       the PAM environment variable, MAIL, to the user's mail directory.
+       If the mail spool file (be it /var/mail/$USER or a pathname given
+       with the dir= parameter) is a directory then pam_mail assumes it is
+       in the Maildir format.

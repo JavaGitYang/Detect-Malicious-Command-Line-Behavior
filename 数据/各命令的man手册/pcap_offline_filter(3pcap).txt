@@ -1,0 +1,5 @@
+
+       pcap_offline_filter() checks whether a filter matches a packet.  fp
+       is a pointer to a bpf_program struct, usually the result of a call to
+       pcap_compile().  h points to the pcap_pkthdr structure for the
+       packet, and pkt points to the data in the packet.

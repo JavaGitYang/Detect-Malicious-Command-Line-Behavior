@@ -1,0 +1,11 @@
+
+       As part of the Performance Co-Pilot Log Import API (see
+       LOGIMPORT(3)), pmiPutValueHandle adds a single value to the current
+       output record for a given metric and instance, using the handle
+       defined by an earlier call to pmiGetHandle(3).
+       The value should be in a format consistent with the metric's type as
+       defined in the call to pmiAddMetric(3).
+       No data will be written until pmiWrite(3) is called, so multiple
+       calls to pmiPutValueHandle or pmiPutValue(3) are typically used to
+       accumulate data values for several metric-instance pairs before
+       calling pmiWrite(3).

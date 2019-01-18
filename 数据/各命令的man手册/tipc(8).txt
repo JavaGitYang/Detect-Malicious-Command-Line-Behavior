@@ -1,0 +1,11 @@
+
+       The Transparent Inter-Process Communication (TIPC) protocol offers
+       total address transparency between processes which allows
+       applications in a clustered computer environment to communicate
+       quickly and reliably with each other, regardless of their location
+       within the cluster.
+       TIPC originated at the telecommunications manufacturer Ericsson. The
+       first open source version of TIPC was created in 2000 when Ericsson
+       released its first Linux version of TIPC. TIPC was introduced in the
+       mainline Linux kernel in 2006 and is now widely used both within and
+       outside of Ericsson.

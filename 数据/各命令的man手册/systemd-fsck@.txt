@@ -1,0 +1,20 @@
+
+       systemd-fsck@.service and systemd-fsck-root.service are services
+       responsible for file system checks. They are instantiated for each
+       device that is configured for file system checking.
+       systemd-fsck-root.service is responsible for file system checks on
+       the root file system, but only if the root filesystem was not checked
+       in the initramfs.  systemd-fsck@.service is used for all other file
+       systems and for the root file system in the initramfs.
+       These services are started at boot if passno in /etc/fstab for the
+       file system is set to a value greater than zero. The file system
+       check for root is performed before the other file systems. Other file
+       systems may be checked in parallel, except when they are on the same
+       rotating disk.
+       systemd-fsck does not know any details about specific filesystems,
+       and simply executes file system checkers specific to each filesystem
+       type (/sbin/fsck.*). This helper will decide if the filesystem should
+       actually be checked based on the time since last check, number of
+       mounts, unclean unmount, etc.
+       If a file system check fails for a service without nofail, emergency
+       mode is activated, by isolating to emergency.target.

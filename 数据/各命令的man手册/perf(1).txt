@@ -1,0 +1,5 @@
+
+       Performance counters for Linux are a new kernel-based subsystem that
+       provide a framework for all things performance analysis. It covers
+       hardware level (CPU/PMU, Performance Monitoring Unit) features and
+       software features (software counters, tracepoints) as well.

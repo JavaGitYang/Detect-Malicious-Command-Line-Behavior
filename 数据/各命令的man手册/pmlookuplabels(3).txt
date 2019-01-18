@@ -1,0 +1,44 @@
+
+       Labels are name:value pairs associated with performance metric values
+       for the purpose of attaching additional metric metadata to values.
+       This metadata is less structured and exists separately to the metric
+       descriptor available for every PCP metric from pmLookupDesc(3).
+       Much like the metric descriptor metadata, labels are an integral part
+       of the identity of each metric, and should rarely, if ever, change.
+       The pmLookupLabels routine is a convenience interface providing
+       retrieval for all labels associated with a single performance metric
+       identifier, pmid.  It performs no caching of labels internally.
+       For efficiency in communication and storage within the various
+       components of the PMCS (Performance Metrics Collection System),
+       labels are maintained using a hierarchy.  The set of labels
+       associated with any individual metric value consists of the union of
+       labels from each of these sets of labels:
+       1. Global labels (apply to all metric values from a host or archive
+       context)
+       pmGetContextLabels
+               provides the labelset associated with all metric values from
+               a given source (PMAPI context).
+       2. Domain labels (apply to every metric within a PMDA)
+       pmGetDomainLabels
+               provides the labelset associated with the domain identifier.
+       3. Instance Domain labels (apply to all metrics sharing that indom)
+       pmGetInDomLabels
+               provides the labelset associated with the instance domain
+               identifier indom.
+       4. Cluster labels (apply to a group of metrics within one domain)
+       pmGetClusterLabels
+               provides the labelset associated with the metric cluster
+               (domain,cluster) identified by pmid.
+       5. Item labels (apply to an individual performance metric)
+       pmGetItemLabels
+               provides the labelset associated with the metric item
+               (domain,cluster,item) identified by pmid.
+       6. Instance labels (apply to individual instances of a metric)
+       pmGetInstancesLabels
+               provides the set of instance identifiers and labels in
+               labelsets for each instance associated with the instance
+               domain identifier indom.  The return value indicates the
+               number of elements in the result - one labelset for each
+               instance.
+       These independent labelsets can be merged using pmMergeLabelSets(3)
+       to form the complete set of all labels associated with a given value.

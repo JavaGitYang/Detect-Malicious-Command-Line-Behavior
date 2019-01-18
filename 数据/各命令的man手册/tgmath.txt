@@ -1,0 +1,78 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The <tgmath.h> header shall include the headers <math.h> and
+       <complex.h> and shall define several type-generic macros.
+       Of the functions contained within the <math.h> and <complex.h>
+       headers without an f (float) or l (long double) suffix, several have
+       one or more parameters whose corresponding real type is double.  For
+       each such function, except modf(), j0(), j1(), jn(), y0(), y1(), and
+       yn(), there shall be a corresponding type-generic macro. The
+       parameters whose corresponding real type is double in the function
+       synopsis are generic parameters. Use of the macro invokes a function
+       whose corresponding real type and type domain are determined by the
+       arguments for the generic parameters.
+       Use of the macro invokes a function whose generic parameters have the
+       corresponding real type determined as follows:
+        *  First, if any argument for generic parameters has type long
+           double, the type determined is long double.
+        *  Otherwise, if any argument for generic parameters has type double
+           or is of integer type, the type determined is double.
+        *  Otherwise, the type determined is float.
+       For each unsuffixed function in the <math.h> header for which there
+       is a function in the <complex.h> header with the same name except for
+       a c prefix, the corresponding type-generic macro (for both functions)
+       has the same name as the function in the <math.h> header. The
+       corresponding type-generic macro for fabs() and cabs() is fabs().
+          ┌──────────────────┬──────────────────────┬────────────────────┐
+          │<math.h> Function │ <complex.h> Function │ Type-Generic Macro │
+          ├──────────────────┼──────────────────────┼────────────────────┤
+          │acos()            │ cacos()              │ acos()             │
+          │asin()            │ casin()              │ asin()             │
+          │atan()            │ catan()              │ atan()             │
+          │acosh()           │ cacosh()             │ acosh()            │
+          │asinh()           │ casinh()             │ asinh()            │
+          │atanh()           │ catanh()             │ atanh()            │
+          │cos()             │ ccos()               │ cos()              │
+          │sin()             │ csin()               │ sin()              │
+          │tan()             │ ctan()               │ tan()              │
+          │cosh()            │ ccosh()              │ cosh()             │
+          │sinh()            │ csinh()              │ sinh()             │
+          │tanh()            │ ctanh()              │ tanh()             │
+          │exp()             │ cexp()               │ exp()              │
+          │log()             │ clog()               │ log()              │
+          │pow()             │ cpow()               │ pow()              │
+          │sqrt()            │ csqrt()              │ sqrt()             │
+          │fabs()            │ cabs()               │ fabs()             │
+          └──────────────────┴──────────────────────┴────────────────────┘
+       If at least one argument for a generic parameter is complex, then use
+       of the macro invokes a complex function; otherwise, use of the macro
+       invokes a real function.
+       For each unsuffixed function in the <math.h> header without a c-
+       prefixed counterpart in the <complex.h> header, except for modf(),
+       j0(), j1(), jn(), y0(), y1(), and yn(), the corresponding type-
+       generic macro has the same name as the function.  These type-generic
+       macros are:
+              atan2()      fma()      llround()      remainder()
+              cbrt()       fmax()     log10()        remquo()
+              ceil()       fmin()     log1p()        rint()
+              copysign()   fmod()     log2()         round()
+              erf()        frexp()    logb()         scalbln()
+              erfc()       hypot()    lrint()        scalbn()
+              exp2()       ilogb()    lround()       tgamma()
+              expm1()      ldexp()    nearbyint()    trunc()
+              fdim()       lgamma()   nextafter()
+              floor()      llrint()   nexttoward()
+       If all arguments for generic parameters are real, then use of the
+       macro invokes a real function; otherwise, use of the macro results in
+       undefined behavior.
+       For each unsuffixed function in the <complex.h> header that is not a
+       c-prefixed counterpart to a function in the <math.h> header, the
+       corresponding type-generic macro has the same name as the function.
+       These type-generic macros are:
+              carg() cimag() conj() cproj() creal()
+       Use of the macro with any real or complex argument invokes a complex
+       function.
+       The following sections are informative.

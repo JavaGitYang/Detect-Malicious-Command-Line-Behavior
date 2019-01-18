@@ -1,0 +1,19 @@
+
+       The ndb backend to slapd(8) uses the MySQL Cluster package to store
+       data, through its NDB API.  It provides fault tolerance with extreme
+       scalability, along with a degree of SQL compatibility.
+       This backend is designed to store LDAP information using tables that
+       are also visible from SQL. It uses a higher level SQL API for
+       creating these tables, while using the low level NDB API for storing
+       and retrieving the data within these tables. The NDB Cluster engine
+       allows data to be partitioned across multiple data nodes, and this
+       backend allows multiple slapd instances to operate against a given
+       database concurrently.
+       The general approach is to use distinct tables for each LDAP object
+       class.  Entries comprised of multiple object classes will have their
+       data spread across multiple tables. The data tables use a 64 bit
+       entryID as their primary key. The DIT hierarchy is maintained in a
+       separate table, which maps DNs to entryIDs.
+       This backend is experimental. While intended to be a general-purpose
+       backend, it is currently missing a number of common LDAP features.
+       See the TODO file in the source directory for details.

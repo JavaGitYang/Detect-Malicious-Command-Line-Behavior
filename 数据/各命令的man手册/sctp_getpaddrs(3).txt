@@ -1,0 +1,12 @@
+
+       sctp_getpaddrs returns all peer addresses in an association. On
+       return, addrs will point to a dynamically allocated packed array of
+       sockaddr structures of the appropriate type for each address. The
+       caller should use sctp_freepaddrs to free the memory. Note that the
+       in/out parameter addrs must not be NULL.
+       If sd is an IPv4 socket, the addresses returned will be all IPv4
+       addresses. If sd is an IPv6 socket, the addresses returned can be a
+       mix of IPv4 or IPv6 addresses.
+       For one-to-many style sockets, id specifies the association to query.
+       For one-to-one style sockets, id is ignored.
+       sctp_freepaddrs frees all the resources allocated by sctp_getpaddrs.

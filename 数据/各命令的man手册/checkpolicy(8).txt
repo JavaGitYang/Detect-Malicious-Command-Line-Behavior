@@ -1,0 +1,7 @@
+
+       This manual page describes the checkpolicy command.
+       checkpolicy is a program that checks and compiles a SELinux security
+       policy configuration into a binary representation that can be loaded
+       into the kernel.  If no input file name is specified, checkpolicy
+       will attempt to read from policy.conf or policy, depending on whether
+       the -b flag is specified.

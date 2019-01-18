@@ -1,0 +1,26 @@
+
+       The pthread_rwlock_timedwrlock() function shall apply a write lock to
+       the read-write lock referenced by rwlock as in the
+       pthread_rwlock_wrlock() function. However, if the lock cannot be
+       acquired without waiting for other threads to unlock the lock, this
+       wait shall be terminated when the specified timeout expires. The
+       timeout shall expire when the absolute time specified by abstime
+       passes, as measured by the clock on which timeouts are based (that
+       is, when the value of that clock equals or exceeds abstime), or if
+       the absolute time specified by abstime has already been passed at the
+       time of the call.
+       The timeout shall be based on the CLOCK_REALTIME clock.  The
+       resolution of the timeout shall be the resolution of the
+       CLOCK_REALTIME clock. The timespec data type is defined in the
+       <time.h> header. Under no circumstances shall the function fail with
+       a timeout if the lock can be acquired immediately. The validity of
+       the abstime parameter need not be checked if the lock can be
+       immediately acquired.
+       If a signal that causes a signal handler to be executed is delivered
+       to a thread blocked on a read-write lock via a call to
+       pthread_rwlock_timedwrlock(), upon return from the signal handler the
+       thread shall resume waiting for the lock as if it was not
+       interrupted.
+       The calling thread may deadlock if at the time the call is made it
+       holds the read-write lock. The results are undefined if this function
+       is called with an uninitialized read-write lock.

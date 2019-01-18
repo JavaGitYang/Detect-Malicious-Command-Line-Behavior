@@ -1,0 +1,18 @@
+
+       For wcscoll(): The functionality described on this reference page is
+       aligned with the ISO C standard. Any conflict between the
+       requirements described here and the ISO C standard is unintentional.
+       This volume of POSIX.1‐2008 defers to the ISO C standard.
+       The wcscoll() and wcscoll_l() functions shall compare the wide-
+       character string pointed to by ws1 to the wide-character string
+       pointed to by ws2, both interpreted as appropriate to the LC_COLLATE
+       category of the current locale, or the locale represented by locale,
+       respectively.
+       The wcscoll() and wcscoll_l() functions shall not change the setting
+       of errno if successful.
+       An application wishing to check for error situations should set errno
+       to 0 before calling wcscoll() or wcscoll_l().  If errno is non-zero
+       on return, an error has occurred.
+       The behavior is undefined if the locale argument to wcscoll_l() is
+       the special locale object LC_GLOBAL_LOCALE or is not a valid locale
+       object handle.

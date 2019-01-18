@@ -1,0 +1,31 @@
+
+       __pmParseHostSpec accepts a string specifying the location of a PCP
+       performance metric collector daemon.  The syntax of the various
+       formats of this string is described in PCPIntro(1) where several
+       examples are also presented.
+       The syntax allows the initial pmcd(1) hostname to be optionally
+       followed by a list of port numbers, which will be tried in order when
+       connecting to pmcd on that host.  The portlist is separated from the
+       hostname using a colon, and each port in the list is comma-separated.
+       In addition, one or more optional pmproxy(1) hosts can be specified
+       (currently, only one proxy host is supported by the PCP protocols).
+       These are separated from each other and from the pmcd component using
+       the @ character.  These may also be followed by an optional port
+       list, using the same comma-separated syntax as before.
+       __pmParseHostSpec takes a null-terminated host specification string
+       and returns an array of pmHostSpec structures, where the array has
+       count entries.
+       These pmHostSpec structures that are returned via hostsp represent
+       each individual host in the specification string and has the
+       following declaration:
+           typedef struct {
+               char    *name;       /* hostname (always valid) */
+               int     *ports;      /* array of host port numbers */
+               int     nports;      /* number of ports in host port array */
+           } pmHostSpec;
+       __pmUnparseHostSpec performs the inverse operation, creating a string
+       representation from a number of hosts structures.  Where the count of
+       structures indicated by hosts is greater than one, the proxy syntax
+       is used to indicate a chain of proxied hosts.  The size of the
+       supplied string buffer must be provided by the caller using the size
+       parameter.

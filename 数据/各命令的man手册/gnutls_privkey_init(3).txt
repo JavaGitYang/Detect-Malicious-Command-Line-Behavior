@@ -1,0 +1,11 @@
+
+       This function will initialize a private key object. The object can be
+       used to generate, import, and perform cryptographic operations on the
+       associated private key.
+       Note that when the underlying private key is a PKCS11 key (i.e., when
+       imported with a PKCS11 URI), the limitations of
+       gnutls_pkcs11_privkey_init() apply to this object as well. In
+       versions of GnuTLS later than 3.5.11 the object is protected using
+       locks and a single gnutls_privkey_t can be re-used by many threads.
+       However, for performance it is recommended to utilize one object per
+       key per thread.

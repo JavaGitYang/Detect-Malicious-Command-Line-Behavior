@@ -1,0 +1,38 @@
+
+       mysql_convert_table_format converts the tables in a database to use a
+       particular storage engine (MyISAM by default).
+       mysql_convert_table_format is written in Perl and requires that the
+       DBI and DBD::mysql Perl modules be installed (see Section 2.15, “Perl
+       Installation Notes”).
+       Invoke mysql_convert_table_format like this:
+           shell> mysql_convert_table_format [options]db_name
+       The db_name argument indicates the database containing the tables to
+       be converted.
+       mysql_convert_table_format supports the options described in the
+       following list.
+       ·   --help
+           Display a help message and exit.
+       ·   --force
+           Continue even if errors occur.
+       ·   --host=host_name
+           Connect to the MariaDB server on the given host.
+       ·   --password=password
+           The password to use when connecting to the server. Note that the
+           password value is not optional for this option, unlike for other
+           MariaDB programs.
+           Specifying a password on the command line should be considered
+           insecure. You can use an option file to avoid giving the password
+           on the command line.
+       ·   --port=port_num
+           The TCP/IP port number to use for the connection.
+       ·   --socket=path
+           For connections to localhost, the Unix socket file to use.
+       ·   --type=engine_name
+           Specify the storage engine that the tables should be converted to
+           use. The default is MyISAM if this option is not given.
+       ·   --user=user_name
+           The MariaDB user name to use when connecting to the server.
+       ·   --verbose
+           Verbose mode. Print more information about what the program does.
+       ·   --version
+           Display version information and exit.

@@ -1,0 +1,6 @@
+
+       As part of the Performance Co-Pilot Log Import API (see
+       LOGIMPORT(3)), pmiSetHostname sets the source hostname in the current
+       context to be value.
+       In the absence of a call to pmiSetHostname the source hostname
+       defaults to the hostname of the localhost.

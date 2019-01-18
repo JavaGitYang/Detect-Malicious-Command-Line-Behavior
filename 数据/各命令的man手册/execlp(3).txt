@@ -1,0 +1,48 @@
+
+       The exec() family of functions replaces the current process image
+       with a new process image.  The functions described in this manual
+       page are front-ends for execve(2).  (See the manual page for
+       execve(2) for further details about the replacement of the current
+       process image.)
+       The initial argument for these functions is the name of a file that
+       is to be executed.
+       The const char *arg and subsequent ellipses in the execl(), execlp(),
+       and execle() functions can be thought of as arg0, arg1, ..., argn.
+       Together they describe a list of one or more pointers to null-
+       terminated strings that represent the argument list available to the
+       executed program.  The first argument, by convention, should point to
+       the filename associated with the file being executed.  The list of
+       arguments must be terminated by a null pointer, and, since these are
+       variadic functions, this pointer must be cast (char *) NULL.
+       The execv(), execvp(), and execvpe() functions provide an array of
+       pointers to null-terminated strings that represent the argument list
+       available to the new program.  The first argument, by convention,
+       should point to the filename associated with the file being executed.
+       The array of pointers must be terminated by a null pointer.
+       The execle() and execvpe() functions allow the caller to specify the
+       environment of the executed program via the argument envp.  The envp
+       argument is an array of pointers to null-terminated strings and must
+       be terminated by a null pointer.  The other functions take the
+       environment for the new process image from the external variable
+       environ in the calling process.
+   Special semantics for execlp() and execvp()
+       The execlp(), execvp(), and execvpe() functions duplicate the actions
+       of the shell in searching for an executable file if the specified
+       filename does not contain a slash (/) character.  The file is sought
+       in the colon-separated list of directory pathnames specified in the
+       PATH environment variable.  If this variable isn't defined, the path
+       list defaults to a list that includes the directories returned by
+       confstr(_CS_PATH) (which typically returns the value "/bin:/usr/bin")
+       and possibly also the current working directory; see NOTES for
+       further details.
+       If the specified filename includes a slash character, then PATH is
+       ignored, and the file at the specified pathname is executed.
+       In addition, certain errors are treated specially.
+       If permission is denied for a file (the attempted execve(2) failed
+       with the error EACCES), these functions will continue searching the
+       rest of the search path.  If no other file is found, however, they
+       will return with errno set to EACCES.
+       If the header of a file isn't recognized (the attempted execve(2)
+       failed with the error ENOEXEC), these functions will execute the
+       shell (/bin/sh) with the path of the file as its first argument.  (If
+       this attempt fails, no further searching is done.)

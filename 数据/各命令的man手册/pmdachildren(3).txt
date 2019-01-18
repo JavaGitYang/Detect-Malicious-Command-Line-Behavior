@@ -1,0 +1,24 @@
+
+       As part of the Performance Metrics Domain Agent (PMDA) API (see
+       PMDA(3)), pmdaChildren is the generic callback for returning dynamic
+       metric names (and their status) that are descendants of name.
+       Because implementing dynamic performance metrics requires specific
+       PMDA support, and the facility is an optional component of a PMDA
+       (most PMDAs do not support dynamic performance metrics), pmdaChildren
+       is a skeleton implementation that returns PM_ERR_NAME.
+       A PMDA that supports dynamic performance metrics will provide a
+       private callback that replaces pmdaChildren (by assignment to
+       version.four.children of the pmdaInterface structure) and takes the
+       initial metric name and returns names via offspring[] and the leaf or
+       non-leaf status of each via status[].
+       If traverse is 0, then the behaviour is akin to pmGetChildren(3) and
+       offspring[] contains the relative name component for the immediate
+       descendants of name.
+       If traverse is 1, then the behaviour is akin to pmTraversePMNS(3) and
+       offspring[] contains the absolute names of all dynamic metrics that
+       are decedents of name.
+       The resulting list of pointers offspring and the values (the names)
+       that the pointers reference will have been allocated by pmdaChildren
+       with a single call to malloc(3), and the caller of pmdaChildren will
+       call free(offspring) to release the space when it is no longer
+       required.  The same holds true for the status array.

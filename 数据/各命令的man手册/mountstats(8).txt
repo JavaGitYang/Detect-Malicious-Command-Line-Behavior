@@ -1,0 +1,14 @@
+
+       The mountstats command displays various NFS client statisitics for
+       each given mountpoint.
+       If no mountpoint is given, statistics will be displayed for all NFS
+       mountpoints on the client.
+   Sub-commands
+       Valid mountstats(8) subcommands are:
+       mountstats
+              Display a combination of per-op RPC statistics, NFS event
+              counts, and NFS byte counts.  This is the default sub-command
+              that will be executed if no sub-command is given.
+       iostat Display iostat-like statistics.
+       nfsstat
+              Display nfsstat-like statistics.

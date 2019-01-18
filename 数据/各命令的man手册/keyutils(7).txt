@@ -1,0 +1,22 @@
+
+       The keyutils package is a library and a set of utilities for
+       accessing the kernel keyrings facility.
+       A header file is supplied to provide the definitions and declarations
+       required to access the library:
+              #include <keyutils.h>
+       To link with the library, the following:
+              -lkeyutils
+       should be specified to the linker.
+       Three system calls are provided:
+       add_key(2)
+              Supply a new key to the kernel.
+       request_key(2)
+              Find an existing key for use, or, optionally, create one if
+              one does not exist.
+       keyctl(2)
+              Control a key in various ways.  The library provides a variety
+              of wrappers around this system call and those should be used
+              rather than calling it directly.
+       See the add_key(2), request_key(2), and keyctl(2) manual pages for
+       more information.
+       The keyctl() wrappers are listed on the keyctl(3) manual page.

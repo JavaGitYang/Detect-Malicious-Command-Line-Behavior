@@ -1,0 +1,21 @@
+
+       pmdaib is a Performance Metrics Domain Agent (PMDA) which exports
+       information and performance metrics about local Infiniband HCAs and
+       local or remote Infiniband GUIDs.
+       A brief description of the pmdaib command line options follows:
+       -c   Location of the config file.  By default, the config file is
+            named $PCP_PMDAS_DIR/infiniband/config.  See CONFIG FILE for
+            more information.
+       -D   A debug values, as specified by pmdbg(1)
+       -d   Specify an alternate performance metrics domain number.  Almost
+            never necessary.
+       -l   Location of the log file.  By default, a log file named ib.log
+            is written to $PCP_LOG_DIR/pmcd.  If the log file cannot be
+            created or is not writable, output is written to the standard
+            error instead.
+       -w   Write out the default config file to $PCP_PMDAS_DIRS/infiniband
+            and exit immediately.  The written config file will contain the
+            local HCA ports.  It will not overwrite an existing file.  This
+            argument should only be used to create the template config file
+            and should never appear in pmcd.conf.  See CONFIG FILE for more
+            information on the file format and on monitoring remote GUIDs.

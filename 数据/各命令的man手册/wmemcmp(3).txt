@@ -1,0 +1,4 @@
+
+       The wmemcmp() function is the wide-character equivalent of the
+       memcmp(3) function.  It compares the n wide-characters starting at s1
+       and the n wide-characters starting at s2.

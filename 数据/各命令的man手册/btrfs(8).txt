@@ -1,0 +1,9 @@
+
+       The btrfs utility is a toolbox for managing btrfs filesystems. There
+       are command groups to work with subvolumes, devices, for whole
+       filesystem or other specific actions. See section COMMANDS.
+       There are also standalone tools for some tasks like btrfs-convert or
+       btrfstune that were separate historically and/or haven’t been merged
+       to the main utility. See section STANDALONE TOOLS for more details.
+       For other topics (mount options, etc) please refer to the separate
+       manual page btrfs(5).

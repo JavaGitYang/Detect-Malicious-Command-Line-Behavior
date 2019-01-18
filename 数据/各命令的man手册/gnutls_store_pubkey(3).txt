@@ -1,0 +1,14 @@
+
+       This function will store the provided (raw or DER-encoded)
+       certificate to the list of stored public keys. The key will be
+       considered valid until the provided expiration time.
+       The  store variable if non-null specifies a custom backend for the
+       storage of entries. If it is NULL then the default file backend will
+       be used.
+       Unless an alternative  tdb is provided, the storage format is a
+       textual format consisting of a line for each host with fields
+       separated by '|'. The contents of the fields are a format-identifier
+       which is set to 'g0', the hostname that the rest of the data applies
+       to, the numeric port or host name, the expiration time in seconds
+       since the epoch (0 for no expiration), and a base64 encoding of the
+       raw (DER) public key information (SPKI) of the peer.

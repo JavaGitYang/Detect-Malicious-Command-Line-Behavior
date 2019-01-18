@@ -1,0 +1,33 @@
+
+       The LDAP backend to slapd(8) is not an actual database; instead it
+       acts as a proxy to forward incoming requests to another LDAP server.
+       While processing requests it will also chase referrals, so that
+       referrals are fully processed instead of being returned to the slapd
+       client.
+       Sessions that explicitly Bind to the back-ldap database always create
+       their own private connection to the remote LDAP server. Anonymous
+       sessions will share a single anonymous connection to the remote
+       server. For sessions bound through other mechanisms, all sessions
+       with the same DN will share the same connection. This connection
+       pooling strategy can enhance the proxy's efficiency by reducing the
+       overhead of repeatedly making/breaking multiple connections.
+       The ldap database can also act as an information service, i.e. the
+       identity of locally authenticated clients is asserted to the remote
+       server, possibly in some modified form.  For this purpose, the proxy
+       binds to the remote server with some administrative identity, and, if
+       required, authorizes the asserted identity.  See the idassert-* rules
+       below.  The administrative identity of the proxy, on the remote
+       server, must be allowed to authorize by means of appropriate authzTo
+       rules; see slapd.conf(5) for details.
+       The proxy instance of slapd(8) must contain schema information for
+       the attributes and objectClasses used in filters, request DNs and
+       request-related data in general.  It should also contain schema
+       information for the data returned by the proxied server.  It is the
+       responsibility of the proxy administrator to keep the schema of the
+       proxy lined up with that of the proxied server.
+       Note: When looping back to the same instance of slapd(8), each
+       connection requires a new thread; as a consequence, slapd(8) must be
+       compiled with thread support, and the threads parameter may need some
+       tuning; in those cases, one may consider using slapd-relay(5)
+       instead, which performs the relayed operation internally and thus
+       reuses the same connection.

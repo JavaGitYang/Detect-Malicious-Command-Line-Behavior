@@ -1,0 +1,26 @@
+
+       The time utility shall invoke the utility named by the utility
+       operand with arguments supplied as the argument operands and write a
+       message to standard error that lists timing statistics for the
+       utility. The message shall include the following information:
+        *  The elapsed (real) time between invocation of utility and its
+           termination.
+        *  The User CPU time, equivalent to the sum of the tms_utime and
+           tms_cutime fields returned by the times() function defined in the
+           System Interfaces volume of POSIX.1‐2008 for the process in which
+           utility is executed.
+        *  The System CPU time, equivalent to the sum of the tms_stime and
+           tms_cstime fields returned by the times() function for the
+           process in which utility is executed.
+       The precision of the timing shall be no less than the granularity
+       defined for the size of the clock tick unit on the system, but the
+       results shall be reported in terms of standard time units (for
+       example, 0.02 seconds, 00:00:00.02, 1m33.75s, 365.21 seconds), not
+       numbers of clock ticks.
+       When time is used as part of a pipeline, the times reported are
+       unspecified, except when it is the sole command within a grouping
+       command (see Section 2.9.4.1, Grouping Commands) in that pipeline.
+       For example, the commands on the left are unspecified; those on the
+       right report on utilities a and c, respectively:
+           time a | b | c    { time a; } | b | c
+           a | b | time c    a | b | (time c)

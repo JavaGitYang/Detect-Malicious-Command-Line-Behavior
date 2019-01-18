@@ -1,0 +1,31 @@
+
+       The pthread_barrier_wait() function shall synchronize participating
+       threads at the barrier referenced by barrier.  The calling thread
+       shall block until the required number of threads have called
+       pthread_barrier_wait() specifying the barrier.
+       When the required number of threads have called
+       pthread_barrier_wait() specifying the barrier, the constant
+       PTHREAD_BARRIER_SERIAL_THREAD shall be returned to one unspecified
+       thread and zero shall be returned to each of the remaining threads.
+       At this point, the barrier shall be reset to the state it had as a
+       result of the most recent pthread_barrier_init() function that
+       referenced it.
+       The constant PTHREAD_BARRIER_SERIAL_THREAD is defined in <pthread.h>
+       and its value shall be distinct from any other value returned by
+       pthread_barrier_wait().
+       The results are undefined if this function is called with an
+       uninitialized barrier.
+       If a signal is delivered to a thread blocked on a barrier, upon
+       return from the signal handler the thread shall resume waiting at the
+       barrier if the barrier wait has not completed (that is, if the
+       required number of threads have not arrived at the barrier during the
+       execution of the signal handler); otherwise, the thread shall
+       continue as normal from the completed barrier wait. Until the thread
+       in the signal handler returns from it, it is unspecified whether
+       other threads may proceed past the barrier once they have all reached
+       it.
+       A thread that has blocked on a barrier shall not prevent any
+       unblocked thread that is eligible to use the same processing
+       resources from eventually making forward progress in its execution.
+       Eligibility for processing resources shall be determined by the
+       scheduling policy.

@@ -1,0 +1,6 @@
+
+       ppdi imports one or more PPD files into a PPD compiler source file.
+       Multiple languages of the same PPD file are merged into a single
+       printer definition to facilitate accurate changes for all
+       localizations.  This program is deprecated and will be removed in a
+       future release of CUPS.

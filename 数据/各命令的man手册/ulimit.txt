@@ -1,0 +1,10 @@
+
+       The <ulimit.h> header shall define the symbolic constants used by the
+       ulimit() function.
+       Symbolic constants:
+       UL_GETFSIZE Get maximum file size.
+       UL_SETFSIZE Set maximum file size.
+       The following shall be declared as a function and may also be defined
+       as a macro. A function prototype shall be provided.
+           long ulimit(int, ...);
+       The following sections are informative.

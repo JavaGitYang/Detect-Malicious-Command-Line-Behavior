@@ -1,0 +1,4 @@
+
+       This convenience function will import the given certificate to a
+       gnutls_pcert_st structure. The structure must be deinitialized
+       afterwards using gnutls_pcert_deinit();

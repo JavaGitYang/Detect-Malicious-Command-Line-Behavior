@@ -1,0 +1,9 @@
+
+       setterm writes to standard output a character string that will invoke
+       the specified terminal capabilities.  Where possible terminfo is
+       consulted to find the string to use.  Some options however (marked
+       "virtual consoles only" below) do not correspond to a terminfo(5)
+       capability.  In this case, if the terminal type is "con" or "linux"
+       the string that invokes the specified capabilities on the PC Minix
+       virtual console driver is output.  Options that are not implemented
+       by the terminal are ignored.

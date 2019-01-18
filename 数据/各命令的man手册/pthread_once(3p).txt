@@ -1,0 +1,15 @@
+
+       The first call to pthread_once() by any thread in a process, with a
+       given once_control, shall call the init_routine with no arguments.
+       Subsequent calls of pthread_once() with the same once_control shall
+       not call the init_routine.  On return from pthread_once(),
+       init_routine shall have completed. The once_control parameter shall
+       determine whether the associated initialization routine has been
+       called.
+       The pthread_once() function is not a cancellation point. However, if
+       init_routine is a cancellation point and is canceled, the effect on
+       once_control shall be as if pthread_once() was never called.
+       The constant PTHREAD_ONCE_INIT is defined in the <pthread.h> header.
+       The behavior of pthread_once() is undefined if once_control has
+       automatic storage duration or is not initialized by
+       PTHREAD_ONCE_INIT.

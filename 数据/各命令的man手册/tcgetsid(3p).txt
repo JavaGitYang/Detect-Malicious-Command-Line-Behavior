@@ -1,0 +1,4 @@
+
+       The tcgetsid() function shall obtain the process group ID of the
+       session for which the terminal specified by fildes is the controlling
+       terminal.

@@ -1,0 +1,2 @@
+
+       lxc-checkconfig check the current kernel for lxc support

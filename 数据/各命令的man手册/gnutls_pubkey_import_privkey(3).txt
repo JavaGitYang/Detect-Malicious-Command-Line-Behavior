@@ -1,0 +1,5 @@
+
+       Imports the public key from a private.  This function will import the
+       given public key to the abstract gnutls_pubkey_t type.
+       Note that in certain keys this operation may not be possible, e.g.,
+       in other than RSA PKCS11 keys.

@@ -1,0 +1,20 @@
+
+       Each variable or function specified by name shall be unset.
+       If −v is specified, name refers to a variable name and the shell
+       shall unset it and remove it from the environment. Read-only
+       variables cannot be unset.
+       If −f is specified, name refers to a function and the shell shall
+       unset the function definition.
+       If neither −f nor −v is specified, name refers to a variable; if a
+       variable by that name does not exist, it is unspecified whether a
+       function by that name, if any, shall be unset.
+       Unsetting a variable or function that was not previously set shall
+       not be considered an error and does not cause the shell to abort.
+       The unset special built-in shall support the Base Definitions volume
+       of POSIX.1‐2008, Section 12.2, Utility Syntax Guidelines.
+       Note that:
+           VARIABLE=
+       is not equivalent to an unset of VARIABLE; in the example, VARIABLE
+       is set to "".  Also, the variables that can be unset should not be
+       misinterpreted to include the special parameters (see Section 2.5.2,
+       Special Parameters).

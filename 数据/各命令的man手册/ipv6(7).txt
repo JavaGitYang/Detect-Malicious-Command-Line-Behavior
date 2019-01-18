@@ -1,0 +1,137 @@
+
+       Linux 2.2 optionally implements the Internet Protocol, version 6.
+       This man page contains a description of the IPv6 basic API as
+       implemented by the Linux kernel and glibc 2.1.  The interface is
+       based on the BSD sockets interface; see socket(7).
+       The IPv6 API aims to be mostly compatible with the IPv4 API (see
+       ip(7)).  Only differences are described in this man page.
+       To bind an AF_INET6 socket to any process, the local address should
+       be copied from the in6addr_any variable which has in6_addr type.  In
+       static initializations, IN6ADDR_ANY_INIT may also be used, which
+       expands to a constant expression.  Both of them are in network byte
+       order.
+       The IPv6 loopback address (::1) is available in the global
+       in6addr_loopback variable.  For initializations,
+       IN6ADDR_LOOPBACK_INIT should be used.
+       IPv4 connections can be handled with the v6 API by using the
+       v4-mapped-on-v6 address type; thus a program needs to support only
+       this API type to support both protocols.  This is handled
+       transparently by the address handling functions in the C library.
+       IPv4 and IPv6 share the local port space.  When you get an IPv4
+       connection or packet to an IPv6 socket, its source address will be
+       mapped to v6 and it will be mapped to v6.
+   Address format
+           struct sockaddr_in6 {
+               sa_family_t     sin6_family;   /* AF_INET6 */
+               in_port_t       sin6_port;     /* port number */
+               uint32_t        sin6_flowinfo; /* IPv6 flow information */
+               struct in6_addr sin6_addr;     /* IPv6 address */
+               uint32_t        sin6_scope_id; /* Scope ID (new in 2.4) */
+           };
+           struct in6_addr {
+               unsigned char   s6_addr[16];   /* IPv6 address */
+           };
+       sin6_family is always set to AF_INET6; sin6_port is the protocol port
+       (see sin_port in ip(7)); sin6_flowinfo is the IPv6 flow identifier;
+       sin6_addr is the 128-bit IPv6 address.  sin6_scope_id is an ID
+       depending on the scope of the address.  It is new in Linux 2.4.
+       Linux supports it only for link-local addresses, in that case
+       sin6_scope_id contains the interface index (see netdevice(7))
+       IPv6 supports several address types: unicast to address a single
+       host, multicast to address a group of hosts, anycast to address the
+       nearest member of a group of hosts (not implemented in Linux),
+       IPv4-on-IPv6 to address an IPv4 host, and other reserved address
+       types.
+       The address notation for IPv6 is a group of 8 4-digit hexadecimal
+       numbers, separated with a ':'.  "::" stands for a string of 0 bits.
+       Special addresses are ::1 for loopback and ::FFFF:<IPv4 address> for
+       IPv4-mapped-on-IPv6.
+       The port space of IPv6 is shared with IPv4.
+   Socket options
+       IPv6 supports some protocol-specific socket options that can be set
+       with setsockopt(2) and read with getsockopt(2).  The socket option
+       level for IPv6 is IPPROTO_IPV6.  A boolean integer flag is zero when
+       it is false, otherwise true.
+       IPV6_ADDRFORM
+              Turn an AF_INET6 socket into a socket of a different address
+              family.  Only AF_INET is currently supported for that.  It is
+              allowed only for IPv6 sockets that are connected and bound to
+              a v4-mapped-on-v6 address.  The argument is a pointer to an
+              integer containing AF_INET.  This is useful to pass v4-mapped
+              sockets as file descriptors to programs that don't know how to
+              deal with the IPv6 API.
+       IPV6_ADD_MEMBERSHIP, IPV6_DROP_MEMBERSHIP
+              Control membership in multicast groups.  Argument is a pointer
+              to a struct ipv6_mreq.
+       IPV6_MTU
+              getsockopt(): Retrieve the current known path MTU of the cur‐
+              rent socket.  Valid only when the socket has been connected.
+              Returns an integer.
+              setsockopt(): Set the MTU to be used for the socket.  The MTU
+              is limited by the device MTU or the path MTU when path MTU
+              discovery is enabled.  Argument is a pointer to integer.
+       IPV6_MTU_DISCOVER
+              Control path-MTU discovery on the socket.  See IP_MTU_DISCOVER
+              in ip(7) for details.
+       IPV6_MULTICAST_HOPS
+              Set the multicast hop limit for the socket.  Argument is a
+              pointer to an integer.  -1 in the value means use the route
+              default, otherwise it should be between 0 and 255.
+       IPV6_MULTICAST_IF
+              Set the device for outgoing multicast packets on the socket.
+              This is allowed only for SOCK_DGRAM and SOCK_RAW socket.  The
+              argument is a pointer to an interface index (see netdevice(7))
+              in an integer.
+       IPV6_MULTICAST_LOOP
+              Control whether the socket sees multicast packets that it has
+              send itself.  Argument is a pointer to boolean.
+       IPV6_RECVPKTINFO (since Linux 2.6.14)
+              Set delivery of the IPV6_PKTINFO control message on incoming
+              datagrams.  Such control messages contain a struct in6_pkt‐
+              info, as per RFC 3542.  Allowed only for SOCK_DGRAM or
+              SOCK_RAW sockets.  Argument is a pointer to a boolean value in
+              an integer.
+       IPV6_RTHDR, IPV6_AUTHHDR, IPV6_DSTOPTS, IPV6_HOPOPTS, IPV6_FLOWINFO,
+       IPV6_HOPLIMIT
+              Set delivery of control messages for incoming datagrams con‐
+              taining extension headers from the received packet.  IPV6_RTH‐
+              DR delivers the routing header, IPV6_AUTHHDR delivers the au‐
+              thentication header, IPV6_DSTOPTS delivers the destination op‐
+              tions, IPV6_HOPOPTS delivers the hop options, IPV6_FLOWINFO
+              delivers an integer containing the flow ID, IPV6_HOPLIMIT de‐
+              livers an integer containing the hop count of the packet.  The
+              control messages have the same type as the socket option.  All
+              these header options can also be set for outgoing packets by
+              putting the appropriate control message into the control buf‐
+              fer of sendmsg(2).  Allowed only for SOCK_DGRAM or SOCK_RAW
+              sockets.  Argument is a pointer to a boolean value.
+       IPV6_RECVERR
+              Control receiving of asynchronous error options.  See
+              IP_RECVERR in ip(7) for details.  Argument is a pointer to
+              boolean.
+       IPV6_ROUTER_ALERT
+              Pass forwarded packets containing a router alert hop-by-hop
+              option to this socket.  Allowed only for SOCK_RAW sockets.
+              The tapped packets are not forwarded by the kernel, it is the
+              user's responsibility to send them out again.  Argument is a
+              pointer to an integer.  A positive integer indicates a router
+              alert option value to intercept.  Packets carrying a router
+              alert option with a value field containing this integer will
+              be delivered to the socket.  A negative integer disables de‐
+              livery of packets with router alert options to this socket.
+       IPV6_UNICAST_HOPS
+              Set the unicast hop limit for the socket.  Argument is a
+              pointer to an integer.  -1 in the value means use the route
+              default, otherwise it should be between 0 and 255.
+       IPV6_V6ONLY (since Linux 2.4.21 and 2.6)
+              If this flag is set to true (nonzero), then the socket is re‐
+              stricted to sending and receiving IPv6 packets only.  In this
+              case, an IPv4 and an IPv6 application can bind to a single
+              port at the same time.
+              If this flag is set to false (zero), then the socket can be
+              used to send and receive packets to and from an IPv6 address
+              or an IPv4-mapped IPv6 address.
+              The argument is a pointer to a boolean value in an integer.
+              The default value for this flag is defined by the contents of
+              the file /proc/sys/net/ipv6/bindv6only.  The default value for
+              that file is 0 (false).

@@ -1,0 +1,13 @@
+
+       The iconv_open() function shall return a conversion descriptor that
+       describes a conversion from the codeset specified by the string
+       pointed to by the fromcode argument to the codeset specified by the
+       string pointed to by the tocode argument. For state-dependent
+       encodings, the conversion descriptor shall be in a codeset-dependent
+       initial shift state, ready for immediate use with iconv().
+       Settings of fromcode and tocode and their permitted combinations are
+       implementation-defined.
+       A conversion descriptor shall remain valid until it is closed by
+       iconv_close() or an implicit close.
+       If a file descriptor is used to implement conversion descriptors, the
+       FD_CLOEXEC flag shall be set; see <fcntl.h>.

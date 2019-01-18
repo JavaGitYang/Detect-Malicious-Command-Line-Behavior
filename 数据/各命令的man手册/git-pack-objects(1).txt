@@ -1,0 +1,23 @@
+
+       Reads list of objects from the standard input, and writes either one
+       or more packed archives with the specified base-name to disk, or a
+       packed archive to the standard output.
+       A packed archive is an efficient way to transfer a set of objects
+       between two repositories as well as an access efficient archival
+       format. In a packed archive, an object is either stored as a
+       compressed whole or as a difference from some other object. The
+       latter is often called a delta.
+       The packed archive format (.pack) is designed to be self-contained so
+       that it can be unpacked without any further information. Therefore,
+       each object that a delta depends upon must be present within the
+       pack.
+       A pack index file (.idx) is generated for fast, random access to the
+       objects in the pack. Placing both the index file (.idx) and the
+       packed archive (.pack) in the pack/ subdirectory of
+       $GIT_OBJECT_DIRECTORY (or any of the directories on
+       $GIT_ALTERNATE_OBJECT_DIRECTORIES) enables Git to read from the pack
+       archive.
+       The git unpack-objects command can read the packed archive and expand
+       the objects contained in the pack into "one-file one-object" format;
+       this is typically done by the smart-pull commands when a pack is
+       created on-the-fly for efficient network transport by their peers.

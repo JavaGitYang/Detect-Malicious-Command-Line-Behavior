@@ -1,0 +1,7 @@
+
+       The strsignal() function returns a string describing the signal
+       number passed in the argument sig.  The string can be used only until
+       the next call to strsignal().
+       The array sys_siglist holds the signal description strings indexed by
+       signal number.  The strsignal() function should be used if possible
+       instead of this array.

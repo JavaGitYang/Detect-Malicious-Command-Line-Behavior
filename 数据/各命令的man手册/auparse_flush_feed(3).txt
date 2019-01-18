@@ -1,0 +1,3 @@
+
+       auparse_flush_feed should be called to signal the end of feed input
+       data and flush any pending parse data through the parsing system.

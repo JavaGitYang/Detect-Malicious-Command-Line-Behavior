@@ -1,0 +1,14 @@
+
+       The getgrgid() function shall search the group database for an entry
+       with a matching gid.
+       The getgrgid() function need not be thread-safe.
+       The getgrgid_r() function shall update the group structure pointed to
+       by grp and store a pointer to that structure at the location pointed
+       to by result.  The structure shall contain an entry from the group
+       database with a matching gid.  Storage referenced by the group
+       structure is allocated from the memory provided with the buffer
+       parameter, which is bufsize bytes in size. A call to
+       sysconf(_SC_GETGR_R_SIZE_MAX) returns either −1 without changing
+       errno or an initial value suggested for the size of this buffer.  A
+       null pointer shall be returned at the location pointed to by result
+       on error or if the requested entry is not found.

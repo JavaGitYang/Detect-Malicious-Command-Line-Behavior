@@ -1,0 +1,4 @@
+
+       The library supports the ARM Cortex A53 core PMU.
+       This PMU supports 6 counters and privilege levels filtering.  It can
+       operate in both 32 and 64 bit modes.

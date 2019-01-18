@@ -1,0 +1,9 @@
+
+       This function will export the public key to DER or PEM format.  The
+       contents of the exported data is the SubjectPublicKeyInfo X.509
+       structure.
+       If the buffer provided is not long enough to hold the output, then
+       *output_data_size is updated and GNUTLS_E_SHORT_MEMORY_BUFFER will be
+       returned.
+       If the structure is PEM encoded, it will have a header of "BEGIN
+       CERTIFICATE".

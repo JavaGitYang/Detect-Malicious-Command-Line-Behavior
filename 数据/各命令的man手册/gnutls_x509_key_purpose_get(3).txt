@@ -1,0 +1,4 @@
+
+       This function will retrieve the specified by the index key purpose in
+       the purposes type. The object identifier will be a null terminated
+       string.

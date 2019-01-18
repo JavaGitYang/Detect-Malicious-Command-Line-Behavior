@@ -1,0 +1,45 @@
+
+       The three functions hcreate(), hsearch(), and hdestroy() allow the
+       caller to create and manage a hash search table containing entries
+       consisting of a key (a string) and associated data.  Using these
+       functions, only one hash table can be used at a time.
+       The three functions hcreate_r(), hsearch_r(), hdestroy_r() are
+       reentrant versions that allow a program to use more than one hash
+       search table at the same time.  The last argument, htab, points to a
+       structure that describes the table on which the function is to
+       operate.  The programmer should treat this structure as opaque (i.e.,
+       do not attempt to directly access or modify the fields in this
+       structure).
+       First a hash table must be created using hcreate().  The argument nel
+       specifies the maximum number of entries in the table.  (This maximum
+       cannot be changed later, so choose it wisely.)  The implementation
+       may adjust this value upward to improve the performance of the
+       resulting hash table.
+       The hcreate_r() function performs the same task as hcreate(), but for
+       the table described by the structure *htab.  The structure pointed to
+       by htab must be zeroed before the first call to hcreate_r().
+       The function hdestroy() frees the memory occupied by the hash table
+       that was created by hcreate().  After calling hdestroy(), a new hash
+       table can be created using hcreate().  The hdestroy_r() function
+       performs the analogous task for a hash table described by *htab,
+       which was previously created using hcreate_r().
+       The hsearch() function searches the hash table for an item with the
+       same key as item (where "the same" is determined using strcmp(3)),
+       and if successful returns a pointer to it.
+       The argument item is of type ENTRY, which is defined in <search.h> as
+       follows:
+           typedef struct entry {
+               char *key;
+               void *data;
+           } ENTRY;
+       The field key points to a null-terminated string which is the search
+       key.  The field data points to data that is associated with that key.
+       The argument action determines what hsearch() does after an unsuc‐
+       cessful search.  This argument must either have the value ENTER,
+       meaning insert a copy of item (and return a pointer to the new hash
+       table entry as the function result), or the value FIND, meaning that
+       NULL should be returned.  (If action is FIND, then data is ignored.)
+       The hsearch_r() function is like hsearch() but operates on the hash
+       table described by *htab.  The hsearch_r() function differs from
+       hsearch() in that a pointer to the found item is returned in *retval,
+       rather than as the function result.

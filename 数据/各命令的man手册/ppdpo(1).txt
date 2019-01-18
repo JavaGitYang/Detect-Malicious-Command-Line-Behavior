@@ -1,0 +1,5 @@
+
+       ppdpo extracts UI strings from PPDC source files and updates either a
+       GNU gettext or macOS strings format message catalog source file for
+       translation.  This program is deprecated and will be removed in a
+       future release of CUPS.

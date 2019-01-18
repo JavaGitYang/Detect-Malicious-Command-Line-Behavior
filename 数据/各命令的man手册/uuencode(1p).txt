@@ -1,0 +1,8 @@
+
+       The uuencode utility shall write an encoded version of the named
+       input file, or standard input if no file is specified, to standard
+       output. The output shall be encoded using one of the algorithms
+       described in the STDOUT section and shall include the file access
+       permission bits (in chmod octal or symbolic notation) of the input
+       file and the decode_pathname, for re-creation of the file on another
+       system that conforms to this volume of POSIX.1‐2008.

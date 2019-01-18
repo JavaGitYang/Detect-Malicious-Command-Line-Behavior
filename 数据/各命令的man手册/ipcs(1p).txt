@@ -1,0 +1,7 @@
+
+       The ipcs utility shall write information about active interprocess
+       communication facilities.
+       Without options, information shall be written in short format for
+       message queues, shared memory segments, and semaphore sets that are
+       currently active in the system. Otherwise, the information that is
+       displayed is controlled by the options specified.

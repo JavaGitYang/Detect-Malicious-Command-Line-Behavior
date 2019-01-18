@@ -1,0 +1,67 @@
+
+       If the first operand is an unsigned decimal integer, the shell shall
+       treat all operands as conditions, and shall reset each condition to
+       the default value. Otherwise, if there are operands, the first is
+       treated as an action and the remaining as conditions.
+       If action is '−', the shell shall reset each condition to the default
+       value. If action is null (""), the shell shall ignore each specified
+       condition if it arises. Otherwise, the argument action shall be read
+       and executed by the shell when one of the corresponding conditions
+       arises. The action of trap shall override a previous action (either
+       default action or one explicitly set). The value of "$?" after the
+       trap action completes shall be the value it had before trap was
+       invoked.
+       The condition can be EXIT, 0 (equivalent to EXIT), or a signal
+       specified using a symbolic name, without the SIG prefix, as listed in
+       the tables of signal names in the <signal.h> header defined in the
+       Base Definitions volume of POSIX.1‐2008, Chapter 13, Headers; for
+       example, HUP, INT, QUIT, TERM. Implementations may permit names with
+       the SIG prefix or ignore case in signal names as an extension.
+       Setting a trap for SIGKILL or SIGSTOP produces undefined results.
+       The environment in which the shell executes a trap on EXIT shall be
+       identical to the environment immediately after the last command
+       executed before the trap on EXIT was taken.
+       Each time trap is invoked, the action argument shall be processed in
+       a manner equivalent to:
+           eval action
+       Signals that were ignored on entry to a non-interactive shell cannot
+       be trapped or reset, although no error need be reported when
+       attempting to do so. An interactive shell may reset or catch signals
+       ignored on entry. Traps shall remain in place for a given shell until
+       explicitly changed with another trap command.
+       When a subshell is entered, traps that are not being ignored shall be
+       set to the default actions, except in the case of a command
+       substitution containing only a single trap command, when the traps
+       need not be altered. Implementations may check for this case using
+       only lexical analysis; for example, if `trap` and $( trap -- ) do not
+       alter the traps in the subshell, cases such as assigning var=trap and
+       then using $($var) may still alter them. This does not imply that the
+       trap command cannot be used within the subshell to set new traps.
+       The trap command with no operands shall write to standard output a
+       list of commands associated with each condition. If the command is
+       executed in a subshell, the implementation does not perform the
+       optional check described above for a command substitution containing
+       only a single trap command, and no trap commands with operands have
+       been executed since entry to the subshell, the list shall contain the
+       commands that were associated with each condition immediately before
+       the subshell environment was entered.  Otherwise, the list shall
+       contain the commands currently associated with each condition. The
+       format shall be:
+           "trap −− %s %s ...\n", <action>, <condition> ...
+       The shell shall format the output, including the proper use of
+       quoting, so that it is suitable for reinput to the shell as commands
+       that achieve the same trapping results. For example:
+           save_traps=$(trap)
+           ...
+           eval "$save_traps"
+       XSI-conformant systems also allow numeric signal numbers for the
+       conditions corresponding to the following signal names:
+       1     SIGHUP
+       2     SIGINT
+       3     SIGQUIT
+       6     SIGABRT
+       9     SIGKILL
+       14    SIGALRM
+       15    SIGTERM
+       The trap special built-in shall conform to the Base Definitions
+       volume of POSIX.1‐2008, Section 12.2, Utility Syntax Guidelines.

@@ -1,0 +1,10 @@
+
+       This is not a command the end user would want to run. Ever. This
+       documentation is meant for people who are studying the Porcelain-ish
+       scripts and/or are writing new ones.
+       The git-mergetool--lib scriptlet is designed to be sourced (using .)
+       by other shell scripts to set up functions for working with Git merge
+       tools.
+       Before sourcing git-mergetool--lib, your script must set TOOL_MODE to
+       define the operation mode for the functions listed below. diff and
+       merge are valid values.

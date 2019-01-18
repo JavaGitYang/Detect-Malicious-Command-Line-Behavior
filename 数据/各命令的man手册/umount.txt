@@ -1,0 +1,7 @@
+
+       umount.nfs and umount.nfs4 are a part of nfs(5) utilities package,
+       which provides NFS client functionality.
+       umount.nfs4 and umount.nfs are meant to be used by the umount(8)
+       command for unmounting NFS shares. This subcommand, however, can also
+       be used as a standalone command with limited functionality.
+       dir is the directory on which the file system is mounted.

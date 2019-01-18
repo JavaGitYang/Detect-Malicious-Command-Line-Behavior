@@ -1,0 +1,5 @@
+
+       The classes.conf file defines the local printer classes that are
+       available. It is normally located in the /etc/cups directory and is
+       maintained by the cupsd(8) program. This file is not intended to be
+       edited or managed manually.

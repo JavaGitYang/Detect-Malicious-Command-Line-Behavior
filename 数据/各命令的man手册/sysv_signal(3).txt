@@ -1,0 +1,9 @@
+
+       The sysv_signal() function takes the same arguments, and performs the
+       same task, as signal(2).
+       However sysv_signal() provides the System V unreliable signal
+       semantics, that is: a) the disposition of the signal is reset to the
+       default when the handler is invoked; b) delivery of further instances
+       of the signal is not blocked while the signal handler is executing;
+       and c) if the handler interrupts (certain) blocking system calls,
+       then the system call is not automatically restarted.

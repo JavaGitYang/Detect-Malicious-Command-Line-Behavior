@@ -1,0 +1,22 @@
+
+       pivot_root moves the root file system of the current process to the
+       directory put_old and makes new_root the new root file system.  Since
+       pivot_root(8) simply calls pivot_root(2), we refer to the man page of
+       the latter for further details.
+       Note that, depending on the implementation of pivot_root, root and
+       cwd of the caller may or may not change. The following is a sequence
+       for invoking pivot_root that works in either case, assuming that
+       pivot_root and chroot are in the current PATH:
+       cd new_root
+       pivot_root . put_old
+       exec chroot . command
+       Note that chroot must be available under the old root and under the
+       new root, because pivot_root may or may not have implicitly changed
+       the root directory of the shell.
+       Note that exec chroot changes the running executable, which is
+       necessary if the old root directory should be unmounted afterwards.
+       Also note that standard input, output, and error may still point to a
+       device on the old root file system, keeping it busy. They can easily
+       be changed when invoking chroot (see below; note the absence of
+       leading slashes to make it work whether pivot_root has changed the
+       shell's root or not).

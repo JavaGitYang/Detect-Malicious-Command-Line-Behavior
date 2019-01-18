@@ -1,0 +1,3 @@
+
+       The _toupper() macro shall be equivalent to toupper() except that the
+       application shall ensure that the argument c is a lowercase letter.

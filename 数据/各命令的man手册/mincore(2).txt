@@ -1,0 +1,20 @@
+
+       mincore() returns a vector that indicates whether pages of the
+       calling process's virtual memory are resident in core (RAM), and so
+       will not cause a disk access (page fault) if referenced.  The kernel
+       returns residency information about the pages starting at the address
+       addr, and continuing for length bytes.
+       The addr argument must be a multiple of the system page size.  The
+       length argument need not be a multiple of the page size, but since
+       residency information is returned for whole pages, length is
+       effectively rounded up to the next multiple of the page size.  One
+       may obtain the page size (PAGE_SIZE) using sysconf(_SC_PAGESIZE).
+       The vec argument must point to an array containing at least
+       (length+PAGE_SIZE-1) / PAGE_SIZE bytes.  On return, the least
+       significant bit of each byte will be set if the corresponding page is
+       currently resident in memory, and be clear otherwise.  (The settings
+       of the other bits in each byte are undefined; these bits are reserved
+       for possible later use.)  Of course the information returned in vec
+       is only a snapshot: pages that are not locked in memory can come and
+       go at any moment, and the contents of vec may already be stale by the
+       time this call returns.

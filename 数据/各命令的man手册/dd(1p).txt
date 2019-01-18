@@ -1,0 +1,43 @@
+
+       The dd utility shall copy the specified input file to the specified
+       output file with possible conversions using specific input and output
+       block sizes. It shall read the input one block at a time, using the
+       specified input block size; it shall then process the block of data
+       actually returned, which could be smaller than the requested block
+       size. It shall apply any conversions that have been specified and
+       write the resulting data to the output in blocks of the specified
+       output block size. If the bs=expr operand is specified and no
+       conversions other than sync, noerror, or notrunc are requested, the
+       data returned from each input block shall be written as a separate
+       output block; if the read returns less than a full block and the sync
+       conversion is not specified, the resulting output block shall be the
+       same size as the input block. If the bs=expr operand is not
+       specified, or a conversion other than sync, noerror, or notrunc is
+       requested, the input shall be processed and collected into full-sized
+       output blocks until the end of the input is reached.
+       The processing order shall be as follows:
+        1. An input block is read.
+        2. If the input block is shorter than the specified input block size
+           and the sync conversion is specified, null bytes shall be
+           appended to the input data up to the specified size. (If either
+           block or unblock is also specified, <space> characters shall be
+           appended instead of null bytes.) The remaining conversions and
+           output shall include the pad characters as if they had been read
+           from the input.
+        3. If the bs=expr operand is specified and no conversion other than
+           sync or noerror is requested, the resulting data shall be written
+           to the output as a single block, and the remaining steps are
+           omitted.
+        4. If the swab conversion is specified, each pair of input data
+           bytes shall be swapped. If there is an odd number of bytes in the
+           input block, the last byte in the input record shall not be
+           swapped.
+        5. Any remaining conversions (block, unblock, lcase, and ucase)
+           shall be performed. These conversions shall operate on the input
+           data independently of the input blocking; an input or output
+           fixed-length record may span block boundaries.
+        6. The data resulting from input or conversion or both shall be
+           aggregated into output blocks of the specified size. After the
+           end of input is reached, any remaining output shall be written as
+           a block without padding if conv=sync is not specified; thus, the
+           final output block may be shorter than the output block size.

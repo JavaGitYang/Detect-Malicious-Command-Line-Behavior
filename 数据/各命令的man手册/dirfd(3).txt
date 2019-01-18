@@ -1,0 +1,7 @@
+
+       The function dirfd() returns the file descriptor associated with the
+       directory stream dirp.
+       This file descriptor is the one used internally by the directory
+       stream.  As a result, it is useful only for functions which do not
+       depend on or alter the file position, such as fstat(2) and fchdir(2).
+       It will be automatically closed when closedir(3) is called.

@@ -1,0 +1,3 @@
+
+       ausearch_clear clears any search parameters stored in the parser
+       instance and frees memory associated with it.

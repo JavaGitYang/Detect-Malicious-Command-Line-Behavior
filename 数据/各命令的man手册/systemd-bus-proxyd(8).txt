@@ -1,0 +1,7 @@
+
+       systemd-bus-proxyd will proxy D-Bus messages to and from a bus. The
+       will be either the system bus or the bus specified with --address
+       when that option is given. Messages will be proxied to/from standard
+       input and output, or the socket received through socket activation.
+       This program can be used to connect a program using classic D-Bus to
+       kdbus.

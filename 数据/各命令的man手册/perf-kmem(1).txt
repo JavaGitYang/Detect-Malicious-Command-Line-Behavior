@@ -1,0 +1,5 @@
+
+       There are two variants of perf kmem:
+           'perf kmem record <command>' to record the kmem events
+           of an arbitrary workload.
+           'perf kmem stat' to report kernel memory statistics.

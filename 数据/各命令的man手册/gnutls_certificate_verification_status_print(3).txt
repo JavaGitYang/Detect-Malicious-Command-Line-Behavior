@@ -1,0 +1,4 @@
+
+       This function will pretty print the status of a verification process
+       -- eg. the one obtained by gnutls_certificate_verify_peers3().
+       The output  out needs to be deallocated using gnutls_free().

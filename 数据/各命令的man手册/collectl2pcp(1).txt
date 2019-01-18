@@ -1,0 +1,18 @@
+
+       collectl2pcp reads raw collectl(1) data from each file and creates a
+       new PCP archive with basename archive.  Each input file may be
+       gzipped (with .gz suffix).  The PCP archive and at least one input
+       file are required arguments.
+       The options to collectl2pcp are as follows.
+       -F     Overwrite archive (and the index and meta files) if it already
+              exists.
+       -v     Report progress and errors verbosely.  This also reports a
+              count of unsupported metric data in the collectl(1) input
+              file(s), which is normally silently skipped.
+       file [file ...]
+              These are the collectl(1) input files.  If more than one is
+              given, they must contain data for the same host and be given
+              in time-stamp chronological order on the command line.  Note
+              that when collectl(1) is run as a service, it normally creates
+              files with date based names that will sort chronologically
+              (e.g. /var/log/collectl/*.gz will be sorted correctly).

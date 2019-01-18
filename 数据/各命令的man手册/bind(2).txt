@@ -1,0 +1,23 @@
+
+       When a socket is created with socket(2), it exists in a name space
+       (address family) but has no address assigned to it.  bind() assigns
+       the address specified by addr to the socket referred to by the file
+       descriptor sockfd.  addrlen specifies the size, in bytes, of the
+       address structure pointed to by addr.  Traditionally, this operation
+       is called “assigning a name to a socket”.
+       It is normally necessary to assign a local address using bind()
+       before a SOCK_STREAM socket may receive connections (see accept(2)).
+       The rules used in name binding vary between address families.
+       Consult the manual entries in Section 7 for detailed information.
+       For AF_INET, see ip(7); for AF_INET6, see ipv6(7); for AF_UNIX, see
+       packet(7);
+       for AF_X25, see x25(7); and for AF_NETLINK, see netlink(7).
+       The actual structure passed for the addr argument will depend on the
+       address family.  The sockaddr structure is defined as something like:
+           struct sockaddr {
+               sa_family_t sa_family;
+               char        sa_data[14];
+           }
+       The only purpose of this structure is to cast the structure pointer
+       passed in addr in order to avoid compiler warnings.  See EXAMPLE
+       below.

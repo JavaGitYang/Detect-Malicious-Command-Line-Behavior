@@ -1,0 +1,30 @@
+
+       If the application wants to force using a local Performance Metrics
+       Name Space (PMNS) instead of a distributed PMNS then it must load the
+       PMNS using pmLoadNameSpace or pmLoadASCIINameSpace(3).  If the
+       application is to use a distributed PMNS, then it should NOT make a
+       call to load the PMNS explicitly.
+       Most applications using a Performance Metrics Application Programming
+       Interface (PMAPI) context (of any type, so PM_CONTEXT_HOST or
+       PM_CONTEXT_ARCHIVE or PM_CONTEXT_LOCAL) should not need to call
+       pmLoadNameSpace.
+       The filename argument designates the PMNS of interest.  For
+       applications not requiring a tailored PMNS, the special value
+       PM_NS_DEFAULT may be used for filename, to force the default local
+       PMNS to be loaded.
+       The default local PMNS is found in the file $PCP_VAR_DIR/pmns/root
+       unless the environment variable PMNS_DEFAULT is set, in which case
+       the value is assumed to be the pathname to the file containing the
+       default local PMNS.
+       Externally a PMNS is stored in an ASCII format as described in
+       pmns(5).  However, note that pmLoadNameSpace assumes filename does
+       not contain any C-style comments, pre-processor directives or macros;
+       if this is not the case, pmLoadASCIINameSpace(3) should be used
+       instead.
+       As of Version 3.10.3 of PCP, by default, multiple names in the PMNS
+       are allowed to be associated with a single Performance Metrics
+       Identifier (PMID) and this is unconditionally allowed by
+       pmLoadNameSpace.  pmLoadASCIINameSpace(3) provides an alternative
+       interface with user-defined control over the handling of duplicate
+       names for the same PMID in the PMNS.
+       pmLoadNameSpace returns zero on success.

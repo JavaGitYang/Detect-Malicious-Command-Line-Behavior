@@ -1,0 +1,5 @@
+
+       logger makes entries in the system log.
+       When the optional message argument is present, it is written to the
+       log.  If it is not present, and the -f option is not given either,
+       then standard input is logged.

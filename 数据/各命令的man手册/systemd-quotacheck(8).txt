@@ -1,0 +1,5 @@
+
+       systemd-quotacheck.service is a service responsible for file system
+       quota checks. It is run once at boot after all necessary file systems
+       are mounted. It is pulled in only if at least one file system has
+       quotas enabled.

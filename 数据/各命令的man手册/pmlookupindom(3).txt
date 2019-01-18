@@ -1,0 +1,11 @@
+
+       For the instance domain indom, in the current Performance Metrics
+       Application Programming Interface (PMAPI) context, locate the
+       instance with the external identification given by name, and return
+       the internal instance identifier.
+       Only the leading non-space characters of name will be used to
+       identify the instance.
+       The value for the instance domain indom is typically extracted from a
+       pmDesc structure, following a call to pmLookupDesc(3) for a
+       particular performance metric.
+       pmLookupInDom will return a positive instance identifier on success.

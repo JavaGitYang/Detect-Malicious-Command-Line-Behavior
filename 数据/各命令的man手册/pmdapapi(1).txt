@@ -1,0 +1,75 @@
+
+       pmdapapi is a papi Performance Metrics Domain Agent (PMDA) which
+       exposes hardware performance counters via the library Performance API
+       (PAPI).
+       The metrics exported by the papi PMDA report values gathered from the
+       hardware counters and metrics available, as reported by papi.
+       Currently, only root users may access such metrics.
+       A brief description of the pmdapapi command line options follows:
+       -d   It is absolutely crucial that the performance metrics domain
+            number specified here is unique and consistent.  That is, domain
+            should be different for every PMDA on the one host, and the same
+            domain number should be used for the same PMDA on all hosts.
+       -l   Location of the log file.  By default, a log file named papi.log
+            is written in the current directory of pmcd(1) when pmdapapi is
+            started, i.e.  $PCP_LOG_DIR/pmcd.  If the log file cannot be
+            created or is not writable, output is written to the standard
+            error instead.
+       Performance counters are activated automatically as they are fetched
+       cyclically (such as via pmval(1) or pmlogger(1)).  This automatic
+       activation is temporary, and lasts only a number of seconds governed
+       by the papi.control.auto_enable control value (default 120).  In the
+       case automatic activation is undesirable, one may disable it by
+       setting the papi.control.auto_enable metric to 0.
+       Alternately, the pmstore(1) command can be used to permanently enable
+       tracking particular metrics, or stop them on demand.  Using the
+       papi.control.enable and papi.control.disable metrics, one may set the
+       metrics you wish to track using a space or comma separated list.
+       Writing to the papi.control.reset metric disables all counters
+       immediately.  This may be useful if the system performance counters
+       are needed for another profiling task.
+            # pmstore papi.control.enable "TOT_CYC TOT_INS"
+            papi.control.enable old value="" new value="TOT_CYC TOT_INS"
+            # pmval papi.system.TOT_CYC
+                        8.371E+04
+            # pmval papi.system.TOT_INS
+                        2.712E+04
+            # pmstore papi.control.disable "TOT_CYC,TOT_INS"
+            papi.control.disable old value="" new value="TOT_CYC,TOT_INS"
+       Fetching the papi.control.status metric provides an overview of all
+       active counters.
+       By default, PAPI multiplexing, which allows support for collecting
+       more metrics than supported by the hardware concurrently, is enabled.
+       One may modify the papi.control.multiplex metric to disable
+       multiplexing by setting it to 0.
+       Where possible, pmdapapi will expose available native perf and uncore
+       events on the current hardware.  It is not possible to count some
+       native metrics and preset metrics concurrently.
+            # true -- automatically-enabled counters
+            # pmval -s3 papi.system.perf.BRANCH.LOADS
+            metric:    papi.system.perf.BRANCH.LOADS
+            host:      HOSTNAME
+            semantics: cumulative counter (converting to rate)
+            units:     count (converting to count / sec)
+            samples:   3
+            interval:  1.00 sec
+                        7530.
+                        7539.
+                        7543.
+            # pmval -s3 papi.system.perf.BRANCH.MISSES
+            metric:    papi.system.perf.BRANCH.MISSES
+            host:      HOSTNAME
+            semantics: cumulative counter (converting to rate)
+            units:     count (converting to count / sec)
+            samples:   3
+            interval:  1.00 sec
+                         696.8
+                         590.8
+                         651.8
+            # true -- quick overview
+            # pminfo -f papi.control.status
+            papi.control.status
+                value "Papi is running, has multiplexing enabled, perf.BRANCH.MISSES(114): 8960, perf.BRANCH.LOADS(110): 158400"
+            # true -- optional instant disable
+            # pmstore papi.control.disable "perf.BRANCH.LOADS,perf.BRANCH.MISSES"
+            papi.control.disable old value="" new value="perf.BRANCH.LOADS,perf.BRANCH.MISSES"

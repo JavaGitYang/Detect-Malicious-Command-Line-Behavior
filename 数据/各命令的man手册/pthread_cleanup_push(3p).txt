@@ -1,0 +1,29 @@
+
+       The pthread_cleanup_pop() function shall remove the routine at the
+       top of the calling thread's cancellation cleanup stack and optionally
+       invoke it (if execute is non-zero).
+       The pthread_cleanup_push() function shall push the specified
+       cancellation cleanup handler routine onto the calling thread's
+       cancellation cleanup stack. The cancellation cleanup handler shall be
+       popped from the cancellation cleanup stack and invoked with the
+       argument arg when:
+        *  The thread exits (that is, calls pthread_exit()).
+        *  The thread acts upon a cancellation request.
+        *  The thread calls pthread_cleanup_pop() with a non-zero execute
+           argument.
+       These functions may be implemented as macros. The application shall
+       ensure that they appear as statements, and in pairs within the same
+       lexical scope (that is, the pthread_cleanup_push() macro may be
+       thought to expand to a token list whose first token is '{' with
+       pthread_cleanup_pop() expanding to a token list whose last token is
+       the corresponding '}').
+       The effect of calling longjmp() or siglongjmp() is undefined if there
+       have been any calls to pthread_cleanup_push() or
+       pthread_cleanup_pop() made without the matching call since the jump
+       buffer was filled. The effect of calling longjmp() or siglongjmp()
+       from inside a cancellation cleanup handler is also undefined unless
+       the jump buffer was also filled in the cancellation cleanup handler.
+       The effect of the use of return, break, continue, and goto to
+       prematurely leave a code block described by a pair of
+       pthread_cleanup_push() and pthread_cleanup_pop() functions calls is
+       undefined.

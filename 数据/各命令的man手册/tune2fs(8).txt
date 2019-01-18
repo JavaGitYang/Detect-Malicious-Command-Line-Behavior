@@ -1,0 +1,8 @@
+
+       tune2fs allows the system administrator to adjust various tunable
+       filesystem parameters on Linux ext2, ext3, or ext4 filesystems.  The
+       current values of these options can be displayed by using the -l
+       option to tune2fs(8) program, or by using the dumpe2fs(8) program.
+       The device specifier can either be a filename (i.e., /dev/sda1), or a
+       LABEL or UUID specifier: "LABEL=volume-label" or "UUID=uuid".  (i.e.,
+       LABEL=home or UUID=e40486c6-84d5-4f2f-b99c-032281799c9d).

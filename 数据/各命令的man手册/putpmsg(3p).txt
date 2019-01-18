@@ -1,0 +1,56 @@
+
+       The putmsg() function shall create a message from a process buffer(s)
+       and send the message to a STREAMS file. The message may contain
+       either a data part, a control part, or both. The data and control
+       parts are distinguished by placement in separate buffers, as
+       described below. The semantics of each part are defined by the
+       STREAMS module that receives the message.
+       The putpmsg() function is equivalent to putmsg(), except that the
+       process can send messages in different priority bands.  Except where
+       noted, all requirements on putmsg() also pertain to putpmsg().
+       The fildes argument specifies a file descriptor referencing an open
+       STREAM. The ctlptr and dataptr arguments each point to a strbuf
+       structure.
+       The ctlptr argument points to the structure describing the control
+       part, if any, to be included in the message. The buf member in the
+       strbuf structure points to the buffer where the control information
+       resides, and the len member indicates the number of bytes to be sent.
+       The maxlen member is not used by putmsg().  In a similar manner, the
+       argument dataptr specifies the data, if any, to be included in the
+       message. The flags argument indicates what type of message should be
+       sent and is described further below.
+       To send the data part of a message, the application shall ensure that
+       dataptr is not a null pointer and the len member of dataptr is 0 or
+       greater. To send the control part of a message, the application shall
+       ensure that the corresponding values are set for ctlptr.  No data
+       (control) part shall be sent if either dataptr(ctlptr) is a null
+       pointer or the len member of dataptr(ctlptr) is set to −1.
+       For putmsg(), if a control part is specified and flags is set to
+       RS_HIPRI, a high priority message shall be sent. If no control part
+       is specified, and flags is set to RS_HIPRI, putmsg() shall fail and
+       set errno to [EINVAL].  If flags is set to 0, a normal message
+       (priority band equal to 0) shall be sent.  If a control part and data
+       part are not specified and flags is set to 0, no message shall be
+       sent and 0 shall be returned.
+       For putpmsg(), the flags are different. The flags argument is a
+       bitmask with the following mutually-exclusive flags defined:
+       MSG_HIPRI and MSG_BAND. If flags is set to 0, putpmsg() shall fail
+       and set errno to [EINVAL].  If a control part is specified and flags
+       is set to MSG_HIPRI and band is set to 0, a high-priority message
+       shall be sent. If flags is set to MSG_HIPRI and either no control
+       part is specified or band is set to a non-zero value, putpmsg() shall
+       fail and set errno to [EINVAL].  If flags is set to MSG_BAND, then a
+       message shall be sent in the priority band specified by band.  If a
+       control part and data part are not specified and flags is set to
+       MSG_BAND, no message shall be sent and 0 shall be returned.
+       The putmsg() function shall block if the STREAM write queue is full
+       due to internal flow control conditions, with the following
+       exceptions:
+        *  For high-priority messages, putmsg() shall not block on this
+           condition and continues processing the message.
+        *  For other messages, putmsg() shall not block but shall fail when
+           the write queue is full and O_NONBLOCK is set.
+       The putmsg() function shall also block, unless prevented by lack of
+       internal resources, while waiting for the availability of message
+       blocks in the STREAM, regardless of priority or whether O_NONBLOCK
+       has been specified. No partial message shall be sent.

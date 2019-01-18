@@ -1,0 +1,35 @@
+
+       The function dlsym() takes a "handle" of a dynamic loaded shared
+       object returned by dlopen(3) along with a null-terminated symbol
+       name, and returns the address where that symbol is loaded into
+       memory.  If the symbol is not found, in the specified object or any
+       of the shared objects that were automatically loaded by dlopen(3)
+       when that object was loaded, dlsym() returns NULL.  (The search
+       performed by dlsym() is breadth first through the dependency tree of
+       these shared objects.)
+       Since the value of the symbol could actually be NULL (so that a NULL
+       return from dlsym() need not indicate an error), the correct way to
+       test for an error is to call dlerror(3) to clear any old error
+       conditions, then call dlsym(), and then call dlerror(3) again, saving
+       its return value into a variable, and check whether this saved value
+       is not NULL.
+       There are two special pseudo-handles that may be specified in handle:
+       RTLD_DEFAULT
+              Find the first occurrence of the desired symbol using the
+              default shared object search order.  The search will include
+              global symbols in the executable and its dependencies, as well
+              as symbols in shared objects that were dynamically loaded with
+              the RTLD_GLOBAL flag.
+       RTLD_NEXT
+              Find the next occurrence of the desired symbol in the search
+              order after the current object.  This allows one to provide a
+              wrapper around a function in another shared object, so that,
+              for example, the definition of a function in a preloaded
+              shared object (see LD_PRELOAD in ld.so(8)) can find and invoke
+              the "real" function provided in another shared object (or for
+              that matter, the "next" definition of the function in cases
+              where there are multiple layers of preloading).
+       The _GNU_SOURCE feature test macro must be defined in order to obtain
+       the definitions of RTLD_DEFAULT and RTLD_NEXT from <dlfcn.h>.
+       The function dlvsym() does the same as dlsym() but takes a version
+       string as an additional argument.

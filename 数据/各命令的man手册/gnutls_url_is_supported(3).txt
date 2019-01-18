@@ -1,0 +1,3 @@
+
+       Check whether the provided  url is supported.  Depending on the
+       system libraries GnuTLS may support pkcs11, tpmkey or other URLs.

@@ -1,0 +1,7 @@
+
+       This function will return information about attached extensions that
+       associate to the provided object (which should be a certificate).
+       The extensions are the attached p11-kit trust module extensions.
+       Each element of  exts must be deinitialized using
+       gnutls_x509_ext_deinit() while  exts should be deallocated using
+       gnutls_free().

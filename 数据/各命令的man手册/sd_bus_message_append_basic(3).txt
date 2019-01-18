@@ -1,0 +1,57 @@
+
+       sd_bus_message_append_basic() appends a single field to the message
+       m. The parameter type determines how the pointer p is interpreted.
+       type must be one of the basic types as defined by the Basic Types[1]
+       section of the D-Bus specification, and listed in the table below.
+       Table 1. Item type specifiers
+       ┌──────────┬─────────────────────────┬────────────────┬──────────┬────────────┐
+       │Specifier │ Constant                │ Description    │ Size     │ Expected C │
+       │          │                         │                │          │ Type       │
+       ├──────────┼─────────────────────────┼────────────────┼──────────┼────────────┤
+       │"y"       │ SD_BUS_TYPE_BYTE        │ unsigned       │ 1 byte   │ uint8_t    │
+       │          │                         │ integer        │          │            │
+       ├──────────┼─────────────────────────┼────────────────┼──────────┼────────────┤
+       │"b"       │ SD_BUS_TYPE_BOOLEAN     │ boolean        │ 4 bytes  │ int        │
+       ├──────────┼─────────────────────────┼────────────────┼──────────┼────────────┤
+       │"n"       │ SD_BUS_TYPE_INT16       │ signed         │ 2 bytes  │ int16_t    │
+       │          │                         │ integer        │          │            │
+       ├──────────┼─────────────────────────┼────────────────┼──────────┼────────────┤
+       │"q"       │ SD_BUS_TYPE_UINT16      │ unsigned       │ 2 bytes  │ uint16_t   │
+       │          │                         │ integer        │          │            │
+       ├──────────┼─────────────────────────┼────────────────┼──────────┼────────────┤
+       │"i"       │ SD_BUS_TYPE_INT32       │ signed         │ 4 bytes  │ int32_t    │
+       │          │                         │ integer        │          │            │
+       ├──────────┼─────────────────────────┼────────────────┼──────────┼────────────┤
+       │"u"       │ SD_BUS_TYPE_UINT32      │ unsigned       │ 4 bytes  │ uint32_t   │
+       │          │                         │ integer        │          │            │
+       ├──────────┼─────────────────────────┼────────────────┼──────────┼────────────┤
+       │"x"       │ SD_BUS_TYPE_INT64       │ signed         │ 8 bytes  │ int64_t    │
+       │          │                         │ integer        │          │            │
+       ├──────────┼─────────────────────────┼────────────────┼──────────┼────────────┤
+       │"t"       │ SD_BUS_TYPE_UINT64      │ unsigned       │ 8 bytes  │ uint64_t   │
+       │          │                         │ integer        │          │            │
+       ├──────────┼─────────────────────────┼────────────────┼──────────┼────────────┤
+       │"d"       │ SD_BUS_TYPE_DOUBLE      │ floating-point │ 8 bytes  │ double     │
+       ├──────────┼─────────────────────────┼────────────────┼──────────┼────────────┤
+       │"s"       │ SD_BUS_TYPE_STRING      │ Unicode string │ variable │ char[]     │
+       ├──────────┼─────────────────────────┼────────────────┼──────────┼────────────┤
+       │"o"       │ SD_BUS_TYPE_OBJECT_PATH │ object path    │ variable │ char[]     │
+       ├──────────┼─────────────────────────┼────────────────┼──────────┼────────────┤
+       │"g"       │ SD_BUS_TYPE_SIGNATURE   │ signature      │ variable │ char[]     │
+       ├──────────┼─────────────────────────┼────────────────┼──────────┼────────────┤
+       │"h"       │ SD_BUS_TYPE_UNIX_FD     │ UNIX file      │ 4 bytes  │ int        │
+       │          │                         │ descriptor     │          │            │
+       └──────────┴─────────────────────────┴────────────────┴──────────┴────────────┘
+       The value of the parameter is copied into a memory area held by the
+       message object, stays in the possession of the caller and may hence
+       be freely changed after this call without affecting the bus message
+       it has been added to. If type is "h" (UNIX file descriptor), the
+       descriptor is duplicated by this call and the passed descriptor stays
+       in possession of the caller.
+       For types "s", "o", and "g", the parameter p is interpreted as a
+       pointer to a NUL-terminated character sequence. As a special case, a
+       NULL pointer is interpreted as an empty string. The string should be
+       valid Unicode string encoded as UTF-8. In case of the two latter
+       types, the additional requirements for a D-Bus object path or type
+       signature should be satisfied. Those requirements should be verified
+       by the recipient of the message.

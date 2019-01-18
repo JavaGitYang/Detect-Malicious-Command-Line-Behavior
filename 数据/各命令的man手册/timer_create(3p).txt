@@ -1,0 +1,38 @@
+
+       The timer_create() function shall create a per-process timer using
+       the specified clock, clock_id, as the timing base. The timer_create()
+       function shall return, in the location referenced by timerid, a timer
+       ID of type timer_t used to identify the timer in timer requests. This
+       timer ID shall be unique within the calling process until the timer
+       is deleted. The particular clock, clock_id, is defined in <time.h>.
+       The timer whose ID is returned shall be in a disarmed state upon
+       return from timer_create().
+       The evp argument, if non-NULL, points to a sigevent structure. This
+       structure, allocated by the application, defines the asynchronous
+       notification to occur as specified in Section 2.4.1, Signal
+       Generation and Delivery when the timer expires. If the evp argument
+       is NULL, the effect is as if the evp argument pointed to a sigevent
+       structure with the sigev_notify member having the value SIGEV_SIGNAL,
+       the sigev_signo having a default signal number, and the sigev_value
+       member having the value of the timer ID.
+       Each implementation shall define a set of clocks that can be used as
+       timing bases for per-process timers. All implementations shall
+       support a clock_id of CLOCK_REALTIME.  If the Monotonic Clock option
+       is supported, implementations shall support a clock_id of
+       CLOCK_MONOTONIC.
+       Per-process timers shall not be inherited by a child process across a
+       fork() and shall be disarmed and deleted by an exec.
+       If _POSIX_CPUTIME is defined, implementations shall support clock_id
+       values representing the CPU-time clock of the calling process.
+       If _POSIX_THREAD_CPUTIME is defined, implementations shall support
+       clock_id values representing the CPU-time clock of the calling
+       thread.
+       It is implementation-defined whether a timer_create() function will
+       succeed if the value defined by clock_id corresponds to the CPU-time
+       clock of a process or thread different from the process or thread
+       invoking the function.
+       If evp->sigev_sigev_notify is SIGEV_THREAD and
+       sev->sigev_notify_attributes is not NULL, if the attribute pointed to
+       by sev->sigev_notify_attributes has a thread stack address specified
+       by a call to pthread_attr_setstack(), the results are unspecified if
+       the signal is generated more than once.

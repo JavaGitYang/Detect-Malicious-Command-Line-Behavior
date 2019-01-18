@@ -1,0 +1,14 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The function call nan("n-char-sequence") shall be equivalent to:
+           strtod("NAN(n-char-sequence)", (char **) NULL);
+       The function call nan("") shall be equivalent to:
+           strtod("NAN()", (char **) NULL)
+       If tagp does not point to an n-char sequence or an empty string, the
+       function call shall be equivalent to:
+           strtod("NAN", (char **) NULL)
+       Function calls to nanf() and nanl() are equivalent to the
+       corresponding function calls to strtof() and strtold().

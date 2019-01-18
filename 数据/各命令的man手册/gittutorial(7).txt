@@ -1,0 +1,18 @@
+
+       This tutorial explains how to import a new project into Git, make
+       changes to it, and share changes with other developers.
+       If you are instead primarily interested in using Git to fetch a
+       project, for example, to test the latest version, you may prefer to
+       start with the first two chapters of The Git User’s Manual[1].
+       First, note that you can get documentation for a command such as git
+       log --graph with:
+           $ man git-log
+       or:
+           $ git help log
+       With the latter, you can use the manual viewer of your choice; see
+       git-help(1) for more information.
+       It is a good idea to introduce yourself to Git with your name and
+       public email address before doing any operation. The easiest way to
+       do so is:
+           $ git config --global user.name "Your Name Comes Here"
+           $ git config --global user.email you@yourdomain.example.com

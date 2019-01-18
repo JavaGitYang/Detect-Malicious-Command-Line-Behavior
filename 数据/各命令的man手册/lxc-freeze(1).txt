@@ -1,0 +1,5 @@
+
+       lxc-freeze freezes all the processes running inside the container.
+       The processes will be blocked until they are explicitly thawed by the
+       lxc-unfreeze command. This command is useful for batch managers to
+       schedule a group of processes.

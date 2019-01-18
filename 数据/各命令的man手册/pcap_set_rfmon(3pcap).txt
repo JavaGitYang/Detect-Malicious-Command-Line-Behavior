@@ -1,0 +1,4 @@
+
+       pcap_set_rfmon() sets whether monitor mode should be set on a capture
+       handle when the handle is activated.  If rfmon is non-zero, monitor
+       mode will be set, otherwise it will not be set.

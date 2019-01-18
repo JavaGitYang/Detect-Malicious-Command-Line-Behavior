@@ -1,0 +1,20 @@
+
+       ldapexop issues the LDAP extended operation specified by oid or one
+       of the special keywords whoami, cancel, or refresh.
+       Additional data for the extended operation can be passed to the
+       server using data or base-64 encoded as b64data in the case of oid,
+       or using the additional parameters in the case of the specially named
+       extended operations above.
+       Please note that ldapexop behaves differently for the same extended
+       operation when it was given as an OID or as a specially named
+       operation:
+       Calling ldapexop with the OID of the whoami (RFC 4532) extended
+       operation
+         ldapexop [<options>] 1.3.6.1.4.1.4203.1.11.3
+       yields
+         # extended operation response
+         data:: <base64 encoded response data>
+       while calling it with the keyword whoami
+         ldapexop [<options>] whoami
+       results in
+         dn:<client's identity>

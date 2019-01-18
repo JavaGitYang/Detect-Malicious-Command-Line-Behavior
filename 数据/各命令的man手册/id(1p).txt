@@ -1,0 +1,15 @@
+
+       If no user operand is provided, the id utility shall write the user
+       and group IDs and the corresponding user and group names of the
+       invoking process to standard output. If the effective and real IDs do
+       not match, both shall be written. If multiple groups are supported by
+       the underlying system (see the description of {NGROUPS_MAX} in the
+       System Interfaces volume of POSIX.1‐2008), the supplementary group
+       affiliations of the invoking process shall also be written.
+       If a user operand is provided and the process has appropriate
+       privileges, the user and group IDs of the selected user shall be
+       written. In this case, effective IDs shall be assumed to be identical
+       to real IDs. If the selected user has more than one allowable group
+       membership listed in the group database, these shall be written in
+       the same manner as the supplementary groups described in the
+       preceding paragraph.

@@ -1,0 +1,21 @@
+
+       perfalloc is a command that notifies the pmdaperfevent(1) to disable
+       hardware counter event collection.  This allow unprivileged processes
+       to use the hardware counters.
+       If the reservation request fails, then perfalloc exits immediately
+       with exit code EXIT_FAILURE.  If successful, the perfalloc will run
+       until a kill signal is received.  The reservation request persists
+       while perfalloc is running.
+       Note that pmdaperfevent is affected by the value of the
+       kernel.perf_event_paranoid setting, which can be adjusted by
+       sysctl(8).
+       If a commandline is given, this is executed as a subprocess of the
+       agent.  When the command dies, so does the agent.
+       A brief description of the command line options follows:
+       -D   run in the foreground (the default)
+       -d   run in the background
+       -f FILE
+            use FILE as the lock file (default
+            $PCP_PMDAS_DIR/perfevent/perflock)
+       -h   display a help message and exit
+       -v   output version number and exit

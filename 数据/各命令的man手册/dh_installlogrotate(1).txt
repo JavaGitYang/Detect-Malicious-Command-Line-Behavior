@@ -1,0 +1,5 @@
+
+       dh_installlogrotate is a debhelper program that is responsible for
+       installing logrotate config files into etc/logrotate.d in package
+       build directories.  Files named debian/package.logrotate are
+       installed.

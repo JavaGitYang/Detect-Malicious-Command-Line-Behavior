@@ -1,0 +1,13 @@
+
+       pcp-dmcache reports on the activity of any configured Device Mapper
+       Cache targets.  The reported information includes device IOPs, cache
+       and metadata device utilization, as well as hit and miss rates and
+       ratios for both reads and writes for each cache device.
+       pcp-lvmcache (Logical Volume Manager cache) is an exact synonym for
+       pcp-dmcache (Device Mapper cache).
+       When invoked via the pcp(1) command, the -h/--host, -a/--archive,
+       -O/--origin, -s/--samples, -t/--interval, -Z/--timezone and several
+       other pcp options become indirectly available.
+       By default, pcp-dmcache reports on all available cache target devices
+       (one line each, per sample), but this can be restricted to specific
+       devices on the command line.

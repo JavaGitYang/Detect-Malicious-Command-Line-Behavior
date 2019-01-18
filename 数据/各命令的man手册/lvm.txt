@@ -1,0 +1,83 @@
+
+       lvm.conf is loaded during the initialisation phase of lvm(8).  This
+       file can in turn lead to other files being loaded - settings read in
+       later override earlier settings.  File timestamps are checked between
+       commands and if any have changed, all the files are reloaded.
+       For a description of each lvm.conf setting, run:
+       lvmconfig --typeconfig default --withcomments --withspaces
+       The settings defined in lvm.conf can be overridden by any of these
+       extended configuration methods:
+       direct config override on command line
+              The --config ConfigurationString command line option takes the
+              ConfigurationString as direct string representation of the
+              configuration to override the existing configuration. The
+              ConfigurationString is of exactly the same format as used in
+              any LVM configuration file.
+       profile config
+              A profile is a set of selected customizable configuration
+              settings that are aimed to achieve a certain characteristics
+              in various environments or uses. It's used to override
+              existing configuration.  Normally, the name of the profile
+              should reflect that environment or use.
+              There are two groups of profiles recognised: command profiles
+              and metadata profiles.
+              The command profile is used to override selected configuration
+              settings at global LVM command level - it is applied at the
+              very beginning of LVM command execution and it is used
+              throughout the whole time of LVM command execution. The
+              command profile is applied by using the --commandprofile
+              ProfileName command line option that is recognised by all LVM2
+              commands.
+              The metadata profile is used to override selected
+              configuration settings at Volume Group/Logical Volume level -
+              it is applied independently for each Volume Group/Logical
+              Volume that is being processed. As such, each Volume
+              Group/Logical Volume can store the profile name used in its
+              metadata so next time the Volume Group/Logical Volume is
+              processed, the profile is applied automatically. If Volume
+              Group and any of its Logical Volumes have different profiles
+              defined, the profile defined for the Logical Volume is
+              preferred. The metadata profile can be attached/detached by
+              using the lvchange and vgchange commands and their
+              --metadataprofile ProfileName and --detachprofile options or
+              the --metadataprofile option during creation when using
+              vgcreate or lvcreate command.  The vgs and lvs reporting
+              commands provide -o vg_profile and -o lv_profile output
+              options to show the metadata profile currently attached to a
+              Volume Group or a Logical Volume.
+              The set of options allowed for command profiles is mutually
+              exclusive when compared to the set of options allowed for
+              metadata profiles. The settings that belong to either of these
+              two sets can't be mixed together and LVM tools will reject
+              such profiles.
+              LVM itself provides a few predefined configuration profiles.
+              Users are allowed to add more profiles with different values
+              if needed.  For this purpose, there's the
+              command_profile_template.profile (for command profiles) and
+              metadata_profile_template.profile (for metadata profiles)
+              which contain all settings that are customizable by profiles
+              of certain type. Users are encouraged to copy these template
+              profiles and edit them as needed. Alternatively, the lvmconfig
+              --file <ProfileName.profile> --type profilable-command
+              <section> or lvmconfig --file <ProfileName.profile> --type
+              profilable-metadata <section> can be used to generate a
+              configuration with profilable settings in either of the type
+              for given section and save it to new ProfileName.profile (if
+              the section is not specified, all profilable settings are
+              reported).
+              The profiles are stored in /etc/lvm/profile directory by
+              default.  This location can be changed by using the
+              config/profile_dir setting.  Each profile configuration is
+              stored in ProfileName.profile file in the profile directory.
+              When referencing the profile, the .profile suffix is left out.
+       tag config
+              See tags configuration setting description below.
+       When several configuration methods are used at the same time and when
+       LVM looks for the value of a particular setting, it traverses this
+       config cascade from left to right:
+       direct config override on command line-> command profile config->
+       metadata profile config-> tag config-> lvmlocal.conf-> lvm.conf
+       No part of this cascade is compulsory. If there's no setting value
+       found at the end of the cascade, a default value is used for that
+       setting.  Use lvmconfig to check what settings are in use and what
+       the default values are.

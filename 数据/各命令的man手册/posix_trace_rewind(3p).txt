@@ -1,0 +1,32 @@
+
+       The posix_trace_close() function shall deallocate the trace log
+       identifier indicated by trid, and all of its associated resources. If
+       there is no valid trace log pointed to by the trid, this function
+       shall fail.
+       The posix_trace_open() function shall allocate the necessary
+       resources and establish the connection between a trace log identified
+       by the file_desc argument and a trace stream identifier identified by
+       the object pointed to by the trid argument. The file_desc argument
+       should be a valid open file descriptor that corresponds to a trace
+       log. The file_desc argument shall be open for reading. The current
+       trace event timestamp, which specifies the timestamp of the trace
+       event that will be read by the next call to
+       posix_trace_getnext_event(), shall be set to the timestamp of the
+       oldest trace event recorded in the trace log identified by trid.
+       The posix_trace_open() function shall return a trace stream
+       identifier in the variable pointed to by the trid argument, that may
+       only be used by the following functions:
+       posix_trace_close()                      posix_trace_get_attr()
+       posix_trace_eventid_equal()              posix_trace_get_status()
+       posix_trace_eventid_get_name()           posix_trace_getnext_event()
+       posix_trace_eventtypelist_getnext_id()   posix_trace_rewind()
+       posix_trace_eventtypelist_rewind()
+       In particular, notice that the operations normally used by a trace
+       controller process, such as posix_trace_start(), posix_trace_stop(),
+       or posix_trace_shutdown(), cannot be invoked using the trace stream
+       identifier returned by the posix_trace_open() function.
+       The posix_trace_rewind() function shall reset the current trace event
+       timestamp, which specifies the timestamp of the trace event that will
+       be read by the next call to posix_trace_getnext_event(), to the
+       timestamp of the oldest trace event recorded in the trace log
+       identified by trid.

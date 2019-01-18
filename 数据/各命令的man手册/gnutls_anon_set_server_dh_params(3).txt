@@ -1,0 +1,4 @@
+
+       This function will set the Diffie-Hellman parameters for an anonymous
+       server to use.  These parameters will be used in Anonymous
+       Diffie-Hellman cipher suites.

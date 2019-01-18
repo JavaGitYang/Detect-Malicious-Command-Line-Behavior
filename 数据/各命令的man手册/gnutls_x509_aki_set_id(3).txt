@@ -1,0 +1,3 @@
+
+       This function will set the keyIdentifier to be stored in the  aki
+       type.

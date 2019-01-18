@@ -1,0 +1,15 @@
+
+       These functions are extensions to the curses library which do not fit
+       easily into other categories.
+   curses_version
+       Use curses_version to get the version number, including patch level
+       of the library, e.g., 5.0.19991023
+   use_extended_names
+       The use_extended_names function controls whether the calling
+       application is able to use user-defined or nonstandard names which
+       may be compiled into the terminfo description, i.e., via the terminfo
+       or termcap interfaces.  Normally these names are available for use,
+       since the essential decision is made by using the -x option of @TIC@
+       to compile extended terminal definitions.  However you can disable
+       this feature to ensure compatibility with other implementations of
+       curses.

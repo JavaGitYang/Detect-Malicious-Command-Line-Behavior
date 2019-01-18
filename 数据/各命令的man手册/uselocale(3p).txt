@@ -1,0 +1,16 @@
+
+       The uselocale() function shall set the current locale for the current
+       thread to the locale represented by newloc.
+       The value for the newloc argument shall be one of the following:
+        1. A value returned by the newlocale() or duplocale() functions
+        2. The special locale object descriptor LC_GLOBAL_LOCALE
+        3. (locale_t)0
+       Once the uselocale() function has been called to install a thread-
+       local locale, the behavior of every interface using data from the
+       current locale shall be affected for the calling thread. The current
+       locale for other threads shall remain unchanged.
+       If the newloc argument is (locale_t)0, the object returned is the
+       current locale or LC_GLOBAL_LOCALE if there has been no previous call
+       to uselocale() for the current thread.
+       If the newloc argument is LC_GLOBAL_LOCALE, the thread shall use the
+       global locale determined by the setlocale() function.

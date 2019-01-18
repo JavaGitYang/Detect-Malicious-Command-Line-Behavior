@@ -1,0 +1,69 @@
+
+       The posix_trace_getnext_event() function shall report a recorded
+       trace event either from an active trace stream without log or a pre-
+       recorded trace stream identified by the trid argument.  The
+       posix_trace_trygetnext_event() function shall report a recorded trace
+       event from an active trace stream without log identified by the trid
+       argument.
+       The trace event information associated with the recorded trace event
+       shall be copied by the function into the structure pointed to by the
+       argument event and the data associated with the trace event shall be
+       copied into the buffer pointed to by the data argument.
+       The posix_trace_getnext_event() function shall block if the trid
+       argument identifies an active trace stream and there is currently no
+       trace event ready to be retrieved. When returning, if a recorded
+       trace event was reported, the variable pointed to by the unavailable
+       argument shall be set to zero. Otherwise, the variable pointed to by
+       the unavailable argument shall be set to a value different from zero.
+       The posix_trace_timedgetnext_event() function shall attempt to get
+       another trace event from an active trace stream without log, as in
+       the posix_trace_getnext_event() function. However, if no trace event
+       is available from the trace stream, the implied wait shall be
+       terminated when the timeout specified by the argument abstime
+       expires, and the function shall return the error [ETIMEDOUT].
+       The timeout shall expire when the absolute time specified by abstime
+       passes, as measured by the clock upon which timeouts are based (that
+       is, when the value of that clock equals or exceeds abstime), or if
+       the absolute time specified by abstime has already passed at the time
+       of the call.
+       The timeout shall be based on the CLOCK_REALTIME clock.  The
+       resolution of the timeout shall be the resolution of the clock on
+       which it is based. The timespec data type is defined in the <time.h>
+       header.
+       Under no circumstance shall the function fail with a timeout if a
+       trace event is immediately available from the trace stream. The
+       validity of the abstime argument need not be checked if a trace event
+       is immediately available from the trace stream.
+       The behavior of this function for a pre-recorded trace stream is
+       unspecified.
+       The posix_trace_trygetnext_event() function shall not block.  This
+       function shall return an error if the trid argument identifies a pre-
+       recorded trace stream.  If a recorded trace event was reported, the
+       variable pointed to by the unavailable argument shall be set to zero.
+       Otherwise, if no trace event was reported, the variable pointed to by
+       the unavailable argument shall be set to a value different from zero.
+       The argument num_bytes shall be the size of the buffer pointed to by
+       the data argument. The argument data_len reports to the application
+       the length in bytes of the data record just transferred. If num_bytes
+       is greater than or equal to the size of the data associated with the
+       trace event pointed to by the event argument, all the recorded data
+       shall be transferred. In this case, the truncation-status member of
+       the trace event structure shall be either POSIX_TRACE_NOT_TRUNCATED,
+       if the trace event data was recorded without truncation while
+       tracing, or POSIX_TRACE_TRUNCATED_RECORD, if the trace event data was
+       truncated when it was recorded. If the num_bytes argument is less
+       than the length of recorded trace event data, the data transferred
+       shall be truncated to a length of num_bytes, the value stored in the
+       variable pointed to by data_len shall be equal to num_bytes, and the
+       truncation-status member of the event structure argument shall be set
+       to POSIX_TRACE_TRUNCATED_READ (see the posix_trace_event_info
+       structure defined in <trace.h>).
+       The report of a trace event shall be sequential starting from the
+       oldest recorded trace event. Trace events shall be reported in the
+       order in which they were generated, up to an implementation-defined
+       time resolution that causes the ordering of trace events occurring
+       very close to each other to be unknown. Once reported, a trace event
+       cannot be reported again from an active trace stream. Once a trace
+       event is reported from an active trace stream without log, the trace
+       stream shall make the resources associated with that trace event
+       available to record future generated trace events.

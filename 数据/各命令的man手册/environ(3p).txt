@@ -1,0 +1,3 @@
+
+       Refer to exec(1p) and the Base Definitions volume of POSIX.1‐2008,
+       Chapter 8, Environment Variables.

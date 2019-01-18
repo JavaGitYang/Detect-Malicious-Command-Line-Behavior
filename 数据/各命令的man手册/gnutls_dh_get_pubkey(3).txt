@@ -1,0 +1,7 @@
+
+       This function will return the peer's public key used in the last
+       Diffie-Hellman key exchange.  This function should be used for both
+       anonymous and ephemeral Diffie-Hellman.  The output parameters must
+       be freed with gnutls_free().
+       Note, that public key is exported as non-negative integer and may
+       include a leading zero byte.

@@ -1,0 +1,35 @@
+
+       This is a helper library used by applications to program specific
+       performance monitoring events. Those events are typically provided by
+       the hardware or the OS kernel. The most common hardware events are
+       provided by the Performance Monitoring Unit (PMU) of modern
+       processors.  They can measure elapsed cycles or the number of cache
+       misses. Software events usually count kernel events  such as the
+       number of context switches, or pages faults.
+       The library groups events based on which source is providing them.
+       The term PMU is generalized to any event source, not just hardware
+       sources.  The library supports hardware performance events from most
+       common processors, each group under a specific PMU name, such as
+       Intel Core, IBM Power 6.
+       Programming events is usually done through a kernel API, such as
+       Oprofile, perfmon, perfctr, or perf_events on Linux. The library
+       provides support for perf_events which is available in the Linux
+       kernel as of v2.6.31. Perf_events supports selected PMU models and
+       several software events.
+       At its core, the library provides a simple translation service,
+       whereby a user specifies an event to measure as a string and the
+       library returns the parameters needed to invoke the kernel API. It is
+       important to realize that the library does not make the system call
+       to program the event.
+       Note: You must first call pfm_initialize() in order to use any of the
+       other provided functions in the library.
+       A first part of the library provides an event listing and query
+       interface. This can be used to discover the events available on a
+       specific hardware platform.
+       The second part of the library provides a set of functions to obtain
+       event encodings form event strings. Event encoding depends primarily
+       on the underlying hardware but also on the kernel API. The library
+       offers a generic API to address the first situation but it also
+       provides entry points for specific kernel APIs such as perf_events.
+       In that case, it is able to prepare the data structure which must be
+       passed to the kernel to program a specific event.

@@ -1,0 +1,4 @@
+
+       audit_add_watch will create a watch rule in the pointer to a pointer
+       rulep. All that you need to pass it is the full path to a file and it
+       will initialize the audit_rule_data structure for a watch.

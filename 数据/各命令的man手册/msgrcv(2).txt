@@ -1,0 +1,113 @@
+
+       The msgsnd() and msgrcv() system calls are used, respectively, to
+       send messages to, and receive messages from, a System V message
+       queue.  The calling process must have write permission on the message
+       queue in order to send a message, and read permission to receive a
+       message.
+       The msgp argument is a pointer to a caller-defined structure of the
+       following general form:
+           struct msgbuf {
+               long mtype;       /* message type, must be > 0 */
+               char mtext[1];    /* message data */
+           };
+       The mtext field is an array (or other structure) whose size is speci‐
+       fied by msgsz, a nonnegative integer value.  Messages of zero length
+       (i.e., no mtext field) are permitted.  The mtype field must have a
+       strictly positive integer value.  This value can be used by the
+       receiving process for message selection (see the description of
+       msgrcv() below).
+   msgsnd()
+       The msgsnd() system call appends a copy of the message pointed to by
+       msgp to the message queue whose identifier is specified by msqid.
+       If sufficient space is available in the queue, msgsnd() succeeds
+       immediately.  The queue capacity is governed by the msg_qbytes field
+       in the associated data structure for the message queue.  During queue
+       creation this field is initialized to MSGMNB bytes, but this limit
+       can be modified using msgctl(2).  A message queue is considered to be
+       full if either of the following conditions is true:
+       * Adding a new message to the queue would cause the total number of
+         bytes in the queue to exceed the queue's maximum size (the
+         msg_qbytes field).
+       * Adding another message to the queue would cause the total number of
+         messages in the queue to exceed the queue's maximum size (the
+         msg_qbytes field).  This check is necessary to prevent an unlimited
+         number of zero-length messages being placed on the queue.  Although
+         such messages contain no data, they nevertheless consume (locked)
+         kernel memory.
+       If insufficient space is available in the queue, then the default
+       behavior of msgsnd() is to block until space becomes available.  If
+       IPC_NOWAIT is specified in msgflg, then the call instead fails with
+       the error EAGAIN.
+       A blocked msgsnd() call may also fail if:
+       * the queue is removed, in which case the system call fails with
+         errno set to EIDRM; or
+       * a signal is caught, in which case the system call fails with errno
+         set to EINTR;see signal(7).  (msgsnd() is never automatically
+         restarted after being interrupted by a signal handler, regardless
+         of the setting of the SA_RESTART flag when establishing a signal
+         handler.)
+       Upon successful completion the message queue data structure is
+       updated as follows:
+              msg_lspid is set to the process ID of the calling process.
+              msg_qnum is incremented by 1.
+              msg_stime is set to the current time.
+   msgrcv()
+       The msgrcv() system call removes a message from the queue specified
+       by msqid and places it in the buffer pointed to by msgp.
+       The argument msgsz specifies the maximum size in bytes for the member
+       mtext of the structure pointed to by the msgp argument.  If the mes‐
+       sage text has length greater than msgsz, then the behavior depends on
+       whether MSG_NOERROR is specified in msgflg.  If MSG_NOERROR is speci‐
+       fied, then the message text will be truncated (and the truncated part
+       will be lost); if MSG_NOERROR is not specified, then the message
+       isn't removed from the queue and the system call fails returning -1
+       with errno set to E2BIG.
+       Unless MSG_COPY is specified in msgflg (see below), the msgtyp argu‐
+       ment specifies the type of message requested, as follows:
+       * If msgtyp is 0, then the first message in the queue is read.
+       * If msgtyp is greater than 0, then the first message in the queue of
+         type msgtyp is read, unless MSG_EXCEPT was specified in msgflg, in
+         which case the first message in the queue of type not equal to msg‐
+         typ will be read.
+       * If msgtyp is less than 0, then the first message in the queue with
+         the lowest type less than or equal to the absolute value of msgtyp
+         will be read.
+       The msgflg argument is a bit mask constructed by ORing together zero
+       or more of the following flags:
+       IPC_NOWAIT
+              Return immediately if no message of the requested type is in
+              the queue.  The system call fails with errno set to ENOMSG.
+       MSG_COPY (since Linux 3.8)
+              Nondestructively fetch a copy of the message at the ordinal
+              position in the queue specified by msgtyp (messages are con‐
+              sidered to be numbered starting at 0).
+              This flag must be specified in conjunction with IPC_NOWAIT,
+              with the result that, if there is no message available at the
+              given position, the call fails immediately with the error
+              ENOMSG.  Because they alter the meaning of msgtyp in orthogo‐
+              nal ways, MSG_COPY and MSG_EXCEPT may not both be specified in
+              msgflg.
+              The MSG_COPY flag was added for the implementation of the ker‐
+              nel checkpoint-restore facility and is available only if the
+              kernel was built with the CONFIG_CHECKPOINT_RESTORE option.
+       MSG_EXCEPT
+              Used with msgtyp greater than 0 to read the first message in
+              the queue with message type that differs from msgtyp.
+       MSG_NOERROR
+              To truncate the message text if longer than msgsz bytes.
+       If no message of the requested type is available and IPC_NOWAIT isn't
+       specified in msgflg, the calling process is blocked until one of the
+       following conditions occurs:
+       * A message of the desired type is placed in the queue.
+       * The message queue is removed from the system.  In this case, the
+         system call fails with errno set to EIDRM.
+       * The calling process catches a signal.  In this case, the system
+         call fails with errno set to EINTR.  (msgrcv() is never automati‐
+         cally restarted after being interrupted by a signal handler,
+         regardless of the setting of the SA_RESTART flag when establishing
+         a signal handler.)
+       Upon successful completion the message queue data structure is
+       updated as follows:
+              msg_lrpid is set to the process ID of the calling process.
+              msg_qnum is decremented by 1.
+              msg_rtime is set to the current time.

@@ -1,0 +1,45 @@
+
+       The lttng snapshot command manages the snapshot outputs and takes
+       snapshots.
+       A snapshot is a dump of the current sub-buffers of all the channels
+       of a given tracing session. When a snapshot is taken, the memory dump
+       is sent to the registered snapshot outputs.
+       The tracing session should be created in snapshot mode to make sure
+       taking snapshots is allowed. This is done at tracing session creation
+       time using the lttng-create(1) command.
+       Note that, when a snapshot is taken, the sub-buffers are not cleared.
+       This means that different recorded snapshots may contain the same
+       events.
+   Snapshot outputs
+       Snapshot outputs are the destinations of snapshot files when a
+       snapshot is taken using the record action.
+       As of this version, only one snapshot output is allowed.
+       A snapshot output can be added using the add-output action. The
+       output destination URL is set using either the URL positional
+       argument, or both the --ctrl-url and --data-url options. See
+       lttng-create(1) to learn more about the URL format.
+       A name can be assigned to an output when adding it using the --name
+       option. This name is part of the names of the snapshot files written
+       to this output.
+       By default, the snapshot files can be as big as the sum of the sizes
+       of all the sub-buffers or all the channels of the selected tracing
+       session. The maximum total size of all the snapshot files can be
+       configured using the --max-size option.
+       Snapshot outputs can be listed using the list-output action.
+       Snapshot outputs can be removed using the del-output action. The
+       configured name can be used when removing an output, or an ID as
+       listed by the list-output action.
+   Taking a snapshot
+       Taking a snapshot of the current tracing session is as easy as:
+           $ lttng snapshot record
+       This writes the snapshot files to the configured output. It is
+       possible to use a custom, unregistered output at record time using
+       the same options supported by the add-output action.
+           Note
+           Before taking a snapshot on a system with a high event
+           throughput, it is recommended to first run lttng stop (see
+           lttng-stop(1)). Otherwise, the snapshot could contain "holes",
+           the result of the tracers overwriting unconsumed trace packets
+           during the record operation. After the snapshot is recorded, the
+           tracers can be started again with lttng start (see
+           lttng-start(1)).

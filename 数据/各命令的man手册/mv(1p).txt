@@ -1,0 +1,99 @@
+
+       In the first synopsis form, the mv utility shall move the file named
+       by the source_file operand to the destination specified by the
+       target_file.  This first synopsis form is assumed when the final
+       operand does not name an existing directory and is not a symbolic
+       link referring to an existing directory. In this case, if source_file
+       names a non-directory file and target_file ends with a trailing
+       <slash> character, mv shall treat this as an error and no source_file
+       operands will be processed.
+       In the second synopsis form, mv shall move each file named by a
+       source_file operand to a destination file in the existing directory
+       named by the target_dir operand, or referenced if target_dir is a
+       symbolic link referring to an existing directory. The destination
+       path for each source_file shall be the concatenation of the target
+       directory, a single <slash> character if the target did not end in a
+       <slash>, and the last pathname component of the source_file.  This
+       second form is assumed when the final operand names an existing
+       directory.
+       If any operand specifies an existing file of a type not specified by
+       the System Interfaces volume of POSIX.1‐2008, the behavior is
+       implementation-defined.
+       For each source_file the following steps shall be taken:
+        1. If the destination path exists, the −f option is not specified,
+           and either of the following conditions is true:
+            a. The permissions of the destination path do not permit writing
+               and the standard input is a terminal.
+            b. The −i option is specified.
+           the mv utility shall write a prompt to standard error and read a
+           line from standard input. If the response is not affirmative, mv
+           shall do nothing more with the current source_file and go on to
+           any remaining source_files.
+        2. If the source_file operand and destination path name the same
+           existing file, then the destination path shall not be removed,
+           and one of the following shall occur:
+            a. No change is made to source_file, no error occurs, and no
+               diagnostic is issued.
+            b. No change is made to source_file, a diagnostic is issued to
+               standard error identifying the two names, and the exit status
+               is affected.
+            c. If the source_file operand and destination path name distinct
+               directory entries, then the source_file operand is removed,
+               no error occurs, and no diagnostic is issued.
+           The mv utility shall do nothing more with the current
+           source_file, and go on to any remaining source_files.
+        3. The mv utility shall perform actions equivalent to the rename()
+           function defined in the System Interfaces volume of POSIX.1‐2008,
+           called with the following arguments:
+            a. The source_file operand is used as the old argument.
+            b. The destination path is used as the new argument.
+           If this succeeds, mv shall do nothing more with the current
+           source_file and go on to any remaining source_files.  If this
+           fails for any reasons other than those described for the errno
+           [EXDEV] in the System Interfaces volume of POSIX.1‐2008, mv shall
+           write a diagnostic message to standard error, do nothing more
+           with the current source_file, and go on to any remaining
+           source_files.
+        4. If the destination path exists, and it is a file of type
+           directory and source_file is not a file of type directory, or it
+           is a file not of type directory and source_file is a file of type
+           directory, mv shall write a diagnostic message to standard error,
+           do nothing more with the current source_file, and go on to any
+           remaining source_files.  If the destination path exists and was
+           created by a previous step, it is unspecified whether this will
+           treated as an error or the destination path will be overwritten.
+        5. If the destination path exists, mv shall attempt to remove it. If
+           this fails for any reason, mv shall write a diagnostic message to
+           standard error, do nothing more with the current source_file, and
+           go on to any remaining source_files.
+        6. The file hierarchy rooted in source_file shall be duplicated as a
+           file hierarchy rooted in the destination path. If source_file or
+           any of the files below it in the hierarchy are symbolic links,
+           the links themselves shall be duplicated, including their
+           contents, rather than any files to which they refer. The
+           following characteristics of each file in the file hierarchy
+           shall be duplicated:
+            *  The time of last data modification and time of last access
+            *  The user ID and group ID
+            *  The file mode
+           If the user ID, group ID, or file mode of a regular file cannot
+           be duplicated, the file mode bits S_ISUID and S_ISGID shall not
+           be duplicated.
+           When files are duplicated to another file system, the
+           implementation may require that the process invoking mv has read
+           access to each file being duplicated.
+           If files being duplicated to another file system have hard links
+           to other files, it is unspecified whether the files copied to the
+           new file system have the hard links preserved or separate copies
+           are created for the linked files.
+           If the duplication of the file hierarchy fails for any reason, mv
+           shall write a diagnostic message to standard error, do nothing
+           more with the current source_file, and go on to any remaining
+           source_files.
+           If the duplication of the file characteristics fails for any
+           reason, mv shall write a diagnostic message to standard error,
+           but this failure shall not cause mv to modify its exit status.
+        7. The file hierarchy rooted in source_file shall be removed. If
+           this fails for any reason, mv shall write a diagnostic message to
+           the standard error, do nothing more with the current source_file,
+           and go on to any remaining source_files.

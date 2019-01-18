@@ -1,0 +1,15 @@
+
+       Given a Performance Metric Identifier (PMID) via pmid, pmNameID will
+       determine the corresponding metric name, if any, in the Performance
+       Metrics Name Space (PMNS), and return this via name.
+       If the PMNS contains multiple names associated with the requested
+       PMID, one of these will be returned via name, but there is no way to
+       determine which of the duplicate names this will be.  See
+       pmNameAll(3) if all of the corresponding names are required.
+       As of Version 3.10.3 of PCP, duplicate names for the same PMID are
+       allowed in the PMNS, so using pmNameAll(3) is recommended over
+       pmnameID.
+       name is a null-byte terminated string, allocated by pmNameID using
+       malloc(3) and it is the caller's responsibility to call free(3) to
+       release the storage when the value is no longer required.
+       In the absence of errors, pmNameID returns zero.

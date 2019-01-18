@@ -1,0 +1,16 @@
+
+       The ldap_add_ext_s() routine is used to perform an LDAP add
+       operation.  It takes dn, the DN of the entry to add, and attrs, a
+       null-terminated array of the entry's attributes.  The LDAPMod
+       structure is used to represent attributes, with the mod_type and
+       mod_values fields being used as described under ldap_modify_ext(3),
+       and the ldap_op field being used only if you need to specify the
+       LDAP_MOD_BVALUES option. Otherwise, it should be set to zero.
+       Note that all entries except that specified by the last component in
+       the given DN must already exist.  ldap_add_ext_s() returns an code
+       indicating success or, in the case of failure, indicating the nature
+       of failure of the operation.  See ldap_error(3) for more details.
+       The ldap_add_ext() routine works just like ldap_add_ext_s(), but it
+       is asynchronous.  It returns the message id of the request it
+       initiated.  The result of this operation can be obtained by calling
+       ldap_result(3).

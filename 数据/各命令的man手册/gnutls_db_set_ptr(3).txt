@@ -1,0 +1,3 @@
+
+       Sets the pointer that will be provided to db store, retrieve and
+       delete functions, as the first argument.

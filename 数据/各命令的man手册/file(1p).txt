@@ -1,0 +1,28 @@
+
+       The file utility shall perform a series of tests in sequence on each
+       specified file in an attempt to classify it:
+        1. If file does not exist, cannot be read, or its file status could
+           not be determined, the output shall indicate that the file was
+           processed, but that its type could not be determined.
+        2. If the file is not a regular file, its file type shall be
+           identified.  The file types directory, FIFO, socket, block
+           special, and character special shall be identified as such. Other
+           implementation-defined file types may also be identified. If file
+           is a symbolic link, by default the link shall be resolved and
+           file shall test the type of file referenced by the symbolic link.
+           (See the −h and −i options below.)
+        3. If the length of file is zero, it shall be identified as an empty
+           file.
+        4. The file utility shall examine an initial segment of file and
+           shall make a guess at identifying its contents based on position-
+           sensitive tests. (The answer is not guaranteed to be correct; see
+           the −d, −M, and −m options below.)
+        5. The file utility shall examine file and make a guess at
+           identifying its contents based on context-sensitive default
+           system tests. (The answer is not guaranteed to be correct.)
+        6. The file shall be identified as a data file.
+       If file does not exist, cannot be read, or its file status could not
+       be determined, the output shall indicate that the file was processed,
+       but that its type could not be determined.
+       If file is a symbolic link, by default the link shall be resolved and
+       file shall test the type of file referenced by the symbolic link.

@@ -1,0 +1,3 @@
+
+       This function will return the security parameter appropriate with
+       this private key.

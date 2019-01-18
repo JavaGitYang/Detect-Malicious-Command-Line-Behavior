@@ -1,0 +1,17 @@
+
+       iptables-save and ip6tables-save are used to dump the contents of IP
+       or IPv6 Table in easily parseable format either to STDOUT or to a
+       specified file.
+       -M, --modprobe modprobe_program
+              Specify the path to the modprobe program. By default,
+              iptables-save will inspect /proc/sys/kernel/modprobe to
+              determine the executable's path.
+       -f, --file filename
+              Specify a filename to log the output to. If not specified,
+              iptables-save will log to STDOUT.
+       -c, --counters
+              include the current values of all packet and byte counters in
+              the output
+       -t, --table tablename
+              restrict output to only one table. If not specified, output
+              includes all available tables.

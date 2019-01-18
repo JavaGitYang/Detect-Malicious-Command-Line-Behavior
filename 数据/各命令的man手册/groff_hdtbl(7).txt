@@ -1,0 +1,13 @@
+
+       The hdtbl macros consist of four base and three optional macros,
+       controlled by about twenty arguments.  The syntax is simple and
+       similar to the HTML table model and nearly as flexible: You can write
+       sequences of tokens (macro calls with their arguments and content
+       data), separated by blanks and beginning with a macro call, into the
+       same line to get compact and cleanly arrranged input.  An advantage
+       of hdtbl is that the tables are constructed without calling a
+       preprocessor; this means that groff's full macro capabilities are
+       available.  On the other hand, table processing with hdtbl is much
+       slower than using the tbl(1) preprocessor.  A further advantage is
+       that the HTML-like syntax of hdtbl will be easily converted to HTML;
+       this is not implemented yet.

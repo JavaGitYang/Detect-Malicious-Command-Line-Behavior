@@ -1,0 +1,23 @@
+
+       The c99 utility is an interface to the standard C compilation system;
+       it shall accept source code conforming to the ISO C standard. The
+       system conceptually consists of a compiler and link editor. The input
+       files referenced by pathname operands and −l option-arguments shall
+       be compiled and linked to produce an executable file. (It is
+       unspecified whether the linking occurs entirely within the operation
+       of c99; some implementations may produce objects that are not fully
+       resolved until the file is executed.)
+       If the −c option is specified, for all pathname operands of the form
+       file.c, the files:
+           $(basename pathname .c).o
+       shall be created as the result of successful compilation. If the −c
+       option is not specified, it is unspecified whether such .o files are
+       created or deleted for the file.c operands.
+       If there are no options that prevent link editing (such as −c or −E),
+       and all input files compile and link without error, the resulting
+       executable file shall be written according to the −o outfile option
+       (if present) or to the file a.out.
+       The executable file shall be created as specified in Section 1.1.1.4,
+       File Read, Write, and Creation, except that the file permission bits
+       shall be set to: S_IRWXO | S_IRWXG | S_IRWXU
+       and the bits specified by the umask of the process shall be cleared.

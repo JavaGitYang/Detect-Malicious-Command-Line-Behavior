@@ -1,0 +1,6 @@
+
+       fexecve() performs the same task as execve(2), with the difference
+       that the file to be executed is specified via a file descriptor, fd,
+       rather than via a pathname.  The file descriptor fd must be opened
+       read-only (O_RDONLY) or with the O_PATH flag and the caller must have
+       permission to execute the file that it refers to.

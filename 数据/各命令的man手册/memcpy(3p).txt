@@ -1,0 +1,8 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The memcpy() function shall copy n bytes from the object pointed to
+       by s2 into the object pointed to by s1.  If copying takes place
+       between objects that overlap, the behavior is undefined.

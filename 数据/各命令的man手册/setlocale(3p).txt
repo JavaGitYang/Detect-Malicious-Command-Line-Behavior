@@ -1,0 +1,67 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The setlocale() function selects the appropriate piece of the global
+       locale, as specified by the category and locale arguments, and can be
+       used to change or query the entire global locale or portions thereof.
+       The value LC_ALL for category names the entire global locale; other
+       values for category name only a part of the global locale:
+       LC_COLLATE  Affects the behavior of regular expressions and the
+                   collation functions.
+       LC_CTYPE    Affects the behavior of regular expressions, character
+                   classification, character conversion functions, and wide-
+                   character functions.
+       LC_MESSAGES Affects the affirmative and negative response expressions
+                   returned by nl_langinfo() and the way message catalogs
+                   are located. It may also affect the behavior of functions
+                   that return or write message strings.
+       LC_MONETARY Affects the behavior of functions that handle monetary
+                   values.
+       LC_NUMERIC  Affects the behavior of functions that handle numeric
+                   values.
+       LC_TIME     Affects the behavior of the time conversion functions.
+       The locale argument is a pointer to a character string containing the
+       required setting of category.  The contents of this string are
+       implementation-defined. In addition, the following preset values of
+       locale are defined for all settings of category:
+       "POSIX"     Specifies the minimal environment for C-language
+                   translation called the POSIX locale. The POSIX locale is
+                   the default global locale at entry to main().
+       "C"         Equivalent to "POSIX".
+       ""          Specifies an implementation-defined native environment.
+                   The determination of the name of the new locale for the
+                   specified category depends on the value of the associated
+                   environment variables, LC_* and LANG; see the Base
+                   Definitions volume of POSIX.1‐2008, Chapter 7, Locale and
+                   Chapter 8, Environment Variables.
+       A null pointer
+                   Directs setlocale() to query the current global locale
+                   setting and return the name of the locale if category is
+                   not LC_ALL, or a string which encodes the locale name(s)
+                   for all of the individual categories if category is
+                   LC_ALL.
+       Setting all of the categories of the global locale is similar to
+       successively setting each individual category of the global locale,
+       except that all error checking is done before any actions are
+       performed. To set all the categories of the global locale,
+       setlocale() can be invoked as:
+           setlocale(LC_ALL, "");
+       In this case, setlocale() shall first verify that the values of all
+       the environment variables it needs according to the precedence rules
+       (described in the Base Definitions volume of POSIX.1‐2008, Chapter 8,
+       Environment Variables) indicate supported locales. If the value of
+       any of these environment variable searches yields a locale that is
+       not supported (and non-null), setlocale() shall return a null pointer
+       and the global locale shall not be changed. If all environment
+       variables name supported locales, setlocale() shall proceed as if it
+       had been called for each category, using the appropriate value from
+       the associated environment variable or from the implementation-
+       defined default if there is no such value.
+       The global locale established using setlocale() shall only be used in
+       threads for which no current locale has been set using uselocale() or
+       whose current locale has been set to the global locale using
+       uselocale(LC_GLOBAL_LOCALE).
+       The implementation shall behave as if no function defined in this
+       volume of POSIX.1‐2008 calls setlocale().

@@ -1,0 +1,11 @@
+
+       audit_request_signal_info requests that the kernel send information
+       about the sender of a signal to the audit daemon. The sinal info
+       structure is as follows:
+       struct audit_sig_info {
+               uid_t           uid;
+               pid_t           pid;
+               char            ctx[0];
+       };
+       This function is likely to be used only by audit daemons and
+       shouldn't be called by any other kind of program.

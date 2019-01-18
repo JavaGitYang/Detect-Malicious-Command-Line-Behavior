@@ -1,0 +1,13 @@
+
+       The s390_pci_mmio_write() system call writes length bytes of data
+       from the user-space buffer user_buffer to the PCI MMIO memory
+       location specified by mmio_addr.  The s390_pci_mmio_read() system
+       call reads length bytes of data from the PCI MMIO memory location
+       specified by mmio_addr to the user-space buffer user_buffer.
+       These system calls must be used instead of the simple assignment or
+       data-transfer operations that are used to access the PCI MMIO memory
+       areas mapped to user space on the Linux System z platform.  The
+       address specified by mmio_addr must belong to a PCI MMIO memory page
+       mapping in the caller's address space, and the data being written or
+       read must not cross a page boundary.  The length value cannot be
+       greater than the system page size.

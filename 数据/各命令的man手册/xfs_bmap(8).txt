@@ -1,0 +1,9 @@
+
+       xfs_bmap prints the map of disk blocks used by files in an XFS
+       filesystem.  The map lists each extent used by the file, as well as
+       regions in the file that do not have any corresponding blocks
+       (holes).  Each line of the listings takes the following form:
+              extent: [startoffset..endoffset]: startblock..endblock
+       Holes are marked by replacing the startblock..endblock with hole.
+       All the file offsets and disk blocks are in units of 512-byte blocks,
+       no matter what the filesystem's block size is.

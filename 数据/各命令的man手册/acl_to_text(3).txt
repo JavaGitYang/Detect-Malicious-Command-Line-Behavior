@@ -1,0 +1,13 @@
+
+     The acl_to_text() function translates the ACL pointed to by the argu‐
+     ment acl into a NULL terminated character string.  If the pointer len_p
+     is not NULL, then the function returns the length of the string (not
+     including the NULL terminator) in the location pointed to by len_p.
+     The format of the text string returned by acl_to_text() is the long
+     text form defined in acl(5).  The ACL referred to by acl is not
+     changed.
+     This function allocates any memory necessary to contain the string and
+     returns a pointer to the string.  The caller should free any releasable
+     memory, when the new string is no longer required, by calling
+     acl_free(3) with the (void*)char returned by acl_to_text() as an argu‐
+     ment.

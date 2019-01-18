@@ -1,0 +1,30 @@
+
+       The GNU objcopy utility copies the contents of an object file to
+       another.  objcopy uses the GNU BFD Library to read and write the
+       object files.  It can write the destination object file in a format
+       different from that of the source object file.  The exact behavior of
+       objcopy is controlled by command-line options.  Note that objcopy
+       should be able to copy a fully linked file between any two formats.
+       However, copying a relocatable object file between any two formats
+       may not work as expected.
+       objcopy creates temporary files to do its translations and deletes
+       them afterward.  objcopy uses BFD to do all its translation work; it
+       has access to all the formats described in BFD and thus is able to
+       recognize most formats without being told explicitly.
+       objcopy can be used to generate S-records by using an output target
+       of srec (e.g., use -O srec).
+       objcopy can be used to generate a raw binary file by using an output
+       target of binary (e.g., use -O binary).  When objcopy generates a raw
+       binary file, it will essentially produce a memory dump of the
+       contents of the input object file.  All symbols and relocation
+       information will be discarded.  The memory dump will start at the
+       load address of the lowest section copied into the output file.
+       When generating an S-record or a raw binary file, it may be helpful
+       to use -S to remove sections containing debugging information.  In
+       some cases -R will be useful to remove sections which contain
+       information that is not needed by the binary file.
+       Note---objcopy is not able to change the endianness of its input
+       files.  If the input format has an endianness (some formats do not),
+       objcopy can only copy the inputs into file formats that have the same
+       endianness or which have no endianness (e.g., srec).  (However, see
+       the --reverse-bytes option.)

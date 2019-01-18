@@ -1,0 +1,10 @@
+
+       ldapurl is a command that allows one to either compose or decompose
+       LDAP URIs.
+       When invoked with the -H option, ldapurl extracts the components of
+       the ldapuri option argument, unescaping hex-escaped chars as
+       required.  It basically acts as a frontend to the ldap_url_parse(3)
+       call.  Otherwise, it builds an LDAP URI based on the components
+       passed with the appropriate options, performing the inverse
+       operation.  Option -H is incompatible with options -a, -b, -E, -f,
+       -H, -h, -p, -S, and -s.

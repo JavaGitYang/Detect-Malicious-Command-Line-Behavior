@@ -1,0 +1,12 @@
+
+       The uname() function shall store information identifying the current
+       system in the structure pointed to by name.
+       The uname() function uses the utsname structure defined in
+       <sys/utsname.h>.
+       The uname() function shall return a string naming the current system
+       in the character array sysname.  Similarly, nodename shall contain
+       the name of this node within an implementation-defined communications
+       network. The arrays release and version shall further identify the
+       operating system. The array machine shall contain a name that
+       identifies the hardware that the system is running on.
+       The format of each member is implementation-defined.

@@ -1,0 +1,15 @@
+
+       This program is usually not what the end user wants to run directly.
+       Most end users want to use one of the existing frontend programs,
+       which parses a specific type of foreign source and feeds the contents
+       stored there to git fast-import.
+       fast-import reads a mixed command/data stream from standard input and
+       writes one or more packfiles directly into the current repository.
+       When EOF is received on standard input, fast import writes out
+       updated branch and tag refs, fully updating the current repository
+       with the newly imported data.
+       The fast-import backend itself can import into an empty repository
+       (one that has already been initialized by git init) or incrementally
+       update an existing populated repository. Whether or not incremental
+       imports are supported from a particular foreign source depends on the
+       frontend program in use.

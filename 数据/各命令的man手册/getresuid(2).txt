@@ -1,0 +1,5 @@
+
+       getresuid() returns the real UID, the effective UID, and the saved
+       set-user-ID of the calling process, in the arguments ruid, euid, and
+       suid, respectively.  getresgid() performs the analogous task for the
+       process's group IDs.

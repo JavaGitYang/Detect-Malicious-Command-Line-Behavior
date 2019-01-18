@@ -1,0 +1,28 @@
+
+       dpkg-buildflags is a tool to retrieve compilation flags to use during
+       build of Debian packages.  The default flags are defined by the
+       vendor but they can be extended/overridden in several ways:
+       1.     system-wide with /usr/local/etc/dpkg/buildflags.conf;
+       2.     for the current user with
+              $XDG_CONFIG_HOME/dpkg/buildflags.conf where $XDG_CONFIG_HOME
+              defaults to $HOME/.config;
+       3.     temporarily by the user with environment variables (see
+              section ENVIRONMENT);
+       4.     dynamically by the package maintainer with environment
+              variables set via debian/rules (see section ENVIRONMENT).
+       The configuration files can contain four types of directives:
+       SET flag value
+              Override the flag named flag to have the value value.
+       STRIP flag value
+              Strip from the flag named flag all the build flags listed in
+              value.
+       APPEND flag value
+              Extend the flag named flag by appending the options given in
+              value.  A space is prepended to the appended value if the
+              flag's current value is non-empty.
+       PREPEND flag value
+              Extend the flag named flag by prepending the options given in
+              value.  A space is appended to the prepended value if the
+              flag's current value is non-empty.
+       The configuration files can contain comments on lines starting with a
+       hash (#). Empty lines are also ignored.

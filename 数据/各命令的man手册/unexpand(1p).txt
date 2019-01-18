@@ -1,0 +1,10 @@
+
+       The unexpand utility shall copy files or standard input to standard
+       output, converting <blank> characters at the beginning of each line
+       into the maximum number of <tab> characters followed by the minimum
+       number of <space> characters needed to fill the same column positions
+       originally filled by the translated <blank> characters. By default,
+       tabstops shall be set at every eighth column position. Each
+       <backspace> shall be copied to the output, and shall cause the column
+       position count for tab calculations to be decremented; the count
+       shall never be decremented to a value less than one.

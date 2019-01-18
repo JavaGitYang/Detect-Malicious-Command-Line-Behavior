@@ -1,0 +1,13 @@
+
+       The Token Bucket Filter is a classful queueing discipline available
+       for traffic control with the tc(8) command.
+       TBF is a pure shaper and never schedules traffic. It is non-work-
+       conserving and may throttle itself, although packets are available,
+       to ensure that the configured rate is not exceeded.  It is able to
+       shape up to 1mbit/s of normal traffic with ideal minimal burstiness,
+       sending out data exactly at the configured rates.
+       Much higher rates are possible but at the cost of losing the minimal
+       burstiness. In that case, data is on average dequeued at the
+       configured rate but may be sent much faster at millisecond
+       timescales. Because of further queues living in network adaptors,
+       this is often not a problem.

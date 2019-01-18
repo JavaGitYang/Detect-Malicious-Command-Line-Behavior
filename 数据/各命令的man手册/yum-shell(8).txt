@@ -1,0 +1,31 @@
+
+       yum includes an interactive shell for conducting multiple commands or
+       sets of commands during a single execution of yum. These commands can
+       be issued manually or passed to yum from a file. The commands are
+       much the same as the normal yum command line options. See here yum(8)
+       for that information. There are a few additional commands documented
+       below.
+       config
+                 [argument] [value]
+                 args: debuglevel, errorlevel, obsoletes, gpgcheck,
+              assumeyes, exclude
+                   If no value is given it prints the current value.
+                   If value is given it sets that value.
+       repo
+                 [argument] [option]
+                   list: lists repositories and their status
+                   enable: enable repositories. option = repository id
+                   disable: disable repositories. option = repository id
+       transaction
+                 [argument]
+                   list: lists the contents of the transaction
+                   reset: reset (zero-out) the transaction
+                   solve: run the dependency solver on the transaction
+                   run: run the transaction
+       exit
+                   Causes the shell to exit, setting the exit status as
+              specified by the
+                   shell_exit_status option in yum.conf(5).
+                   This command is also triggered when EOF is read (usually
+              the C-d keystroke
+                   or end of script).

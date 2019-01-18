@@ -1,0 +1,10 @@
+
+       The nearbyint(), nearbyintf(), and nearbyintl() functions round their
+       argument to an integer value in floating-point format, using the
+       current rounding direction (see fesetround(3)) and without raising
+       the inexact exception.  When the current rounding direction is to
+       nearest, these functions round halfway cases to the even integer in
+       accordance with IEEE-754.
+       The rint(), rintf(), and rintl() functions do the same, but will
+       raise the inexact exception (FE_INEXACT, checkable via
+       fetestexcept(3)) when the result differs in value from the argument.

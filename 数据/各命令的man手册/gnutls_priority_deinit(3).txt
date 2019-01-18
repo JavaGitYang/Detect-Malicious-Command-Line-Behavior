@@ -1,0 +1,2 @@
+
+       Deinitializes the priority cache.

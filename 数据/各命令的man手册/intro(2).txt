@@ -1,0 +1,24 @@
+
+       Section 2 of the manual describes the Linux system calls.  A system
+       call is an entry point into the Linux kernel.  Usually, system calls
+       are not invoked directly: instead, most system calls have
+       corresponding C library wrapper functions which perform the steps
+       required (e.g., trapping to kernel mode) in order to invoke the
+       system call.  Thus, making a system call looks the same as invoking a
+       normal library function.
+       In many cases, the C library wrapper function does nothing more than:
+       *  copying arguments and the unique system call number to the
+          registers where the kernel expects them;
+       *  trapping to kernel mode, at which point the kernel does the real
+          work of the system call;
+       *  setting errno if the system call returns an error number when the
+          kernel returns the CPU to user mode.
+       However, in a few cases, a wrapper function may do rather more than
+       this, for example, performing some preprocessing of the arguments
+       before trapping to kernel mode, or postprocessing of values returned
+       by the system call.  Where this is the case, the manual pages in
+       Section 2 generally try to note the details of both the (usually GNU)
+       C library API interface and the raw system call.  Most commonly, the
+       main DESCRIPTION will focus on the C library interface, and
+       differences for the system call are covered in the NOTES section.
+       For a list of the Linux system calls, see syscalls(2).

@@ -1,0 +1,38 @@
+
+       pmlogconf may be used to create and modify a generic configuration
+       file for the PCP archive logger, pmlogger(1).
+       If configfile does not exist, pmlogconf will create a generic
+       configuration file with a default set of enabled metrics and logging
+       intervals.
+       Once created, configfile may be used with the -c option to
+       pmlogger(1) to select performance metrics and specify logging
+       intervals for a PCP archive.
+       If configfile does exist, pmlogconf will prompt for input from the
+       user to enable or disable groups of related performance metrics and
+       to control the logging interval for each enabled group.
+       Group selection requires a simple y (yes) or n (no) response to the
+       prompt Log this group?.
+       Other responses at this point may be used to select additional
+       control functions as follows:
+       m         Report the names of the metrics in the current group.
+       q         Finish with group selection (quit) and make no further
+                 changes to this group or any subsequent group.
+       /pattern  Make no change to this group but search for a group
+                 containing pattern in the description of the group or the
+                 names of the associated metrics.
+       A logging interval is specified by responding to the Logging
+       interval?  prompt with the keywords once or default or a valid
+       pmlogger(1) interval specification of the form ``every N timeunits''
+       or simply ``N timeunits '' (the every is optional) where N is an
+       unsigned integer and timeunits is one of the keywords msec,
+       millisecond, sec, second, min, minute, hour or the plural form of one
+       of the keywords.
+       When run from automated logging setup processes, the -c option is
+       used to indicate that pmlogconf is in auto-create mode and no
+       interactive dialog takes place.  The output configfile has an
+       additional comment message and timestamp indicating this fact, so
+       that it can be identified and subsequently updated using -c again.
+       This option is not appropriate for interactive use of the tool.
+       The -q option suppresses the logging interval dialog and preserves
+       the current interval from configfile.
+       More verbose output may be enabled with the -v option.

@@ -1,0 +1,2 @@
+
+       Refer to posix_spawnattr_getsigdefault(3p).

@@ -1,0 +1,30 @@
+
+       sd_seat_get_active() may be used to determine which session is
+       currently active on a seat, if there is any. Returns the session
+       identifier and the user identifier of the Unix user the session is
+       belonging to. Either the session or the user identifier parameter can
+       be passed NULL, in case only one of the parameters shall be queried.
+       The returned string needs to be freed with the libc free(3) call
+       after use.
+       sd_seat_get_sessions() may be used to determine all sessions on the
+       specified seat. Returns two arrays, one (NULL terminated) with the
+       session identifiers of the sessions and one with the user identifiers
+       of the Unix users the sessions belong to. An additional parameter may
+       be used to return the number of entries in the latter array. This
+       value is the same the return value, if the latter is nonnegative. The
+       two arrays and the last parameter may be passed as NULL in case these
+       values need not to be determined. The arrays and the strings
+       referenced by them need to be freed with the libc free(3) call after
+       use. Note that instead of an empty array NULL may be returned and
+       should be considered equivalent to an empty array.
+       sd_seat_can_multi_session() may be used to determine whether a
+       specific seat is capable of multi-session, i.e. allows multiple login
+       sessions in parallel (with only one being active at a time).
+       sd_seat_can_tty() may be used to determine whether a specific seat
+       provides TTY functionality, i.e. is useful as a text console.
+       sd_seat_can_graphical() may be used to determine whether a specific
+       seat provides graphics functionality, i.e. is useful as a graphics
+       display.
+       If the seat parameter of any of these functions is passed as NULL,
+       the operation is executed for the seat of the session of the calling
+       process, if there is any.

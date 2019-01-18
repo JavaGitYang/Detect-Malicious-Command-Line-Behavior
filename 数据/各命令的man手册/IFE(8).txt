@@ -1,0 +1,6 @@
+
+       The ife action allows for a sending side to encapsulate arbitrary
+       metadata, which is then decapsulated by the receiving end. The sender
+       runs in encoding mode and the receiver in decode mode. Both sender
+       and receiver must specify the same ethertype. In the future, a
+       registered ethertype may be available as a default.

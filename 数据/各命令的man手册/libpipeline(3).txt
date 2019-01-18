@@ -1,0 +1,332 @@
+
+     libpipeline is a C library for setting up and running pipelines of pro‐
+     cesses, without needing to involve shell command-line parsing which is
+     often error-prone and insecure.  This relieves programmers of the need
+     to laboriously construct pipelines using lower-level primitives such as
+     fork and execve.
+     The general way to use libpipeline involves constructing a pipeline
+     structure and adding one or more pipecmd structures to it.  A pipecmd
+     represents a subprocess (or “command”), while a pipeline represents a
+     sequence of subprocesses each of whose outputs is connected to the next
+     one's input, as in the example ls | grep pattern | less.  The calling
+     program may adjust certain properties of each command independently,
+     such as its environment and nice(3) priority, as well as properties of
+     the entire pipeline such as its input and output and the way signals
+     are handled while executing it.  The calling program may then start the
+     pipeline, read output from it, wait for it to complete, and gather its
+     exit status.
+     Strings passed as const char * function arguments will be copied by the
+     library.
+   Functions to build individual commands
+     pipecmd *pipecmd_new(const char *name)
+           Construct a new command representing execution of a program
+           called name.
+     pipecmd *pipecmd_new_argv(const char *name, va_list argv)
+     pipecmd *pipecmd_new_args(const char *name, ...)
+           Convenience constructors wrapping pipecmd_new() and
+           pipecmd_arg().  Construct a new command representing execution of
+           a program called name with arguments.  Terminate arguments with
+           NULL.
+     pipecmd *pipecmd_new_argstr(const char *argstr)
+           Split argstr on whitespace to construct a command and arguments,
+           honouring shell-style single-quoting, double-quoting, and back‐
+           slashes, but not other shell evilness like wildcards, semicolons,
+           or backquotes.  This is included only to support situations where
+           command arguments are encoded into configuration files and the
+           like.  While it is safer than system(3), it still involves sig‐
+           nificant string parsing which is inherently riskier than avoiding
+           it altogether.  Please try to avoid using it in new code.
+     typedef void pipecmd_function_type (void *);
+     typedef void pipecmd_function_free_type (void *);
+     pipecmd *pipecmd_new_function(const char *name,
+           pipecmd_function_type *func,
+           pipecmd_function_free_type *free_func, void *data)
+           Construct a new command that calls a given function rather than
+           executing a process.
+           The data argument is passed as the function's only argument, and
+           will be freed before returning using free_func (if non-NULL).
+           pipecmd_* functions that deal with arguments cannot be used with
+           the command returned by this function.
+     pipecmd *pipecmd_new_sequencev(const char *name, va_list cmdv)
+     pipecmd *pipecmd_new_sequence(const char *name, ...)
+           Construct a new command that itself runs a sequence of commands,
+           supplied as command * arguments following name and terminated by
+           NULL.  The commands will be executed in forked children; if any
+           exits non-zero then it will terminate the sequence, as with "&&"
+           in shell.
+           pipecmd_* functions that deal with arguments cannot be used with
+           the command returned by this function.
+     pipecmd *pipecmd_new_passthrough(void)
+           Return a new command that just passes data from its input to its
+           output.
+     pipecmd *pipecmd_dup(pipecmd *cmd)
+           Return a duplicate of a command.
+     void pipecmd_arg(pipecmd *cmd, const char *arg)
+           Add an argument to a command.
+     void pipecmd_argf(pipecmd *cmd, const char *format, ...)
+           Convenience function to add an argument with printf substitu‐
+           tions.
+     void pipecmd_argv(pipecmd *cmd, va_list argv)
+     void pipecmd_args(pipecmd *cmd, ...)
+           Convenience functions wrapping pipecmd_arg() to add multiple
+           arguments at once.  Terminate arguments with NULL.
+     void pipecmd_argstr(pipecmd *cmd, const char *argstr)
+           Split argstr on whitespace to add a list of arguments, honouring
+           shell-style single-quoting, double-quoting, and backslashes, but
+           not other shell evilness like wildcards, semicolons, or back‐
+           quotes.  This is included only to support situations where com‐
+           mand arguments are encoded into configuration files and the like.
+           While it is safer than system(3), it still involves significant
+           string parsing which is inherently riskier than avoiding it alto‐
+           gether.  Please try to avoid using it in new code.
+     void pipecmd_get_nargs(pipecmd *cmd)
+           Return the number of arguments to this command.  Note that this
+           includes the command name as the first argument, so the command
+           ‘echo foo bar’ is counted as having three arguments.
+     void pipecmd_nice(pipecmd *cmd, int value)
+           Set the nice(3) value for this command.  Defaults to 0.  Errors
+           while attempting to set the nice value are ignored, aside from
+           emitting a debug message.
+     void pipecmd_discard_err(pipecmd *cmd, int discard_err)
+           If discard_err is non-zero, redirect this command's standard
+           error to /dev/null.  Otherwise, and by default, pass it through.
+           This is usually a bad idea.
+     void pipecmd_chdir(pipecmd *cmd, const char *directory)
+           Change the working directory to directory while running this com‐
+           mand.
+     void pipecmd_fchdir(pipecmd *cmd, int directory_fd)
+           Change the working directory to the directory given by the open
+           file descriptor directory_fd while running this command.
+     void pipecmd_setenv(pipecmd *cmd, const char *name, const char *value)
+           Set environment variable name to value while running this com‐
+           mand.
+     void pipecmd_unsetenv(pipecmd *cmd, const char *name)
+           Unset environment variable name while running this command.
+     void pipecmd_clearenv(pipecmd *cmd)
+           Clear the environment while running this command.  (Note that
+           environment operations work in sequence; pipecmd_clearenv fol‐
+           lowed by pipecmd_setenv causes the command to have just a single
+           environment variable set.)  Beware that this may cause unexpected
+           failures, for example if some of the contents of the environment
+           are necessary to execute programs at all (say, PATH).
+     void pipecmd_pre_exec(pipecmd *cmd, pipecmd_function_type *func,
+           pipecmd_function_free_type *free_func, void *data)
+           Install a pre-exec handler.  This will be run immediately before
+           executing the command's payload (process or function).  Pass NULL
+           to clear any existing pre-exec handler.  The data argument is
+           passed as the function's only argument, and will be freed before
+           returning using free_func (if non-NULL).
+           This is similar to pipeline_install_post_fork, except that is
+           specific to a single command rather than installing a global han‐
+           dler, and it runs slightly later (immediately before exec rather
+           than immediately after fork).
+     void pipecmd_sequence_command(pipecmd *cmd, pipecmd *child)
+           Add a command to a sequence created using pipecmd_new_sequence().
+     void pipecmd_dump(pipecmd *cmd, FILE *stream)
+           Dump a string representation of a command to stream.
+     char *pipecmd_tostring(pipecmd *cmd)
+           Return a string representation of a command.  The caller should
+           free the result.
+     void pipecmd_exec(pipecmd *cmd)
+           Execute a single command, replacing the current process.  Never
+           returns, instead exiting non-zero on failure.
+     void pipecmd_free(pipecmd *cmd)
+           Destroy a command.  Safely does nothing if cmd is NULL.
+   Functions to build pipelines
+     pipeline *pipeline_new(void)
+           Construct a new pipeline.
+     pipeline *pipeline_new_commandv(pipecmd *cmd1, va_list cmdv)
+     pipeline *pipeline_new_commands(pipecmd *cmd1, ...)
+           Convenience constructors wrapping pipeline_new() and
+           pipeline_command().  Construct a new pipeline consisting of the
+           given list of commands.  Terminate commands with NULL.
+     pipeline *pipeline_new_command_argv(const char *name, va_list argv)
+     pipeline *pipeline_new_command_args(const char *name, ...)
+           Construct a new pipeline and add a single command to it.
+     pipeline *pipeline_join(pipeline *p1, pipeline *p2)
+           Joins two pipelines, neither of which are allowed to be started.
+           Discards want_out, want_outfile, and outfd from p1, and want_in,
+           want_infile, and infd from p2.
+     void pipeline_connect(pipeline *source, pipeline *sink, ...)
+           Connect the input of one or more sink pipelines to the output of
+           a source pipeline.  The source pipeline may be started, but in
+           that case pipeline_want_out() must have been called with a nega‐
+           tive fd; otherwise, calls pipeline_want_out(source, -1).  In any
+           event, calls pipeline_want_in(sink, -1) on all sinks, none of
+           which are allowed to be started.  Terminate arguments with NULL.
+           This is an application-level connection; data may be intercepted
+           between the pipelines by the program before calling
+           pipeline_pump(), which sets data flowing from the source to the
+           sinks.  It is primarily useful when more than one sink pipeline
+           is involved, in which case the pipelines cannot simply be con‐
+           catenated into one.
+           The result is similar to tee(1), except that output can be sent
+           to more than two places and can easily be sent to multiple pro‐
+           cesses.
+     void pipeline_command(pipeline *p, pipecmd *cmd)
+           Add a command to a pipeline.
+     void pipeline_command_argv(pipeline *p, const char *name, va_list argv)
+     void pipeline_command_args(pipeline *p, const char *name, ...)
+           Construct a new command and add it to a pipeline in one go.
+     void pipeline_command_argstr(pipeline *p, const char *argstr)
+           Construct a new command from a shell-quoted string and add it to
+           a pipeline in one go.  See the comment against
+           pipecmd_new_argstr() above if you're tempted to use this func‐
+           tion.
+     void pipeline_commandv(pipeline *p, va_list cmdv)
+     void pipeline_commands(pipeline *p, ...)
+           Convenience functions wrapping pipeline_command() to add multiple
+           commands at once.  Terminate arguments with NULL.
+     void pipeline_want_in(pipeline *p, int fd)
+     void pipeline_want_out(pipeline *p, int fd)
+           Set file descriptors to use as the input and output of the whole
+           pipeline.  If non-negative, fd is used directly as a file
+           descriptor.  If negative, pipeline_start() will create pipes and
+           store the input writing half and the output reading half in the
+           pipeline's infd or outfd field as appropriate.  The default is to
+           leave input and output as stdin and stdout unless
+           pipeline_want_infile() or pipeline_want_outfile() respectively
+           has been called.
+           Calling these functions supersedes any previous call to
+           pipeline_want_infile() or pipeline_want_outfile() respectively.
+     void pipeline_want_infile(pipeline *p, const char *file)
+     void pipeline_want_outfile(pipeline *p, const char *file)
+           Set file names to open and use as the input and output of the
+           whole pipeline.  This may be more convenient than supplying file
+           descriptors, and guarantees that the files are opened with the
+           same privileges under which the pipeline is run.
+           Calling these functions (even with NULL, which returns to the
+           default of leaving input and output as stdin and stdout) super‐
+           sedes any previous call to pipeline_want_in() or
+           pipeline_want_outfile() respectively.
+           The given files will be opened when the pipeline is started.  If
+           an output file does not already exist, it is created (with mode
+           0666 modified in the usual way by umask); if it does exist, then
+           it is truncated.
+     void pipeline_ignore_signals(pipeline *p, int ignore_signals)
+           If ignore_signals is non-zero, ignore SIGINT and SIGQUIT in the
+           calling process while the pipeline is running, like system(3).
+           Otherwise, and by default, leave their dispositions unchanged.
+     int pipeline_get_ncommands(pipeline *p)
+           Return the number of commands in this pipeline.
+     pipecmd *pipeline_get_command(pipeline *p, int n)
+           Return command number n from this pipeline, counting from zero,
+           or NULL if n is out of range.
+     pipecmd *pipeline_set_command(pipeline *p, int n, pipecmd *cmd)
+           Set command number n in this pipeline, counting from zero, to
+           cmd, and return the previous command in that position.  Do noth‐
+           ing and return NULL if n is out of range.
+     pid_t pipeline_get_pid(pipeline *p, int n)
+           Return the process ID of command number n from this pipeline,
+           counting from zero.  The pipeline must be started.  Return -1 if
+           n is out of range or if the command has already exited and been
+           reaped.
+     FILE *pipeline_get_infile(pipeline *p)
+     FILE *pipeline_get_outfile(pipeline *p)
+           Get streams corresponding to infd and outfd respectively.  The
+           pipeline must be started.
+     void pipeline_dump(pipeline *p, FILE *stream)
+           Dump a string representation of p to stream.
+     char *pipeline_tostring(pipeline *p)
+           Return a string representation of p.  The caller should free the
+           result.
+     void pipeline_free(pipeline *p)
+           Destroy a pipeline and all its commands.  Safely does nothing if
+           p is NULL.  May wait for the pipeline to complete if it has not
+           already done so.
+   Functions to run pipelines and handle signals
+     typedef void pipeline_post_fork_fn (void);
+     void pipeline_install_post_fork(pipeline_post_fork_fn *fn)
+           Install a post-fork handler.  This will be run in any child
+           process immediately after it is forked.  For instance, this may
+           be used for cleaning up application-specific signal handlers.
+           Pass NULL to clear any existing post-fork handler.
+           See pipecmd_pre_exec for a similar facility limited to a single
+           command rather than global to the calling process.
+     void pipeline_start(pipeline *p)
+           Start the processes in a pipeline.  Installs this library's
+           SIGCHLD handler if not already installed.  Calls error (FATAL) on
+           error.
+     int pipeline_wait_all(pipeline *p, int **statuses, int *n_statuses)
+           Wait for a pipeline to complete.  Set *statuses to a newly-allo‐
+           cated array of wait statuses, as returned by waitpid(2), and
+           *n_statuses to the length of that array.  The return value is
+           similar to the exit status that a shell would return, with some
+           modifications.  If the last command exits with a signal (other
+           than SIGPIPE, which is considered equivalent to exiting zero),
+           then the return value is 128 plus the signal number; if the last
+           command exits normally but non-zero, then the return value is its
+           exit status; if any other command exits non-zero, then the return
+           value is 127; otherwise, the return value is 0.  This means that
+           the return value is only 0 if all commands in the pipeline exit
+           successfully.
+     int pipeline_wait(pipeline *p)
+           Wait for a pipeline to complete and return its combined exit sta‐
+           tus, calculated as for pipeline_wait_all().
+     int pipeline_run(pipeline *p)
+           Start a pipeline, wait for it to complete, and free it, all in
+           one go.
+     void pipeline_pump(pipeline *p, ...)
+           Pump data among one or more pipelines connected using
+           pipeline_connect() until all source pipelines have reached end-
+           of-file and all data has been written to all sinks (or failed).
+           All relevant pipelines must be supplied: that is, no pipeline
+           that has been connected to a source pipeline may be supplied
+           unless that source pipeline is also supplied.  Automatically
+           starts all pipelines if they are not already started, but does
+           not wait for them.  Terminate arguments with NULL.
+   Functions to read output from pipelines
+     In general, output is returned as a pointer into a buffer owned by the
+     pipeline, which is automatically freed when pipeline_free() is called.
+     This saves the caller from having to explicitly free individual blocks
+     of output data.
+     const char *pipeline_read(pipeline *p, size_t *len)
+           Read len bytes of data from the pipeline, returning the data
+           block.  len is updated with the number of bytes read.
+     const char *pipeline_peek(pipeline *p, size_t *len)
+           Look ahead in the pipeline's output for len bytes of data,
+           returning the data block.  len is updated with the number of
+           bytes read.  The starting position of the next read or peek is
+           not affected by this call.
+     size_t pipeline_peek_size(pipeline *p)
+           Return the number of bytes of data that can be read using
+           pipeline_read() or pipeline_peek() solely from the peek cache,
+           without having to read from the pipeline itself (and thus poten‐
+           tially block).
+     void pipeline_peek_skip(pipeline *p, size_t len)
+           Skip over and discard len bytes of data from the peek cache.
+           Asserts that enough data is available to skip, so you may want to
+           check using pipeline_peek_size() first.
+     const char *pipeline_readline(pipeline *p)
+           Read a line of data from the pipeline, returning it.
+     const char *pipeline_peekline(pipeline *p)
+           Look ahead in the pipeline's output for a line of data, returning
+           it.  The starting position of the next read or peek is not
+           affected by this call.
+   Signal handling
+     libpipeline installs a signal handler for SIGCHLD, and collects the
+     exit status of child processes in pipeline_wait().  Applications using
+     this library must either refrain from changing the disposition of
+     SIGCHLD (in other words, must rely on libpipeline for all child process
+     handling) or else must make sure to restore libpipeline's SIGCHLD han‐
+     dler before calling any of its functions.
+     If the ignore_signals flag is set in a pipeline (which is the default),
+     then the SIGINT and SIGQUIT signals will be ignored in the parent
+     process while child processes are running.  This mirrors the behaviour
+     of system(3).
+     libpipeline leaves child processes with the default disposition of
+     SIGPIPE, namely to terminate the process.  It ignores SIGPIPE in the
+     parent process while running pipeline_pump().
+   Reaping of child processes
+     libpipeline installs a SIGCHLD handler that will attempt to reap child
+     processes which have exited.  This calls waitpid(2) with -1, so it will
+     reap any child process, not merely those created by way of this
+     library.  At present, this means that if the calling program forks
+     other child processes which may exit while a pipeline is running, the
+     program is not guaranteed to be able to collect exit statuses of those
+     processes.
+     You should not rely on this behaviour, and in future it may be modified
+     either to reap only child processes created by this library or to pro‐
+     vide a way to return foreign statuses to the application.  Please con‐
+     tact the author if you have an example application and would like to
+     help design such an interface.

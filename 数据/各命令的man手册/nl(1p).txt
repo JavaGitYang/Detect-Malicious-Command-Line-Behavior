@@ -1,0 +1,23 @@
+
+       The nl utility shall read lines from the named file or the standard
+       input if no file is named and shall reproduce the lines to standard
+       output. Lines shall be numbered on the left. Additional functionality
+       may be provided in accordance with the command options in effect.
+       The nl utility views the text it reads in terms of logical pages.
+       Line numbering shall be reset at the start of each logical page. A
+       logical page consists of a header, a body, and a footer section.
+       Empty sections are valid. Different line numbering options are
+       independently available for header, body, and footer (for example, no
+       numbering of header and footer lines while numbering blank lines only
+       in the body).
+       The starts of logical page sections shall be signaled by input lines
+       containing nothing but the following delimiter characters:
+                             ┌───────────┬────────────┐
+                             │   Line    │  Start of  │
+                             ├───────────┼────────────┤
+                             │\:\:\:     │ Header     │
+                             │\:\:       │ Body       │
+                             │\:         │ Footer     │
+                             └───────────┴────────────┘
+       Unless otherwise specified, nl shall assume the text being read is in
+       a single logical page body.

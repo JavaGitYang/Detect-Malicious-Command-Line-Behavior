@@ -1,0 +1,3 @@
+
+       halt, poweroff, reboot may be used to halt, power-off or reboot the
+       machine.

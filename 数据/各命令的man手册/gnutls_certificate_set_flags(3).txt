@@ -1,0 +1,4 @@
+
+       This function will set flags to tweak the operation of the
+       credentials structure. See the gnutls_certificate_flags enumerations
+       for more information on the available flags.

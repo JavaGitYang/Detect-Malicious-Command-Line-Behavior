@@ -1,0 +1,15 @@
+
+       The gpasswd command is used to administer /etc/group, and
+       /etc/gshadow. Every group can have administrators, members and a
+       password.
+       System administrators can use the -A option to define group
+       administrator(s) and the -M option to define members. They have all
+       rights of group administrators and members.
+       gpasswd called by a group administrator with a group name only
+       prompts for the new password of the group.
+       If a password is set the members can still use newgrp(1) without a
+       password, and non-members must supply the password.
+   Notes about group passwords
+       Group passwords are an inherent security problem since more than one
+       person is permitted to know the password. However, groups are a
+       useful tool for permitting co-operation between different users.

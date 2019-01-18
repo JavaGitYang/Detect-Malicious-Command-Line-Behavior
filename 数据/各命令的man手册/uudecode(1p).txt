@@ -1,0 +1,24 @@
+
+       The uudecode utility shall read a file, or standard input if no file
+       is specified, that includes data created by the uuencode utility. The
+       uudecode utility shall scan the input file, searching for data
+       compatible with one of the formats specified in uuencode, and attempt
+       to create or overwrite the file described by the data (or overridden
+       by the −o option). The pathname shall be contained in the data or
+       specified by the −o option. The file access permission bits and
+       contents for the file to be produced shall be contained in that data.
+       The mode bits of the created file (other than standard output) shall
+       be set from the file access permission bits contained in the data;
+       that is, other attributes of the mode, including the file mode
+       creation mask (see umask), shall not affect the file being produced.
+       If either of the op characters '+' and '−' (see chmod) are specified
+       in symbolic mode, the initial mode on which those operations are
+       based is unspecified.
+       If the pathname of the file to be produced exists, and the user does
+       not have write permission on that file, uudecode shall terminate with
+       an error. If the pathname of the file to be produced exists, and the
+       user has write permission on that file, the existing file shall be
+       overwritten.
+       If the input data was produced by uuencode on a system with a
+       different number of bits per byte than on the target system, the
+       results of uudecode are unspecified.

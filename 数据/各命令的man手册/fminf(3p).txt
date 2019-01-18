@@ -1,0 +1,9 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       These functions shall determine the minimum numeric value of their
+       arguments.  NaN arguments shall be treated as missing data: if one
+       argument is a NaN and the other numeric, then these functions shall
+       choose the numeric value.

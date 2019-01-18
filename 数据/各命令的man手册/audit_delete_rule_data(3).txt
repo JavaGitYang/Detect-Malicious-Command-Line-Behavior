@@ -1,0 +1,5 @@
+
+       audit_delete_rule_data is used to delete rules that are currently
+       loaded in the kernel. To delete a rule, you must set up the rules
+       identical to the one being deleted. See audit_add_rule_data for flag
+       and action definitions.

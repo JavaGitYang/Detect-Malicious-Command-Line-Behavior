@@ -1,0 +1,12 @@
+
+       The patch utility shall read a source (patch) file containing any of
+       four forms of difference (diff) listings produced by the diff utility
+       (normal, copied context, unified context, or in the style of ed) and
+       apply those differences to a file. By default, patch shall read from
+       the standard input.
+       The patch utility shall attempt to determine the type of the diff
+       listing, unless overruled by a −c, −e, −n, or −u option.
+       If the patch file contains more than one patch, patch shall attempt
+       to apply each of them as if they came from separate patch files. (In
+       this case, the application shall ensure that the name of the patch
+       file is determinable for each diff listing.)

@@ -1,0 +1,31 @@
+
+       quotacheck examines each filesystem, builds a table of current disk
+       usage, and compares this table against that recorded in the disk
+       quota file for the filesystem (this step is omitted if option -c is
+       specified). If any inconsistencies are detected, both the quota file
+       and the current system copy of the incorrect quotas are updated (the
+       latter only occurs if an active filesystem is checked which is not
+       advised).  By default, only user quotas are checked.  quotacheck
+       expects each filesystem to be checked to have quota files named
+       [a]quota.user and [a]quota.group located at the root of the
+       associated filesystem.  If a file is not present, quotacheck will
+       create it.
+       If the quota file is corrupted, quotacheck tries to save as much data
+       as possible.  Rescuing data may need user intervention. With no
+       additional options quotacheck will simply exit in such a situation.
+       When in interactive mode (option -i) , the user is asked for advice.
+       Advice can also be provided from command line (see option -n) , which
+       is useful when quotacheck is run automatically (ie. from script) and
+       failure is unacceptable.
+       quotacheck should be run each time the system boots and mounts non-
+       valid filesystems.  This is most likely to happen after a system
+       crash.
+       It is strongly recommended to run quotacheck with quotas turned off
+       for the filesystem. Otherwise, possible damage or loss to data in the
+       quota files can result.  It is also unwise to run quotacheck on a
+       live filesystem as actual usage may change during the scan.  To
+       prevent this, quotacheck tries to remount the filesystem read-only
+       before starting the scan.  After the scan is done it remounts the
+       filesystem read-write. You can disable this with option -m.  You can
+       also make quotacheck ignore the failure to remount the filesystem
+       read-only with option -M.

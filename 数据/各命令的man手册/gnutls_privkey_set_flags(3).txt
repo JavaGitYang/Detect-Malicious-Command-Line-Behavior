@@ -1,0 +1,5 @@
+
+       This function will set flags for the specified private key, after it
+       is generated. Currently this is useful for the
+       GNUTLS_PRIVKEY_FLAG_EXPORT_COMPAT to allow exporting a "provable"
+       private key in backwards compatible way.

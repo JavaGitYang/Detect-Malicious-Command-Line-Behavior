@@ -1,0 +1,4 @@
+
+       sleep() causes the calling thread to sleep either until the number of
+       real-time seconds specified in seconds have elapsed or until a signal
+       arrives which is not ignored.

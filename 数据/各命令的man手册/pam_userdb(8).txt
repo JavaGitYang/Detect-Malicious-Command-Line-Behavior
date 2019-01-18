@@ -1,0 +1,5 @@
+
+       The pam_userdb module is used to verify a username/password pair
+       against values stored in a Berkeley DB database. The database is
+       indexed by the username, and the data fields corresponding to the
+       username keys are the passwords.

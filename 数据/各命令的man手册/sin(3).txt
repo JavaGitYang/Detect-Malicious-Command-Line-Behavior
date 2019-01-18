@@ -1,0 +1,2 @@
+
+       These functions return the sine of x, where x is given in radians.

@@ -1,0 +1,12 @@
+
+       The pam_sm_authenticate function is the service module's
+       implementation of the pam_authenticate(3) interface.
+       This function performs the task of authenticating the user.
+       Valid flags, which may be logically OR'd with PAM_SILENT, are:
+       PAM_SILENT
+           Do not emit any messages.
+       PAM_DISALLOW_NULL_AUTHTOK
+           Return PAM_AUTH_ERR if the database of authentication tokens for
+           this authentication mechanism has a NULL entry for the user.
+           Without this flag, such a NULL token will lead to a success
+           without the user being prompted.

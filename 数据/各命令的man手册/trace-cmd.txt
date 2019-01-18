@@ -1,0 +1,6 @@
+
+       The trace-cmd(1) utility produces a "trace.dat" file. The file may
+       also be named anything depending if the user specifies a different
+       output name, but it must have a certain binary format. The file is
+       used by trace-cmd to save kernel traces into it and be able to
+       extract the trace from it at a later point (see trace-cmd-report(1)).

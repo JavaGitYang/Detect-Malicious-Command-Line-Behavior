@@ -1,0 +1,52 @@
+
+       dpkg-buildpackage is a program that automates the process of building
+       a Debian package. It consists of the following steps:
+       1. It prepares the build environment by setting various environment
+          variables (see ENVIRONMENT), runs the init hook, and calls
+          dpkg-source --before-build (unless -T or --target has been used).
+       2. It checks that the build-dependencies and build-conflicts are
+          satisfied (unless -d or --no-check-builddeps is specified).
+       3. If a specific target has been selected with the -T or --target
+          option, it calls that target and stops here. Otherwise it runs the
+          preclean hook and calls fakeroot debian/rules clean to clean the
+          build-tree (unless -nc or --no-pre-clean is specified).
+       4. It runs the source hook and calls dpkg-source -b to generate the
+          source package (if a source build has been requested with --build
+          or equivalent options).
+       5. It runs the build hook and calls debian/rules build-target, then
+          runs the binary hook followed by fakeroot debian/rules binary-
+          target (unless a source-only build has been requested with
+          --build=source or equivalent options).  Note that build-target and
+          binary-target are either build and binary (default case, or if an
+          any and all build has been requested with --build or equivalent
+          options), or build-arch and binary-arch (if an any and not all
+          build has been requested with --build or equivalent options), or
+          build-indep and binary-indep (if an all and not any build has been
+          requested with --build or equivalent options).
+       6. Unless a source-only build has been requested, it runs the
+          buildinfo hook and calls dpkg-genbuildinfo to generate a
+          .buildinfo file.  Several dpkg-buildpackage options are forwarded
+          to dpkg-genbuildinfo.
+       7. It runs the changes hook and calls dpkg-genchanges to generate a
+          .changes file.  The name of the .changes file will depend on the
+          type of build and will be as specific as necessary but not more;
+          for a build that includes any the name will be source-name_source-
+          version_arch.changes, or otherwise for a build that includes all
+          the name will be source-name_source-version_all.changes, or
+          otherwise for a build that includes source the name will be
+          source-name_source-version_source.changes.  Many dpkg-buildpackage
+          options are forwarded to dpkg-genchanges.
+       8. It runs the postclean hook and if -tc or --post-clean is
+          specified, it will call fakeroot debian/rules clean again.
+       9. It calls dpkg-source --after-build.
+       10.
+          It runs the check hook and calls a package checker for the
+          .changes file (if a command is specified in DEB_CHECK_COMMAND or
+          with --check-command).
+       11.
+          It runs the sign hook and calls gpg2 or gpg to sign the .dsc file
+          (if any, unless -us or --unsigned-source is specified or on
+          UNRELEASED builds), and the .changes file (unless -uc or
+          --unsigned-changes is specified or on UNRELEASED builds).
+       12.
+          It runs the done hook.

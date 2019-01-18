@@ -1,0 +1,59 @@
+
+       Linux implements the AppleTalk protocols described in Inside
+       AppleTalk.  Only the DDP layer and AARP are present in the kernel.
+       They are designed to be used via the netatalk protocol libraries.
+       This page documents the interface for those who wish or need to use
+       the DDP layer directly.
+       The communication between AppleTalk and the user program works using
+       a BSD-compatible socket interface.  For more information on sockets,
+       see socket(7).
+       An AppleTalk socket is created by calling the socket(2) function with
+       a AF_APPLETALK socket family argument.  Valid socket types are
+       SOCK_DGRAM to open a ddp socket or SOCK_RAW to open a raw socket.
+       protocol is the AppleTalk protocol to be received or sent.  For
+       SOCK_RAW you must specify ATPROTO_DDP.
+       Raw sockets may be opened only by a process with effective user ID 0
+       or when the process has the CAP_NET_RAW capability.
+   Address format
+       An AppleTalk socket address is defined as a combination of a network
+       number, a node number, and a port number.
+           struct at_addr {
+               unsigned short s_net;
+               unsigned char  s_node;
+           };
+           struct sockaddr_atalk {
+               sa_family_t    sat_family;    /* address family */
+               unsigned char  sat_port;      /* port */
+               struct at_addr sat_addr;      /* net/node */
+           };
+       sat_family is always set to AF_APPLETALK.  sat_port contains the
+       port.  The port numbers below 129 are known as reserved ports.  Only
+       processes with the effective user ID 0 or the CAP_NET_BIND_SERVICE
+       capability may bind(2) to these sockets.  sat_addr is the host
+       address.  The net member of struct at_addr contains the host network
+       in network byte order.  The value of AT_ANYNET is a wildcard and also
+       implies “this network.”  The node member of struct at_addr contains
+       the host node number.  The value of AT_ANYNODE is a wildcard and also
+       implies “this node.” The value of ATADDR_BCAST is a link local broad‐
+       cast address.
+   Socket options
+       No protocol-specific socket options are supported.
+   /proc interfaces
+       IP supports a set of /proc interfaces to configure some global
+       AppleTalk parameters.  The parameters can be accessed by reading or
+       writing files in the directory /proc/sys/net/atalk/.
+       aarp-expiry-time
+              The time interval (in seconds) before an AARP cache entry
+              expires.
+       aarp-resolve-time
+              The time interval (in seconds) before an AARP cache entry is
+              resolved.
+       aarp-retransmit-limit
+              The number of retransmissions of an AARP query before the node
+              is declared dead.
+       aarp-tick-time
+              The timer rate (in seconds) for the timer driving AARP.
+       The default values match the specification and should never need to
+       be changed.
+   Ioctls
+       All ioctls described in socket(7) apply to DDP.

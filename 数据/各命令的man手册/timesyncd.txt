@@ -1,0 +1,2 @@
+
+       These configuration files control NTP network time synchronization.

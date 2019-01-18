@@ -1,0 +1,4 @@
+
+       This function will convert the given DER encoded OCSP response to the
+       native gnutls_ocsp_resp_t format.  It also decodes the Basic OCSP
+       Response part, if any.  The output will be stored in  resp .

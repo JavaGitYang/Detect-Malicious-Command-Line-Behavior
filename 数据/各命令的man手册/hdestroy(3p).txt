@@ -1,0 +1,25 @@
+
+       The hcreate(), hdestroy(), and hsearch() functions shall manage hash
+       search tables.
+       The hcreate() function shall allocate sufficient space for the table,
+       and the application shall ensure it is called before hsearch() is
+       used. The nel argument is an estimate of the maximum number of
+       entries that the table shall contain. This number may be adjusted
+       upward by the algorithm in order to obtain certain mathematically
+       favorable circumstances.
+       The hdestroy() function shall dispose of the search table, and may be
+       followed by another call to hcreate().  After the call to hdestroy(),
+       the data can no longer be considered accessible.
+       The hsearch() function is a hash-table search routine. It shall
+       return a pointer into a hash table indicating the location at which
+       an entry can be found. The item argument is a structure of type ENTRY
+       (defined in the <search.h> header) containing two pointers: item.key
+       points to the comparison key (a char *), and item.data (a void *)
+       points to any other data to be associated with that key. The
+       comparison function used by hsearch() is strcmp().  The action
+       argument is a member of an enumeration type ACTION indicating the
+       disposition of the entry if it cannot be found in the table. ENTER
+       indicates that the item should be inserted in the table at an
+       appropriate point. FIND indicates that no entry should be made.
+       Unsuccessful resolution is indicated by the return of a null pointer.
+       These functions need not be thread-safe.

@@ -1,0 +1,5 @@
+
+       watch runs command repeatedly, displaying its output and errors (the
+       first screenfull).  This allows you to watch the program output
+       change over time.  By default, command is run every 2 seconds and
+       watch will run until interrupted.

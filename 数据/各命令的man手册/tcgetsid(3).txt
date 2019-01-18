@@ -1,0 +1,4 @@
+
+       The function tcgetsid() returns the session ID of the current session
+       that has the terminal associated to fd as controlling terminal.  This
+       terminal must be the controlling terminal of the calling process.

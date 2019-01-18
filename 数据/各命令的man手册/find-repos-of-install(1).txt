@@ -1,0 +1,3 @@
+
+       find-repos-of-install is a program which reports the Yum repository
+       that a specified package was installed from.

@@ -1,0 +1,20 @@
+
+       selinux_set_mapping() establishes a mapping from a user-provided
+       ordering of object classes and permissions to the numbers actually
+       used by the loaded system policy.  Use of this function is highly
+       preferred over the generated constants in the libselinux header
+       files, as this method allows the policy's class and permission values
+       to change over time.
+       After the mapping is established, all libselinux functions that
+       operate on class and permission values take the user-provided
+       numbers, which are determined as follows:
+       The map argument consists of an array of security_class_mapping
+       structures, which must be terminated by a structure having a NULL
+       name field.  Except for this last structure, the name field should
+       refer to the string name of an object class, and the corresponding
+       perms field should refer to an array of permission bit names
+       terminated by a NULL string.
+       The object classes named in the mapping and the bit indexes of each
+       set of permission bits named in the mapping are numbered in order
+       starting from 1.  These numbers are the values that should be passed
+       to subsequent libselinux calls.

@@ -1,0 +1,4 @@
+
+       This function will initialize a PKCS7 structure. PKCS7 structures
+       usually contain lists of X.509 Certificates and X.509 Certificate
+       revocation lists.

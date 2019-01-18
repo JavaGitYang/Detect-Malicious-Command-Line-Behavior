@@ -1,0 +1,15 @@
+
+       cfdisk is a curses-based program for partitioning any block device.
+       The default device is /dev/sda.
+       Note that cfdisk provides basic partitioning functionality with a
+       user-friendly interface.  If you need advanced features, use fdisk(8)
+       instead.
+       Since version 2.25 cfdisk supports MBR (DOS), GPT, SUN and SGI disk
+       labels, but no longer provides any functionality for CHS (Cylinder-
+       Head-Sector) addressing.  CHS has never been important for Linux, and
+       this addressing concept does not make any sense for new devices.
+       Since version 2.25 cfdisk also does not provide a 'print' command any
+       more.  This functionality is provided by the utilities partx(8) and
+       lsblk(8) in a very comfortable and rich way.
+       If you want to remove an old partition table from a device, use
+       wipefs(8).

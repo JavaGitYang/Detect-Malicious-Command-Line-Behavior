@@ -1,0 +1,4 @@
+
+       The library supports the Intel Broadwell Server IRP (IIO coherency)
+       uncore PMU .  This PMU model only exists various Broadwell server
+       models (79, 86).

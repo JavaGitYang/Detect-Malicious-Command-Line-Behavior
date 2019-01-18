@@ -1,0 +1,10 @@
+
+       The daemon() function is for programs wishing to detach themselves
+       from the controlling terminal and run in the background as system
+       daemons.
+       If nochdir is zero, daemon() changes the process's current working
+       directory to the root directory ("/"); otherwise, the current working
+       directory is left unchanged.
+       If noclose is zero, daemon() redirects standard input, standard
+       output and standard error to /dev/null; otherwise, no changes are
+       made to these file descriptors.

@@ -1,0 +1,18 @@
+
+       sd_journal_stream_fd() may be used to create a log stream file
+       descriptor. Log messages written to this file descriptor as simple
+       newline-separated text strings are written to the journal. This file
+       descriptor can be used internally by applications or be made standard
+       output or standard error of other processes executed.
+       sd_journal_stream_fd() takes a short program identifier string as
+       first argument, which will be written to the journal as
+       _SYSLOG_IDENTIFIER= field for each log entry (see
+       systemd.journal-fields(7) for more information). The second argument
+       shall be the default priority level for all messages. The priority
+       level is one of LOG_EMERG, LOG_ALERT, LOG_CRIT, LOG_ERR, LOG_WARNING,
+       LOG_NOTICE, LOG_INFO, LOG_DEBUG, as defined in syslog.h, see
+       syslog(3) for details. The third argument is a boolean: if true
+       kernel-style log level prefixes (such as SD_WARNING) are interpreted,
+       see sd-daemon(3) for more information.
+       It is recommended that applications log UTF-8 messages only with this
+       API, but this is not enforced.

@@ -1,0 +1,6 @@
+
+       dpkg-genbuildinfo reads information from an unpacked and built Debian
+       source tree and from the files it has generated and generates a
+       Debian control file describing the build environment and the build
+       artifacts (.buildinfo file).
+       This command was introduced in dpkg 1.18.11.

@@ -1,0 +1,14 @@
+
+       The if_nameindex() function returns an array of if_nameindex
+       structures, each containing information about one of the network
+       interfaces on the local system.  The if_nameindex structure contains
+       at least the following entries:
+           unsigned int if_index; /* Index of interface (1, 2, ...) */
+           char        *if_name;  /* Null-terminated name ("eth0", etc.) */
+       The if_index field contains the interface index.  The if_name field
+       points to the null-terminated interface name.  The end of the array
+       is indicated by entry with if_index set to zero and if_name set to
+       NULL.
+       The data structure returned by if_nameindex() is dynamically allo‐
+       cated and should be freed using if_freenameindex() when no longer
+       needed.

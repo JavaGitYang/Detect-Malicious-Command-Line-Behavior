@@ -1,0 +1,105 @@
+
+       For _Exit(): The functionality described on this reference page is
+       aligned with the ISO C standard. Any conflict between the
+       requirements described here and the ISO C standard is unintentional.
+       This volume of POSIX.1‐2008 defers to the ISO C standard.
+       The value of status may be 0, EXIT_SUCCESS, EXIT_FAILURE, or any
+       other value, though only the least significant 8 bits (that is,
+       status & 0377) shall be available to a waiting parent process.
+       The _Exit() and _exit() functions shall be functionally equivalent.
+       The _Exit() and _exit() functions shall not call functions registered
+       with atexit() nor any registered signal handlers.  Open streams shall
+       not be flushed.  Whether open streams are closed (without flushing)
+       is implementation-defined. Finally, the calling process shall be
+       terminated with the consequences described below.
+   Consequences of Process Termination
+       Process termination caused by any reason shall have the following
+       consequences:
+       Note:     These consequences are all extensions to the ISO C standard
+                 and are not further CX shaded. However, functionality
+                 relating to the XSI option is shaded.
+        *  All of the file descriptors, directory streams, conversion
+           descriptors, and message catalog descriptors open in the calling
+           process shall be closed.
+        *  If the parent process of the calling process is executing a
+           wait(), waitid(), or waitpid(), and has neither set its
+           SA_NOCLDWAIT flag nor set SIGCHLD to SIG_IGN, it shall be
+           notified of termination of the calling process and the low-order
+           eight bits (that is, bits 0377) of status shall be made available
+           to it. If the parent is not waiting, the child's status shall be
+           made available to it when the parent subsequently executes
+           wait(), waitid(), or waitpid().
+           The semantics of the waitid() function shall be equivalent to
+           wait().
+        *  If the parent process of the calling process is not executing a
+           wait(), waitid(), or waitpid(), and has neither set its
+           SA_NOCLDWAIT flag nor set SIGCHLD to SIG_IGN, the calling process
+           shall be transformed into a zombie process.  A zombie process is
+           an inactive process and it shall be deleted at some later time
+           when its parent process executes wait(), waitid(), or waitpid().
+           The semantics of the waitid() function shall be equivalent to
+           wait().
+        *  Termination of a process does not directly terminate its
+           children. The sending of a SIGHUP signal as described below
+           indirectly terminates children in some circumstances.
+        *  Either:
+           If the implementation supports the SIGCHLD signal, a SIGCHLD
+           shall be sent to the parent process.
+           Or:
+           If the parent process has set its SA_NOCLDWAIT flag, or set
+           SIGCHLD to SIG_IGN, the status shall be discarded, and the
+           lifetime of the calling process shall end immediately. If
+           SA_NOCLDWAIT is set, it is implementation-defined whether a
+           SIGCHLD signal is sent to the parent process.
+        *  The parent process ID of all of the existing child processes and
+           zombie processes of the calling process shall be set to the
+           process ID of an implementation-defined system process. That is,
+           these processes shall be inherited by a special system process.
+        *  Each attached shared-memory segment is detached and the value of
+           shm_nattch (see shmget()) in the data structure associated with
+           its shared memory ID shall be decremented by 1.
+        *  For each semaphore for which the calling process has set a semadj
+           value (see semop()), that value shall be added to the semval of
+           the specified semaphore.
+        *  If the process is a controlling process, the SIGHUP signal shall
+           be sent to each process in the foreground process group of the
+           controlling terminal belonging to the calling process.
+        *  If the process is a controlling process, the controlling terminal
+           associated with the session shall be disassociated from the
+           session, allowing it to be acquired by a new controlling process.
+        *  If the exit of the process causes a process group to become
+           orphaned, and if any member of the newly-orphaned process group
+           is stopped, then a SIGHUP signal followed by a SIGCONT signal
+           shall be sent to each process in the newly-orphaned process
+           group.
+        *  All open named semaphores in the calling process shall be closed
+           as if by appropriate calls to sem_close().
+        *  Any memory locks established by the process via calls to
+           mlockall() or mlock() shall be removed. If locked pages in the
+           address space of the calling process are also mapped into the
+           address spaces of other processes and are locked by those
+           processes, the locks established by the other processes shall be
+           unaffected by the call by this process to _Exit() or _exit().
+        *  Memory mappings that were created in the process shall be
+           unmapped before the process is destroyed.
+        *  Any blocks of typed memory that were mapped in the calling
+           process shall be unmapped, as if munmap() was implicitly called
+           to unmap them.
+        *  All open message queue descriptors in the calling process shall
+           be closed as if by appropriate calls to mq_close().
+        *  Any outstanding cancelable asynchronous I/O operations may be
+           canceled. Those asynchronous I/O operations that are not canceled
+           shall complete as if the _Exit() or _exit() operation had not yet
+           occurred, but any associated signal notifications shall be
+           suppressed. The _Exit() or _exit() operation may block awaiting
+           such I/O completion. Whether any I/O is canceled, and which I/O
+           may be canceled upon _Exit() or _exit(), is implementation-
+           defined.
+        *  Threads terminated by a call to _Exit() or _exit() shall not
+           invoke their cancellation cleanup handlers or per-thread data
+           destructors.
+        *  If the calling process is a trace controller process, any trace
+           streams that were created by the calling process shall be shut
+           down as described by the posix_trace_shutdown() function, and
+           mapping of trace event names to trace event type identifiers of
+           any process built for these trace streams may be deallocated.

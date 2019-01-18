@@ -1,0 +1,7 @@
+
+       Splits a mbox file or a Maildir into a list of files: "0001" "0002"
+       .. in the specified directory so you can process them further from
+       there.
+           Important
+           Maildir splitting relies upon filenames being sorted to output
+           patches in the correct order.

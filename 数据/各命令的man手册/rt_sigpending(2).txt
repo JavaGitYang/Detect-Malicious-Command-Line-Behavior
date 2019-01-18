@@ -1,0 +1,4 @@
+
+       sigpending() returns the set of signals that are pending for delivery
+       to the calling thread (i.e., the signals which have been raised while
+       blocked).  The mask of pending signals is returned in set.

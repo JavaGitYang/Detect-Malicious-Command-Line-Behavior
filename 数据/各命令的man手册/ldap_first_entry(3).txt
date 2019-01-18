@@ -1,0 +1,17 @@
+
+       These routines are used to parse results received from ldap_result(3)
+       or the synchronous LDAP search operation routines ldap_search_s(3)
+       and ldap_search_st(3).
+       The ldap_first_entry() routine is used to retrieve the first entry in
+       a chain of search results.  It takes the result as returned by a call
+       to ldap_result(3) or ldap_search_s(3) or ldap_search_st(3) and
+       returns a pointer to the first entry in the result.
+       This pointer should be supplied on a subsequent call to
+       ldap_next_entry() to get the next entry, the result of which should
+       be supplied to the next call to ldap_next_entry(), etc.
+       ldap_next_entry() will return NULL when there are no more entries.
+       The entries returned from these calls are used in calls to the
+       routines described in ldap_get_dn(3), ldap_first_attribute(3),
+       ldap_get_values(3), etc.
+       A count of the number of entries in the search result can be obtained
+       by calling ldap_count_entries().

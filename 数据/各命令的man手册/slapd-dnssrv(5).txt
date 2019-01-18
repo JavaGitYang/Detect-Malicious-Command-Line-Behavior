@@ -1,0 +1,4 @@
+
+       The DNSSRV backend to slapd(8) serves up referrals based upon SRV
+       resource records held in the Domain Name System.
+       This backend is experimental.

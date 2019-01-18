@@ -1,0 +1,8 @@
+
+       The tsort utility shall write to standard output a totally ordered
+       list of items consistent with a partial ordering of items contained
+       in the input.
+       The application shall ensure that the input consists of pairs of
+       items (non-empty strings) separated by <blank> characters. Pairs of
+       different items indicate ordering. Pairs of identical items indicate
+       presence, but not ordering.

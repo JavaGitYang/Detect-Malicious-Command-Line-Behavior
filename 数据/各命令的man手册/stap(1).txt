@@ -1,0 +1,18 @@
+
+       The stap program is the front-end to the Systemtap tool.  It accepts
+       probing instructions written in a simple domain-specific language,
+       translates those instructions into C code, compiles this C code, and
+       loads the resulting module into a running Linux kernel or a DynInst
+       user-space mutator, to perform the requested system trace/probe
+       functions.  You can supply the script in a named file (FILENAME),
+       from standard input (use - instead of FILENAME), or from the command
+       line (using -e SCRIPT).  The program runs until it is interrupted by
+       the user, or if the script voluntarily invokes the exit() function,
+       or by sufficient number of soft errors.
+       The language, which is described the SCRIPT LANGUAGE section below,
+       is strictly typed, expressive, declaration free, procedural,
+       prototyping-friendly, and inspired by awk and C.  It allows source
+       code points or events in the system to be associated with handlers,
+       which are subroutines that are executed synchronously.  It is
+       somewhat similar conceptually to "breakpoint command lists" in the
+       gdb debugger.

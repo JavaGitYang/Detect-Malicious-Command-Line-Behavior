@@ -1,0 +1,4 @@
+
+       cg_diff takes two output files produced by the Valgrind tool
+       Cachegrind, computes the difference and prints the result in the same
+       format that Cachegrinds outputs.

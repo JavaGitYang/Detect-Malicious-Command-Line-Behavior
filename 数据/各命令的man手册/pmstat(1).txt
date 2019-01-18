@@ -1,0 +1,111 @@
+
+       pmstat provides a one line summary of system performance every
+       interval unit of time (the default is 5 seconds).  pmstat is intended
+       to monitor system performance at the highest level, after which other
+       tools may be used to examine subsystems in which potential
+       performance problems may be observed in greater detail.
+       pcp-vmstat is a simple wrapper for use with the pcp(1) command,
+       providing a more familiar command line format for some users.  It
+       also enables the extended reporting option by default, see the -x
+       option below.
+       Multiple hosts may be monitored by supplying more than one host with
+       multiple -h flags (for live monitoring) or by providing a name of the
+       hostlist file, where each line contain one host name, with -H, or
+       multiple -a flags (for retrospective monitoring from sets of
+       archives).
+       The -t option may be used to change the default reporting interval.
+       The interval argument follows the syntax described in PCPIntro(1),
+       and in the simplest form may be an unsigned integer (the implied
+       units in this case are seconds).
+       By default, pmstat fetches metrics by connecting to the Performance
+       Metrics Collector Daemon (PMCD) on the local host.  If the -L option
+       is specified, then pmcd(1) is bypassed, and metrics are fetched from
+       PMDAs on the local host using the standalone PM_CONTEXT_LOCAL variant
+       of pmNewContext(3).  When the -h option is specified, pmstat connects
+       to the pmcd(1) on host and fetches metrics from there.  As mentioned
+       above, multiple hosts may be monitored by supplying multiple -h
+       flags.
+       Alternatively, if the -a option is used, the metrics are retrieved
+       from the Performance Co-Pilot archive log files identified by
+       archive, which is a comma-separated list of names, each of which may
+       be the base name of an archive or the name of a directory containing
+       one or more archives.  Multiple sets of archives may be replayed by
+       supplying multiple -a flags.  When the -a flag is used, the -P flag
+       may also be used to pause the output after each interval.
+       Standalone mode can only connect to the local host, using a set of
+       archives implies a host name, and nominating a host precludes using
+       an archive, so the options -L, -a and -h are mutually exclusive.
+       Normally pmstat operates on the default Performance Metrics Name
+       Space (PMNS), however if the -n option is specified an alternative
+       namespace is loaded from the file pmnsfile.
+       If the -s the option is specified, samples defines the number of
+       samples to be retrieved and reported.  If samples is 0 or -s is not
+       specified, pmstat will sample and report continuously - this is the
+       default behavior.
+       When processing a set of archives, pmstat may relinquish its own
+       timing control, and operate as a ``slave'' of a pmtime(1) process
+       that uses a GUI dialog to provide timing control.  In this case,
+       either the -g option should be used to start pmstat as the sole slave
+       of a new pmtime(1) instance, or -p should be used to attach pmstat to
+       an existing pmtime(1) instance via the IPC channel identified by the
+       port argument.
+       The -S, -T, -O and -A options may be used to define a time window to
+       restrict the samples retrieved, set an initial origin within the time
+       window, or specify a ``natural'' alignment of the sample times; refer
+       to PCPIntro(1) for a complete description of these options.
+       The -l option prints the last 7 characters of a hostname in summaries
+       involving more than one host (when more than one -h option has been
+       specified on the command line).
+       The -x option (extended CPU metrics) causes two additional CPU
+       metrics to be reported, namely wait for I/O ("wa") and virtualisation
+       steal time ("st").
+       The output from pmstat is directed to standard output, and the
+       columns in the report are interpreted as follows:
+       loadavg   The 1 minute load average.
+       memory    The swpd column indicates average swap space used during
+                 the interval, in Kbytes.  The free column indicates average
+                 free memory during the interval, in Kbytes.  The buff
+                 column indicates average buffer memory in use during the
+                 interval, in Kbytes.  The cache column indicates average
+                 cached memory in use during the interval, in Kbytes.
+                 If the values become large, they are reported as Mbytes (m
+                 suffix) or Gbytes (g suffix).
+       swap      The metrics in this area of the kernel instrumentation are
+                 of varying value.  We try to report the average number of
+                 pages that are paged in (pi) and out (po) per second during
+                 the interval.  If the corresponding page swapping metrics
+                 are unavailable, we report the average rate per second of
+                 swap operations in (si) and out (so) during the interval.
+                 It is normal for the ``in'' values to be non-zero, but the
+                 system is suffering memory stress if the ``out'' values are
+                 non-zero over an extended period.
+                 If the values become large, they are reported as thousands
+                 of operations per second (K suffix) or millions of
+                 operations per second (M suffix).
+       io        The bi and bo columns indicate the average rate per second
+                 of block input and block output operations (respectfully)
+                 during the interval.  Unless all file systems have a 1
+                 Kbyte block size, these rates do not directly indicate
+                 Kbytes transferred.
+                 If the values become large, they are reported as thousands
+                 of operations per second (K suffix) or millions of
+                 operations per second (M suffix).
+       system    Interrupt rate (in) and context switch rate (cs).  Rates
+                 are expressed as average operations per second during the
+                 interval.  Note that the interrupt rate is normally at
+                 least HZ (the clock interrupt rate, usually 100) interrupts
+                 per second.
+                 If the values become large, they are reported as thousands
+                 of operations per second (K suffix) or millions of
+                 operations per second (M suffix).
+       cpu       Percentage of CPU time spent executing user and "nice user"
+                 code (us), system and interrupt processing code (sy), idle
+                 loop (id).
+       If any values for the associated performance metrics are unavailable,
+       the value appears as ``?'' in the output.
+       By default, pmstat reports the time of day according to the local
+       timezone on the system where pmstat is run.  The -Z option changes
+       the timezone to timezone in the format of the environment variable TZ
+       as described in environ(7).  The -z option changes the timezone to
+       the local timezone at the host that is the source of the performance
+       metrics, as identified via either the -h or -a options.

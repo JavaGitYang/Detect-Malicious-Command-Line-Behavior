@@ -1,0 +1,28 @@
+
+       The asyncmeta backend to slapd(8) performs basic LDAP proxying with
+       respect to a set of remote LDAP servers, called "targets".  The
+       information contained in these servers can be presented as belonging
+       to a single Directory Information Tree (DIT).
+       A good knowledge of the functionality of the slapd-meta(5) backend
+       is recommended.   This  backend has been designed as an asynchronous
+       version of the meta backend. Unlike meta , the operation handling
+       threads are no longer pending on the response from the remote server,
+       thus decreasing the number of threads necessary to handle the same
+       load. While asyncmeta maintains the functionality of meta and has a
+       largely similar codebase, some changes in operation and some new
+       configuration directives have been added. Some configuration options,
+       such as conn-ttl, single-conn and use-temporary-conn have been
+       removed, as they are no longer relevant.
+       New connection handling:
+       Unlike meta, which caches bound connections, the asyncmeta works with
+       a configured maximum number of connections per target.  For each
+       request redirected to a target, a different connection is selected.
+       Each connection has a queue, to which the request is added before it
+       is sent to the remote server, and is removed after the last response
+       for that request is received.
+        For each new request, the connection with the smallest number of
+       pending requests is selected, or using round-robin if the numbers are
+       equal.
+       Overlays:
+       Due to implementation specifics, there is no guarantee that any of
+       the existing OpenLDAP overlays will work with asyncmeta backend.

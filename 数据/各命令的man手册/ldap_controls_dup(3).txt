@@ -1,0 +1,27 @@
+
+       These routines are used to manipulate structures used for LDAP
+       controls.
+       ldap_control_create() creates a control with the specified OID using
+       the contents of the value parameter for the control value, if any.
+       The content of value is duplicated if dupval is non-zero.  The
+       iscritical parameter must be non-zero for a critical control. The
+       created control is returned in the ctrlp parameter.  The routine
+       returns LDAP_SUCCESS on success or some other error code on failure.
+       The content of value, for supported control types, can be prepared
+       using helpers provided by this implementation of libldap, usually in
+       the form ldap_create_<control name>_control_value().  Otherwise, it
+       can be BER-encoded using the functionalities of liblber.
+       ldap_control_find() searches the NULL-terminated ctrls array for a
+       control whose OID matches the oid parameter.  The routine returns a
+       pointer to the control if found, NULL otherwise.  If the parameter
+       nextctrlp is not NULL, on return it will point to the next control in
+       the array, and can be passed to the ldap_control_find() routine for
+       subsequent calls, to find further occurrences of the same control
+       type.  The use of this function is discouraged; the recommended way
+       of handling controls in responses consists in going through the array
+       of controls, dealing with each of them in the returned order, since
+       it could matter.
+       ldap_control_dup() duplicates an individual control structure, and
+       ldap_controls_dup() duplicates a NULL-terminated array of controls.
+       ldap_control_free() frees an individual control structure, and
+       ldap_controls_free() frees a NULL-terminated array of controls.

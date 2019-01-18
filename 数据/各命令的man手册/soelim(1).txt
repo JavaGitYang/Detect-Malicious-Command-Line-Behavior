@@ -1,0 +1,12 @@
+
+       soelim reads files and replaces lines of the form
+              .so file
+       by the contents of file.  It is useful if files included with .so
+       need to be preprocessed.  Normally, soelim should be invoked with the
+       -s option of groff.
+       To embed ‘\’ in the file name, write ‘\\’ or ‘\e’.  To embed a space,
+       write ‘\ ’.  Any other escape sequence in file makes soelim ignore
+       the whole line.
+       Note that there must be no whitespace between the leading dot and the
+       two characters ‘s’ and ‘o’.  Otherwise, only groff interprets the .so
+       request (and soelim ignores it).

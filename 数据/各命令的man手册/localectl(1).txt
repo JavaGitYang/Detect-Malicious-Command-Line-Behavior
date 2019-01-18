@@ -1,0 +1,15 @@
+
+       localectl may be used to query and change the system locale and
+       keyboard layout settings. It communicates with systemd-localed(8) to
+       modify files such as /etc/locale.conf and /etc/vconsole.conf.
+       The system locale controls the language settings of system services
+       and of the UI before the user logs in, such as the display manager,
+       as well as the default for users after login.
+       The keyboard settings control the keyboard layout used on the text
+       console and of the graphical UI before the user logs in, such as the
+       display manager, as well as the default for users after login.
+       Note that the changes performed using this tool might require the
+       initramfs to be rebuilt to take effect during early system boot. The
+       initramfs is not rebuilt automatically by localectl.
+       Note that systemd-firstboot(1) may be used to initialize the system
+       locale for mounted (but not booted) system images.

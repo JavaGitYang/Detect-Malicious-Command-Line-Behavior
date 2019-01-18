@@ -1,0 +1,8 @@
+
+       semanage is used to configure certain elements of SELinux policy
+       without requiring modification to or recompilation from policy
+       sources.  semanage login controls the mapping between a Linux User
+       and the SELinux User.  It can be used to turn  on confined users.
+       For example you could define that a particular user or group of users
+       will login to a system as the user_u user.  Prefix the group name
+       with a '%' sign to indicate a group name.

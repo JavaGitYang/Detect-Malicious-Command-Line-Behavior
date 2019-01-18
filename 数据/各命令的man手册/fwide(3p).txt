@@ -1,0 +1,19 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The fwide() function shall determine the orientation of the stream
+       pointed to by stream.  If mode is greater than zero, the function
+       first attempts to make the stream wide-oriented. If mode is less than
+       zero, the function first attempts to make the stream byte-oriented.
+       Otherwise, mode is zero and the function does not alter the
+       orientation of the stream.
+       If the orientation of the stream has already been determined, fwide()
+       shall not change it.
+       The fwide() function shall not change the setting of errno if
+       successful.
+       Since no return value is reserved to indicate an error, an
+       application wishing to check for error situations should set errno to
+       0, then call fwide(), then check errno, and if it is non-zero, assume
+       an error has occurred.

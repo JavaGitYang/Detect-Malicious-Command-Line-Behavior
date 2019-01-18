@@ -1,0 +1,18 @@
+
+       The copy_file_range() system call performs an in-kernel copy between
+       two file descriptors without the additional cost of transferring data
+       from the kernel to user space and then back into the kernel.  It
+       copies up to len bytes of data from file descriptor fd_in to file
+       descriptor fd_out, overwriting any data that exists within the
+       requested range of the target file.
+       The following semantics apply for off_in, and similar statements
+       apply to off_out:
+       *  If off_in is NULL, then bytes are read from fd_in starting from
+          the file offset, and the file offset is adjusted by the number of
+          bytes copied.
+       *  If off_in is not NULL, then off_in must point to a buffer that
+          specifies the starting offset where bytes from fd_in will be read.
+          The file offset of fd_in is not changed, but off_in is adjusted
+          appropriately.
+       The flags argument is provided to allow for future extensions and
+       currently must be to 0.

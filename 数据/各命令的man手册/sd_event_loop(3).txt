@@ -1,0 +1,20 @@
+
+       sd_event_run() may be used to run a single iteration of the event
+       loop specified in the event parameter. The function waits until an
+       event to process is available, and dispatches the registered handler
+       for it. The usec parameter specifies the maximum time (in
+       microseconds) to wait for an event. Use (uint64_t) -1 to specify an
+       infinite timeout.
+       sd_event_loop() invokes sd_event_run() in a loop, thus implementing
+       the actual event loop. The call returns as soon as exiting was
+       requested using sd_event_exit(3).
+       The event loop object event is created with sd_event_new(3). Events
+       sources to wait for and their handlers may be registered with
+       sd_event_add_io(3), sd_event_add_time(3), sd_event_add_signal(3),
+       sd_event_add_child(3), sd_event_add_defer(3), sd_event_add_post(3)
+       and sd_event_add_exit(3).
+       For low-level control of event loop execution, use
+       sd_event_prepare(3), sd_event_wait(3) and sd_event_dispatch(3) which
+       are wrapped by sd_event_run(). Along with sd_event_get_fd(3), these
+       functions allow integration of an sd-event(3) event loop into foreign
+       event loop implementations.

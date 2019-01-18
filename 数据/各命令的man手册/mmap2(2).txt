@@ -1,0 +1,9 @@
+
+       This is probably not the system call that you are interested in;
+       instead, see mmap(2), which describes the glibc wrapper function that
+       invokes this system call.
+       The mmap2() system call provides the same interface as mmap(2),
+       except that the final argument specifies the offset into the file in
+       4096-byte units (instead of bytes, as is done by mmap(2)).  This
+       enables applications that use a 32-bit off_t to map large files (up
+       to 2^44 bytes).

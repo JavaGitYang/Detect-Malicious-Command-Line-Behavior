@@ -1,0 +1,9 @@
+
+       The devlink utility can monitor the state of devlink devices and
+       ports continuously. This option has a slightly different format.
+       Namely, the monitor command is the first in the command line and then
+       the object list.
+       OBJECT-LIST is the list of object types that we want to monitor.  It
+       may contain dev, port.
+       devlink opens Devlink Netlink socket, listens on it and dumps state
+       changes.

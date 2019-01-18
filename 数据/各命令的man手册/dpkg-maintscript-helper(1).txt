@@ -1,0 +1,10 @@
+
+       This program is designed to be run within maintainer scripts to
+       achieve some tasks that dpkg can't (yet) handle natively either
+       because of design decisions or due to current limitations.
+       Many of those tasks require coordinated actions from several
+       maintainer scripts (preinst, postinst, prerm, postrm). To avoid
+       mistakes the same call simply needs to be put in all scripts and the
+       program will automatically adapt its behaviour based on the
+       environment variable DPKG_MAINTSCRIPT_NAME and on the maintainer
+       scripts arguments that you have to forward after a double hyphen.

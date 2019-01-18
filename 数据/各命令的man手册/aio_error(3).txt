@@ -1,0 +1,4 @@
+
+       The aio_error() function returns the error status for the
+       asynchronous I/O request with control block pointed to by aiocbp.
+       (See aio(7) for a description of the aiocb structure.)

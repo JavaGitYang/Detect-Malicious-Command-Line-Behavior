@@ -1,0 +1,27 @@
+
+       These functions shall provide for explicit application-level locking
+       of stdio (FILE *) objects. These functions can be used by a thread to
+       delineate a sequence of I/O statements that are executed as a unit.
+       The flockfile() function shall acquire for a thread ownership of a
+       (FILE *) object.
+       The ftrylockfile() function shall acquire for a thread ownership of a
+       (FILE *) object if the object is available; ftrylockfile() is a non-
+       blocking version of flockfile().
+       The funlockfile() function shall relinquish the ownership granted to
+       the thread.  The behavior is undefined if a thread other than the
+       current owner calls the funlockfile() function.
+       The functions shall behave as if there is a lock count associated
+       with each (FILE *) object. This count is implicitly initialized to
+       zero when the (FILE *) object is created. The (FILE *) object is
+       unlocked when the count is zero. When the count is positive, a single
+       thread owns the (FILE *) object. When the flockfile() function is
+       called, if the count is zero or if the count is positive and the
+       caller owns the (FILE *) object, the count shall be incremented.
+       Otherwise, the calling thread shall be suspended, waiting for the
+       count to return to zero. Each call to funlockfile() shall decrement
+       the count. This allows matching calls to flockfile() (or successful
+       calls to ftrylockfile()) and funlockfile() to be nested.
+       All functions that reference (FILE *) objects, except those with
+       names ending in _unlocked, shall behave as if they use flockfile()
+       and funlockfile() internally to obtain ownership of these (FILE *)
+       objects.

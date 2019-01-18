@@ -1,0 +1,61 @@
+
+       The fmemopen() function shall associate the buffer given by the buf
+       and size arguments with a stream. The buf argument shall be either a
+       null pointer or point to a buffer that is at least size bytes long.
+       The mode argument points to a string. If the string is one of the
+       following, the stream shall be opened in the indicated mode.
+       Otherwise, the behavior is undefined.
+       r       Open the stream for reading.
+       w       Open the stream for writing.
+       a       Append; open the stream for writing at the first null byte.
+       r+      Open the stream for update (reading and writing).
+       w+      Open the stream for update (reading and writing). Truncate
+               the buffer contents.
+       a+      Append; open the stream for update (reading and writing); the
+               initial position is at the first null byte.
+       Implementations shall accept all mode strings allowed by fopen(), but
+       the use of the character 'b' shall produce implementation-defined
+       results, where the resulting FILE * need not behave the same as if
+       'b' were omitted.
+       If a null pointer is specified as the buf argument, fmemopen() shall
+       allocate size bytes of memory as if by a call to malloc().  This
+       buffer shall be automatically freed when the stream is closed.
+       Because this feature is only useful when the stream is opened for
+       updating (because there is no way to get a pointer to the buffer) the
+       fmemopen() call may fail if the mode argument does not include a '+'.
+       The stream shall maintain a current position in the buffer. This
+       position shall be initially set to either the beginning of the buffer
+       (for r and w modes) or to the first null byte in the buffer (for a
+       modes). If no null byte is found in append mode, the initial position
+       shall be set to one byte after the end of the buffer.
+       If buf is a null pointer, the initial position shall always be set to
+       the beginning of the buffer.
+       The stream shall also maintain the size of the current buffer
+       contents; use of fseek() or fseeko() on the stream with SEEK_END
+       shall seek relative to this size. For modes r and r+ the size shall
+       be set to the value given by the size argument. For modes w and w+
+       the initial size shall be zero and for modes a and a+ the initial
+       size shall be either the position of the first null byte in the
+       buffer or the value of the size argument if no null byte is found.
+       A read operation on the stream shall not advance the current buffer
+       position beyond the current buffer size. Reaching the buffer size in
+       a read operation shall count as ``end-of-file''. Null bytes in the
+       buffer shall have no special meaning for reads. The read operation
+       shall start at the current buffer position of the stream.
+       A write operation shall start either at the current position of the
+       stream (if mode has not specified 'a' as the first character) or at
+       the current size of the stream (if mode had 'a' as the first
+       character). If the current position at the end of the write is larger
+       than the current buffer size, the current buffer size shall be set to
+       the current position. A write operation on the stream shall not
+       advance the current buffer size beyond the size given in the size
+       argument.
+       When a stream open for writing is flushed or closed, a null byte
+       shall be written at the current position or at the end of the buffer,
+       depending on the size of the contents. If a stream open for update is
+       flushed or closed and the last write has advanced the current buffer
+       size, a null byte shall be written at the end of the buffer if it
+       fits.
+       An attempt to seek a memory buffer stream to a negative position or
+       to a position larger than the buffer size given in the size argument
+       shall fail.

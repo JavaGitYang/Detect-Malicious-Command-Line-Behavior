@@ -1,0 +1,10 @@
+
+       The posix_spawnattr_getpgroup() function shall obtain the value of
+       the spawn-pgroup attribute from the attributes object referenced by
+       attr.
+       The posix_spawnattr_setpgroup() function shall set the spawn-pgroup
+       attribute in an initialized attributes object referenced by attr.
+       The spawn-pgroup attribute represents the process group to be joined
+       by the new process image in a spawn operation (if
+       POSIX_SPAWN_SETPGROUP is set in the spawn-flags attribute). The
+       default value of this attribute shall be zero.

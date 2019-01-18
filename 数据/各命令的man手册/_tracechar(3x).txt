@@ -1,0 +1,85 @@
+
+       The trace routines are used for debugging the ncurses libraries, as
+       well as applications which use the ncurses libraries.  These
+       functions are normally available only with the debugging library
+       e.g., libncurses_g.a, but may be compiled into any model (shared,
+       static, profile) by defining the symbol TRACE.  Additionally, some
+       functions are only available with the wide-character configuration of
+       the libraries.
+   Functions
+       The principal parts of this interface are
+       ·   trace, which selectively enables different tracing features, and
+       ·   _tracef, which writes formatted data to the trace file.
+       Calling trace with a nonzero parameter creates the file trace in the
+       current directory for output.  If the file already exists, no tracing
+       is done.
+       The other functions either return a pointer to a string-area
+       (allocated by the corresponding function), or return no value (such
+       as _tracedump, which implements the screen dump for TRACE_UPDATE).
+       The caller should not free these strings, since the allocation is
+       reused on successive calls.  To work around the problem of a single
+       string-area per function, some use a buffer-number parameter, telling
+       the library to allocate additional string-areas.
+   Trace Parameter
+       The trace parameter is formed by OR'ing values from the list of
+       TRACE_xxx definitions in <curses.h>.  These include:
+       TRACE_DISABLE
+            turn off tracing by passing a zero parameter.
+            The library flushes the output file, but retains an open file-
+            descriptor to the trace file so that it can resume tracing later
+            if a nonzero parameter is passed to the trace function.
+       TRACE_TIMES
+            trace user and system times of updates.
+       TRACE_TPUTS
+            trace tputs(3X) calls.
+       TRACE_UPDATE
+            trace update actions, old & new screens.
+       TRACE_MOVE
+            trace cursor movement and scrolling.
+       TRACE_CHARPUT
+            trace all character outputs.
+       TRACE_ORDINARY
+            trace all update actions.  The old and new screen contents are
+            written to the trace file for each refresh.
+       TRACE_CALLS
+            trace all curses calls.  The parameters for each call are
+            traced, as well as return values.
+       TRACE_VIRTPUT
+            trace virtual character puts, i.e., calls to addch.
+       TRACE_IEVENT
+            trace low-level input processing, including timeouts.
+       TRACE_BITS
+            trace state of TTY control bits.
+       TRACE_ICALLS
+            trace internal/nested calls.
+       TRACE_CCALLS
+            trace per-character calls.
+       TRACE_DATABASE
+            trace read/write of terminfo/termcap data.
+       TRACE_ATTRS
+            trace changes to video attributes and colors.
+       TRACE_MAXIMUM
+            maximum trace level, enables all of the separate trace features.
+       Some tracing features are enabled whenever the trace parameter is
+       nonzero.  Some features overlap.  The specific names are used as a
+       guideline.
+   Initialization
+       These functions check the NCURSES_TRACE environment variable, to set
+       the tracing feature as if trace was called:
+           filter, initscr, new_prescr, newterm, nofilter, restartterm,
+           ripoffline, setupterm, slk_init, tgetent, use_env,
+           use_extended_names, use_tioctl
+   Command-line Utilities
+       The  command-line  utilities  such as tic(1) provide a verbose option
+       which extends the set of messages written using the  trace  function.
+       Both  of  these  (-v  and trace) use the same variable (_nc_tracing),
+       which determines the messages which are written.
+       Because the command-line utilities may call initialization  functions
+       such  as  setupterm, tgetent or use_extended_names, some of their de‐
+       bugging output may be directed to the trace file if the NCURSES_TRACE
+       environment variable is set:
+       ·   messages  produced in the utility are written to the standard er‐
+           ror.
+       ·   messages produced by the underlying library are written to trace.
+       If ncurses is built without tracing, none of the latter are produced,
+       and fewer diagnostics are provided by the command-line utilities.

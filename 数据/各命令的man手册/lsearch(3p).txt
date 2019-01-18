@@ -1,0 +1,17 @@
+
+       The lsearch() function shall linearly search the table and return a
+       pointer into the table for the matching entry. If the entry does not
+       occur, it shall be added at the end of the table. The key argument
+       points to the entry to be sought in the table. The base argument
+       points to the first element in the table. The width argument is the
+       size of an element in bytes. The nelp argument points to an integer
+       containing the current number of elements in the table. The integer
+       to which nelp points shall be incremented if the entry is added to
+       the table. The compar argument points to a comparison function which
+       the application shall supply (for example, strcmp()).  It is called
+       with two arguments that point to the elements being compared. The
+       application shall ensure that the function returns 0 if the elements
+       are equal, and non-zero otherwise.
+       The lfind() function shall be equivalent to lsearch(), except that if
+       the entry is not found, it is not added to the table.  Instead, a
+       null pointer is returned.

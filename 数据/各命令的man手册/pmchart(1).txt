@@ -1,0 +1,101 @@
+
+       pmchart is a graphical utility that plots performance metrics values
+       available through the facilities of the Performance Co-Pilot (PCP).
+       Multiple charts can be displayed simultaneously, either aligned on
+       the unified time axis (X-axis), and through the use of multiple
+       interface Tabs.
+       Metric values can be sourced from one or more live hosts
+       (simultaneously).  Alternatively, one or more sets of PCP archives
+       can be used as a source of historical data.  See PCPIntro(1) for an
+       in-depth discussion of the capabilities of the PCP framework, many of
+       which are used by pmchart.
+       Many aspects of the behaviour of pmchart can be customised through
+       the interface.  In particular, the use of "views" (refer to the
+       section describing VIEWS later in this document) allows predefined
+       sets of metrics and charting parameters like colors, scaling, titles,
+       legends, and so on to be stored for later use, or use with different
+       hosts and sets of archives.  In addition, the Preferences dialog
+       allows customisations to the rest of the pmchart user interface to be
+       saved and restored between different invocations of the tool.  This
+       allows the default background color, highlight color, contents and
+       location of the toolbar, and many other aspects to be configured.
+       pmchart makes extensive use of the pmtime(1) utility for time
+       control, refer to the pmtime manual page for further details of its
+       operation.
+       Options which control the default source, timing and layout of the
+       pmchart window are as follows:
+       -a   Performance metric values are retrieved from the set of
+            Performance Co-Pilot (PCP) archive logs identified by this
+            option, by default. The argument is a comma-separated list of
+            names, each of which may be the base name of an archive or the
+            name of a directory containing one or more archives. The
+            resulting set of archives will be the source of the performance
+            metrics.  The initial Tab created will be an archive mode Tab.
+            Multiple -a options can be presented, and the resulting list of
+            sets of archives is used for sourcing metric values.  Any
+            sources listed on the command line are assumed to be sets of
+            archives if this option is used.
+       -c   configfile specifies an initial view to load, using the default
+            source of metrics.  Multiple -c views can be specified, and they
+            will all be opened in the default Tab with the default source of
+            metrics.
+       -C   Used with -c, the view(s) are parsed, any errors are reported,
+            and the tool exits.  This is primarily intended for testing
+            purposes.  If a second -C option is presented, pmchart also
+            connects to pmcd(1) to check the semantics of metrics.
+       -f   Specify the default font family to be used in several chart
+            components, such as the chart title, legend, and Y-axis label.
+            The default value is "Sans Serif".  This setting does not affect
+            the rest of the user interface, where the value is inherited
+            from the environment in which pmchart operates, and differs
+            according to the look-and-feel of each platform.
+       -F   Specify the default font point size to be used in several chart
+            components, such as the chart title, legend, and Y-axis label.
+            The default is platform dependent, but is either 7, 8 or 9.
+            This setting does not affect the rest of the user interface.
+       -g   Generate image with the specified geometry (width and height).
+            This option is only useful when used in conjunction with the -o
+            option for generating an output image.  The geometry argument
+            takes the form "WxH" (e.g. 240x120).  When NOT using the -o
+            flag, to specify the display window geometry, use -geometry
+            geometry where geometry specifies the desired window width,
+            height and optional placement.
+       -h   Current performance metric values are retrieved from the
+            nominated host machine by default.  Multiple -h options can be
+            presented, and the list of hosts is used for sourcing metric
+            values.  Any sources listed on the command line are assumed to
+            be hosts if this option is used.
+       -o   Generate an image file named outfile, and then exit.  This is
+            most useful when run with a set of archives and one or more
+            views.  The generated image will be in the format specified as
+            the file extension (automatically determined from outfile).  If
+            no extension can be determined, then the GIF format is used and
+            the generated file is named with this extension.  The supported
+            image file formats include: bmp, jpeg, jpg, png, ppm, tif, tiff,
+            xbm, and xpm.
+       -p   port number for connection to an existing pmtime time control
+            process.
+       -s   Specifies the number of samples that will be retained before
+            discarding old data (replaced by new values at the current time
+            position).  This value can subsequently be modified through the
+            Edit Tab dialog.
+       -t   Sets the inital update interval to something other than the
+            default 1 second.  The interval argument follows the syntax
+            described in PCPIntro(1), and in the simplest form may be an
+            unsigned integer (the implied units in this case are seconds).
+       -v   Sets the inital visible samples that will be displayed in all
+            charts in the default Tab.  This value must be less than or
+            equal to the total number of samples retained (the -s value).
+       -V   Display pmchart version number and exit
+       -W   Export images using an opaque(white) background
+       -Z   By default, pmtime reports the time of day according to the
+            local timezone on the system where pmchart is run.  The -Z
+            option changes the timezone to timezone in the format of the
+            environment variable TZ as described in environ(7).
+       -z   Change the reporting timezone to the local timezone at the host
+            that is the source of the performance metrics, as identified via
+            either the -h or -a options.
+       The -S, -T, -O and -A options may be used to define a time window to
+       restrict the samples retrieved, set an initial origin within the time
+       window, or specify a "natural" alignment of the sample  times;  refer
+       to PCPIntro(1) for a complete description of these options.

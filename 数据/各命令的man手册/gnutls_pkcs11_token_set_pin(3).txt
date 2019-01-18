@@ -1,0 +1,4 @@
+
+       This function will modify or set a user's PIN for the given token.
+       If it is called to set a user pin for first time the oldpin must be
+       NULL.

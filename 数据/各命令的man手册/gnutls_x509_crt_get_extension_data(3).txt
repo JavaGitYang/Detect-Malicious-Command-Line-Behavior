@@ -1,0 +1,8 @@
+
+       This function will return the requested extension data in the
+       certificate.  The extension data will be stored in the provided
+       buffer.
+       Use gnutls_x509_crt_get_extension_info() to extract the OID and
+       critical flag.  Use gnutls_x509_crt_get_extension_by_oid() instead,
+       if you want to get data indexed by the extension OID rather than
+       sequence.

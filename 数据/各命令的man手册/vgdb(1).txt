@@ -1,0 +1,12 @@
+
+       vgdb ("Valgrind to GDB") is used as an intermediary between Valgrind
+       and GDB or a shell. It has two usage modes:
+        1. As a standalone utility, it is used from a shell command line to
+           send monitor commands to a process running under Valgrind. For
+           this usage, the vgdb OPTION(s) must be followed by the monitor
+           command to send. To send more than one command, separate them
+           with the -c option.
+        2. In combination with GDB "target remote |" command, it is used as
+           the relay application between GDB and the Valgrind gdbserver. For
+           this usage, only OPTION(s) can be given, but no COMMAND can be
+           given.

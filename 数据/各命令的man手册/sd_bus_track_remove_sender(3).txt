@@ -1,0 +1,67 @@
+
+       sd_bus_track_add_name() adds a peer to track to a bus peer tracking
+       object. The first argument should refer to a bus peer tracking object
+       created with sd_bus_track_new(3), the second name should refer to a
+       D-Bus peer name to track, either in unique or well-known service
+       format. If the name is not tracked yet it will be added to the list
+       of names to track. If it already is being tracked and non-recursive
+       mode is enabled, no operation is executed by this call. If recursive
+       mode is enabled a per-name counter is increased by one each time this
+       call is invoked, and sd_bus_track_remove_name() has to be called as
+       many times as sd_bus_track_add_name() was invoked before in order to
+       stop tracking of the name. Use sd_bus_track_set_recursive(3) to
+       switch from the default non-recursive mode to recursive mode, or
+       back. Note that the specified name is tracked as it is, well-known
+       names are not resolved to unique names by this call. Note that
+       multiple bus peer tracking objects may track the same name.
+       sd_bus_track_remove_name() undoes the effect of
+       sd_bus_track_add_name() and removes a bus peer name from the list of
+       peers to watch. Depending on whether non-recursive or recursive mode
+       is enabled for the bus peer tracking object this call will either
+       remove the name fully from the tracking object, or will simply
+       decrement the per-name counter by one, removing the name only when
+       the counter reaches zero (see above). Note that a bus peer
+       disconnecting from the bus will implicitly remove its names fully
+       from the bus peer tracking object, regardless of the current per-name
+       counter.
+       sd_bus_track_add_sender() and sd_bus_track_remove_sender() are
+       similar to sd_bus_track_add_name() and sd_bus_track_remove_name() but
+       take a bus message as argument. The sender of this bus message is
+       determined and added to/removed from the bus peer tracking object. As
+       messages always originate from unique names, and never from
+       well-known names this means that this call will effectively only add
+       unique names to the bus peer tracking object.
+       sd_bus_track_count() returns the number of names currently being
+       tracked by the specified bus peer tracking object. Note that this
+       function always returns the actual number of names tracked, and hence
+       if sd_bus_track_add_name() has been invoked multiple times for the
+       same name it is only counted as one, regardless if recursive mode is
+       used or not.
+       sd_bus_track_count_name() returns the current per-name counter for
+       the specified name. If non-recursive mode is used this returns either
+       1 or 0, depending on whether the specified name has been added to the
+       tracking object before, or not. If recursive mode has been enabled,
+       values larger than 1 may be returned too, in case
+       sd_bus_track_add_name() has been called multiple times for the same
+       name.
+       sd_bus_track_count_sender() is similar to sd_bus_track_count_name(),
+       but takes a bus message object and returns the per-name counter
+       matching the sender of the message.
+       sd_bus_track_contains() may be used to determine whether the
+       specified name has been added at least once to the specified bus peer
+       tracking object.
+       sd_bus_track_first() and sd_bus_track_next() may be used to enumerate
+       all names currently being tracked by the passed bus peer tracking
+       object.  sd_bus_track_first() returns the first entry in the object,
+       and resets an internally maintained read index. Each subsequent
+       invocation of sd_bus_track_next() returns the next name contained in
+       the bus object. If the end is reached NULL is returned. If no names
+       have been added to the object yet sd_bus_track_first() will return
+       NULL immediately. The order in which names are returned is undefined;
+       in particular which name is considered the first returned is not
+       defined. If recursive mode is enabled and the same name has been
+       added multiple times to the bus peer tracking object it is only
+       returned once by this enumeration. If new names are added to or
+       existing names removed from the bus peer tracking object while it is
+       being enumerated the enumeration ends on the next invocation of
+       sd_bus_track_next() as NULL is returned.

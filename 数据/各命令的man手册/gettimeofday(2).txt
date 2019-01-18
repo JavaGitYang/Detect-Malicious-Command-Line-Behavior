@@ -1,0 +1,26 @@
+
+       The functions gettimeofday() and settimeofday() can get and set the
+       time as well as a timezone.  The tv argument is a struct timeval (as
+       specified in <sys/time.h>):
+           struct timeval {
+               time_t      tv_sec;     /* seconds */
+               suseconds_t tv_usec;    /* microseconds */
+           };
+       and gives the number of seconds and microseconds since the Epoch (see
+       time(2)).  The tz argument is a struct timezone:
+           struct timezone {
+               int tz_minuteswest;     /* minutes west of Greenwich */
+               int tz_dsttime;         /* type of DST correction */
+           };
+       If either tv or tz is NULL, the corresponding structure is not set or
+       returned.  (However, compilation warnings will result if tv is NULL.)
+       The use of the timezone structure is obsolete; the tz argument should
+       normally be specified as NULL.  (See NOTES below.)
+       Under Linux, there are some peculiar "warp clock" semantics associ‐
+       ated with the settimeofday() system call if on the very first call
+       (after booting) that has a non-NULL tz argument, the tv argument is
+       NULL and the tz_minuteswest field is nonzero.  (The tz_dsttime field
+       should be zero for this case.)  In such a case it is assumed that the
+       CMOS clock is on local time, and that it has to be incremented by
+       this amount to get UTC system time.  No doubt it is a bad idea to use
+       this feature.

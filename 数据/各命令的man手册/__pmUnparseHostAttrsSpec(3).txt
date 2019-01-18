@@ -1,0 +1,70 @@
+
+       __pmParseHostAttrsSpec accepts a string specifying the location of a
+       PCP performance metric collector daemon, and any attributes that
+       should be associated with the connection to that daemon.
+       The syntax allows the optional specification of a protocol (native
+       PCP protocol, encrypted PCP protocol or unix domain socket protocol).
+       If the specified protocol is native PCP protocol, or encrypted PCP
+       protocol, an initial pmcd(1) hostname with optional port numbers and
+       optional proxy host, and optional attributes which are to be
+       associated with the connection may be specified.  Some examples
+       follow:
+            pcp://nas1.servers.com:44321@firewalls.r.us?compress
+            pcps://nas1.servers.com?user=otto&pass=blotto&compress
+       If the specified protocol is a unix domain socket protocol, the path
+       to the socket in the local file system may be specified along with
+       optional attributes which are to be associated with the connection.
+       For example:
+            unix://$PCP_RUN_DIR/pmcd.socket:?compress
+            local://my/local/pmcd.socket:?user=otto&pass=blotto&compress
+       If the optional protocol component is not specified, then the default
+       setting will be used - which is the native PCP binary protocol.
+       However, this can still be overwritten via the environment as
+       described in PCPIntro(1).  If the protocol prefix is specified, it
+       must be one of either "pcp://" (clear), "pcps://" (secure,
+       encrypted), "unix://" (authenticated local) or "local://" ("unix://"
+       then "pcp://").
+       The path specified for the "unix://" and "local://" protocols will
+       always be interpreted as an absolute path name. For example, the
+       following are all interpreted identically as
+       $PCP_RUN_DIR/pmcd.socket.
+            unix://$PCP_RUN_DIR/pmcd.socket
+            unix:/$PCP_RUN_DIR/pmcd.socket
+            unix:$PCP_RUN_DIR/pmcd.socket
+       Refer to __pmParseHostSpec(3) for further details of the host and
+       proxy host components.
+       If any optional connection attributes are to be specified, these are
+       separated from the hostname component via the '?' character.  Each
+       attribute is separated by the '&' character, and each can be either a
+       simple attribute flag (such as "compress") or a name=value pair (such
+       as "username=fred").
+       __pmParseHostAttrsSpec takes a null-terminated host-and-attributes
+       specification string and returns an array of pmHostSpec structures,
+       where the array has count entries, and an attrs hash table containing
+       any attributes (including the optional protocol, if it was
+       specified).
+       Full details of the pmHostSpec structures are provided in
+       __pmParseHostSpec(3).
+       The __pmHashCtl structure that is filled out on return via
+       attributes, represents each individual attribute in the specification
+       string with any associated value.  It should be considered an opaque
+       structure and should be zeroed beforehand.
+       The returned hash table control structure can be iterated using one
+       of the supplied iteration mechanisms - __pmHashWalkCB (a callback-
+       based mechanism) or __pmHashWalk (a simple procedural mechanism).
+       These provide access to the individual hash nodes, as __pmHashNode
+       entries, which provide access to decoded attributes and their
+       (optional) values.
+           typedef struct __pmHashNode {
+               __pmHashNode    *next;    /* next node in hash bucket (internal) */
+               unsigned int    key;      /* key identifying particular attribute */
+               void            *data;    /* attributes value (optional, string) */
+           } __pmHashNode;
+       There are a set number of valid attributes, however these may be
+       extended in future releases as new connection parameters become
+       needed.  These can be identified via the PCP_ATTR_* macros in the PCP
+       header files.
+       __pmUnparseHostSpec performs the inverse operation, creating a string
+       representation from hosts and attributes structures.  The size of the
+       supplied string buffer must be provided by the caller using the size
+       parameter.

@@ -1,0 +1,4 @@
+
+       The function item_name returns the name part of the given item.
+       The function item_description returns the description part of the
+       given item.

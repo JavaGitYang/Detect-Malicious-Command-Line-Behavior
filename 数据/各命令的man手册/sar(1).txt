@@ -1,0 +1,61 @@
+
+       The sar command writes to standard output the contents of selected
+       cumulative activity counters in the operating system. The accounting
+       system, based on the values in the count and interval parameters,
+       writes information the specified number of times spaced at the
+       specified intervals in seconds.  If the interval parameter is set to
+       zero, the sar command displays the average statistics for the time
+       since the system was started. If the interval parameter is specified
+       without the count parameter, then reports are generated continuously.
+       The collected data can also be saved in the file specified by the -o
+       filename flag, in addition to being displayed onto the screen. If
+       filename is omitted, sar uses the standard system activity daily data
+       file (see below).  By default all the data available from the kernel
+       are saved in the data file.
+       The sar command extracts and writes to standard output records
+       previously saved in a file. This file can be either the one specified
+       by the -f flag or, by default, the standard system activity daily
+       data file.  It is also possible to enter -1, -2 etc. as an argument
+       to sar to display data of that days ago. For example, -1 will point
+       at the standard system activity file of yesterday.
+       Standard system activity daily data files are named saDD or
+       saYYYYMMDD, where YYYY stands for the current year, MM for the
+       current month and DD for the current day. They are the default files
+       used by sar only when no filename has been explicitly specified.
+       When used to write data to files (with its option -o), sar will use
+       saYYYYMMDD if option -D has also been specified, else it will use
+       saDD.  When used to display the records previously saved in a file,
+       sar will look for the most recent of saDD and saYYYYMMDD, and use it.
+       Standard system activity daily data files are located in the
+       /var/log/sa directory by default. Yet it is possible to specify an
+       alternate location for them: If a directory (instead of a plain file)
+       is used with options -f or -o then it will be considered as the
+       directory containing the data files.
+       Without the -P flag, the sar command reports system-wide (global
+       among all processors) statistics, which are calculated as averages
+       for values expressed as percentages, and as sums otherwise. If the -P
+       flag is given, the sar command reports activity which relates to the
+       specified processor or processors. If -P ALL is given, the sar
+       command reports statistics for each individual processor and global
+       statistics among all processors. Offline processors are not
+       displayed.
+       You can select information about specific system activities using
+       flags. Not specifying any flags selects only CPU activity.
+       Specifying the -A flag selects all possible activities.
+       The default version of the sar command (CPU utilization report) might
+       be one of the first facilities the user runs to begin system activity
+       investigation, because it monitors major system resources. If CPU
+       utilization is near 100 percent (user + nice + system), the workload
+       sampled is CPU-bound.
+       If multiple samples and multiple reports are desired, it is
+       convenient to specify an output file for the sar command.  Run the
+       sar command as a background process. The syntax for this is:
+       sar -o datafile interval count >/dev/null 2>&1 &
+       All data are captured in binary form and saved to a file (datafile).
+       The data can then be selectively displayed with the sar command using
+       the -f option. Set the interval and count parameters to select count
+       records at interval second intervals. If the count parameter is not
+       set, all the records saved in the file will be selected.  Collection
+       of data in this manner is useful to characterize system usage over a
+       period of time and determine peak usage hours.
+       Note:     The sar command only reports on local activities.

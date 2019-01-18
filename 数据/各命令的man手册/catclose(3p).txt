@@ -1,0 +1,4 @@
+
+       The catclose() function shall close the message catalog identified by
+       catd.  If a file descriptor is used to implement the type nl_catd,
+       that file descriptor shall be closed.

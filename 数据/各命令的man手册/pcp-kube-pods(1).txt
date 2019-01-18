@@ -1,0 +1,15 @@
+
+       pcp-kube-pods uses kubectl(1) to provide a list of IP addresses for
+       PODs running in a local Kubenetes cluster, that may be running PCP
+       services like pmcd(1) and pmproxy(1).
+       It is used by the pmfind(1) command and the pmDiscoverServices(3) API
+       as a ``shell'' command.
+       The script invokes the kubectl get pod command line (see
+       kubectl-get(1)) to discover IP addresses for pods.  The .status.podIP
+       output field is extracted from the Kubernetes pod object(s).
+       Additional options can be specified via configuration file, such as
+       -l service=database to restrict the results using Kubernetes pod
+       labels.  The default configuration file is
+       $PCP_SYSCONF_DIR/discover/pcp-kube-pods.conf
+       If no local kubectl command is found, nothing is reported and an exit
+       code indicating success is returned.

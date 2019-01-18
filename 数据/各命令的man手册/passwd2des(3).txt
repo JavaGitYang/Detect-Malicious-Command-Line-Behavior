@@ -1,0 +1,11 @@
+
+       The function passwd2des() takes a character string passwd of
+       arbitrary length and fills a character array key of length 8.  The
+       array key is suitable for use as DES key.  It has odd parity set in
+       bit 0 of each byte.  Both other functions described here use this
+       function to turn their argument passwd into a DES key.
+       The xencrypt() function takes the ASCII character string secret given
+       in hex, which must have a length that is a multiple of 16, encrypts
+       it using the DES key derived from passwd by passwd2des(), and outputs
+       the result again in secret as a hex string of the same length.
+       The xdecrypt() function performs the converse operation.

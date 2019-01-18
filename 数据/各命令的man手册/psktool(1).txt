@@ -1,0 +1,3 @@
+
+       Program  that generates random keys for use with TLS-PSK. The keys
+       are stored in hexadecimal format in a key file.

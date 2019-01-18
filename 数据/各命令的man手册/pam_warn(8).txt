@@ -1,0 +1,6 @@
+
+       pam_warn is a PAM module that logs the service, terminal, user,
+       remote user and remote host to syslog(3). The items are not probed
+       for, but instead obtained from the standard PAM items. The module
+       always returns PAM_IGNORE, indicating that it does not want to affect
+       the authentication process.

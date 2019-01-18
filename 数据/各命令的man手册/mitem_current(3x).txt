@@ -1,0 +1,11 @@
+
+       The function set_current_item sets the current item (the item on
+       which the menu cursor is positioned).  current_item returns a pointer
+       to the current item in the given menu.
+       The function set_top_row sets the top row of the menu to show the
+       given row (the top row is initially 0, and is reset to this value
+       whenever the O_ROWMAJOR option is toggled).  The item leftmost on the
+       given row becomes current.  The function top_row returns the number
+       of the top menu row being displayed.
+       The function item_index returns the (zero-origin) index of item in
+       the menu's item pointer list.

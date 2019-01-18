@@ -1,0 +1,4 @@
+
+       dpkg-parsechangelog reads and parses the changelog of an unpacked
+       Debian source tree and outputs the information in it to standard
+       output in a machine-readable form.

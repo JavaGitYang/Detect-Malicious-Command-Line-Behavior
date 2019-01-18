@@ -1,0 +1,11 @@
+
+       The default_type file contains entries that allow SELinux-aware
+       applications such as newrole(1) to select a default type for a role
+       if one is not supplied.
+       selinux_default_type_path(3) will return the active policy path to
+       this file. The default, default type file is:
+              /etc/selinux/{SELINUXTYPE}/contexts/default_type
+       Where {SELINUXTYPE} is the entry from the selinux configuration file
+       config (see selinux_config(5)).
+       get_default_type(3) reads this file to determine a type for the
+       active policy.

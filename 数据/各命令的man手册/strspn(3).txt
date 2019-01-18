@@ -1,0 +1,5 @@
+
+       The strspn() function calculates the length (in bytes) of the initial
+       segment of s which consists entirely of bytes in accept.
+       The strcspn() function calculates the length of the initial segment
+       of s which consists entirely of bytes not in reject.

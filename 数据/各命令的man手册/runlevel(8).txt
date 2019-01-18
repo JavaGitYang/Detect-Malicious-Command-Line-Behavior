@@ -1,0 +1,8 @@
+
+       runlevel prints the previous and current SysV runlevel if they are
+       known.
+       The two runlevel characters are separated by a single space
+       character. If a runlevel cannot be determined, N is printed instead.
+       If neither can be determined, the word "unknown" is printed.
+       Unless overridden in the environment, this will check the utmp
+       database for recent runlevel changes.

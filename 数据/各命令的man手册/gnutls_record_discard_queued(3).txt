@@ -1,0 +1,4 @@
+
+       This function discards all queued to be sent packets in a TLS or DTLS
+       session.  These are the packets queued after an interrupted
+       gnutls_record_send().

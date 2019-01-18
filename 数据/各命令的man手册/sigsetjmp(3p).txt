@@ -1,0 +1,8 @@
+
+       The sigsetjmp() function shall be equivalent to the setjmp()
+       function, except as follows:
+        *  References to setjmp() are equivalent to sigsetjmp().
+        *  References to longjmp() are equivalent to siglongjmp().
+        *  If the value of the savemask argument is not 0, sigsetjmp() shall
+           also save the current signal mask of the calling thread as part
+           of the calling environment.

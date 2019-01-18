@@ -1,0 +1,2 @@
+
+       This function will initialize a private key type.

@@ -1,0 +1,8 @@
+
+       This function will decrypt the given data using the algorithm
+       specified by the context. For block ciphers the  ctext_len must be a
+       multiple of the block size. For the supported ciphers the plaintext
+       data length will equal the ciphertext size.
+       Note that in AEAD ciphers, this will not check the tag. You will need
+       to compare the tag sent with the value returned from
+       gnutls_cipher_tag().

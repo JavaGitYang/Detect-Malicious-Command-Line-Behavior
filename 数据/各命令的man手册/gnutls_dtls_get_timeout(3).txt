@@ -1,0 +1,6 @@
+
+       This function will return the milliseconds remaining for a
+       retransmission of the previously sent handshake message. This
+       function is useful when DTLS is used in non-blocking mode, to
+       estimate when to call gnutls_handshake() if no packets have been
+       received.

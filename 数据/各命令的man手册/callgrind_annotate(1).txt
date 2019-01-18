@@ -1,0 +1,3 @@
+
+       callgrind_annotate takes an output file produced by the Valgrind tool
+       Callgrind and prints the information in an easy-to-read form.

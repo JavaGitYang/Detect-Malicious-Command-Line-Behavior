@@ -1,0 +1,26 @@
+
+       edquota is a quota editor.  One or more users, groups, or projects
+       may be specified on the command line. If a number is given in the
+       place of user/group/project name it is treated as an UID/GID/Project
+       ID. For each user, group, or project a temporary file is created with
+       an ASCII representation of the current disk quotas for that user,
+       group, or project and an editor is then invoked on the file.  The
+       quotas may then be modified, new quotas added, etc.  Setting a quota
+       to zero indicates that no quota should be imposed.
+       Block usage and limits are reported and interpreted as multiples of
+       kibibyte (1024 bytes) blocks by default. Symbols K, M, G, and T can
+       be appended to numeric value to express kibibytes, mebibytes,
+       gibibytes, and tebibytes.
+       Inode usage and limits are interpreted literally. Symbols k, m, g,
+       and t can be appended to numeric value to express multiples of 10^3,
+       10^6, 10^9, and 10^12 inodes.
+       Users are permitted to exceed their soft limits for a grace period
+       that may be specified per filesystem.  Once the grace period has
+       expired, the soft limit is enforced as a hard limit.
+       The current usage information in the file is for informational
+       purposes; only the hard and soft limits can be changed.
+       Upon leaving the editor, edquota reads the temporary file and
+       modifies the binary quota files to reflect the changes made.
+       The editor invoked is vi(1) unless either the EDITOR or the VISUAL
+       environment variable specifies otherwise.
+       Only the super-user may edit quotas.

@@ -1,0 +1,4 @@
+
+       These functions calculate the complex cosine of z.
+       The complex cosine function is defined as:
+           ccos(z) = (exp(i * z) + exp(-i * z)) / 2

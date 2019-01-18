@@ -1,0 +1,25 @@
+
+       This utility shall be provided on systems that both support the User
+       Portability Utilities option and define the POSIX2_CHAR_TERM symbol.
+       On other systems it is optional.
+       The vi (visual) utility is a screen-oriented text editor. Only the
+       open and visual modes of the editor are described in POSIX.1‐2008;
+       see the line editor ex for additional editing capabilities used in
+       vi.  The user can switch back and forth between vi and ex and execute
+       ex commands from within vi.
+       This reference page uses the term edit buffer to describe the current
+       working text. No specific implementation is implied by this term. All
+       editing changes are performed on the edit buffer, and no changes to
+       it shall affect any file until an editor command writes the file.
+       When using vi, the terminal screen acts as a window into the editing
+       buffer. Changes made to the editing buffer shall be reflected in the
+       screen display; the position of the cursor on the screen shall
+       indicate the position within the editing buffer.
+       Certain terminals do not have all the capabilities necessary to
+       support the complete vi definition. When these commands cannot be
+       supported on such terminals, this condition shall not produce an
+       error message such as ``not an editor command'' or report a syntax
+       error. The implementation may either accept the commands and produce
+       results on the screen that are the result of an unsuccessful attempt
+       to meet the requirements of this volume of POSIX.1‐2008 or report an
+       error describing the terminal-related deficiency.

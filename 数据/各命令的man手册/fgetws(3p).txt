@@ -1,0 +1,19 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The fgetws() function shall read characters from the stream, convert
+       these to the corresponding wide-character codes, place them in the
+       wchar_t array pointed to by ws, until n−1 characters are read, or a
+       <newline> is read, converted, and transferred to ws, or an end-of-
+       file condition is encountered. The wide-character string, ws, shall
+       then be terminated with a null wide-character code.
+       If an error occurs, the resulting value of the file position
+       indicator for the stream is unspecified.
+       The fgetws() function may mark the last data access timestamp of the
+       file associated with stream for update. The last data access
+       timestamp shall be marked for update by the first successful
+       execution of fgetwc(), fgetws(), fwscanf(), getwc(), getwchar(),
+       vfwscanf(), vwscanf(), or wscanf() using stream that returns data not
+       supplied by a prior call to ungetwc().

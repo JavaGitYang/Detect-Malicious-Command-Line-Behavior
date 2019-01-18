@@ -1,0 +1,14 @@
+
+       C2C stands for Cache To Cache.
+       The perf c2c tool provides means for Shared Data C2C/HITM analysis.
+       It allows you to track down the cacheline contentions.
+       The tool is based on x86’s load latency and precise store facility
+       events provided by Intel CPUs. These events provide: - memory address
+       of the access - type of the access (load and store details) - latency
+       (in cycles) of the load access
+       The c2c tool provide means to record this data and report back access
+       details for cachelines with highest contention - highest number of
+       HITM accesses.
+       The basic workflow with this tool follows the standard record/report
+       phase. User uses the record command to record events data and report
+       command to display it.

@@ -1,0 +1,8 @@
+
+       re_comp() is used to compile the null-terminated regular expression
+       pointed to by regex.  The compiled pattern occupies a static area,
+       the pattern buffer, which is overwritten by subsequent use of
+       re_comp().  If regex is NULL, no operation is performed and the
+       pattern buffer's contents are not altered.
+       re_exec() is used to assess whether the null-terminated string
+       pointed to by string matches the previously compiled regex.

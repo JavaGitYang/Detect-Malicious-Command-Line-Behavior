@@ -1,0 +1,13 @@
+
+       The genl utility provides a simple frontend to the generic netlink
+       library. Although it's designed to support multiple OBJECTs, for now
+       only the ctrl object is available, which is used to query the generic
+       netlink controller.
+   ctrl
+       The generic netlink controller can be queried in various ways:
+       help   This command just prints a help text for the ctrl object.
+       list   Show the registered netlink users.
+       monitor
+              Listen for generic netlink notifications.
+       get    Query the controller for a given user, identified either by
+              name or id.

@@ -1,0 +1,23 @@
+
+       This is an extension to the curses library.  It provides callers with
+       a hook into the ncurses data to resize windows, primarily for use by
+       programs running in an X Window terminal (e.g., xterm).
+   resizeterm
+       The function resizeterm resizes the standard and current windows to
+       the specified dimensions, and adjusts other bookkeeping data used by
+       the ncurses library that record the window dimensions such as the
+       LINES and COLS variables.
+   resize_term
+       Most of the work is done by the inner function resize_term.  The
+       outer function resizeterm adds bookkeeping for the SIGWINCH handler.
+       When resizing the windows, resize_term blank-fills the areas that are
+       extended.  The calling application should fill in these areas with
+       appropriate data.  The resize_term function attempts to resize all
+       windows.  However, due to the calling convention of pads, it is not
+       possible to resize these without additional interaction with the
+       application.
+   is_term_resized
+       A support function is_term_resized is provided so that applications
+       can check if the resize_term function would modify the window
+       structures.  It returns TRUE if the windows would be modified, and
+       FALSE otherwise.

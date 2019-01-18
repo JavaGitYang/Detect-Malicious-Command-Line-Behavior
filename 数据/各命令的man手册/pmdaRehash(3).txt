@@ -1,0 +1,21 @@
+
+       pmdaInit initializes a PMDA so that it is ready to receive PDUs from
+       pmcd(1).  The function expects as arguments the instance domain table
+       (indoms) and the metric description table (metrics) that are
+       initialized by the PMDA. The arguments nindoms and nmetrics should be
+       set to the number of instances and metrics in the tables,
+       respectively.
+       Much of the pmdaInterface structure can be automatically initialized
+       with pmdaDaemon(3), pmdaGetOpt(3) and pmdaDSO(3).  pmdaInit completes
+       the PMDA initialization phase with three operations.  The first
+       operation adds the domain and instance numbers to the instance and
+       metric tables.  Singular metrics (metrics without an instance domain)
+       should have the instance domain PM_INDOM_NULL set in the indom field
+       of the pmDesc structure (see pmLookupDesc(3)).  Metrics with an
+       instance domain should set this field to be the serial number of the
+       instance domain in the indoms table.
+       The instance domain table may be made empty by setting indoms to NULL
+       and nindoms to 0.  This allows the caller to provide custom Fetch and
+       Instance callback functions.  The metric table may be made empty by
+       setting metrics to NULL and nmetrics to 0.  This allows the caller to
+       provide custom Fetch and Descriptor callback functions.

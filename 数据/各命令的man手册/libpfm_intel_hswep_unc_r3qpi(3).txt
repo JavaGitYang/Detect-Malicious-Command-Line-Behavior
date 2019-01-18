@@ -1,0 +1,3 @@
+
+       The library supports the Intel Haswell R3QPI uncore PMU.  This PMU
+       model only exists on Haswell model 63.

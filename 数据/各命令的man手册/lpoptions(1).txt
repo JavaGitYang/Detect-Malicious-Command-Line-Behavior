@@ -1,0 +1,12 @@
+
+       lpoptions displays or sets printer options and defaults.  If no
+       printer is specified using the -p option, the default printer is used
+       as described in lp(1).
+       If no -l, -o, or -r options are specified, the current options are
+       reported on the standard output.
+       Options set with the lpoptions command are used by the lp(1) and
+       lpr(1) commands when submitting jobs.
+       When run by the root user, lpoptions gets and sets default options
+       and instances for all users in the /etc/cups/lpoptions file.
+       Otherwise, the per-user defaults are managed in the ~/.cups/lpoptions
+       file.

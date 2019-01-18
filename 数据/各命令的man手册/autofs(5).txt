@@ -1,0 +1,13 @@
+
+       The automounter maps are FILE, NIS, NISPLUS or LDAP (including LDAP
+       via SSS) referred to by the master map of the automounter (see
+       auto.master(5)).  These maps describe how file systems below the
+       mount point of the map (given in the master map) are to be mounted.
+       This page describes the sun map format; if another map format, other
+       than amd , is specified (e.g. hesiod), this documentation does not
+       apply.
+       Indirect maps, except for the internal hosts map, can be changed on
+       the fly and the automouter will recognize those changes on the next
+       operation it performs on that map. Direct maps require a HUP signal
+       be sent to the daemon to refresh their contents as does the master
+       map.

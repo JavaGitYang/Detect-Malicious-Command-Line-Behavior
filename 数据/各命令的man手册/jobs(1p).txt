@@ -1,0 +1,7 @@
+
+       The jobs utility shall display the status of jobs that were started
+       in the current shell environment; see Section 2.12, Shell Execution
+       Environment.
+       When jobs reports the termination status of a job, the shell shall
+       remove its process ID from the list of those ``known in the current
+       shell execution environment''; see Section 2.9.3.1, Examples.

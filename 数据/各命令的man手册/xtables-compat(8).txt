@@ -1,0 +1,15 @@
+
+       xtables-compat is set of tools to help the system administrator
+       migrate the ruleset from iptables(8), ip6tables(8), arptables(8), and
+       ebtables(8) to nftables(8).
+       The xtables-compat set is composed of several commands:
+       · iptables-compat
+       · iptables-compat-save
+       · iptables-compat-restore
+       · ip6tables-compat
+       · ip6tables-compat-save
+       · ip6tables-compat-restore
+       · arptables-compat
+       · ebtables-compat
+         These tools use the libxtables framework extensions and hook to the
+         nf_tables kernel subsystem using the nft_compat module.

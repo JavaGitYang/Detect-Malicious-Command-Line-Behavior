@@ -1,0 +1,7 @@
+
+       The wctob() function tests whether the multibyte representation of
+       the wide character c, starting in the initial state, consists of a
+       single byte.  If so, it is returned as an unsigned char.
+       Never use this function.  It cannot help you in writing
+       internationalized programs.  Internationalized programs must never
+       distinguish single-byte and multibyte characters.

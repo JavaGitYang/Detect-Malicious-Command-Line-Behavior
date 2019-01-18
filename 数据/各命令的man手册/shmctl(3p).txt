@@ -1,0 +1,35 @@
+
+       The shmctl() function operates on XSI shared memory (see the Base
+       Definitions volume of POSIX.1‐2008, Section 3.342, Shared Memory
+       Object).  It is unspecified whether this function interoperates with
+       the realtime interprocess communication facilities defined in Section
+       2.8, Realtime.
+       The shmctl() function provides a variety of shared memory control
+       operations as specified by cmd.  The following values for cmd are
+       available:
+       IPC_STAT    Place the current value of each member of the shmid_ds
+                   data structure associated with shmid into the structure
+                   pointed to by buf.  The contents of the structure are
+                   defined in <sys/shm.h>.
+       IPC_SET     Set the value of the following members of the shmid_ds
+                   data structure associated with shmid to the corresponding
+                   value found in the structure pointed to by buf:
+                       shm_perm.uid
+                       shm_perm.gid
+                       shm_perm.mode    Low-order nine bits.
+                   Also, the shm_ctime timestamp shall be set to the current
+                   time, as described in Section 2.7.1, IPC General
+                   Description.
+                   IPC_SET can only be executed by a process that has an
+                   effective user ID equal to either that of a process with
+                   appropriate privileges or to the value of shm_perm.cuid
+                   or shm_perm.uid in the shmid_ds data structure associated
+                   with shmid.
+       IPC_RMID    Remove the shared memory identifier specified by shmid
+                   from the system and destroy the shared memory segment and
+                   shmid_ds data structure associated with it. IPC_RMID can
+                   only be executed by a process that has an effective user
+                   ID equal to either that of a process with appropriate
+                   privileges or to the value of shm_perm.cuid or
+                   shm_perm.uid in the shmid_ds data structure associated
+                   with shmid.

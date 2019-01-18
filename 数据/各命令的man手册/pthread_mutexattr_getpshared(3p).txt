@@ -1,0 +1,20 @@
+
+       The pthread_mutexattr_getpshared() function shall obtain the value of
+       the process-shared attribute from the attributes object referenced by
+       attr.
+       The pthread_mutexattr_setpshared() function shall set the process-
+       shared attribute in an initialized attributes object referenced by
+       attr.
+       The process-shared attribute is set to PTHREAD_PROCESS_SHARED to
+       permit a mutex to be operated upon by any thread that has access to
+       the memory where the mutex is allocated, even if the mutex is
+       allocated in memory that is shared by multiple processes. If the
+       process-shared attribute is PTHREAD_PROCESS_PRIVATE, the mutex shall
+       only be operated upon by threads created within the same process as
+       the thread that initialized the mutex; if threads of differing
+       processes attempt to operate on such a mutex, the behavior is
+       undefined. The default value of the attribute shall be
+       PTHREAD_PROCESS_PRIVATE.
+       The behavior is undefined if the value specified by the attr argument
+       to pthread_mutexattr_getpshared() or pthread_mutexattr_setpshared()
+       does not refer to an initialized mutex attributes object.

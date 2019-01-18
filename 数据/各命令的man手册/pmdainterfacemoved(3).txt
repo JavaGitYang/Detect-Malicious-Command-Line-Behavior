@@ -1,0 +1,9 @@
+
+       After a call to either pmdaDaemon(3) or pmdaDSO(3) to initialize the
+       pmdaInterface structure, if the caller needs to relocate or move the
+       structure for any reason then pmdaInterfaceMoved needs to be called
+       with the new base address of the pmdaInterface routine as specified
+       by dispatch.
+       pmdaInterfaceMoved will re-establish the internal integrity of the
+       pmdaInterface structure at the new location before any other routine
+       in libpcp_pmda called.

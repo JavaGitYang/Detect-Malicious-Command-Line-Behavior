@@ -1,0 +1,6 @@
+
+       matchmediacon() matches the specified media type with the media
+       contexts configuration and sets the security context con to refer to
+       the resulting context.
+       Note: Caller must free returned security context con using
+       freecon(3).

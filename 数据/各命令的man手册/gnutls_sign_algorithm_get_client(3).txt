@@ -1,0 +1,4 @@
+
+       Returns the signature algorithm that is (or will be) used in this
+       session by the client to sign data. This function should be used only
+       with TLS 1.2 or later.

@@ -1,0 +1,8 @@
+
+       This function will return the requested attribute OID in the
+       certificate, and the critical flag for it.  The attribute OID will be
+       stored as a string in the provided buffer.  Use
+       gnutls_x509_crq_get_attribute_data() to extract the data.
+       If the buffer provided is not long enough to hold the output, then *
+       sizeof_oid is updated and GNUTLS_E_SHORT_MEMORY_BUFFER will be
+       returned.

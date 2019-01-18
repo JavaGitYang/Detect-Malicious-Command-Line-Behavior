@@ -1,0 +1,3 @@
+
+       Use sepolicy gui to run a the graphical user interface, which allows
+       you to explore how SELinux confines different process domains.

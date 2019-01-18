@@ -1,0 +1,11 @@
+
+       This function will export the private key to a PKCS8 structure.  Both
+       RSA and DSA keys can be exported. For DSA keys we use PKCS 11
+       definitions. If the flags do not specify the encryption cipher, then
+       the default 3DES (PBES2) will be used.
+       The  password can be either ASCII or UTF-8 in the default PBES2
+       encryption schemas, or ASCII for the PKCS12 schemas.
+       The output buffer is allocated using gnutls_malloc().
+       If the structure is PEM encoded, it will have a header of "BEGIN
+       ENCRYPTED PRIVATE KEY" or "BEGIN PRIVATE KEY" if encryption is not
+       used.

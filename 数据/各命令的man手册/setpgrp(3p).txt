@@ -1,0 +1,7 @@
+
+       If the calling process is not already a session leader, setpgrp()
+       sets the process group ID of the calling process to the process ID of
+       the calling process. If setpgrp() creates a new session, then the new
+       session has no controlling terminal.
+       The setpgrp() function has no effect when the calling process is a
+       session leader.

@@ -1,0 +1,5 @@
+
+       vgdisplay shows the attributes of VGs, and the associated PVs and
+       LVs.
+       vgs(8) is a preferred alternative that shows the same information and
+       more, using a more compact and configurable output format.

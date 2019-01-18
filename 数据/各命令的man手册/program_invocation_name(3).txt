@@ -1,0 +1,11 @@
+
+       program_invocation_name contains the name that was used to invoke the
+       calling program.  This is the same as the value of argv[0] in main(),
+       with the difference that the scope of program_invocation_name is
+       global.
+       program_invocation_short_name contains the basename component of name
+       that was used to invoke the calling program.  That is, it is the same
+       value as program_invocation_name, with all text up to and including
+       the final slash (/), if any, removed.
+       These variables are automatically initialized by the glibc run-time
+       startup code.

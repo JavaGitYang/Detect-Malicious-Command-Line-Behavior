@@ -1,0 +1,8 @@
+
+       dh_installemacsen is a debhelper program that is responsible for
+       installing files used by the Debian emacsen-common package into
+       package build directories.
+       It also automatically generates the preinst postinst and prerm
+       commands needed to register a package as an Emacs add on package. The
+       commands are added to the maintainer scripts by dh_installdeb. See
+       dh_installdeb(1) for an explanation of how this works.

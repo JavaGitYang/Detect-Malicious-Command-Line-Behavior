@@ -1,0 +1,13 @@
+
+       pmdajson is a Performance Metrics Domain Agent (PMDA) which exports
+       metrics from arbitrary sources generating JavaScript Object Notation
+       (JSON) syntax.
+       At least one pair of JSON inputs are required for pmdajson to provide
+       metrics for PCP clients; one describing metric metadata and one
+       containing metric values data.  Metadata is read once from a file at
+       PMDA startup while the data is read every time a request for metric
+       values is made by a PCP client.  The data is read either from a JSON
+       file or an external command generating JSON output.  More than one
+       pair of JSON inputs can be used to support arbitrary number of metric
+       sources in different configured directories.
+       The overall JSON format description is at http://www.json.org/.

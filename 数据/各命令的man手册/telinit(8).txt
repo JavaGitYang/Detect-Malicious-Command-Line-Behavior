@@ -1,0 +1,4 @@
+
+       telinit may be used to change the SysV system runlevel. Since the
+       concept of SysV runlevels is obsolete the runlevel requests will be
+       transparently translated into systemd unit activation requests.

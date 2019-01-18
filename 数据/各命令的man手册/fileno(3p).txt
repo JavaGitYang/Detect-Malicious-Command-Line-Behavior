@@ -1,0 +1,3 @@
+
+       The fileno() function shall return the integer file descriptor
+       associated with the stream pointed to by stream.

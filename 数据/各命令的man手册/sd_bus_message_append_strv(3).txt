@@ -1,0 +1,11 @@
+
+       The sd_bus_message_append function can be used to append an array of
+       strings to message m. The parameter l shall point to a
+       NULL-terminated array of pointers to NUL-terminated strings. Each
+       string must satisfy the same constraints as described for the "s"
+       type in sd_bus_message_append_basic(3).
+       The memory pointed at by p and the contents of the strings themselves
+       are copied into the memory area containing the message and may be
+       changed after this call. Note that the signature of l parameter is to
+       be treated as const char *const *, and the contents will not be
+       modified.

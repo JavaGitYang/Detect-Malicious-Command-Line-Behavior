@@ -1,0 +1,32 @@
+
+       The pthread_spin_destroy() function shall destroy the spin lock
+       referenced by lock and release any resources used by the lock. The
+       effect of subsequent use of the lock is undefined until the lock is
+       reinitialized by another call to pthread_spin_init().  The results
+       are undefined if pthread_spin_destroy() is called when a thread holds
+       the lock, or if this function is called with an uninitialized thread
+       spin lock.
+       The pthread_spin_init() function shall allocate any resources
+       required to use the spin lock referenced by lock and initialize the
+       lock to an unlocked state.
+       If the Thread Process-Shared Synchronization option is supported and
+       the value of pshared is PTHREAD_PROCESS_SHARED, the implementation
+       shall permit the spin lock to be operated upon by any thread that has
+       access to the memory where the spin lock is allocated, even if it is
+       allocated in memory that is shared by multiple processes.
+       If the Thread Process-Shared Synchronization option is supported and
+       the value of pshared is PTHREAD_PROCESS_PRIVATE, or if the option is
+       not supported, the spin lock shall only be operated upon by threads
+       created within the same process as the thread that initialized the
+       spin lock. If threads of differing processes attempt to operate on
+       such a spin lock, the behavior is undefined.
+       The results are undefined if pthread_spin_init() is called specifying
+       an already initialized spin lock. The results are undefined if a spin
+       lock is used without first being initialized.
+       If the pthread_spin_init() function fails, the lock is not
+       initialized and the contents of lock are undefined.
+       Only the object referenced by lock may be used for performing
+       synchronization.
+       The result of referring to copies of that object in calls to
+       pthread_spin_destroy(), pthread_spin_lock(), pthread_spin_trylock(),
+       or pthread_spin_unlock() is undefined.

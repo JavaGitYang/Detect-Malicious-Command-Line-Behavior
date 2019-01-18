@@ -1,0 +1,3 @@
+
+       Verifies the connectivity and validity of the objects in the
+       database.

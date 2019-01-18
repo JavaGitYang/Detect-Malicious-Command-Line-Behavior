@@ -1,0 +1,2 @@
+
+       Returns the number of discarded packets in a DTLS connection.

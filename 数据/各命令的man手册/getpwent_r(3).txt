@@ -1,0 +1,26 @@
+
+       The functions getpwent_r() and fgetpwent_r() are the reentrant
+       versions of getpwent(3) and fgetpwent(3).  The former reads the next
+       passwd entry from the stream initialized by setpwent(3).  The latter
+       reads the next passwd entry from stream.
+       The passwd structure is defined in <pwd.h> as follows:
+           struct passwd {
+               char    *pw_name;      /* username */
+               char    *pw_passwd;    /* user password */
+               uid_t    pw_uid;       /* user ID */
+               gid_t    pw_gid;       /* group ID */
+               char    *pw_gecos;     /* user information */
+               char    *pw_dir;       /* home directory */
+               char    *pw_shell;     /* shell program */
+           };
+       For more information about the fields of this structure, see
+       passwd(5).
+       The nonreentrant functions return a pointer to static storage, where
+       this static storage contains further pointers to user name, password,
+       gecos field, home directory and shell.  The reentrant functions
+       described here return all of that in caller-provided buffers.  First
+       of all there is the buffer pwbuf that can hold a struct passwd.  And
+       next the buffer buf of size buflen that can hold additional strings.
+       The result of these functions, the struct passwd read from the
+       stream, is stored in the provided buffer *pwbuf, and a pointer to
+       this struct passwd is returned in *pwbufp.

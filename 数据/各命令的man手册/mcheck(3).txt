@@ -1,0 +1,39 @@
+
+       The mcheck() function installs a set of debugging hooks for the
+       malloc(3) family of memory-allocation functions.  These hooks cause
+       certain consistency checks to be performed on the state of the heap.
+       The checks can detect application errors such as freeing a block of
+       memory more than once or corrupting the bookkeeping data structures
+       that immediately precede a block of allocated memory.
+       To be effective, the mcheck() function must be called before the
+       first call to malloc(3) or a related function.  In cases where this
+       is difficult to ensure, linking the program with -lmcheck inserts an
+       implicit call to mcheck() (with a NULL argument) before the first
+       call to a memory-allocation function.
+       The mcheck_pedantic() function is similar to mcheck(), but performs
+       checks on all allocated blocks whenever one of the memory-allocation
+       functions is called.  This can be very slow!
+       The mcheck_check_all() function causes an immediate check on all
+       allocated blocks.  This call is effective only if mcheck() is called
+       beforehand.
+       If the system detects an inconsistency in the heap, the caller-
+       supplied function pointed to by abortfunc is invoked with a single
+       argument, mstatus, that indicates what type of inconsistency was
+       detected.  If abortfunc is NULL, a default function prints an error
+       message on stderr and calls abort(3).
+       The mprobe() function performs a consistency check on the block of
+       allocated memory pointed to by ptr.  The mcheck() function should be
+       called beforehand (otherwise mprobe() returns MCHECK_DISABLED).
+       The following list describes the values returned by mprobe() or
+       passed as the mstatus argument when abortfunc is invoked:
+       MCHECK_DISABLED (mprobe() only)
+              mcheck() was not called before the first memory allocation
+              function was called.  Consistency checking is not possible.
+       MCHECK_OK (mprobe() only)
+              No inconsistency detected.
+       MCHECK_HEAD
+              Memory preceding an allocated block was clobbered.
+       MCHECK_TAIL
+              Memory following an allocated block was clobbered.
+       MCHECK_FREE
+              A block of memory was freed twice.

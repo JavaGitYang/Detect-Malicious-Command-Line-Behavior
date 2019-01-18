@@ -1,0 +1,43 @@
+
+       The aio_read() function shall read aiocbp->aio_nbytes from the file
+       associated with aiocbp->aio_fildes into the buffer pointed to by
+       aiocbp->aio_buf. The function call shall return when the read request
+       has been initiated or queued to the file or device (even when the
+       data cannot be delivered immediately).
+       If prioritized I/O is supported for this file, then the asynchronous
+       operation shall be submitted at a priority equal to a base scheduling
+       priority minus aiocbp->aio_reqprio. If Thread Execution Scheduling is
+       not supported, then the base scheduling priority is that of the
+       calling process;
+       otherwise, the base scheduling priority is that of the calling
+       thread.
+       The aiocbp value may be used as an argument to aio_error() and
+       aio_return() in order to determine the error status and return
+       status, respectively, of the asynchronous operation while it is
+       proceeding. If an error condition is encountered during queuing, the
+       function call shall return without having initiated or queued the
+       request. The requested operation takes place at the absolute position
+       in the file as given by aio_offset, as if lseek() were called
+       immediately prior to the operation with an offset equal to aio_offset
+       and a whence equal to SEEK_SET.  After a successful call to enqueue
+       an asynchronous I/O operation, the value of the file offset for the
+       file is unspecified.
+       The aio_sigevent member specifies the notification which occurs when
+       the request is completed.
+       The aiocbp->aio_lio_opcode field shall be ignored by aio_read().
+       The aiocbp argument points to an aiocb structure. If the buffer
+       pointed to by aiocbp->aio_buf or the control block pointed to by
+       aiocbp becomes an illegal address prior to asynchronous I/O
+       completion, then the behavior is undefined.
+       Simultaneous asynchronous operations using the same aiocbp produce
+       undefined results.
+       If synchronized I/O is enabled on the file associated with
+       aiocbp->aio_fildes, the behavior of this function shall be according
+       to the definitions of synchronized I/O data integrity completion and
+       synchronized I/O file integrity completion.
+       For any system action that changes the process memory space while an
+       asynchronous I/O is outstanding to the address range being changed,
+       the result of that action is undefined.
+       For regular files, no data transfer shall occur past the offset
+       maximum established in the open file description associated with
+       aiocbp->aio_fildes.

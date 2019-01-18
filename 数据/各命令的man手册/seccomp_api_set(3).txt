@@ -1,0 +1,18 @@
+
+       The seccomp_api_get() function returns an integer representing the
+       functionality ("API level") provided by the current running kernel.
+       It is important to note that while seccomp_api_get() can be called
+       multiple times, the kernel is only probed the first time to see what
+       functionality is supported, all following calls to seccomp_api_get()
+       return a cached value.
+       The seccomp_api_set() function allows callers to force the API level
+       to the provided value; however, this is almost always a bad idea and
+       use of this function is strongly discouraged.
+       The different API level values are described below:
+       0      Reserved value, not currently used.
+       1      Base level support.
+       2      The SCMP_FLTATR_CTL_TSYNC filter attribute is supported and
+              libseccomp uses the seccomp(2) syscall to load the seccomp
+              filter into the kernel.
+       3      The SCMP_FLTATR_CTL_LOG filter attribute and the SCMP_ACT_LOG
+              action are supported.

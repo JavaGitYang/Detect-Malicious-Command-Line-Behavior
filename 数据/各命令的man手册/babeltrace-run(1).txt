@@ -1,0 +1,149 @@
+
+       The run command creates a trace processing graph and runs it.
+       See babeltrace-intro(7) to learn more about the Babeltrace project
+       and its core concepts.
+       The run command uses libbabeltrace to dynamically load plugins which
+       supply component classes. With the run command, you specify which
+       component classes to instantiate as components and how they must be
+       connected.
+       The steps to write a babeltrace run command line are:
+        1. Specify which component classes to instantiate as components and
+           how. This is the COMPONENTS part of the synopsis. See Create
+           components to learn more.
+        2. Specify how to connect component instances together with one or
+           more --connect options. See Connect components to learn more.
+           Note
+           The babeltrace-convert(1) command is a specialization of the run
+           command for the very common case of converting one or more
+           traces: it generates a run command line and executes it. You can
+           use its --run-args or --run-args-0 option to make it print the
+           equivalent run command line instead.
+   Create components
+       To create a component, use the --component option. This option
+       specifies:
+       ·   Optional: The name of the component instance. You can also use
+           the --name option for this.
+       ·   The type of the component class to instantiate: source, filter,
+           or sink.
+       ·   The name of the plugin in which to find the component class to
+           instantiate.
+       ·   The name of the component class to instantiate.
+       You can use the --component option multiple times to create multiple
+       components. You can instantiate the same component class multiple
+       times as different component instances.
+       At any point in the command line, the --base-params sets the current
+       base initialization parameters and the --reset-base-params resets
+       them. When you specify a --component option, its initial
+       initialization parameters are a copy of the current base
+       initialization parameters.
+       Immediately following a --component option on the command line, the
+       created component is known as the current component (until the next
+       --component option).
+       The following, optional command-line options apply to the current
+       component:
+       --name=NAME
+           Set the name of the current component to NAME.
+       --params=PARAMS
+           Add PARAMS to the initialization parameters of the current
+           component. If PARAMS contains a key which exists in the current
+           component’s initialization parameters, this parameter is
+           replaced.
+           See Parameters format for the format of PARAMS.
+       --key=KEY followed with --value=VALUE
+           Set the current component’s initialization parameter named KEY to
+           the string value VALUE. If KEY exists in the current component’s
+           initialization parameters, the parameter is replaced.
+   Connect components
+       The components which you create from component classes with the
+       --component option (see Create components) can create input and
+       output ports depending on their type. An output port is where
+       notifications, like trace events, are sent. An input port is where
+       notifications are received. For a given component instance, each port
+       has a unique name.
+       The purpose of the run command is to create a trace processing graph,
+       that is, to know which component ports to connect together. The
+       command achieves this with the help of the connection rules that you
+       provide with the --connect option.
+       The format of a connection rule (the argument of the --connect
+       option) is:
+           UP-COMP-PAT[.UP-PORT-PAT]:DOWN-COMP-PAT[.DOWN-PORT-PAT]
+       UP-COMP-PATH
+           Upstream component name pattern.
+       UP-PORT-PAT
+           Upstream port name pattern.
+       DOWN-COMP-PATH
+           Downstream component name pattern.
+       DOWN-PORT-PAT
+           Downstream port name pattern.
+       When a source or filter component adds a new output port within the
+       processing graph, the run command does the following to find an input
+       port to connect it to:
+           For each connection rule:
+             If the output port's component's name matches UP-COMP-PAT and
+             the output port's name matches UP-PORT-PAT:
+               For each component COMP in the processing graph:
+                 If the name of COMP matches DOWN-COMP-PAT:
+                   Select the first input port of COMP of which the name
+                   matches DOWN-PORT-PAT, or fail with no match.
+           Fail with no match.
+       UP-COMP-PAT, UP-PORT-PAT, DOWN-COMP-PAT, and DOWN-PORT-PAT are
+       globbing patterns where only the wildcard character, *, is special:
+       it matches zero or more characters. You must escape the *, ?, [, .,
+       :, and \ characters with \.
+       When you do not specify UP-PORT-PAT or DOWN-PORT-PAT, they are
+       equivalent to *.
+       You can leverage this connection mechanism to specify fallbacks with
+       a careful use of wildcards. For example:
+           --connect='A.out*:B.in*' --connect=A:B --connect='*:C'
+       With those connection rules:
+       ·   Any output port of which the name starts with out of component A
+           is connected to the first input port of which the name starts
+           with in of component B.
+       ·   Any other output port of component A is connected to the first
+           available input port of component B.
+       ·   Any other output port (of any component except A) is connected to
+           the first available input port of component C.
+       The run command fails when it cannot find an input port to which to
+       connect a created output port using the provided connection rules.
+       See EXAMPLES for more examples.
+   Parameters format
+       The format of the PARAMS option’s argument is a comma-separated list
+       of NAME=VALUE assignments:
+           NAME=VALUE[,NAME=VALUE]...
+       NAME
+           Parameter name (C identifier plus the :, ., and - characters).
+       VALUE
+           One of:
+           ·   null, nul, NULL: null value.
+           ·   true, TRUE, yes, YES: true boolean value.
+           ·   false, FALSE, no, NO: false boolean value.
+           ·   Binary (0b prefix), octal (0 prefix), decimal, or hexadecimal
+               (0x prefix) signed 64-bit integer.
+           ·   Double precision floating point number (scientific notation
+               is accepted).
+           ·   Unquoted string with no special characters, and not matching
+               any of the null and boolean value symbols above.
+           ·   Double-quoted string (accepts escape characters).
+           You may put whitespaces around the individual = (assignment) and
+           , (separator) characters.
+       Example:
+           babeltrace ... --params='many=null, fresh=yes, condition=false,
+                                    squirrel=-782329, observe=3.14,
+                                    simple=beef, needs-quotes="some string",
+                                    escape.chars-are:allowed="a \" quote"'
+           Important
+           Like in the example above, make sure to single-quote the whole
+           argument when you run this command from a shell.
+   Plugin path
+       This command loads Babeltrace plugins to perform its operation. The
+       search path for Babeltrace plugins is, in this order:
+        1. The colon-separated list of directories in the
+           BABELTRACE_PLUGIN_PATH environment variable.
+        2. The colon-separated list of directories in the --plugin-path
+           option.
+        3. If the --omit-home-plugin-path option is absent:
+           $HOME/.local/lib/babeltrace/plugins
+        4. If the --omit-system-plugin-path option is absent:
+           /usr/local/lib/babeltrace/plugins
+       You can use the babeltrace-list-plugins(1) command to dynamically
+       list the available plugins.

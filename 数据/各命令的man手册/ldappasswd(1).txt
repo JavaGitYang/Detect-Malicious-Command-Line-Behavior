@@ -1,0 +1,9 @@
+
+       ldappasswd is a tool to set the password of an LDAP user.  ldappasswd
+       uses the LDAPv3 Password Modify (RFC 3062) extended operation.
+       ldappasswd sets the password of associated with the user [or an
+       optionally specified user].  If the new password is not specified on
+       the command line and the user doesn't enable prompting, the server
+       will be asked to generate a password for the user.
+       ldappasswd is neither designed nor intended to be a replacement for
+       passwd(1) and should not be installed as such.

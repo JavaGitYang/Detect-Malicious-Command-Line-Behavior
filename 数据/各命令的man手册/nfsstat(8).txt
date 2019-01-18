@@ -1,0 +1,3 @@
+
+       The nfsstat displays statistics kept about NFS client and server
+       activity.

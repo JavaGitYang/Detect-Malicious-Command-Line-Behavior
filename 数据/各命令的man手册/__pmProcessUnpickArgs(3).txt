@@ -1,0 +1,46 @@
+
+       Within the libraries and applications of the Performance Co-Pilot
+       (PCP) these routines are provide a convenient and safe alternative to
+       system(3) for executing commands in a separate process.
+       Use __pmProcessAddArg to register the executable and command
+       arguments in order.  handle should be set to NULL before the first
+       call to __pmProcessAddArg for a particular command execution and it
+       will be set to an opaque pointer to data structures that are
+       manipulated in __pmProcessAddArg, __pmProcessExec and the related
+       __pmProcessPipe(3) routines.
+       When called with handle set to NULL arg is treated as the name of the
+       command to be executed and subsequent calls (if any) are for the
+       arguments to that command.  The name of the command can be a full
+       pathname, or the name of an executable that can be found on the
+       current $PATH as per the rules of execvp(2) that is used by
+       __pmProcessExec.
+       __pmProcessUnpickArgs is a convenience wrapper to assist conversion
+       of code that assumes the command is a shell command that has been
+       prepared for use with system(3) or popen(3) in existing code.  The
+       arguments in command are picked off one-by-one and used to call
+       __pmProcessAddArgs.  The parser is simple, as the routine is designed
+       for simple shell command syntax, where arguments are separated by one
+       or more spaces but embedded spaces within an argument are allowed if
+       the arguement is enclosed in single or double quotes.  More advanced
+       shell syntax like escape characters and input-output redirection are
+       not recognized.
+       Once all the command name and arguments have been registered calling
+       __pmProcessExec uses a fork(2) and execvp(2) sequence to execute the
+       command.
+       The argument toss may be used to assign some or all of the standard
+       I/O streams for the command to /dev/null - specifically toss is
+       either PM_EXEC_TOSS_NONE to keep all I/O streams the same as the
+       parent process, else the bit-wise or of PM_EXEC_TOSS_STDIN and/or
+       PM_EXEC_TOSS_STDOUT and/or PM_EXEC_TOSS_STDERR to reassign stdin,
+       stdout and stderr respectively.  PM_EXEC_TOSS_ALL is a convenience
+       macro equivalent to PM_EXEC_TOSS_STDIN | PM_EXEC_TOSS_STDOUT |
+       PM_EXEC_TOSS_STDERR.
+       The wait argument should be PM_EXEC_WAIT if __pmProcessExec should
+       wait for completion of the command and harvest the exit status, else
+       PM_EXEC_NOWAIT in which case __pmProcessExec returns immediately
+       (effectively running the command in the background).
+       Nested calling of __pmProcessExec and/or __pmProcessPipe(3) is not
+       allowed.  Once __pmProcessAddArg is called with handle set to NULL to
+       start the registration and execution sequence any attempt to start a
+       second registration sequence will be blocked until the first one is
+       completed by calling __pmProcessExec or __pmProcessPipe(3).

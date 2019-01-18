@@ -1,0 +1,27 @@
+
+       The ovs-l3ping program may be used to check for problems that could
+       be caused by invalid routing policy, misconfigured firewall in the
+       tunnel path or a bad NIC driver.  On one of the nodes, run ovs-l3ping
+       in server mode and on the other node run it in client mode.  The
+       client and server will establish L3 tunnel, over which client will
+       give further testing instructions. The ovs-l3ping client will perform
+       UDP and TCP tests.  This tool is different from ovs-test that it
+       encapsulates XML/RPC control connection over the tunnel, so there is
+       no need to open special holes in firewall.
+       UDP tests can report packet loss and achieved bandwidth for various
+       datagram sizes. By default target bandwidth for UDP tests is 1Mbit/s.
+       TCP tests report only achieved bandwidth, because kernel TCP stack
+       takes care of flow control and packet loss.
+   Client Mode
+       An ovs-l3ping client will create a L3 tunnel and connect over it to
+       the ovs-l3ping server to schedule the tests. TunnelRemoteIP is the
+       peer's IP address, where tunnel will be terminated. InnerIP is the
+       address that will be temporarily assigned during testing.  All test
+       traffic originating from this IP address to the RemoteInnerIP will be
+       tunneled.  It is possible to override default ControlPort and
+       DataPort, if there is any other application that already listens on
+       those two ports.
+   Server Mode
+       To conduct tests, ovs-l3ping server must be running.  It is required
+       that both client and server InnerIP addresses are in the same subnet.
+       It is possible to specify InnerIP with netmask in CIDR format.

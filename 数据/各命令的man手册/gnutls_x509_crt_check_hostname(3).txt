@@ -1,0 +1,6 @@
+
+       This function will check if the given certificate's subject matches
+       the given hostname.  This is a basic implementation of the matching
+       described in RFC6125, and takes into account wildcards, and the
+       DNSName/IPAddress subject alternative name PKIX extension.
+       For details see also gnutls_x509_crt_check_hostname2().

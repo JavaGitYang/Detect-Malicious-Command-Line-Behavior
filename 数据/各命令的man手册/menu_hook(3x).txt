@@ -1,0 +1,20 @@
+
+       These functions make it possible to set hook functions to be called
+       at various points in the automatic processing of input event codes by
+       menu_driver.
+       The function set_item_init sets a hook to be called at menu-post time
+       and each time the selected item changes (after the change).
+       item_init returns the current item init hook, if any (NULL if there
+       is no such hook).
+       The function set_item_term sets a hook to be called at menu-unpost
+       time and each time the selected item changes (before the change).
+       item_term returns the current item term hook, if any (NULL if there
+       is no such hook).
+       The function set_menu_init sets a hook to be called at menu-post time
+       and just after the top row on the menu changes once it is posted.
+       menu_init returns the current menu init hook, if any (NULL if there
+       is no such hook).
+       The function set_menu_term sets a hook to be called at menu-unpost
+       time and just before the top row on the menu changes once it is
+       posted.  menu_term returns the current menu term hook, if any (NULL
+       if there is no such hook).

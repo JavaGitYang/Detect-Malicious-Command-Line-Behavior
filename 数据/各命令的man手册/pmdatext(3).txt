@@ -1,0 +1,20 @@
+
+       As part of the Performance Metrics Domain Agent (PMDA) API (see
+       PMDA(3)), pmdaText uses the standard PMDA(3) data structures to
+       return the help text for metric ident in buffer.  The help text must
+       be located in help text files created with newhelp(1), and the
+       associated files are automatically opened by pmdaInit(3).
+       The path to the (basename of the) help text files can be set in the
+       calls to pmdaDSO(3) or pmdaDaemon(3) and overridden by the -h command
+       line option in pmdaGetOpt(3).
+       The encoding of ident follows the internal scheme used below the
+       routines pmLookupText(3) and pmLookupInDomText(3), namely ident
+       encodes either a metric identifier or an instance domain identifier,
+       according to the value of type.
+       The type argument is a bit mask that encodes the interpretation of
+       ident and the requested form of help text, as follows: either
+       PM_TEXT_PMID if ident is a metric identifier, or PM_TEXT_INDOM if
+       ident is an instance domain identifier, plus either PM_TEXT_ONELINE
+       for the one line help text or PM_TEXT_HELP for the full help text.
+       The buffer is managed internally (usually it is cached), and it
+       should not be released or freed by the caller of pmdaText.

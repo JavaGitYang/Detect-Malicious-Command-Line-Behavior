@@ -1,0 +1,40 @@
+
+       The system call mknod() creates a filesystem node (file, device
+       special file, or named pipe) named pathname, with attributes
+       specified by mode and dev.
+       The mode argument specifies both the file mode to use and the type of
+       node to be created.  It should be a combination (using bitwise OR) of
+       one of the file types listed below and zero or more of the file mode
+       bits listed in inode(7).
+       The file mode is modified by the process's umask in the usual way: in
+       the absence of a default ACL, the permissions of the created node are
+       (mode & ~umask).
+       The file type must be one of S_IFREG, S_IFCHR, S_IFBLK, S_IFIFO, or
+       S_IFSOCK to specify a regular file (which will be created empty),
+       character special file, block special file, FIFO (named pipe), or
+       UNIX domain socket, respectively.  (Zero file type is equivalent to
+       type S_IFREG.)
+       If the file type is S_IFCHR or S_IFBLK, then dev specifies the major
+       and minor numbers of the newly created device special file
+       (makedev(3) may be useful to build the value for dev); otherwise it
+       is ignored.
+       If pathname already exists, or is a symbolic link, this call fails
+       with an EEXIST error.
+       The newly created node will be owned by the effective user ID of the
+       process.  If the directory containing the node has the set-group-ID
+       bit set, or if the filesystem is mounted with BSD group semantics,
+       the new node will inherit the group ownership from its parent
+       directory; otherwise it will be owned by the effective group ID of
+       the process.
+   mknodat()
+       The mknodat() system call operates in exactly the same way as
+       mknod(), except for the differences described here.
+       If the pathname given in pathname is relative, then it is interpreted
+       relative to the directory referred to by the file descriptor dirfd
+       (rather than relative to the current working directory of the calling
+       process, as is done by mknod() for a relative pathname).
+       If pathname is relative and dirfd is the special value AT_FDCWD, then
+       pathname is interpreted relative to the current working directory of
+       the calling process (like mknod()).
+       If pathname is absolute, then dirfd is ignored.
+       See openat(2) for an explanation of the need for mknodat().

@@ -1,0 +1,7 @@
+
+       The strcasecmp() function performs a byte-by-byte comparison of the
+       strings s1 and s2, ignoring the case of the characters.  It returns
+       an integer less than, equal to, or greater than zero if s1 is found,
+       respectively, to be less than, to match, or be greater than s2.
+       The strncasecmp() function is similar, except that it compares no
+       more than n bytes of s1 and s2.

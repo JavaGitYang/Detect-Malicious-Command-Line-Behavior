@@ -1,0 +1,5 @@
+
+       capng_restore_state is a function that takes the state information
+       previously saved by capng_save_state and restores the libraries
+       internal state. This function is not available in the python
+       bindings.

@@ -1,0 +1,3 @@
+
+       The strlen() function calculates the length of the string pointed to
+       by s, excluding the terminating null byte ('\0').

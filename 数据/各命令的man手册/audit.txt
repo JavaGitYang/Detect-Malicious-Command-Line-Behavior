@@ -1,0 +1,105 @@
+
+       audit.rules is a file containing audit rules that will be loaded by
+       the audit daemon's init script whenever the daemon is started. The
+       auditctl program is used by the initscripts to perform this
+       operation. The syntax for the rules is essentially the same as when
+       typing in an auditctl command at a shell prompt except you do not
+       need to type the auditctl command name since that is implied. The
+       audit rules come in 3 varieties: control, file, and syscall.
+   Control
+       Control commands generally involve configuring the audit system
+       rather than telling it what to watch for. These commands typically
+       include deleting all rules, setting the size of the kernel's backlog
+       queue, setting the failure mode, setting the event rate limit, or to
+       tell auditctl to ignore syntax errors in the rules and continue
+       loading. Generally, these rules are at the top of the rules file.
+   File System
+       File System rules are sometimes called watches. These rules are used
+       to audit access to particular files or directories that you may be
+       interested in. If the path given in a watch rule is a directory, then
+       the rule used is recursive to the bottom of the directory tree
+       excluding any directories that may be mount points. The syntax of
+       these watch rules generally follow this format:
+       -w path-to-file -p permissions -k keyname
+       where the permission are any one of the following:
+              r - read of the file
+              w - write to the file
+              x - execute the file
+              a - change in the file's attribute
+       Watches can also be created using the syscall format described below
+       which allow for greater flexibility and options. Using syscall rules
+       you can choose between path and dir which is against a specific inode
+       or directory tree respectively. It should also be noted that the
+       recursive directory watch will stop if there is a mount point below
+       the parent directory. There is an option to make the mounted
+       subdirectory equivalent by using a -q rule.
+   System Call
+       The system call rules are loaded into a matching engine that
+       intercepts each syscall that all programs on the system makes.
+       Therefore it is very important to only use syscall rules when you
+       have to since these affect performance. The more rules, the bigger
+       the performance hit. You can help the performance, though, by
+       combining syscalls into one rule whenever possible.
+       The Linux kernel has 4 rule matching lists or filters as they are
+       sometimes called. They are: task, exit, user, and exclude. The task
+       list is checked only during the fork or clone syscalls. It is rarely
+       used in practice.
+       The exit filter is the place where all syscall and file system audit
+       requests are evaluated.
+       The user filter is used to filter (remove) some events that originate
+       in user space.  By default, any event originating in user space is
+       allowed. So, if there are some events that you do not want to see,
+       then this is a place where some can be removed. See auditctl(8) for
+       fields that are valid.
+       The exclude filter is used to exclude certain events from being
+       emitted. The msgtype and a number of subject attribute fields can be
+       used to tell the kernel which message types you do not want to
+       record. This filter can remove the event as a whole and is not
+       selective about any other attribute. The user and exit filters are
+       better suited to selectively auditing events.  The action is ignored
+       for this filter, defaulting to "never".
+       Syscall rules take the general form of:
+       -a action,list -S syscall -F field=value -k keyname
+       The -a option tells the kernel's rule matching engine that we want to
+       append a rule at the end of the rule list. But we need to specify
+       which rule list it goes on and what action to take when it triggers.
+       Valid actions are:
+              always - always create an event
+              never  - never create an event
+       The action and list are separated by a comma but no space in between.
+       Valid lists are: task, exit, user, and exclude. Their meaning was
+       explained earlier.
+       Next in the rule would normally be the -S option. This field can
+       either be the syscall name or number. For readability, the name is
+       almost always used. You may give more than one syscall in a rule by
+       specifying another -S option. When sent into the kernel, all syscall
+       fields are put into a mask so that one compare can determine if the
+       syscall is of interest. So, adding multiple syscalls in one rule is
+       very efficient. When you specify a syscall name, auditctl will look
+       up the name and get its syscall number. This leads to some problems
+       on bi-arch machines. The 32 and 64 bit syscall numbers sometimes, but
+       not always, line up. So, to solve this problem, you would generally
+       need to break the rule into 2 with one specifying -F arch=b32 and the
+       other specifying -F arch=b64. This needs to go in front of the -S
+       option so that auditctl looks at the right lookup table when
+       returning the number.
+       After the syscall is specified, you would normally have one or more
+       -F options that fine tune what to match against. Rather than list all
+       the valid field types here, the reader should look at the auditctl
+       man page which has a full listing of each field and what it means.
+       But it's worth mentioning a couple things.
+       The audit system considers uids to be unsigned numbers. The audit
+       system uses the number -1 to indicate that a loginuid is not set.
+       This means that when it's printed out, it looks like 4294967295. If
+       you write a rule that you wanted try to get the valid users of the
+       system, you need to look in /etc/login.defs to see where user
+       accounts start. For example, if UID_MIN is  500, then you would also
+       need to take into account that the unsigned representation of -1 is
+       higher than 500. So you would address this with the following piece
+       of a rule:
+       -F auid>=500 -F auid!=4294967295
+       These individual checks are "anded" and both have to be true.
+       The last thing to know about syscall rules is that you can add a key
+       field which is a free form text string that you want inserted into
+       the event to help identify its meaning. This is discussed in more
+       detail in the NOTES section.

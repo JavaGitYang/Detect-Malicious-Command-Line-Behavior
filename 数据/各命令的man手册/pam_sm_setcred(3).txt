@@ -1,0 +1,30 @@
+
+       The pam_sm_setcred function is the service module's implementation of
+       the pam_setcred(3) interface.
+       This function performs the task of altering the credentials of the
+       user with respect to the corresponding authorization scheme.
+       Generally, an authentication module may have access to more
+       information about a user than their authentication token. This
+       function is used to make such information available to the
+       application. It should only be called after the user has been
+       authenticated but before a session has been established.
+       Valid flags, which may be logically OR'd with PAM_SILENT, are:
+       PAM_SILENT
+           Do not emit any messages.
+       PAM_ESTABLISH_CRED
+           Initialize the credentials for the user.
+       PAM_DELETE_CRED
+           Delete the credentials associated with the authentication
+           service.
+       PAM_REINITIALIZE_CRED
+           Reinitialize the user credentials.
+       PAM_REFRESH_CRED
+           Extend the lifetime of the user credentials.
+       The way the auth stack is navigated in order to evaluate the
+       pam_setcred() function call, independent of the pam_sm_setcred()
+       return codes, is exactly the same way that it was navigated when
+       evaluating the pam_authenticate() library call. Typically, if a stack
+       entry was ignored in evaluating pam_authenticate(), it will be
+       ignored when libpam evaluates the pam_setcred() function call.
+       Otherwise, the return codes from each module specific
+       pam_sm_setcred() call are treated as required.

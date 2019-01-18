@@ -1,0 +1,27 @@
+
+       The string operand shall be treated as a pathname, as defined in the
+       Base Definitions volume of POSIX.1‐2008, Section 3.267, Pathname.
+       The string string shall be converted to the filename corresponding to
+       the last pathname component in string and then the suffix string
+       suffix, if present, shall be removed. This shall be done by
+       performing actions equivalent to the following steps in order:
+        1. If string is a null string, it is unspecified whether the
+           resulting string is '.'  or a null string. In either case, skip
+           steps 2 through 6.
+        2. If string is "//", it is implementation-defined whether steps 3
+           to 6 are skipped or processed.
+        3. If string consists entirely of <slash> characters, string shall
+           be set to a single <slash> character. In this case, skip steps 4
+           to 6.
+        4. If there are any trailing <slash> characters in string, they
+           shall be removed.
+        5. If there are any <slash> characters remaining in string, the
+           prefix of string up to and including the last <slash> character
+           in string shall be removed.
+        6. If the suffix operand is present, is not identical to the
+           characters remaining in string, and is identical to a suffix of
+           the characters remaining in string, the suffix suffix shall be
+           removed from string.  Otherwise, string is not modified by this
+           step. It shall not be considered an error if suffix is not found
+           in string.
+       The resulting string shall be written to standard output.

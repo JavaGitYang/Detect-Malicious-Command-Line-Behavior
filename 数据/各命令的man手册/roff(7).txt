@@ -1,0 +1,25 @@
+
+       roff is the general name for a set of text formatting programs, known
+       under names like troff, nroff, ditroff, groff, etc.  A roff system
+       consists of an extensible text formatting language and a set of
+       programs for printing and converting to other text formats.  Unix-
+       like operating systems distribute a roff system as a core package.
+       The most common roff system today is the free software implementation
+       GNU roff, groff(1).  groff implements the look-and-feel and
+       functionality of its ancestors, with many extensions.
+       The ancestry of roff is described in section HISTORY.  In this
+       document, the term roff always refers to the general class of roff
+       programs, not to the roff command provided in early UNIX systems.
+       In spite of its age, roff is in wide use today, for example, the
+       manual pages on UNIX systems (man pages), many software books, system
+       documentation, standards, and corporate documents are written in
+       roff.  The roff output for text devices is still unmatched, and its
+       graphical output has the same quality as other free type-setting
+       programs and is better than some of the commercial systems.
+       roff is used to format UNIX manual pages, (or man pages), the
+       standard documentation system on many UNIX-derived operating systems.
+       This document describes the history of the development of the roff
+       system; some usage aspects common to all roff versions, details on
+       the roff pipeline, which is usually hidden behind front-ends like
+       groff(1); a general overview of the formatting language; some tips
+       for editing roff files; and many pointers to further readings.

@@ -1,0 +1,7 @@
+
+       This function reads from the Authority Information Access type.
+       The  seq input parameter is used to indicate which member of the
+       sequence the caller is interested in.  The first member is 0, the
+       second member 1 and so on.  When the  seq value is out of bounds,
+       GNUTLS_E_REQUESTED_DATA_NOT_AVAILABLE is returned.
+       Typically  oid is GNUTLS_OID_AD_CAISSUERS or GNUTLS_OID_AD_OCSP.

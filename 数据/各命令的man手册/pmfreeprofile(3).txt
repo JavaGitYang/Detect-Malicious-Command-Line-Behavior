@@ -1,0 +1,4 @@
+
+       __pmFreeProfile frees the storage for the PMAPI instance profile
+       prof, assuming the storage was allocated using malloc(3) according to
+       the scheme used in __pmDecodeProfile(3).

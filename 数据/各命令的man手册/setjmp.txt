@@ -1,0 +1,20 @@
+
+       Some of the functionality described on this reference page extends
+       the ISO C standard. Applications shall define the appropriate feature
+       test macro (see the System Interfaces volume of POSIX.1‐2008, Section
+       2.2, The Compilation Environment) to enable the visibility of these
+       symbols in this header.
+       The <setjmp.h> header shall define the array types jmp_buf and
+       sigjmp_buf.
+       The following shall be declared as functions and may also be defined
+       as macros. Function prototypes shall be provided.
+           void   _longjmp(jmp_buf, int);
+           void   longjmp(jmp_buf, int);
+           void   siglongjmp(sigjmp_buf, int);
+       The following may be declared as functions, or defined as macros, or
+       both. If functions are declared, function prototypes shall be
+       provided.
+           int    _setjmp(jmp_buf);
+           int    setjmp(jmp_buf);
+           int    sigsetjmp(sigjmp_buf, int);
+       The following sections are informative.

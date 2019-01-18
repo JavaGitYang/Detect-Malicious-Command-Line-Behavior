@@ -1,0 +1,6 @@
+
+       These functions calculate the complex arc hyperbolic tangent of z.
+       If y = catanh(z), then z = ctanh(y).  The imaginary part of y is
+       chosen in the interval [-pi/2,pi/2].
+       One has:
+           catanh(z) = 0.5 * (clog(1 + z) - clog(1 - z))

@@ -1,0 +1,23 @@
+
+       findfs will search the block devices in the system looking for a
+       filesystem or partition with specified tag. The currently supported
+       tags are:
+       LABEL=<label>
+              Specifies filesystem label.
+       UUID=<uuid>
+              Specifies filesystem UUID.
+       PARTUUID=<uuid>
+              Specifies partition UUID. This partition identifier is
+              supported for example for GUID  Partition  Table (GPT)
+              partition tables.
+       PARTLABEL=<label>
+              Specifies partition label (name). The partition labels are
+              supported for example for GUID Partition Table (GPT) or MAC
+              partition tables.
+       If the filesystem or partition is found, the device name will be
+       printed on stdout.
+       The complete overview about filesystems and partitions you can get
+       for example by
+              lsblk --fs
+              partx --show <disk>
+              blkid

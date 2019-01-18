@@ -1,0 +1,5 @@
+
+       auparse_get_filename will return the name of the source file where
+       the record was found if the source type is AUSOURCE_FILE or
+       AUSOURCE_FILE_ARRAY. For other source types the return value will be
+       NULL.

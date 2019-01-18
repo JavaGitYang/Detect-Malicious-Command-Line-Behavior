@@ -1,0 +1,7 @@
+
+       The ptsname() function shall return the name of the slave pseudo-
+       terminal device associated with a master pseudo-terminal device. The
+       fildes argument is a file descriptor that refers to the master
+       device. The ptsname() function shall return a pointer to a string
+       containing the pathname of the corresponding slave device.
+       The ptsname() function need not be thread-safe.

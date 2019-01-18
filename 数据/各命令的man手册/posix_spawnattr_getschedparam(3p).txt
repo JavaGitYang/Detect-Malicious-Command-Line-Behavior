@@ -1,0 +1,12 @@
+
+       The posix_spawnattr_getschedparam() function shall obtain the value
+       of the spawn-schedparam attribute from the attributes object
+       referenced by attr.
+       The posix_spawnattr_setschedparam() function shall set the spawn-
+       schedparam attribute in an initialized attributes object referenced
+       by attr.
+       The spawn-schedparam attribute represents the scheduling parameters
+       to be assigned to the new process image in a spawn operation (if
+       POSIX_SPAWN_SETSCHEDULER or POSIX_SPAWN_SETSCHEDPARAM is set in the
+       spawn-flags attribute). The default value of this attribute is
+       unspecified.

@@ -1,0 +1,20 @@
+
+       The getgrent() function shall return a pointer to a structure
+       containing the broken-out fields of an entry in the group database.
+       When first called, getgrent() shall return a pointer to a group
+       structure containing the first entry in the group database.
+       Thereafter, it shall return a pointer to a group structure containing
+       the next group structure in the group database, so successive calls
+       may be used to search the entire database.
+       An implementation that provides extended security controls may impose
+       further implementation-defined restrictions on accessing the group
+       database. In particular, the system may deny the existence of some or
+       all of the group database entries associated with groups other than
+       those groups associated with the caller and may omit users other than
+       the caller from the list of members of groups in database entries
+       that are returned.
+       The setgrent() function shall rewind the group database to allow
+       repeated searches.
+       The endgrent() function may be called to close the group database
+       when processing is complete.
+       These functions need not be thread-safe.

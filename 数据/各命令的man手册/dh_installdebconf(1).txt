@@ -1,0 +1,13 @@
+
+       dh_installdebconf is a debhelper program that is responsible for
+       installing files used by debconf into package build directories.
+       It also automatically generates the postrm commands needed to
+       interface with debconf. The commands are added to the maintainer
+       scripts by dh_installdeb. See dh_installdeb(1) for an explanation of
+       how that works.
+       Note that if you use debconf, your package probably needs to depend
+       on it (it will be added to ${misc:Depends} by this program).
+       Note that for your config script to be called by dpkg, your postinst
+       needs to source debconf's confmodule. dh_installdebconf does not
+       install this statement into the postinst automatically as it is too
+       hard to do it right.

@@ -1,0 +1,43 @@
+
+       The lttng add-context command adds one or more context fields to a
+       channel.
+       Channels are created with the lttng-enable-channel(1) command.
+       When context fields are added to a channel, all the events emitted
+       within this channel contain the dynamic values of those context
+       fields.
+       If the --session option is omitted, the current tracing session is
+       used. If the --channel option is omitted, the context fields are
+       added to all the selected tracing session’s channels.
+       Many context fields can be added to a channel at once by repeating
+       the --type option.
+       perf counters are available as per-CPU (perf:cpu: prefix) as well as
+       per-thread (perf:thread: prefix) counters. Currently, per-CPU
+       counters can only be used in the Linux kernel tracing domain, while
+       per-thread counters can only be used in the user space tracing
+       domain.
+       It is also possible to enable PMU counters by raw ID using the
+       perf:cpu:raw:rN:NAME (Linux kernel tracing domain) or
+       perf:thread:raw:rN:NAME (user space tracing domain), with:
+       N
+           A hexadecimal event descriptor which is the same format as used
+           by perf-record(1): a concatenation of the event number and umask
+           value provided by the processor’s manufacturer. The possible
+           values for this field are processor-specific.
+       NAME
+           Custom name to easily recognize the counter.
+       Application-specific context fields can be added to a channel using
+       the following syntax:
+           $app.PROVIDER:TYPE
+       with:
+       PROVIDER
+           Provider name.
+       TYPE
+           Context type name.
+           Note
+           Make sure to single-quote the type when running the command from
+           a shell, as $ is a special character for variable substitution in
+           most shells.
+       Use the --list option without other arguments to list the available
+       context field names.
+       See the LIMITATIONS section below for a list of limitations to
+       consider.

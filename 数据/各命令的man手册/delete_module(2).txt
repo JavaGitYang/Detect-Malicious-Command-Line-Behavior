@@ -1,0 +1,40 @@
+
+       The delete_module() system call attempts to remove the unused
+       loadable module entry identified by name.  If the module has an exit
+       function, then that function is executed before unloading the module.
+       The flags argument is used to modify the behavior of the system call,
+       as described below.  This system call requires privilege.
+       Module removal is attempted according to the following rules:
+       1.  If there are other loaded modules that depend on (i.e., refer to
+           symbols defined in) this module, then the call fails.
+       2.  Otherwise, if the reference count for the module (i.e., the
+           number of processes currently using the module) is zero, then the
+           module is immediately unloaded.
+       3.  If a module has a nonzero reference count, then the behavior
+           depends on the bits set in flags.  In normal usage (see NOTES),
+           the O_NONBLOCK flag is always specified, and the O_TRUNC flag may
+           additionally be specified.
+           The various combinations for flags have the following effect:
+           flags == O_NONBLOCK
+                  The call returns immediately, with an error.
+           flags == (O_NONBLOCK | O_TRUNC)
+                  The module is unloaded immediately, regardless of whether
+                  it has a nonzero reference count.
+           (flags & O_NONBLOCK) == 0
+                  If flags does not specify O_NONBLOCK, the following steps
+                  occur:
+                  *  The module is marked so that no new references are
+                     permitted.
+                  *  If the module's reference count is nonzero, the caller
+                     is placed in an uninterruptible sleep state
+                     (TASK_UNINTERRUPTIBLE) until the reference count is
+                     zero, at which point the call unblocks.
+                  *  The module is unloaded in the usual way.
+       The O_TRUNC flag has one further effect on the rules described above.
+       By default, if a module has an init function but no exit function,
+       then an attempt to remove the module fails.  However, if O_TRUNC was
+       specified, this requirement is bypassed.
+       Using the O_TRUNC flag is dangerous!  If the kernel was not built
+       with CONFIG_MODULE_FORCE_UNLOAD, this flag is silently ignored.
+       (Normally, CONFIG_MODULE_FORCE_UNLOAD is enabled.)  Using this flag
+       taints the kernel (TAINT_FORCED_RMMOD).

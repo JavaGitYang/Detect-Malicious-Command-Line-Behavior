@@ -1,0 +1,59 @@
+
+       This function is used to convert an event string passed in str into
+       an opaque event identifier, i.e., the return value.
+       Events are first manipulated a strings which contain the event name,
+       sub-event names and optional filters and modifiers. This function
+       analyzes the string and try to find the matching event.
+       The event string is a structured string and it is composed as
+       follows:
+       [pmu_name::]event_name[:unit_mask][:modifier|:modifier=val]
+       The various components are separated by : or ::, they are defined as
+       follows:
+       pmu_name
+              This is an optional prefix to designate a specific PMU model.
+              With the prefix the event which matches the event_name is
+              used. In case multiple PMU models are activated, there may be
+              conflict with identical event names to mean the same or
+              different things. In that case, it is necessary to fully
+              specify the event with a pmu_name. That string corresponds to
+              what is returned by pfm_get_pmu_name().
+       event_name
+              This is the event name and is required. The library is not
+              case sensitive on event string. The event name must match
+              completely the actual event name; it cannot be a substring.
+       unit_mask
+              The optional unit mask which can be considered like a sub-
+              event of the major event. If a event has unit masks, and there
+              is no default, then at least one unit mask must be passed in
+              the string. Multiple unit masks may be specified for a single
+              event.
+       modifier
+              A modifier is an optional filter which is provided by the
+              hardware register hosting the event or by the underlying
+              kernel infrastructure.  Typical modifiers include privilege
+              level filters. Some modifiers are simple boolean, in which
+              case just passing their names is equivalent to setting their
+              value to true. Other modifiers need a specific value, in which
+              case it is provided after the equal sign. No space is tolerate
+              around the equal sign. The list of modifiers depends on the
+              host PMU and underlying kernel API. They are documented in
+              PMU-specific documentation. Multiple modifiers may be passed.
+              There is not order between unit masks and modifiers.
+       The library uses the generic term attribute to designate both unit
+       masks and modifiers.
+       Here are a few examples of event strings:
+       amd64::RETIRED_INSTRUCTIONS:u
+              Event RETIRED_INSTRUCTION on AMD64 processor, measure at user
+              privilege level only
+       RS_UOPS_DISPATCHED:c=1:i:u
+              Event RS_UOPS_DISPATCHED measured at user privilege level
+              only, and with counter-mask set to 1
+       For the purpose of this function, only the pmu_name and event_name
+       are considered, everything else is parsed, thus must be valid, but is
+       ignored.
+       The function searches only for one event per call. As a convenience,
+       the function will identify the event up to the first comma. In other
+       words, if str is equal to "EVENTA,EVENTB", then the function will
+       only look at EVENTA and will not return an error because of invalid
+       event string. This is handy when parsing constant event strings
+       containing multiple, comma-separated, events.

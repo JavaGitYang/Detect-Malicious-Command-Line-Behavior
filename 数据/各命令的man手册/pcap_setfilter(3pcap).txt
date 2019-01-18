@@ -1,0 +1,4 @@
+
+       pcap_setfilter() is used to specify a filter program.  fp is a
+       pointer to a bpf_program struct, usually the result of a call to
+       pcap_compile().

@@ -1,0 +1,24 @@
+
+       The find utility shall recursively descend the directory hierarchy
+       from each file specified by path, evaluating a Boolean expression
+       composed of the primaries described in the OPERANDS section for each
+       file encountered. Each path operand shall be evaluated unaltered as
+       it was provided, including all trailing <slash> characters; all
+       pathnames for other files encountered in the hierarchy shall consist
+       of the concatenation of the current path operand, a <slash> if the
+       current path operand did not end in one, and the filename relative to
+       the path operand. The relative portion shall contain no dot or dot-
+       dot components, no trailing <slash> characters, and only single
+       <slash> characters between pathname components.
+       The find utility shall be able to descend to arbitrary depths in a
+       file hierarchy and shall not fail due to path length limitations
+       (unless a path operand specified by the application exceeds
+       {PATH_MAX} requirements).
+       The find utility shall detect infinite loops; that is, entering a
+       previously visited directory that is an ancestor of the last file
+       encountered.  When it detects an infinite loop, find shall write a
+       diagnostic message to standard error and shall either recover its
+       position in the hierarchy or terminate.
+       If a file is removed from or added to the directory hierarchy being
+       searched it is unspecified whether or not find includes that file in
+       its search.

@@ -1,0 +1,33 @@
+
+       Within the libraries and applications of the Performance Co-Pilot
+       (PCP) these routines are provide a convenient and safe alternative to
+       popen(3) and pclose(3) for executing commands in a separate process
+       that is connected to the caller by a pipe.
+       Setting up the command and arguments is fully documented in
+       __pmProcessAddArg(3) and is identical to the procedure used to setup
+       __pmProcessExec(3).
+       Once all the command name and arguments have been registered calling
+       __pmProcessPipe uses a pipe(2), fork(2) and execvp(2) sequence to
+       execute the command.
+       The type argument needs to be ``r'' to read from the pipe, else ``w''
+       to write to the pipe.
+       The argument toss may be used to assign some or all of the standard
+       I/O streams for the command to /dev/null - specifically toss is
+       either PM_EXEC_TOSS_NONE to keep all I/O streams the same as the
+       parent process, else the bit-wise or of PM_EXEC_TOSS_STDIN and/or
+       PM_EXEC_TOSS_STDOUT and/or PM_EXEC_TOSS_STDERR to reassign stdin,
+       stdout and stderr respectively.  PM_EXEC_TOSS_ALL is a convenience
+       macro equivalent to PM_EXEC_TOSS_STDIN | PM_EXEC_TOSS_STDOUT |
+       PM_EXEC_TOSS_STDERR.
+       Obviously some combinations of argument values make no sense, e.g.
+       type equal to ``r'' and PM_EXEC_TOSS_STDOUT set in toss or type equal
+       to ``w'' and PM_EXEC_TOSS_STDIN set in type.
+       __pmProcessPipe returns a standard I/O stream for the pipe via the fp
+       argument.
+       Once the caller determines all the work has been done,
+       __pmProcessPipeClose should be called.
+       Nested calling of __pmProcessExec(3) and/or __pmProcessPipe is not
+       allowed.  Once __pmProcessAddArg(3) is called with handle set to NULL
+       to start the registration and execution sequence any attempt to start
+       a second registration sequence will be blocked until the first one is
+       completed by calling __pmProcessExec(3) or __pmProcessPipe.

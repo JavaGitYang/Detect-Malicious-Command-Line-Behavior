@@ -1,0 +1,2 @@
+
+       Refer to mkdtemp(3p).

@@ -1,0 +1,12 @@
+
+       In order to make menu selections visible on older terminals without
+       highlighting or color capability, the menu library marks selected
+       items in a menu with a prefix string.
+       The function set_menu_mark sets the mark string for the given menu.
+       Calling set_menu_mark with a null menu item will abolish the mark
+       string.  Note that changing the length of the mark string for a menu
+       while the menu is posted is likely to produce unhelpful behavior.
+       The default string is "-" (a dash). Calling set_menu_mark with a non-
+       NULL menu argument will change this default.
+       The function menu_mark returns the menu's mark string (or NULL if
+       there is none).

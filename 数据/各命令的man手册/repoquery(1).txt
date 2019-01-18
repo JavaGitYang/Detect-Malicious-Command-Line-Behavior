@@ -1,0 +1,3 @@
+
+       repoquery is a program for querying information from YUM repositories
+       similarly to rpm queries.

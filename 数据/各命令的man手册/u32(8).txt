@@ -1,0 +1,37 @@
+
+       The Universal/Ugly 32bit filter allows to match arbitrary bitfields
+       in the packet. Due to breaking everything down to values, masks and
+       offsets, It is equally powerful and hard to use. Luckily many
+       abstracting directives are present which allow defining rules on a
+       higher level and therefore free the user from having to fiddle with
+       bits and masks in many cases.
+       There are two general modes of invocation: The first mode creates a
+       new filter to delegate packets to different destinations. Apart from
+       the obvious ones, namely classifying the packet by specifying a
+       CLASSID or calling an action, one may link one filter to another one
+       (or even a list of them), effectively organizing filters into a tree-
+       like hierarchy.
+       Typically filter delegation is done by means of a hash table, which
+       leads to the second mode of invocation: it merely serves to set up
+       these hash tables. Filters can select a hash table and provide a key
+       selector from which a hash is to be computed and used as key to
+       lookup the table's bucket which contains filters for further
+       processing. This is useful if a high number of filters is in use, as
+       the overhead of performing the hash operation and table lookup
+       becomes negligible in that case. Using hashtables with u32 basically
+       involves the following pattern:
+       (1) Creating a new hash table, specifying it's size using the divisor
+           parameter and ideally a handle by which the table can be
+           identified. If the latter is not given, the kernel chooses one on
+           it's own, which has to be guessed later.
+       (2) Creating filters which link to the created table in (1) using the
+           link parameter and defining the packet data which the kernel will
+           use to calculate the hashkey.
+       (3) Adding filters to buckets in the hash table from (1).  In order
+           to avoid having to know how exactly the kernel creates the hash
+           key, there is the sample parameter, which gives sample data to
+           hash and thereby define the table bucket the filter should be
+           added to.
+       In fact, even if not explicitly requested u32 creates a hash table
+       for every priority a filter is being added with. The table's size is
+       1 though, so it is in fact merely a linked list.

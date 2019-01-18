@@ -1,0 +1,29 @@
+
+       The sadc command samples system data a specified number of times
+       (count) at a specified interval measured in seconds (interval). It
+       writes in binary format to the specified outfile or to standard
+       output. If outfile is set to -, then sadc uses the standard system
+       activity daily data file (see below).  In this case, if the file
+       already exists, sadc will overwrite it if it is from a previous
+       month.  By default sadc collects most of the data available from the
+       kernel.  But there are also optional metrics, for which the relevant
+       options must be explicitly passed to sadc to be collected (see option
+       -S below).
+       The standard system activity daily data file is named saDD unless
+       option -D is used, in which case its name is saYYYYMMDD, where YYYY
+       stands for the current year, MM for the current month and DD for the
+       current day.  By default it is located in the /var/log/sa directory.
+       Yet it is possible to specify an alternate location for it: If
+       outfile is a directory (instead of a plain file) then it will be
+       considered as the directory where the standard system activity daily
+       data file will be saved.
+       When the count parameter is not specified, sadc writes its data
+       endlessly.  When both interval and count are not specified, and
+       option -C is not used, a dummy record, which is used at system
+       startup to mark the time when the counter restarts from 0, will be
+       written.  For example, one of the system startup script may write the
+       restart mark to the daily data file by the command entry:
+       /usr/local/lib64/sa/sadc -
+       The sadc command is intended to be used as a backend to the sar
+       command.
+       Note: The sadc command only reports on local activities.

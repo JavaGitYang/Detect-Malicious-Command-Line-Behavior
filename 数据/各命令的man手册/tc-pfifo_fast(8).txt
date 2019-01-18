@@ -1,0 +1,7 @@
+
+       pfifo_fast is the default qdisc of each interface.
+       Whenever an interface is created, the pfifo_fast qdisc is
+       automatically used as a queue. If another qdisc is attached, it
+       preempts the default pfifo_fast, which automatically returns to
+       function when an existing qdisc is detached.
+       In this sense this qdisc is magic, and unlike other qdiscs.

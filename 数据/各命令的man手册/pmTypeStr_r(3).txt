@@ -1,0 +1,11 @@
+
+       Given a performance metric type, pmTypeStr produces a terse ASCII
+       equivalent, appropriate for use in error and diagnostic messages.
+       The pmTypeStr_r function does the same, but stores the result in a
+       user-supplied buffer buf of length buflen, which should have room for
+       at least 20 bytes.
+       The value for type is typically extracted from a pmDesc structure,
+       following a call to pmLookupDesc(3) for a particular performance
+       metric.
+       Examples are 32 (for type equals PM_TYPE_32), U64 (for type equals
+       PM_TYPE_U64), STRING (for type equals PM_TYPE_STRING), etc.

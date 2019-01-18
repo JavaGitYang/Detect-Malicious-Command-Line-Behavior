@@ -1,0 +1,29 @@
+
+       An NFS server maintains a table of local physical file systems that
+       are accessible to NFS clients.  Each file system in this table is
+       referred to as an exported file system, or export, for short.
+       The exportfs command maintains the current table of exports for the
+       NFS server.  The master export table is kept in a file named
+       /var/lib/nfs/etab.  This file is read by rpc.mountd when a client
+       sends an NFS MOUNT request.
+       Normally the master export table is initialized with the contents of
+       /etc/exports and files under /etc/exports.d by invoking exportfs -a.
+       However, a system administrator can choose to add or delete exports
+       without modifying /etc/exports or files under /etc/exports.d by using
+       the exportfs command.
+       exportfs and its partner program rpc.mountd work in one of two modes:
+       a legacy mode which applies to 2.4 and earlier versions of the Linux
+       kernel, and a new mode which applies to 2.6 and later versions,
+       providing the nfsd virtual filesystem has been mounted at
+       /proc/fs/nfsd or /proc/fs/nfs.  On 2.6 kernels, if this filesystem is
+       not mounted, the legacy mode is used.
+       In the new mode, exportfs does not give any information to the
+       kernel, but provides it only to rpc.mountd through the
+       /var/lib/nfs/etab file.  rpc.mountd then manages kernel requests for
+       information about exports, as needed.
+       In the legacy mode, exports which identify a specific host, rather
+       than a subnet or netgroup, are entered directly into the kernel's
+       export table, as well as being written to /var/lib/nfs/etab.
+       Further, exports listed in /var/lib/nfs/rmtab which match a non host-
+       specific export request will cause an appropriate export entry for
+       the host given in rmtab to be added to the kernel's export table.

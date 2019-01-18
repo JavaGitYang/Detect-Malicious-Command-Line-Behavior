@@ -1,0 +1,9 @@
+
+       The keyctl() system call is a multiplexor for a number of key
+       management functions.  These should be called via the wrappers in the
+       libkeyutils library.
+       The functions can be compiled in by including the keyutils header
+       file:
+              #include <keyutils.h>
+       and then telling the linker it should link in the library:
+              -lkeyutils

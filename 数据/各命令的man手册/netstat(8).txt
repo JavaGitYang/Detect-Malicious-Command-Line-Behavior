@@ -1,0 +1,19 @@
+
+       Netstat prints information about the Linux networking subsystem.  The
+       type of information printed is controlled by the first argument, as
+       follows:
+   (none)
+       By default, netstat displays a list of open sockets.  If you don't
+       specify any address families, then the active sockets of all
+       configured address families will be printed.
+   --route, -r
+       Display the kernel routing tables. See the description in route(8)
+       for details.  netstat -r and route -e produce the same output.
+   --groups, -g
+       Display multicast group membership information for IPv4 and IPv6.
+   --interfaces, -i
+       Display a table of all network interfaces.
+   --masquerade, -M
+       Display a list of masqueraded connections.
+   --statistics, -s
+       Display summary statistics for each protocol.

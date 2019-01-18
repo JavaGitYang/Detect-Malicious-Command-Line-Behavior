@@ -1,0 +1,7 @@
+
+       The trace-cmd(1) listen sets up a port to listen to waiting for
+       connections from other hosts that run trace-cmd-record(1) with the -N
+       option. When a connection is made, and the remote host sends data, it
+       will create a file called trace.HOST:PORT.dat. Where HOST is the name
+       of the remote host, and PORT is the port that the remote host used to
+       connect with.

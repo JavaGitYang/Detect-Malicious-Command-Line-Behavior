@@ -1,0 +1,4 @@
+
+       systemd-hibernate-resume-generator is a generator that instantiates
+       systemd-hibernate-resume@.service(8) unit according to the value of
+       resume= parameter specified on the kernel command line.

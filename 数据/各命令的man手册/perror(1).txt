@@ -1,0 +1,28 @@
+
+       For most system errors, MariaDB displays, in addition to an internal
+       text message, the system error code in one of the following styles:
+           message ... (errno: #)
+           message ... (Errcode: #)
+       You can find out what the error code means by examining the
+       documentation for your system or by using the perror utility.
+       perror prints a description for a system error code or for a storage
+       engine (table handler) error code.
+       Invoke perror like this:
+           shell> perror [options] errorcode ...
+       Example:
+           shell> perror 13 64
+           OS error code  13:  Permission denied
+           OS error code  64:  Machine is not on the network
+       Note that the meaning of system error messages may be dependent on
+       your operating system. A given error code may mean different things
+       on different operating systems.
+       perror supports the following options.
+       ·   --help, --info, -I, -?
+           Display a help message and exit.
+       ·   --silent, -s
+           Silent mode. Print only the error message.
+       ·   --verbose, -v
+           Verbose mode. Print error code and message. This is the default
+           behavior.
+       ·   --version, -V
+           Display version information and exit.

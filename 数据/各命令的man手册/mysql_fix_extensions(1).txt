@@ -1,0 +1,11 @@
+
+       mysql_fix_extensions converts the extensions for MyISAM (or ISAM)
+       table files to their canonical forms. It looks for files with
+       extensions matching any lettercase variant of .frm, .myd, .myi, .isd,
+       and .ism and renames them to have extensions of .frm, .MYD, .MYI,
+       .ISD, and .ISM, respectively. This can be useful after transferring
+       the files from a system with case-insensitive file names (such as
+       Windows) to a system with case-sensitive file names.
+       Invoke mysql_fix_extensions like this, where data_dir is the path
+       name to the MySQL data directory.
+           shell> mysql_fix_extensions data_dir

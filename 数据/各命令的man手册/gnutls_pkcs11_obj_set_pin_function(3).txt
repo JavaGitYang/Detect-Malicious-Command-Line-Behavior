@@ -1,0 +1,4 @@
+
+       This function will set a callback function to be used when required
+       to access the object. This function overrides the global set using
+       gnutls_pkcs11_set_pin_function().

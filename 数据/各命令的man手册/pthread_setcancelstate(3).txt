@@ -1,0 +1,30 @@
+
+       The pthread_setcancelstate() sets the cancelability state of the
+       calling thread to the value given in state.  The previous
+       cancelability state of the thread is returned in the buffer pointed
+       to by oldstate.  The state argument must have one of the following
+       values:
+       PTHREAD_CANCEL_ENABLE
+              The thread is cancelable.  This is the default cancelability
+              state in all new threads, including the initial thread.  The
+              thread's cancelability type determines when a cancelable
+              thread will respond to a cancellation request.
+       PTHREAD_CANCEL_DISABLE
+              The thread is not cancelable.  If a cancellation request is
+              received, it is blocked until cancelability is enabled.
+       The pthread_setcanceltype() sets the cancelability type of the
+       calling thread to the value given in type.  The previous
+       cancelability type of the thread is returned in the buffer pointed to
+       by oldtype.  The type argument must have one of the following values:
+       PTHREAD_CANCEL_DEFERRED
+              A cancellation request is deferred until the thread next calls
+              a function that is a cancellation point (see pthreads(7)).
+              This is the default cancelability type in all new threads,
+              including the initial thread.
+       PTHREAD_CANCEL_ASYNCHRONOUS
+              The thread can be canceled at any time.  (Typically, it will
+              be canceled immediately upon receiving a cancellation request,
+              but the system doesn't guarantee this.)
+       The set-and-get operation performed by each of these functions is
+       atomic with respect to other threads in the process calling the same
+       function.

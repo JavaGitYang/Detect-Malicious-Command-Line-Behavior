@@ -1,0 +1,5 @@
+
+       dh_update_autotools_config replaces all occurrences of config.sub and
+       config.guess in the source tree by the up-to-date versions found in
+       the autotools-dev package.  The original files are backed up and
+       restored by dh_clean.

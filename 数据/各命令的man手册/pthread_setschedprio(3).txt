@@ -1,0 +1,5 @@
+
+       The pthread_setschedprio() function sets the scheduling priority of
+       the thread thread to the value specified in prio.  (By contrast
+       pthread_setschedparam(3) changes both the scheduling policy and
+       priority of a thread.)

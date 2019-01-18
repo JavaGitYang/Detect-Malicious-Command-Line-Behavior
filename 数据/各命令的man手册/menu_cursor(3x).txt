@@ -1,0 +1,5 @@
+
+       The function pos_menu_cursor restores the cursor to the current
+       position associated with the menu's selected item.  This is useful
+       after curses routines have been called to do screen-painting in
+       response to a menu select.

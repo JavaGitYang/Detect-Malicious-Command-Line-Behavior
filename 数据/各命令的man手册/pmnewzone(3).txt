@@ -1,0 +1,8 @@
+
+       The current reporting timezone affects the timezone used by
+       pmCtime(3) and pmLocaltime(3).
+       The argument tz defines a timezone string, in the format described
+       for the TZ environment variable, see environ(7).
+       pmNewZone sets the current reporting timezone, and returns a value
+       that may be used in a subsequent call to pmUseZone(3) to restore this
+       reporting timezone.

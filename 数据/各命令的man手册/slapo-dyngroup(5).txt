@@ -1,0 +1,10 @@
+
+       The Dynamic Group overlay allows clients to use LDAP Compare
+       operations to test the membership of a dynamic group the same way
+       they would check against a static group. Compare operations targeting
+       a group's static member attribute will be intercepted and tested
+       against the configured dynamic group's URL attribute.
+       Note that this intercept only happens if the actual Compare operation
+       does not return a LDAP_COMPARE_TRUE result. So if a group has both
+       static and dynamic members, the static member list will be checked
+       first.

@@ -1,0 +1,19 @@
+
+       systemd-machine-id-commit.service is an early boot service
+       responsible for committing transient /etc/machine-id files to a
+       writable disk file system. See machine-id(5) for more information
+       about machine IDs.
+       This service is started after local-fs.target in case /etc/machine-id
+       is a mount point of its own (usually from a memory file system such
+       as "tmpfs") and /etc is writable. The service will invoke
+       systemd-machine-id-setup --commit, which writes the current transient
+       machine ID to disk and unmount the /etc/machine-id file in a
+       race-free manner to ensure that file is always valid and accessible
+       for other processes. See systemd-machine-id-setup(1) for details.
+       The main use case of this service are systems where /etc/machine-id
+       is read-only and initially not initialized. In this case, the system
+       manager will generate a transient machine ID file on a memory file
+       system, and mount it over /etc/machine-id, during the early boot
+       phase. This service is then invoked in a later boot phase, as soon as
+       /etc has been remounted writable and the ID may thus be committed to
+       disk to make it permanent.

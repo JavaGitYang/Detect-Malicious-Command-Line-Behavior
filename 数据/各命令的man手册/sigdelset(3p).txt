@@ -1,0 +1,10 @@
+
+       The sigdelset() function deletes the individual signal specified by
+       signo from the signal set pointed to by set.
+       Applications should call either sigemptyset() or sigfillset() at
+       least once for each object of type sigset_t prior to any other use of
+       that object. If such an object is not initialized in this way, but is
+       nonetheless supplied as an argument to any of pthread_sigmask(),
+       sigaction(), sigaddset(), sigdelset(), sigismember(), sigpending(),
+       sigprocmask(), sigsuspend(), sigtimedwait(), sigwait(), or
+       sigwaitinfo(), the results are undefined.

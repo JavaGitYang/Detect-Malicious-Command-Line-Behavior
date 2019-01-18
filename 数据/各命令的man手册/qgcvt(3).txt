@@ -1,0 +1,4 @@
+
+       The functions qecvt(), qfcvt(), and qgcvt() are identical to ecvt(3),
+       fcvt(3), and gcvt(3) respectively, except that they use a long double
+       argument number.  See ecvt(3) and gcvt(3).

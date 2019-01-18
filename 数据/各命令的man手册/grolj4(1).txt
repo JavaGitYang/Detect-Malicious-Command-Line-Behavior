@@ -1,0 +1,11 @@
+
+       grolj4 is a driver for groff that produces output in PCL5 format
+       suitable for an HP Laserjet 4 printer.
+       There is an additional drawing command available:
+       \D'R dh dv'
+              Draw a rule (solid black rectangle), with one corner at the
+              current position, and the diagonally opposite corner at the
+              current position +(dh,dv).  Afterwards the current position
+              will be at the opposite corner.  This generates a PCL fill
+              rectangle command, and so will work on printers that do not
+              support HPGL/2 unlike the other \D commands.

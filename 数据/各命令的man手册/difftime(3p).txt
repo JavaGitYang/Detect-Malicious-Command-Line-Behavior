@@ -1,0 +1,7 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The difftime() function shall compute the difference between two
+       calendar times (as returned by time()): time1− time0.

@@ -1,0 +1,6 @@
+
+       The nat action allows to perform NAT without the overhead of
+       conntrack, which is desirable if the number of flows or addresses to
+       perform NAT on is large. This action is best used in combination with
+       the u32 filter to allow for efficient lookups of a large number of
+       stateless NAT rules in constant time.

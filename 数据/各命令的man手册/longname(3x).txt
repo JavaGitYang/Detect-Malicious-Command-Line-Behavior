@@ -1,0 +1,41 @@
+
+   baudrate
+       The baudrate routine returns the output speed of the terminal.  The
+       number returned is in bits per second, for example 9600, and is an
+       integer.
+   erasechar, erasewchar
+       The erasechar routine returns the user's current erase character.
+       The erasewchar routine stores the current erase character in the
+       location referenced by ch.  If no erase character has been defined,
+       the routine fails and the location referenced by ch is not changed.
+   has_is, has_il
+       The has_ic routine is true if the terminal has insert- and delete-
+       character capabilities.
+       The has_il routine is true if the terminal has insert- and delete-
+       line capabilities, or can simulate them using scrolling regions.
+       This might be used to determine if it would be appropriate to turn on
+       physical scrolling using scrollok.
+   killchar, killwchar
+       The killchar routine returns the user's current line kill character.
+       The killwchar routine stores the current line-kill character in the
+       location referenced by ch.  If no line-kill character has been
+       defined, the routine fails and the location referenced by ch is not
+       changed.
+   longname
+       The longname routine returns a pointer to a static area containing a
+       verbose description of the current terminal.  The maximum length of a
+       verbose description is 128 characters.  It is defined only after the
+       call to initscr or newterm.  The area is overwritten by each call to
+       newterm and is not restored by set_term, so the value should be saved
+       between calls to newterm if longname is going to be used with
+       multiple terminals.
+   termattrs, term_attrs
+       If a given terminal does not support a video attribute that an
+       application program is trying to use, curses may substitute a
+       different video attribute for it.  The termattrs and term_attrs
+       functions return a logical OR of all video attributes supported by
+       the terminal using A_ and WA_ constants respectively.  This
+       information is useful when a curses program needs complete control
+       over the appearance of the screen.
+   termname
+       The termname routine returns the terminal name used by setupterm.

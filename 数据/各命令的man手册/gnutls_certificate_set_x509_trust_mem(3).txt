@@ -1,0 +1,9 @@
+
+       This function adds the trusted CAs in order to verify client or
+       server certificates. In case of a client this is not required to be
+       called if the certificates are not verified using
+       gnutls_certificate_verify_peers2().  This function may be called
+       multiple times.
+       In case of a server the CAs set here will be sent to the client if a
+       certificate request is sent. This can be disabled using
+       gnutls_certificate_send_x509_rdn_sequence().

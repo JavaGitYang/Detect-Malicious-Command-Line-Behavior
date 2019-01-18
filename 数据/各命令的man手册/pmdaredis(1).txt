@@ -1,0 +1,28 @@
+
+       This PMDA extracts performance data from sending the INFO command to
+       a Redis (redis.io) server, which includes:
+       · General information about the Redis server
+       · Client connections
+       · Memory consumption
+       · Persistence statistics
+       · Replication statistics
+       · CPU consumption statistics
+       · Redis command statistics
+       · Redis Cluster statistics
+       · Database related statistics
+       The hostname (localhost), port (6379 by default) and other
+       configuration information must be specified in the
+       $PCP_PMDAS_DIR/redis/redis.conf file.
+             # cd $PCP_PMDAS_DIR/redis
+             # [ edit redis.conf ]
+               host=localhost.localdomain:6379
+       Once this is setup, you can access the names and values for the redis
+       performance metrics by doing the following as root:
+             # cd $PCP_PMDAS_DIR/redis
+             # ./Install
+       To uninstall, do the following as root:
+             # cd $PCP_PMDAS_DIR/redis
+             # ./Remove
+       pmdaredis is launched by pmcd(1) and should never be executed
+       directly. The Install and Remove scripts notify pmcd(1) when the
+       agent is installed or removed.

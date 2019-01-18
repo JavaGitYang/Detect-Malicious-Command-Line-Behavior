@@ -1,0 +1,6 @@
+
+       cupsd is the scheduler for CUPS. It implements a printing system
+       based upon the Internet Printing Protocol, version 2.1, and supports
+       most of the requirements for IPP Everywhere. If no options are
+       specified on the command-line then the default configuration file
+       /etc/cups/cupsd.conf will be used.

@@ -1,0 +1,8 @@
+
+       The j0(), j1(), and jn() functions shall compute Bessel functions of
+       x of the first kind of orders 0, 1, and n, respectively.
+       An application wishing to check for error situations should set errno
+       to zero and call feclearexcept(FE_ALL_EXCEPT) before calling these
+       functions. On return, if errno is non-zero or fetestexcept(FE_INVALID
+       | FE_DIVBYZERO | FE_OVERFLOW | FE_UNDERFLOW) is non-zero, an error
+       has occurred.

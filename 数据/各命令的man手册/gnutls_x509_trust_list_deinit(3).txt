@@ -1,0 +1,5 @@
+
+       This function will deinitialize a trust list. Note that the
+        all flag should be typically non-zero unless you have specified your
+       certificates using gnutls_x509_trust_list_add_cas() and you want to
+       prevent them from being deinitialized by this function.

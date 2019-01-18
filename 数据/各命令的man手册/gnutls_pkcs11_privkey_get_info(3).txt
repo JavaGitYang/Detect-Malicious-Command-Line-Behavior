@@ -1,0 +1,5 @@
+
+       This function will return information about the PKCS 11 private key
+       such as the label, id as well as token information where the key is
+       stored. When output is text it returns null terminated string
+       although output_size contains the size of the actual data only.

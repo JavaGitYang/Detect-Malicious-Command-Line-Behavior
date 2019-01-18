@@ -1,0 +1,3 @@
+
+       Responds to IPv6 Node Information Queries (RFC4620) from clients.
+       Queries can be sent by various implementations of ping6 command.

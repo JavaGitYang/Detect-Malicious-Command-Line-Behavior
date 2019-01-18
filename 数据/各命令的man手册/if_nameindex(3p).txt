@@ -1,0 +1,8 @@
+
+       The if_nameindex() function shall return an array of if_nameindex
+       structures, one structure per interface. The end of the array is
+       indicated by a structure with an if_index field of zero and an
+       if_name field of NULL.
+       Applications should call if_freenameindex() to release the memory
+       that may be dynamically allocated by this function, after they have
+       finished using it.

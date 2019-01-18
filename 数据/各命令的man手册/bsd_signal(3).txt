@@ -1,0 +1,11 @@
+
+       The bsd_signal() function takes the same arguments, and performs the
+       same task, as signal(2).
+       The difference between the two is that bsd_signal() is guaranteed to
+       provide reliable signal semantics, that is: a) the disposition of the
+       signal is not reset to the default when the handler is invoked; b)
+       delivery of further instances of the signal is blocked while the
+       signal handler is executing; and c) if the handler interrupts a
+       blocking system call, then the system call is automatically
+       restarted.  A portable application cannot rely on signal(2) to
+       provide these guarantees.

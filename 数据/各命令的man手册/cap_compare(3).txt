@@ -1,0 +1,33 @@
+
+       These functions work on a capability state held in working storage.
+       A cap_t holds information about the capabilities in each of the three
+       sets, Permitted, Inheritable, and Effective.  Each capability in a
+       set may be clear (disabled, 0) or set (enabled, 1).
+       These functions work with the following data types:
+       cap_value_t       identifies a capability, such as CAP_CHOWN.
+       cap_flag_t        identifies one of the three flags associated with a
+                         capability (i.e., it identifies one of the three
+                         capability sets).  Valid values for this type are
+                         CAP_EFFECTIVE, CAP_INHERITABLE or CAP_PERMITTED.
+       cap_flag_value_t  identifies the setting of a particular capability
+                         flag (i.e, the value of a capability in a set).
+                         Valid values for this type are CAP_CLEAR (0) or
+                         CAP_SET (1).
+       cap_clear() initializes the capability state in working storage
+       identified by cap_p so that all capability flags are cleared.
+       cap_clear_flag() clears all of the capabilities of the specified
+       capability flag, flag.
+       cap_get_flag() obtains the current value of the capability flag,
+       flag, of the capability, cap, from the capability state identified by
+       cap_p and places it in the location pointed to by value_p.
+       cap_set_flag() sets the flag, flag, of each capability in the array
+       caps in the capability state identified by cap_p to value.  The
+       argument, ncap, is used to specify the number of capabilities in the
+       array, caps.
+       cap_compare() compares two full capability sets and, in the spirit of
+       memcmp(), returns zero if the two capability sets are identical. A
+       positive return value, status, indicates there is a difference
+       between them. The returned value carries further information about
+       which of three sets, cap_flag_t flag, differ. Specifically, the macro
+       CAP_DIFFERS (status, flag) evaluates to non-zero if the returned
+       status differs in its flag components.

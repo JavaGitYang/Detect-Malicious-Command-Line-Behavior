@@ -1,0 +1,4 @@
+
+       This function will fill in the TLSA (DANE) structure from the given
+       raw DNS record data. The  dane_data must be valid during the lifetime
+       of the query.

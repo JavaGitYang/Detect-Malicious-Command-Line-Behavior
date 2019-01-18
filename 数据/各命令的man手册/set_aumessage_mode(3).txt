@@ -1,0 +1,4 @@
+
+       set_message_mode sets the location where informational messages are
+       sent. If mode=0 (default), then informational messages are sent to
+       stderr. If mode=1, then informational messages are sent to syslog.

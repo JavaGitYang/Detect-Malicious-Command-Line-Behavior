@@ -1,0 +1,10 @@
+
+       The gfortran command supports all the options supported by the gcc
+       command.  Only options specific to GNU Fortran are documented here.
+       All GCC and GNU Fortran options are accepted both by gfortran and by
+       gcc (as well as any other drivers built at the same time, such as
+       g++), since adding GNU Fortran to the GCC distribution enables
+       acceptance of GNU Fortran options by all of the relevant drivers.
+       In some cases, options have positive and negative forms; the negative
+       form of -ffoo would be -fno-foo.  This manual documents only one of
+       these two forms, whichever one is not the default.

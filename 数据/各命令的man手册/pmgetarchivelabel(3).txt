@@ -1,0 +1,29 @@
+
+       Within the framework of the Performance Co-Pilot (PCP), archive logs
+       of performance metrics values may be accumulated and saved using the
+       program pmlogger(1).
+       The routine pmGetArchiveLabel may be used to fetch the label record
+       from a set of archive logs that has already been opened using
+       pmNewContext(3), or pmDupContext(3), and thereby associated with the
+       current Performance Metrics Application Programming Interface (PMAPI)
+       context.
+       The result returned via the pointer lp is a structure that must be
+       pre-allocated by the caller and has the following format (defined in
+       pmapi.h).
+         /*
+          * Label Record at the start of every log file
+          */
+         typedef struct {
+           int        ll_magic;    /* PM_LOG_MAGIC | log format version no. */
+           pid_t      ll_pid;      /* PID of logger */
+           struct timeval ll_start;/* start of this log */
+           char       ll_hostname[PM_LOG_MAXHOSTLEN]; /* name of collection host */
+           char       ll_tz[40];   /* $TZ at collection host */
+         } pmLogLabel;
+       For an application, the most useful information from the archive
+       label is likely to be in the fields ll_start, ll_hostname or ll_tz.
+       Note that the size of the ll_hostname field is PM_LOG_MAXHOSTLEN (64
+       bytes) which is less than MAXHOSTNAMELEN (see gethostbyname(3)) on
+       some platforms.  These semantics are necessary to retain backwards
+       compatibility with the PCP archive file format.
+       pmGetArchiveLabel returns zero for success.

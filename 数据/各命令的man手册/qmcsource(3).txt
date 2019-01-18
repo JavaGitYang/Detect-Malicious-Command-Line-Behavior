@@ -1,0 +1,8 @@
+
+       The QmcSource class maintains a unique list of all metric sources in
+       use to minimize the creation of new contexts (see pmNewContext(3))
+       when the context could have been duplicated (see pmDupContext(3)).
+       This also reduces the duplication of descriptions of each source.
+       In general, QMC users should only need to access QmcSource methods to
+       obtain source descriptions for a QmcContext(3) object.  All context
+       creation by the user should be handled through QmcGroup(3).

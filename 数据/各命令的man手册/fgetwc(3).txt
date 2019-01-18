@@ -1,0 +1,10 @@
+
+       The fgetwc() function is the wide-character equivalent of the
+       fgetc(3) function.  It reads a wide character from stream and returns
+       it.  If the end of stream is reached, or if ferror(stream) becomes
+       true, it returns WEOF.  If a wide-character conversion error occurs,
+       it sets errno to EILSEQ and returns WEOF.
+       The getwc() function or macro functions identically to fgetwc().  It
+       may be implemented as a macro, and may evaluate its argument more
+       than once.  There is no reason ever to use it.
+       For nonlocking counterparts, see unlocked_stdio(3).

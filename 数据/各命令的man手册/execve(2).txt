@@ -1,0 +1,160 @@
+
+       execve() executes the program pointed to by filename.  This causes
+       the program that is currently being run by the calling process to be
+       replaced with a new program, with newly initialized stack, heap, and
+       (initialized and uninitialized) data segments.
+       filename must be either a binary executable, or a script starting
+       with a line of the form:
+           #! interpreter [optional-arg]
+       For details of the latter case, see "Interpreter scripts" below.
+       argv is an array of argument strings passed to the new program.  By
+       convention, the first of these strings (i.e., argv[0]) should contain
+       the filename associated with the file being executed.  envp is an
+       array of strings, conventionally of the form key=value, which are
+       passed as environment to the new program.  The argv and envp arrays
+       must each include a null pointer at the end of the array.
+       The argument vector and environment can be accessed by the called
+       program's main function, when it is defined as:
+           int main(int argc, char *argv[], char *envp[])
+       Note, however, that the use of a third argument to the main function
+       is not specified in POSIX.1; according to POSIX.1, the environment
+       should be accessed via the external variable environ(7).
+       execve() does not return on success, and the text, initialized data,
+       uninitialized data (bss), and stack of the calling process are over‐
+       written according to the contents of the newly loaded program.
+       If the current program is being ptraced, a SIGTRAP signal is sent to
+       it after a successful execve().
+       If the set-user-ID bit is set on the program file pointed to by file‐
+       name, then the effective user ID of the calling process is changed to
+       that of the owner of the program file.  Similarly, when the set-
+       group-ID bit of the program file is set the effective group ID of the
+       calling process is set to the group of the program file.
+       The aforementioned transformations of the effective IDs are not per‐
+       formed (i.e., the set-user-ID and set-group-ID bits are ignored) if
+       any of the following is true:
+       *  the no_new_privs attribute is set for the calling thread (see
+          prctl(2));
+       *  the underlying filesystem is mounted nosuid (the MS_NOSUID flag
+          for mount(2)); or
+       *  the calling process is being ptraced.
+       The capabilities of the program file (see capabilities(7)) are also
+       ignored if any of the above are true.
+       The effective user ID of the process is copied to the saved set-user-
+       ID; similarly, the effective group ID is copied to the saved set-
+       group-ID.  This copying takes place after any effective ID changes
+       that occur because of the set-user-ID and set-group-ID mode bits.
+       The process's real UID and real GID, as well its supplementary group
+       IDs, are unchanged by a call to execve().
+       If the executable is an a.out dynamically linked binary executable
+       containing shared-library stubs, the Linux dynamic linker ld.so(8) is
+       called at the start of execution to bring needed shared objects into
+       memory and link the executable with them.
+       If the executable is a dynamically linked ELF executable, the inter‐
+       preter named in the PT_INTERP segment is used to load the needed
+       shared objects.  This interpreter is typically /lib/ld-linux.so.2 for
+       binaries linked with glibc (see ld-linux.so(8)).
+       All process attributes are preserved during an execve(), except the
+       following:
+       *  The dispositions of any signals that are being caught are reset to
+          the default (signal(7)).
+       *  Any alternate signal stack is not preserved (sigaltstack(2)).
+       *  Memory mappings are not preserved (mmap(2)).
+       *  Attached System V shared memory segments are detached (shmat(2)).
+       *  POSIX shared memory regions are unmapped (shm_open(3)).
+       *  Open POSIX message queue descriptors are closed (mq_overview(7)).
+       *  Any open POSIX named semaphores are closed (sem_overview(7)).
+       *  POSIX timers are not preserved (timer_create(2)).
+       *  Any open directory streams are closed (opendir(3)).
+       *  Memory locks are not preserved (mlock(2), mlockall(2)).
+       *  Exit handlers are not preserved (atexit(3), on_exit(3)).
+       *  The floating-point environment is reset to the default (see
+          fenv(3)).
+       The process attributes in the preceding list are all specified in
+       POSIX.1.  The following Linux-specific process attributes are also
+       not preserved during an execve():
+       *  The prctl(2) PR_SET_DUMPABLE flag is set, unless a set-user-ID or
+          set-group ID program is being executed, in which case it is
+          cleared.
+       *  The prctl(2) PR_SET_KEEPCAPS flag is cleared.
+       *  (Since Linux 2.4.36 / 2.6.23) If a set-user-ID or set-group-ID
+          program is being executed, then the parent death signal set by
+          prctl(2) PR_SET_PDEATHSIG flag is cleared.
+       *  The process name, as set by prctl(2) PR_SET_NAME (and displayed by
+          ps -o comm), is reset to the name of the new executable file.
+       *  The SECBIT_KEEP_CAPS securebits flag is cleared.  See
+          capabilities(7).
+       *  The termination signal is reset to SIGCHLD (see clone(2)).
+       *  The file descriptor table is unshared, undoing the effect of the
+          CLONE_FILES flag of clone(2).
+       Note the following further points:
+       *  All threads other than the calling thread are destroyed during an
+          execve().  Mutexes, condition variables, and other pthreads
+          objects are not preserved.
+       *  The equivalent of setlocale(LC_ALL, "C") is executed at program
+          start-up.
+       *  POSIX.1 specifies that the dispositions of any signals that are
+          ignored or set to the default are left unchanged.  POSIX.1 speci‐
+          fies one exception: if SIGCHLD is being ignored, then an implemen‐
+          tation may leave the disposition unchanged or reset it to the
+          default; Linux does the former.
+       *  Any outstanding asynchronous I/O operations are canceled
+          (aio_read(3), aio_write(3)).
+       *  For the handling of capabilities during execve(), see
+          capabilities(7).
+       *  By default, file descriptors remain open across an execve().  File
+          descriptors that are marked close-on-exec are closed; see the
+          description of FD_CLOEXEC in fcntl(2).  (If a file descriptor is
+          closed, this will cause the release of all record locks obtained
+          on the underlying file by this process.  See fcntl(2) for
+          details.)  POSIX.1 says that if file descriptors 0, 1, and 2 would
+          otherwise be closed after a successful execve(), and the process
+          would gain privilege because the set-user-ID or set-group_ID mode
+          bit was set on the executed file, then the system may open an
+          unspecified file for each of these file descriptors.  As a general
+          principle, no portable program, whether privileged or not, can
+          assume that these three file descriptors will remain closed across
+          an execve().
+   Interpreter scripts
+       An interpreter script is a text file that has execute permission
+       enabled and whose first line is of the form:
+           #! interpreter [optional-arg]
+       The interpreter must be a valid pathname for an executable file.  If
+       the filename argument of execve() specifies an interpreter script,
+       then interpreter will be invoked with the following arguments:
+           interpreter [optional-arg] filename arg...
+       where arg...  is the series of words pointed to by the argv argument
+       of execve(), starting at argv[1].
+       For portable use, optional-arg should either be absent, or be speci‐
+       fied as a single word (i.e., it should not contain white space); see
+       NOTES below.
+       Since Linux 2.6.28, the kernel permits the interpreter of a script to
+       itself be a script.  This permission is recursive, up to a limit of
+       four recursions, so that the interpreter may be a script which is
+       interpreted by a script, and so on.
+   Limits on size of arguments and environment
+       Most UNIX implementations impose some limit on the total size of the
+       command-line argument (argv) and environment (envp) strings that may
+       be passed to a new program.  POSIX.1 allows an implementation to
+       advertise this limit using the ARG_MAX constant (either defined in
+       <limits.h> or available at run time using the call
+       sysconf(_SC_ARG_MAX)).
+       On Linux prior to kernel 2.6.23, the memory used to store the envi‐
+       ronment and argument strings was limited to 32 pages (defined by the
+       kernel constant MAX_ARG_PAGES).  On architectures with a 4-kB page
+       size, this yields a maximum size of 128 kB.
+       On kernel 2.6.23 and later, most architectures support a size limit
+       derived from the soft RLIMIT_STACK resource limit (see getrlimit(2))
+       that is in force at the time of the execve() call.  (Architectures
+       with no memory management unit are excepted: they maintain the limit
+       that was in effect before kernel 2.6.23.)  This change allows pro‐
+       grams to have a much larger argument and/or environment list.  For
+       these architectures, the total size is limited to 1/4 of the allowed
+       stack size.  (Imposing the 1/4-limit ensures that the new program
+       always has some stack space.)  Since Linux 2.6.25, the kernel places
+       a floor of 32 pages on this size limit, so that, even when
+       RLIMIT_STACK is set very low, applications are guaranteed to have at
+       least as much argument and environment space as was provided by Linux
+       2.6.23 and earlier.  (This guarantee was not provided in Linux 2.6.23
+       and 2.6.24.)  Additionally, the limit per string is 32 pages (the
+       kernel constant MAX_ARG_STRLEN), and the maximum number of strings is
+       0x7FFFFFFF.

@@ -1,0 +1,6 @@
+
+       pcap_is_swapped() returns true (1) if p refers to a ``savefile'' that
+       uses a different byte order than the current system.  For a live
+       capture, it always returns false (0).
+       It must not be called on a pcap descriptor created by pcap_create()
+       that has not yet been activated by pcap_activate().

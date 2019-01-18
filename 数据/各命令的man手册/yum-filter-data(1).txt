@@ -1,0 +1,6 @@
+
+       This plugin extends yum with some options, currently just for
+       "update" and "list update" type commands, to allow filters to be
+       placed on which packages should be used based on the data in those
+       packages. Note that due to some of the data being unknown, and thus
+       could possibly match, all unknown data is treated as a match.

@@ -1,0 +1,5 @@
+
+       The flower filter matches flows to the set of keys specified and
+       assigns an arbitrarily chosen class ID to packets belonging to them.
+       Additionally (or alternatively) an action from the generic action
+       framework may be called.

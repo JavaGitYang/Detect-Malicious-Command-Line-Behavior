@@ -1,0 +1,14 @@
+
+       lvmpolld is polling daemon for LVM. The daemon receives requests for
+       polling of already initialised operations originating in LVM2 command
+       line tool.  The requests for polling originate in the lvconvert,
+       pvmove, lvchange or vgchange LVM2 commands.
+       The purpose of lvmpolld is to reduce the number of spawned background
+       processes per otherwise unique polling operation. There should be
+       only one. It also eliminates the possibility of unsolicited
+       termination of background process by external factors.
+       lvmpolld is used by LVM only if it is enabled in lvm.conf(5) by
+       specifying the global/use_lvmpolld setting. If this is not defined in
+       the LVM configuration explicitly then default setting is used instead
+       (see the output of lvmconfig --type default global/use_lvmpolld
+       command).

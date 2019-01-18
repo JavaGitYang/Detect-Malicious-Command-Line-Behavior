@@ -1,0 +1,7 @@
+
+       This function will set the subject alternative name certificate
+       extension. This function assumes that data can be expressed as a null
+       terminated string.
+       The name of the function is unfortunate since it is inconsistent with
+       gnutls_x509_crt_get_subject_alt_name().
+       See gnutls_x509_crt_set_subject_alt_name() for more information.

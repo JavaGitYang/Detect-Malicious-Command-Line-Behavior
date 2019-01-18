@@ -1,0 +1,35 @@
+
+       The posix_trace_get_filter() function shall retrieve, into the
+       argument pointed to by set, the actual trace event filter from the
+       trace stream specified by trid.
+       The posix_trace_set_filter() function shall change the set of
+       filtered trace event types after a trace stream identified by the
+       trid argument is created. This function may be called prior to
+       starting the trace stream, or while the trace stream is active. By
+       default, if no call is made to posix_trace_set_filter(), all trace
+       events shall be recorded (that is, none of the trace event types are
+       filtered out).
+       If this function is called while the trace is in progress, a special
+       system trace event, POSIX_TRACE_FILTER, shall be recorded in the
+       trace indicating both the old and the new sets of filtered trace
+       event types (see Table 2-4, Trace and Trace Event Filter Options:
+       System Trace Events and Table 2-6, Trace, Trace Log, and Trace Event
+       Filter Options: System Trace Events).
+       If the posix_trace_set_filter() function is interrupted by a signal,
+       an error shall be returned and the filter shall not be changed. In
+       this case, the state of the trace stream shall not be changed.
+       The value of the argument how indicates the manner in which the set
+       is to be changed and shall have one of the following values, as
+       defined in the <trace.h> header:
+       POSIX_TRACE_SET_EVENTSET
+             The resulting set of trace event types to be filtered shall be
+             the trace event type set pointed to by the argument set.
+       POSIX_TRACE_ADD_EVENTSET
+             The resulting set of trace event types to be filtered shall be
+             the union of the current set and the trace event type set
+             pointed to by the argument set.
+       POSIX_TRACE_SUB_EVENTSET
+             The resulting set of trace event types to be filtered shall be
+             all trace event types in the current set that are not in the
+             set pointed to by the argument set; that is, remove each
+             element of the specified set from the current filter.

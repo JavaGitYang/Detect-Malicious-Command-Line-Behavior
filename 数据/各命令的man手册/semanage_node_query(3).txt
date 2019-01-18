@@ -1,0 +1,15 @@
+
+       Behavior:
+              The query function will fail if a matching key is not found.
+              Otherwise, the corresponding object is returned.
+       Parameters:
+              The handle is used to track persistent state across semanage
+              calls, and for error reporting. The key identifies the object
+              being queried, which will be stored in the address pointed by
+              response The key is a property of the caller, and will not be
+              stored or modified internally. The object returned becomes a
+              property of the caller, and must be freed with
+              semanage_OBJECT_free.
+       Requirements:
+              This function requires an semanage connection to be
+              established (see semanage_connect(3) )

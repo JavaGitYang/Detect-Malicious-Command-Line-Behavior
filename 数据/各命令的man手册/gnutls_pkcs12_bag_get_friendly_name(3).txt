@@ -1,0 +1,4 @@
+
+       This function will return the friendly name, of the specified bag
+       element.  The key ID is usually used to distinguish the local private
+       key and the certificate pair.

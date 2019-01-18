@@ -1,0 +1,6 @@
+
+       selabel_stats() causes zero or more messages to be printed containing
+       backend-specific information about number of queries performed,
+       number of unused entries, or other operational information.
+       The messages are printed to standard error by default; a custom
+       logging function can be provided via selinux_set_callback(3).

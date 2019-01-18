@@ -1,0 +1,6 @@
+
+       You should work through gittutorial(7) before reading this tutorial.
+       The goal of this tutorial is to introduce two fundamental pieces of
+       Git’s architecture—the object database and the index file—and to
+       provide the reader with everything necessary to understand the rest
+       of the Git documentation.

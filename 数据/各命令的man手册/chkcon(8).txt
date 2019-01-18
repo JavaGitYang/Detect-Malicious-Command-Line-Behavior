@@ -1,0 +1,5 @@
+
+       This utility validates (the string representation of) a security
+       context specified by the argument context against configuration data
+       read in from a policy database binary representation file specified
+       by the argument policy_file.

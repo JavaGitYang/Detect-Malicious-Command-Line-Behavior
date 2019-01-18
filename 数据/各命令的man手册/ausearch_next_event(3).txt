@@ -1,0 +1,4 @@
+
+       ausearch_next_event will scan the input source and evaluate whether
+       any record in an event contains the data being searched for.
+       Evaluation is done at the record level.

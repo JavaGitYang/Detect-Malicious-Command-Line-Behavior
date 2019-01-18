@@ -1,0 +1,4 @@
+
+       The csum action triggers checksum recalculation of specified packet
+       headers. It is commonly used to fix incorrect checksums after the
+       pedit action has modified the packet content.

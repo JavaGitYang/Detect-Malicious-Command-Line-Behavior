@@ -1,0 +1,4 @@
+
+       This function will set a callback in order for the server to get the
+       Diffie-Hellman or RSA parameters for anonymous authentication.  The
+       callback should return GNUTLS_E_SUCCESS (0) on success.

@@ -1,0 +1,4 @@
+
+       This function will convert the  skipcerts value to a DER encoded
+       Inhibit AnyPolicy PKIX extension. The  ext data will be allocated
+       using gnutls_malloc().

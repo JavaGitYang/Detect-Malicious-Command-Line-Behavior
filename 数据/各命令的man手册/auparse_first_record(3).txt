@@ -1,0 +1,4 @@
+
+       auparse_first_record repositions the internal cursors of the parsing
+       library to point to the first field of the first record in the
+       current event.

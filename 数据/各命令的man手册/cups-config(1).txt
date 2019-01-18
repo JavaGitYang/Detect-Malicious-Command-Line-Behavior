@@ -1,0 +1,5 @@
+
+       The cups-config command allows application developers to determine
+       the necessary command-line options for the compiler and linker, as
+       well as the installation directories for filters, configuration
+       files, and drivers.  All values are reported to the standard output.

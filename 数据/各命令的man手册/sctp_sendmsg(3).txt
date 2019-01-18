@@ -1,0 +1,32 @@
+
+       sctp_sendmsg is a wrapper library function that can be used to send a
+       message from a socket while using the advanced features of SCTP.  sd
+       is the socket descriptor from which the message pointed to by msg of
+       length len is sent.  to is the destination address of the message and
+       tolen is the length of the destination address.  stream_no identifies
+       the stream number that the application wishes to send this message
+       to.  flags parameter is composed of a bitwise OR of the following
+       values.
+       SCTP_UNORDERED
+              This flags requests the un-ordered delivery of the message.
+       SCTP_ADDR_OVER
+              This flag, in the one-to-many style, requests the SCTP stack
+              to override the primary destination address with address
+              specified in to.
+       SCTP_ABORT
+              Setting this flag causes the specified association to abort by
+              sending an ABORT message to the peer(one-to-many style only).
+              The ABORT chunk will contain an error cause 'User Initiated
+              Abort' with cause code 12. The cause specific information of
+              this error cause is provided in msg.
+       SCTP_EOF
+              Setting this flag invokes the SCTP graceful shutdown procedure
+              on the specific association(one-to-many style only).
+       timetolive specifies the time duration in milliseconds. The sending
+       side will expire the message if the message has not been sent to the
+       peer within this time period.  A value of 0 indicates that no timeout
+       should occur on this message.  ppid is an opaque unsigned value that
+       is passed to the remote end along with the message.  context is a 32
+       bit opaque value that is passed back to the upper layer along with
+       the undelivered message if an error occurs on the send of the
+       message.

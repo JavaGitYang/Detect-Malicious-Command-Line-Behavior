@@ -1,0 +1,22 @@
+
+       The iswalpha() function is the wide-character equivalent of the
+       isalpha(3) function.  It tests whether wc is a wide character
+       belonging to the wide-character class "alpha".
+       The wide-character class "alpha" is a subclass of the wide-character
+       class "alnum", and therefore also a subclass of the wide-character
+       class "graph" and of the wide-character class "print".
+       Being a subclass of the wide-character class "print", the wide-
+       character class "alpha" is disjoint from the wide-character class
+       "cntrl".
+       Being a subclass of the wide-character class "graph", the wide-
+       character class "alpha" is disjoint from the wide-character class
+       "space" and its subclass "blank".
+       Being a subclass of the wide-character class "alnum", the wide-
+       character class "alpha" is disjoint from the wide-character class
+       "punct".
+       The wide-character class "alpha" is disjoint from the wide-character
+       class "digit".
+       The wide-character class "alpha" contains the wide-character classes
+       "upper" and "lower".
+       The wide-character class "alpha" always contains at least the letters
+       'A' to 'Z' and 'a' to 'z'.

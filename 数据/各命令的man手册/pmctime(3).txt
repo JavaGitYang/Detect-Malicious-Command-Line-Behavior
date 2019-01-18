@@ -1,0 +1,17 @@
+
+       pmCtime is very similar to ctime(3), except the timezone used is the
+       current ``reporting timezone'' (rather than the default TZ
+       environment variable scheme), and the result is returned into a
+       caller-declared buffer (rather than a private buffer).
+       Like ctime(3) the time to be converted is passed via clock, and the
+       result in buf is fixed width fields in the format:
+                 Fri Sep 13 00:00:00 1986\n\0
+       The result buffer buf must be at least 26 bytes long, and no attempt
+       is made to check this.  pmCtime returns buf as the value of the
+       function.
+       The default current reporting timezone is as defined by the TZ
+       environment variable, so pmCtime and ctime(3) will initially produce
+       similar encoding of the date and time.
+       Use pmNewZone(3), pmNewContextZone(3) or pmUseZone(3) to establish a
+       new current reporting timezone that will effect pmCtime but not
+       ctime(3).

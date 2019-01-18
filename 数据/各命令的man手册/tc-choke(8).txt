@@ -1,0 +1,5 @@
+
+       CHOKe (CHOose and Keep for responsive flows, CHOose and Kill for
+       unresponsive flows) is a classless qdisc designed to both identify
+       and penalize flows that monopolize the queue. CHOKe is a variation of
+       RED, and the configuration is similar to RED.

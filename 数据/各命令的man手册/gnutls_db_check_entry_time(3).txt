@@ -1,0 +1,3 @@
+
+       This function returns the time that this entry was active.  It can be
+       used for database entry expiration.

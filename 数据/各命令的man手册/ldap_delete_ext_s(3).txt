@@ -1,0 +1,17 @@
+
+       The ldap_delete_s() routine is used to perform an LDAP delete
+       operation synchronously. It takes dn, the DN of the entry to be
+       deleted.  It returns an LDAP error code, indicating the success or
+       failure of the operation.
+       The ldap_delete() routine is used to perform an LDAP delete operation
+       asynchronously. It takes the same parameters as ldap_delete_s(), but
+       returns the message id of the request it initiated. The result of the
+       delete can be obtained by a subsequent call to ldap_result(3).
+       The ldap_delete_ext() routine  allows  server  and client controls to
+       be specified to extend the delete request. This routine is
+       asynchronous like ldap_delete(), but its return value is an LDAP
+       error code. It stores the message id of the request in the integer
+       pointed to by msgidp.
+       The ldap_delete_ext_s() routine is the synchronous version of
+       ldap_delete_ext().  It also returns an LDAP error code indicating
+       success or failure of the operation.

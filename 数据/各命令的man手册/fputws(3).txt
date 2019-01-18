@@ -1,0 +1,6 @@
+
+       The fputws() function is the wide-character equivalent of the
+       fputs(3) function.  It writes the wide-character string starting at
+       ws, up to but not including the terminating null wide character
+       (L'\0'), to stream.
+       For a nonlocking counterpart, see unlocked_stdio(3).

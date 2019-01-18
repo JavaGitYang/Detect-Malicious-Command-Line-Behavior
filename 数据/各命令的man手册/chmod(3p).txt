@@ -1,0 +1,35 @@
+
+       The chmod() function shall change S_ISUID, S_ISGID, S_ISVTX, and the
+       file permission bits of the file named by the pathname pointed to by
+       the path argument to the corresponding bits in the mode argument. The
+       application shall ensure that the effective user ID of the process
+       matches the owner of the file or the process has appropriate
+       privileges in order to do this.
+       S_ISUID, S_ISGID, S_ISVTX, and the file permission bits are described
+       in <sys/stat.h>.
+       If the calling process does not have appropriate privileges, and if
+       the group ID of the file does not match the effective group ID or one
+       of the supplementary group IDs and if the file is a regular file, bit
+       S_ISGID (set-group-ID on execution) in the file's mode shall be
+       cleared upon successful return from chmod().
+       Additional implementation-defined restrictions may cause the S_ISUID
+       and S_ISGID bits in mode to be ignored.
+       Upon successful completion, chmod() shall mark for update the last
+       file status change timestamp of the file.
+       The fchmodat() function shall be equivalent to the chmod() function
+       except in the case where path specifies a relative path. In this case
+       the file to be changed is determined relative to the directory
+       associated with the file descriptor fd instead of the current working
+       directory. If the file descriptor was opened without O_SEARCH, the
+       function shall check whether directory searches are permitted using
+       the current permissions of the directory underlying the file
+       descriptor. If the file descriptor was opened with O_SEARCH, the
+       function shall not perform the check.
+       Values for flag are constructed by a bitwise-inclusive OR of flags
+       from the following list, defined in <fcntl.h>:
+       AT_SYMLINK_NOFOLLOW
+             If path names a symbolic link, then the mode of the symbolic
+             link is changed.
+       If fchmodat() is passed the special value AT_FDCWD in the fd
+       parameter, the current working directory shall be used. If also flag
+       is zero, the behavior shall be identical to a call to chmod().

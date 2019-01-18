@@ -1,0 +1,20 @@
+
+       These routines are used to retrieve and manipulate attribute values
+       from an LDAP entry as returned by ldap_first_entry(3) or
+       ldap_next_entry(3).  ldap_get_values() takes the entry and the
+       attribute attr whose values are desired and returns a NULL-terminated
+       array of the attribute's values.  attr may be an attribute type as
+       returned from ldap_first_attribute(3) or ldap_next_attribute(3), or
+       if the attribute type is known it can simply be given.
+       The number of values in the array can be counted by calling
+       ldap_count_values().  The array of values returned can be freed by
+       calling ldap_value_free().
+       If the attribute values are binary in nature, and thus not suitable
+       to be returned as an array of char *'s, the ldap_get_values_len()
+       routine can be used instead.  It takes the same parameters as
+       ldap_get_values(), but returns a NULL-terminated array of pointers to
+       berval structures, each containing the length of and a pointer to a
+       value.
+       The number of values in the array can be counted by calling
+       ldap_count_values_len().  The array of values returned can be freed
+       by calling ldap_value_free_len().

@@ -1,0 +1,5 @@
+
+       The diff utility shall compare the contents of file1 and file2 and
+       write to standard output a list of changes necessary to convert file1
+       into file2.  This list should be minimal. No output shall be produced
+       if the files are identical.

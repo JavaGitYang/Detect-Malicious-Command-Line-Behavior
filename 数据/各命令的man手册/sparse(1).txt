@@ -1,0 +1,8 @@
+
+       Sparse parses C source and looks for errors, producing warnings on
+       standard error.
+       Sparse accepts options controlling the set of warnings to generate.
+       To turn on warnings Sparse does not issue by default, use the
+       corresponding warning option -Wsomething.  Sparse issues some
+       warnings by default; to turn off those warnings, pass the negation of
+       the associated warning option, -Wno-something.

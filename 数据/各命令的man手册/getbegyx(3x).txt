@@ -1,0 +1,8 @@
+
+       The getyx macro places the current cursor position of the given
+       window in the two integer variables y and x.
+       If win is a subwindow, the getparyx macro places the beginning
+       coordinates of the subwindow relative to the parent window into two
+       integer variables y and x.  Otherwise, -1 is placed into y and x.
+       Like getyx, the getbegyx and getmaxyx macros store the current
+       beginning coordinates and size of the specified window.

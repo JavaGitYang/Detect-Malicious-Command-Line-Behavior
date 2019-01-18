@@ -1,0 +1,3 @@
+
+       dh_installlogcheck is a debhelper program that is responsible for
+       installing logcheck rule files.

@@ -1,0 +1,10 @@
+
+       The @TABS@ program clears and sets tab-stops on the terminal.  This
+       uses the terminfo clear_all_tabs and set_tab capabilities.  If either
+       is absent, @TABS@ is unable to clear/set tab-stops.  The terminal
+       should be configured to use hard tabs, e.g.,
+           stty tab0
+       Like @CLEAR@(1), @TABS@ writes to the standard output.  You can
+       redirect the standard output to a file (which prevents @TABS@ from
+       actually changing the tabstops), and later cat the file to the
+       screen, setting tabstops at that point.

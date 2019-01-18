@@ -1,0 +1,7 @@
+
+       Create, clone, switch between, rename, or delete development branches
+       within a git repository.
+       stg branch
+           Display the name of the current branch.
+       stg branch <branch>
+           Switch to the given branch.

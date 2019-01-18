@@ -1,0 +1,13 @@
+
+       The pthread_condattr_getclock() function shall obtain the value of
+       the clock attribute from the attributes object referenced by attr.
+       The pthread_condattr_setclock() function shall set the clock
+       attribute in an initialized attributes object referenced by attr.  If
+       pthread_condattr_setclock() is called with a clock_id argument that
+       refers to a CPU-time clock, the call shall fail.
+       The clock attribute is the clock ID of the clock that shall be used
+       to measure the timeout service of pthread_cond_timedwait().  The
+       default value of the clock attribute shall refer to the system clock.
+       The behavior is undefined if the value specified by the attr argument
+       to pthread_condattr_getclock() or pthread_condattr_setclock() does
+       not refer to an initialized condition variable attributes object.

@@ -1,0 +1,5 @@
+
+       systemd-environment-d-generator is a systemd.environment-generator(7)
+       that reads environment configuration specified by environment.d(7)
+       configuration files and passes it to the systemd(1) user manager
+       instance.

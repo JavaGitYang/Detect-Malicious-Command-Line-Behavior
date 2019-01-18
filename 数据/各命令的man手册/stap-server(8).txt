@@ -1,0 +1,10 @@
+
+       A systemtap compile server listens for connections from stap clients
+       on a secure SSL network port and accepts requests to run the stap
+       front end. Each server advertises its presence and configuration on
+       the local network using mDNS (avahi) allowing for automatic detection
+       by clients.
+       The stap-server script aims to provide:
+       ·   management of systemtap compile servers as a service.
+       ·   convenient control over configured servers and individual
+           (ad-hoc) servers.

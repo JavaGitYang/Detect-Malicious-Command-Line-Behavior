@@ -1,0 +1,51 @@
+
+       The sendmsg() function shall send a message through a connection-mode
+       or connectionless-mode socket. If the socket is a connectionless-mode
+       socket, the message shall be sent to the address specified by msghdr
+       if no pre-specified peer address has been set. If a peer address has
+       been pre-specified, either the message shall be sent to the address
+       specified in msghdr (overriding the pre-specified peer address), or
+       the function shall return −1 and set errno to [EISCONN].  If the
+       socket is connection-mode, the destination address in msghdr shall be
+       ignored.
+       The sendmsg() function takes the following arguments:
+       socket      Specifies the socket file descriptor.
+       message     Points to a msghdr structure, containing both the
+                   destination address and the buffers for the outgoing
+                   message. The length and format of the address depend on
+                   the address family of the socket. The msg_flags member is
+                   ignored.
+       flags       Specifies the type of message transmission. The
+                   application may specify 0 or the following flag:
+                   MSG_EOR       Terminates a record (if supported by the
+                                 protocol).
+                   MSG_OOB       Sends out-of-band data on sockets that
+                                 support out-of-bound data. The significance
+                                 and semantics of out-of-band data are
+                                 protocol-specific.
+                   MSG_NOSIGNAL  Requests not to send the SIGPIPE signal if
+                                 an attempt to send is made on a stream-
+                                 oriented socket that is no longer
+                                 connected. The [EPIPE] error shall still be
+                                 returned.
+       The msg_iov and msg_iovlen fields of message specify zero or more
+       buffers containing the data to be sent.  msg_iov points to an array
+       of iovec structures; msg_iovlen shall be set to the dimension of this
+       array. In each iovec structure, the iov_base field specifies a
+       storage area and the iov_len field gives its size in bytes. Some of
+       these sizes can be zero. The data from each storage area indicated by
+       msg_iov is sent in turn.
+       Successful completion of a call to sendmsg() does not guarantee
+       delivery of the message. A return value of −1 indicates only locally-
+       detected errors.
+       If space is not available at the sending socket to hold the message
+       to be transmitted and the socket file descriptor does not have
+       O_NONBLOCK set, the sendmsg() function shall block until space is
+       available. If space is not available at the sending socket to hold
+       the message to be transmitted and the socket file descriptor does
+       have O_NONBLOCK set, the sendmsg() function shall fail.
+       If the socket protocol supports broadcast and the specified address
+       is a broadcast address for the socket protocol, sendmsg() shall fail
+       if the SO_BROADCAST option is not set for the socket.
+       The socket in use may require the process to have appropriate
+       privileges to use the sendmsg() function.

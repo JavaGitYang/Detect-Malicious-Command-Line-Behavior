@@ -1,0 +1,4 @@
+
+       lvmsadc is not supported under LVM2. The device-mapper statistics
+       facility provides similar performance metrics using the dmstats(8)
+       command.

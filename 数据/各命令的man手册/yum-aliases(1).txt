@@ -1,0 +1,10 @@
+
+       This plugin changes other commands in yum, much like the alias
+       command in bash. There are a couple of notable differences from shell
+       style aliases though. The alias command has three forms:
+        * alias
+        * alias command
+        * alias command result
+       The first form lists all current aliases with their final result, the
+       second form looks up a "command" and shows it's final result or an
+       error message. The last form creates a new alias.

@@ -1,0 +1,6 @@
+
+       The wcwidth() function shall determine the number of column positions
+       required for the wide character wc.  The application shall ensure
+       that the value of wc is a character representable as a wchar_t, and
+       is a wide-character code corresponding to a valid character in the
+       current locale.

@@ -1,0 +1,10 @@
+
+       A TIPC socket is represented by an unsigned integer.
+          Bound state
+              A bound socket has a logical TIPC port name associated with
+              it.
+          Connected state
+              A connected socket is directly connected to another socket
+              creating a point to point connection between TIPC sockets. If
+              the connection to X was made using a logical port name Y that
+              name will show up as connected to X via Y

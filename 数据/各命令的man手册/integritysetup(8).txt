@@ -1,0 +1,31 @@
+
+       Integritysetup is used to configure dm-integrity managed device-
+       mapper mappings.
+       Device-mapper integrity target provides read-write transparent
+       integrity checking of block devices. The dm-integrity target emulates
+       additional data integrity field per-sector. You can use this
+       additional field directly with integritysetup utility, or indirectly
+       (for authenticated encryption) through cryptsetup.
+       Integritysetup supports these operations:
+       format <device>
+              Formats <device> (calculates space and dm-integrity superblock
+              and wipes the device).
+              <options> can be [--batch-mode, --no-wipe, --journal-size,
+              --interleave-sectors, --tag-size, --integrity,
+              --integrity-key-size, --integrity-key-file, --sector-size,
+              --progress-frequency]
+       open <device> <name>
+       create <name> <device> (OBSOLETE syntax)
+              Open a mapping with <name> backed by device <device>.
+              <options> can be [--batch-mode, --journal-watermark,
+              --journal-commit-time, --buffer-sectors, --integrity,
+              --integrity-key-size, --integrity-key-file,
+              --integrity-no-journal, --integrity-recovery-mode]
+       close <name>
+              Removes existing mapping <name>.
+              For backward compatibility, there is remove command alias for
+              the close command.
+       status <name>
+              Reports status for the active integrity mapping <name>.
+       dump <device>
+              Reports parameters from on-disk stored superblock.

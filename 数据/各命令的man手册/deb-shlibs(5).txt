@@ -1,0 +1,12 @@
+
+       shlibs files map shared library names and versions (sonames) to
+       dependencies suitable for a package control file.  There is one entry
+       per line. Blank lines are not allowed.  Lines beginning with an #
+       character are considered commentary, and are ignored.  All other
+       lines must have the format
+              [type:] library version dependencies
+       The library and version fields are whitespace-delimited, but the
+       dependencies field extends to the end of the line.  The type field is
+       optional and normally not needed.
+       The dependencies field has the same syntax as the Depends field in a
+       binary control file, see deb-control(5).

@@ -1,0 +1,5 @@
+
+       This function adds the system's default trusted CAs in order to
+       verify client or server certificates.
+       In the case the system is currently unsupported
+       GNUTLS_E_UNIMPLEMENTED_FEATURE is returned.

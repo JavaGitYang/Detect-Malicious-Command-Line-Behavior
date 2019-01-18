@@ -1,0 +1,6 @@
+
+       The function gnu_get_libc_version() returns a string that identifies
+       the glibc version available on the system.
+       The function gnu_get_libc_release() returns a string indicates the
+       release status of the glibc version available on the system.  This
+       will be a string such as stable.

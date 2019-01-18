@@ -1,0 +1,19 @@
+
+       mroute objects are multicast routing cache entries created by a user-
+       level mrouting daemon (f.e.  pimd or mrouted ).
+       Due to the limitations of the current interface to the multicast
+       routing engine, it is impossible to change mroute objects
+       administratively, so we can only display them. This limitation will
+       be removed in the future.
+   ip mroute show - list mroute cache entries
+       to PREFIX (default)
+              the prefix selecting the destination multicast addresses to
+              list.
+       iif NAME
+              the interface on which multicast packets are received.
+       from PREFIX
+              the prefix selecting the IP source addresses of the multicast
+              route.
+       table TABLE_ID
+              the table id selecting the multicast table. It can be local,
+              main, default, all or a number.

@@ -1,0 +1,5 @@
+
+       The clock_getcpuclockid() function obtains the ID of the CPU-time
+       clock of the process whose ID is pid, and returns it in the location
+       pointed to by clock_id.  If pid is zero, then the clock ID of the
+       CPU-time clock of the calling process is returned.

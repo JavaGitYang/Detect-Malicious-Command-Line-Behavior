@@ -1,0 +1,4 @@
+
+       quot displays the number of kilobytes in the named filesystem
+       currently owned by each user or group. Note that this utility
+       currently works only for XFS.

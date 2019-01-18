@@ -1,0 +1,15 @@
+
+       yum-cron is an alternate interface to yum that is optimised to be
+       convenient to call from cron.  It provides methods to keep repository
+       metadata up to date, and to check for, download, and apply updates.
+       Rather than accepting many different command line arguments, the
+       different functions of yum-cron can be accessed through config files.
+       config-file is used to optionally specify the path to the
+       configuration file to use.  If it is not given, the default
+       configuration file will be used.  It is useful to be able to specify
+       different configuration files for different use cases.  For example,
+       one configuration file might be set to update the repository
+       metadata, and a line could be added to the crontab to run yum-cron
+       frequently using this file.  Then, another configuration file might
+       be set to install updates, and yum-cron could be run from cron using
+       this file just once each day.

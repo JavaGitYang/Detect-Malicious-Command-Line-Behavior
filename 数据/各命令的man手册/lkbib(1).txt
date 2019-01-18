@@ -1,0 +1,9 @@
+
+       lkbib searches bibliographic databases for references that contain
+       the keys key... and prints any references found on the standard
+       output.  lkbib will search any databases given by -p options, and
+       then a default database.  The default database is taken from the
+       REFER environment variable if it is set, otherwise it is
+       /usr/dict/papers/Ind.  For each database filename to be searched, if
+       an index filename.i created by indxbib(1) exists, then it will be
+       searched instead; each index can cover multiple databases.

@@ -1,0 +1,10 @@
+
+       Within the Performance Co-Pilot (PCP) some applications use a special
+       (non-root) username to allow access, e.g. to write log files into
+       protected directories.
+       pmGetUsername returns the name via username.
+       The variable name PCP_USER is fetched using pmGetOptionalConfig(3).
+       If this succeeds, pmGetUsername returns 1.  Otherwise.  username is
+       set to the default value of pcp and pmGetUsername returns 0.
+       pmGetUsername is most often used in conjunction with
+       pmSetProcessIdentity(3) at process start up.

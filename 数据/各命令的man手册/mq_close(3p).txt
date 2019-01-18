@@ -1,0 +1,10 @@
+
+       The mq_close() function shall remove the association between the
+       message queue descriptor, mqdes, and its message queue. The results
+       of using this message queue descriptor after successful return from
+       this mq_close(), and until the return of this message queue
+       descriptor from a subsequent mq_open(), are undefined.
+       If the process has successfully attached a notification request to
+       the message queue via this mqdes, this attachment shall be removed,
+       and the message queue is available for another process to attach for
+       notification.

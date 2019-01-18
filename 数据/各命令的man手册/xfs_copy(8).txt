@@ -1,0 +1,32 @@
+
+       xfs_copy copies an XFS filesystem to one or more targets in parallel
+       (see xfs(5)).  The first (source) argument must be the pathname of
+       the device or file containing the XFS filesystem. The remaining
+       arguments specify one or more target devices or file names. If the
+       pathnames specify devices, a copy of the source XFS filesystem is
+       created on each device. The target can also be the name of a regular
+       file, in which case an image of the source XFS filesystem is created
+       in that file. If the file does not exist, xfs_copy creates the file.
+       The length of the resulting file is equal to the size of the source
+       filesystem. However, if the file is created on an XFS filesystem, the
+       file consumes roughly the amount of space actually used in the source
+       filesystem by the filesystem and the XFS log.  The space saving is
+       because xfs_copy seeks over free blocks instead of copying them and
+       the XFS filesystem supports sparse files efficiently.
+       xfs_copy should only be used to copy unmounted filesystems, read-only
+       mounted filesystems, or frozen filesystems (see xfs_freeze(8)).
+       Otherwise, the generated filesystem(s) would be inconsistent or
+       corrupt.
+       xfs_copy does not alter the source filesystem in any way. Each new
+       (target) filesystem is identical to the original filesystem except
+       that new filesystems each have a new unique filesystem identifier
+       (UUID).  Therefore, if both the old and new filesystems will be used
+       as separate distinct filesystems, xfs_copy or
+       xfsdump(8)/xfsrestore(8) should be used to generate the new
+       filesystem(s) instead of dd(1) or other programs that do block-by-
+       block disk copying.
+       xfs_copy uses synchronous writes to ensure that write errors are
+       detected.
+       xfs_copy uses pthreads(7) to perform simultaneous parallel writes.
+       xfs_copy creates one additional thread for each target to be written.
+       All threads die if xfs_copy terminates or aborts.

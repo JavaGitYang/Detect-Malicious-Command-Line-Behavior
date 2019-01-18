@@ -1,0 +1,33 @@
+
+       These functions shall add or delete a close or open action to a spawn
+       file actions object.
+       A spawn file actions object is of type posix_spawn_file_actions_t
+       (defined in <spawn.h>) and is used to specify a series of actions to
+       be performed by a posix_spawn() or posix_spawnp() operation in order
+       to arrive at the set of open file descriptors for the child process
+       given the set of open file descriptors of the parent.  POSIX.1‐2008
+       does not define comparison or assignment operators for the type
+       posix_spawn_file_actions_t.
+       A spawn file actions object, when passed to posix_spawn() or
+       posix_spawnp(), shall specify how the set of open file descriptors in
+       the calling process is transformed into a set of potentially open
+       file descriptors for the spawned process. This transformation shall
+       be as if the specified sequence of actions was performed exactly
+       once, in the context of the spawned process (prior to execution of
+       the new process image), in the order in which the actions were added
+       to the object; additionally, when the new process image is executed,
+       any file descriptor (from this new set) which has its FD_CLOEXEC flag
+       set shall be closed (see posix_spawn(3p)).
+       The posix_spawn_file_actions_addclose() function shall add a close
+       action to the object referenced by file_actions that shall cause the
+       file descriptor fildes to be closed (as if close(fildes) had been
+       called) when a new process is spawned using this file actions object.
+       The posix_spawn_file_actions_addopen() function shall add an open
+       action to the object referenced by file_actions that shall cause the
+       file named by path to be opened (as if open(path, oflag, mode) had
+       been called, and the returned file descriptor, if not fildes, had
+       been changed to fildes) when a new process is spawned using this file
+       actions object. If fildes was already an open file descriptor, it
+       shall be closed before the new file is opened.
+       The string described by path shall be copied by the
+       posix_spawn_file_actions_addopen() function.

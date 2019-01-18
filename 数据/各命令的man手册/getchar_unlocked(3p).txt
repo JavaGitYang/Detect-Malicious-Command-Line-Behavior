@@ -1,0 +1,2 @@
+
+       Refer to getc_unlocked(3p).

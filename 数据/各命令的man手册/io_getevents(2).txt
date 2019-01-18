@@ -1,0 +1,15 @@
+
+       The io_getevents() system call attempts to read at least min_nr
+       events and up to nr events from the completion queue of the AIO
+       context specified by ctx_id.
+       The timeout argument specifies the amount of time to wait for events,
+       and is specified as a relative timeout in a structure of the
+       following form:
+           struct timespec {
+               time_t tv_sec;      /* seconds */
+               long   tv_nsec;     /* nanoseconds [0 .. 999999999] */
+           };
+       The specified time will be rounded up to the system clock granularity
+       and is guaranteed not to expire     early.
+       Specifying timeout as NULL means block indefinitely until at least
+       min_nr events have been obtained.

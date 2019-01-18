@@ -1,0 +1,21 @@
+
+       A package can perform several post-removal actions via maintainer
+       scripts, by including an executable postrm file in its control
+       archive (i.e. DEBIAN/postrm during package creation).
+       The script can be called in the following ways:
+       postrm remove
+              After the package was removed.
+       postrm purge
+              After the package was purged.
+       old-postrm upgrade new-version
+              After the package was upgraded.
+       new-postrm failed-upgrade old-version new-version
+              If the above upgrade call fails.
+       postrm disappear overwriter-package overwriter-version
+              After all of the packages files have been replaced.
+       new-postrm abort-install
+              If preinst fails during install.
+       new-postrm abort-install old-version new-version
+              If preinst fails during upgrade of removed package.
+       new-postrm abort-upgrade old-version new-version
+              If preinst fails during upgrade.

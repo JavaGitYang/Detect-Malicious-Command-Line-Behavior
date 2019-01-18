@@ -1,0 +1,7 @@
+
+       The pam_sm_close_session function is the service module's
+       implementation of the pam_close_session(3) interface.
+       This function is called to terminate a session. The only valid value
+       for flags is zero or:
+       PAM_SILENT
+           Do not emit any messages.

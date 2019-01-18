@@ -1,0 +1,6 @@
+
+       cupstestdsc tests the conformance of PostScript files to the Adobe
+       PostScript Language Document Structuring Conventions Specification
+       version 3.0.  The results of testing and any other output are sent to
+       the standard output.  The second form of the command reads PostScript
+       from the standard input.

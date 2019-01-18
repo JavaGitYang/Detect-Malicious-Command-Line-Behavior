@@ -1,0 +1,32 @@
+
+       The border, wborder and box routines draw a box around the edges of a
+       window.  Other than the window, each argument is a character with
+       attributes:
+              ls - left side,
+              rs - right side,
+              ts - top side,
+              bs - bottom side,
+              tl - top left-hand corner,
+              tr - top right-hand corner,
+              bl - bottom left-hand corner, and
+              br - bottom right-hand corner.
+       If any of these arguments is zero, then the corresponding default
+       values (defined in curses.h) are used instead:
+              ACS_VLINE,
+              ACS_VLINE,
+              ACS_HLINE,
+              ACS_HLINE,
+              ACS_ULCORNER,
+              ACS_URCORNER,
+              ACS_LLCORNER,
+              ACS_LRCORNER.
+       box(win, verch, horch) is a shorthand for the following call:
+       wborder(win, verch, verch, horch, horch, 0, 0, 0, 0).
+       The hline and whline functions draw a horizontal (left to right) line
+       using ch starting at the current cursor position in the window.  The
+       current cursor position is not changed.  The line is at most n
+       characters long, or as many as fit into the window.
+       The vline and wvline functions draw a vertical (top to bottom) line
+       using ch starting at the current cursor position in the window.  The
+       current cursor position is not changed.  The line is at most n
+       characters long, or as many as fit into the window.

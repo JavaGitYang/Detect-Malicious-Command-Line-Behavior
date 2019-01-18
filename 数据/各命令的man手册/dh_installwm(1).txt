@@ -1,0 +1,8 @@
+
+       dh_installwm is a debhelper program that is responsible for
+       generating the postinst and prerm commands that register a window
+       manager with update-alternatives(8). The window manager's man page is
+       also registered as a slave symlink (in v6 mode and up).  It must be
+       installed in usr/share/man/man1/ in the package build directory prior
+       to calling dh_installwm.  In compat 9 and earlier, the manpage was
+       optional.

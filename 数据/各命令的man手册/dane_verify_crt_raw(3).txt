@@ -1,0 +1,5 @@
+
+       This is the low-level function of dane_verify_crt(). See the high
+       level function for documentation.
+       This function does not perform any resolving, it utilizes cached
+       entries from  r .

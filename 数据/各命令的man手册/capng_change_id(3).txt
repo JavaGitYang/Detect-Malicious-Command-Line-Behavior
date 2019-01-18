@@ -1,0 +1,24 @@
+
+       This function will change uid and gid to the ones given while
+       retaining the capabilities previously specified in capng_update. It
+       is not necessary and perhaps better if capng_apply has not been
+       called prior to this function so that all necessary privileges are
+       still intact. The caller is required to have CAP_SETPCAP capability
+       still active before calling this function.
+       This function also takes a flag parameter that helps to tailor the
+       exact actions performed by the function to secure the environment.
+       The option may be or'ed together. The legal values are:
+              CAPNG_NO_FLAG
+                     Simply change uid and retain specified capabilities and
+                     that's all.
+              CAPNG_DROP_SUPP_GRP
+                     After changing id, remove any supplement groups that
+                     may still be in effect from the old uid.
+              CAPNG_INIT_SUPP_GRP
+                     After changing id, initialize any supplement groups
+                     that may come with the new account. If given with
+                     CAPNG_DROP_SUPP_GRP it will have no effect.
+              CAPNG_CLEAR_BOUNDING
+                     After changing the uid and gid, clear the bounding set
+                     regardless to the internal representation already
+                     setup.

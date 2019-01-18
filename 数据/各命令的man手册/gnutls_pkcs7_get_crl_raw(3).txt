@@ -1,0 +1,2 @@
+
+       This function will return a crl of the PKCS7 or RFC2630 crl set.

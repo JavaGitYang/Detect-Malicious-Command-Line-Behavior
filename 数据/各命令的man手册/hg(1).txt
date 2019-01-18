@@ -1,0 +1,3 @@
+
+       The hg command provides a command line interface to the Mercurial
+       system.

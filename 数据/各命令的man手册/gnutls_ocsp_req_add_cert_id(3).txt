@@ -1,0 +1,11 @@
+
+       This function will add another request to the OCSP request for a
+       particular certificate having the issuer name hash of
+        issuer_name_hash and issuer key hash of  issuer_key_hash (both
+       hashed using  digest ) and serial number  serial_number .
+       The information needed corresponds to the CertID structure:
+       <informalexample><programlisting> CertID      ::=     SEQUENCE {
+       hashAlgorithm       AlgorithmIdentifier, issuerNameHash      OCTET
+       STRING, -- Hash of Issuer's DN issuerKeyHash       OCTET STRING, --
+       Hash of Issuers public key serialNumber   CertificateSerialNumber }
+       </programlisting></informalexample>

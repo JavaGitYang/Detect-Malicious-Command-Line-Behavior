@@ -1,0 +1,6 @@
+
+       setup() is called once from within linux/init/main.c.  It calls
+       initialization functions for devices and filesystems configured into
+       the kernel and then mounts the root filesystem.
+       No user process may call setup().  Any user process, even a process
+       with superuser permission, will receive EPERM.

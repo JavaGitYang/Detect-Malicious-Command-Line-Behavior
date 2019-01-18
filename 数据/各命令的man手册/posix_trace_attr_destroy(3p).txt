@@ -1,0 +1,26 @@
+
+       The posix_trace_attr_destroy() function shall destroy an initialized
+       trace attributes object.  A destroyed attr attributes object can be
+       reinitialized using posix_trace_attr_init(); the results of otherwise
+       referencing the object after it has been destroyed are undefined.
+       The posix_trace_attr_init() function shall initialize a trace
+       attributes object attr with the default value for all of the
+       individual attributes used by a given implementation. The read-only
+       generation-version and clock-resolution attributes of the newly
+       initialized trace attributes object shall be set to their appropriate
+       values (see Section 2.11.1.2, posix_trace_status_info Structure).
+       Results are undefined if posix_trace_attr_init() is called specifying
+       an already initialized attr attributes object.
+       Implementations may add extensions to the trace attributes object
+       structure as permitted in the Base Definitions volume of
+       POSIX.1‐2008, Chapter 2, Conformance.
+       The resulting attributes object (possibly modified by setting
+       individual attributes values), when used by posix_trace_create(),
+       defines the attributes of the trace stream created. A single
+       attributes object can be used in multiple calls to
+       posix_trace_create().  After one or more trace streams have been
+       created using an attributes object, any function affecting that
+       attributes object, including destruction, shall not affect any trace
+       stream previously created. An initialized attributes object also
+       serves to receive the attributes of an existing trace stream or trace
+       log when calling the posix_trace_get_attr() function.

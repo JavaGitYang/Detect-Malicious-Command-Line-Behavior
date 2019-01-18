@@ -1,0 +1,8 @@
+
+       The rpc.nfsd program implements the user level part of the NFS
+       service. The main functionality is handled by the nfsd kernel module.
+       The user space program merely specifies what sort of sockets the
+       kernel service should listen on, what NFS versions it should support,
+       and how many kernel threads it should use.
+       The rpc.mountd server provides an ancillary service needed to satisfy
+       mount requests by NFS clients.

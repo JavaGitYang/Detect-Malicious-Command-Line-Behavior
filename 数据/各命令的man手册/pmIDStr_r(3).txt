@@ -1,0 +1,12 @@
+
+       For use in error and diagnostic messages, pmIDStr returns a `human
+       readable' version of the specified Performance Metric Identifier
+       (PMID).  The pmIDStr_r function does the same, but stores the result
+       in a user-supplied buffer buf of length buflen, which should have
+       room for at least 20 bytes.
+       Internally, a PMID is encoded with three fields: domain, cluster and
+       item.  pmIDStr returns a string with each of the fields appearing as
+       decimal numbers, separated by periods.
+       The string value result from pmIDStr is held in a single static
+       buffer, so the returned value is only valid until the next call to
+       pmIDStr.

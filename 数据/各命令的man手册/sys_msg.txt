@@ -1,0 +1,32 @@
+
+       The <sys/msg.h> header shall define the following data types through
+       typedef:
+       msgqnum_t     Used for the number of messages in the message queue.
+       msglen_t      Used for the number of bytes allowed in a message
+                     queue.
+       These types shall be unsigned integer types that are able to store
+       values at least as large as a type unsigned short.
+       The <sys/msg.h> header shall define the following symbolic constant
+       as a message operation flag:
+       MSG_NOERROR   No error if big message.
+       The <sys/msg.h> header shall define the msqid_ds structure, which
+       shall include the following members:
+           struct ipc_perm msg_perm   Operation permission structure.
+           msgqnum_t       msg_qnum   Number of messages currently on queue.
+           msglen_t        msg_qbytes Maximum number of bytes allowed on queue.
+           pid_t           msg_lspid  Process ID of last msgsnd().
+           pid_t           msg_lrpid  Process ID of last msgrcv().
+           time_t          msg_stime  Time of last msgsnd().
+           time_t          msg_rtime  Time of last msgrcv().
+           time_t          msg_ctime  Time of last change.
+       The <sys/msg.h> header shall define the pid_t, size_t, ssize_t, and
+       time_t types as described in <sys/types.h>.
+       The following shall be declared as functions and may also be defined
+       as macros. Function prototypes shall be provided.
+           int       msgctl(int, int, struct msqid_ds *);
+           int       msgget(key_t, int);
+           ssize_t   msgrcv(int, void *, size_t, long, int);
+           int       msgsnd(int, const void *, size_t, int);
+       In addition, the <sys/msg.h> header shall include the <sys/ipc.h>
+       header.
+       The following sections are informative.

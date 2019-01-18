@@ -1,0 +1,5 @@
+
+       This function will extract the public key (modulus and public
+       exponent) from the private key specified by the  url private key.
+       This public key will be stored in  pubkey in the format specified by
+       fmt .  pubkey should be deinitialized using gnutls_free().

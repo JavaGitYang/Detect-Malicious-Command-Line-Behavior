@@ -1,0 +1,2 @@
+
+       This function will return the number of entries in a query.

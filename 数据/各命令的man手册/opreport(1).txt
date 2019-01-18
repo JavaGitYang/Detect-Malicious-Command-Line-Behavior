@@ -1,0 +1,4 @@
+
+       opreport outputs binary image summaries, or per-symbol data, from
+       OProfile profiling sessions. See oprofile(1) for how to write profile
+       specifications.

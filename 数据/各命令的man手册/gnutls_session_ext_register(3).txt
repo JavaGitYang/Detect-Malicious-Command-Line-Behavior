@@ -1,0 +1,13 @@
+
+       This function will register a new extension type. The extension will
+       be only usable within the registered session. If the extension type
+       is already registered then GNUTLS_E_ALREADY_REGISTERED will be
+       returned, unless the flag GNUTLS_EXT_FLAG_OVERRIDE_INTERNAL is
+       specified. The latter flag when specified can be used to override
+       certain extensions introduced after 3.6.0. It is expected to be used
+       by applications which handle custom extensions that are not currently
+       supported in GnuTLS, but direct support for them may be added in the
+       future.
+       Each registered extension can store temporary data into the
+       gnutls_session_t structure using gnutls_ext_set_data(), and they can
+       be retrieved using gnutls_ext_get_data().

@@ -1,0 +1,3 @@
+
+       The library supports the Intel Haswell Home Agent (HA) uncore PMU.
+       This PMU model only exists on Haswell model 63.

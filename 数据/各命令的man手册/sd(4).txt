@@ -1,0 +1,28 @@
+
+       The following ioctls are provided:
+       HDIO_GETGEO
+              Returns the BIOS disk parameters in the following structure:
+           struct hd_geometry {
+               unsigned char  heads;
+               unsigned char  sectors;
+               unsigned short cylinders;
+               unsigned long  start;
+           };
+              A pointer to this structure is passed as the ioctl(2) parame‐
+              ter.
+              The information returned in the parameter is the disk geometry
+              of the drive as understood by DOS!  This geometry is not the
+              physical geometry of the drive.  It is used when constructing
+              the drive's partition table, however, and is needed for conve‐
+              nient operation of fdisk(1), efdisk(1), and lilo(1).  If the
+              geometry information is not available, zero will be returned
+              for all of the parameters.
+       BLKGETSIZE
+              Returns the device size in sectors.  The ioctl(2) parameter
+              should be a pointer to a long.
+       BLKRRPART
+              Forces a reread of the SCSI disk partition tables.  No parame‐
+              ter is needed.
+              The SCSI ioctl(2) operations are also supported.  If the
+              ioctl(2) parameter is required, and it is NULL, then ioctl(2)
+              fails with the error EINVAL.

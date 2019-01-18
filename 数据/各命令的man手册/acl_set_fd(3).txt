@@ -1,0 +1,6 @@
+
+     The acl_set_fd() function associates an access ACL with the file
+     referred to by fd.
+     The effective user ID of the process must match the owner of the file
+     or the process must have the CAP_FOWNER capability for the request to
+     succeed.

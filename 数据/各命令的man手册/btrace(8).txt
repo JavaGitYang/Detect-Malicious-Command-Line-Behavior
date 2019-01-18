@@ -1,0 +1,5 @@
+
+       The btrace script provides a quick and easy way to do live tracing of
+       block devices.  It calls blktrace on the specified devices and pipes
+       the output through blkparse for formatting.  See blktrace (8) for
+       more in-depth information about how blktrace works.

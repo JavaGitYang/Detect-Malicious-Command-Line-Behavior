@@ -1,0 +1,10 @@
+
+       Listens RARP requests from clients. Provided MAC address of client is
+       found in /etc/ethers database and obtained host name is resolvable to
+       an IP address appropriate for attached network, rarpd answers to
+       client with RARPD reply carrying an IP address.
+       To allow multiple boot servers on the network rarpd optionally checks
+       for presence Sun-like bootable image in TFTP directory. It should
+       have form Hexadecimal_IP.ARCH, f.e. to load sparc 193.233.7.98
+       C1E90762.SUN4M is linked to an image appropriate for SUM4M in
+       directory /etc/tftpboot.

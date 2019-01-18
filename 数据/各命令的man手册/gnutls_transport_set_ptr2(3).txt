@@ -1,0 +1,5 @@
+
+       Used to set the first argument of the transport function (for push
+       and pull callbacks). In berkeley style sockets this function will set
+       the connection descriptor.  With this function you can use two
+       different pointers for receiving and sending.

@@ -1,0 +1,8 @@
+
+       pmdapostgresql is a Performance Co-Pilot PMDA which extracts live
+       performance data from a running PostgreSQL database.
+       Many of the staticstics available from a PostgreSQL server may not be
+       enabled by default.  Refer to the online documentation at
+       https://www.postgresql.org/docs/current/static/monitoring-stats.html 
+       which describes each of the available parameters related to
+       statistics collection and how to enable them.

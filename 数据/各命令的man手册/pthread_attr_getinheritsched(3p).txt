@@ -1,0 +1,24 @@
+
+       The pthread_attr_getinheritsched() and pthread_attr_setinheritsched()
+       functions, respectively, shall get and set the inheritsched attribute
+       in the attr argument.
+       When the attributes objects are used by pthread_create(), the
+       inheritsched attribute determines how the other scheduling attributes
+       of the created thread shall be set.
+       The supported values of inheritsched shall be:
+       PTHREAD_INHERIT_SCHED
+             Specifies that the thread scheduling attributes shall be
+             inherited from the creating thread, and the scheduling
+             attributes in this attr argument shall be ignored.
+       PTHREAD_EXPLICIT_SCHED
+             Specifies that the thread scheduling attributes shall be set to
+             the corresponding values from this attributes object.
+       The symbols PTHREAD_INHERIT_SCHED and PTHREAD_EXPLICIT_SCHED are
+       defined in the <pthread.h> header.
+       The following thread scheduling attributes defined by POSIX.1‐2008
+       are affected by the inheritsched attribute: scheduling policy
+       (schedpolicy), scheduling parameters (schedparam), and scheduling
+       contention scope (contentionscope).
+       The behavior is undefined if the value specified by the attr argument
+       to pthread_attr_getinheritsched() or pthread_attr_setinheritsched()
+       does not refer to an initialized thread attributes object.

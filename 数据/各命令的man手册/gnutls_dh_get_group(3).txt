@@ -1,0 +1,8 @@
+
+       This function will return the group parameters used in the last
+       Diffie-Hellman key exchange with the peer.  These are the prime and
+       the generator used.  This function should be used for both anonymous
+       and ephemeral Diffie-Hellman.  The output parameters must be freed
+       with gnutls_free().
+       Note, that the prime and generator are exported as non-negative
+       integers and may include a leading zero byte.

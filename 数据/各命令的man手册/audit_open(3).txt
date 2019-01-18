@@ -1,0 +1,5 @@
+
+       audit_open creates a NETLINK_AUDIT socket for communication with the
+       kernel part of the Linux Audit Subsystem. The audit system uses the
+       ACK feature of netlink. This means that every message to the kernel
+       will return a netlink status packet even if the operation succeeds.

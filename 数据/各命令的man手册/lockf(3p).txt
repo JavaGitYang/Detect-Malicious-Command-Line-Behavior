@@ -1,0 +1,74 @@
+
+       The lockf() function shall lock sections of a file with advisory-mode
+       locks. Calls to lockf() from threads in other processes which attempt
+       to lock the locked file section shall either return an error value or
+       block until the section becomes unlocked. All the locks for a process
+       are removed when the process terminates. Record locking with lockf()
+       shall be supported for regular files and may be supported for other
+       files.
+       The fildes argument is an open file descriptor. To establish a lock
+       with this function, the file descriptor shall be opened with write-
+       only permission (O_WRONLY) or with read/write permission (O_RDWR).
+       The function argument is a control value which specifies the action
+       to be taken. The permissible values for function are defined in
+       <unistd.h> as follows:
+             ┌─────────┬──────────────────────────────────────────────┐
+             │Function │                 Description                  │
+             ├─────────┼──────────────────────────────────────────────┤
+             │F_ULOCK  │ Unlock locked sections.                      │
+             │F_LOCK   │ Lock a section for exclusive use.            │
+             │F_TLOCK  │ Test and lock a section for exclusive use.   │
+             │F_TEST   │ Test a section for locks by other processes. │
+             └─────────┴──────────────────────────────────────────────┘
+       F_TEST shall detect if a lock by another process is present on the
+       specified section.
+       F_LOCK and F_TLOCK shall both lock a section of a file if the section
+       is available.
+       F_ULOCK shall remove locks from a section of the file.
+       The size argument is the number of contiguous bytes to be locked or
+       unlocked.  The section to be locked or unlocked starts at the current
+       offset in the file and extends forward for a positive size or
+       backward for a negative size (the preceding bytes up to but not
+       including the current offset). If size is 0, the section from the
+       current offset through the largest possible file offset shall be
+       locked (that is, from the current offset through the present or any
+       future end-of-file). An area need not be allocated to the file to be
+       locked because locks may exist past the end-of-file.
+       The sections locked with F_LOCK or F_TLOCK may, in whole or in part,
+       contain or be contained by a previously locked section for the same
+       process. When this occurs, or if adjacent locked sections would
+       occur, the sections shall be combined into a single locked section.
+       If the request would cause the number of locks to exceed a system-
+       imposed limit, the request shall fail.
+       F_LOCK and F_TLOCK requests differ only by the action taken if the
+       section is not available. F_LOCK shall block the calling thread until
+       the section is available. F_TLOCK shall cause the function to fail if
+       the section is already locked by another process.
+       File locks shall be released on first close by the locking process of
+       any file descriptor for the file.
+       F_ULOCK requests may release (wholly or in part) one or more locked
+       sections controlled by the process. Locked sections shall be unlocked
+       starting at the current file offset through size bytes or to the end-
+       of-file if size is (off_t)0. When all of a locked section is not
+       released (that is, when the beginning or end of the area to be
+       unlocked falls within a locked section), the remaining portions of
+       that section shall remain locked by the process. Releasing the center
+       portion of a locked section shall cause the remaining locked
+       beginning and end portions to become two separate locked sections. If
+       the request would cause the number of locks in the system to exceed a
+       system-imposed limit, the request shall fail.
+       A potential for deadlock occurs if the threads of a process
+       controlling a locked section are blocked by accessing a locked
+       section of another process. If the system detects that deadlock would
+       occur, lockf() shall fail with an [EDEADLK] error.
+       The interaction between fcntl() and lockf() locks is unspecified.
+       Blocking on a section shall be interrupted by any signal.
+       An F_ULOCK request in which size is non-zero and the offset of the
+       last byte of the requested section is the maximum value for an object
+       of type off_t, when the process has an existing lock in which size is
+       0 and which includes the last byte of the requested section, shall be
+       treated as a request to unlock from the start of the requested
+       section with a size equal to 0. Otherwise, an F_ULOCK request shall
+       attempt to unlock only the requested section.
+       Attempting to lock a section of a file that is associated with a
+       buffered stream produces unspecified results.

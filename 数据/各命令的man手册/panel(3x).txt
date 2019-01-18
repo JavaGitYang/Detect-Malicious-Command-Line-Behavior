@@ -1,0 +1,13 @@
+
+       Panels are curses(3X) windows with the added feature of depth.  Panel
+       functions allow the use of stacked windows and ensure the proper
+       portions of each window and the curses stdscr window are hidden or
+       displayed when panels are added, moved, modified or removed.  The set
+       of currently visible panels is the stack of panels.  The stdscr
+       window is beneath all panels, and is not considered part of the
+       stack.
+       A window is associated with every panel. The panel routines enable
+       you to create, move, hide, and show panels, as well as position a
+       panel at any desired location in the stack.
+       Panel routines are a functional layer added to curses(3X), make only
+       high-level curses calls, and work anywhere terminfo curses does.

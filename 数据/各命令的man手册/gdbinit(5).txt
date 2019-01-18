@@ -1,0 +1,21 @@
+
+       These files contain GDB commands to automatically execute during GDB
+       startup.  The lines of contents are canned sequences of commands,
+       described in the GDB manual in node "Sequences" -- shell command
+       "info -f gdb -n Sequences".
+       Please read more in the GDB manual in node "Startup" -- shell command
+       "info -f gdb -n Startup".
+       (not enabled with "--with-system-gdbinit" during compilation)
+           System-wide initialization file.  It is executed unless user
+           specified GDB option "-nx" or "-n".  See more in the GDB manual
+           in node "System-wide configuration" -- shell command "info -f gdb
+           -n 'System-wide configuration'".
+       ~/.gdbinit
+           User initialization file.  It is executed unless user specified
+           GDB options "-nx", "-n" or "-nh".
+       ./.gdbinit
+           Initialization file for current directory.  It may need to be
+           enabled with GDB security command "set auto-load local-gdbinit".
+           See more in the GDB manual in node "Init File in the Current
+           Directory" -- shell command "info -f gdb -n 'Init File in the
+           Current Directory'".

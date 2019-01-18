@@ -1,0 +1,9 @@
+
+       futimes() changes the access and modification times of a file in the
+       same way as utimes(2), with the difference that the file whose
+       timestamps are to be changed is specified via a file descriptor, fd,
+       rather than via a pathname.
+       lutimes() changes the access and modification times of a file in the
+       same way as utimes(2), with the difference that if filename refers to
+       a symbolic link, then the link is not dereferenced: instead, the
+       timestamps of the symbolic link are changed.

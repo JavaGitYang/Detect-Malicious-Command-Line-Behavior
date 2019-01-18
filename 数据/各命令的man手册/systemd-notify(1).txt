@@ -1,0 +1,33 @@
+
+       systemd-notify may be called by daemon scripts to notify the init
+       system about status changes. It can be used to send arbitrary
+       information, encoded in an environment-block-like list of strings.
+       Most importantly, it can be used for start-up completion
+       notification.
+       This is mostly just a wrapper around sd_notify() and makes this
+       functionality available to shell scripts. For details see
+       sd_notify(3).
+       The command line may carry a list of environment variables to send as
+       part of the status update.
+       Note that systemd will refuse reception of status updates from this
+       command unless NotifyAccess= is set for the service unit this command
+       is called from.
+       Note that sd_notify() notifications may be attributed to units
+       correctly only if either the sending process is still around at the
+       time PID 1 processes the message, or if the sending process is
+       explicitly runtime-tracked by the service manager. The latter is the
+       case if the service manager originally forked off the process, i.e.
+       on all processes that match NotifyAccess=main or NotifyAccess=exec.
+       Conversely, if an auxiliary process of the unit sends an sd_notify()
+       message and immediately exits, the service manager might not be able
+       to properly attribute the message to the unit, and thus will ignore
+       it, even if NotifyAccess=all is set for it.
+       systemd-notify will first attempt to invoke sd_notify() pretending to
+       have the PID of the invoking process. This will only succeed when
+       invoked with sufficient privileges. On failure, it will then fall
+       back to invoking it under its own PID. This behaviour is useful in
+       order that when the tool is invoked from a shell script the shell
+       process — and not the systemd-notify process — appears as sender of
+       the message, which in turn is helpful if the shell process is the
+       main process of a service, due to the limitations of NotifyAccess=all
+       described above.

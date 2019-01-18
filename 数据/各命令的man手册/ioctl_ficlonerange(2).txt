@@ -1,0 +1,24 @@
+
+       If a filesystem supports files sharing physical storage between
+       multiple files ("reflink"), this ioctl(2) operation can be used to
+       make some of the data in the src_fd file appear in the dest_fd file
+       by sharing the underlying storage, which is faster than making a
+       separate physical copy of the data.  Both files must reside within
+       the same filesystem.  If a file write should occur to a shared
+       region, the filesystem must ensure that the changes remain private to
+       the file being written.  This behavior is commonly referred to as
+       "copy on write".
+       This ioctl reflinks up to src_length bytes from file descriptor
+       src_fd at offset src_offset into the file dest_fd at offset
+       dest_offset, provided that both are files.  If src_length is zero,
+       the ioctl reflinks to the end of the source file.  This information
+       is conveyed in a structure of the following form:
+           struct file_clone_range {
+               __s64 src_fd;
+               __u64 src_offset;
+               __u64 src_length;
+               __u64 dest_offset;
+           };
+       Clones are atomic with regards to concurrent writes, so no locks need
+       to be taken to obtain a consistent cloned copy.
+       The FICLONE ioctl clones entire files.

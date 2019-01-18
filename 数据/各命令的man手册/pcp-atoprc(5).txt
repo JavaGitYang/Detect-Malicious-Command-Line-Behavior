@@ -1,0 +1,9 @@
+
+       This manual page documents the resource file of the pcp-atop and pcp-
+       atopsar commands.  These commands can be used to monitor the system
+       and process load on a system.
+       The pcp-atoprc file contains the default settings. These settings are
+       read during startup, first from the system-wide rcfile /etc/atoprc
+       and after that from the user-specific rcfile ~/.atoprc (so system-
+       wide settings can be overruled by an individual user).  The options
+       in both rcfiles are identical.

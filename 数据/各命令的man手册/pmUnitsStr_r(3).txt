@@ -1,0 +1,22 @@
+
+       The encoding of a performance metric's dimensionality and scale uses
+       a pmUnits structure; see pmLookupDesc(3).
+       As an aid to labeling graphs and tables, or for error messages,
+       pmUnitsStr will take a dimension and scale specification as per pu,
+       and return the corresponding text string.  The pmUnitsStr_r function
+       does the same, but stores the result in a user-supplied buffer buf of
+       length buflen, which should have room for at least 60 bytes.  If
+       buflen is less than 60 then pmUnitsStr_r returns NULL and buf is not
+       changed.
+       For example {1, -2, 0, PM_SPACE_MBYTE, PM_TIME_SEC, 0}, as the value
+       of *pu gives the result string Mbyte / sec^2.
+       The string value result from pmUnitsStr is held in a single static
+       buffer, so the returned value is only valid until the next call to
+       pmUnitsStr.
+       If the ``count'' dimension is non-zero, and the ``count'' scale is
+       not zero, then the text string will include a decimal scaling factor,
+       eg.  count x 10^6.
+       As a special case, if all components of the dimension are zero, then
+       the ``count'' scale is used to produce the text.  If this scale is
+       zero the result is an empty string, otherwise the result is of the
+       form x1 0^2.

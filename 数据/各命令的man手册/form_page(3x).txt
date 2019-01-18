@@ -1,0 +1,12 @@
+
+       The function set_current_field sets the current field of the given
+       form; current_field returns the current field of the given form.
+       The function unfocus_current_field removes the focus from the current
+       field of the form. In such state, inquiries via current_field shall
+       return a NULL pointer.
+       The function set_form_page sets the form's page number (goes to page
+       n of the form).
+       The function form_page returns the form's current page number.
+       The function field_index returns the index of the field in the field
+       array of the form it is connected to. It returns ERR if the argument
+       is the null pointer or the field is not connected.

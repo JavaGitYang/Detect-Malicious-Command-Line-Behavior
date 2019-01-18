@@ -1,0 +1,18 @@
+
+       The tempnam() function shall generate a pathname that may be used for
+       a temporary file.
+       The tempnam() function allows the user to control the choice of a
+       directory. The dir argument points to the name of the directory in
+       which the file is to be created. If dir is a null pointer or points
+       to a string which is not a name for an appropriate directory, the
+       path prefix defined as P_tmpdir in the <stdio.h> header shall be
+       used. If that directory is not accessible, an implementation-defined
+       directory may be used.
+       Many applications prefer their temporary files to have certain
+       initial letter sequences in their names. The pfx argument should be
+       used for this. This argument may be a null pointer or point to a
+       string of up to five bytes to be used as the beginning of the
+       filename.
+       Some implementations of tempnam() may use tmpnam() internally. On
+       such implementations, if called more than {TMP_MAX} times in a single
+       process, the behavior is implementation-defined.

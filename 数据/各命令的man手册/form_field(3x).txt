@@ -1,0 +1,7 @@
+
+       The function set_form_fields changes the field pointer array of the
+       given form.  The array must be terminated by a NULL.
+       The function form_fields returns the field array of the given form.
+       The function field_count returns the count of fields in form.
+       The function move_field moves the given field (which must be
+       disconnected) to a specified location on the screen.

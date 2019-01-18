@@ -1,0 +1,8 @@
+
+       cacheflush() flushes the contents of the indicated cache(s) for the
+       user addresses in the range addr to (addr+nbytes-1).  cache may be
+       one of:
+       ICACHE Flush the instruction cache.
+       DCACHE Write back to memory and invalidate the affected valid cache
+              lines.
+       BCACHE Same as (ICACHE|DCACHE).

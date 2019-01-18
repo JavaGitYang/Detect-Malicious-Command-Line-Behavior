@@ -1,0 +1,9 @@
+
+       “stat overrides” are a way to tell dpkg(1) to use a different owner
+       or mode for a path when a package is installed (this applies to any
+       filesystem object that dpkg handles, including directories, devices,
+       etc.). This can be used to force programs that are normally setuid to
+       be install without a setuid flag, or only executable by a certain
+       group.
+       dpkg-statoverride is a utility to manage the list of stat overrides.
+       It has three basic functions: adding, removing and listing overrides.

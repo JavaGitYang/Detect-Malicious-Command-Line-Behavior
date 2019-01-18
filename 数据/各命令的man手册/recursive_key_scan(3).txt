@@ -1,0 +1,22 @@
+
+       recursive_key_scan() performs a depth-first recursive scan of the
+       specified keyring tree and applies func to every link found in the
+       accessible keyrings in that tree.  data is passed to each invocation
+       of func.
+       The return values of func are summed and returned as the overall
+       return value.  Errors are ignored.  Inaccessible keyrings are not
+       scanned, but links to them are still passed to func.
+       recursive_session_key_scan() works exactly like recursive_key_scan()
+       with the caller's session keyring specified as the starting keyring.
+       The callback function is called for each link found in all the
+       keyrings in the nominated tree and so may be called multiple times
+       for a particular key if that key has multiple links to it.
+       The callback function is passed the following parameters:
+       parent The keyring containing the link or 0 for the initial key.
+       key    The key to which the link points.
+       desc and desc_len
+              A pointer to the raw description and its length as retrieved
+              with keyctl_describe_alloc().  These will be NULL and -1
+              respectively if the description couldn't be retrieved and
+              errno will retain the error from keyctl_describe_alloc().
+       data   The data passed to the scanner function.

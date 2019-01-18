@@ -1,0 +1,4 @@
+
+       The csplit utility shall read the file named by the file operand,
+       write all or part of that file into other files as directed by the
+       arg operands, and write the sizes of the files.

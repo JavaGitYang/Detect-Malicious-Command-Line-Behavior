@@ -1,0 +1,42 @@
+
+       keyctl_setperm() changes the permissions mask on a key.
+       A process that does not have the SysAdmin capability may not change
+       the permissions mask on a key that doesn't have the same UID as the
+       caller.
+       The caller must have setattr permission on a key to be able change
+       its permissions mask.
+       The permissions mask is a bitwise-OR of the following flags:
+       KEY_xxx_VIEW
+              Grant permission to view the attributes of a key.
+       KEY_xxx_READ
+              Grant permission to read the payload of a key or to list a
+              keyring.
+       KEY_xxx_WRITE
+              Grant permission to modify the payload of a key or to add or
+              remove links to/from a keyring.
+       KEY_xxx_SEARCH
+              Grant permission to find a key or to search a keyring.
+       KEY_xxx_LINK
+              Grant permission to make links to a key.
+       KEY_xxx_SETATTR
+              Grant permission to change the ownership and permissions
+              attributes of a key.
+       KEY_xxx_ALL
+              Grant all the above.
+       The 'xxx' in the above should be replaced by one of:
+       POS    Grant the permission to a process that possesses the key (has
+              it attached searchably to one of the process's keyrings).
+       USR    Grant the permission to a process with the same UID as the
+              key.
+       GRP    Grant the permission to a process with the same GID as the
+              key, or with a match for the key's GID amongst that process's
+              Groups list.
+       OTH    Grant the permission to any other process.
+       Examples include: KEY_POS_VIEW, KEY_USR_READ, KEY_GRP_SEARCH and
+       KEY_OTH_ALL.
+       User, group and other grants are exclusive: if a process qualifies in
+       the 'user' category, it will not qualify in the 'groups' category;
+       and if a process qualifies in either 'user' or 'groups' then it will
+       not qualify in the 'other' category.
+       Possessor grants are cumulative with the grants from the 'user',
+       'groups' and 'other' categories.

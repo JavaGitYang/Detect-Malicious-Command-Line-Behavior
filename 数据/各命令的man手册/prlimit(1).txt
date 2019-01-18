@@ -1,0 +1,18 @@
+
+       Given a process ID and one or more resources, prlimit tries to
+       retrieve and/or modify the limits.
+       When command is given, prlimit will run this command with the given
+       arguments.
+       The limits parameter is composed of a soft and a hard value,
+       separated by a colon (:), in order to modify the existing values.  If
+       no limits are given, prlimit will display the current values.  If one
+       of the values is not given, then the existing one will be used.  To
+       specify the unlimited or infinity limit (RLIM_INFINITY), the -1 or
+       'unlimited' string can be passed.
+       Because of the nature of limits, the soft limit must be lower or
+       equal to the high limit (also called the ceiling).  To see all
+       available resource limits, refer to the RESOURCE OPTIONS section.
+       soft:hard    Specify both limits.
+       soft:        Specify only the soft limit.
+       :hard        Specify only the hard limit.
+       value        Specify both limits to the same value.

@@ -1,0 +1,42 @@
+
+       my_print_defaults displays the options that are present in option
+       groups of option files. The output indicates what options will be
+       used by programs that read the specified option groups. For example,
+       the mysqlcheck program reads the [mysqlcheck] and [client] option
+       groups. To see what options are present in those groups in the
+       standard option files, invoke my_print_defaults like this:
+           shell> my_print_defaults mysqlcheck client
+           --user=myusername
+           --password=secret
+           --host=localhost
+       The output consists of options, one per line, in the form that they
+       would be specified on the command line.
+       my_print_defaults supports the following options.
+       ·   --help, -?
+           Display a help message and exit.
+       ·   --config-file=file_name, --defaults-file=file_name, -c file_name
+           Read only the given option file. If no extension is given,
+           default extension(.ini or .cnf) will be used. --config-file is
+           deprecated, use --defaults-file instead. If --defaults-file is
+           the first option, then read this file only, do not read global or
+           per-user config files; should be the first option.
+       ·   --debug=debug_options, -# debug_options
+           Write a debugging log. A typical debug_options string is
+           ´d:t:o,file_name´. The default is
+           ´d:t:o,/tmp/my_print_defaults.trace´.
+       ·   --defaults-extra-file=file_name, --extra-file=file_name, -e
+           file_name
+           Read this option file after the global option file but (on Unix)
+           before the user option file. Should be the first option.
+           --extra-file is deprecated, use  --defaults-extra-file.
+       ·   --defaults-group-suffix=suffix, -g suffix
+           In addition to the groups named on the command line, read groups
+           that have the given suffix.
+       ·   --mysqld
+           Read the same set of groups that the mysqld binary does.
+       ·   --no-defaults, -n
+           Return an empty string (useful for scripts).
+       ·   --verbose, -v
+           Verbose mode. Print more information about what the program does.
+       ·   --version, -V
+           Display version information and exit.

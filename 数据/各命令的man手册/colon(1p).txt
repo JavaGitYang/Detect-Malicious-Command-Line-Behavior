@@ -1,0 +1,4 @@
+
+       This utility shall only expand command arguments.  It is used when a
+       command is needed, as in the then condition of an if command, but
+       nothing is to be done by the command.

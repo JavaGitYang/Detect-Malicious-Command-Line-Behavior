@@ -1,0 +1,4 @@
+
+       If called, gnutls_record_send() will no longer send any records.  Any
+       sent records will be cached until gnutls_record_uncork() is called.
+       This function is safe to use with DTLS after GnuTLS 3.3.0.

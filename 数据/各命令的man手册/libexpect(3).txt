@@ -1,0 +1,5 @@
+
+       This library contains functions that allow Expect to be used as a Tcl
+       extension or to be used directly from C or C++ (without Tcl).  Adding
+       Expect as a Tcl extension is very short and simple, so that will be
+       covered first.

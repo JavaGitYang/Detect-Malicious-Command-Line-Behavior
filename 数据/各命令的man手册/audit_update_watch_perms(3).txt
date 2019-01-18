@@ -1,0 +1,4 @@
+
+       audit_update_watch_perms adds the permission checks to a watch
+       command that is being built. The perms are a bitwise or'ing of:
+       AUDIT_PERM_EXEC, AUDIT_PERM_WRITE, AUDIT_PERM_READ, AUDIT_PERM_ATTR.

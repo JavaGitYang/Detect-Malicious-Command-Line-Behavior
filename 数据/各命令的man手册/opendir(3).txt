@@ -1,0 +1,8 @@
+
+       The opendir() function opens a directory stream corresponding to the
+       directory name, and returns a pointer to the directory stream.  The
+       stream is positioned at the first entry in the directory.
+       The fdopendir() function is like opendir(), but returns a directory
+       stream for the directory referred to by the open file descriptor fd.
+       After a successful call to fdopendir(), fd is used internally by the
+       implementation, and should not otherwise be used by the application.

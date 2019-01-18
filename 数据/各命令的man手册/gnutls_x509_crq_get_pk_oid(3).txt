@@ -1,0 +1,4 @@
+
+       This function will return the OID of the public key algorithm on that
+       certificate request. This is function is useful in the case
+       gnutls_x509_crq_get_pk_algorithm() returned GNUTLS_PK_UNKNOWN.

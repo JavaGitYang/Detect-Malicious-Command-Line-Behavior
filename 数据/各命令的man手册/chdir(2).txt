@@ -1,0 +1,5 @@
+
+       chdir() changes the current working directory of the calling process
+       to the directory specified in path.
+       fchdir() is identical to chdir(); the only difference is that the
+       directory is given as an open file descriptor.

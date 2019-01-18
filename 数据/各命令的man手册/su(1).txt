@@ -1,0 +1,19 @@
+
+       su allows to run commands with a substitute user and group ID.
+       When called without arguments, su defaults to running an interactive
+       shell as root.
+       For backward compatibility, su defaults to not change the current
+       directory and to only set the environment variables HOME and SHELL
+       (plus USER and LOGNAME if the target user is not root).  It is
+       recommended to always use the --login option (instead of its shortcut
+       -) to avoid side effects caused by mixing environments.
+       This version of su uses PAM for authentication, account and session
+       management.  Some configuration options found in other su
+       implementations, such as support for a wheel group, have to be
+       configured via PAM.
+       su is mostly designed for unprivileged users, the recommended
+       solution for privileged users (e.g. scripts executed by root) is to
+       use non-set-user-ID command runuser(1) that does not require
+       authentication and provide separate PAM configuration. If the PAM
+       session is not required at all then the recommend solution is to use
+       command setpriv(1).

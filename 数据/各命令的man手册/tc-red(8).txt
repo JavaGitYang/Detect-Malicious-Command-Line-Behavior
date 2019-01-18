@@ -1,0 +1,17 @@
+
+       Random Early Detection is a classless qdisc which manages its queue
+       size smartly. Regular queues simply drop packets from the tail when
+       they are full, which may not be the optimal behaviour. RED also
+       performs tail drop, but does so in a more gradual way.
+       Once the queue hits a certain average length, packets enqueued have a
+       configurable chance of being marked (which may mean dropped). This
+       chance increases linearly up to a point called the max average queue
+       length, although the queue might get bigger.
+       This has a host of benefits over simple taildrop, while not being
+       processor intensive. It prevents synchronous retransmits after a
+       burst in traffic, which cause further retransmits, etc.
+       The goal is to have a small queue size, which is good for
+       interactivity while not disturbing TCP/IP traffic with too many
+       sudden drops after a burst of traffic.
+       Depending on if ECN is configured, marking either means dropping or
+       purely marking a packet as overlimit.

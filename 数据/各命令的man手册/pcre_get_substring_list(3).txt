@@ -1,0 +1,16 @@
+
+       This is a convenience function for extracting a list of all the
+       captured substrings. The arguments are:
+         subject       Subject that has been successfully matched
+         ovector       Offset vector that pcre[16|32]_exec used
+         stringcount   Value returned by pcre[16|32]_exec
+         listptr       Where to put a pointer to the list
+       The memory in which the substrings and the list are placed is
+       obtained by calling pcre[16|32]_malloc(). The convenience function
+       pcre[16|32]_free_substring_list() can be used to free it when it is
+       no longer needed. A pointer to a list of pointers is put in the
+       variable whose address is in listptr. The list is terminated by a
+       NULL pointer. The yield of the function is zero on success or
+       PCRE_ERROR_NOMEMORY if sufficient memory could not be obtained.
+       There is a complete description of the PCRE native API in the pcreapi
+       page and a description of the POSIX API in the pcreposix page.

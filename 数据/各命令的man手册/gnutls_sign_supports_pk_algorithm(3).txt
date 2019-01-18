@@ -1,0 +1,3 @@
+
+       This function returns non-zero if the public key algorithm
+       corresponds to the given signature algorithm.

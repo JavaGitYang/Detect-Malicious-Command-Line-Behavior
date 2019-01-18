@@ -1,0 +1,47 @@
+
+       For strtok(): The functionality described on this reference page is
+       aligned with the ISO C standard. Any conflict between the
+       requirements described here and the ISO C standard is unintentional.
+       This volume of POSIX.1‐2008 defers to the ISO C standard.
+       A sequence of calls to strtok() breaks the string pointed to by s1
+       into a sequence of tokens, each of which is delimited by a byte from
+       the string pointed to by s2.  The first call in the sequence has s1
+       as its first argument, and is followed by calls with a null pointer
+       as their first argument. The separator string pointed to by s2 may be
+       different from call to call.
+       The first call in the sequence searches the string pointed to by s1
+       for the first byte that is not contained in the current separator
+       string pointed to by s2.  If no such byte is found, then there are no
+       tokens in the string pointed to by s1 and strtok() shall return a
+       null pointer. If such a byte is found, it is the start of the first
+       token.
+       The strtok() function then searches from there for a byte that is
+       contained in the current separator string. If no such byte is found,
+       the current token extends to the end of the string pointed to by s1,
+       and subsequent searches for a token shall return a null pointer. If
+       such a byte is found, it is overwritten by a NUL character, which
+       terminates the current token. The strtok() function saves a pointer
+       to the following byte, from which the next search for a token shall
+       start.
+       Each subsequent call, with a null pointer as the value of the first
+       argument, starts searching from the saved pointer and behaves as
+       described above.
+       The implementation shall behave as if no function defined in this
+       volume of POSIX.1‐2008 calls strtok().
+       The strtok() function need not be thread-safe.
+       The strtok_r() function considers the null-terminated string s as a
+       sequence of zero or more text tokens separated by spans of one or
+       more characters from the separator string sep.  The argument lasts
+       points to a user-provided pointer which points to stored information
+       necessary for strtok_r() to continue scanning the same string.
+       In the first call to strtok_r(), s points to a null-terminated
+       string, sep to a null-terminated string of separator characters, and
+       the value pointed to by lasts is ignored. The strtok_r() function
+       shall return a pointer to the first character of the first token,
+       write a null character into s immediately following the returned
+       token, and update the pointer to which lasts points.
+       In subsequent calls, s is a null pointer and lasts shall be unchanged
+       from the previous call so that subsequent calls shall move through
+       the string s, returning successive tokens until no tokens remain. The
+       separator string sep may be different from call to call. When no
+       token remains in s, a null pointer shall be returned.

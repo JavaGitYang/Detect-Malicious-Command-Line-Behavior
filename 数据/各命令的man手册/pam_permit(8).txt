@@ -1,0 +1,8 @@
+
+       pam_permit is a PAM module that always permit access. It does nothing
+       else.
+       In the case of authentication, the user's name will be set to nobody
+       if the application didn't set one. Many applications and PAM modules
+       become confused if this name is unknown.
+       This module is very dangerous. It should be used with extreme
+       caution.

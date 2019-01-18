@@ -1,0 +1,7 @@
+
+       The trace-cmd(1) hist displays a histogram form from the trace.dat
+       file. Instead of showing the events as they were ordered, it creates
+       a histogram that can be displayed per task or for all tasks where the
+       most common events appear first. It uses the function tracer and call
+       stacks that it finds to try to put together a call graph of the
+       events.

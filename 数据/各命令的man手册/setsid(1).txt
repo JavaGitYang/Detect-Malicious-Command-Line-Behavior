@@ -1,0 +1,5 @@
+
+       setsid runs a program in a new session. The command calls fork(2) if
+       already a process group leader.  Otherwise, it executes a program in
+       the current process.  This default behavior is possible to override
+       by the --fork option.

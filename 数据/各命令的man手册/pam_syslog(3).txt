@@ -1,0 +1,8 @@
+
+       The pam_syslog function logs messages using syslog(3) and is intended
+       for internal use by Linux-PAM and PAM service modules. The priority
+       argument is formed by ORing the facility and the level values as
+       documented in the syslog(3) manual page.
+       The pam_vsyslog function performs the same task as pam_syslog() with
+       the difference that it takes a set of arguments which have been
+       obtained using the stdarg(3) variable argument list macros.

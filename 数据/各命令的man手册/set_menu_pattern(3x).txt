@@ -1,0 +1,9 @@
+
+       Every menu has an associated pattern match buffer.  As input events
+       that are printable characters come in, they are appended to this
+       match buffer and tested for a match, as described in menu_driver(3X).
+       The function set_menu_pattern sets the pattern buffer for the given
+       menu and tries to find the first matching item.  If it succeeds, that
+       item becomes current; if not, the current item does not change.
+       The function menu_pattern returns the pattern buffer of the given
+       menu.

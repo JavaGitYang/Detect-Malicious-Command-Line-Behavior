@@ -1,0 +1,3 @@
+
+       The multi-part .deb format is used to split big packages into smaller
+       pieces to ease transport in small media.

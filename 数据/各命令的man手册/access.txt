@@ -1,0 +1,47 @@
+
+       The /etc/security/access.conf file specifies (user/group, host),
+       (user/group, network/netmask), (user/group, tty), (user/group,
+       X-$DISPLAY-value), or (user/group, pam-service-name) combinations for
+       which a login will be either accepted or refused.
+       When someone logs in, the file access.conf is scanned for the first
+       entry that matches the (user/group, host) or (user/group,
+       network/netmask) combination, or, in case of non-networked logins,
+       the first entry that matches the (user/group, tty) combination, or in
+       the case of non-networked logins without a tty, the first entry that
+       matches the (user/group, X-$DISPLAY-value) or (user/group,
+       pam-service-name/) combination. The permissions field of that table
+       entry determines whether the login will be accepted or refused.
+       Each line of the login access control table has three fields
+       separated by a ":" character (colon):
+       permission:users/groups:origins
+       The first field, the permission field, can be either a "+" character
+       (plus) for access granted or a "-" character (minus) for access
+       denied.
+       The second field, the users/group field, should be a list of one or
+       more login names, group names, or ALL (which always matches). To
+       differentiate user entries from group entries, group entries should
+       be written with brackets, e.g.  (group).
+       The third field, the origins field, should be a list of one or more
+       tty names (for non-networked logins), X $DISPLAY values or PAM
+       service names (for non-networked logins without a tty), host names,
+       domain names (begin with "."), host addresses, internet network
+       numbers (end with "."), internet network addresses with network mask
+       (where network mask can be a decimal number or an internet address
+       also), ALL (which always matches) or LOCAL. The LOCAL keyword matches
+       if and only if pam_get_item(3), when called with an item_type of
+       PAM_RHOST, returns NULL or an empty string (and therefore the origins
+       field is compared against the return value of pam_get_item(3) called
+       with an item_type of PAM_TTY or, absent that, PAM_SERVICE).
+       If supported by the system you can use @netgroupname in host or user
+       patterns. The @@netgroupname syntax is supported in the user pattern
+       only and it makes the local system hostname to be passed to the
+       netgroup match call in addition to the user name. This might not work
+       correctly on some libc implementations causing the match to always
+       fail.
+       The EXCEPT operator makes it possible to write very compact rules.
+       If the nodefgroup is not set, the group file is searched when a name
+       does not match that of the logged-in user. Only groups are matched in
+       which users are explicitly listed. However the PAM module does not
+       look at the primary group id of a user.
+       The "#" character at start of line (no space at front) can be used to
+       mark this line as a comment line.

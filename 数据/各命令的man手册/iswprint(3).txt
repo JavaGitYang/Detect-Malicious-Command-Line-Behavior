@@ -1,0 +1,8 @@
+
+       The iswprint() function is the wide-character equivalent of the
+       isprint(3) function.  It tests whether wc is a wide character
+       belonging to the wide-character class "print".
+       The wide-character class "print" is disjoint from the wide-character
+       class "cntrl".
+       The wide-character class "print" contains the wide-character class
+       "graph".

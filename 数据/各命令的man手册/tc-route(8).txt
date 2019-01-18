@@ -1,0 +1,6 @@
+
+       Match packets based on routing table entries. This filter centers
+       around the possibility to assign a realm to routing table entries.
+       For any packet to be classified by this filter, a routing table
+       lookup is performed and the returned realm is used to decide on
+       whether the packet is a match or not.

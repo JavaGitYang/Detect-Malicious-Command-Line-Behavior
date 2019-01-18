@@ -1,0 +1,40 @@
+
+       The attr utility allows the manipulation of extended attributes
+       associated with filesystem objects from within shell scripts.
+       There are four main operations that attr can perform:
+       GET    The -g attrname option tells attr to search the named object
+              and print (to stdout) the value associated with that attribute
+              name.  With the -q flag, stdout will be exactly and only the
+              value of the attribute, suitable for storage directly into a
+              file or processing via a piped command.
+       LIST   The -l option tells attr to list the names of all the
+              attributes that are associated with the object, and the number
+              of bytes in the value of each of those attributes.  With the
+              -q flag, stdout will be a simple list of only the attribute
+              names, one per line, suitable for input into a script.
+       REMOVE The -r attrname option tells attr to remove an attribute with
+              the given name from the object if the attribute exists.  There
+              is no output on successful completion.
+       SET/CREATE
+              The -s attrname option tells attr to set the named attribute
+              of the object to the value read from stdin.  If an attribute
+              with that name already exists, its value will be replaced with
+              this one.  If an attribute with that name does not already
+              exist, one will be created with this value.  With the -V
+              attrvalue flag, the attribute will be set to have a value of
+              attrvalue and stdin will not be read.  With the -q flag,
+              stdout will not be used.  Without the -q flag, a message
+              showing the attribute name and the entire value will be
+              printed.
+       When the -L option is given and the named object is a symbolic link,
+       operate on the attributes of the object referenced by the symbolic
+       link.  Without this option, operate on the attributes of the symbolic
+       link itself.
+       When the -R option is given and the process has appropriate
+       privileges, operate in the root attribute namespace rather that the
+       USER attribute namespace.
+       The -S option is similar, except it specifies use of the security
+       attribute namespace.
+       When the -q option is given attr will try to keep quiet.  It will
+       output error messages (to stderr) but will not print status messages
+       (to stdout).

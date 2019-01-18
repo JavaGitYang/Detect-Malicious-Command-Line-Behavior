@@ -1,0 +1,116 @@
+
+       If <branch> is specified, git rebase will perform an automatic git
+       checkout <branch> before doing anything else. Otherwise it remains on
+       the current branch.
+       If <upstream> is not specified, the upstream configured in
+       branch.<name>.remote and branch.<name>.merge options will be used
+       (see git-config(1) for details) and the --fork-point option is
+       assumed. If you are currently not on any branch or if the current
+       branch does not have a configured upstream, the rebase will abort.
+       All changes made by commits in the current branch but that are not in
+       <upstream> are saved to a temporary area. This is the same set of
+       commits that would be shown by git log <upstream>..HEAD; or by git
+       log 'fork_point'..HEAD, if --fork-point is active (see the
+       description on --fork-point below); or by git log HEAD, if the --root
+       option is specified.
+       The current branch is reset to <upstream>, or <newbase> if the --onto
+       option was supplied. This has the exact same effect as git reset
+       --hard <upstream> (or <newbase>). ORIG_HEAD is set to point at the
+       tip of the branch before the reset.
+       The commits that were previously saved into the temporary area are
+       then reapplied to the current branch, one by one, in order. Note that
+       any commits in HEAD which introduce the same textual changes as a
+       commit in HEAD..<upstream> are omitted (i.e., a patch already
+       accepted upstream with a different commit message or timestamp will
+       be skipped).
+       It is possible that a merge failure will prevent this process from
+       being completely automatic. You will have to resolve any such merge
+       failure and run git rebase --continue. Another option is to bypass
+       the commit that caused the merge failure with git rebase --skip. To
+       check out the original <branch> and remove the .git/rebase-apply
+       working files, use the command git rebase --abort instead.
+       Assume the following history exists and the current branch is
+       "topic":
+                     A---B---C topic
+                    /
+               D---E---F---G master
+       From this point, the result of either of the following commands:
+           git rebase master
+           git rebase master topic
+       would be:
+                             A'--B'--C' topic
+                            /
+               D---E---F---G master
+       NOTE: The latter form is just a short-hand of git checkout topic
+       followed by git rebase master. When rebase exits topic will remain
+       the checked-out branch.
+       If the upstream branch already contains a change you have made (e.g.,
+       because you mailed a patch which was applied upstream), then that
+       commit will be skipped. For example, running git rebase master on the
+       following history (in which A' and A introduce the same set of
+       changes, but have different committer information):
+                     A---B---C topic
+                    /
+               D---E---A'---F master
+       will result in:
+                              B'---C' topic
+                             /
+               D---E---A'---F master
+       Here is how you would transplant a topic branch based on one branch
+       to another, to pretend that you forked the topic branch from the
+       latter branch, using rebase --onto.
+       First let’s assume your topic is based on branch next. For example, a
+       feature developed in topic depends on some functionality which is
+       found in next.
+               o---o---o---o---o  master
+                    \
+                     o---o---o---o---o  next
+                                      \
+                                       o---o---o  topic
+       We want to make topic forked from branch master; for example, because
+       the functionality on which topic depends was merged into the more
+       stable master branch. We want our tree to look like this:
+               o---o---o---o---o  master
+                   |            \
+                   |             o'--o'--o'  topic
+                    \
+                     o---o---o---o---o  next
+       We can get this using the following command:
+           git rebase --onto master next topic
+       Another example of --onto option is to rebase part of a branch. If we
+       have the following situation:
+                                       H---I---J topicB
+                                      /
+                             E---F---G  topicA
+                            /
+               A---B---C---D  master
+       then the command
+           git rebase --onto master topicA topicB
+       would result in:
+                            H'--I'--J'  topicB
+                           /
+                           | E---F---G  topicA
+                           |/
+               A---B---C---D  master
+       This is useful when topicB does not depend on topicA.
+       A range of commits could also be removed with rebase. If we have the
+       following situation:
+               E---F---G---H---I---J  topicA
+       then the command
+           git rebase --onto topicA~5 topicA~3 topicA
+       would result in the removal of commits F and G:
+               E---H'---I'---J'  topicA
+       This is useful if F and G were flawed in some way, or should not be
+       part of topicA. Note that the argument to --onto and the <upstream>
+       parameter can be any valid commit-ish.
+       In case of conflict, git rebase will stop at the first problematic
+       commit and leave conflict markers in the tree. You can use git diff
+       to locate the markers (<<<<<<) and make edits to resolve the
+       conflict. For each file you edit, you need to tell Git that the
+       conflict has been resolved, typically this would be done with
+           git add <filename>
+       After resolving the conflict manually and updating the index with the
+       desired resolution, you can continue the rebasing process with
+           git rebase --continue
+       Alternatively, you can undo the git rebase with
+           git rebase --abort

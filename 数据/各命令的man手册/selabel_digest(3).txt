@@ -1,0 +1,10 @@
+
+       selabel_digest() performs an operation on the handle hnd, returning
+       the results of the SHA1 digest pointed to by digest, whose length
+       will be digest_len.  The list of specfiles used in the SHA1 digest
+       calculation is returned in specfiles with the number of entries in
+       num_specfiles.
+       To enable selabel_digest() to return this information the
+       SELABEL_OPT_DIGEST option must be enable in selabel_open(3).
+       The result of selabel_digest() must not be used after
+       selabel_close(3).

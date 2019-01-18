@@ -1,0 +1,4 @@
+
+       This function will set the flags to be used for verification of
+       certificates and override any defaults.  The provided flags must be
+       an OR of the gnutls_certificate_verify_flags enumerations.

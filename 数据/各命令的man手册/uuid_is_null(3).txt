@@ -1,0 +1,4 @@
+
+       The uuid_is_null function compares the value of the supplied UUID
+       variable uu to the NULL value.  If the value is equal to the NULL
+       UUID, 1 is returned, otherwise 0 is returned.

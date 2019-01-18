@@ -1,0 +1,4 @@
+
+       stime() sets the system's idea of the time and date.  The time,
+       pointed to by t, is measured in seconds since the Epoch, 1970-01-01
+       00:00:00 +0000 (UTC).  stime() may be executed only by the superuser.

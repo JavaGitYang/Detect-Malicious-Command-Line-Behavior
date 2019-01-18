@@ -1,0 +1,5 @@
+
+       semanage is used to configure certain elements of SELinux policy
+       without requiring modification to or recompilation from policy
+       sources.  semanage module installs, removes, disables SELinux Policy
+       modules.

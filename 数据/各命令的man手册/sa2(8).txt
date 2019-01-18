@@ -1,0 +1,13 @@
+
+       The sa2 command is a shell procedure variant of the sar command which
+       writes a daily report in the sarDD or the sarYYYYMMDD file, where
+       YYYY stands for the current year, MM for the current month and DD for
+       the current day.  By default the report is saved in the /var/log/sa
+       directory.  The sa2 command will also remove reports more than one
+       week old by default.  You can however keep reports for a longer (or a
+       shorter) period by setting the HISTORY environment variable. Read the
+       sysstat(5) manual page for details.
+       The sa2 command accepts most of the flags and parameters of the sar
+       command.
+       The sa2 command is designed to be started automatically by the cron
+       command.

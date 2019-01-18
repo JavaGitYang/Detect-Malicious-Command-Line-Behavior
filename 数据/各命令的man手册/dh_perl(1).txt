@@ -1,0 +1,9 @@
+
+       dh_perl is a debhelper program that is responsible for generating the
+       ${perl:Depends} substitutions and adding them to substvars files.
+       The program will look at Perl scripts and modules in your package,
+       and will use this information to generate a dependency on perl or
+       perlapi. The dependency will be substituted into your package's
+       control file wherever you place the token ${perl:Depends}.
+       dh_perl also cleans up empty directories that MakeMaker can generate
+       when installing Perl modules.

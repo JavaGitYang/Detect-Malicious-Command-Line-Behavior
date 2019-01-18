@@ -1,0 +1,13 @@
+
+       dpkg-architecture provides a facility to determine and set the build
+       and host architecture for package building.
+       The build architecture is always determined by an external call to
+       dpkg(1), and cannot be set at the command line.
+       You can specify the host architecture by providing one or both of the
+       options --host-arch and --host-type. The default is determined by an
+       external call to gcc(1), or the same as the build architecture if CC
+       or gcc are both not available. One out of --host-arch and --host-type
+       is sufficient, the value of the other will be set to a usable
+       default. Indeed, it is often better to only specify one, because
+       dpkg-architecture will warn you if your choice does not match the
+       default.

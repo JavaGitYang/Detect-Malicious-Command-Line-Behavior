@@ -1,0 +1,13 @@
+
+       The shutdown() function shall cause all or part of a full-duplex
+       connection on the socket associated with the file descriptor socket
+       to be shut down.
+       The shutdown() function takes the following arguments:
+       socket      Specifies the file descriptor of the socket.
+       how         Specifies the type of shutdown. The values are as
+                   follows:
+                   SHUT_RD     Disables further receive operations.
+                   SHUT_WR     Disables further send operations.
+                   SHUT_RDWR   Disables further send and receive operations.
+       The shutdown() function disables subsequent send and/or receive
+       operations on a socket, depending on the value of the how argument.

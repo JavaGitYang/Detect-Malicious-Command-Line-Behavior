@@ -1,0 +1,32 @@
+
+       The groffer program is the easiest way to use groff(1).  It can
+       display arbitrary documents written in the groff language, see
+       groff(7), or other roff languages, see roff(7), that are compatible
+       to the original troff language.  It finds and runs all necessary
+       groff preprocessors, such as chem.
+       The groffer program also includes many of the features for finding
+       and displaying the Unix manual pages (man pages), such that it can be
+       used as a replacement for a man(1) program.  Moreover, compressed
+       files that can be handled by gzip(1) or bzip2(1) are decompressed on-
+       the-fly.
+       The normal usage is quite simple by supplying a file name or name of
+       a man page without further options.  But the option handling has many
+       possibilities for creating special behaviors.  This can be done ei‐
+       ther in configuration files, with the shell environment variable
+       $GROFFER_OPT, or on the command line.
+       The output can be generated and viewed in several different ways
+       available for groff.  This includes the X Window System-based groff
+       program gxditview(1), each PostScript, PDF, or DVI display program, a
+       web browser by generating HTML or XHTML in www mode, or several
+       text modes in text terminals.
+       Most of the options that must be named when running groff directly
+       are determined automatically for groffer, due to the internal usage
+       of the grog(1) program.  But all parts can also be controlled manual‐
+       ly by arguments.
+       Several file names can be specified on the command-line arguments.
+       They are transformed into a single document in the normal way of
+       groff.
+       Option handling is done in GNU style.  Options and file names can be
+       mixed freely.  The option “--” closes the option handling, all fol‐
+       lowing arguments are treated as file names.  Long options can be ab‐
+       breviated in several ways.

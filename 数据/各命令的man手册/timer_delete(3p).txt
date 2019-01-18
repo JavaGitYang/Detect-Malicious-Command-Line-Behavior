@@ -1,0 +1,6 @@
+
+       The timer_delete() function deletes the specified timer, timerid,
+       previously created by the timer_create() function. If the timer is
+       armed when timer_delete() is called, the behavior shall be as if the
+       timer is automatically disarmed before removal. The disposition of
+       pending signals for the deleted timer is unspecified.

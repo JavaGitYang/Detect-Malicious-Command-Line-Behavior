@@ -1,0 +1,9 @@
+
+       This manual page describes ltrace.conf, a file that describes
+       prototypes of functions in binaries for ltrace(1) to use.  Ltrace
+       needs this information to display function call arguments.
+       Each line of a configuration file describes at most a single item.
+       Lines composed entirely of white space are ignored, as are lines
+       starting with semicolon or hash characters (comment lines).
+       Described items can be either function prototypes, or definitions of
+       type aliases.

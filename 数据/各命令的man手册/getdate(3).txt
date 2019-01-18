@@ -1,0 +1,36 @@
+
+       The function getdate() converts a string representation of a date and
+       time, contained in the buffer pointed to by string, into a broken-
+       down time.  The broken-down time is stored in a tm structure, and a
+       pointer to this structure is returned as the function result.  This
+       tm structure is allocated in static storage, and consequently it will
+       be overwritten by further calls to getdate().
+       In contrast to strptime(3), (which has a format argument), getdate()
+       uses the formats found in the file whose full pathname is given in
+       the environment variable DATEMSK.  The first line in the file that
+       matches the given input string is used for the conversion.
+       The matching is done case insensitively.  Superfluous whitespace,
+       either in the pattern or in the string to be converted, is ignored.
+       The conversion specifications that a pattern can contain are those
+       given for strptime(3).  One more conversion specification is
+       specified in POSIX.1-2001:
+       %Z     Timezone name.  This is not implemented in glibc.
+       When %Z is given, the structure containing the broken-down time is
+       initialized with values corresponding to the current time in the
+       given timezone.  Otherwise, the structure is initialized to the
+       broken-down time corresponding to the current local time (as by a
+       call to localtime(3)).
+       When only the day of the week is given, the day is taken to be the
+       first such day on or after today.
+       When only the month is given (and no year), the month is taken to be
+       the first such month equal to or after the current month.  If no day
+       is given, it is the first day of the month.
+       When no hour, minute and second are given, the current hour, minute
+       and second are taken.
+       If no date is given, but we know the hour, then that hour is taken to
+       be the first such hour equal to or after the current hour.
+       getdate_r() is a GNU extension that provides a reentrant version of
+       getdate().  Rather than using a global variable to report errors and
+       a static buffer to return the broken down time, it returns errors via
+       the function result value, and returns the resulting broken-down time
+       in the caller-allocated buffer pointed to by the argument res.

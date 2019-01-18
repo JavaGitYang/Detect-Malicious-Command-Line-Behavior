@@ -1,0 +1,25 @@
+
+       Lttngtoptrace is a live textual LTTng trace viewer, it allows to
+       easily (one command) start a LTTng session and view the live events.
+       The intent is to do something similar to strace but less intrusive
+       and more flexible:
+       - run a command and see it's kernel trace almost instantly without slowing it
+         down too much (buffered at most 1 second) in combination with the trace of
+         any other process or the whole system
+       - follow multiple processes and/or the whole system
+       - follow the children of all attached processes
+       - attach to processes by name and/or pid
+       - actual time taken by the system calls (with reminder of start timestamp)
+       - sched_switch events to know the context switches that occurred for the
+         process we are interested in
+       - current CPU (to see the migrations)
+       - highlight the trace of a selection of processes while tracing the whole
+         system to easily see the interactions
+       - arbitrary kprobe additions to see if a process hits a certain place in the
+         kernel
+       Only a subset of the LTTng events are enabled (the statedump,
+       sched_switch, sched_process_fork and all the system calls).
+       The events are displayed with additionnal context information than
+       just the raw LTTng trace (such as the current process name/PID/TID,
+       the start/end time of the current system call, the delay since the
+       last displayed event (filtering aware)).

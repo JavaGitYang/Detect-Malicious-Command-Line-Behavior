@@ -1,0 +1,12 @@
+
+       The trace-cmd(1) snapshot controls or displays the Ftrace Linux
+       kernel snapshot feature (if the kernel supports it). This is useful
+       to "freeze" an instance of a live trace but without stopping the
+       trace.
+            trace-cmd start -p function
+            trace-cmd snapshot -s
+            trace-cmd snapshot
+           [ dumps the content of buffer at 'trace-cmd snapshot -s' ]
+            trace-cmd snapshot -s
+            trace-cmd snapshot
+           [ dumps the new content of the buffer at the last -s operation ]

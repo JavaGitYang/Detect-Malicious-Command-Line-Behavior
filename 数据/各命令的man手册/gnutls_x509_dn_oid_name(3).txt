@@ -1,0 +1,4 @@
+
+       This function will return the name of a known DN OID. If
+       GNUTLS_X509_DN_OID_RETURN_OID is specified this function will return
+       the given OID if no descriptive name has been found.

@@ -1,0 +1,7 @@
+
+       iowatcher graphs the results of a blktrace run.  It can graph the
+       result of an existing blktrace, start a new blktrace, or start a new
+       blktrace and a benchmark run.  It can then create an image or movie
+       of the IO from a given trace.  iowatcher can produce either SVG files
+       or movies in mp4 format (with ffmpeg) or ogg format (with
+       png2theora).

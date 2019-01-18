@@ -1,0 +1,10 @@
+
+       The variable sized results returned by pmFetch(3) are allocated below
+       the Performance Metrics Application Programming Interface (PMAPI)
+       using a combination of dynamic (i.e. malloc(3)) and specialized
+       allocation strategies.
+       Applications should call pmFreeResult to release the storage
+       previously allocated for result by pmFetch(3), when the application
+       no longer requires access to the pmResult structure.
+       Under no circumstances should an application use free(result) to
+       release storage previously allocated for a pmResult by pmFetch(3).

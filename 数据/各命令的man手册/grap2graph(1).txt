@@ -1,0 +1,14 @@
+
+       Reads a grap program as input; produces an image file (by default in
+       Portable Network Graphics format) suitable for the Web as output.
+       For a description of the grap language, see grap(1).
+       Your graph specification should not be wrapped with the .G1 and .G2
+       macros that normally guard it within groff(1) macros.
+       The output image will be a black-on-white graphic clipped to the
+       smallest possible bounding box that contains all the black pixels.
+       By specifying command-line options to be passed to convert(1) you can
+       give it a border, set the background transparent, set the image's
+       pixel density, or perform other useful transformations.
+       This program uses grap(1), pic(1), groff(1), and the ImageMagick
+       convert(1) program.  These programs must be installed on your system
+       and accessible on your $PATH for grap2graph to work.

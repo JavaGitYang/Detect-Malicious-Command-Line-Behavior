@@ -1,0 +1,14 @@
+
+       The function tcgetpgrp() returns the process group ID of the
+       foreground process group on the terminal associated to fd, which must
+       be the controlling terminal of the calling process.
+       The function tcsetpgrp() makes the process group with process group
+       ID pgrp the foreground process group on the terminal associated to
+       fd, which must be the controlling terminal of the calling process,
+       and still be associated with its session.  Moreover, pgrp must be a
+       (nonempty) process group belonging to the same session as the calling
+       process.
+       If tcsetpgrp() is called by a member of a background process group in
+       its session, and the calling process is not blocking or ignoring
+       SIGTTOU, a SIGTTOU signal is sent to all members of this background
+       process group.

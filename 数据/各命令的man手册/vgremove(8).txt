@@ -1,0 +1,7 @@
+
+       vgremove removes one or more VGs. If LVs exist in the VG, a prompt is
+       used to confirm LV removal.
+       If one or more PVs in the VG are lost, consider vgreduce
+       --removemissing to make the VG metadata consistent again.
+       Repeat the force option (-ff) to forcibly remove LVs in the VG
+       without confirmation.

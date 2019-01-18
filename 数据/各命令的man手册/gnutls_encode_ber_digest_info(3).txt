@@ -1,0 +1,3 @@
+
+       This function will encode the provided digest data, and its algorithm
+       into an RSA PKCS1 1.5 DigestInfo structure.

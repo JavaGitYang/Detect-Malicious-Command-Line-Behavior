@@ -1,0 +1,15 @@
+
+       This function ensures that the bytes in 2-byte and 4-byte values in a
+       compiled pattern are in the correct order for the current host. It is
+       useful when a pattern that has been compiled on one host is
+       transferred to another that might have different endianness. The
+       arguments are:
+         code         A compiled regular expression
+         extra        Points to an associated pcre[16|32]_extra structure,
+                        or is NULL
+         tables       Pointer to character tables, or NULL to
+                        set the built-in default
+       The result is 0 for success, a negative PCRE_ERROR_xxx value
+       otherwise.
+       There is a complete description of the PCRE native API in the pcreapi
+       page and a description of the POSIX API in the pcreposix page.

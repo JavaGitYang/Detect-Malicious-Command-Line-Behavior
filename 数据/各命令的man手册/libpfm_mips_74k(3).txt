@@ -1,0 +1,3 @@
+
+       The library supports MIPS 74k processors in big or little endian
+       modes.

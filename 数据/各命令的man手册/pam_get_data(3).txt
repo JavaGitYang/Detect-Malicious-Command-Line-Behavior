@@ -1,0 +1,9 @@
+
+       This function together with the pam_set_data(3) function is useful to
+       manage module-specific data meaningful only to the calling PAM
+       module.
+       The pam_get_data function looks up the object associated with the
+       (hopefully) unique string module_data_name in the PAM context
+       specified by the pamh argument. A successful call to pam_get_data
+       will result in data pointing to the object. Note, this data is not a
+       copy and should be treated as constant by the module.

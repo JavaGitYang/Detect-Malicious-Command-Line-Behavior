@@ -1,0 +1,9 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The call atoi(str) shall be equivalent to:
+           (int) strtol(str, (char **)NULL, 10)
+       except that the handling of errors may differ. If the value cannot be
+       represented, the behavior is undefined.

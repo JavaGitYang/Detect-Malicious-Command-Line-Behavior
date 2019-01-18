@@ -1,0 +1,19 @@
+
+       These routines provide standard handling for error messages from
+       within the internals of Performance Co-Pilot (PCP) daemons and
+       Performance Metric Domain Agents (PMDAs).
+       pmNotifyErr is a printf(3) style function that will format message
+       (and any subsequent arguments) with a prefix that includes the
+       current date and time from ctime(3), the name of the application from
+       pmGetProgname(3), the process's id from getpid(2) and the priority.
+       priority should be one of the level LOG_ macros defined for
+       syslog(3).  Most typically this would be LOG_INFO, LOG_WARNING or
+       LOG_ERR.
+       pmNotifyErr writes to standard error, which for daemons and PMDAs has
+       most likely been redirected to a log file using pmOpenLog(3).
+       Additionally message (and any subsequent arguments) may be sent
+       forwarded to syslog(3) if pmSyslog has previously been called with
+       onoff having a non-zero value.
+       Forwarding to syslog(3) can be disabled at any time by calling
+       pmSyslog with onoff having a zero value, and this is the starting
+       state for each PCP application.

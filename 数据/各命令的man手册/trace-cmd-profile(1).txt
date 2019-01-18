@@ -1,0 +1,20 @@
+
+       The trace-cmd(1) profile will start tracing just like
+       trace-cmd-record(1), with the --profile option, except that it does
+       not write to a file, but instead, it will read the events as they
+       happen and will update the accounting of the events. When the trace
+       is finished, it will report the results just like trace-cmd-report(1)
+       would do with its --profile option. In other words, the profile
+       command does the work of trace-cmd record --profile, and trace-cmd
+       report --profile without having to record the data to disk, in
+       between.
+       The advantage of using the profile command is that the profiling can
+       be done over a long period of time where recording all events would
+       take up too much disk space.
+       This will enable several events as well as the function graph tracer
+       with a depth of one (if the kernel supports it). This is to show
+       where tasks enter and exit the kernel and how long they were in the
+       kernel.
+       To disable calling function graph, use the -p option to enable
+       another tracer. To not enable any tracer, use -p nop.
+       All timings are currently in nanoseconds.

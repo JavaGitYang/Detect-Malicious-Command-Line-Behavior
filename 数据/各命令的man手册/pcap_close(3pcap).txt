@@ -1,0 +1,3 @@
+
+       pcap_close() closes the files associated with p and deallocates
+       resources.

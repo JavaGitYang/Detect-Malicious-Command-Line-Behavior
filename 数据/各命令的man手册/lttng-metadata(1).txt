@@ -1,0 +1,4 @@
+
+           Warning
+           This command is deprecated; it has been replaced by lttng
+           regenerate metadata (see lttng-regenerate(1)).

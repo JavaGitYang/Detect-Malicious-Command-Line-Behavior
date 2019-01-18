@@ -1,0 +1,20 @@
+
+       pkey_alloc() allocates a protection key (pkey) and allows it to be
+       passed to pkey_mprotect(2).
+       The pkey_alloc() flags is reserved for future use and currently must
+       always be specified as 0.
+       The pkey_alloc() access_rights  argument may contain zero or more
+       disable operations:
+       PKEY_DISABLE_ACCESS
+              Disable all data access to memory covered by the returned
+              protection key.
+       PKEY_DISABLE_WRITE
+              Disable write access to memory covered by the returned
+              protection key.
+       pkey_free() frees a protection key and makes it available for later
+       allocations.  After a protection key has been freed, it may no longer
+       be used in any protection-key-related operations.
+       An application should not call pkey_free() on any protection key
+       which has been assigned to an address range by pkey_mprotect(2) and
+       which is still in use.  The behavior in this case is undefined and
+       may result in an error.

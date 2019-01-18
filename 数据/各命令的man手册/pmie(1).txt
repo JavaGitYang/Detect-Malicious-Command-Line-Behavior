@@ -1,0 +1,127 @@
+
+       pmie accepts a collection of arithmetic, logical, and rule
+       expressions to be evaluated at specified frequencies.  The base data
+       for the expressions consists of performance metrics values delivered
+       in real-time from any host running the Performance Metrics Collection
+       Daemon (PMCD), or using historical data from Performance Co-Pilot
+       (PCP) archive logs.
+       As well as computing arithmetic and logical values, pmie can execute
+       actions (popup alarms, write system log messages, and launch
+       programs) in response to specified conditions.  Such actions are
+       extremely useful in detecting, monitoring and correcting performance
+       related problems.
+       The expressions to be evaluated are read from configuration files
+       specified by one or more filename arguments.  In the absence of any
+       filename, expressions are read from standard input.
+       A description of the command line options specific to pmie follows:
+       -a   archive which is a comma-separated list of names, each of which
+            may be the base name of an archive or the name of a directory
+            containing one or more archives written by pmlogger(1).
+            Multiple instances of the -a flag may appear on the command line
+            to specify a list of sets of archives.  In this case, it is
+            required that only one set of archives be present for any one
+            host.  Also, any explicit host names occurring in a pmie
+            expression must match the host name recorded in one of the
+            archive labels.  In the case of multiple sets of archives,
+            timestamps recorded in the archives are used to ensure temporal
+            consistency.
+       -b   Output will be line buffered and standard output is attached to
+            standard error.  This is most useful for background execution in
+            conjunction with the -l option.  The -b option is always used
+            for pmie instances launched from pmie_check(1).
+       -C   Parse the configuration file(s) and exit before performing any
+            evaluations.  Any errors in the configuration file are reported.
+       -c   An alternative to specifying filename at the end of the command
+            line.
+       -d   Normally pmie would be launched as a non-interactive process to
+            monitor and manage the performance of one or more hosts.  Given
+            the -d flag however, execution is interactive and the user is
+            presented with a menu of options.  Interactive mode is useful
+            mainly for debugging new expressions.
+       -e   When used with -V, -v or -W, this option forces timestamps to be
+            reported with each expression.  The timestamps are in ctime(3)
+            format, enclosed in parenthesis and appear after the expression
+            name and before the expression value, e.g.
+                 expr_1 (Tue Feb  6 19:55:10 2001): 12
+       -f   If the -l option is specified and there is no -a option (ie.
+            real-time monitoring) then pmie is run as a daemon in the
+            background (in all other cases foreground is the default).  The
+            -f option forces pmie to be run in the foreground, independent
+            of any other options.
+       -h   By default performance data is fetched from the local host (in
+            real-time mode) or the host for the first named set of archives
+            on the command line (in archive mode).  The host argument
+            overrides this default.  It does not override hosts explicitly
+            named in the expressions being evaluated.  The host argument is
+            interpreted as a connection specification for pmNewContext, and
+            is later mapped to the remote pmcd's self-reported host name for
+            reporting purposes.  See also the %h vs. %c substitutions in
+            rule action strings below.
+       -l   Standard error is sent to logfile.
+       -j   An alternative STOMP protocol configuration is loaded from
+            stompfile.  If this option is not used, and the stomp action is
+            used in any rule, the default location
+            $PCP_SYSCONF_DIR/pmie/config/stomp will be used.
+       -n   An alternative Performance Metrics Name Space (PMNS) is loaded
+            from the file pmnsfile.
+       -q   Suppresses diagnostic messages that would be printed to standard
+            output by default, especially the "evaluator exiting" message as
+            this can confuse scripts.
+       -t   The interval argument follows the syntax described in
+            PCPIntro(1), and in the simplest form may be an unsigned integer
+            (the implied units in this case are seconds).  The value is used
+            to determine the sample interval for expressions that do not
+            explicitly set their sample interval using the pmie variable
+            delta described below.  The default is 10.0 seconds.
+       -U username
+            User account under which to run pmie.  The default is the
+            current user account for interactive use.  When run as a daemon,
+            the unprivileged "pcp" account is used in current versions of
+            PCP, but in older versions the superuser account ("root") was
+            used by default.
+       -v   Unless one of the verbose options -V, -v or -W appears on the
+            command line, expressions are evaluated silently, the only
+            output is as a result of any actions being executed.  In the
+            verbose mode, specified using the -v flag, the value of each
+            expression is printed as it is evaluated.  The values are in
+            canonical units; bytes in the dimension of ``space'', seconds in
+            the dimension of ``time'' and events in the dimension of
+            ``count''.  See pmLookupDesc(3) for details of the supported
+            dimension and scaling mechanisms for performance metrics.  The
+            verbose mode is useful in monitoring the value of given
+            expressions, evaluating derived performance metrics, passing
+            these values on to other tools for further processing and in
+            debugging new expressions.
+       -V   This option has the same effect as the -v option, except that
+            the name of the host and instance (if applicable) are printed as
+            well as expression values.
+       -W   This option has the same effect as the -V option described
+            above, except that for boolean expressions, only those names and
+            values that make the expression true are printed.  These are the
+            same names and values accessible to rule actions as the %h, %i,
+            %c and %v bindings, as described below.
+       -x   Execute in domain agent mode.  This mode is used within the
+            Performance Co-Pilot product to derive values for summary
+            metrics, see pmdasummary(1).  Only restricted functionality is
+            available in this mode (expressions with actions may not be
+            used).
+       -Z   Change the reporting timezone to timezone in the format of the
+            environment variable TZ as described in environ(7).
+       -z   Change the reporting timezone to the timezone of the host that
+            is the source of the performance metrics, as identified via
+            either the -h option or the first named set of archives (as
+            described above for the -a option).
+       The -S, -T, -O, and -A options may be used to define a time window to
+       restrict the samples retrieved, set an initial origin within the time
+       window, or specify a ``natural'' alignment of the sample times; refer
+       to PCPIntro(1) for a complete description of these options.
+       Output from pmie is directed to standard output and standard error as
+       follows:
+       stdout
+            Expression values printed in the verbose -v mode and the output
+            of print actions.
+       stderr
+            Error and warning messages for any syntactic or semantic
+            problems during expression parsing, and any semantic or
+            performance metrics availability problems during expression
+            evaluation.

@@ -1,0 +1,28 @@
+
+       The posix_spawnattr_destroy() function shall destroy a spawn
+       attributes object. A destroyed attr attributes object can be
+       reinitialized using posix_spawnattr_init(); the results of otherwise
+       referencing the object after it has been destroyed are undefined. An
+       implementation may cause posix_spawnattr_destroy() to set the object
+       referenced by attr to an invalid value.
+       The posix_spawnattr_init() function shall initialize a spawn
+       attributes object attr with the default value for all of the
+       individual attributes used by the implementation. Results are
+       undefined if posix_spawnattr_init() is called specifying an already
+       initialized attr attributes object.
+       A spawn attributes object is of type posix_spawnattr_t (defined in
+       <spawn.h>) and is used to specify the inheritance of process
+       attributes across a spawn operation. POSIX.1‐2008 does not define
+       comparison or assignment operators for the type posix_spawnattr_t.
+       Each implementation shall document the individual attributes it uses
+       and their default values unless these values are defined by
+       POSIX.1‐2008.  Attributes not defined by POSIX.1‐2008, their default
+       values, and the names of the associated functions to get and set
+       those attribute values are implementation-defined.
+       The resulting spawn attributes object (possibly modified by setting
+       individual attribute values), is used to modify the behavior of
+       posix_spawn() or posix_spawnp().  After a spawn attributes object has
+       been used to spawn a process by a call to a posix_spawn() or
+       posix_spawnp(), any function affecting the attributes object
+       (including destruction) shall not affect any process that has been
+       spawned in this way.

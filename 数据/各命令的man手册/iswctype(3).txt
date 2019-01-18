@@ -1,0 +1,7 @@
+
+       If wc is a wide character having the character property designated by
+       desc (or in other words: belongs to the character class designated by
+       desc), the iswctype() function returns nonzero.  Otherwise, it
+       returns zero.  If wc is WEOF, zero is returned.
+       desc must be a character property descriptor returned by the
+       wctype(3) function.

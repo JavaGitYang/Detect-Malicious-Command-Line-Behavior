@@ -1,0 +1,12 @@
+
+       The ctags utility shall be provided on systems that support the the
+       Software Development Utilities option, and either or both of the C-
+       Language Development Utilities option and FORTRAN Development
+       Utilities option. On other systems, it is optional.
+       The ctags utility shall write a tagsfile or an index of objects from
+       C-language or FORTRAN source files specified by the pathname
+       operands. The tagsfile shall list the locators of language-specific
+       objects within the source files. A locator consists of a name,
+       pathname, and either a search pattern or a line number that can be
+       used in searching for the object definition. The objects that shall
+       be recognized are specified in the EXTENDED DESCRIPTION section.

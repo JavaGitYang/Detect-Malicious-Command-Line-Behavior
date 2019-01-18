@@ -1,0 +1,25 @@
+
+       Crontab is the program used to install a crontab table file, remove
+       or list the existing tables used to serve the cron(8) daemon.  Each
+       user can have their own crontab, and though these are files in
+       /var/spool/, they are not intended to be edited directly.  For
+       SELinux in MLS mode, you can define more crontabs for each range.
+       For more information, see selinux(8).
+       In this version of Cron it is possible to use a network-mounted
+       shared /var/spool/cron across a cluster of hosts and specify that
+       only one of the hosts should run the crontab jobs in the particular
+       directory at any one time.  You may also use crontab(1) from any of
+       these hosts to edit the same shared set of crontab files, and to set
+       and query which host should run the crontab jobs.
+       Running cron jobs can be allowed or disallowed for different users.
+       For this purpose, use the cron.allow and cron.deny files.  If the
+       cron.allow file exists, a user must be listed in it to be allowed to
+       use cron If the cron.allow file does not exist but the cron.deny file
+       does exist, then a user must not be listed in the cron.deny file in
+       order to use cron.  If neither of these files exists, only the super
+       user is allowed to use cron.  Another way to restrict access to cron
+       is to use PAM authentication in /etc/security/access.conf to set up
+       users, which are allowed or disallowed to use crontab or modify
+       system cron jobs in the /etc/cron.d/ directory.
+       The temporary directory can be set in an environment variable.  If it
+       is not set by the user, the /tmp directory is used.

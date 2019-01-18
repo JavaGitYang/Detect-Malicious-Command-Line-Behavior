@@ -1,0 +1,15 @@
+
+       The siginterrupt() function shall change the restart behavior when a
+       function is interrupted by the specified signal. The function
+       siginterrupt(sig, flag) has an effect as if implemented as:
+           int siginterrupt(int sig, int flag) {
+               int ret;
+               struct sigaction act;
+               (void) sigaction(sig, NULL, &act);
+               if (flag)
+                   act.sa_flags &= ~SA_RESTART;
+               else
+                   act.sa_flags |= SA_RESTART;
+               ret = sigaction(sig, &act, NULL);
+               return ret;
+           }

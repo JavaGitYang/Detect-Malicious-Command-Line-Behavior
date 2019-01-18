@@ -1,0 +1,5 @@
+
+       The library supports the Intel Nehalem core PMU. It should be noted
+       that this PMU model only covers the each core's PMU and not the
+       socket level PMU. It is provided separately. Support is provided for
+       the Intel Core i7 and Core i5 processors.

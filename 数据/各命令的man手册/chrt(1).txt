@@ -1,0 +1,3 @@
+
+       chrt sets or retrieves the real-time scheduling attributes of an
+       existing pid, or runs command with the given attributes.

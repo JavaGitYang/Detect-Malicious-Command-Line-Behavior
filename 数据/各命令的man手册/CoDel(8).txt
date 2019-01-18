@@ -1,0 +1,12 @@
+
+       CoDel (pronounced "coddle") is an adaptive "no-knobs" active queue
+       management algorithm (AQM) scheme that was developed to address the
+       shortcomings of RED and its variants. It was developed with the
+       following goals in mind:
+        o It should be parameterless.
+        o It should keep delays low while permitting bursts of traffic.
+        o It should control delay.
+        o It should adapt dynamically to changing link rates with no impact
+       on utilization.
+        o It should be simple and efficient and should scale from simple to
+       complex routers.

@@ -1,0 +1,14 @@
+
+       The /etc/machine-info file contains machine metadata.
+       The basic file format of machine-info is a newline-separated list of
+       environment-like shell-compatible variable assignments. It is
+       possible to source the configuration from shell scripts, however,
+       beyond mere variable assignments no shell features are supported,
+       allowing applications to read the file without implementing a shell
+       compatible execution engine.
+       /etc/machine-info contains metadata about the machine that is set by
+       the user or administrator.
+       Depending on the operating system other configuration files might be
+       checked for machine information as well, however only as fallback.
+       You may use hostnamectl(1) to change the settings of this file from
+       the command line.

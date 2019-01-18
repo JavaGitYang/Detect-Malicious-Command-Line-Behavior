@@ -1,0 +1,2 @@
+
+       Convert a gnutls_ecc_curve_t value to a string.

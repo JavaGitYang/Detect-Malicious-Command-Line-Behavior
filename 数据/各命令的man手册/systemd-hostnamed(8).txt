@@ -1,0 +1,7 @@
+
+       systemd-hostnamed is a system service that may be used as a mechanism
+       to change the system's hostname.  systemd-hostnamed is automatically
+       activated on request and terminates itself when it is unused.
+       The tool hostnamectl(1) is a command line client to this service.
+       See the developer documentation[1] for information about the APIs
+       systemd-hostnamed provides.

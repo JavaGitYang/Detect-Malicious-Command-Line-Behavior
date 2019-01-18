@@ -1,0 +1,7 @@
+
+       This function will convert an ACE (ASCII-encoded) domain name to a
+       UTF-8 domain name.
+       If GnuTLS is compiled without IDNA support, then this function will
+       return GNUTLS_E_UNIMPLEMENTED_FEATURE.
+       Note also, that this function will return an empty string if an empty
+       string is provided as input.

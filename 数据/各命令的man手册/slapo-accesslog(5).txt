@@ -1,0 +1,10 @@
+
+       The Access Logging overlay can be used to record all accesses to a
+       given backend database on another database. This allows all of the
+       activity on a given database to be reviewed using arbitrary LDAP
+       queries, instead of just logging to local flat text files.
+       Configuration options are available for selecting a subset of
+       operation types to log, and to automatically prune older log records
+       from the logging database.  Log records are stored with audit schema
+       (see below) to assure their readability whether viewed as LDIF or in
+       raw form.

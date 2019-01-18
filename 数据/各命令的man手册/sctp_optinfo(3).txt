@@ -1,0 +1,10 @@
+
+       sctp_opt_info is a wrapper library function that can be used to get
+       SCTP level options on a socket.  sd is the socket descriptor for
+       which the option is requested. For one-to-many style sockets, id
+       specifies the association to query. For one-to-one style sockets, id
+       is ignored.  opt specifes the SCTP socket option to get.  arg is an
+       option-specific structure buffer provided by the caller.  size is a
+       value-result parameter, initially containing the size of the buffer
+       pointed to by arg and modifed on return to indicate the actual size
+       of the value returned.

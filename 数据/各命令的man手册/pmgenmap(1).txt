@@ -1,0 +1,61 @@
+
+       Given one or more lists of metric names in infile or on standard
+       input, pmgenmap generates C declarations and cpp(1) macros suitable
+       for use across the Performance Metrics Programming Interface (PMAPI)
+       on standard output.
+       The declarations produced by pmgenmap simplify the coding for client
+       applications using the PMAPI.
+       The input should consist of one or more lists of metric names of the
+       form
+            listname {
+                metricname1 symbolname1
+                metricname2 symbolname2
+                ...
+            }
+       which will generate C and cpp(1) declarations of the form
+            char *listname[] = {
+            #define symbolname1 0
+                "metricname1",
+            #define symbolname2 1
+                "metricname2",
+                ...
+            };
+       The array declarations produced are suitable as parameters to
+       pmLookupName(3) and the #defined constants may be used to index the
+       vsets in the pmResult structure returned by a pmFetch(3) call.
+       Obviously, listname must conform to the C identifier naming rules,
+       each symbolname must conform to the cpp(1) macro naming rules, and
+       each metricname is expected to be a valid performance metrics name
+       (see pmns(5) for more details).
+       The input may include sh-style comment lines, i.e. with a `#' as the
+       first non-blank character of a line, and these are translated on
+       output to either single line or multi-line C comments in the K&R
+       style.  For example, the input:
+            # leading block of multi-line comments
+            # initialization group
+            foo {
+                    a.b.c   ONE
+                    d.e.f.g TWO
+                    # embedded block of multi-lines
+                    # comments and boring pad text
+                    xx.yy.zz        THREE
+            }
+            # trailing single line comment
+       Produces the output:
+            /*
+             * leading block of multi-line comments
+             * initialization group
+             */
+            char *foo[] = {
+            #define ONE 0
+                    "a.b.c",
+            #define TWO 1
+                    "d.e.f.g",
+            /*
+             * embedded block of multi-lines
+             * comments and boring pad text
+             */
+            #define THREE 2
+                    "xx.yy.zz",
+            };
+            /* trailing single line comment */

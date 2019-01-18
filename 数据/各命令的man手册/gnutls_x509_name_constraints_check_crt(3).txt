@@ -1,0 +1,7 @@
+
+       This function will check the provided certificate names against the
+       constraints in
+        nc using the RFC5280 rules. It will traverse all the certificate's
+       names and alternative names.
+       Currently this function is limited to DNS names and emails (of type
+       GNUTLS_SAN_DNSNAME and GNUTLS_SAN_RFC822NAME).

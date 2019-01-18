@@ -1,0 +1,4 @@
+
+       This function will initialize a PKCS12 bag structure. PKCS12 Bags
+       usually contain private keys, lists of X.509 Certificates and X.509
+       Certificate revocation lists.

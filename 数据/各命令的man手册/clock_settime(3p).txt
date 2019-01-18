@@ -1,0 +1,2 @@
+
+       Refer to clock_getres(3p).

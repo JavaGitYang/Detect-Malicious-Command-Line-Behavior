@@ -1,0 +1,177 @@
+
+       pmlogger creates the archive logs of performance metric values that
+       may be ``played back'' by other Performance Co-Pilot (see
+       PCPIntro(1)) tools.  These logs form the basis of the VCR paradigm
+       and retrospective performance analysis services common to the PCP
+       toolkit.
+       The mandatory argument archive is the base name for the physical
+       files that constitute an archive log.
+       The -V option specifies the version for the archive that is
+       generated.  By default a version 2 archive is generated, and the only
+       value currently supported for version is 2.
+       Unless directed to another host by the -h option or when directly
+       using PMDAs via the -o option, pmlogger will contact the Performance
+       Metrics Collector Daemon (PMCD) on the local host and use that as the
+       source of the metric values to be logged.
+       To support the required flexibility and control over what is logged
+       and when, pmlogger maintains an independent two level logging state
+       for each instance of each performance metric.  At the first
+       (mandatory) level, logging is allowed to be on (with an associated
+       interval between samples), or off or maybe.  In the latter case, the
+       second (advisory) level logging is allowed to be on (with an
+       associated interval between samples), or off.
+       The mandatory level allows universal specification that some metrics
+       must be logged, or must not be logged.  The default state for all
+       instances of all metrics when pmlogger starts is mandatory maybe and
+       advisory off.
+       Use pmlc(1) to interrogate and change the logging state once pmlogger
+       is running.
+       If a metric's state is mandatory (on or off) and a request is made to
+       change it to mandatory maybe, the new state is mandatory maybe and
+       advisory off.  If a metric's state is already advisory (on or off)
+       and a request is made to change it to mandatory maybe, the current
+       state is retained.
+       It is not possible for pmlogger to log specific instances of a metric
+       and all instances of the same metric concurrently.  If specific
+       instances are being logged and a request to log all instances is
+       made, then all instances of the metric will be logged according to
+       the new request, superseding any prior logging request for the
+       metric.  A request to log all instances of a metric will supersede
+       any previous request to log all instances.  A request to log specific
+       instances of a metric when all instances are already being logged is
+       refused.  To do this one must turn off logging for all instances of
+       the metric first.  In each case, the validity of the request is
+       checked first; for example a request to change a metric's logging
+       state to advisory on when it is currently mandatory off is never
+       permitted (it is necessary to change the state to mandatory maybe
+       first).
+       Optionally, each system running pmcd(1) may also be configured to run
+       a ``primary'' pmlogger instance.  This pmlogger instance is launched
+       by $PCP_RC_DIR/pmlogger, and is affected by the files
+       $PCP_SYSCONF_DIR/pmlogger/control,
+       $PCP_SYSCONF_DIR/pmlogger/control.d (use chkconfig(8), systemctl(1)
+       or similar platform-specific commands to activate or disable the
+       primary pmlogger instance), $PCP_SYSCONFIG_DIR/pmlogger (environment
+       variable settings for the primary pmlogger)
+       $PCP_SYSCONF_DIR/pmlogger/pmlogger.options (command line options
+       passed to the primary pmlogger) and
+       $PCP_VAR_DIR/config/pmlogger/config.default (the default initial
+       configuration file for the primary pmlogger).
+       The primary pmlogger instance is identified by the -P option.  There
+       may be at most one ``primary'' pmlogger instance on each system.  The
+       primary pmlogger instance (if any) must be running on the same host
+       as the pmcd(1) to which it connects (if any), so the -h and -P
+       options are mutually exclusive.
+       Logging of some metrics is possible even in the absence of a local
+       pmcd(1), using the "local context" mode of operation.  This is
+       activated using the -o option, and causes pmlogger to make use of
+       local DSO PMDAs instead of communicating with pmcd(1).  When
+       operating using a local context, the -K option may be used to control
+       the DSO PMDAs that should be made accessible.  The spec argument
+       conforms to the syntax described in pmSpecLocalPMDA(3).  More than
+       one -K option may be used.
+       When launched as a non-primary instance, pmlogger will exit
+       immediately if the configuration file causes no metric logging to be
+       scheduled.  The -L option overrides this behavior, and causes a non-
+       primary pmlogger instance to ``linger'', presumably pending some
+       future dynamic re-configuration and state change via pmlc(1).
+       pmlogger will also linger without the -L option being used if all the
+       metrics to be logged are logged as once only metrics. When the once
+       only metrics have been logged, a warning message will be generated
+       stating that the event queue is empty and no more events will be
+       scheduled.
+       By default all diagnostics and errors from pmlogger are written to
+       the file pmlogger.log in the directory where pmlogger is launched.
+       The -l option may be used to override the default behavior.  If the
+       log file cannot be created or is not writable, output is written to
+       standard error instead.
+       If specified, the -s option instructs pmlogger to terminate after a
+       certain size in records, bytes or time units has been accumulated.
+       If endsize is an integer then endsize records will be written to the
+       log.  If endsize is an integer suffixed by b or bytes then endsize
+       bytes of the archive data will be written out (note, however, that
+       archive log record boundaries will not be broken and so this limit
+       may be slightly surpassed).  Other viable file size units include: K,
+       Kb, KiB, Kbyte, Kilobyte for kilobytes and M, Mb, MiB, Mbyte,
+       Megabyte for megabytes and G, Gb, GiB, Gbyte, Gigabyte for gigabytes.
+       These units may be optionally suffixed by an s and may be of mixed
+       case.  Alternatively endsize may be an integer or a floating point
+       number suffixed using a time unit as described in PCPIntro(1) for the
+       interval argument (to the standard PCP -t command line option).
+       Some examples of different formats:
+          -s 100
+          -s 100bytes
+          -s 100K
+          -s 100Mb
+          -s 10Gbyte
+          -s 10mins
+          -s 1.5hours
+       The default is for pmlogger to run forever.
+       The -r option causes the size of the physical record(s) for each
+       group of metrics and the expected contribution of the group to the
+       size of the PCP archive for one full day of collection to be reported
+       in the log file.  This information is reported the first time each
+       group is successfully written to the archive.
+       The -U option specifies the user account under which to run pmlogger.
+       The default is the current user account for interactive use.  When
+       run as a daemon, the unprivileged "pcp" account is used in current
+       versions of PCP, but in older versions the superuser account ("root")
+       was used by default.
+       The log file is potentially a multi-volume data set, and the -v
+       option causes pmlogger to start a new volume after a certain size in
+       records, bytes, or time units has been accumulated for the current
+       volume.  The format of this size specification is identical to that
+       of the -s option (see above).  The default is for pmlogger to create
+       a single volume log.  Additional volume switches can also be forced
+       asynchronously by either using pmlc(1) or sending pmlogger a SIGHUP
+       signal (see below). Note, if a scheduled volume switch is in
+       operation due to the -v option, then its counters will be reset after
+       an asynchronous switch.
+       Independent of any -v option, each volume of an archive is limited to
+       no more than 2^31 bytes, so pmlogger will automatically create a new
+       volume for the archive before this limit is reached.
+       Normally pmlogger operates on the distributed Performance Metrics
+       Name Space (PMNS), however if the -n option is specified an
+       alternative local PMNS is loaded from the file pmnsfile.
+       Under normal circumstances, pmlogger will run forever (except for a
+       -s option or a termination signal).  The -T option may be used to
+       limit the execution time using the format of time as prescribed by
+       PCPIntro(1).  The time is interpreted within the time zone of the
+       PMCD server, unless the -y option is given, within which case the
+       time zone at this logger host is used.
+       Some examples of different formats:
+          -T 10mins
+          -T '@ 11:30'
+       From this it can be seen that -T 10mins and -s 10mins perform
+       identical actions.
+       Alternatively, pmlogger runtime may be limited to the lifetime of
+       another process by using the -p or --PID option to nominate the PID
+       of the process of interest.  In this case the pmlogger will exit when
+       the other process no longer exists.
+       When pmlogger receives a SIGHUP signal, the current volume of the log
+       is closed, and a new volume is opened.  This mechanism (or the
+       alternative mechanism via pmlc(1)) may be used to manage the growth
+       of the log files - once a log volume is closed, that file may be
+       archived without ill-effect on the continued operation of pmlogger.
+       See also the -v option above.
+       Historically the buffers for the current log may be flushed to disk
+       using the flush command of pmlc(1), or by sending pmlogger a SIGUSR1
+       signal or by using the -u option.  The current version of pmlogger
+       and the libpcp routines that underpin pmlogger unconditionally use
+       unbuffered writes and a single fwrite(3) for each logical record
+       written, and so ``flushing'' does not force any additional data to be
+       written to the file system.  The -u option, the SIGUSR1 handling and
+       the pmlc(1) flush command are retained for backwards compatibility.
+       When launched with the -x option, pmlogger will accept asynchronous
+       control requests on the file descriptor fd.  This option is only
+       expected to be used internally by PCP applications that support
+       ``live record mode''.
+       The -m option allows the string note to be appended to the map file
+       for this instance of pmlogger in the $PCP_TMP_DIR/pmlogger directory.
+       This is currently used internally to document the file descriptor
+       (fd) when the -x option is used, or to indicate that this pmlogger
+       instance was started under the control of pmlogger_check(1).
+       The -H option allows the hostname written into the archive label to
+       be overridden.  This mirrors the -H option of pmcd(1) , but allows it
+       to be specified on the pmlogger process. Without this option, the
+       value returned from the logged pmcd(1) is used.

@@ -1,0 +1,34 @@
+
+       The pam_set_data function associates a pointer to an object with the
+       (hopefully) unique string module_data_name in the PAM context
+       specified by the pamh argument.
+       PAM modules may be dynamically loadable objects. In general such
+       files should not contain static variables. This function and its
+       counterpart pam_get_data(3), provide a mechanism for a module to
+       associate some data with the handle pamh. Typically a module will
+       call the pam_set_data function to register some data under a
+       (hopefully) unique module_data_name. The data is available for use by
+       other modules too but not by an application. Since this functions
+       stores only a pointer to the data, the module should not modify or
+       free the content of it.
+       The function cleanup() is associated with the data and, if non-NULL,
+       it is called when this data is over-written or following a call to
+       pam_end(3).
+       The error_status argument is used to indicate to the module the sort
+       of action it is to take in cleaning this data item. As an example,
+       Kerberos creates a ticket file during the authentication phase, this
+       file might be associated with a data item. When pam_end(3) is called
+       by the module, the error_status carries the return value of the
+       pam_authenticate(3) or other libpam function as appropriate. Based on
+       this value the Kerberos module may choose to delete the ticket file
+       (authentication failure) or leave it in place.
+       The error_status may have been logically OR'd with either of the
+       following two values:
+       PAM_DATA_REPLACE
+           When a data item is being replaced (through a second call to
+           pam_set_data) this mask is used. Otherwise, the call is assumed
+           to be from pam_end(3).
+       PAM_DATA_SILENT
+           Which indicates that the process would prefer to perform the
+           cleanup() quietly. That is, discourages logging/messages to the
+           user.

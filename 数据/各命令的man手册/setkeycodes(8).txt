@@ -1,0 +1,9 @@
+
+       The setkeycodes command reads its arguments two at a time, each pair
+       of arguments consisting of a scancode (given in hexadecimal) and a
+       keycode (given in decimal). For each such pair, it tells the kernel
+       keyboard driver to map the specified scancode to the specified
+       keycode.
+       This command is useful only for people with slightly unusual
+       keyboards, that have a few keys which produce scancodes that the
+       kernel does not recognize.

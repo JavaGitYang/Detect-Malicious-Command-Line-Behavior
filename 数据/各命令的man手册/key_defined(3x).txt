@@ -1,0 +1,4 @@
+
+       This is an extension to the curses library.  It permits an
+       application to determine if a string is currently bound to any
+       keycode.

@@ -1,0 +1,12 @@
+
+       The rpcdebug command allows an administrator to set and clear the
+       Linux kernel's NFS client and server debug flags.  Setting these
+       flags causes the kernel to emit messages to the system log in
+       response to NFS activity; this is typically useful when debugging NFS
+       problems.
+       The first form in the synopsis can be used to list all available
+       debug flags.  The second form shows the currently set debug flags for
+       the given module.  The third form sets one or more flags, and the
+       fourth form clears one or more flags.
+       The value all may be used to set or clear all the flags for the given
+       module.

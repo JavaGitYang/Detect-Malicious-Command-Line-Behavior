@@ -1,0 +1,75 @@
+
+       The file /etc/nscd.conf is read from nscd(8) at startup.  Each line
+       specifies either an attribute and a value, or an attribute, service,
+       and a value.  Fields are separated either by SPACE or TAB characters.
+       A '#' (number sign) indicates the beginning of a comment; following
+       characters, up to the end of the line, are not interpreted by nscd.
+       Valid services are passwd, group, hosts, services, or netgroup.
+       logfile debug-file-name
+              Specifies name of the file to which debug info should be
+              written.
+       debug-level value
+              Sets the desired debug level.  The default is 0.
+       threads number
+              This is the number of threads that are started to wait for
+              requests.  At least five threads will always be created.
+       max-threads number
+              Specifies the maximum number of threads.  The default is 32.
+       server-user user
+              If this option is set, nscd will run as this user and not as
+              root.  If a separate cache for every user is used (-S
+              parameter), this option is ignored.
+       stat-user user
+              Specifies the user who is allowed to request statistics.
+       reload-count unlimited | number
+              Limit on the number of times a cached entry gets reloaded
+              without being used before it gets removed.  The default is 5.
+       paranoia <yes|no>
+              Enabling paranoia mode causes nscd to restart itself
+              periodically.  The default is no.
+       restart-interval time
+              Sets the restart interval to time seconds if periodic restart
+              is enabled by enabling paranoia mode.  The default is 3600.
+       enable-cache service <yes|no>
+              Enables or disables the specified service cache.  The default
+              is no.
+       positive-time-to-live service value
+              Sets the TTL (time-to-live) for positive entries (successful
+              queries) in the specified cache for service.  Value is in
+              seconds.  Larger values increase cache hit rates and reduce
+              mean response times, but increase problems with cache
+              coherence.
+       negative-time-to-live service value
+              Sets the TTL (time-to-live) for negative entries (unsuccessful
+              queries) in the specified cache for service.  Value is in
+              seconds.  Can result in significant performance improvements
+              if there are several files owned by UIDs (user IDs) not in
+              system databases (for example untarring the Linux kernel
+              sources as root); should be kept small to reduce cache
+              coherency problems.
+       suggested-size service value
+              This is the internal hash table size, value should remain a
+              prime number for optimum efficiency.  The default is 211.
+       check-files service <yes|no>
+              Enables or disables checking the file belonging to the
+              specified service for changes.  The files are /etc/passwd,
+              /etc/group, /etc/hosts, /etc/services and /etc/netgroup.  The
+              default is yes.
+       persistent service <yes|no>
+              Keep the content of the cache for service over server
+              restarts; useful when paranoia mode is set.  The default is
+              no.
+       shared service <yes|no>
+              The memory mapping of the nscd databases for service is shared
+              with the clients so that they can directly search in them
+              instead of having to ask the daemon over the socket each time
+              a lookup is performed.  The default is no.
+       max-db-size service bytes
+              The maximum allowable size, in bytes, of the database files
+              for the service.  The default is 33554432.
+       auto-propagate service <yes|no>
+              When set to no for passwd or group service, then the .byname
+              requests are not added to passwd.byuid or group.bygid cache.
+              This can help with tables containing multiple records for the
+              same ID.  The default is yes.  This option is valid only for
+              services passwd and group.

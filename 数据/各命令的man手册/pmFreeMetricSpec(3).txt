@@ -1,0 +1,28 @@
+
+       pmParseMetricSpec accepts a string specifying the name of a PCP
+       performance metric, and optionally the source (either a hostname or a
+       PCP archive log filename) and instances for that metric.  The syntax
+       is described in PCPIntro(1).
+       If neither host nor archive component of the metric specification is
+       provided, the isarch and source arguments are used to fill in the
+       returned pmMetricSpec structure.
+       The pmMetricSpec structure that is returned via rsltp represents the
+       parsed string and has the following declaration:
+           typedef struct {
+               int     isarch;      /* source type: 0 -> live host, 1 -> archive, 2 -> local context */
+               char    *source;     /* name of source host or archive */
+               char    *metric;     /* name of metric */
+               int     ninst;       /* number of instances, 0 -> all */
+               char    *inst[1];    /* array of instance names */
+           } pmMetricSpec;
+       pmParseMetricSpec returns 0 if the given string was successfully
+       parsed.  In this case all the storage allocated by pmParseMetricSpec
+       can be released by a single call to free(3) using the address
+       returned from pmMetricSpec via rsltp.  The convenience macro
+       pmFreeMetricSpec is a thinly disguised wrapper for free(3).
+       pmParseMetricSpec returns PM_ERR_GENERIC and a dynamically allocated
+       error message string in errmsg, if the given string does not parse.
+       Be sure to free(3) the error message string in this situation.
+       In the case of an error, rsltp is undefined.  In the case of success,
+       errmsg is undefined.  If rsltp->ninst is 0, then rsltp->inst[0] is
+       undefined.

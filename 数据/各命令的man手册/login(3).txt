@@ -1,0 +1,21 @@
+
+       The utmp file records who is currently using the system.  The wtmp
+       file records all logins and logouts.  See utmp(5).
+       The function login() takes the supplied struct utmp, ut, and writes
+       it to both the utmp and the wtmp file.
+       The function logout() clears the entry in the utmp file again.
+   GNU details
+       More precisely, login() takes the argument ut struct, fills the field
+       ut->ut_type (if there is such a field) with the value USER_PROCESS,
+       and fills the field ut->ut_pid (if there is such a field) with the
+       process ID of the calling process.  Then it tries to fill the field
+       ut->ut_line.  It takes the first of stdin, stdout, stderr that is a
+       terminal, and stores the corresponding pathname minus a possible
+       leading /dev/ into this field, and then writes the struct to the utmp
+       file.  On the other hand, if no terminal name was found, this field
+       is filled with "???"  and the struct is not written to the utmp file.
+       After this, the struct is written to the wtmp file.
+       The logout() function searches the utmp file for an entry matching
+       the ut_line argument.  If a record is found, it is updated by zeroing
+       out the ut_name and ut_host fields, updating the ut_tv timestamp
+       field and setting ut_type (if there is such a field) to DEAD_PROCESS.

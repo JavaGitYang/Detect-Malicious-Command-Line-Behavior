@@ -1,0 +1,8 @@
+
+       The virtual_image_context file contains a list of image contexts for
+       use by the SELinux-aware virtulization API libvirt (see libvirtd(8)).
+       selinux_virtual_image_context_path(3) will return the active policy
+       path to this file. The default virtual image context file is:
+              /etc/selinux/{SELINUXTYPE}/contexts/virtual_image_context
+       Where {SELINUXTYPE} is the entry from the selinux configuration file
+       config (see selinux_config(5)).

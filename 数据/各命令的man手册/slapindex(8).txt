@@ -1,0 +1,12 @@
+
+       Slapindex is used to regenerate slapd(8) indices based upon the
+       current contents of a database.  It opens the given database
+       determined by the database number or suffix and updates the indices
+       for all values of all attributes of all entries. If a list of
+       specific attributes is provided on the command line, only the indices
+       for those attributes will be regenerated.  Databases configured as
+       subordinate of this one are also re-indexed, unless -g is specified.
+       All files eventually created by slapindex will belong to the identity
+       slapindex is run as, so make sure you either run slapindex with the
+       same identity slapd(8) will be run as (see option -u in slapd(8)), or
+       change file ownership before running slapd(8).

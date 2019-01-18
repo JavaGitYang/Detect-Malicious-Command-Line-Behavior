@@ -1,0 +1,20 @@
+
+       pmdaxfs is a Performance Metrics Domain Agent (PMDA) which extracts
+       performance metrics describing the state of the XFS filesystem from
+       the Linux kernel.
+       The xfs PMDA exports metrics that measure information about metadata
+       buffer usage, the journal, btree operations, inode operations,
+       extended attributes, directories, quotas, read and write operation
+       counts and of course throughput.
+       The PMDA provides a facility to reset the values of all counters to
+       zero using pmstore(1) with the xfs.control.reset metric.
+       A brief description of the pmdaxfs command line options follows:
+       -d   It is absolutely crucial that the performance metrics domain
+            number specified here is unique and consistent.  That is, domain
+            should be different for every PMDA on the one host, and the same
+            domain number should be used for the same PMDA on all hosts.
+       -l   Location of the log file.  By default, a log file named xfs.log
+            is written in the current directory of pmcd(1) when pmdaxfs is
+            started, i.e.  $PCP_LOG_DIR/pmcd.  If the log file cannot be
+            created or is not writable, output is written to the standard
+            error instead.

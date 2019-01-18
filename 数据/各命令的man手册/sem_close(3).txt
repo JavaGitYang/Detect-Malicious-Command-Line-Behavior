@@ -1,0 +1,4 @@
+
+       sem_close() closes the named semaphore referred to by sem, allowing
+       any resources that the system has allocated to the calling process
+       for this semaphore to be freed.

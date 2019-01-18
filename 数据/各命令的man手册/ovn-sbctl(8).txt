@@ -1,0 +1,17 @@
+
+       The ovn-sbctl program configures the OVN_Southbound database by
+       providing a high-level interface to its configuration database.  See
+       ovn-sb(5) for comprehensive documentation of the database schema.
+       ovn-sbctl connects to an ovsdb-server process that maintains an
+       OVN_Southbound configuration database.  Using this connection, it
+       queries and possibly applies changes to the database, depending on
+       the supplied commands.
+       ovn-sbctl can perform any number of commands in a single run,
+       implemented as a single atomic transaction against the database.
+       The ovn-sbctl command line begins with global options (see OPTIONS
+       below for details).  The global options are followed by one or more
+       commands.  Each command should begin with -- by itself as a command-
+       line argument, to separate it from the following commands.  (The --
+       before the first command is optional.)  The command itself starts
+       with command-specific options, if any, followed by the command name
+       and any arguments.

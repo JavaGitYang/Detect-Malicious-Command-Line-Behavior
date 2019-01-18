@@ -1,0 +1,6 @@
+
+       cups-lpd is the CUPS Line Printer Daemon ("LPD") mini-server that
+       supports legacy client systems that use the LPD protocol.  cups-lpd
+       does not act as a standalone network daemon but instead operates
+       using any of the Internet "super-servers" such as inetd(8),
+       launchd(8), and systemd(8).

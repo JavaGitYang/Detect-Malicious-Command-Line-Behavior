@@ -1,0 +1,3 @@
+
+       Used to get the first argument of the transport function (like PUSH
+       and PULL).  This must have been set using gnutls_transport_set_ptr().

@@ -1,0 +1,6 @@
+
+       This function will pretty print a OCSP request, suitable for display
+       to a human.
+       If the format is GNUTLS_OCSP_PRINT_FULL then all fields of the
+       request will be output, on multiple lines.
+       The output  out ->data needs to be deallocate using gnutls_free().

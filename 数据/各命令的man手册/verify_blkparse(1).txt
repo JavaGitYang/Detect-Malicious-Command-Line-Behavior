@@ -1,0 +1,4 @@
+
+       Verifies an output file from blkparse. All it does is check if the
+       events in the file are correctly time ordered. If an entry is found
+       that isn't ordered, it's dumped to stdout.

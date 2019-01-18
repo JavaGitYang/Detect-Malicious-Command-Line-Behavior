@@ -1,0 +1,18 @@
+
+       The customizable_types file contains a list of types that can be
+       customised in some way by SELinux-aware applications.
+       Generally this is a file context type that is usually set on files
+       that need to be shared among certain domains and where the
+       administrator wants to manually manage the type.
+       The  use  of customizable types is deprecated as the preferred
+       approach is to use semanage(8) fcontext(8) ...(8).  However, SELinux-
+       aware applications such as setfiles(8) will use this information to
+       obtain a list of types relating to files that should not be
+       relabeled.
+       selinux_customizable_types_path(3) will return the active policy path
+       to this file. The default customizable types file is:
+              /etc/selinux/{SELINUXTYPE}/contexts/customizable_types
+       Where {SELINUXTYPE} is the entry from the selinux configuration file
+       config (see selinux_config(5)).
+       is_context_customizable(3) reads this file to determine if a context
+       is customisable or not for the active policy.

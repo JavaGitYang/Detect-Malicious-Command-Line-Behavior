@@ -1,0 +1,44 @@
+
+       xfs_fsr is applicable only to XFS filesystems.
+       xfs_fsr improves the organization of mounted filesystems.  The
+       reorganization algorithm operates on one file at a time, compacting
+       or otherwise improving the layout of the file extents (contiguous
+       blocks of file data).
+       The following options are accepted by xfs_fsr.  The -m, -t, and -f
+       options have no meaning if any filesystems or files are specified on
+       the command line.
+       -m mtab      Use this file for the list of filesystems to reorganize.
+                    The default is to use /etc/mtab.
+       -t seconds   How long to reorganize.  The default is 7200 seconds (2
+                    hours).
+       -p passes    Number of passes before terminating global re-org.  The
+                    default is 10 passes.
+       -f leftoff   Use this file instead of /var/tmp/.fsrlast to read the
+                    state of where to start and as the file to store the
+                    state of where reorganization left off.
+       -v           Verbose.  Print cryptic information about each file
+                    being reorganized.
+       -d           Debug.  Print even more cryptic information.
+       -g           Print to syslog (default if stdout not a tty).
+       -V           Prints the version number and exits.
+       When invoked with no arguments xfs_fsr reorganizes all regular files
+       in all mounted filesystems.  xfs_fsr makes many cycles over /etc/mtab
+       each time making a single pass over each XFS filesystem.  Each pass
+       goes through and selects files that have the largest number of
+       extents.  It attempts to defragment the top 10% of these files on
+       each pass.
+       It runs for up to two hours after which it records the filesystem
+       where it left off, so it can start there the next time.  This
+       information is stored in the file /var/tmp/.fsrlast_xfs.  If the
+       information found here is somehow inconsistent or out of date it is
+       ignored and reorganization starts at the beginning of the first
+       filesystem found in /etc/mtab.
+       xfs_fsr can be called with one or more arguments naming filesystems
+       (block device name), and files to reorganize.  In this mode xfs_fsr
+       does not read or write /var/tmp/.fsrlast_xfs nor does it run for a
+       fixed time interval.  It makes one pass through each specified
+       regular file and all regular files in each specified filesystem.  A
+       command line name referring to a symbolic link (except to a file
+       system device), FIFO, or UNIX domain socket generates a warning
+       message, but is otherwise ignored.  While traversing the filesystem
+       these types of files are silently skipped.

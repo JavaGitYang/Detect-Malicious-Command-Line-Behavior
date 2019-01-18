@@ -1,0 +1,56 @@
+
+       The msgrcv() function operates on XSI message queues (see the Base
+       Definitions volume of POSIX.1‐2008, Section 3.225, Message Queue).
+       It is unspecified whether this function interoperates with the
+       realtime interprocess communication facilities defined in Section
+       2.8, Realtime.
+       The msgrcv() function shall read a message from the queue associated
+       with the message queue identifier specified by msqid and place it in
+       the user-defined buffer pointed to by msgp.
+       The application shall ensure that the argument msgp points to a user-
+       defined buffer that contains first a field of type long specifying
+       the type of the message, and then a data portion that holds the data
+       bytes of the message. The structure below is an example of what this
+       user-defined buffer might look like:
+           struct mymsg {
+               long    mtype;     /* Message type. */
+               char    mtext[1];  /* Message text. */
+           }
+       The structure member mtype is the received message's type as
+       specified by the sending process.
+       The structure member mtext is the text of the message.
+       The argument msgsz specifies the size in bytes of mtext.  The
+       received message shall be truncated to msgsz bytes if it is larger
+       than msgsz and (msgflg & MSG_NOERROR) is non-zero.  The truncated
+       part of the message shall be lost and no indication of the truncation
+       shall be given to the calling process.
+       If the value of msgsz is greater than {SSIZE_MAX}, the result is
+       implementation-defined.
+       The argument msgtyp specifies the type of message requested as
+       follows:
+        *  If msgtyp is 0, the first message on the queue shall be received.
+        *  If msgtyp is greater than 0, the first message of type msgtyp
+           shall be received.
+        *  If msgtyp is less than 0, the first message of the lowest type
+           that is less than or equal to the absolute value of msgtyp shall
+           be received.
+       The argument msgflg specifies the action to be taken if a message of
+       the desired type is not on the queue. These are as follows:
+        *  If (msgflg & IPC_NOWAIT) is non-zero, the calling thread shall
+           return immediately with a return value of −1 and errno set to
+           [ENOMSG].
+        *  If (msgflg & IPC_NOWAIT) is 0, the calling thread shall suspend
+           execution until one of the following occurs:
+           --  A message of the desired type is placed on the queue.
+           --  The message queue identifier msqid is removed from the
+               system; when this occurs, errno shall be set to [EIDRM] and
+               −1 shall be returned.
+           --  The calling thread receives a signal that is to be caught; in
+               this case a message is not received and the calling thread
+               resumes execution in the manner prescribed in sigaction(3p).
+       Upon successful completion, the following actions are taken with
+       respect to the data structure associated with msqid:
+        *  msg_qnum shall be decremented by 1.
+        *  msg_lrpid shall be set to the process ID of the calling process.
+        *  msg_rtime shall be set to the current time, as described in
+           Section 2.7.1, IPC General Description.

@@ -1,0 +1,7 @@
+
+       This function sets the first argument of the transport functions,
+       such as send() and recv() for the default callbacks using the
+       system's socket API. With this function you can set two different
+       descriptors for receiving and sending.
+       This function is equivalent to calling gnutls_transport_set_ptr2()
+       with the descriptors, but requires no casts.

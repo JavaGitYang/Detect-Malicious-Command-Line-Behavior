@@ -1,0 +1,15 @@
+
+       sd_journal_get_catalog() retrieves a message catalog entry for the
+       current journal entry. This will look up an entry in the message
+       catalog by using the "MESSAGE_ID=" field of the current journal
+       entry. Before returning the entry all journal field names in the
+       catalog entry text enclosed in "@" will be replaced by the respective
+       field values of the current entry. If a field name referenced in the
+       message catalog entry does not exist, in the current journal entry,
+       the "@" will be removed, but the field name otherwise left untouched.
+       sd_journal_get_catalog_for_message_id() works similar to
+       sd_journal_get_catalog() but the entry is looked up by the specified
+       message ID (no open journal context is necessary for this), and no
+       field substitution is performed.
+       For more information about the journal message catalog please refer
+       to the Journal Message Catalogs[1] documentation page.

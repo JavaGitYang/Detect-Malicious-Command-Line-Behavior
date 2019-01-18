@@ -1,0 +1,8 @@
+
+       This routine provides a means to find out in what areas your program
+       spends most of its time.  The argument buf points to bufsiz bytes of
+       core.  Every virtual 10 milliseconds, the user's program counter (PC)
+       is examined: offset is subtracted and the result is multiplied by
+       scale and divided by 65536.  If the resulting value is less than
+       bufsiz, then the corresponding entry in buf is incremented.  If buf
+       is NULL, profiling is disabled.

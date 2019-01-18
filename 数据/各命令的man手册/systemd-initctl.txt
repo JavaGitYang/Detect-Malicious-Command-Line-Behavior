@@ -1,0 +1,5 @@
+
+       systemd-initctl is a system service that implements compatibility
+       with the /dev/initctl FIFO file system object, as implemented by the
+       SysV init system.  systemd-initctl is automatically activated on
+       request and terminates itself when it is unused.

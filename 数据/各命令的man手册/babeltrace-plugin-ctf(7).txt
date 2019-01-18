@@ -1,0 +1,5 @@
+
+       The Babeltrace ctf plugin contains component classes which can read
+       and write the Common Trace Format (see <http://diamon.org/ctf/>).
+       See babeltrace-intro(7) to learn more about the Babeltrace project
+       and its core concepts.

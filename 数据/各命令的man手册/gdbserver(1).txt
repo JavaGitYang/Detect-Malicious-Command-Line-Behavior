@@ -1,0 +1,65 @@
+
+       gdbserver is a program that allows you to run GDB on a different
+       machine than the one which is running the program being debugged.
+       Usage (server (target) side):
+       First, you need to have a copy of the program you want to debug put
+       onto the target system.  The program can be stripped to save space if
+       needed, as gdbserver doesn't care about symbols.  All symbol handling
+       is taken care of by the GDB running on the host system.
+       To use the server, you log on to the target system, and run the
+       gdbserver program.  You must tell it (a) how to communicate with GDB,
+       (b) the name of your program, and (c) its arguments.  The general
+       syntax is:
+               target> gdbserver <comm> <program> [<args> ...]
+       For example, using a serial port, you might say:
+               target> gdbserver /dev/com1 emacs foo.txt
+       This tells gdbserver to debug emacs with an argument of foo.txt, and
+       to communicate with GDB via /dev/com1.  gdbserver now waits patiently
+       for the host GDB to communicate with it.
+       To use a TCP connection, you could say:
+               target> gdbserver host:2345 emacs foo.txt
+       This says pretty much the same thing as the last example, except that
+       we are going to communicate with the "host" GDB via TCP.  The
+       "host:2345" argument means that we are expecting to see a TCP
+       connection from "host" to local TCP port 2345.  (Currently, the
+       "host" part is ignored.)  You can choose any number you want for the
+       port number as long as it does not conflict with any existing TCP
+       ports on the target system.  This same port number must be used in
+       the host GDBs "target remote" command, which will be described
+       shortly.  Note that if you chose a port number that conflicts with
+       another service, gdbserver will print an error message and exit.
+       gdbserver can also attach to running programs.  This is accomplished
+       via the --attach argument.  The syntax is:
+               target> gdbserver --attach <comm> <pid>
+       pid is the process ID of a currently running process.  It isn't
+       necessary to point gdbserver at a binary for the running process.
+       To start "gdbserver" without supplying an initial command to run or
+       process ID to attach, use the --multi command line option.  In such
+       case you should connect using "target extended-remote" to start the
+       program you want to debug.
+               target> gdbserver --multi <comm>
+       Usage (host side):
+       You need an unstripped copy of the target program on your host
+       system, since GDB needs to examine it's symbol tables and such.
+       Start up GDB as you normally would, with the target program as the
+       first argument.  (You may need to use the --baud option if the serial
+       line is running at anything except 9600 baud.)  That is "gdb
+       TARGET-PROG", or "gdb --baud BAUD TARGET-PROG".  After that, the only
+       new command you need to know about is "target remote" (or "target
+       extended-remote").  Its argument is either a device name (usually a
+       serial device, like /dev/ttyb), or a "HOST:PORT" descriptor.  For
+       example:
+               (gdb) target remote /dev/ttyb
+       communicates with the server via serial line /dev/ttyb, and:
+               (gdb) target remote the-target:2345
+       communicates via a TCP connection to port 2345 on host `the-target',
+       where you previously started up gdbserver with the same port number.
+       Note that for TCP connections, you must start up gdbserver prior to
+       using the `target remote' command, otherwise you may get an error
+       that looks something like `Connection refused'.
+       gdbserver can also debug multiple inferiors at once, described in the
+       GDB manual in node "Inferiors and Programs" -- shell command "info -f
+       gdb -n 'Inferiors and Programs'".  In such case use the
+       "extended-remote" GDB command variant:
+               (gdb) target extended-remote the-target:2345
+       The gdbserver option --multi may or may not be used in such case.

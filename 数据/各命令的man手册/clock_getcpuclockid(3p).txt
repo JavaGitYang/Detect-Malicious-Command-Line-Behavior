@@ -1,0 +1,10 @@
+
+       The clock_getcpuclockid() function shall return the clock ID of the
+       CPU-time clock of the process specified by pid.  If the process
+       described by pid exists and the calling process has permission, the
+       clock ID of this clock shall be returned in clock_id.
+       If pid is zero, the clock_getcpuclockid() function shall return the
+       clock ID of the CPU-time clock of the process making the call, in
+       clock_id.
+       The conditions under which one process has permission to obtain the
+       CPU-time clock ID of other processes are implementation-defined.

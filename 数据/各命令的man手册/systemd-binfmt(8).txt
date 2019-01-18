@@ -1,0 +1,5 @@
+
+       systemd-binfmt.service is an early boot service that registers
+       additional binary formats for executables in the kernel.
+       See binfmt.d(5) for information about the configuration of this
+       service.

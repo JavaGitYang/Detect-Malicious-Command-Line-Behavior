@@ -1,0 +1,12 @@
+
+       The trace-cmd(1) stream will start tracing just like
+       trace-cmd-record(1), except it will not record to a file and instead
+       it will read the binary buffer as it is happening, convert it to a
+       human readable format and write it to stdout.
+       This is basically the same as trace-cmd-start(1) and then doing a
+       trace-cmd-show(1) with the -p option. trace-cmd-stream is not as
+       efficient as reading from the pipe file as most of the stream work is
+       done in userspace. This is useful if it is needed to do the work
+       mostly in userspace instead of the kernel, and stream also helps to
+       debug trace-cmd-profile(1) which uses the stream code to perform the
+       live data analysis for the profile.

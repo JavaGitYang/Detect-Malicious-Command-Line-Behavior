@@ -1,0 +1,4 @@
+
+       These functions calculate the complex sine of z.
+       The complex sine function is defined as:
+           csin(z) = (exp(i * z) - exp(-i * z)) / (2 * i)

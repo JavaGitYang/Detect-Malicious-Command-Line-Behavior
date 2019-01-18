@@ -1,0 +1,5 @@
+
+       This function will copy a private key into a PKCS 11 token specified
+       by a URL. It is highly recommended flags to contain
+       GNUTLS_PKCS11_OBJ_FLAG_MARK_SENSITIVE unless there is a strong reason
+       not to.

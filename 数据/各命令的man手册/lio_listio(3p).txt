@@ -1,0 +1,62 @@
+
+       The lio_listio() function shall initiate a list of I/O requests with
+       a single function call.
+       The mode argument takes one of the values LIO_WAIT or LIO_NOWAIT
+       declared in <aio.h> and determines whether the function returns when
+       the I/O operations have been completed, or as soon as the operations
+       have been queued. If the mode argument is LIO_WAIT, the function
+       shall wait until all I/O is complete and the sig argument shall be
+       ignored.
+       If the mode argument is LIO_NOWAIT, the function shall return
+       immediately, and asynchronous notification shall occur, according to
+       the sig argument, when all the I/O operations complete. If sig is
+       NULL, then no asynchronous notification shall occur. If sig is not
+       NULL, asynchronous notification occurs as specified in Section 2.4.1,
+       Signal Generation and Delivery when all the requests in list have
+       completed.
+       The I/O requests enumerated by list are submitted in an unspecified
+       order.
+       The list argument is an array of pointers to aiocb structures. The
+       array contains nent elements. The array may contain NULL elements,
+       which shall be ignored.
+       If the buffer pointed to by list or the aiocb structures pointed to
+       by the elements of the array list become illegal addresses before all
+       asynchronous I/O completed and, if necessary, the notification is
+       sent, then the behavior is undefined. If the buffers pointed to by
+       the aio_buf member of the aiocb structure pointed to by the elements
+       of the array list become illegal addresses prior to the asynchronous
+       I/O associated with that aiocb structure being completed, the
+       behavior is undefined.
+       The aio_lio_opcode field of each aiocb structure specifies the
+       operation to be performed. The supported operations are LIO_READ,
+       LIO_WRITE, and LIO_NOP; these symbols are defined in <aio.h>.  The
+       LIO_NOP operation causes the list entry to be ignored. If the
+       aio_lio_opcode element is equal to LIO_READ, then an I/O operation is
+       submitted as if by a call to aio_read() with the aiocbp equal to the
+       address of the aiocb structure. If the aio_lio_opcode element is
+       equal to LIO_WRITE, then an I/O operation is submitted as if by a
+       call to aio_write() with the aiocbp equal to the address of the aiocb
+       structure.
+       The aio_fildes member specifies the file descriptor on which the
+       operation is to be performed.
+       The aio_buf member specifies the address of the buffer to or from
+       which the data is transferred.
+       The aio_nbytes member specifies the number of bytes of data to be
+       transferred.
+       The members of the aiocb structure further describe the I/O operation
+       to be performed, in a manner identical to that of the corresponding
+       aiocb structure when used by the aio_read() and aio_write()
+       functions.
+       The nent argument specifies how many elements are members of the
+       list; that is, the length of the array.
+       The behavior of this function is altered according to the definitions
+       of synchronized I/O data integrity completion and synchronized I/O
+       file integrity completion if synchronized I/O is enabled on the file
+       associated with aio_fildes.
+       For regular files, no data transfer shall occur past the offset
+       maximum established in the open file description associated with
+       aiocbp->aio_fildes.
+       If sig->sigev_notify is SIGEV_THREAD and sig->sigev_notify_attributes
+       is a non-null pointer and the block pointed to by this pointer
+       becomes an illegal address prior to all asynchronous I/O being
+       completed, then the behavior is undefined.

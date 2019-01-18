@@ -1,0 +1,20 @@
+
+       getsockcreatecon() retrieves the context used for creating a new
+       labeled network socket.  This returned context should be freed with
+       freecon(3) if non-NULL.  getsockcreatecon() sets *con to NULL if no
+       sockcreate context has been explicitly set by the program (i.e. using
+       the default policy behavior).
+       setsockcreatecon() sets the context used for creating a new labeled
+       network sockets NULL can be passed to setsockcreatecon() to reset to
+       the default policy behavior.  The sockcreate context is automatically
+       reset after the next execve(2), so a program doesn't need to
+       explicitly sanitize it upon startup.
+       setsockcreatecon() can be applied prior to library functions that
+       internally perform an file creation, in order to set an file context
+       on the objects.
+       getsockcreatecon_raw() and setsockcreatecon_raw() behave identically
+       to their non-raw counterparts but do not perform context translation.
+       Note: Signal handlers that perform a setsockcreatecon() must take
+       care to save, reset, and restore the sockcreate context to avoid
+       unexpected behavior.
+       Note: Contexts are thread specific.

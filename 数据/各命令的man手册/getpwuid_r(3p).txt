@@ -1,0 +1,17 @@
+
+       The getpwuid() function shall search the user database for an entry
+       with a matching uid.
+       The getpwuid() function need not be thread-safe.
+       Applications wishing to check for error situations should set errno
+       to 0 before calling getpwuid().  If getpwuid() returns a null pointer
+       and errno is set to non-zero, an error occurred.
+       The getpwuid_r() function shall update the passwd structure pointed
+       to by pwd and store a pointer to that structure at the location
+       pointed to by result.  The structure shall contain an entry from the
+       user database with a matching uid.  Storage referenced by the
+       structure is allocated from the memory provided with the buffer
+       parameter, which is bufsize bytes in size. A call to
+       sysconf(_SC_GETPW_R_SIZE_MAX) returns either −1 without changing
+       errno or an initial value suggested for the size of this buffer.  A
+       null pointer shall be returned at the location pointed to by result
+       on error or if the requested entry is not found.

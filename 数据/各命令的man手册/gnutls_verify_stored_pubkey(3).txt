@@ -1,0 +1,14 @@
+
+       This function will try to verify the provided (raw or DER-encoded)
+       certificate using a list of stored public keys.  The  service field
+       if non-NULL should be a port number.
+       The  retrieve variable if non-null specifies a custom backend for the
+       retrieval of entries. If it is NULL then the default file backend
+       will be used. In POSIX-like systems the file backend uses the
+       $HOME/.gnutls/known_hosts file.
+       Note that if the custom storage backend is provided the retrieval
+       function should return GNUTLS_E_CERTIFICATE_KEY_MISMATCH if the
+       host/service pair is found but key doesn't match,
+       GNUTLS_E_NO_CERTIFICATE_FOUND if no such host/service with the given
+       key is found, and 0 if it was found. The storage function should
+       return 0 on success.

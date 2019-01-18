@@ -1,0 +1,3 @@
+
+       auparse_get_num_fields gets the number of fields in the current
+       record of the current event.

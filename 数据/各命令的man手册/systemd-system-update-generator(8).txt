@@ -1,0 +1,6 @@
+
+       systemd-system-update-generator is a generator that automatically
+       redirects the boot process to system-update.target, if /system-update
+       exists. This is required to implement the logic explained in the
+       systemd.offline-updates(7).
+       systemd-system-update-generator implements systemd.generator(7).

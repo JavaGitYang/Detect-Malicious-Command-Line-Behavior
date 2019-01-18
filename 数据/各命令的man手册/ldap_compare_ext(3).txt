@@ -1,0 +1,16 @@
+
+       The ldap_compare_ext_s() routine is used to perform an LDAP compare
+       operation synchronously.  It takes dn, the DN of the entry upon which
+       to perform the compare, and attr and value, the attribute description
+       and value to compare to those found in the entry.  It returns a code,
+       which will be LDAP_COMPARE_TRUE if the entry contains the attribute
+       value and LDAP_COMPARE_FALSE if it does not.  Otherwise, an error
+       code is returned that indicates the nature of the problem.  See
+       ldap(3) for details.
+       The ldap_compare_ext() routine is used to perform an LDAP compare
+       operation asynchronously.  It takes the same parameters as
+       ldap_compare_ext_s(), but provides the message id of the request it
+       initiated in the integer pointed to msgidp.  The result of the
+       compare can be obtained by a subsequent call to ldap_result(3).
+       Both routines allow server and client controls to be specified to
+       extend the compare request.

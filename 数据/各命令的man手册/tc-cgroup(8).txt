@@ -1,0 +1,5 @@
+
+       This filter serves as a hint to tc that the assigned class ID of the
+       net_cls control group the process the packet originates from belongs
+       to should be used for classification. Obviously, it is useful for
+       locally generated packets only.

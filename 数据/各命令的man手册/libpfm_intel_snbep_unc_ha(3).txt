@@ -1,0 +1,4 @@
+
+       The library supports the Intel Sandy Bridge Home Agent (HA) uncore
+       PMU.  This PMU model only exists on Sandy Bridge model 45. There is
+       only one Home Agent per processor socket.

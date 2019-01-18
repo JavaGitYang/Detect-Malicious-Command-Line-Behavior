@@ -1,0 +1,5 @@
+
+       selinux_restorecon_set_alt_rootpath() passes to selinux_restorecon(3)
+       a pointer containing an alternate rootpath alt_rootpath.
+       selinux_restorecon_set_alt_rootpath() must be called prior to
+       selinux_restorecon(3).

@@ -1,0 +1,6 @@
+
+       The package management system manipulates data represented in a
+       common format, known as control data, stored in control files.
+       Control files are used for source packages, binary packages and the
+       .changes files which control the installation of uploaded files
+       (dpkg's internal databases are in a similar format).

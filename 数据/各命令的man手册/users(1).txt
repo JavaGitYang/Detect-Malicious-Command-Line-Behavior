@@ -1,0 +1,6 @@
+
+       Output who is currently logged in according to FILE.  If FILE is not
+       specified, use /var/run/utmp.  /var/log/wtmp as FILE is common.
+       --help display this help and exit
+       --version
+              output version information and exit

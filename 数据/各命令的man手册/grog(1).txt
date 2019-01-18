@@ -1,0 +1,9 @@
+
+       grog reads the input (file names or standard input) and guesses which
+       of the groff(1) options are needed to perform the input with the
+       groff program.  A suitable device is now always written as -Tdevice
+       including the groff default as -T ps.
+       The corresponding groff command is usually displayed in standard
+       output.  With the option --run, the generated line is output into
+       standard error and the generated groff command is run on the standard
+       output.  groffer(1) relies on a perfectly running groff(1).

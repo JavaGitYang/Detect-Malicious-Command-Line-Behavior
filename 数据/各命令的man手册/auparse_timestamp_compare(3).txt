@@ -1,0 +1,2 @@
+
+       auparse_timestamp_compare compares the values of 2 timestamps.

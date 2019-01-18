@@ -1,0 +1,30 @@
+
+       These functions convert network numbers between presentation (i.e.,
+       printable) format and network (i.e., binary) format.
+       For both functions, af specifies the address family for the
+       conversion; the only supported value is AF_INET.
+   inet_net_pton()
+       The inet_net_pton() function converts pres, a null-terminated string
+       containing an Internet network number in presentation format to
+       network format.  The result of the conversion, which is in network
+       byte order, is placed in the buffer pointed to by net.  (The netp
+       argument typically points to an in_addr structure.)  The nsize
+       argument specifies the number of bytes available in netp.
+       On success, inet_net_pton() returns the number of bits in the network
+       number field of the result placed in netp.  For a discussion of the
+       input presentation format and the return value, see NOTES.
+       Note: the buffer pointed to by netp should be zeroed out before
+       calling inet_net_pton(), since the call writes only as many bytes as
+       are required for the network number (or as are explicitly specified
+       by pres), which may be less than the number of bytes in a complete
+       network address.
+   inet_net_ntop()
+       The inet_net_ntop() function converts the network number in the
+       buffer pointed to by netp to presentation format; *netp is
+       interpreted as a value in network byte order.  The bits argument
+       specifies the number of bits in the network number in *netp.
+       The null-terminated presentation-format string is placed in the
+       buffer pointed to by pres.  The psize argument specifies the number
+       of bytes available in pres.  The presentation string is in CIDR
+       format: a dotted-decimal number representing the network address,
+       followed by a slash, and the size of the network number in bits.

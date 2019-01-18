@@ -1,0 +1,5 @@
+
+       sem_post() increments (unlocks) the semaphore pointed to by sem.  If
+       the semaphore's value consequently becomes greater than zero, then
+       another process or thread blocked in a sem_wait(3) call will be woken
+       up and proceed to lock the semaphore.

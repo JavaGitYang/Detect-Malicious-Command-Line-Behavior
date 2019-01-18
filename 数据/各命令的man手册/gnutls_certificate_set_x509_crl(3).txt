@@ -1,0 +1,6 @@
+
+       This function adds the trusted CRLs in order to verify client or
+       server certificates.  In case of a client this is not required to be
+       called if the certificates are not verified using
+       gnutls_certificate_verify_peers2().  This function may be called
+       multiple times.

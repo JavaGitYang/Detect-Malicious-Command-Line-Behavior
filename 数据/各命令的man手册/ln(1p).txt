@@ -1,0 +1,64 @@
+
+       In the first synopsis form, the ln utility shall create a new
+       directory entry (link) at the destination path specified by the
+       target_file operand. If the −s option is specified, a symbolic link
+       shall be created for the file specified by the source_file operand.
+       This first synopsis form shall be assumed when the final operand does
+       not name an existing directory; if more than two operands are
+       specified and the final is not an existing directory, an error shall
+       result.
+       In the second synopsis form, the ln utility shall create a new
+       directory entry (link), or if the −s option is specified a symbolic
+       link, for each file specified by a source_file operand, at a
+       destination path in the existing directory named by target_dir.
+       If the last operand specifies an existing file of a type not
+       specified by the System Interfaces volume of POSIX.1‐2008, the
+       behavior is implementation-defined.
+       The corresponding destination path for each source_file shall be the
+       concatenation of the target directory pathname, a <slash> character
+       if the target directory pathname did not end in a <slash>, and the
+       last pathname component of the source_file.  The second synopsis form
+       shall be assumed when the final operand names an existing directory.
+       For each source_file:
+        1. If the destination path exists and was created by a previous
+           step, it is unspecified whether ln shall write a diagnostic
+           message to standard error, do nothing more with the current
+           source_file, and go on to any remaining source_files; or will
+           continue processing the current source_file.  If the destination
+           path exists:
+            a. If the −f option is not specified, ln shall write a
+               diagnostic message to standard error, do nothing more with
+               the current source_file, and go on to any remaining
+               source_files.
+            b. If destination names the same directory entry as the current
+               source_file ln shall write a diagnostic message to standard
+               error, do nothing more with the current source_file, and go
+               on to any remaining source_files.
+            c. Actions shall be performed equivalent to the unlink()
+               function defined in the System Interfaces volume of
+               POSIX.1‐2008, called using destination as the path argument.
+               If this fails for any reason, ln shall write a diagnostic
+               message to standard error, do nothing more with the current
+               source_file, and go on to any remaining source_files.
+        2. If the −s option is specified, actions shall be performed
+           equivalent to the symlink() function with source_file as the
+           path1 argument and the destination path as the path2 argument.
+           The ln utility shall do nothing more with source_file and shall
+           go on to any remaining files.
+        3. If source_file is a symbolic link:
+            a. If the −P option is in effect, actions shall be performed
+               equivalent to the linkat() function with source_file as the
+               path1 argument, the destination path as the path2 argument,
+               AT_FDCWD as the fd1 and fd2 arguments, and zero as the flag
+               argument.
+            b. If the −L option is in effect, actions shall be performed
+               equivalent to the linkat() function with source_file as the
+               path1 argument, the destination path as the path2 argument,
+               AT_FDCWD as the fd1 and fd2 arguments, and AT_SYMLINK_FOLLOW
+               as the flag argument.
+           The ln utility shall do nothing more with source_file and shall
+           go on to any remaining files.
+        4. Actions shall be performed equivalent to the link() function
+           defined in the System Interfaces volume of POSIX.1‐2008 using
+           source_file as the path1 argument, and the destination path as
+           the path2 argument.

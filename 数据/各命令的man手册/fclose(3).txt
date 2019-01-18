@@ -1,0 +1,4 @@
+
+       The fclose() function flushes the stream pointed to by stream
+       (writing any buffered output data using fflush(3)) and closes the
+       underlying file descriptor.

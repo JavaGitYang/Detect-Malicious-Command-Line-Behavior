@@ -1,0 +1,34 @@
+
+       The lttng untrack commands removes one or more entries from a
+       resource tracker.
+       See lttng-track(1) to learn more about LTTng trackers.
+       The untrack command removes specific resources from a tracker. The
+       resources to remove must have been precedently added by
+       lttng-track(1). It is also possible to remove all the resources from
+       the whitelist using the --all option.
+       As of this version, the only available tracker is the PID tracker.
+   Example
+       One common operation is to create a tracing session (see
+       lttng-create(1)), remove all the entries from the PID tracker
+       whitelist, start tracing, and then manually track PIDs while tracing
+       is active.
+       Assume the maximum system PID is 7 for this example.
+       Command:
+           $ lttng create
+       Initial whitelist:
+           [0] [1] [2] [3] [4] [5] [6] [7]
+       Command:
+           $ lttng untrack --userspace --pid --all
+       Whitelist:
+           [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ]
+       Commands:
+           $ lttng enable-event --userspace ...
+           $ lttng start
+           $ # ...
+           $ lttng track --userspace --pid=3,5
+       Whitelist:
+           [ ] [ ] [ ] [3] [ ] [5] [ ] [ ]
+       Command:
+           $ lttng track --userspace --pid=2
+       Whitelist:
+           [ ] [ ] [2] [3] [ ] [5] [ ] [ ]

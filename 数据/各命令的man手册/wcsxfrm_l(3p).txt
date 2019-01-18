@@ -1,0 +1,26 @@
+
+       For wcsxfrm(): The functionality described on this reference page is
+       aligned with the ISO C standard. Any conflict between the
+       requirements described here and the ISO C standard is unintentional.
+       This volume of POSIX.1‐2008 defers to the ISO C standard.
+       The wcsxfrm() and wcsxfrm_l() functions shall transform the wide-
+       character string pointed to by ws2 and place the resulting wide-
+       character string into the array pointed to by ws1.  The
+       transformation shall be such that if wcscmp() is applied to two
+       transformed wide strings, it shall return a value greater than, equal
+       to, or less than 0, corresponding to the result of wcscoll() and
+       wcscoll_l() applied to the same two original wide-character strings,
+       and the same LC_COLLATE category of the current locale or the locale
+       object locale, respectively. No more than n wide-character codes
+       shall be placed into the resulting array pointed to by ws1, including
+       the terminating null wide-character code. If n is 0, ws1 is permitted
+       to be a null pointer. If copying takes place between objects that
+       overlap, the behavior is undefined.
+       The wcsxfrm() and wcsxfrm_l() functions shall not change the setting
+       of errno if successful.
+       Since no return value is reserved to indicate an error, an
+       application wishing to check for error situations should set errno to
+       0, then call wcsxfrm() or wcsxfrm_l(), then check errno.
+       The behavior is undefined if the locale argument to wcsxfrm_l() is
+       the special locale object LC_GLOBAL_LOCALE or is not a valid locale
+       object handle.

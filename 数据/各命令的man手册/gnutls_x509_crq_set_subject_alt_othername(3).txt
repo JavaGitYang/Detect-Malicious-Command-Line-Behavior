@@ -1,0 +1,5 @@
+
+       This function will set the subject alternative name certificate
+       extension.  It can set the following types:
+       The values set must be binary values and must be properly DER
+       encoded.

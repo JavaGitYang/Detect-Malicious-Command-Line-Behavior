@@ -1,0 +1,6 @@
+
+       This function will associate the prestate acquired by the cookie
+       authentication with the client, with the newly established session.
+       This functions must be called after a successful
+       gnutls_dtls_cookie_verify() and should be succeeded by the actual
+       DTLS handshake using gnutls_handshake().

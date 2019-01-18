@@ -1,0 +1,11 @@
+
+       Stochastic Fairness Queueing is a classless queueing discipline
+       available for traffic control with the tc(8) command.
+       SFQ does not shape traffic but only schedules the transmission of
+       packets, based on 'flows'.  The goal is to ensure fairness so that
+       each flow is able to send data in turn, thus preventing any single
+       flow from drowning out the rest.
+       This may in fact have some effect in mitigating a Denial of Service
+       attempt.
+       SFQ is work-conserving and therefore always delivers a packet if it
+       has one available.

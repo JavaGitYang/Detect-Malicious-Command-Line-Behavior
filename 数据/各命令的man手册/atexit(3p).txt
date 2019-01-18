@@ -1,0 +1,16 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The atexit() function shall register the function pointed to by func,
+       to be called without arguments at normal program termination. At
+       normal program termination, all functions registered by the atexit()
+       function shall be called, in the reverse order of their registration,
+       except that a function is called after any previously registered
+       functions that had already been called at the time it was registered.
+       Normal termination occurs either by a call to exit() or a return from
+       main().
+       At least 32 functions can be registered with atexit().
+       After a successful call to any of the exec functions, any functions
+       previously registered by atexit() shall no longer be registered.

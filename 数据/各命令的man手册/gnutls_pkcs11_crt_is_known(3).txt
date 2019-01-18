@@ -1,0 +1,12 @@
+
+       This function will check whether the provided certificate is stored
+       in the specified token. This is useful in combination with
+       GNUTLS_PKCS11_OBJ_FLAG_RETRIEVE_TRUSTED or
+       GNUTLS_PKCS11_OBJ_FLAG_RETRIEVE_DISTRUSTED, to check whether a CA is
+       present or a certificate is blacklisted in a trust PKCS 11 module.
+       This function can be used with a  url of "pkcs11:", and in that case
+       all modules will be searched. To restrict the modules to the marked
+       as trusted in p11-kit use the
+       GNUTLS_PKCS11_OBJ_FLAG_PRESENT_IN_TRUSTED_MODULE flag.
+       Note that the flag GNUTLS_PKCS11_OBJ_FLAG_RETRIEVE_DISTRUSTED is
+       specific to p11-kit trust modules.

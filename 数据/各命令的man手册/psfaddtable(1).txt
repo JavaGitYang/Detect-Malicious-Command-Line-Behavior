@@ -1,0 +1,8 @@
+
+       psfaddtable takes a console font in .psf format given by fontfile and
+       merges it with the Unicode character table given by tablefile to
+       produce a font file with an embedded character table, which is
+       written to outfile.  An input file name of "-" denotes standard
+       input, and an output file name of "-" denotes standard output.  If
+       the fontfile already contains an embedded character table, it is
+       ignored.

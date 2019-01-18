@@ -1,0 +1,8 @@
+
+       The PRIO qdisc is a simple classful queueing discipline that contains
+       an arbitrary number of classes of differing priority. The classes are
+       dequeued in numerical descending order of priority. PRIO is a
+       scheduler and never delays packets - it is a work-conserving qdisc,
+       though the qdiscs contained in the classes may not be.
+       Very useful for lowering latency when there is no need for slowing
+       down traffic.

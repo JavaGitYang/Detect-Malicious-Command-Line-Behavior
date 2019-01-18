@@ -1,0 +1,20 @@
+
+       The posix_typed_mem_get_info() function shall return, in the
+       posix_tmi_length field of the posix_typed_mem_info structure pointed
+       to by info, the maximum length which may be successfully allocated by
+       the typed memory object designated by fildes.  This maximum length
+       shall take into account the flag POSIX_TYPED_MEM_ALLOCATE or
+       POSIX_TYPED_MEM_ALLOCATE_CONTIG specified when the typed memory
+       object represented by fildes was opened. The maximum length is
+       dynamic; therefore, the value returned is valid only while the
+       current mapping of the corresponding typed memory pool remains
+       unchanged.
+       If fildes represents a typed memory object opened with neither the
+       POSIX_TYPED_MEM_ALLOCATE flag nor the POSIX_TYPED_MEM_ALLOCATE_CONTIG
+       flag specified, the returned value of info->posix_tmi_length is
+       unspecified.
+       The posix_typed_mem_get_info() function may return additional
+       implementation-defined information in other fields of the
+       posix_typed_mem_info structure pointed to by info.
+       If the memory object specified by fildes is not a typed memory
+       object, then the behavior of this function is undefined.

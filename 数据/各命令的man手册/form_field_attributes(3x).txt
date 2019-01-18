@@ -1,0 +1,12 @@
+
+       The function set_field_fore sets the foreground attribute of field.
+       This is the highlight used to display the field contents.  The
+       function field_fore returns the foreground attribute.  The default is
+       A_STANDOUT.
+       The function set_field_back sets the background attribute of form.
+       This is the highlight used to display the extent fields in the form.
+       The function field_back returns the background attribute.  The
+       default is A_NORMAL.
+       The function set_field_pad sets the character used to fill the field.
+       The function field_pad returns the given form's pad character.  The
+       default is a blank.

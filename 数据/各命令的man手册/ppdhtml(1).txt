@@ -1,0 +1,5 @@
+
+       ppdhtml reads a driver information file and produces a HTML summary
+       page that lists all of the drivers in a file and the supported
+       options.  This program is deprecated and will be removed in a future
+       release of CUPS.

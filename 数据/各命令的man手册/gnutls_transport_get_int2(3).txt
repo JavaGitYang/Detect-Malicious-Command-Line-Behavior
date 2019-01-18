@@ -1,0 +1,3 @@
+
+       Used to get the arguments of the transport functions (like PUSH and
+       PULL).  These should have been set using gnutls_transport_set_int2().

@@ -1,0 +1,10 @@
+
+       The fputwc() function is the wide-character equivalent of the
+       fputc(3) function.  It writes the wide character wc to stream.  If
+       ferror(stream) becomes true, it returns WEOF.  If a wide-character
+       conversion error occurs, it sets errno to EILSEQ and returns WEOF.
+       Otherwise, it returns wc.
+       The putwc() function or macro functions identically to fputwc().  It
+       may be implemented as a macro, and may evaluate its argument more
+       than once.  There is no reason ever to use it.
+       For nonlocking counterparts, see unlocked_stdio(3).

@@ -1,0 +1,14 @@
+
+       pam_umask is a PAM module to set the file mode creation mask of the
+       current environment. The umask affects the default permissions
+       assigned to newly created files.
+       The PAM module tries to get the umask value from the following places
+       in the following order:
+       ·   umask= argument
+       ·   umask= entry in the user's GECOS field
+       ·   UMASK= entry from /etc/default/login
+       ·   UMASK entry from /etc/login.defs
+       The GECOS field is split on comma ',' characters. The module also in
+       addition to the umask= entry recognizes pri= entry, which sets the
+       nice priority value for the session, and ulimit= entry, which sets
+       the maximum size of files the processes in the session can create.

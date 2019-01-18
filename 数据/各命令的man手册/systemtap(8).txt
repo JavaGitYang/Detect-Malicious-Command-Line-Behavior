@@ -1,0 +1,19 @@
+
+       The SystemTap initscript aims to provide a way to run scripts as a
+       service and easily control them individually. Scripts can be
+       configured to start upon manual request, or during system startup. On
+       dracut-based systems, it is also possible to integrate scripts in the
+       initramfs and have them start during early-boot.
+       There are various parameters and options available to modify global
+       behaviour, as well as script behaviour. Dependencies between scripts
+       can be established so that starting one starts others.
+       The configuration file of the initscript is located at
+       ${prefix}/etc/systemtap/config. Acceptable parameters are detailed in
+       the GLOBAL PARAMETERS section.
+       Scripts must be placed in the ${prefix}/etc/systemtap/script.d
+       directory and must have a .stp extension. When referring to them on
+       the command-line however, there in no need to include the .stp
+       extension.  Script names can only contain alphanumeric characters
+       (and '_') and must not start with a number. The scripts directory may
+       be changed by setting the SCRIPT_PATH parameter in the configuration
+       file.

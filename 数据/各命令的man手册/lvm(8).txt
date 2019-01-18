@@ -1,0 +1,41 @@
+
+       The Logical Volume Manager (LVM) provides tools to create virtual
+       block devices from physical devices.  Virtual devices may be easier
+       to manage than physical devices, and can have capabilities beyond
+       what the physical devices provide themselves.  A Volume Group (VG) is
+       a collection of one or more physical devices, each called a Physical
+       Volume (PV).  A Logical Volume (LV) is a virtual block device that
+       can be used by the system or applications.  Each block of data in an
+       LV is stored on one or more PV in the VG, according to algorithms
+       implemented by Device Mapper (DM) in the kernel.
+       The lvm command, and other commands listed below, are the command-
+       line tools for LVM.  A separate manual page describes each command in
+       detail.
+       If lvm is invoked with no arguments it presents a readline prompt
+       (assuming it was compiled with readline support).  LVM commands may
+       be entered interactively at this prompt with readline facilities
+       including history and command name and option completion.  Refer to
+       readline(3) for details.
+       If lvm is invoked with argv[0] set to the name of a specific LVM
+       command (for example by using a hard or soft link) it acts as that
+       command.
+       On invocation, lvm requires that only the standard file descriptors
+       stdin, stdout and stderr are available.  If others are found, they
+       get closed and messages are issued warning about the leak.  This
+       warning can be suppressed by setting the environment variable
+       LVM_SUPPRESS_FD_WARNINGS.
+       Where commands take VG or LV names as arguments, the full path name
+       is optional.  An LV called "lvol0" in a VG called "vg0" can be
+       specified as "vg0/lvol0".  Where a list of VGs is required but is
+       left empty, a list of all VGs will be substituted.  Where a list of
+       LVs is required but a VG is given, a list of all the LVs in that VG
+       will be substituted.  So lvdisplay vg0 will display all the LVs in
+       "vg0".  Tags can also be used - see --addtag below.
+       One advantage of using the built-in shell is that configuration
+       information gets cached internally between commands.
+       A file containing a simple script with one command per line can also
+       be given on the command line.  The script can also be executed
+       directly if the first line is #! followed by the absolute path of
+       lvm.
+       Additional hyphens within option names are ignored.  For example,
+       --readonly and --read-only are both accepted.

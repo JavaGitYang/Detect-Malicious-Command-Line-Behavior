@@ -1,0 +1,12 @@
+
+       The stapdyn program is the dyninst back-end of the Systemtap tool.
+       It expects a shared library produced by the front-end stap tool, when
+       run with --dyninst.
+       Splitting the systemtap tool into a front-end and a back-end allows a
+       user to compile a systemtap script on a development machine that has
+       the debugging information (need to compile the script) and then
+       transfer the resulting shared object to a production machine that
+       doesn't have any development tools or debugging information
+       installed.
+       Please refer to stappaths (7) for the version number, or run rpm -q
+       systemtap (fedora/red hat) apt-get -v systemtap (ubuntu)

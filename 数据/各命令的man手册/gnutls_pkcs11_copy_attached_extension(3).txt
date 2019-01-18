@@ -1,0 +1,5 @@
+
+       This function will copy an the attached extension in  data for the
+       certificate provided in  crt in the PKCS 11 token specified by the
+       URL (typically a trust module). The extension must be in RFC5280
+       Extension format.

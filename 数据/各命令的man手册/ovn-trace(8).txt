@@ -1,0 +1,53 @@
+
+       This utility simulates packet forwarding within an OVN logical
+       network. It can be used to run through ``what-if’’ scenarios: if a
+       packet originates at a logical port, what will happen to it and where
+       will it ultimately end up? Users already familiar with the Open
+       vSwitch ofproto/trace command described in ovs-vswitch(8) will find
+       ovn-trace to be a similar tool for logical networks.
+       ovn-trace works by reading the Logical_Flow and other tables from the
+       OVN southbound database (see ovn-sb(5)). It simulates a packet’s path
+       through logical networks by repeatedly looking it up in the logical
+       flow table, following the entire tree of possibilities.
+       ovn-trace simulates only the OVN logical network. It does not
+       simulate the physical elements on which the logical network is
+       layered. This means that, for example, it is unimportant how VMs are
+       distributed among hypervisors, or whether their hypervisors are
+       functioning and reachable, so ovn-trace will yield the same results
+       regardless. There is one important exception: ovn-northd, the daemon
+       that generates the logical flows that ovn-trace simulates, treats
+       logical ports differently based on whether they are up or down. Thus,
+       if you see surprising results, ensure that the ports involved in a
+       simulation are up.
+       The simplest way to use ovn-trace is to provide datapath and
+       microflow arguments on the command line. In this case, it simulates
+       the behavior of a single packet and exits. For an alternate usage
+       model, see Daemon Mode below.
+       The datapath argument specifies the name of a logical datapath.
+       Acceptable names are the name from the northbound Logical_Switch or
+       Logical_Router table, the UUID of a record from one of those tables,
+       or the UUID of a record from the southbound Datapath_Binding table.
+       The microflow argument describes the packet whose forwarding is to be
+       simulated, in the syntax of an OVN logical expression, as described
+       in ovn-sb(5), to express constraints. The parser understands
+       prerequisites; for example, if the expression refers to ip4.src,
+       there is no need to explicitly state ip4 or eth.type == 0x800.
+       For reasonable L2 behavior, the microflow should include at least
+       inport and eth.dst, plus eth.src if port security is enabled. For
+       example:
+           inport == "lp11" && eth.src == 00:01:02:03:04:05 && eth.dst == ff:ff:ff:ff:ff:ff
+       For reasonable L3 behavior, microflow should also include ip4.src and
+       ip4.dst (or ip6.src and ip6.dst) and ip.ttl. For example:
+           inport == "lp111" && eth.src == f0:00:00:00:01:11 && eth.dst == 00:00:00:00:ff:11
+           && ip4.src == 192.168.11.1 && ip4.dst == 192.168.22.2 && ip.ttl == 64
+       Here’s an ARP microflow example:
+           inport == "lp123"
+           && eth.dst == ff:ff:ff:ff:ff:ff && eth.src == f0:00:00:00:01:11
+           && arp.op == 1 && arp.sha == f0:00:00:00:01:11 && arp.spa == 192.168.1.11
+           && arp.tha == ff:ff:ff:ff:ff:ff && arp.tpa == 192.168.2.22
+       ovn-trace will reject erroneous microflow expressions, which beyond
+       syntax errors fall into two categories. First, they can be ambiguous.
+       For example, tcp.src == 80 is ambiguous because it does not state
+       IPv4 or IPv6 as the Ethernet type. ip4 && tcp.src > 1024 is also
+       ambiguous because it does not constrain bits of tcp.src to particular
+       values. Second, they can be contradictory, e.g. ip4 && ip6.

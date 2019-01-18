@@ -1,0 +1,7 @@
+
+       The pause() function shall suspend the calling thread until delivery
+       of a signal whose action is either to execute a signal-catching
+       function or to terminate the process.
+       If the action is to terminate the process, pause() shall not return.
+       If the action is to execute a signal-catching function, pause() shall
+       return after the signal-catching function returns.

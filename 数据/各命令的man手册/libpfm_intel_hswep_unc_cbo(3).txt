@@ -1,0 +1,12 @@
+
+       The library supports the Intel Haswell C-Box (coherency engine)
+       uncore PMU.  This PMU model only exists on Haswell model 63. There is
+       one C-box PMU per physical core. Therefore there are up to eighteen
+       identical C-Box PMU instances numbered from 0 to 17. On dual-socket
+       systems, the number refers to the C-Box PMU on the socket where the
+       program runs. For instance, if running on CPU18, then hswep_unc_cbo0
+       refers to the C-Box for physical core 0 on socket 1. Conversely, if
+       running on CPU0, then the same hswep_unc_cbo0 refers to the C-Box for
+       physical core 0 but on socket 0.
+       Each C-Box PMU implements 4 generic counters and two filter registers
+       used only with certain events and umasks.

@@ -1,0 +1,4 @@
+
+       This function clears all buffers associated with the  session .  This
+       function will also remove session data from the session database if
+       the session was terminated abnormally.

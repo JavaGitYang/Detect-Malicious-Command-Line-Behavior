@@ -1,0 +1,5 @@
+
+       The sigpending() function shall store, in the location referenced by
+       the set argument, the set of signals that are blocked from delivery
+       to the calling thread and that are pending on the process or the
+       calling thread.

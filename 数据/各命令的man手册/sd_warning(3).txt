@@ -1,0 +1,28 @@
+
+       sd-daemon.h provides APIs for new-style daemons, as implemented by
+       the systemd(1) service manager.
+       See sd_listen_fds(3), sd_notify(3), sd_booted(3), sd_is_fifo(3),
+       sd_watchdog_enabled(3) for more information about the functions
+       implemented. In addition to these functions, a couple of logging
+       prefixes are defined as macros:
+           #define SD_EMERG   "<0>"  /* system is unusable */
+           #define SD_ALERT   "<1>"  /* action must be taken immediately */
+           #define SD_CRIT    "<2>"  /* critical conditions */
+           #define SD_ERR     "<3>"  /* error conditions */
+           #define SD_WARNING "<4>"  /* warning conditions */
+           #define SD_NOTICE  "<5>"  /* normal but significant condition */
+           #define SD_INFO    "<6>"  /* informational */
+           #define SD_DEBUG   "<7>"  /* debug-level messages */
+       These prefixes are intended to be used in conjunction with
+       stderr-based logging as implemented by systemd. If a systemd service
+       definition file is configured with StandardError=journal,
+       StandardError=syslog or StandardError=kmsg, these prefixes can be
+       used to encode a log level in lines printed. This is similar to the
+       kernel printk()-style logging. See klogctl(2) for more information.
+       The log levels are identical to syslog(3)'s log level system. To use
+       these prefixes simply prefix every line with one of these strings. A
+       line that is not prefixed will be logged at the default log level
+       SD_INFO.
+       Example 1. Hello World
+       A daemon may log with the log level NOTICE by issuing this call:
+           fprintf(stderr, SD_NOTICE "Hello World!\n");

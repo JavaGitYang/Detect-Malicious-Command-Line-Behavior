@@ -1,0 +1,6 @@
+
+       This function returns pointers to the client and server random fields
+       used in the TLS handshake. The pointers are not to be modified or
+       deallocated.
+       If a client random value has not yet been established, the output
+       will be garbage.

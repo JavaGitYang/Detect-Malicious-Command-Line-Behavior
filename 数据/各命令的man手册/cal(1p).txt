@@ -1,0 +1,12 @@
+
+       The cal utility shall write a calendar to standard output using the
+       Julian calendar for dates from January 1, 1 through September 2, 1752
+       and the Gregorian calendar for dates from September 14, 1752 through
+       December 31, 9999 as though the Gregorian calendar had been adopted
+       on September 14, 1752.
+       If no operands are given, cal shall produce a one-month calendar for
+       the current month in the current year. If only the year operand is
+       given, cal shall produce a calendar for all twelve months in the
+       given calendar year. If both month and year operands are given, cal
+       shall produce a one-month calendar for the given month in the given
+       year.

@@ -1,0 +1,11 @@
+
+   devlink resource show - display devlink device's resosources
+       DEV - specifies the devlink device to show.
+           Format is:
+             BUS_NAME/BUS_ADDRESS
+   devlink resource set - sets resource size of specific resource
+       DEV - specifies the devlink device.
+       path RESOURCE_PATH
+              Resource's path.
+       size RESOURCE_SIZE
+              The new resource's size.

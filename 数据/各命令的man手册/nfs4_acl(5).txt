@@ -1,0 +1,33 @@
+
+       An ACL is a list of permissions associated with a file or directory
+       and consists of one or more Access Control Entries (ACEs).  NFSv4
+       ACLs provide finer granularity than typical POSIX read/write/execute
+       permissions and are similar to CIFS ACLs.
+       A sample NFSv4 file ACL might look like the following (see the ACL
+       FORMAT section for detailed information):
+              A::OWNER@:rwatTnNcCy
+              A::alice@nfsdomain.org:rxtncy
+              A::bob@nfsdomain.org:rwadtTnNcCy
+              A:g:GROUP@:rtncy
+              D:g:GROUP@:waxTC
+              A::EVERYONE@:rtncy
+              D::EVERYONE@:waxTC
+       Some observations:
+       -  In the example output above, the user `alice@nfsdomain.org' has
+          the equivalent of "read" and "execute" permissions,
+          `bob@nfsdomain.org' has "read" and "write", and both `GROUP@' and
+          `EVERYONE@' have "read".
+       -  NFSv4 ACLs are "default-deny"; that is, if a permission is not
+          explicitly granted by an Allow ACE, it is denied.  Because of
+          this, the two Deny ACEs above are superfluous and could be
+          excluded by the server.  See the A WARNING ABOUT DENY ACES section
+          for more information.
+       -  NFSv4 servers may return an ACL slightly different than one you
+          set.  For example, a server that always allows reading the
+          attributes of a file may silently turn on the read-attributes
+          permission, and a server that does not support separate write-data
+          and append-data permissions, e.g., may choose to turn off both if
+          you set only one.  In extreme cases the server may also reorder or
+          combine ACEs.  As a general rule, however, servers will attempt to
+          ensure that the ACLs they return are no more permissive than the
+          ones you set.

@@ -1,0 +1,25 @@
+
+       pmdadocker is a docker Performance Metrics Domain Agent (PMDA) which
+       exposes performance metrics as reported from the Docker Remote API.
+       A brief description of the pmdadocker command line options follows:
+       -d   It is absolutely crucial that the performance metrics domain
+            number specified here is unique and consistent.  That is, domain
+            should be different for every PMDA on the one host, and the same
+            domain number should be used for the same PMDA on all hosts.
+       -l   Location of the log file.  By default, a log file named
+            docker.log is written in the current directory of pmcd(1) when
+            pmdadocker is started, i.e.  $PCP_LOG_DIR/pmcd.  If the log file
+            cannot be created or is not writable, output is written to the
+            standard error instead.
+       Remote API metric requests are activated automatically and are
+       fetched on a timer.  This timer is represented as a by pmdadocker via
+       the docker.control.timing.  By default, pmdadocker will be set to
+       fetch on a 1 second interval.
+       pmdadocker will iterate over three different docker remote API calls:
+       /containers/$ID/json
+              Container metrics regarding the current state of the
+              container. Such as PID, name or if the container is running.
+       /version
+              Basic version metrics about the current docker deamon in use.
+       /containers/$ID/stats?stream=0
+              More in depth memory and cpu metrics of the container.

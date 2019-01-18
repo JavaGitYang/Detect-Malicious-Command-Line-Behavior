@@ -1,0 +1,13 @@
+
+       dh_installinit is a debhelper program that is responsible for
+       installing init scripts with associated defaults files.  In
+       compatibility levels up to 11, dh_installinit also handled upstart
+       job files and systemd service files.
+       It also automatically generates the postinst and postrm and prerm
+       commands needed to set up the symlinks in /etc/rc*.d/ to start and
+       stop the init scripts.
+       In compat 10 or earlier: If a package only ships a systemd service
+       file and no sysvinit script is provided, you may want to exclude the
+       call to dh_installinit for that package (e.g. via -N).  Otherwise,
+       you may get warnings from lintian about init.d scripts not being
+       included in the package.

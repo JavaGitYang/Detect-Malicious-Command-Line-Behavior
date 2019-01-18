@@ -1,0 +1,6 @@
+
+       This function will set the subject in  crt to the end entity's
+        eecrt subject name, and add a single Common Name component  name of
+       size  sizeof_name .  This corresponds to the required proxy
+       certificate naming style.  Note that if  name is NULL, you MUST set
+       it later by using gnutls_x509_crt_set_dn_by_oid() or similar.

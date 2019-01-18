@@ -1,0 +1,10 @@
+
+       As part of the Performance Co-Pilot Log Import API (see
+       LOGIMPORT(3)), pmiWrite forces accumulated data values out to the PCP
+       archive.
+       The data values and associated metadata have previously been built up
+       using calls to pmiAddMetric(3), pmiAddInstance(3), pmiPutValue(3) and
+       pmiPutValueHandle(3).
+       The current set of data values and any new metadata is written to the
+       archive with a timestamp of sec and usec in the source timezone of
+       the archive, see pmiSetTimezone(3).

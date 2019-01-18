@@ -1,0 +1,9 @@
+
+       The printw, wprintw, mvprintw and mvwprintw routines are analogous to
+       printf [see printf(3)].  In effect, the string that would be output
+       by printf is output instead as though waddstr were used on the given
+       window.
+       The vwprintw and wv_printw routines are analogous to vprintf [see
+       printf(3)] and perform a wprintw using a variable argument list.  The
+       third argument is a va_list, a pointer to a list of arguments, as
+       defined in <stdarg.h>.

@@ -1,0 +1,4 @@
+
+       This function will get random data from the given token.  It will
+       store rnddata and fill the memory pointed to by rnddata with len
+       random bytes from the token.

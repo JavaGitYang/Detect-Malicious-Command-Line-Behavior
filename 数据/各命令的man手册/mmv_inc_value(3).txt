@@ -1,0 +1,6 @@
+
+       mmv_inc_value provides a convenient way of updating a value returned
+       by the mmv_lookup_value_desc.  addr is the address returned from
+       mmv_stats_init().
+       The value of the inc is internally cast to match the type of the
+       metric and then added to the previous value of the metric.

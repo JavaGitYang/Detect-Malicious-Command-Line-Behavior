@@ -1,0 +1,3 @@
+
+       This function will operate similarly to memset(), but will not be
+       optimized out by the compiler.

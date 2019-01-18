@@ -1,0 +1,4 @@
+
+       The eval utility shall construct a command by concatenating arguments
+       together, separating each with a <space> character.  The constructed
+       command shall be read and executed by the shell.

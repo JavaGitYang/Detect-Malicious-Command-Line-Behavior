@@ -1,0 +1,18 @@
+
+       The chown utility shall set the user ID of the file named by each
+       file operand to the user ID specified by the owner operand.
+       For each file operand, or, if the −R option is used, each file
+       encountered while walking the directory trees specified by the file
+       operands, the chown utility shall perform actions equivalent to the
+       chown() function defined in the System Interfaces volume of
+       POSIX.1‐2008, called with the following arguments:
+        1. The file operand shall be used as the path argument.
+        2. The user ID indicated by the owner portion of the first operand
+           shall be used as the owner argument.
+        3. If the group portion of the first operand is given, the group ID
+           indicated by it shall be used as the group argument; otherwise,
+           the group ownership shall not be changed.
+       Unless chown is invoked by a process with appropriate privileges, the
+       set-user-ID and set-group-ID bits of a regular file shall be cleared
+       upon successful completion; the set-user-ID and set-group-ID bits of
+       other file types may be cleared.

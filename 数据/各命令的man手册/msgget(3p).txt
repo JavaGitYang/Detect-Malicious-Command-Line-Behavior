@@ -1,0 +1,26 @@
+
+       The msgget() function operates on XSI message queues (see the Base
+       Definitions volume of POSIX.1‐2008, Section 3.225, Message Queue).
+       It is unspecified whether this function interoperates with the
+       realtime interprocess communication facilities defined in Section
+       2.8, Realtime.
+       The msgget() function shall return the message queue identifier
+       associated with the argument key.
+       A message queue identifier, associated message queue, and data
+       structure (see <sys/msg.h>), shall be created for the argument key if
+       one of the following is true:
+        *  The argument key is equal to IPC_PRIVATE.
+        *  The argument key does not already have a message queue identifier
+           associated with it, and (msgflg & IPC_CREAT) is non-zero.
+       Upon creation, the data structure associated with the new message
+       queue identifier shall be initialized as follows:
+        *  msg_perm.cuid, msg_perm.uid, msg_perm.cgid, and msg_perm.gid
+           shall be set to the effective user ID and effective group ID,
+           respectively, of the calling process.
+        *  The low-order 9 bits of msg_perm.mode shall be set to the low-
+           order 9 bits of msgflg.
+        *  msg_qnum, msg_lspid, msg_lrpid, msg_stime, and msg_rtime shall be
+           set to 0.
+        *  msg_ctime shall be set to the current time, as described in
+           Section 2.7.1, IPC General Description.
+        *  msg_qbytes shall be set to the system limit.

@@ -1,0 +1,4 @@
+
+       Examine the wtmp and btmp logs, /etc/shadow (if necessary) and
+       /etc/passwd and output the desired data.
+       The default action is to list info about all the users in the system.

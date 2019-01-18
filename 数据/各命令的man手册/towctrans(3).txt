@@ -1,0 +1,6 @@
+
+       If wc is a wide character, the towctrans() function translates it
+       according to the transliteration descriptor desc.  If wc is WEOF,
+       WEOF is returned.
+       desc must be a transliteration descriptor returned by the wctrans(3)
+       function.

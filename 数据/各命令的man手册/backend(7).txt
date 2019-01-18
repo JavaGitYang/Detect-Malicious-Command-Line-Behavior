@@ -1,0 +1,61 @@
+
+       Backends are a special type of filter(7) which is used to send print
+       data to and discover different devices on the system.
+       Like filters, backends must be capable of reading from a filename on
+       the command-line or from the standard input, copying the standard
+       input to a temporary file as required by the physical interface.
+       The command name (argv[0]) is set to the device URI of the
+       destination printer. Authentication information in argv[0] is
+       removed, so backend developers are urged to use the DEVICE_URI
+       environment variable whenever authentication information is required.
+       The cupsBackendDeviceURI() function may be used to retrieve the
+       correct device URI.
+       Back-channel data from the device should be relayed to the job
+       filters using the cupsBackChannelWrite function.
+       Backends are responsible for reading side-channel requests using the
+       cupsSideChannelRead() function and responding with the
+       cupsSideChannelWrite() function. The CUPS_SC_FD constant defines the
+       file descriptor that should be monitored for incoming requests.
+   DEVICE DISCOVERY
+       When run with no arguments, the backend should list the devices and
+       schemes it supports or is advertising to the standard output. The
+       output consists of zero or more lines consisting of any of the
+       following forms:
+           device-class scheme "Unknown" "device-info"
+           device-class device-uri "device-make-and-model" "device-info"
+           device-class device-uri "device-make-and-model" "device-info" "device-id"
+           device-class device-uri "device-make-and-model" "device-info" "device-id" "device-location"
+       The cupsBackendReport() function can be used to generate these lines
+       and handle any necessary escaping of characters in the various
+       strings.
+       The device-class field is one of the following values:
+       direct
+            The device-uri refers to a specific direct-access device with no
+            options, such as a parallel, USB, or SCSI device.
+       file The device-uri refers to a file on disk.
+       network
+            The device-uri refers to a networked device and conforms to the
+            general form for network URIs.
+       serial
+            The device-uri refers to a serial device with configurable baud
+            rate and other options. If the device-uri contains a baud value,
+            it represents the maximum baud rate supported by the device.
+       The scheme field provides the URI scheme that is supported by the
+       backend. Backends should use this form only when the backend supports
+       any URI using that scheme. The device-uri field specifies the full
+       URI to use when communicating with the device.
+       The device-make-and-model field specifies the make and model of the
+       device, e.g. "Example Foojet 2000". If the make and model is not
+       known, you must report "Unknown".
+       The device-info field specifies additional information about the
+       device. Typically this includes the make and model along with the
+       port number or network address, e.g. "Example Foojet 2000 USB #1".
+       The optional device-id field specifies the IEEE-1284 device ID string
+       for the device, which is used to select a matching driver.
+       The optional device-location field specifies the physical location of
+       the device, which is often used to pre-populate the printer-location
+       attribute when adding a printer.
+   PERMISSIONS
+       Backends without world read and execute permissions are run as the
+       root user. Otherwise, the backend is run using an unprivileged user
+       account, typically "lp".

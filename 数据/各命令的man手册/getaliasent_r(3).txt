@@ -1,0 +1,30 @@
+
+       One of the databases available with the Name Service Switch (NSS) is
+       the aliases database, that contains mail aliases.  (To find out which
+       databases are supported, try getent --help.)  Six functions are
+       provided to access the aliases database.
+       The getaliasent() function returns a pointer to a structure
+       containing the group information from the aliases database.  The
+       first time it is called it returns the first entry; thereafter, it
+       returns successive entries.
+       The setaliasent() function rewinds the file pointer to the beginning
+       of the aliases database.
+       The endaliasent() function closes the aliases database.
+       getaliasent_r() is the reentrant version of the previous function.
+       The requested structure is stored via the first argument but the
+       programmer needs to fill the other arguments also.  Not providing
+       enough space causes the function to fail.
+       The function getaliasbyname() takes the name argument and searches
+       the aliases database.  The entry is returned as a pointer to a struct
+       aliasent.
+       getaliasbyname_r() is the reentrant version of the previous function.
+       The requested structure is stored via the second argument but the
+       programmer needs to fill the other arguments also.  Not providing
+       enough space causes the function to fail.
+       The struct aliasent is defined in <aliases.h>:
+           struct aliasent {
+               char    *alias_name;             /* alias name */
+               size_t   alias_members_len;
+               char   **alias_members;          /* alias name list */
+               int      alias_local;
+           };

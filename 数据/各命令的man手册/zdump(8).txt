@@ -1,0 +1,3 @@
+
+       The zdump program prints the current time in each zonename named on
+       the command line.

@@ -1,0 +1,6 @@
+
+       sefcontext_compile is used to compile file context regular
+       expressions into pcre(3) format.
+       The compiled file is used by libselinux file labeling functions.
+       By default sefcontext_compile writes the compiled pcre file with the
+       .bin suffix appended (e.g. inputfile.bin).

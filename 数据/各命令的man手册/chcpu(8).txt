@@ -1,0 +1,10 @@
+
+       chcpu can modify the state of CPUs.  It can enable or disable CPUs,
+       scan for new CPUs, change the CPU dispatching mode of the underlying
+       hypervisor, and request CPUs from the hypervisor (configure) or
+       return CPUs to the hypervisor (deconfigure).
+       Some options have a cpu-list argument.  Use this argument to specify
+       a comma-separated list of CPUs.  The list can contain individual CPU
+       addresses or ranges of addresses.  For example, 0,5,7,9-11 makes the
+       command applicable to the CPUs with the addresses 0, 5, 7, 9, 10, and
+       11.

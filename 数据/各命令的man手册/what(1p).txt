@@ -1,0 +1,6 @@
+
+       The what utility shall search the given files for all occurrences of
+       the pattern that get (see get(1p)) substitutes for the %Z% keyword
+       ("@(#)") and shall write to standard output what follows until the
+       first occurrence of one of the following:
+           "   >   newline   \   NUL

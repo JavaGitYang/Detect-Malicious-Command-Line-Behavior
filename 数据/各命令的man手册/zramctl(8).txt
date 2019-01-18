@@ -1,0 +1,4 @@
+
+       zramctl is used to quickly set up zram device parameters, to reset
+       zram devices, and to query the status of used zram devices.
+       If no option is given, all non-zero size zram devices are shown.

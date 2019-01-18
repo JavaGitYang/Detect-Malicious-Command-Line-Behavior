@@ -1,0 +1,4 @@
+
+       These functions calculate the complex tangent of z.
+       The complex tangent function is defined as:
+           ctan(z) = csin(z) / ccos(z)

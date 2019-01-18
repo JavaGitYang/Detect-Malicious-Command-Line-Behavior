@@ -1,0 +1,29 @@
+
+       The blkid program is the command-line interface to working with the
+       libblkid(3) library.  It can determine the type of content (e.g.
+       filesystem or swap) that a block device holds, and also the
+       attributes (tokens, NAME=value pairs) from the content metadata (e.g.
+       LABEL or UUID fields).
+       It is recommended to use lsblk(8) command to get information about
+       block devices, or lsblk --fs to get an overview of filesystems, or
+       findmnt(8) to search in already mounted filesystems.
+              lsblk(8) provides more information, better control on output
+              formatting, easy to use in scripts and it does not require
+              root permissions to get actual information.  blkid reads
+              information directly from devices and for non-root users it
+              returns cached unverified information.  blkid is mostly
+              designed for system services and to test libblkid
+              functionality.
+       When device is specified, tokens from only this device are displayed.
+       It is possible to specify multiple device arguments on the command
+       line.  If none is given, all devices which appear in /proc/partitions
+       are shown, if they are recognized.
+       blkid has two main forms of operation: either searching for a device
+       with a specific NAME=value pair, or displaying NAME=value pairs for
+       one or more specified devices.
+       For security reasons blkid silently ignores all devices where the
+       probing result is ambivalent (multiple colliding filesystems are
+       detected).  The low-level probing mode (-p) provides more information
+       and extra return code in this case.  It's recommended to use
+       wipefs(8) to get a detailed overview and to erase obsolete stuff
+       (magic strings) from the device.

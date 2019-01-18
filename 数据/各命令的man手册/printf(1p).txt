@@ -1,0 +1,4 @@
+
+       The printf utility shall write formatted operands to the standard
+       output. The argument operands shall be formatted under control of the
+       format operand.

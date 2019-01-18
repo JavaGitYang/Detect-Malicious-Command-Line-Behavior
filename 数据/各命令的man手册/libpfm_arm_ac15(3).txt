@@ -1,0 +1,3 @@
+
+       The library supports the ARM Cortex A15 core PMU.
+       This PMU supports 6 counters and privilege levels filtering.

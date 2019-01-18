@@ -1,0 +1,3 @@
+
+       selinux_check_securetty_context() returns 0 if tty_context is a
+       securetty context, returns < 0 otherwise.

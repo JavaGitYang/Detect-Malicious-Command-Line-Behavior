@@ -1,0 +1,15 @@
+
+       The pam_getenvlist function returns a complete copy of the PAM
+       environment as associated with the handle pamh. The PAM environment
+       variables represent the contents of the regular environment variables
+       of the authenticated user when service is granted.
+       The format of the memory is a malloc()'d array of char pointers, the
+       last element of which is set to NULL. Each of the non-NULL entries in
+       this array point to a NUL terminated and malloc()'d char string of
+       the form: "name=value".
+       It should be noted that this memory will never be free()'d by libpam.
+       Once obtained by a call to pam_getenvlist, it is the responsibility
+       of the calling application to free() this memory.
+       It is by design, and not a coincidence, that the format and contents
+       of the returned array matches that required for the third argument of
+       the execle(3) function call.

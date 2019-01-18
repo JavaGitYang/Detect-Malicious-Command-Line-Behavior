@@ -1,0 +1,66 @@
+
+       timer_create() creates a new per-process interval timer.  The ID of
+       the new timer is returned in the buffer pointed to by timerid, which
+       must be a non-null pointer.  This ID is unique within the process,
+       until the timer is deleted.  The new timer is initially disarmed.
+       The clockid argument specifies the clock that the new timer uses to
+       measure time.  It can be specified as one of the following values:
+       CLOCK_REALTIME
+              A settable system-wide real-time clock.
+       CLOCK_MONOTONIC
+              A nonsettable monotonically increasing clock that measures
+              time from some unspecified point in the past that does not
+              change after system startup.
+       CLOCK_PROCESS_CPUTIME_ID (since Linux 2.6.12)
+              A clock that measures (user and system) CPU time consumed by
+              (all of the threads in) the calling process.
+       CLOCK_THREAD_CPUTIME_ID (since Linux 2.6.12)
+              A clock that measures (user and system) CPU time consumed by
+              the calling thread.
+       CLOCK_BOOTTIME (Since Linux 2.6.39)
+              Like CLOCK_MONOTONIC, this is a monotonically increasing
+              clock.  However, whereas the CLOCK_MONOTONIC clock does not
+              measure the time while a system is suspended, the
+              CLOCK_BOOTTIME clock does include the time during which the
+              system is suspended.  This is useful for applications that
+              need to be suspend-aware.  CLOCK_REALTIME is not suitable for
+              such applications, since that clock is affected by
+              discontinuous changes to the system clock.
+       CLOCK_REALTIME_ALARM (since Linux 3.0)
+              This clock is like CLOCK_REALTIME, but will wake the system if
+              it is suspended.  The caller must have the CAP_WAKE_ALARM
+              capability in order to set a timer against this clock.
+       CLOCK_BOOTTIME_ALARM (since Linux 3.0)
+              This clock is like CLOCK_BOOTTIME, but will wake the system if
+              it is suspended.  The caller must have the CAP_WAKE_ALARM
+              capability in order to set a timer against this clock.
+       As well as the above values, clockid can be specified as the clockid
+       returned by a call to clock_getcpuclockid(3) or
+       pthread_getcpuclockid(3).
+       The sevp argument points to a sigevent structure that specifies how
+       the caller should be notified when the timer expires.  For the
+       definition and general details of this structure, see sigevent(7).
+       The sevp.sigev_notify field can have the following values:
+       SIGEV_NONE
+              Don't asynchronously notify when the timer expires.  Progress
+              of the timer can be monitored using timer_gettime(2).
+       SIGEV_SIGNAL
+              Upon timer expiration, generate the signal sigev_signo for the
+              process.  See sigevent(7) for general details.  The si_code
+              field of the siginfo_t structure will be set to SI_TIMER.  At
+              any point in time, at most one signal is queued to the process
+              for a given timer; see timer_getoverrun(2) for more details.
+       SIGEV_THREAD
+              Upon timer expiration, invoke sigev_notify_function as if it
+              were the start function of a new thread.  See sigevent(7) for
+              details.
+       SIGEV_THREAD_ID (Linux-specific)
+              As for SIGEV_SIGNAL, but the signal is targeted at the thread
+              whose ID is given in sigev_notify_thread_id, which must be a
+              thread in the same process as the caller.  The
+              sigev_notify_thread_id field specifies a kernel thread ID,
+              that is, the value returned by clone(2) or gettid(2).  This
+              flag is intended only for use by threading libraries.
+       Specifying sevp as NULL is equivalent to specifying a pointer to a
+       sigevent structure in which sigev_notify is SIGEV_SIGNAL, sigev_signo
+       is SIGALRM, and sigev_value.sival_int is the timer ID.

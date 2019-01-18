@@ -1,0 +1,24 @@
+
+       The posix_mem_offset() function shall return in the variable pointed
+       to by off a value that identifies the offset (or location), within a
+       memory object, of the memory block currently mapped at addr.  The
+       function shall return in the variable pointed to by fildes, the
+       descriptor used (via mmap()) to establish the mapping which contains
+       addr.  If that descriptor was closed since the mapping was
+       established, the returned value of fildes shall be −1. The len
+       argument specifies the length of the block of the memory object the
+       user wishes the offset for; upon return, the value pointed to by
+       contig_len shall equal either len, or the length of the largest
+       contiguous block of the memory object that is currently mapped to the
+       calling process starting at addr, whichever is smaller.
+       If the memory object mapped at addr is a typed memory object, then if
+       the off and contig_len values obtained by calling posix_mem_offset()
+       are used in a call to mmap() with a file descriptor that refers to
+       the same memory pool as fildes (either through the same port or
+       through a different port), and that was opened with neither the
+       POSIX_TYPED_MEM_ALLOCATE nor the POSIX_TYPED_MEM_ALLOCATE_CONTIG
+       flag, the typed memory area that is mapped shall be exactly the same
+       area that was mapped at addr in the address space of the process that
+       called posix_mem_offset().
+       If the memory object specified by fildes is not a typed memory
+       object, then the behavior of this function is implementation-defined.

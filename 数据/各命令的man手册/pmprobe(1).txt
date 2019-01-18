@@ -1,0 +1,63 @@
+
+       pmprobe determines the availability of performance metrics exported
+       through the facilities of the Performance Co-Pilot (PCP).
+       The metrics of interest are named in the metricname arguments.  If
+       metricname is a non-leaf node in the Performance Metrics Name Space
+       (pmns(5)), then pmprobe will recursively descend the PMNS and report
+       on all leaf nodes.  If no metricname argument is given, the root of
+       the namespace is used.
+       This recursive expansion of the PMNS can be inhibited by the -F (go
+       faster) option, which reduces the number of roundtrips to pmcd(1)
+       when the metricname arguments are known to be leaf nodes ahead of
+       time.
+       The output format is spartan and intended for use in wrapper scripts
+       creating configuration files for other PCP tools.  By default, there
+       is one line of output per metric, with the metric name followed by a
+       count of the number of available values.  Error conditions are
+       encoded as a negative value count (as per the PMAPI(3) protocols, but
+       may be decoded using pmerr(1)) and followed by a textual description
+       of the error.
+       Unless directed to another host by the -h option, pmprobe will
+       contact the Performance Metrics Collector Daemon (PMCD) on the local
+       host.
+       The -a option causes pmprobe to use the specified set of archives
+       rather than connecting to a PMCD.  The argument is a comma-separated
+       list of names, each of which may be the base name of an archive or
+       the name of a directory containing one or more archives.  The -a and
+       -h options are mutually exclusive.
+       The -L option causes pmprobe to use a local context to collect
+       metrics from PMDAs on the local host without PMCD.  Only some metrics
+       are available in this mode.  The -a,-h and -L options are mutually
+       exclusive.
+       Normally pmprobe operates on the distributed Performance Metrics Name
+       Space (PMNS), however, if the -n option is specified an alternative
+       local PMNS file is loaded from the file pmnsfile.
+       Other options control the output of additional information when one
+       or more values is available.
+       -f   When used with -i or -I the set of instances reported will be
+            all of those known at the source of the performance data.  By
+            default the set of reported instances are those for which values
+            are currently available, which may be smaller than the set
+            reported with -f.
+       -I   Report the external identifiers for each instance.  The literal
+            string PM_IN_NULL is reported for singular metrics.
+       -i   Report the internal identifiers for each instance.  The values
+            are in decimal and prefixed by ``?''.  As a special case, the
+            literal string PM_IN_NULL is reported for singular metrics.
+       -K   When using the -L option to fetch metrics from a local context,
+            the -K option may be used to control the DSO PMDAs that should
+            be made accessible.  The spec argument conforms to the syntax
+            described in pmSpecLocalPMDA(3).  More than one -K option may be
+            used.
+       -O   When used in conjunction with an archive source of metrics and
+            the -v option the time argument defines a time origin at which
+            the metrics should be fetched from the archive(s).  Refer to
+            PCPIntro(1) for a complete description of this option, and the
+            syntax for the time argument.
+       -v   Report the value for each instance, as per the formatting rules
+            of pmPrintValue(3).  When fetching from a set of archives, only
+            those instances present in the first archive record for a metric
+            will be displayed; see also the -O option.
+       The -v option is mutually exclusive with either the -I or -i options.
+       The -V option provides a cryptic summary of the number of messages
+       sent and received across the PMAPI interface.

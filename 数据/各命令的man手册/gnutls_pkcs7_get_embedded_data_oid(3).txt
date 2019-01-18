@@ -1,0 +1,5 @@
+
+       This function will return the OID of the data embedded in the
+       signature of the PKCS7 structure. If no data are available then NULL
+       will be returned. The returned value will be valid during the
+       lifetime of the  pkcs7 structure.

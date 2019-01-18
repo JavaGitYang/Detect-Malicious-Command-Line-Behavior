@@ -1,0 +1,3 @@
+
+       These functions are just like wcstol(3) and wcstoul(3), except that
+       they return a value of type intmax_t and uintmax_t, respectively.

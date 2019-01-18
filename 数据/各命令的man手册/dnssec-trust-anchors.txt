@@ -1,0 +1,4 @@
+
+       The DNSSEC trust anchor configuration files define positive and
+       negative trust anchors systemd-resolved.service(8) bases DNSSEC
+       integrity proofs on.

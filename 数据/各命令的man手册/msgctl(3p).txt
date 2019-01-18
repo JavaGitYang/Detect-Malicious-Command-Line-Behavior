@@ -1,0 +1,36 @@
+
+       The msgctl() function operates on XSI message queues (see the Base
+       Definitions volume of POSIX.1‐2008, Section 3.225, Message Queue).
+       It is unspecified whether this function interoperates with the
+       realtime interprocess communication facilities defined in Section
+       2.8, Realtime.
+       The msgctl() function shall provide message control operations as
+       specified by cmd.  The following values for cmd, and the message
+       control operations they specify, are:
+       IPC_STAT    Place the current value of each member of the msqid_ds
+                   data structure associated with msqid into the structure
+                   pointed to by buf.  The contents of this structure are
+                   defined in <sys/msg.h>.
+       IPC_SET     Set the value of the following members of the msqid_ds
+                   data structure associated with msqid to the corresponding
+                   value found in the structure pointed to by buf:
+                       msg_perm.uid
+                       msg_perm.gid
+                       msg_perm.mode
+                       msg_qbytes
+                   Also, the msg_ctime timestamp shall be set to the current
+                   time, as described in Section 2.7.1, IPC General
+                   Description.
+                   IPC_SET can only be executed by a process with
+                   appropriate privileges or that has an effective user ID
+                   equal to the value of msg_perm.cuid or msg_perm.uid in
+                   the msqid_ds data structure associated with msqid.  Only
+                   a process with appropriate privileges can raise the value
+                   of msg_qbytes.
+       IPC_RMID    Remove the message queue identifier specified by msqid
+                   from the system and destroy the message queue and
+                   msqid_ds data structure associated with it. IPC_RMD can
+                   only be executed by a process with appropriate privileges
+                   or one that has an effective user ID equal to the value
+                   of msg_perm.cuid or msg_perm.uid in the msqid_ds data
+                   structure associated with msqid.

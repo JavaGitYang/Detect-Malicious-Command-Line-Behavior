@@ -1,0 +1,47 @@
+
+       dbpmda is an interactive interface to the interactions between a
+       Performance Metric Domain Agent (PMDA(3)) and the Performance Metric
+       Collector Daemon (pmcd(1)).  This allows PMDAs to be attached,
+       initialized and exercised to test for correctness.
+       dbpmda interactively prompts the user for commands, many of which
+       emulate the Protocol Data Units (PDUs) that may be sent by a pmcd(1)
+       process.  After running dbpmda, enter the command help to get a list
+       of the available commands.  The example section below illustrates a
+       session using dbpmda to test a PMDA.
+       To simplify repetitive testing of a PMDA, the file .dbpmdarc in the
+       current working directory can contain a list of commands that will be
+       executed by dbpmda on startup, before the user is prompted to enter
+       further commands interactively.  While processing the .dbpmdarc file,
+       interactive mode and command echoing are enabled and then reset at
+       the end of the .dbpmdarc file (see the -i and -e command line
+       arguments below).
+       The -f command line option prevents startup processing of a .dbpmdarc
+       file (if it exists).
+       If the system supports readline(3) then this will be used to read
+       commands when input is from a tty device, so history and command line
+       editing are available.
+       dbpmda accepts the following command line arguments:
+       -e     Echo the input to stdout.  This is useful when the input is
+              redirected from a file.
+       -i     Emulate interactive behavior and prompt for new commands, even
+              if standard input is not a tty device.
+       -n pmnsfile
+              Normally dbpmda operates on the distributed Performance
+              Metrics Name Space (PMNS), however if the -n option is
+              specified an alternative local PMNS is loaded from the file
+              pmnsfile.
+       -q timeout
+              The pmcd to agent version exchange protocol (new in PCP 2.0 -
+              introduced to provide backward compatibility) uses this
+              timeout to specify how long dbpmda should wait before assuming
+              that no version response is coming from an agent.  If this
+              timeout is reached, the agent is assumed to be an agent which
+              does not understand the PCP 2.0 protocol.  The default timeout
+              interval is five seconds, but the -q option allows an
+              alternative timeout interval (which must be greater than zero)
+              to be specified.  The unit of time is seconds.
+       -U username
+              User account under which to run dbpmda.
+       As there are no timeout constraints on a PMDA while using dbpmda (as
+       compared to pmcd(1)), another debugger like gdb(1) can be used on the
+       PMDA process once it has been attached to dbpmda.

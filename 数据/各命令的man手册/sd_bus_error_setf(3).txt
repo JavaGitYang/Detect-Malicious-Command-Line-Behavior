@@ -1,0 +1,77 @@
+
+       The sd_bus_error structure carries information about a D-Bus error
+       condition. The functions described below may be used to set and query
+       fields in this structure. The name field contains a short identifier
+       of an error. It should follow the rules for error names described in
+       the D-Bus specification, subsection Valid Names[1]. A number of
+       common, standardized error names are described in sd-bus-errors(3),
+       but additional domain-specific errors may be defined by applications.
+       The message field usually contains a human-readable string describing
+       the details, but might be NULL. An unset sd_bus_error structure
+       should have both fields initialized to NULL. Set an error structure
+       to SD_BUS_ERROR_NULL in order to reset both fields to NULL. When no
+       longer necessary, resources held by the sd_bus_errorstructure should
+       be destroyed with sd_bus_error_free().
+       sd_bus_error_set() sets an error structure to the specified name and
+       message strings. The strings will be copied into internal, newly
+       allocated memory. It is essential to free the error structure again
+       when it is not required anymore (see above). The function will return
+       an errno-like negative value (see errno(3)) determined from the
+       specified error name. Various well-known D-Bus errors are converted
+       to well-known errno counterparts, and the other ones to -EIO. See
+       sd-bus-errors(3) for a list of well-known error names. Additional
+       error mappings may be defined with sd_bus_error_add_map(3). If e is
+       NULL, no error structure is initialized, but the error is still
+       converted into an errno-style error. If name is NULL, it is assumed
+       that no error occurred, and 0 is returned. This means that this
+       function may be conveniently used in a return statement. If message
+       is NULL, no message is set. This call can fail if no memory may be
+       allocated for the name and message strings, in which case an
+       SD_BUS_ERROR_NO_MEMORY error might be set instead and -ENOMEM be
+       returned. Do not use this call on error structures that are already
+       initialized. If you intend to reuse an error structure, free the old
+       data stored in it with sd_bus_error_free() first.
+       sd_bus_error_setf() is similar to sd_bus_error_set(), but takes a
+       printf(3) format string and corresponding arguments to generate the
+       message field.
+       sd_bus_error_set_const() is similar to sd_bus_error_set(), but the
+       string parameters are not copied internally, and must hence remain
+       constant and valid for the lifetime of e. Use this call to avoid
+       memory allocations when setting error structures. Since this call
+       does not allocate memory, it will not fail with an out-of-memory
+       condition as sd_bus_error_set() can, as described above.
+       Alternatively, the SD_BUS_ERROR_MAKE_CONST() macro may be used to
+       generate a literal, constant bus error structure on-the-fly.
+       sd_bus_error_set_errno() will set name from an errno-like value that
+       is converted to a D-Bus error.  strerror_r(3) will be used to set
+       message. Well-known D-Bus error names will be used for name if
+       applicable, otherwise a name in the "System.Error."  namespace will
+       be generated. The sign of the specified error number is ignored. The
+       absolute value is used implicitly. The call always returns a negative
+       value, for convenient usage in return statements. This call might
+       fail due to lack of memory, in which case an SD_BUS_ERROR_NO_MEMORY
+       error is set instead, and -ENOMEM is returned.
+       sd_bus_error_set_errnof() is similar to sd_bus_error_set_errno(), but
+       in addition to error, takes a printf(3) format string and
+       corresponding arguments. The message field will be generated from
+       format and the arguments.
+       sd_bus_error_set_errnofv() is similar to sd_bus_error_set_errnof(),
+       but takes the format string parameters as va_arg(3) parameter list.
+       sd_bus_error_get_errno() converts the name field of an error
+       structure to an errno-like (positive) value using the same rules as
+       sd_bus_error_set(). If e is NULL, 0 will be returned.
+       sd_bus_error_copy() will initialize dst using the values in e. If the
+       strings in e were set using sd_bus_error_set_const(), they will be
+       shared. Otherwise, they will be copied. Returns a converted
+       errno-like, negative error code.
+       sd_bus_error_is_set() will return a non-zero value if e is non-NULL
+       and an error has been set, false otherwise.
+       sd_bus_error_has_name() will return a non-zero value if e is non-NULL
+       and an error with the same name has been set, false otherwise.
+       sd_bus_error_free() will destroy resources held by e. The parameter
+       itself will not be deallocated, and must be free(3)d by the caller if
+       necessary. The function may also be called safely on unset errors
+       (error structures with both fields set to NULL), in which case it
+       performs no operation. This call will reset the error structure after
+       freeing the data, so that all fields are set to NULL. The structure
+       may be reused afterwards.

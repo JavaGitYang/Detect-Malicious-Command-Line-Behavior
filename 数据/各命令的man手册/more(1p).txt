@@ -1,0 +1,24 @@
+
+       The more utility shall read files and either write them to the
+       terminal on a page-by-page basis or filter them to standard output.
+       If standard output is not a terminal device, all input files shall be
+       copied to standard output in their entirety, without modification,
+       except as specified for the −s option. If standard output is a
+       terminal device, the files shall be written a number of lines (one
+       screenful) at a time under the control of user commands. See the
+       EXTENDED DESCRIPTION section.
+       Certain block-mode terminals do not have all the capabilities
+       necessary to support the complete more definition; they are incapable
+       of accepting commands that are not terminated with a <newline>.
+       Implementations that support such terminals shall provide an
+       operating mode to more in which all commands can be terminated with a
+       <newline> on those terminals. This mode:
+        *  Shall be documented in the system documentation
+        *  Shall, at invocation, inform the user of the terminal deficiency
+           that requires the <newline> usage and provide instructions on how
+           this warning can be suppressed in future invocations
+        *  Shall not be required for implementations supporting only fully
+           capable terminals
+        *  Shall not affect commands already requiring <newline> characters
+        *  Shall not affect users on the capable terminals from using more
+           as described in this volume of POSIX.1‐2008

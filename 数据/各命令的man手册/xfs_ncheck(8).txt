@@ -1,0 +1,8 @@
+
+       xfs_ncheck with no -i arguments generates an inode number and
+       pathname list of all files on the given filesystem. Names of
+       directory files are followed by /..  The output is not sorted in any
+       particular order.  The filesystem to be examined is specified by the
+       device argument, which should be the disk or volume device for the
+       filesystem.  Filesystems stored in files can also be checked, using
+       the -f flag.

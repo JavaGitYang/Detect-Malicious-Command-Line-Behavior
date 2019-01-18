@@ -1,0 +1,6 @@
+
+       dh_installdirs is a debhelper program that is responsible for
+       creating subdirectories in package build directories.
+       Many packages can get away with omitting the call to dh_installdirs
+       completely.  Notably, other dh_* commands are expected to create
+       directories as needed.

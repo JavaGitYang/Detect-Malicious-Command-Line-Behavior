@@ -1,0 +1,5 @@
+
+       The wcswidth() function returns the number of columns needed to
+       represent the wide-character string pointed to by s, but at most n
+       wide characters.  If a nonprintable wide character occurs among these
+       characters, -1 is returned.

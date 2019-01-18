@@ -1,0 +1,11 @@
+
+       keyctl_join_session_keyring() changes the session keyring to which a
+       process is subscribed.
+       If name is NULL then a new anonymous keyring will be created, and the
+       process will be subscribed to that.
+       If name points to a string, then if a keyring of that name is
+       available, the process will attempt to subscribe to that keyring,
+       giving an error if that is not permitted; otherwise a new keyring of
+       that name is created and attached as the session keyring.
+       To attach to an extant named keyring, the keyring must have search
+       permission available to the calling process.

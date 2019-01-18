@@ -1,0 +1,9 @@
+
+       dmsetup manages logical devices that use the device-mapper driver.
+       Devices are created by loading a table that specifies a target for
+       each sector (512 bytes) in the logical device.
+       The first argument to dmsetup is a command.  The second argument is
+       the logical device name or uuid.
+       Invoking the dmsetup tool as devmap_name (which is not normally
+       distributed and is supported only for historical reasons) is
+       equivalent to dmsetup info -c --noheadings -j major -m minor.

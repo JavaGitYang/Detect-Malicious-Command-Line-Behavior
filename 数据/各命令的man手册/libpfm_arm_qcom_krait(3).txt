@@ -1,0 +1,3 @@
+
+       The library supports the Qualcomm Krait core PMU.
+       This PMU supports 5 counters and privilege levels filtering.

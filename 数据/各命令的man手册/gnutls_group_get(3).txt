@@ -1,0 +1,3 @@
+
+       Returns the currently used group for key exchange. Only valid when
+       using an elliptic curve or DH ciphersuite.

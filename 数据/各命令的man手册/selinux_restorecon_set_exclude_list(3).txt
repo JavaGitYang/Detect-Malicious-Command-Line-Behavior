@@ -1,0 +1,6 @@
+
+       selinux_restorecon_set_exclude_list() passes to selinux_restorecon(3)
+       a pointer containing a NULL terminated list of one or more
+       directories that are not to be relabeled in exclude_list.
+       selinux_restorecon_set_exclude_list() must be called prior to
+       selinux_restorecon(3).

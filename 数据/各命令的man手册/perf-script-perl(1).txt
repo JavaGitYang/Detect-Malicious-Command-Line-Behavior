@@ -1,0 +1,5 @@
+
+       This perf script option is used to process perf script data using
+       perf’s built-in Perl interpreter. It reads and processes the input
+       file and displays the results of the trace analysis implemented in
+       the given Perl script, if any.

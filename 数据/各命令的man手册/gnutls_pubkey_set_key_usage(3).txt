@@ -1,0 +1,4 @@
+
+       This function will set the key usage flags of the public key. This is
+       only useful if the key is to be exported to a certificate or
+       certificate request.

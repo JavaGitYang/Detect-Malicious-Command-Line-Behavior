@@ -1,0 +1,3 @@
+
+       The isastream() function shall test whether fildes, an open file
+       descriptor, is associated with a STREAMS-based file.

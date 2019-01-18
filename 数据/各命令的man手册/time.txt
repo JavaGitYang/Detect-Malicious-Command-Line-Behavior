@@ -1,0 +1,43 @@
+
+       The pam_time PAM module does not authenticate the user, but instead
+       it restricts access to a system and or specific applications at
+       various times of the day and on specific days or over various
+       terminal lines. This module can be configured to deny access to
+       (individual) users based on their name, the time of day, the day of
+       week, the service they are applying for and their terminal from which
+       they are making their request.
+       For this module to function correctly there must be a correctly
+       formatted /etc/security/time.conf file present. White spaces are
+       ignored and lines maybe extended with '\' (escaped newlines). Text
+       following a '#' is ignored to the end of the line.
+       The syntax of the lines is as follows:
+       services;ttys;users;times
+       In words, each rule occupies a line, terminated with a newline or the
+       beginning of a comment; a '#'. It contains four fields separated with
+       semicolons, ';'.
+       The first field, the services field, is a logic list of PAM service
+       names that the rule applies to.
+       The second field, the tty field, is a logic list of terminal names
+       that this rule applies to.
+       The third field, the users field, is a logic list of users or a
+       netgroup of users to whom this rule applies.
+       For these items the simple wildcard '*' may be used only once. With
+       netgroups no wildcards or logic operators are allowed.
+       The times field is used to indicate the times at which this rule
+       applies. The format here is a logic list of day/time-range entries.
+       The days are specified by a sequence of two character entries, MoTuSa
+       for example is Monday Tuesday and Saturday. Note that repeated days
+       are unset MoMo = no day, and MoWk = all weekdays bar Monday. The two
+       character combinations accepted are Mo Tu We Th Fr Sa Su Wk Wd Al,
+       the last two being week-end days and all 7 days of the week
+       respectively. As a final example, AlFr means all days except Friday.
+       Each day/time-range can be prefixed with a '!' to indicate "anything
+       but". The time-range part is two 24-hour times HHMM, separated by a
+       hyphen, indicating the start and finish time (if the finish time is
+       smaller than the start time it is deemed to apply on the following
+       day).
+       For a rule to be active, ALL of service+ttys+users must be satisfied
+       by the applying process.
+       Note, currently there is no daemon enforcing the end of a session.
+       This needs to be remedied.
+       Poorly formatted rules are logged as errors using syslog(3).

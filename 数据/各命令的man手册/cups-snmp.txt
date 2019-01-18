@@ -1,0 +1,8 @@
+
+       The snmp.conf file configures how the standard CUPS network backends
+       (http, https, ipp, ipps, lpd, snmp, and socket) access printer
+       information using SNMPv1 and is normally located in the /etc/cups
+       directory.  Each line in the file can be a configuration directive, a
+       blank line, or a comment. Comment lines start with the # character.
+       The Community and DebugLevel directives are used by all backends. The
+       remainder apply only to the SNMP backend - cups-snmp(8).

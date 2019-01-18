@@ -1,0 +1,10 @@
+
+       These functions compute the remainder and part of the quotient upon
+       division of x by y.  A few bits of the quotient are stored via the
+       quo pointer.  The remainder is returned as the function result.
+       The value of the remainder is the same as that computed by the
+       remainder(3) function.
+       The value stored via the quo pointer has the sign of x / y and agrees
+       with the quotient in at least the low order 3 bits.
+       For example, remquo(29.0, 3.0) returns -1.0 and might store 2.  Note
+       that the actual quotient might not fit in an integer.

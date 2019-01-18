@@ -1,0 +1,12 @@
+
+       The ldap_err2string() routine provides short description of the
+       various codes returned by routines in this library.  The returned
+       string is a pointer to a static area that should not be modified.
+       These codes are either negative, indicating an API error code;
+       positive, indicating an LDAP resultCode other than ´success' (0), or
+       - zero, indicating both successful use of the API and the LDAP
+       resultCode ´success' (0).
+       The code associated with an LDAP session is accessible using
+       ldap_get_option(3) and ldap_set_option(3) with the
+       LDAP_OPT_RESULT_CODE option (previously called
+       LDAP_OPT_ERROR_NUMBER).

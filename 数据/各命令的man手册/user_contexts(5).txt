@@ -1,0 +1,26 @@
+
+       These optional user context configuration files contain entries that
+       allow SELinux-aware login applications such as PAM(8) (running in
+       their own process context), to determine the context that a users
+       login session should run under.
+       SELinux-aware login applications generally use one or more of the
+       following libselinux functions that read these files from the active
+       policy path:
+              get_default_context(3)
+              get_ordered_context_list(3)
+              get_ordered_context_list_with_level(3)
+              get_default_context_with_level(3)
+              get_default_context_with_role(3)
+              get_default_context_with_rolelevel(3)
+              query_user_context(3)
+              manual_user_enter_context(3)
+       There can be one file for each SELinux user configured on the system.
+       The file  path is formed using the path returned by
+       selinux_user_contexts_path(3) for the active policy, with the SELinux
+       user name appended, for example:
+              /etc/selinux/{SELINUXTYPE}/contexts/users/unconfined_u
+              /etc/selinux/{SELINUXTYPE}/contexts/users/xguest_u
+       Where {SELINUXTYPE} is the entry from the selinux configuration file
+       config (see selinux_config(5)).
+       These files contain context information as described in the FILE
+       FORMAT section.

@@ -1,0 +1,15 @@
+
+       chfn is used to change your finger information.  This information is
+       stored in the /etc/passwd file, and is displayed by the finger
+       program.  The Linux finger command will display four pieces of
+       information that can be changed by chfn: your real name, your work
+       room and phone, and your home phone.
+       Any of the four pieces of information can be specified on the command
+       line.  If no information is given on the command line, chfn enters
+       interactive mode.
+       In interactive mode, chfn will prompt for each field.  At a prompt,
+       you can enter the new information, or just press return to leave the
+       field unchanged.  Enter the keyword "none" to make the field blank.
+       chfn supports non-local entries (kerberos, LDAP, etc.) if linked with
+       libuser, otherwise use ypchfn, lchfn or any other implementation for
+       non-local entries.

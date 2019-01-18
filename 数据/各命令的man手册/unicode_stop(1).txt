@@ -1,0 +1,4 @@
+
+       The unicode_stop command will more-or-less undo the effect of
+       unicode_start.  It puts the keyboard in ASCII (XLATE) mode, and
+       clears the console UTF-8 mode.

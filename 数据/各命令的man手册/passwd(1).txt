@@ -1,0 +1,41 @@
+
+       The passwd command changes passwords for user accounts. A normal user
+       may only change the password for his/her own account, while the
+       superuser may change the password for any account.  passwd also
+       changes the account or associated password validity period.
+   Password Changes
+       The user is first prompted for his/her old password, if one is
+       present. This password is then encrypted and compared against the
+       stored password. The user has only one chance to enter the correct
+       password. The superuser is permitted to bypass this step so that
+       forgotten passwords may be changed.
+       After the password has been entered, password aging information is
+       checked to see if the user is permitted to change the password at
+       this time. If not, passwd refuses to change the password and exits.
+       The user is then prompted twice for a replacement password. The
+       second entry is compared against the first and both are required to
+       match in order for the password to be changed.
+       Then, the password is tested for complexity. As a general guideline,
+       passwords should consist of 6 to 8 characters including one or more
+       characters from each of the following sets:
+       ·   lower case alphabetics
+       ·   digits 0 thru 9
+       ·   punctuation marks
+       Care must be taken not to include the system default erase or kill
+       characters.  passwd will reject any password which is not suitably
+       complex.
+   Hints for user passwords
+       The security of a password depends upon the strength of the
+       encryption algorithm and the size of the key space. The legacy UNIX
+       System encryption method is based on the NBS DES algorithm. More
+       recent methods are now recommended (see ENCRYPT_METHOD). The size of
+       the key space depends upon the randomness of the password which is
+       selected.
+       Compromises in password security normally result from careless
+       password selection or handling. For this reason, you should not
+       select a password which appears in a dictionary or which must be
+       written down. The password should also not be a proper name, your
+       license number, birth date, or street address. Any of these may be
+       used as guesses to violate system security.
+       You can find advice on how to choose a strong password on
+       http://en.wikipedia.org/wiki/Password_strength

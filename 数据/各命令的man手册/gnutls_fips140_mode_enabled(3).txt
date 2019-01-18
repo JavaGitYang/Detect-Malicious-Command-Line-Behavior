@@ -1,0 +1,2 @@
+
+       Checks whether this library is in FIPS140 mode.

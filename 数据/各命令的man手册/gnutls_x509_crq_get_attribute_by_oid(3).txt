@@ -1,0 +1,6 @@
+
+       This function will return the attribute in the certificate request
+       specified by the given Object ID.  The attribute will be DER encoded.
+       Attributes in a certificate request is an optional set of data
+       appended to the request. Their interpretation depends on the CA
+       policy.

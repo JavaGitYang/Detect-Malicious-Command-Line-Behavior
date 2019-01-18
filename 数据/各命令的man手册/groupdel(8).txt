@@ -1,0 +1,3 @@
+
+       The groupdel command modifies the system account files, deleting all
+       entries that refer to GROUP. The named group must exist.

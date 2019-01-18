@@ -1,0 +1,40 @@
+
+       These functions return the paths to the active policy configuration
+       directories and files based on the settings in /etc/selinux/config.
+       selinux_path() returns the top-level SELinux configuration directory.
+       selinux_policy_root() returns the top-level policy directory.
+       selinux_binary_policy_path() returns the binary policy file loaded
+       into kernel.
+       selinux_current_policy_path() returns the currently loaded policy
+       file from the kernel.
+       selinux_default_type_path() returns the context file mapping roles to
+       default types.
+       selinux_failsafe_context_path() returns the failsafe context for
+       emergency logins.
+       selinux_removable_context_path() returns the filesystem context for
+       removable media.
+       selinux_default_context_path() returns the system-wide default
+       contexts for user sessions.
+       selinux_user_contexts_path() returns the directory containing per-
+       user default contexts.
+       selinux_usersconf_path() returns the file containing mapping between
+       Linux Users and SELinux users.
+       selinux_x_context_path() returns the file containing configuration
+       for XSELinux extension.
+       selinux_sepgsql_context_path() returns the file containing
+       configuration for SE-PostgreSQL.
+       selinux_netfilter_context_path() returns the default netfilter
+       context.
+       selinux_file_context_path() returns the default system file contexts
+       configuration.
+       selinux_file_context_local_path() returns the local customization
+       file contexts configuration.
+       selinux_file_context_homedir_path() returns the home directory file
+       contexts configuration.
+       selinux_media_context_path() returns the file contexts for media
+       device nodes.
+       selinux_contexts_path() returns the directory containing all of the
+       context configuration files.
+       selinux_securetty_types_path() returns the defines tty types for
+       newrole securettys.
+       selinux_booleans_path() returns the initial policy boolean settings.

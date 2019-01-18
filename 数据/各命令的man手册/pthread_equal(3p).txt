@@ -1,0 +1,2 @@
+
+       This function shall compare the thread IDs t1 and t2.

@@ -1,0 +1,4 @@
+
+       dh_installinfo is a debhelper program that is responsible for
+       installing info files into usr/share/info in the package build
+       directory.

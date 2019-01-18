@@ -1,0 +1,34 @@
+
+       crypt() is the password encryption function.  It is based on the Data
+       Encryption Standard algorithm with variations intended (among other
+       things) to discourage use of hardware implementations of a key
+       search.
+       key is a user's typed password.
+       salt is a two-character string chosen from the set [a-zA-Z0-9./].
+       This string is used to perturb the algorithm in one of 4096 different
+       ways.
+       By taking the lowest 7 bits of each of the first eight characters of
+       the key, a 56-bit key is obtained.  This 56-bit key is used to
+       encrypt repeatedly a constant string (usually a string consisting of
+       all zeros).  The returned value points to the encrypted password, a
+       series of 13 printable ASCII characters (the first two characters
+       represent the salt itself).  The return value points to static data
+       whose content is overwritten by each call.
+       Warning: the key space consists of 2**56 equal 7.2e16 possible
+       values.  Exhaustive searches of this key space are possible using
+       massively parallel computers.  Software, such as crack(1), is
+       available which will search the portion of this key space that is
+       generally used by humans for passwords.  Hence, password selection
+       should, at minimum, avoid common words and names.  The use of a
+       passwd(1) program that checks for crackable passwords during the
+       selection process is recommended.
+       The DES algorithm itself has a few quirks which make the use of the
+       crypt() interface a very poor choice for anything other than password
+       authentication.  If you are planning on using the crypt() interface
+       for a cryptography project, don't do it: get a good book on
+       encryption and one of the widely available DES libraries.
+       crypt_r() is a reentrant version of crypt().  The structure pointed
+       to by data is used to store result data and bookkeeping information.
+       Other than allocating it, the only thing that the caller should do
+       with this structure is to set data->initialized to zero before the
+       first call to crypt_r().

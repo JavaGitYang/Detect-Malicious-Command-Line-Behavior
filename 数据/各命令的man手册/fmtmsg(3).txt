@@ -1,0 +1,50 @@
+
+       This function displays a message described by its arguments on the
+       device(s) specified in the classification argument.  For messages
+       written to stderr, the format depends on the MSGVERB environment
+       variable.
+       The label argument identifies the source of the message.  The string
+       must consist of two colon separated parts where the first part has
+       not more than 10 and the second part not more than 14 characters.
+       The text argument describes the condition of the error.
+       The action argument describes possible steps to recover from the
+       error.  If it is printed, it is prefixed by "TO FIX: ".
+       The tag argument is a reference to the online documentation where
+       more information can be found.  It should contain the label value and
+       a unique identification number.
+   Dummy arguments
+       Each of the arguments can have a dummy value.  The dummy
+       classification value MM_NULLMC (0L) does not specify any output, so
+       nothing is printed.  The dummy severity value NO_SEV (0) says that no
+       severity is supplied.  The values MM_NULLLBL, MM_NULLTXT, MM_NULLACT,
+       MM_NULLTAG are synonyms for ((char *) 0), the empty string, and
+       MM_NULLSEV is a synonym for NO_SEV.
+   The classification argument
+       The classification argument is the sum of values describing 4 types
+       of information.
+       The first value defines the output channel.
+       MM_PRINT    Output to stderr.
+       MM_CONSOLE  Output to the system console.
+       MM_PRINT | MM_CONSOLE
+                   Output to both.
+       The second value is the source of the error:
+       MM_HARD     A hardware error occurred.
+       MM_FIRM     A firmware error occurred.
+       MM_SOFT     A software error occurred.
+       The third value encodes the detector of the problem:
+       MM_APPL     It is detected by an application.
+       MM_UTIL     It is detected by a utility.
+       MM_OPSYS    It is detected by the operating system.
+       The fourth value shows the severity of the incident:
+       MM_RECOVER  It is a recoverable error.
+       MM_NRECOV   It is a nonrecoverable error.
+   The severity argument
+       The severity argument can take one of the following values:
+       MM_NOSEV    No severity is printed.
+       MM_HALT     This value is printed as HALT.
+       MM_ERROR    This value is printed as ERROR.
+       MM_WARNING  This value is printed as WARNING.
+       MM_INFO     This value is printed as INFO.
+       The numeric values are between 0 and 4.  Using addseverity(3) or the
+       environment variable SEV_LEVEL you can add more levels and strings to
+       print.

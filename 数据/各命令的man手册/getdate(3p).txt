@@ -1,0 +1,97 @@
+
+       The getdate() function shall convert a string representation of a
+       date or time into a broken-down time.
+       The external variable or macro getdate_err, which has type int, is
+       used by getdate() to return error values. It is unspecified whether
+       getdate_err is a macro or an identifier declared with external
+       linkage, and whether or not it is a modifiable lvalue. If a macro
+       definition is suppressed in order to access an actual object, or a
+       program defines an identifier with the name getdate_err, the behavior
+       is undefined.
+       Templates are used to parse and interpret the input string. The
+       templates are contained in a text file identified by the environment
+       variable DATEMSK.  The DATEMSK variable should be set to indicate the
+       full pathname of the file that contains the templates. The first line
+       in the template that matches the input specification is used for
+       interpretation and conversion into the internal time format.
+       The following conversion specifications shall be supported:
+       %%      Equivalent to %.
+       %a      Abbreviated weekday name.
+       %A      Full weekday name.
+       %b      Abbreviated month name.
+       %B      Full month name.
+       %c      Locale's appropriate date and time representation.
+       %C      Century number [00,99]; leading zeros are permitted but not
+               required.
+       %d      Day of month [01,31]; the leading 0 is optional.
+       %D      Date as %m/%d/%y.
+       %e      Equivalent to %d.
+       %h      Abbreviated month name.
+       %H      Hour [00,23].
+       %I      Hour [01,12].
+       %m      Month number [01,12].
+       %M      Minute [00,59].
+       %n      Equivalent to <newline>.
+       %p      Locale's equivalent of either AM or PM.
+       %r      The locale's appropriate representation of time in AM and PM
+               notation.  In the POSIX locale, this shall be equivalent to
+               %I:%M:%S %p.
+       %R      Time as %H:%M.
+       %S      Seconds [00,60]. The range goes to 60 (rather than stopping
+               at 59) to allow positive leap seconds to be expressed. Since
+               leap seconds cannot be predicted by any algorithm, leap
+               second data must come from some external source.
+       %t      Equivalent to <tab>.
+       %T      Time as %H:%M:%S.
+       %w      Weekday number (Sunday = [0,6]).
+       %x      Locale's appropriate date representation.
+       %X      Locale's appropriate time representation.
+       %y      Year within century. When a century is not otherwise
+               specified, values in the range [69,99] shall refer to years
+               1969 to 1999 inclusive, and values in the range [00,68] shall
+               refer to years 2000 to 2068 inclusive.
+               Note:     It is expected that in a future version of this
+                         standard the default century inferred from a
+                         2-digit year will change. (This would apply to all
+                         commands accepting a 2-digit year as input.)
+       %Y      Year as "ccyy" (for example, 2001).
+       %Z      Timezone name or no characters if no timezone exists. If the
+               timezone supplied by %Z is not the timezone that getdate()
+               expects, an invalid input specification error shall result.
+               The getdate() function calculates an expected timezone based
+               on information supplied to the function (such as the hour,
+               day, and month).
+       The match between the template and input specification performed by
+       getdate() shall be case-insensitive.
+       The month and weekday names can consist of any combination of upper
+       and lowercase letters. The process can request that the input date or
+       time specification be in a specific language by setting the LC_TIME
+       category (see setlocale(3p)).
+       Leading zeros are not necessary for the descriptors that allow
+       leading zeros. However, at most two digits are allowed for those
+       descriptors, including leading zeros. Extra white space in either the
+       template file or in string shall be ignored.
+       The results are undefined if the conversion specifications %c, %x,
+       and %X include unsupported conversion specifications.
+       The following rules apply for converting the input specification into
+       the internal format:
+        *  If %Z is being scanned, then getdate() shall initialize the
+           broken-down time to be the current time in the scanned timezone.
+           Otherwise, it shall initialize the broken-down time based on the
+           current local time as if localtime() had been called.
+        *  If only the weekday is given, the day chosen shall be the day,
+           starting with today and moving into the future, which first
+           matches the named day.
+        *  If only the month (and no year) is given, the month chosen shall
+           be the month, starting with the current month and moving into the
+           future, which first matches the named month. The first day of the
+           month shall be assumed if no day is given.
+        *  If no hour, minute, and second are given, the current hour,
+           minute, and second shall be assumed.
+        *  If no date is given, the hour chosen shall be the hour, starting
+           with the current hour and moving into the future, which first
+           matches the named hour.
+       If a conversion specification in the DATEMSK file does not correspond
+       to one of the conversion specifications above, the behavior is
+       unspecified.
+       The getdate() function need not be thread-safe.

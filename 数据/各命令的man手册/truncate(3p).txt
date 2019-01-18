@@ -1,0 +1,18 @@
+
+       The truncate() function shall cause the regular file named by path to
+       have a size which shall be equal to length bytes.
+       If the file previously was larger than length, the extra data is
+       discarded. If the file was previously shorter than length, its size
+       is increased, and the extended area appears as if it were zero-
+       filled.
+       The application shall ensure that the process has write permission
+       for the file.
+       If the request would cause the file size to exceed the soft file size
+       limit for the process, the request shall fail and the implementation
+       shall generate the SIGXFSZ signal for the process.
+       The truncate() function shall not modify the file offset for any open
+       file descriptions associated with the file. Upon successful
+       completion, if the file size is changed, truncate() shall mark for
+       update the last data modification and last file status change
+       timestamps of the file, and the S_ISUID and S_ISGID bits of the file
+       mode may be cleared.

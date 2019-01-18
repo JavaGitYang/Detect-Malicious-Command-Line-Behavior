@@ -1,0 +1,10 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The strcat() function shall append a copy of the string pointed to by
+       s2 (including the terminating NUL character) to the end of the string
+       pointed to by s1.  The initial byte of s2 overwrites the NUL
+       character at the end of s1.  If copying takes place between objects
+       that overlap, the behavior is undefined.

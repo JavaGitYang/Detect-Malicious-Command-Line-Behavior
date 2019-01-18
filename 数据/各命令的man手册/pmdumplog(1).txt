@@ -1,0 +1,89 @@
+
+       pmdumplog dumps assorted control, metadata, index and state
+       information from the files of a Performance Co-Pilot (PCP) archive
+       log.  The archive log has the base name archive and must have been
+       previously created using pmlogger(1).
+       Normally pmdumplog operates on the distributed Performance Metrics
+       Name Space (PMNS), however if the -n option is specified an
+       alternative local PMNS is loaded from the file pmnsfile.
+       If any metricname arguments appear, the report will be restricted to
+       information relevant to the named performance metrics.  If metricname
+       is a non-leaf node in the namespace (see pmns(5)), then pmdumplog
+       will recursively descend the archive's namespace and report on all
+       leaf nodes.
+       The options control the specific information to be reported.
+       -a   Report almost everything, i.e. the flags -d, -i, -L, -m, -s and
+            -t.  The optional help text (-h) and label metadata strings (-e)
+            are not reported by default.
+       -d   Display the metadata and descriptions for those performance
+            metrics that appear at least once in the archive: see
+            pmLookupDesc(3) for more details on the metadata describing
+            metrics.
+       -e   Display the label metadata if it is present in the archive.  See
+            pmLookupLabels(3) for more details on the label metadata
+            hierarchy associated with metrics.
+       -h   Display metric and instance domain help text if present in the
+            archive.  See pmLookupText(3) for more details on the help text
+            associated with metrics.
+       -i   Display the instance domains, and any variations in their
+            instance members over the duration of the archive: see
+            pmGetInDom(3) for more details on instance domains.
+       -l   Dump the archive label, showing the log format version, the time
+            and date for the start and (current) end of the archive, and the
+            host from which the performance metrics values were collected.
+       -L   Like -l, just a little more verbose.
+       -m   Print the values for the performance metrics from the archive.
+            This is the default display option.
+            Metrics without an instance domain are reported as:
+              [timestamp] metric-id (metric-name): value1 value2
+            Metrics with an instance domain are reported as:
+              [timestamp] metric-id (metric-name):
+                  inst [internal-id or "external-id"] value1 value2
+            The timestamp is only reported for the first metric in a group
+            of metrics sharing the same timestamp.
+       -M   If no metricname is specified then <mark> records are reported
+            when they are found in the archive.  If metricname arguments are
+            specified, then <mark> records are not reported by default.  The
+            -M option forces <mark> records to be reported, even when
+            metricname arguments are specified.
+            <mark> records are inserted into a PCP archive log by
+            pmlogger(1), pmlogextract(1), and similar tools to indicate a
+            temporal discontinuity in the time-series of metric values.
+       -r   Process the archive in reverse order, from most recent to oldest
+            recorded metric values.
+       -S   When using the -m option, the report will be restricted to those
+            records logged at or after starttime.  Refer to PCPIntro(1) for
+            a complete description of the syntax for starttime.
+       -s   Report the size in bytes of each physical record in the archive.
+       -T   When using the -m option, the report will be restricted to those
+            records logged before or at endtime.  Refer to PCPIntro(1) for a
+            complete description of the syntax for endtime.
+       -t   Dump the temporal index that is used to provide accelerated
+            access to large archive files.
+            The integrity of the index will also be checked.  If the index
+            is found to be corrupted, the ``*.index'' file can be renamed or
+            removed and the archive will still be accessible, however
+            retrievals may take longer without the index.  Note however that
+            a corrupted temporal index is usually indicative of a deeper
+            malaise that may infect all files in a PCP archive.
+       -v   Verbose mode.  Dump the records from a physical archive file in
+            hexadecimal format.  In this case file is the name of a single
+            file, usually a basename (as would otherwise appear as the
+            archive command line argument), concatenated with ``.'' followed
+            by one of meta (the metadata), index (the temporal index), or a
+            digit (one of the volumes of metric values).
+            Use of -v precludes the use of all other options and arguments.
+       -x   Extended timestamp reporting format that includes the day of the
+            week, day of the month, month and year in addition to the
+            (default) hours, minutes and seconds time.  This is useful for
+            archives that span multiple days.
+            A second -x option will also report the timestamp as an offset
+            from the start of the archive in units of seconds.  This is
+            useful in conjunction with debug diagnostics from the archive
+            handling routines in libpcp.
+       By default, pmdumplog reports the time of day according to the local
+       timezone on the system where pmdumplog is run.  The -Z option changes
+       the timezone to timezone in the format of the environment variable TZ
+       as described in environ(7).  The -z option changes the timezone to
+       the local timezone at the host that is the source of the performance
+       metrics, as specified in the label record of the archive log.

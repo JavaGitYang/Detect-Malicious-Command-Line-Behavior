@@ -1,0 +1,13 @@
+
+       Given a device or disk-image, partx tries to parse the partition
+       table and list its contents.  It can also tell the kernel to add or
+       remove partitions from its bookkeeping.
+       The disk argument is optional when a partition argument is provided.
+       To force scanning a partition as if it were a whole disk (for example
+       to list nested subpartitions), use the argument "-" (hyphen-minus).
+       For example:
+              partx --show - /dev/sda3
+       This will see sda3 as a whole-disk rather than as a partition.
+       partx is not an fdisk program – adding and removing partitions does
+       not change the disk, it just tells the kernel about the presence and
+       numbering of on-disk partitions.

@@ -1,0 +1,53 @@
+
+       The getnameinfo() function is the inverse of getaddrinfo(3): it
+       converts a socket address to a corresponding host and service, in a
+       protocol-independent manner.  It combines the functionality of
+       gethostbyaddr(3) and getservbyport(3), but unlike those functions,
+       getnameinfo() is reentrant and allows programs to eliminate
+       IPv4-versus-IPv6 dependencies.
+       The addr argument is a pointer to a generic socket address structure
+       (of type sockaddr_in or sockaddr_in6) of size addrlen that holds the
+       input IP address and port number.  The arguments host and serv are
+       pointers to caller-allocated buffers (of size hostlen and servlen
+       respectively) into which getnameinfo() places null-terminated strings
+       containing the host and service names respectively.
+       The caller can specify that no hostname (or no service name) is
+       required by providing a NULL host (or serv) argument or a zero
+       hostlen (or servlen) argument.  However, at least one of hostname or
+       service name must be requested.
+       The flags argument modifies the behavior of getnameinfo() as follows:
+       NI_NAMEREQD
+              If set, then an error is returned if the hostname cannot be
+              determined.
+       NI_DGRAM
+              If set, then the service is datagram (UDP) based rather than
+              stream (TCP) based.  This is required for the few ports
+              (512–514) that have different services for UDP and TCP.
+       NI_NOFQDN
+              If set, return only the hostname part of the fully qualified
+              domain name for local hosts.
+       NI_NUMERICHOST
+              If set, then the numeric form of the hostname is returned.
+              (When not set, this will still happen in case the node's name
+              cannot be determined.)
+       NI_NUMERICSERV
+              If set, then the numeric form of the service address is
+              returned.  (When not set, this will still happen in case the
+              service's name cannot be determined.)
+   Extensions to getnameinfo() for Internationalized Domain Names
+       Starting with glibc 2.3.4, getnameinfo() has been extended to
+       selectively allow hostnames to be transparently converted to and from
+       the Internationalized Domain Name (IDN) format (see RFC 3490,
+       Internationalizing Domain Names in Applications (IDNA)).  Three new
+       flags are defined:
+       NI_IDN If this flag is used, then the name found in the lookup
+              process is converted from IDN format to the locale's encoding
+              if necessary.  ASCII-only names are not affected by the
+              conversion, which makes this flag usable in existing programs
+              and environments.
+       NI_IDN_ALLOW_UNASSIGNED, NI_IDN_USE_STD3_ASCII_RULES
+              Setting these flags will enable the IDNA_ALLOW_UNASSIGNED
+              (allow unassigned Unicode code points) and
+              IDNA_USE_STD3_ASCII_RULES (check output to make sure it is a
+              STD3 conforming hostname) flags respectively to be used in the
+              IDNA handling.

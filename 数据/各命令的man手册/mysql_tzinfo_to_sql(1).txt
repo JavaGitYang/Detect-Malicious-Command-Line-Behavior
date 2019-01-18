@@ -1,0 +1,28 @@
+
+       The mysql_tzinfo_to_sql program loads the time zone tables in the
+       mysql database. It is used on systems that have a zoneinfo database
+       (the set of files describing time zones). Examples of such systems
+       are Linux, FreeBSD, Solaris, and Mac OS X. One likely location for
+       these files is the /usr/share/zoneinfo directory
+       (/usr/share/lib/zoneinfo on Solaris).
+       mysql_tzinfo_to_sql can be invoked several ways:
+           shell> mysql_tzinfo_to_sql tz_dir
+           shell> mysql_tzinfo_to_sql tz_file tz_name
+           shell> mysql_tzinfo_to_sql --leap tz_file
+       For the first invocation syntax, pass the zoneinfo directory path
+       name to mysql_tzinfo_to_sql and send the output into the mysql
+       program. For example:
+           shell> mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
+       mysql_tzinfo_to_sql reads your system´s time zone files and generates
+       SQL statements from them.  mysql processes those statements to load
+       the time zone tables.
+       The second syntax causes mysql_tzinfo_to_sql to load a single time
+       zone file tz_file that corresponds to a time zone name tz_name:
+           shell> mysql_tzinfo_to_sql tz_file tz_name | mysql -u root mysql
+       If your time zone needs to account for leap seconds, invoke
+       mysql_tzinfo_to_sql using the third syntax, which initializes the
+       leap second information.  tz_file is the name of your time zone file:
+           shell> mysql_tzinfo_to_sql --leap tz_file | mysql -u root mysql
+       After running mysql_tzinfo_to_sql, it is best to restart the server
+       so that it does not continue to use any previously cached time zone
+       data.

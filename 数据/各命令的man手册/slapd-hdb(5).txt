@@ -1,0 +1,16 @@
+
+       The bdb backend to slapd(8) uses the Oracle Berkeley DB (BDB) package
+       to store data.  It makes extensive use of indexing and caching to
+       speed data access.
+       Note that BDB is deprecated and support will be dropped in future
+       OpenLDAP releases. Installations should use the mdb backend instead.
+       hdb is a variant of the bdb backend that uses a hierarchical database
+       layout which supports subtree renames. It is both more space-
+       efficient and more execution-efficient than the bdb backend.  It is
+       otherwise identical to the bdb behavior, and all the same
+       configuration options apply.
+       It is noted that these options are intended to complement Berkeley DB
+       configuration options set in the environment's DB_CONFIG file.  See
+       Berkeley DB documentation for details on DB_CONFIG configuration
+       options.  Where there is overlap, settings in DB_CONFIG take
+       precedence.

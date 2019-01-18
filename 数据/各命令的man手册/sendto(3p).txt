@@ -1,0 +1,49 @@
+
+       The sendto() function shall send a message through a connection-mode
+       or connectionless-mode socket.
+       If the socket is a connectionless-mode socket, the message shall be
+       sent to the address specified by dest_addr if no pre-specified peer
+       address has been set. If a peer address has been pre-specified,
+       either the message shall be sent to the address specified by
+       dest_addr (overriding the pre-specified peer address), or the
+       function shall return −1 and set errno to [EISCONN].
+       If the socket is connection-mode, dest_addr shall be ignored.
+       The sendto() function takes the following arguments:
+       socket      Specifies the socket file descriptor.
+       message     Points to a buffer containing the message to be sent.
+       length      Specifies the size of the message in bytes.
+       flags       Specifies the type of message transmission. Values of
+                   this argument are formed by logically OR'ing zero or more
+                   of the following flags:
+                   MSG_EOR       Terminates a record (if supported by the
+                                 protocol).
+                   MSG_OOB       Sends out-of-band data on sockets that
+                                 support out-of-band data. The significance
+                                 and semantics of out-of-band data are
+                                 protocol-specific.
+                   MSG_NOSIGNAL  Requests not to send the SIGPIPE signal if
+                                 an attempt to send is made on a stream-
+                                 oriented socket that is no longer
+                                 connected. The [EPIPE] error shall still be
+                                 returned.
+       dest_addr   Points to a sockaddr structure containing the destination
+                   address. The length and format of the address depend on
+                   the address family of the socket.
+       dest_len    Specifies the length of the sockaddr structure pointed to
+                   by the dest_addr argument.
+       If the socket protocol supports broadcast and the specified address
+       is a broadcast address for the socket protocol, sendto() shall fail
+       if the SO_BROADCAST option is not set for the socket.
+       The dest_addr argument specifies the address of the target.
+       The length argument specifies the length of the message.
+       Successful completion of a call to sendto() does not guarantee
+       delivery of the message. A return value of −1 indicates only locally-
+       detected errors.
+       If space is not available at the sending socket to hold the message
+       to be transmitted and the socket file descriptor does not have
+       O_NONBLOCK set, sendto() shall block until space is available. If
+       space is not available at the sending socket to hold the message to
+       be transmitted and the socket file descriptor does have O_NONBLOCK
+       set, sendto() shall fail.
+       The socket in use may require the process to have appropriate
+       privileges to use the sendto() function.

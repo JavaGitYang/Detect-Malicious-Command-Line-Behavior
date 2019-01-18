@@ -1,0 +1,8 @@
+
+       mcookie generates a 128-bit random hexadecimal number for use with
+       the X authority system.  Typical usage:
+              xauth add :0 . `mcookie`
+       The "random" number generated is actually the MD5 message digest of
+       random information coming from one of the sources getrandom() system
+       call, /dev/urandom, /dev/random, or the libc pseudo-random functions,
+       in this preference order. See also the option --file.

@@ -1,0 +1,20 @@
+
+       Given a fully qualified pathname to a node in the current Performance
+       Metrics Name Space (PMNS), as identified by name, pmGetChildren
+       returns via offspring a list of the relative names of all of the
+       immediate descendent nodes of name in the current PMNS.
+       As a special case, if name is an empty string (i.e.""), the immediate
+       descendants of the root node in the PMNS will be returned.
+       Normally, pmGetChildren will return the number of descendent names
+       discovered, else a value less than zero for an error.  The value zero
+       indicates that name is a valid metric name, i.e. is associated with a
+       leaf node in the PMNS.
+       The resulting list of pointers offspring and the values (the relative
+       names) that the pointers reference will have been allocated by
+       pmGetChildren with a single call to malloc(3), and it is the
+       responsibility of the pmGetChildren caller to free(offspring) to
+       release the space when it is no longer required.
+       When an error occurs, or name is a leaf node (i.e. the result of
+       pmGetChildren is less than one), offspring is undefined (no space
+       will have been allocated, and so calling free(3) is a singularly bad
+       idea).

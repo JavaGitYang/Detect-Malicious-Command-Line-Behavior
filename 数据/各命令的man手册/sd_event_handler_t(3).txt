@@ -1,0 +1,40 @@
+
+       These three functions add new static event sources to an event loop.
+       The event loop object is specified in the event parameter, the event
+       source object is returned in the source parameter. The event sources
+       are enabled statically and will "fire" when the event loop is run and
+       the conditions described below are met. The handler function will be
+       passed the userdata pointer, which may be chosen freely by the
+       caller.
+       sd_event_add_defer() adds a new event source that will be dispatched
+       instantly, before the event loop goes to sleep again and waits for
+       new events. By default, the handler will be called once
+       (SD_EVENT_ONESHOT). Note that if the event source is set to
+       SD_EVENT_ON the event loop will never go to sleep again, but
+       continuously call the handler, possibly interleaved with other event
+       sources.
+       sd_event_add_post() adds a new event source that is run before the
+       event loop will sleep and wait for new events, but only after at
+       least one other non-post event source was dispatched. By default, the
+       source is enabled permanently (SD_EVENT_ON). Note that this event
+       source type will still allow the event loop to go to sleep again,
+       even if set to SD_EVENT_ON, as long as no other event source is ever
+       triggered.
+       sd_event_add_exit() adds a new event source that will be dispatched
+       when the event loop is terminated with sd_event_exit(3).
+       The sd_event_source_set_enabled(3) function may be used to enable the
+       event source permanently (SD_EVENT_ON) or to make it fire just once
+       (SD_EVENT_ONESHOT).
+       If the handler function returns a negative error code, it will be
+       disabled after the invocation, even if the SD_EVENT_ON mode was
+       requested before.
+       To destroy an event source object use sd_event_source_unref(3), but
+       note that the event source is only removed from the event loop when
+       all references to the event source are dropped. To make sure an event
+       source does not fire anymore, even when there's still a reference to
+       it kept, consider setting the event source to SD_EVENT_OFF with
+       sd_event_source_set_enabled(3).
+       If the second parameter of these functions is passed as NULL no
+       reference to the event source object is returned. In this case the
+       event source is considered "floating", and will be destroyed
+       implicitly when the event loop itself is destroyed.

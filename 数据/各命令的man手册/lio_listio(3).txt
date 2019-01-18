@@ -1,0 +1,26 @@
+
+       The lio_listio() function initiates the list of I/O operations
+       described by the array aiocb_list.
+       The mode operation has one of the following values:
+       LIO_WAIT    The call blocks until all operations are complete.  The
+                   sevp argument is ignored.
+       LIO_NOWAIT  The I/O operations are queued for processing and the call
+                   returns immediately.  When all of the I/O operations
+                   complete, asynchronous notification occurs, as specified
+                   by the sevp argument; see sigevent(7) for details.  If
+                   sevp is NULL, no asynchronous notification occurs.
+       The aiocb_list argument is an array of pointers to aiocb structures
+       that describe I/O operations.  These operations are executed in an
+       unspecified order.  The nitems argument specifies the size of the
+       array aiocb_list.  null pointers in aiocb_list are ignored.
+       In each control block in aiocb_list, the aio_lio_opcode field
+       specifies the I/O operation to be initiated, as follows:
+       LIO_READ  Initiate a read operation.  The operation is queued as for
+                 a call to aio_read(3) specifying this control block.
+       LIO_WRITE Initiate a write operation.  The operation is queued as for
+                 a call to aio_write(3) specifying this control block.
+       LIO_NOP   Ignore this control block.
+       The remaining fields in each control block have the same meanings as
+       for aio_read(3) and aio_write(3).  The aio_sigevent fields of each
+       control block can be used to specify notifications for the individual
+       I/O operations (see sigevent(7)).

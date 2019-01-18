@@ -1,0 +1,2 @@
+
+       vgreduce removes one or more unused PVs from a VG.

@@ -1,0 +1,4 @@
+
+       The man macros used to generate man pages with groff were written by
+       James Clark.  This document provides a brief summary of the use of
+       each macro in that package.

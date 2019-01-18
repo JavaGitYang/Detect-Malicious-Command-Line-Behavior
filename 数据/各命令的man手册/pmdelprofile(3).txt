@@ -1,0 +1,23 @@
+
+       The set of instances for performance metrics returned from a
+       pmFetch(3) call may be filtered or restricted using an instance
+       profile.  There is one instance profile for each context the
+       application creates at the Performance Metrics Application
+       Programming Interface (PMAPI), and each instance profile may include
+       instances from one or more instance domains (see pmLookupDesc(3)).
+       pmDelProfile may be used to delete instance specifications from the
+       instance profile of the current PMAPI context.
+       In the simplest variant, the list of instances identified by the
+       instlist argument for the indom instance domain are removed from the
+       instance profile.  The list of instance identifiers contains numinst
+       values.
+       The indom value would normally be extracted from a call to
+       pmLookupDesc(3) for a particular performance metric, and the
+       instances in instlist would typically be determined by calls to
+       pmGetInDom(3) or pmLookupInDom(3).
+       If indom equals PM_INDOM_NULL or numinst is zero, then all instance
+       domains are selected for deletion.  If instlist is NULL, then all
+       instances in the selected domain(s) are removed from the profile.
+       To disable all available instances in all domains, use
+       pmDelProfile(PM_INDOM_NULL, 0, NULL).  This is the only situation in
+       which indom may be PM_INDOM_NULL.

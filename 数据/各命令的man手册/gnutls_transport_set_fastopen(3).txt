@@ -1,0 +1,9 @@
+
+       Enables TCP Fast Open (TFO) for the specified TLS client session.
+       That means that TCP connection establishment and the transmission of
+       the first TLS client hello packet are combined. The peer's address
+       must be  specified in  connect_addr and  connect_addrlen , and the
+       socket specified by  fd should not be connected.
+       TFO only works for TCP sockets of type AF_INET and AF_INET6.  If the
+       OS doesn't support TCP fast open this function will result to gnutls
+       using connect() transparently during the first write.

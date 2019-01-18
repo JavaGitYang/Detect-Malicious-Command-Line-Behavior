@@ -1,0 +1,43 @@
+
+       This man page mentions those library functions which are implemented
+       in the standard libraries but not yet documented in man pages.
+   Solicitation
+       If you have information about these functions, please look in the
+       source code, write a man page (using a style similar to that of the
+       other Linux section 3 man pages), and send it to
+       mtk.manpages@gmail.com for inclusion in the next man page release.
+   The list
+       authdes_create(3), authdes_getucred(3), authdes_pk_create(3),
+       clntunix_create(3), creat64(3), dn_skipname(3), fcrypt(3),
+       fp_nquery(3), fp_query(3), fp_resstat(3), freading(3), freopen64(3),
+       fseeko64(3), ftello64(3), ftw64(3), fwscanf(3), get_avphys_pages(3),
+       getdirentries64(3), getmsg(3), getnetname(3), get_phys_pages(3),
+       getpublickey(3), getsecretkey(3), h_errlist(3), host2netname(3),
+       hostalias(3), inet_nsap_addr(3), inet_nsap_ntoa(3), init_des(3),
+       libc_nls_init(3), mstats(3), netname2host(3), netname2user(3),
+       nlist(3), obstack_free(3), parse_printf_format(3), p_cdname(3),
+       p_cdnname(3), p_class(3), p_fqname(3), p_option(3), p_query(3),
+       printf_size(3), printf_size_info(3), p_rr(3), p_time(3), p_type(3),
+       putlong(3), putshort(3), re_compile_fastmap(3),
+       re_compile_pattern(3), register_printf_function(3), re_match(3),
+       re_match_2(3), re_rx_search(3), re_search(3), re_search_2(3),
+       re_set_registers(3), re_set_syntax(3), res_send_setqhook(3),
+       res_send_setrhook(3), ruserpass(3), setfileno(3), sethostfile(3),
+       svc_exit(3), svcudp_enablecache(3), tell(3), tr_break(3),
+       tzsetwall(3), ufc_dofinalperm(3), ufc_doit(3), user2netname(3),
+       wcschrnul(3), wcsftime(3), wscanf(3), xdr_authdes_cred(3),
+       xdr_authdes_verf(3), xdr_cryptkeyarg(3), xdr_cryptkeyres(3),
+       xdr_datum(3), xdr_des_block(3), xdr_domainname(3), xdr_getcredres(3),
+       xdr_keybuf(3), xdr_keystatus(3), xdr_mapname(3), xdr_netnamestr(3),
+       xdr_netobj(3), xdr_passwd(3), xdr_peername(3), xdr_rmtcall_args(3),
+       xdr_rmtcallres(3), xdr_unixcred(3), xdr_yp_buf(3), xdr_yp_inaddr(3),
+       xdr_ypbind_binding(3), xdr_ypbind_resp(3), xdr_ypbind_resptype(3),
+       xdr_ypbind_setdom(3), xdr_ypdelete_args(3), xdr_ypmaplist(3),
+       xdr_ypmaplist_str(3), xdr_yppasswd(3), xdr_ypreq_key(3),
+       xdr_ypreq_nokey(3), xdr_ypresp_all(3), xdr_ypresp_all_seq(3),
+       xdr_ypresp_key_val(3), xdr_ypresp_maplist(3), xdr_ypresp_master(3),
+       xdr_ypresp_order(3), xdr_ypresp_val(3), xdr_ypstat(3),
+       xdr_ypupdate_args(3), yp_all(3), yp_bind(3), yperr_string(3),
+       yp_first(3), yp_get_default_domain(3), yp_maplist(3), yp_master(3),
+       yp_match(3), yp_next(3), yp_order(3), ypprot_err(3), yp_unbind(3),
+       yp_update(3)

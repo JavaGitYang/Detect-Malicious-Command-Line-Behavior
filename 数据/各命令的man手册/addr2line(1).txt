@@ -1,0 +1,39 @@
+
+       addr2line translates addresses into file names and line numbers.
+       Given an address in an executable or an offset in a section of a
+       relocatable object, it uses the debugging information to figure out
+       which file name and line number are associated with it.
+       The executable or relocatable object to use is specified with the -e
+       option.  The default is the file a.out.  The section in the
+       relocatable object to use is specified with the -j option.
+       addr2line has two modes of operation.
+       In the first, hexadecimal addresses are specified on the command
+       line, and addr2line displays the file name and line number for each
+       address.
+       In the second, addr2line reads hexadecimal addresses from standard
+       input, and prints the file name and line number for each address on
+       standard output.  In this mode, addr2line may be used in a pipe to
+       convert dynamically chosen addresses.
+       The format of the output is FILENAME:LINENO.  By default each input
+       address generates one line of output.
+       Two options can generate additional lines before each FILENAME:LINENO
+       line (in that order).
+       If the -a option is used then a line with the input address is
+       displayed.
+       If the -f option is used, then a line with the FUNCTIONNAME is
+       displayed.  This is the name of the function containing the address.
+       One option can generate additional lines after the FILENAME:LINENO
+       line.
+       If the -i option is used and the code at the given address is present
+       there because of inlining by the compiler then additional lines are
+       displayed afterwards.  One or two extra lines (if the -f option is
+       used) are displayed for each inlined function.
+       Alternatively if the -p option is used then each input address
+       generates a single, long, output line containing the address, the
+       function name, the file name and the line number.  If the -i option
+       has also been used then any inlined functions will be displayed in
+       the same manner, but on separate lines, and prefixed by the text
+       (inlined by).
+       If the file name or function name can not be determined, addr2line
+       will print two question marks in their place.  If the line number can
+       not be determined, addr2line will print 0.

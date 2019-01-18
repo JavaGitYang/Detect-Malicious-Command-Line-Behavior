@@ -1,0 +1,19 @@
+
+       The library supports the Intel Running Average Power Limit (RAPL)
+       energy consumption counters. This is a socket-level set of counters
+       which reports energy consumption in Joules. There are up to 3
+       counters each measuring only one event. The following events are
+       defined:
+       RAPL_ENERGY_CORES
+              On all processors, the event reports the number of Joules
+              consumed by all cores.
+               On all processors,
+       RAPL_ENERGYC_PKG
+              On all processors, th event reports the number of Joules
+              consumed by all the cores and Last Level cache (L3).
+       RAPL_ENERGY_DRAM
+              On server processors, the event reports the number of Joules
+              consumed n by the DRAM controller.
+              By construction, the events are socket-level and can only be
+              measured in system-wide mode. It is necessary and sufficient
+              to measure only one CPU per socket to get meaningful results.

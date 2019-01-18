@@ -1,0 +1,42 @@
+
+       For wcsrtombs(): The functionality described on this reference page
+       is aligned with the ISO C standard. Any conflict between the
+       requirements described here and the ISO C standard is unintentional.
+       This volume of POSIX.1‐2008 defers to the ISO C standard.
+       The wcsrtombs() function shall convert a sequence of wide characters
+       from the array indirectly pointed to by src into a sequence of
+       corresponding characters, beginning in the conversion state described
+       by the object pointed to by ps.  If dst is not a null pointer, the
+       converted characters shall then be stored into the array pointed to
+       by dst.  Conversion continues up to and including a terminating null
+       wide character, which shall also be stored. Conversion shall stop
+       earlier in the following cases:
+        *  When a code is reached that does not correspond to a valid
+           character
+        *  When the next character would exceed the limit of len total bytes
+           to be stored in the array pointed to by dst (and dst is not a
+           null pointer)
+       Each conversion shall take place as if by a call to the wcrtomb()
+       function.
+       If dst is not a null pointer, the pointer object pointed to by src
+       shall be assigned either a null pointer (if conversion stopped due to
+       reaching a terminating null wide character) or the address just past
+       the last wide character converted (if any). If conversion stopped due
+       to reaching a terminating null wide character, the resulting state
+       described shall be the initial conversion state.
+       If ps is a null pointer, the wcsrtombs() function shall use its own
+       internal mbstate_t object, which is initialized at program start-up
+       to the initial conversion state. Otherwise, the mbstate_t object
+       pointed to by ps shall be used to completely describe the current
+       conversion state of the associated character sequence.
+       The wcsnrtombs() and wcsrtombs() functions need not be thread-safe if
+       called with a NULL ps argument.
+       The wcsnrtombs() function shall be equivalent to the wcsrtombs()
+       function, except that the conversion is limited to the first nwc wide
+       characters.
+       The wcsrtombs() function shall not change the setting of errno if
+       successful.
+       The behavior of these functions shall be affected by the LC_CTYPE
+       category of the current locale.
+       The implementation shall behave as if no function defined in System
+       Interfaces volume of POSIX.1‐2008 calls these functions.

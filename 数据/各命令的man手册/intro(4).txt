@@ -1,0 +1,2 @@
+
+       Section 4 of the manual describes special files (devices).

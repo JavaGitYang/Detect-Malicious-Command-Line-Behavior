@@ -1,0 +1,3 @@
+
+       pcap_can_set_rfmon() checks whether monitor mode could be set on a
+       capture handle when the handle is activated.

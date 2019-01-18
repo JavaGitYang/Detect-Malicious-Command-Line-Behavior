@@ -1,0 +1,6 @@
+
+       The pam_getenv function searches the PAM environment list as
+       associated with the handle pamh for an item that matches the string
+       pointed to by name and returns a pointer to the value of the
+       environment variable. The application is not allowed to free the
+       data.

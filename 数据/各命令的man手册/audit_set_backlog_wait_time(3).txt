@@ -1,0 +1,6 @@
+
+       audit_set_backlog_wait_time sets the time that the kernel will wait
+       before attempting to send more audit events to be transferred to the
+       audit daemon when the backlog_limit is reached. This gives the audit
+       daemon a chance to drain the kernel queue. The default value is 60000
+       or 60 * HZ setting in the kernel.

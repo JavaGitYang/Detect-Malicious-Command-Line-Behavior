@@ -1,0 +1,4 @@
+
+       The delta utility shall be used to permanently introduce into the
+       named SCCS files changes that were made to the files retrieved by get
+       (called the g-files, or generated files).

@@ -1,0 +1,43 @@
+
+       The routines implement an event queue and callback framework that
+       supports periodic evaluation of a series of events with varying
+       frequencies for Performance Co-Pilot (PCP) applications.
+       The pmlogger(1) application, the pmdatrace(1) PMDA and the
+       pmdahotproc(1) PMDA are the principal users of these services.
+       An event is created by calling __pmAFsetup or __pmAFregister and on
+       success the return value is an event number greater than zero.  The
+       event has associated event data identified by the opaque pointer
+       data.  The event will occur with frequency delta and each time the
+       event occurs the function func will be called with the event number
+       and the event data as arguments.
+       If __pmAFsetup is used then the first event is scheduled for the
+       current time plus start, else if __pmAFregister is used then the
+       first event is scheduled for the current time plus delta.
+       func is called in a SIGALRM signal handler context and so the
+       routines that may be safely called from func are restricted to the
+       so-called async-signal-safe set.  In particular there must be no
+       Standard I/O calls nor calls to any of the malloc(3) routines to
+       modify the state of the heap.  Refer to the Pointer to a Function
+       Section of the POSIX.1-2013 document at
+       http://pubs.opengroup.org/onlinepubs/9699919799/functions/V2_chap02.html
+       for a fuller description.
+       The safest and simplest class of func routines are those that do
+       minimal processing, set some global state and return.  The real work
+       associated with the event is done subsequently from the application's
+       main loop when the global state change is detected.
+       Once the event occurs and the callback has been executed, the event
+       will be rescheduled for delta into the future, except if all the
+       fields of delta are zero, in which case the event will not be
+       rescheduled (a ``one trip'' event).
+       Internally, events are processed serially so there is no possibility
+       of nested callbacks or re-entrant callbacks from the event management
+       routines.
+       Given an event number afid, __pmAFunregister will permanently remove
+       the corresponding entry from the event queue.
+       To control the event queue processing, __pmAFblock and __pmAFunblock
+       may be used to explicitly block and unblock the dispatch of events.
+       This is most useful when the caller wishes to set up a number of
+       events via __pmAFsetup or __pmAFregister and complete the
+       registration phase before the first event callback occurs.
+       A call to __pmAFisempty returns 1 or 0 depending on whether the event
+       queue is empty or not.

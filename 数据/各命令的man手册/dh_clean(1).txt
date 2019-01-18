@@ -1,0 +1,11 @@
+
+       dh_clean is a debhelper program that is responsible for cleaning up
+       after a package is built. It removes the package build directories,
+       and removes some other files including debian/files, and any detritus
+       left behind by other debhelper commands. It also removes common files
+       that should not appear in a Debian diff:
+         #*# *~ DEADJOE *.orig *.rej *.SUMS TAGS .deps/* *.P *-stamp
+       It does not run "make clean" to clean up after the build process. Use
+       dh_auto_clean(1) to do things like that.
+       dh_clean should be the last debhelper command run in the clean target
+       in debian/rules.

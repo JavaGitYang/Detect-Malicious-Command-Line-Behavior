@@ -1,0 +1,4 @@
+
+       This function will return the time the next CRL will be issued.  This
+       field is optional in a CRL so it might be normal to get an error
+       instead.

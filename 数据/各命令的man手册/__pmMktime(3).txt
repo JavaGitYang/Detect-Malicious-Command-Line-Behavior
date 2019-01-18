@@ -1,0 +1,13 @@
+
+       __pmMktime is very similar to mktime(3), except the timezone used is
+       the current ``reporting timezone'' (rather than the default TZ
+       environment variable scheme).
+       Like mktime(3) the time to be converted is passed via timeptr, and
+       the function result contains the calendar time (the number of seconds
+       since 00:00:00 UTC, January 1, 1970).
+       The default current reporting timezone is as defined by the TZ
+       environment variable, so __pmMktime and mktime(3) will initially
+       produce similar conversions.
+       Use pmNewZone(3), pmNewContextZone(3) or pmUseZone(3) to establish a
+       new current reporting timezone that will effect __pmMktime but not
+       mktime(3).

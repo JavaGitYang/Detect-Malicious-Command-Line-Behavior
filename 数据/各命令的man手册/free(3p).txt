@@ -1,0 +1,14 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The free() function shall cause the space pointed to by ptr to be
+       deallocated; that is, made available for further allocation. If ptr
+       is a null pointer, no action shall occur. Otherwise, if the argument
+       does not match a pointer earlier returned by a function in
+       POSIX.1‐2008 that allocates memory as if by malloc(), or if the space
+       has been deallocated by a call to free() or realloc(), the behavior
+       is undefined.
+       Any use of a pointer that refers to freed space results in undefined
+       behavior.

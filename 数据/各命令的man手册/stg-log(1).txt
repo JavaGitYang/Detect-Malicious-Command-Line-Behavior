@@ -1,0 +1,6 @@
+
+       List the history of the patch stack: the stack log. If one or more
+       patch names are given, limit the list to the log entries that touch
+       the named patches.
+       "stg undo" and "stg redo" let you step back and forth in the patch
+       stack. "stg reset" lets you go directly to any state.

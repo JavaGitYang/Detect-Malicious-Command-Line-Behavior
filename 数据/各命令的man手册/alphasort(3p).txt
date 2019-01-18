@@ -1,0 +1,21 @@
+
+       The alphasort() function can be used as the comparison function for
+       the scandir() function to sort the directory entries, d1 and d2, into
+       alphabetical order. Sorting happens as if by calling the strcoll()
+       function on the d_name element of the dirent structures passed as the
+       two parameters. If the strcoll() function fails, the return value of
+       alphasort() is unspecified.
+       The alphasort() function shall not change the setting of errno if
+       successful. Since no return value is reserved to indicate an error,
+       an application wishing to check for error situations should set errno
+       to 0, then call alphasort(), then check errno.
+       The scandir() function shall scan the directory dir, calling the
+       function referenced by sel on each directory entry. Entries for which
+       the function referenced by sel returns non-zero shall be stored in
+       strings allocated as if by a call to malloc(), and sorted as if by a
+       call to qsort() with the comparison function compar, except that
+       compar need not provide total ordering. The strings are collected in
+       array namelist which shall be allocated as if by a call to malloc().
+       If sel is a null pointer, all entries shall be selected.  If the
+       comparison function compar does not provide total ordering, the order
+       in which the directory entries are stored is unspecified.

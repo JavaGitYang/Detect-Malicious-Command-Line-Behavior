@@ -1,0 +1,18 @@
+
+       cal displays a simple calendar.  If no arguments are specified, the
+       current month is displayed.
+       The month may be specified as a number (1-12), as a month name or as
+       an abbreviated month name according to the current locales.
+       Two different calendar systems are used, Gregorian and Julian.  These
+       are nearly identical systems with Gregorian making a small adjustment
+       to the frequency of leap years; this facilitates improved
+       synchronization with solar events like the equinoxes.  The Gregorian
+       calendar reform was introduced in 1582, but its adoption continued up
+       to 1923.  By default cal uses the adoption date of 3 Sept 1752.  From
+       that date forward the Gregorian calendar is displayed; previous dates
+       use the Julian calendar system.  11 days were removed at the time of
+       adoption to bring the calendar in sync with solar events.  So Sept
+       1752 has a mix of Julian and Gregorian dates by which the 2nd is
+       followed by the 14th (the 3rd through the 13th are absent).
+       Optionally, either the proleptic Gregorian calendar or the Julian
+       calendar may be used exclusively.  See --reform below.

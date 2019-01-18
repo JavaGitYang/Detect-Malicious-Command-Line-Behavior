@@ -1,0 +1,5 @@
+
+       This function will set the CRL's authority key ID extension.  Only
+       the keyIdentifier field can be set with this function. This may be
+       used by an authority that holds multiple private keys, to distinguish
+       the used key.

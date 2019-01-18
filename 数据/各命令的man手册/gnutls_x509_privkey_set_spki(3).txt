@@ -1,0 +1,3 @@
+
+       This function will return the public key information of a private
+       key. The provided  spki must be initialized.

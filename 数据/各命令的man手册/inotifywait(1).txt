@@ -1,0 +1,5 @@
+
+       inotifywait efficiently waits for changes to files using Linux's
+       inotify(7) interface.  It is suitable for waiting for changes to
+       files from shell scripts.  It can either exit once an event occurs,
+       or continually execute and output events as they occur.

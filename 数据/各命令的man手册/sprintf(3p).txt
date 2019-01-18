@@ -1,0 +1,2 @@
+
+       Refer to fprintf(3p).

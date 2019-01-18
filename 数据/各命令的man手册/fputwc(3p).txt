@@ -1,0 +1,19 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The fputwc() function shall write the character corresponding to the
+       wide-character code wc to the output stream pointed to by stream, at
+       the position indicated by the associated file-position indicator for
+       the stream (if defined), and advances the indicator appropriately. If
+       the file cannot support positioning requests, or if the stream was
+       opened with append mode, the character is appended to the output
+       stream. If an error occurs while writing the character, the shift
+       state of the output file is left in an undefined state.
+       The last data modification and last file status change timestamps of
+       the file shall be marked for update between the successful execution
+       of fputwc() and the next successful completion of a call to fflush()
+       or fclose() on the same stream or a call to exit() or abort().
+       The fputwc() function shall not change the setting of errno if
+       successful.

@@ -1,0 +1,38 @@
+
+       The file ETCDIR/slapd.conf contains configuration information for the
+       slapd(8) daemon.  This configuration file is also used by the SLAPD
+       tools slapacl(8), slapadd(8), slapauth(8), slapcat(8), slapdn(8),
+       slapindex(8), and slaptest(8).
+       The slapd.conf file consists of a series of global configuration
+       options that apply to slapd as a whole (including all backends),
+       followed by zero or more database backend definitions that contain
+       information specific to a backend instance.  The configuration
+       options are case-insensitive; their value, on a case by case basis,
+       may be case-sensitive.
+       The general format of slapd.conf is as follows:
+           # comment - these options apply to every database
+           <global configuration options>
+           # first database definition & configuration options
+           database <backend 1 type>
+           <configuration options specific to backend 1>
+           # subsequent database definitions & configuration options
+           ...
+       As many backend-specific sections as desired may be included.  Global
+       options can be overridden in a backend (for options that appear more
+       than once, the last appearance in the slapd.conf file is used).
+       If a line begins with white space, it is considered a continuation of
+       the previous line.  No physical line should be over 2000 bytes long.
+       Blank lines and comment lines beginning with a `#' character are
+       ignored.  Note: continuation lines are unwrapped before comment
+       processing is applied.
+       Arguments on configuration lines are separated by white space. If an
+       argument contains white space, the argument should be enclosed in
+       double quotes.  If an argument contains a double quote (`"') or a
+       backslash character (`\'), the character should be preceded by a
+       backslash character.
+       The specific configuration options available are discussed below in
+       the Global Configuration Options, General Backend Options, and
+       General Database Options.  Backend-specific options are discussed in
+       the slapd-<backend>(5) manual pages.  Refer to the "OpenLDAP
+       Administrator's Guide" for more details on the slapd configuration
+       file.

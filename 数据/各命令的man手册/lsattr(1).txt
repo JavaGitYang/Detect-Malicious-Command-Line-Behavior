@@ -1,0 +1,3 @@
+
+       lsattr lists the file attributes on a second extended file system.
+       See chattr(1) for a description of the attributes and what they mean.

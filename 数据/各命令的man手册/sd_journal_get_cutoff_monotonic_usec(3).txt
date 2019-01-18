@@ -1,0 +1,22 @@
+
+       sd_journal_get_cutoff_realtime_usec() retrieves the realtime
+       (wallclock) timestamps of the first and last entries accessible in
+       the journal. It takes three arguments: the journal context object j
+       and two pointers from and to pointing at 64-bit unsigned integers to
+       store the timestamps in. The timestamps are in microseconds since the
+       epoch, i.e.  CLOCK_REALTIME. Either one of the two timestamp
+       arguments may be passed as NULL in case the timestamp is not needed,
+       but not both.
+       sd_journal_get_cutoff_monotonic_usec() retrieves the monotonic
+       timestamps of the first and last entries accessible in the journal.
+       It takes three arguments: the journal context object j, a 128-bit
+       identifier for the boot boot_id, and two pointers to 64-bit unsigned
+       integers to store the timestamps, from and to. The timestamps are in
+       microseconds since boot-up of the specific boot, i.e.
+       CLOCK_MONOTONIC. Since the monotonic clock begins new with every
+       reboot it only defines a well-defined point in time when used
+       together with an identifier identifying the boot, see
+       sd_id128_get_boot(3) for more information. The function will return
+       the timestamps for the boot identified by the passed boot ID. Either
+       one of the two timestamp arguments may be passed as NULL in case the
+       timestamp is not needed, but not both.

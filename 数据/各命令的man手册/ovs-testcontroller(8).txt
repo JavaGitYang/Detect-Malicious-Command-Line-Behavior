@@ -1,0 +1,38 @@
+
+       ovs-testcontroller is a simple OpenFlow controller that manages any
+       number of switches over the OpenFlow protocol, causing them to
+       function as L2 MAC-learning switches or hubs.  It is suitable for
+       initial testing of OpenFlow networks.  It is not a necessary or
+       desirable part of a production OpenFlow deployment.
+       ovs-testcontroller controls one or more OpenFlow switches, specified
+       as one or more of the following OpenFlow connection methods:
+              pssl:[port][:ip]
+              ptcp:[port][:ip]
+                     Listens for OpenFlow connections on port.  The default
+                     port is 6653.  By default, connections are allowed from
+                     any IPv4 address.  Specify ip as an IPv4 address or a
+                     bracketed IPv6 address (e.g. ptcp:6653:[::1]).  On
+                     Linux, use %device to designate a scope for IPv6 link-
+                     level addresses, e.g. ptcp:6653:[fe80::1234%eth0].  DNS
+                     names may not be used.  For pssl, the
+                     --private-key,--certificate, and --ca-cert options are
+                     mandatory.
+              punix:file
+                     Listens for OpenFlow connections on the Unix domain
+                     server socket named file.
+              ssl:ip[:port]
+              tcp:ip[:port]
+                     The specified port on the host at the given ip, which
+                     must be expressed as an IP address (not a DNS name) in
+                     IPv4 or IPv6 address format.  Wrap IPv6 addresses in
+                     square brackets, e.g. tcp:[::1]:6653.  On Linux, use
+                     %device to designate a scope for IPv6 link-level
+                     addresses, e.g. tcp:[fe80::1234%eth0]:6653.  For ssl,
+                     the --private-key, --certificate, and --ca-cert options
+                     are mandatory.
+                     If port is not specified, it defaults to 6653.
+              unix:file
+                     On POSIX, a Unix domain server socket named file.
+                     On Windows, connect to a local named pipe that is
+                     represented by a file created in the path file to mimic
+                     the behavior of a Unix domain socket.

@@ -1,0 +1,9 @@
+
+     The acl_error() function converts an ACL error code such as returned by
+     the acl_check() function to a text message describing the error condi‐
+     tion. In the “POSIX” locale, acl_check() returns the following descrip‐
+     tions for the error codes.
+     ACL_MULTI_ERROR       “Multiple entries”
+     ACL_DUPLICATE_ERROR   “Duplicate entries”
+     ACL_MISS_ERROR        “Missing or wrong entry”
+     ACL_ENTRY_ERROR       “Invalid entry type”

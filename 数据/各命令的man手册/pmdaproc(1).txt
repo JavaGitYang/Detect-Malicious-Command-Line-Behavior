@@ -1,0 +1,45 @@
+
+       pmdaproc is a Performance Metrics Domain Agent (PMDA) which extracts
+       performance metrics describing the state of the individual processes
+       running on a Linux system.
+       The proc PMDA exports metrics that measure the memory, processor and
+       other resource use of each process, as well as summary information
+       collated across all of the running processes.  The PMDA uses
+       credentials passed from the PMAPI(3) monitoring tool identifying the
+       user requesting the information, to ensure that only values the user
+       is allowed to access are returned by the PMDA.  This involves the
+       PMDA temporarily changing its effective user and group identifiers
+       for the duration of requests for instances and values.  In other
+       words, system calls to extract information are performed as the user
+       originating the request and not as a privileged user.  The mechanisms
+       available for transfer of user credentials are described further in
+       the PCPIntro(1) page.
+       A brief description of the pmdaproc command line options follows:
+       -A   Disables use of the credentials provided by PMAPI client tools,
+            and simply runs everything under the "root" account.  Only
+            enable this option if you understand the risks involved, and are
+            sure that all remote accesses will be from benevolent users.  If
+            enabled, unauthenticated remote PMAPI clients will be able to
+            access potentially sensitive performance metric values which an
+            unauthenticated PMAPI client usually would not be able to.
+            Refer to CVE-2012-3419 for additional details.
+       -L   Changes the per-process instance domain used by most pmdaproc
+            metrics to include threads as well.
+       -d   It is absolutely crucial that the performance metrics domain
+            number specified here is unique and consistent.  That is, domain
+            should be different for every PMDA on the one host, and the same
+            domain number should be used for the same PMDA on all hosts.
+       -l   Location of the log file.  By default, a log file named proc.log
+            is written in the current directory of pmcd(1) when pmdaproc is
+            started, i.e.  $PCP_LOG_DIR/pmcd.  If the log file cannot be
+            created or is not writable, output is written to the standard
+            error instead.
+       -r   Restrict the set of processes exported in the per-process
+            instance domain to only those processes that are contained by
+            the specified cgroup resource container.  This option provides
+            an optional finer granularity to the monitoring, and can also be
+            used to reduce the resources consumed by pmdaproc during
+            requests for instances and values.
+       -U   User account under which to run the agent.  The default is the
+            privileged "root" account, with seteuid (2) and setegid (2)
+            switching for accessing most information.

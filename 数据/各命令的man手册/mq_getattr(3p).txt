@@ -1,0 +1,18 @@
+
+       The mq_getattr() function shall obtain status information and
+       attributes of the message queue and the open message queue
+       description associated with the message queue descriptor.
+       The mqdes argument specifies a message queue descriptor.
+       The results shall be returned in the mq_attr structure referenced by
+       the mqstat argument.
+       Upon return, the following members shall have the values associated
+       with the open message queue description as set when the message queue
+       was opened and as modified by subsequent mq_setattr() calls:
+       mq_flags.
+       The following attributes of the message queue shall be returned as
+       set at message queue creation: mq_maxmsg, mq_msgsize.
+       Upon return, the following members within the mq_attr structure
+       referenced by the mqstat argument shall be set to the current state
+       of the message queue:
+       mq_curmsgs
+                 The number of messages currently on the queue.

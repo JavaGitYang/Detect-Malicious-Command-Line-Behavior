@@ -1,0 +1,14 @@
+
+       As part of the Performance Co-Pilot Log Import API (see
+       LOGIMPORT(3)), pmiPutMark writes a <mark> record to the current PCP
+       output archive.  This is required when there is a temporal
+       discontinuity between the current input source and the next input
+       source, if any, and should be called after the final call to
+       pmiWrite(3) for the current input.  If there is no next input to be
+       processed or no temporal gap between sources, then the <mark> record
+       is not required.
+       The <mark> record is used to signify a temporal gap, so that when
+       replaying the output PCP archive, interpolation of metric values
+       should not be performed between the last timestamp in the current
+       input source to the first timestamp in the next input source, i.e.
+       across the <mark> record.

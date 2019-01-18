@@ -1,0 +1,7 @@
+
+       The wcsnlen() function is the wide-character equivalent of the
+       strnlen(3) function.  It returns the number of wide-characters in the
+       string pointed to by s, not including the terminating null wide
+       character (L'\0'), but at most maxlen wide characters (note: this
+       parameter is not a byte count).  In doing this, wcsnlen() looks at
+       only the first maxlen wide characters at s and never beyond s+maxlen.

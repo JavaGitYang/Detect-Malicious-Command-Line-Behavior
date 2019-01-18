@@ -1,0 +1,8 @@
+
+       Opening a file on OverlayFS in read-only mode causes the file from
+       lower layer to be opened, then later on, if the same file is opened
+       in write mode, a copy-up into the upper    layer    takes    place,
+       resulting into a new file being opened.
+       Since yum(8) needs to open the RPMdb first read-only, and then
+       also with write access, we need to copy-up the files beforehand to
+       make sure that the access is consistent.

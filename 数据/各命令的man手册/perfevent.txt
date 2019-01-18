@@ -1,0 +1,13 @@
+
+       The perfevent.conf configuration file defines which hardware
+       performance counters are enabled by the perfevent PMDA.
+       The configuration file contains a list of events that should be
+       enabled for each PMU. The perfevent PMDA detects which PMUs present
+       and programs the configured events. If multiple PMUs are available,
+       the perfevent PMDA uses the order of the entries in the configuration
+       file to determine which PMU settings to use. The entries at the top
+       of the configuration file have higher precedence.  Only one PMU
+       configuration setting is used. The configuration file may also
+       contain perf derived events. A derived event has a list of events
+       which must be listed as base events. The values for the counters in
+       the derived events are aggregated and displayed.

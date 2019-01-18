@@ -1,0 +1,6 @@
+
+       When pmRegisterDerived(3) is called to add a new derived metric
+       definition and an error occurs, pmDerivedErrStr may be called to
+       return the associated error message.
+       The pmRegisterDerivedMetric interface provides a convenience wrapper
+       around both pmRegisterDerived and pmDerivedErrStr.

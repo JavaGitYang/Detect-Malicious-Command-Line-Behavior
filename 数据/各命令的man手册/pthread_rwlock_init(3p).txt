@@ -1,0 +1,36 @@
+
+       The pthread_rwlock_destroy() function shall destroy the read-write
+       lock object referenced by rwlock and release any resources used by
+       the lock. The effect of subsequent use of the lock is undefined until
+       the lock is reinitialized by another call to pthread_rwlock_init().
+       An implementation may cause pthread_rwlock_destroy() to set the
+       object referenced by rwlock to an invalid value. Results are
+       undefined if pthread_rwlock_destroy() is called when any thread holds
+       rwlock.  Attempting to destroy an uninitialized read-write lock
+       results in undefined behavior.
+       The pthread_rwlock_init() function shall allocate any resources
+       required to use the read-write lock referenced by rwlock and
+       initializes the lock to an unlocked state with attributes referenced
+       by attr.  If attr is NULL, the default read-write lock attributes
+       shall be used; the effect is the same as passing the address of a
+       default read-write lock attributes object. Once initialized, the lock
+       can be used any number of times without being reinitialized. Results
+       are undefined if pthread_rwlock_init() is called specifying an
+       already initialized read-write lock. Results are undefined if a read-
+       write lock is used without first being initialized.
+       If the pthread_rwlock_init() function fails, rwlock shall not be
+       initialized and the contents of rwlock are undefined.
+       Only the object referenced by rwlock may be used for performing
+       synchronization. The result of referring to copies of that object in
+       calls to pthread_rwlock_destroy(), pthread_rwlock_rdlock(),
+       pthread_rwlock_timedrdlock(), pthread_rwlock_timedwrlock(),
+       pthread_rwlock_tryrdlock(), pthread_rwlock_trywrlock(),
+       pthread_rwlock_unlock(), or pthread_rwlock_wrlock() is undefined.
+       In cases where default read-write lock attributes are appropriate,
+       the macro PTHREAD_RWLOCK_INITIALIZER can be used to initialize read-
+       write locks. The effect shall be equivalent to dynamic initialization
+       by a call to pthread_rwlock_init() with the attr parameter specified
+       as NULL, except that no error checks are performed.
+       The behavior is undefined if the value specified by the attr argument
+       to pthread_rwlock_init() does not refer to an initialized read-write
+       lock attributes object.

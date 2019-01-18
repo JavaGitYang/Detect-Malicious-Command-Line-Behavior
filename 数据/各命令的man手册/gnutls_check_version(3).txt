@@ -1,0 +1,5 @@
+
+       Check the GnuTLS Library version against the provided string.  See
+       GNUTLS_VERSION for a suitable  req_version string.
+       See also gnutls_check_version_numeric(), which provides this
+       functionality as a macro.

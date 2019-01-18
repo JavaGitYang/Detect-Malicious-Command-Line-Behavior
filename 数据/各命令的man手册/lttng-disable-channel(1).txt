@@ -1,0 +1,10 @@
+
+       The lttng disable-channel command disables one or more channels
+       previously enabled by the lttng-enable-channel(1) command.
+       A channel is always contained in a tracing session (see
+       lttng-create(1) for creating a tracing session). The session in which
+       a channel is disabled using lttng disable-channel can be specified
+       using the --session option. If the --session option is omitted, the
+       current tracing session is targeted.
+       Note that re-enabling a disabled channel once its tracing session has
+       been active at least once is currently not supported.

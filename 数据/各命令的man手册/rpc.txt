@@ -1,0 +1,72 @@
+
+       To establish GSS security contexts using these credential files, the
+       Linux kernel RPC client depends on a userspace daemon called
+       rpc.gssd.  The rpc.gssd daemon uses the rpc_pipefs filesystem to
+       communicate with the kernel.
+   User Credentials
+       When a user authenticates using a command such as kinit(1), the
+       resulting credential is stored in a file with a well-known name
+       constructed using the user's UID.
+       To interact with an NFS server on behalf of a particular Kerberos-
+       authenticated user, the Linux kernel RPC client requests that
+       rpc.gssd initialize a security context with the credential in that
+       user's credential file.
+       Typically, credential files are placed in /tmp.  However, rpc.gssd
+       can search for credential files in more than one directory.  See the
+       description of the -d option for details.
+   Machine Credentials
+       A user credential is established by a user and is then shared with
+       the kernel and rpc.gssd.  A machine credential is established by
+       rpc.gssd for the kernel when there is no user.  Therefore rpc.gssd
+       must already have the materials on hand to establish this credential
+       without requiring user intervention.
+       rpc.gssd searches the local system's keytab for a principal and key
+       to use to establish the machine credential.  By default, rpc.gssd
+       assumes the file /etc/krb5.keytab contains principals and keys that
+       can be used to obtain machine credentials.
+       rpc.gssd searches in the following order for a principal to use.  The
+       first matching credential is used.  For the search, <hostname> and
+       <REALM> are replaced with the local system's hostname and Kerberos
+       realm.
+          <HOSTNAME>$@<REALM>
+          root/<hostname>@<REALM>
+          nfs/<hostname>@<REALM>
+          host/<hostname>@<REALM>
+          root/<anyname>@<REALM>
+          nfs/<anyname>@<REALM>
+          host/<anyname>@<REALM>
+       The <anyname> entries match on the service name and realm, but ignore
+       the hostname.  These can be used if a principal matching the local
+       host's name is not found.
+       Note that the first principal in the search order is a user principal
+       that enables Kerberized NFS when the local system is joined to an
+       Active Directory domain using Samba.  A password for this principal
+       must be provided in the local system's keytab.
+       You can specify another keytab by using the -k option if
+       /etc/krb5.keytab does not exist or does not provide one of these
+       principals.
+   Credentials for UID 0
+       UID 0 is a special case.  By default rpc.gssd uses the system's
+       machine credentials for UID 0 accesses that require GSS
+       authentication.  This limits the privileges of the root user when
+       accessing network resources that require authentication.
+       Specify the -n option when starting rpc.gssd if you'd like to force
+       the root user to obtain a user credential rather than use the local
+       system's machine credential.
+       When -n is specified, the kernel continues to request a GSS context
+       established with a machine credential for NFSv4 operations, such as
+       SETCLIENTID or RENEW, that manage state.  If rpc.gssd cannot obtain a
+       machine credential (say, the local system has no keytab), NFSv4
+       operations that require machine credentials will fail.
+   Encryption types
+       A realm administrator can choose to add keys encoded in a number of
+       different encryption types to the local system's keytab.  For
+       instance, a host/ principal might have keys for the aes256-cts-hmac-
+       sha1-96, aes128-cts-hmac-sha1-96, des3-cbc-sha1, and arcfour-hmac
+       encryption types.  This permits rpc.gssd to choose an appropriate
+       encryption type that the target NFS server supports.
+       These encryption types are stronger than legacy single-DES encryption
+       types.  To interoperate in environments where servers support only
+       weak encryption types, you can restrict your client to use only
+       single-DES encryption types by specifying the -l option when starting
+       rpc.gssd.

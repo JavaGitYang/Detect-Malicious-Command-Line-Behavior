@@ -1,0 +1,14 @@
+
+       git series tracks changes to a patch series over time.  git series
+       also tracks a cover letter for the patch series, formats the series
+       for email, and prepares pull requests.
+       Use git series start seriesname to start a patch series seriesname.
+       Use normal git commands to commit changes, and use git series status
+       to check what has changed.  Use git series cover to add or edit a
+       cover letter.  Use git series add and git series commit (or git
+       series commit -a) to commit changes to the patch series.  Use git
+       series rebase -i to help rework or reorganize the patch series.  Use
+       git series format to prepare the patch series to send via email, or
+       git series req to prepare a "please pull" mail.
+       Running git series without arguments shows the list of patch series,
+       marking the current patch series with a '*'.

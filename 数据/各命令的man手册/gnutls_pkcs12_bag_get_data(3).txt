@@ -1,0 +1,4 @@
+
+       This function will return the bag's data. The data is a constant that
+       is stored into the bag.  Should not be accessed after the bag is
+       deleted.

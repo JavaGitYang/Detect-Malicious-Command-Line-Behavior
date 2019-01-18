@@ -1,0 +1,4 @@
+
+       This function operates on authenticated encryption with associated
+       data (AEAD) ciphers and authenticate the input data. This function
+       can only be called once and before any encryption operations.

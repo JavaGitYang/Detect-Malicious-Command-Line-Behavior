@@ -1,0 +1,22 @@
+
+       The getpwent() function returns a pointer to a structure containing
+       the broken-out fields of a record from the password database (e.g.,
+       the local password file /etc/passwd, NIS, and LDAP).  The first time
+       getpwent() is called, it returns the first entry; thereafter, it
+       returns successive entries.
+       The setpwent() function rewinds to the beginning of the password
+       database.
+       The endpwent() function is used to close the password database after
+       all processing has been performed.
+       The passwd structure is defined in <pwd.h> as follows:
+           struct passwd {
+               char   *pw_name;       /* username */
+               char   *pw_passwd;     /* user password */
+               uid_t   pw_uid;        /* user ID */
+               gid_t   pw_gid;        /* group ID */
+               char   *pw_gecos;      /* user information */
+               char   *pw_dir;        /* home directory */
+               char   *pw_shell;      /* shell program */
+           };
+       For more information about the fields of this structure, see
+       passwd(5).

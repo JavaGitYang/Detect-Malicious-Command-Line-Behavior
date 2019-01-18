@@ -1,0 +1,9 @@
+
+       pmdaunbound is a Performance Metrics Domain Agent (PMDA) which
+       exports metric values about the Unbound DNS resolver using the
+       unbound-control(8) stats_noreset command.
+       This gives lots of insight into query types, response time, cache
+       hits/misses, etc. Please see the unbound-control(8) man page for
+       explanation about each statistics counter.
+       Further details on the Unbound DNS resolver can be found at
+       https://unbound.net/

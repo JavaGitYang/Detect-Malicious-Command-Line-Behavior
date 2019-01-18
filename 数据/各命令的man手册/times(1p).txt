@@ -1,0 +1,13 @@
+
+       The times utility shall write the accumulated user and system times
+       for the shell and for all of its child processes, in the following
+       POSIX locale format:
+           "%dm%fs %dm%fs\n%dm%fs %dm%fs\n", <shell user minutes>,
+               <shell user seconds>, <shell system minutes>,
+               <shell system seconds>, <children user minutes>,
+               <children user seconds>, <children system minutes>,
+               <children system seconds>
+       The four pairs of times shall correspond to the members of the
+       <sys/times.h> tms structure (defined in the Base Definitions volume
+       of POSIX.1‐2008, Chapter 13, Headers) as returned by times():
+       tms_utime, tms_stime, tms_cutime, and tms_cstime, respectively.

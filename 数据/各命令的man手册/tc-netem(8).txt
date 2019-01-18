@@ -1,0 +1,7 @@
+
+       NetEm is an enhancement of the Linux traffic control facilities that
+       allow to add delay, packet loss, duplication and more other
+       characteristics to packets outgoing from a selected network
+       interface. NetEm is built using the existing Quality Of Service (QOS)
+       and Differentiated Services (diffserv) facilities in the Linux
+       kernel.

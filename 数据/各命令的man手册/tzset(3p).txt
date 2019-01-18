@@ -1,0 +1,17 @@
+
+       The tzset() function shall use the value of the environment variable
+       TZ to set time conversion information used by ctime(3p),
+       localtime(3p), mktime(3p), and strftime(3p).  If TZ is absent from
+       the environment, implementation-defined default timezone information
+       shall be used.
+       The tzset() function shall set the external variable tzname as
+       follows:
+           tzname[0] = "std";
+           tzname[1] = "dst";
+       where std and dst are as described in the Base Definitions volume of
+       POSIX.1‐2008, Chapter 8, Environment Variables.
+       The tzset() function also shall set the external variable daylight to
+       0 if Daylight Savings Time conversions should never be applied for
+       the timezone in use; otherwise, non-zero. The external variable
+       timezone shall be set to the difference, in seconds, between
+       Coordinated Universal Time (UTC) and local standard time.

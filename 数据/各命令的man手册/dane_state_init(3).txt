@@ -1,0 +1,4 @@
+
+       This function will initialize the backend resolver. It is intended to
+       be used in scenarios where multiple resolvings occur, to optimize
+       against multiple re-initializations.

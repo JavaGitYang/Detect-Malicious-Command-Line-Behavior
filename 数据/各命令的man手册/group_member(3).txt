@@ -1,0 +1,3 @@
+
+       The group_member() function tests whether any of the caller's
+       supplementary group IDs (as returned by getgroups(2)) matches gid.

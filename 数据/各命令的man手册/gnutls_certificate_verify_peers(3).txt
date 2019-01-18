@@ -1,0 +1,23 @@
+
+       This function will verify the peer's certificate and store the the
+       status in the  status variable as a bitwise OR of
+       gnutls_certificate_status_t values or zero if the certificate is
+       trusted. Note that value in  status is set only when the return value
+       of this function is success (i.e, failure to trust a certificate does
+       not imply a negative return value).  The default verification flags
+       used by this function can be overridden using
+       gnutls_certificate_set_verify_flags(). See the documentation of
+       gnutls_certificate_verify_peers2() for details in the verification
+       process.
+       The acceptable  data types are GNUTLS_DT_DNS_HOSTNAME,
+       GNUTLS_DT_RFC822NAME and GNUTLS_DT_KEY_PURPOSE_OID.  The former two
+       accept as data a null-terminated hostname or email address, and the
+       latter a null-terminated object identifier (e.g.,
+       GNUTLS_KP_TLS_WWW_SERVER).
+       If a DNS hostname is provided then this function will compare the
+       hostname in the certificate against the given. If names do not match
+       the GNUTLS_CERT_UNEXPECTED_OWNER status flag will be set.  If a key
+       purpose OID is provided and the end-certificate contains the extended
+       key usage PKIX extension, it will be required to be have the provided
+       key purpose or be marked for any purpose, otherwise verification
+       status will have the GNUTLS_CERT_SIGNER_CONSTRAINTS_FAILURE flag set.

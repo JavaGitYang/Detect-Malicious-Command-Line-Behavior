@@ -1,0 +1,6 @@
+
+       The malloc_info() function exports an XML string that describes the
+       current state of the memory-allocation implementation in the caller.
+       The string is printed on the file stream stream.  The exported string
+       includes information about all arenas (see malloc(3)).
+       As currently implemented, options must be zero.

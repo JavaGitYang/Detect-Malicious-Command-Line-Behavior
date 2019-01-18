@@ -1,0 +1,13 @@
+
+       The function new_field allocates a new field and initializes it from
+       the parameters given: height, width, row of upper-left corner, column
+       of upper-left corner, number off-screen rows, and number of
+       additional working buffers.
+       The function dup_field duplicates a field at a new location.  Most
+       attributes (including current contents, size, validation type, buffer
+       count, growth threshold, justification, foreground, background, pad
+       character, options, and user pointer) are copied.  Field status and
+       the field page bit are not copied.
+       The function link_field acts like dup_field, but the new field shares
+       buffers with its parent.  Attribute data is separate.
+       The function free_field de-allocates storage associated with a field.

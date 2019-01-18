@@ -1,0 +1,5 @@
+
+       dh_gconf is a debhelper program that is responsible for installing
+       GConf defaults files and registering GConf schemas.
+       An appropriate dependency on gconf2 will be generated in
+       ${misc:Depends}.

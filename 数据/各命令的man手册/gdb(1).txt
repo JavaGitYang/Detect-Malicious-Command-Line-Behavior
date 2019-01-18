@@ -1,0 +1,62 @@
+
+       The purpose of a debugger such as GDB is to allow you to see what is
+       going on "inside" another program while it executes -- or what
+       another program was doing at the moment it crashed.
+       GDB can do four main kinds of things (plus other things in support of
+       these) to help you catch bugs in the act:
+       ·   Start your program, specifying anything that might affect its
+           behavior.
+       ·   Make your program stop on specified conditions.
+       ·   Examine what has happened, when your program has stopped.
+       ·   Change things in your program, so you can experiment with
+           correcting the effects of one bug and go on to learn about
+           another.
+       You can use GDB to debug programs written in C, C@t{++}, Fortran and
+       Modula-2.
+       GDB is invoked with the shell command "gdb".  Once started, it reads
+       commands from the terminal until you tell it to exit with the GDB
+       command "quit".  You can get online help from GDB itself by using the
+       command "help".
+       You can run "gdb" with no arguments or options; but the most usual
+       way to start GDB is with one argument or two, specifying an
+       executable program as the argument:
+               gdb program
+       You can also start with both an executable program and a core file
+       specified:
+               gdb program core
+       You can, instead, specify a process ID as a second argument, if you
+       want to debug a running process:
+               gdb program 1234
+               gdb -p 1234
+       would attach GDB to process 1234 (unless you also have a file named
+       1234; GDB does check for a core file first).  With option -p you can
+       omit the program filename.
+       Here are some of the most frequently needed GDB commands:
+       break [file:]function
+           Set a breakpoint at function (in file).
+       run [arglist]
+           Start your program (with arglist, if specified).
+       bt  Backtrace: display the program stack.
+       print expr
+           Display the value of an expression.
+       c   Continue running your program (after stopping, e.g. at a
+           breakpoint).
+       next
+           Execute next program line (after stopping); step over any
+           function calls in the line.
+       edit [file:]function
+           look at the program line where it is presently stopped.
+       list [file:]function
+           type the text of the program in the vicinity of where it is
+           presently stopped.
+       step
+           Execute next program line (after stopping); step into any
+           function calls in the line.
+       help [name]
+           Show information about GDB command name, or general information
+           about using GDB.
+       quit
+           Exit from GDB.
+       For full details on GDB, see Using GDB: A Guide to the GNU Source-
+       Level Debugger, by Richard M. Stallman and Roland H. Pesch.  The same
+       text is available online as the "gdb" entry in the "info" program.

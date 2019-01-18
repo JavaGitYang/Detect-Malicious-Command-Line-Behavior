@@ -1,0 +1,18 @@
+
+     The acl_calc_mask() function calculates and sets the permissions asso‐
+     ciated with the ACL_MASK ACL entry of the ACL referred to by acl_p.
+     The value of the new permissions is the union of the permissions
+     granted by all entries of tag type ACL_GROUP, ACL_GROUP_OBJ, or
+     ACL_USER.  If the ACL referred to by acl_p already contains an ACL_MASK
+     entry, its permissions are overwritten; if it does not contain an
+     ACL_MASK entry, one is added.
+     If the ACL referred to by acl_p does not contain enough space for the
+     new ACL entry, then additional working storage may be allocated. If the
+     working storage cannot be increased in the current location, then it
+     may be relocated and the previous working storage is released and a
+     pointer to the new working storage is returned via acl_p.
+     The order of existing entries in the ACL is undefined after this func‐
+     tion.
+     Any existing ACL entry descriptors that refer to entries in the ACL
+     continue to refer to those entries. Any existing ACL pointers that
+     refer to the ACL referred to by acl_p continue to refer to the ACL.

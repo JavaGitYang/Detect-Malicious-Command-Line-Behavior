@@ -1,0 +1,6 @@
+
+       This function will try to verify the given certificate and return its
+       status. The  voutput parameter will hold an OR'ed sequence of
+       gnutls_certificate_status_t flags.
+       The details of the verification are the same as in
+       gnutls_x509_trust_list_verify_crt2().

@@ -1,0 +1,7 @@
+
+       ldapmodrdn is a shell-accessible interface to the ldap_rename(3)
+       library call.
+       ldapmodrdn opens a connection to an LDAP server, binds, and modifies
+       the RDN of entries.  The entry information is read from standard
+       input, from file through the use of the -f option, or from the
+       command-line pair dn and rdn.

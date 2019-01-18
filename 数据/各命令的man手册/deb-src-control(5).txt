@@ -1,0 +1,14 @@
+
+       Each Debian source package contains the master «control» file, which
+       contains at least 2 paragraphs, separated by a blank line.  The first
+       paragraph lists all information about the source package in general,
+       while each following paragraph describes exactly one binary package.
+       Each paragraph consists of at least one field. A field starts with a
+       fieldname, such as Package or Section (case insensitive), followed by
+       a colon, the body of the field and a newline.  Multi-line fields are
+       also allowed, but each supplementary line, without a fieldname,
+       should start with at least one space. The content of the multi-line
+       fields is generally joined to a single line by the tools (except in
+       the case of the Description field, see below). To insert empty lines
+       into a multi-line field, insert a dot after the space.  Lines
+       starting with a ‘#’ are treated as comments.

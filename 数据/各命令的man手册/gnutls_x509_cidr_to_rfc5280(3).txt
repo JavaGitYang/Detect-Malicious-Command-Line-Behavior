@@ -1,0 +1,9 @@
+
+       This function will convert text CIDR range with prefix (such as
+       '10.0.0.0/8') to RFC5280 (IP address in network byte order followed
+       by its network mask).  Works for both IPv4 and IPv6.
+       The resulting object is directly usable for IP name constraints
+       usage, for example in functions
+       gnutls_x509_name_constraints_add_permitted or
+       gnutls_x509_name_constraints_add_excluded.
+       The data in datum needs to be deallocated using gnutls_free().

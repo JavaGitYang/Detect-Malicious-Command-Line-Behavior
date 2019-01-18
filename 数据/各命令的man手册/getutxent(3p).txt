@@ -1,0 +1,2 @@
+
+       Refer to endutxent(3p).

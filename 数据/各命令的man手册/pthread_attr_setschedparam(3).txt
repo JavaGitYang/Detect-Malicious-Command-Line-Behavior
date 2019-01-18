@@ -1,0 +1,20 @@
+
+       The pthread_attr_setschedparam() function sets the scheduling
+       parameter attributes of the thread attributes object referred to by
+       attr to the values specified in the buffer pointed to by param.
+       These attributes determine the scheduling parameters of a thread
+       created using the thread attributes object attr.
+       The pthread_attr_getschedparam() returns the scheduling parameter
+       attributes of the thread attributes object attr in the buffer pointed
+       to by param.
+       Scheduling parameters are maintained in the following structure:
+           struct sched_param {
+               int sched_priority;     /* Scheduling priority */
+           };
+       As can be seen, only one scheduling parameter is supported.  For
+       details of the permitted ranges for scheduling priorities in each
+       scheduling policy, see sched(7).
+       In order for the parameter setting made by pthread_attr_setsched‐
+       param() to have effect when calling pthread_create(3), the caller
+       must use pthread_attr_setinheritsched(3) to set the inherit-scheduler
+       attribute of the attributes object attr to PTHREAD_EXPLICIT_SCHED.

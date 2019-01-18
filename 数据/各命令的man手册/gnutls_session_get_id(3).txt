@@ -1,0 +1,8 @@
+
+       Returns the current session ID. This can be used if you want to check
+       if the next session you tried to resume was actually resumed.  That
+       is because resumed sessions share the same session ID with the
+       original session.
+       The session ID is selected by the server, that identify the current
+       session.  In all supported TLS protocols, the session id is less than
+       GNUTLS_MAX_SESSION_ID_SIZE.

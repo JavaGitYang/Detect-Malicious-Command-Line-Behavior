@@ -1,0 +1,35 @@
+
+       As part of the Performance Metrics Domain Agent (PMDA) API (see
+       PMDA(3)), pmdaLabel uses the standard PMDA(3) data structures to
+       return the labels for performance domain, instance domain, metric or
+       individual instances in "JSONB" format in the given sets data
+       structure.
+       The type argument determines the interpretation of ident and the
+       requested form of label, as follows:
+       PM_LABEL_DOMAIN
+           when ident is a PMDA domain identifier,
+       PM_LABEL_CLUSTER
+           when ident is a metric identifier and labels for the cluster
+           containing that metric are being requested.
+       PM_LABEL_ITEM
+           when ident is a metric identifier,
+       PM_LABEL_INDOM
+           when ident is an instance domain identifier, or
+       PM_LABEL_INSTANCES
+           when ident is a metric identifier and labels for all instances of
+           that metric are being requested.
+       The label sets pointer must be initialised to NULL before calling
+       pmdaLabel and space is only to be allocated when labels are present
+       and returned.  In this case, the return code must indicate the number
+       of label sets that have been allocated.  This will only ever be
+       greater than one in the PM_LABEL_INSTANCES case.
+       This is one of the few generic callbacks in libpcp_pmda (see PMDA(3))
+       that is incomplete, requiring a further pmdaLabelCallBack method of
+       its own.  The additional callback should be registered using
+       pmdaSetLabelCallBack and the pmdaLabelCallBack method has the
+       following prototype:
+       int func(pmInDom indom, unsigned int inst, pmLabelSet **set)
+       The purpose of the pmdaLabelCallBack routine is to return the
+       label(s) for an individual instance inst of a given instance domain,
+       indom.  Its successful return code differs significantly to
+       pmdaLabel, as described below.

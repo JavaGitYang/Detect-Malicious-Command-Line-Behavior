@@ -1,0 +1,7 @@
+
+       The ptsname() function returns the name of the slave pseudoterminal
+       device corresponding to the master referred to by fd.
+       The ptsname_r() function is the reentrant equivalent of ptsname().
+       It returns the name of the slave pseudoterminal device as a null-
+       terminated string in the buffer pointed to by buf.  The buflen
+       argument specifies the number of bytes available in buf.

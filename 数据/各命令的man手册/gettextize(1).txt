@@ -1,0 +1,2 @@
+
+       Prepares a source package to use gettext.

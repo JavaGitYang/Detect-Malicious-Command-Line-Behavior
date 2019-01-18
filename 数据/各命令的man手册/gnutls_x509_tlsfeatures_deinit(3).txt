@@ -1,0 +1,3 @@
+
+       This function will deinitialize a X.509 TLS features extension
+       structure

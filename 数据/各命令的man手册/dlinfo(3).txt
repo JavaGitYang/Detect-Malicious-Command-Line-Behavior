@@ -1,0 +1,81 @@
+
+       The dlinfo() function obtains information about the dynamically
+       loaded object referred to by handle (typically obtained by an earlier
+       call to dlopen(3) or dlmopen(3)).  The request argument specifies
+       which information is to be returned.  The info argument is a pointer
+       to a buffer used to store information returned by the call; the type
+       of this argument depends on request.
+       The following values are supported for request (with the
+       corresponding type for info shown in parentheses):
+       RTLD_DI_LMID (Lmid_t *)
+              Obtain the ID of the link-map list (namespace) in which handle
+              is loaded.
+       RTLD_DI_LINKMAP (struct link_map **)
+              Obtain a pointer to the link_map structure corresponding to
+              handle.  The info argument points to a pointer to a link_map
+              structure, defined in <link.h> as:
+                  struct link_map {
+                      ElfW(Addr) l_addr;  /* Difference between the
+                                             address in the ELF file and
+                                             the address in memory */
+                      char      *l_name;  /* Absolute pathname where
+                                             object was found */
+                      ElfW(Dyn) *l_ld;    /* Dynamic section of the
+                                             shared object */
+                      struct link_map *l_next, *l_prev;
+                                          /* Chain of loaded objects */
+                      /* Plus additional fields private to the
+                         implementation */
+                  };
+       RTLD_DI_ORIGIN (char *)
+              Copy the pathname of the origin of the shared object corre‐
+              sponding to handle to the location pointed to by info.
+       RTLD_DI_SERINFO (Dl_serinfo *)
+              Obtain the library search paths for the shared object referred
+              to by handle.  The info argument is a pointer to a Dl_serinfo
+              that contains the search paths.  Because the number of search
+              paths may vary, the size of the structure pointed to by info
+              can vary.  The RTLD_DI_SERINFOSIZE request described below
+              allows applications to size the buffer suitably.  The caller
+              must perform the following steps:
+              1. Use a RTLD_DI_SERINFOSIZE request to populate a Dl_serinfo
+                 structure with the size (dls_size) of the structure needed
+                 for the subsequent RTLD_DI_SERINFO request.
+              2. Allocate a Dl_serinfo buffer of the correct size
+                 (dls_size).
+              3. Use a further RTLD_DI_SERINFOSIZE request to populate the
+                 dls_size and dls_cnt fields of the buffer allocated in the
+                 previous step.
+              4. Use a RTLD_DI_SERINFO to obtain the library search paths.
+              The Dl_serinfo structure is defined as follows:
+                  typedef struct {
+                      size_t dls_size;           /* Size in bytes of
+                                                    the whole buffer */
+                      unsigned int dls_cnt;      /* Number of elements
+                                                    in 'dls_serpath' */
+                      Dl_serpath dls_serpath[1]; /* Actually longer,
+                                                    'dls_cnt' elements */
+                  } Dl_serinfo;
+              Each of the dls_serpath elements in the above structure is a
+              structure of the following form:
+                  typedef struct {
+                      char *dls_name;            /* Name of library search
+                                                    path directory */
+                      unsigned int dls_flags;    /* Indicates where this
+                                                    directory came from */
+                  } Dl_serpath;
+              The dls_flags field is currently unused, and always contains
+              zero.
+       RTLD_DI_SERINFOSIZE (Dl_serinfo *)
+              Populate the dls_size and dls_cnt fields of the Dl_serinfo
+              structure pointed to by info with values suitable for allocat‐
+              ing a buffer for use in a subsequent RTLD_DI_SERINFO request.
+       RTLD_DI_TLS_MODID (size_t *, since glibc 2.4)
+              Obtain the module ID of this shared object's TLS (thread-local
+              storage) segment, as used in TLS relocations.  If this object
+              does not define a TLS segment, zero is placed in *info.
+       RTLD_DI_TLS_DATA (void **, since glibc 2.4)
+              Obtain a pointer to the calling thread's TLS block correspond‐
+              ing to this shared object's TLS segment.  If this object does
+              not define a PT_TLS segment, or if the calling thread has not
+              allocated a block for it, NULL is placed in *info.

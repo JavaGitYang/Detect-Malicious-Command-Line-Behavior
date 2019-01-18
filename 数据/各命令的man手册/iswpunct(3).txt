@@ -1,0 +1,16 @@
+
+       The iswpunct() function is the wide-character equivalent of the
+       ispunct(3) function.  It tests whether wc is a wide character
+       belonging to the wide-character class "punct".
+       The wide-character class "punct" is a subclass of the wide-character
+       class "graph", and therefore also a subclass of the wide-character
+       class "print".
+       The wide-character class "punct" is disjoint from the wide-character
+       class "alnum" and therefore also disjoint from its subclasses
+       "alpha", "upper", "lower", "digit", "xdigit".
+       Being a subclass of the wide-character class "print", the wide-
+       character class "punct" is disjoint from the wide-character class
+       "cntrl".
+       Being a subclass of the wide-character class "graph", the wide-
+       character class "punct" is disjoint from the wide-character class
+       "space" and its subclass "blank".

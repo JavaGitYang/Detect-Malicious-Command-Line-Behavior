@@ -1,0 +1,31 @@
+
+       systemd-suspend.service is a system service that is pulled in by
+       suspend.target and is responsible for the actual system suspend.
+       Similarly, systemd-hibernate.service is pulled in by hibernate.target
+       to execute the actual hibernation. Finally,
+       systemd-hybrid-sleep.service is pulled in by hybrid-sleep.target to
+       execute hybrid hibernation with system suspend.
+       Immediately before entering system suspend and/or hibernation
+       systemd-suspend.service (and the other mentioned units, respectively)
+       will run all executables in /usr/lib/systemd/system-sleep/ and pass
+       two arguments to them. The first argument will be "pre", the second
+       either "suspend", "hibernate", or "hybrid-sleep" depending on the
+       chosen action. Immediately after leaving system suspend and/or
+       hibernation the same executables are run, but the first argument is
+       now "post". All executables in this directory are executed in
+       parallel, and execution of the action is not continued until all
+       executables have finished.
+       Note that scripts or binaries dropped in
+       /usr/lib/systemd/system-sleep/ are intended for local use only and
+       should be considered hacks. If applications want to react to system
+       suspend/hibernation and resume, they should rather use the Inhibitor
+       interface[1].
+       Note that systemd-suspend.service, systemd-hibernate.service, and
+       systemd-hybrid-sleep.service should never be executed directly.
+       Instead, trigger system sleep states with a command such as
+       "systemctl suspend" or similar.
+       Internally, this service will echo a string like "mem" into
+       /sys/power/state, to trigger the actual system suspend. What exactly
+       is written where can be configured in the "[Sleep]" section of
+       /etc/systemd/sleep.conf or a sleep.conf.d file. See
+       systemd-sleep.conf(5).

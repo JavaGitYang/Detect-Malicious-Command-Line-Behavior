@@ -1,0 +1,8 @@
+
+       lxc-snapshot creates, lists, and restores container snapshots.
+       Snapshots are stored as snapshotted containers under the container's
+       configuration path. For instance, if the container's configuration
+       path is /var/lib/lxc and the container is c1, then the first snapshot
+       will be stored as container snap0 under the path
+       /var/lib/lxc/c1/snaps.  If /var/lib/lxcsnaps, as used by LXC 1.0,
+       already exists, then it will continue to be used.

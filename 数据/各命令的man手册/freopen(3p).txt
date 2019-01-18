@@ -1,0 +1,43 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The freopen() function shall first attempt to flush the stream
+       associated with stream as if by a call to fflush(stream).  Failure to
+       flush the stream successfully shall be ignored. If pathname is not a
+       null pointer, freopen() shall close any file descriptor associated
+       with stream.  Failure to close the file descriptor successfully shall
+       be ignored.  The error and end-of-file indicators for the stream
+       shall be cleared.
+       The freopen() function shall open the file whose pathname is the
+       string pointed to by pathname and associate the stream pointed to by
+       stream with it. The mode argument shall be used just as in fopen().
+       The original stream shall be closed regardless of whether the
+       subsequent open succeeds.
+       If pathname is a null pointer, the freopen() function shall attempt
+       to change the mode of the stream to that specified by mode, as if the
+       name of the file currently associated with the stream had been used.
+       In this case, the file descriptor associated with the stream need not
+       be closed if the call to freopen() succeeds. It is implementation-
+       defined which changes of mode are permitted (if any), and under what
+       circumstances.
+       After a successful call to the freopen() function, the orientation of
+       the stream shall be cleared, the encoding rule shall be cleared, and
+       the associated mbstate_t object shall be set to describe an initial
+       conversion state.
+       If pathname is not a null pointer, or if pathname is a null pointer
+       and the specified mode change necessitates the file descriptor
+       associated with the stream to be closed and reopened, the file
+       descriptor associated with the reopened stream shall be allocated and
+       opened as if by a call to open() with the following flags:
+                  ┌─────────────────┬───────────────────────────┐
+                  │ freopen() Mode  │       open() Flags        │
+                  ├─────────────────┼───────────────────────────┤
+                  │r or rb          │ O_RDONLY                  │
+                  │w or wb          │ O_WRONLY|O_CREAT|O_TRUNC  │
+                  │a or ab          │ O_WRONLY|O_CREAT|O_APPEND │
+                  │r+ or rb+ or r+b │ O_RDWR                    │
+                  │w+ or wb+ or w+b │ O_RDWR|O_CREAT|O_TRUNC    │
+                  │a+ or ab+ or a+b │ O_RDWR|O_CREAT|O_APPEND   │
+                  └─────────────────┴───────────────────────────┘

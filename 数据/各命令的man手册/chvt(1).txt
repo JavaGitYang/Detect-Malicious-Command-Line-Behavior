@@ -1,0 +1,6 @@
+
+       The command chvt N makes /dev/ttyN the foreground terminal.  (The
+       corresponding screen is created if it did not exist yet.  To get rid
+       of unused VTs, use deallocvt(1).)  The key combination
+       (Ctrl-)LeftAlt-FN (with N in the range 1-12) usually has a similar
+       effect.

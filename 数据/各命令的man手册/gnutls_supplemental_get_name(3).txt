@@ -1,0 +1,2 @@
+
+       Convert a gnutls_supplemental_data_format_type_t value to a string.

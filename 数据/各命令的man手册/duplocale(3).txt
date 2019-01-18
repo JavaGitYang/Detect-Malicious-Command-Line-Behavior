@@ -1,0 +1,5 @@
+
+       The duplocale() function creates a duplicate of the locale object
+       referred to by locobj.
+       If locobj is LC_GLOBAL_LOCALE, duplocale() creates a locale object
+       containing a copy of the global locale determined by setlocale(3).

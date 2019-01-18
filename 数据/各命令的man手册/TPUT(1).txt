@@ -1,0 +1,137 @@
+
+       The @TPUT@ utility uses the terminfo database to make the values of
+       terminal-dependent capabilities and information available to the
+       shell (see sh(1)), to initialize or reset the terminal, or return the
+       long name of the requested terminal type.  The result depends upon
+       the capability's type:
+          string
+               @TPUT@ writes the string to the standard output.  No trailing
+               newline is supplied.
+          integer
+               @TPUT@ writes the decimal value to the standard output, with
+               a trailing newline.
+          boolean
+               @TPUT@ simply sets the exit code (0 for TRUE if the terminal
+               has the capability, 1 for FALSE if it does not), and writes
+               nothing to the standard output.
+       Before using a value returned on the standard output, the application
+       should test the exit code (e.g., $?, see sh(1)) to be sure it is 0.
+       (See the EXIT CODES and DIAGNOSTICS sections.)  For a complete list
+       of capabilities and the capname associated with each, see
+       terminfo(5).
+   Options
+       -S     allows more than one capability per invocation of @TPUT@.  The
+              capabilities must be passed to @TPUT@ from the standard input
+              instead of from the command line (see example).  Only one
+              capname is allowed per line.  The -S option changes the
+              meaning of the 0 and 1 boolean and string exit codes (see the
+              EXIT CODES section).
+              Because some capabilities may use string parameters rather
+              than numbers, @TPUT@ uses a table and the presence of
+              parameters in its input to decide whether to use tparm(3X),
+              and how to interpret the parameters.
+       -Ttype indicates the type of terminal.  Normally this option is
+              unnecessary, because the default is taken from the environment
+              variable TERM.  If -T is specified, then the shell variables
+              LINES and COLUMNS will also be ignored.
+       -V     reports the version of ncurses which was used in this program,
+              and exits.
+       -x     do not attempt to clear the terminal's scrollback buffer using
+              the extended “E3” capability.
+   Commands
+       A few commands (init, reset and longname) are special; they are
+       defined by the @TPUT@ program.  The others are the names of
+       capabilities from the terminal database (see terminfo(5) for a list).
+       Although init and reset resemble capability names, @TPUT@ uses
+       several capabilities to perform these special functions.
+       capname
+              indicates the capability from the terminal database.
+              If the capability is a string that takes parameters, the
+              arguments following the capability will be used as parameters
+              for the string.
+              Most parameters are numbers.  Only a few terminal capabilities
+              require string parameters; @TPUT@ uses a table to decide which
+              to pass as strings.  Normally @TPUT@ uses tparm(3X) to perform
+              the substitution.  If no parameters are given for the
+              capability, @TPUT@ writes the string without performing the
+              substitution.
+       init   If the terminal database is present and an entry for the
+              user's terminal exists (see -Ttype, above), the following will
+              occur:
+              (1)  first, @TPUT@ retrieves the current terminal mode
+                   settings for your terminal.  It does this by successively
+                   testing
+                   ·   the standard error,
+                   ·   standard output,
+                   ·   standard input and
+                   ·   ultimately “/dev/tty”
+                   to obtain terminal settings.  Having retrieved these
+                   settings, @TPUT@ remembers which file descriptor to use
+                   when updating settings.
+              (2)  if the window size cannot be obtained from the operating
+                   system, but the terminal description (or environment,
+                   e.g., LINES and COLUMNS variables specify this), update
+                   the operating system's notion of the window size.
+              (3)  the terminal modes will be updated:
+                   ·   any delays (e.g., newline) specified in the entry
+                       will be set in the tty driver,
+                   ·   tabs expansion will be turned on or off according to
+                       the specification in the entry, and
+                   ·   if tabs are not expanded, standard tabs will be set
+                       (every 8 spaces).
+              (4)  if present, the terminal's initialization strings will be
+                   output as detailed in the terminfo(5) section on Tabs and
+                   Initialization,
+              (5)  output is flushed.
+              If an entry does not contain the information needed for any of
+              these activities, that activity will silently be skipped.
+       reset  This is similar to init, with two differences:
+              (1)  before any other initialization, the terminal modes will
+                   be reset to a “sane” state:
+                   ·   set cooked and echo modes,
+                   ·   turn off cbreak and raw modes,
+                   ·   turn on newline translation and
+                   ·   reset any unset special characters to their default
+                       values
+              (2)  Instead of putting out initialization strings, the
+                   terminal's reset strings will be output if present (rs1,
+                   rs2, rs3, rf).  If the reset strings are not present, but
+                   initialization strings are, the initialization strings
+                   will be output.
+              Otherwise, reset acts identically to init.
+       longname
+              If the terminal database is present and an entry for the
+              user's terminal exists (see -Ttype above), then the long name
+              of the terminal will be put out.  The long name is the last
+              name in the first line of the terminal's description in the
+              terminfo database [see term(5)].
+   Aliases
+       @TPUT@ handles the clear, init and reset commands specially: it
+       allows for the possibility that it is invoked by a link with those
+       names.
+       If @TPUT@ is invoked by a link named reset, this has the same effect
+       as @TPUT@ reset.  The @TSET@(1) utility also treats a link named
+       reset specially.
+       Before ncurses 6.1, the two utilities were different from each other:
+       ·   @TSET@ utility reset the terminal modes and special characters
+           (not done with @TPUT@).
+       ·   On the other hand, @TSET@'s repertoire of terminal capabilities
+           for resetting the terminal was more limited, i.e., only
+           reset_1string, reset_2string and reset_file in contrast to the
+           tab-stops and margins which are set by this utility.
+       ·   The reset program is usually an alias for @TSET@, because of this
+           difference with resetting terminal modes and special characters.
+       With the changes made for ncurses 6.1, the reset feature of the two
+       programs is (mostly) the same.  A few differences remain:
+       ·   The @TSET@ program waits one second when resetting, in case it
+           happens to be a hardware terminal.
+       ·   The two programs write the terminal initialization strings to
+           different streams (i.e.,. the standard error for @TSET@ and the
+           standard output for @TPUT@).
+           Note: although these programs write to different streams,
+           redirecting their output to a file will capture only part of
+           their actions.  The changes to the terminal modes are not
+           affected by redirecting the output.
+       If @TPUT@ is invoked by a link named init, this has the same effect
+       as @TPUT@ init.  Again, you are less likely to use that link because
+       another program named init has a more well-established use.

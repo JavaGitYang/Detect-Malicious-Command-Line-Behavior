@@ -1,0 +1,7 @@
+
+       The LDAP Data Interchange Format (LDIF) is used to represent LDAP
+       entries and change records in text form. LDAP tools, such as
+       ldapadd(1) and ldapsearch(1), read and write LDIF entry records.
+       ldapmodify(1) reads LDIF change records.
+       This manual page provides a basic description of LDIF.  A formal
+       specification of LDIF is published in RFC 2849.

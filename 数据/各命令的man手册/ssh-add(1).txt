@@ -1,0 +1,49 @@
+
+     ssh-add adds private key identities to the authentication agent,
+     ssh-agent(1).  When run without arguments, it adds the files
+     ~/.ssh/id_rsa, ~/.ssh/id_dsa, ~/.ssh/id_ecdsa, and ~/.ssh/id_ed25519.
+     After loading a private key, ssh-add will try to load corresponding
+     certificate information from the filename obtained by appending
+     -cert.pub to the name of the private key file.  Alternative file names
+     can be given on the command line.
+     If any file requires a passphrase, ssh-add asks for the passphrase from
+     the user.  The passphrase is read from the user's tty.  ssh-add retries
+     the last passphrase if multiple identity files are given.
+     The authentication agent must be running and the SSH_AUTH_SOCK environ‐
+     ment variable must contain the name of its socket for ssh-add to work.
+     The options are as follows:
+     -c      Indicates that added identities should be subject to confirma‐
+             tion before being used for authentication.  Confirmation is
+             performed by ssh-askpass(1).  Successful confirmation is sig‐
+             naled by a zero exit status from ssh-askpass(1), rather than
+             text entered into the requester.
+     -D      Deletes all identities from the agent.
+     -d      Instead of adding identities, removes identities from the
+             agent.  If ssh-add has been run without arguments, the keys for
+             the default identities and their corresponding certificates
+             will be removed.  Otherwise, the argument list will be inter‐
+             preted as a list of paths to public key files to specify keys
+             and certificates to be removed from the agent.  If no public
+             key is found at a given path, ssh-add will append .pub and
+             retry.
+     -E fingerprint_hash
+             Specifies the hash algorithm used when displaying key finger‐
+             prints.  Valid options are: “md5” and “sha256”.  The default is
+             “sha256”.
+     -e pkcs11
+             Remove keys provided by the PKCS#11 shared library pkcs11.
+     -k      When loading keys into or deleting keys from the agent, process
+             plain private keys only and skip certificates.
+     -L      Lists public key parameters of all identities currently repre‐
+             sented by the agent.
+     -l      Lists fingerprints of all identities currently represented by
+             the agent.
+     -q      Be quiet after a successful operation.
+     -s pkcs11
+             Add keys provided by the PKCS#11 shared library pkcs11.
+     -t life
+             Set a maximum lifetime when adding identities to an agent.  The
+             lifetime may be specified in seconds or in a time format speci‐
+             fied in sshd_config(5).
+     -X      Unlock the agent.
+     -x      Lock the agent with a password.

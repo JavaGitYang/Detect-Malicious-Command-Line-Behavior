@@ -1,0 +1,24 @@
+
+       Each instance of the Performance Co-Pilot (PCP) archive logger
+       program pmlogger(1) supports a control port on which
+       __pmControlLog(3) requests are received, and responses sent.
+       Optionally, the pmlogger(1) instance may be designated the
+       ``primary'' logger.
+       __pmConnectLogger may be used to establish a control port connection
+       to the pmlogger(1) instance identified by process id pid on the host
+       hostname.
+       One special case is supported; for the reserved pid value of
+       PM_LOG_CONTROL_PORT the requested connection is to the control port
+       for the ``primary'' logger, whatever its process id might be.
+       On success, __pmConnectLogger returns a non-negative integer, that is
+       a file descriptor that may be used in subsequent communication with
+       the pmlogger(1) instance, e.g. for __pmControlLog(3).
+       As the control port to pmlogger(1) is not mulitplexed, applications
+       using __pmConnectLogger should use close(2) to terminate the
+       connection to pmlogger(1) as soon as they have finished
+       communicating.
+       If the application connects, and the pmlogger(1) instance
+       subsequently terminates, e.g. because the associated pmcd(1) instance
+       is terminated, the application will have to explicitly re-establish
+       connection to a re-started pmlogger(1) instance by calling
+       __pmConnectLogger again.

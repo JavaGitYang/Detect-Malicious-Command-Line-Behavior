@@ -1,0 +1,12 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The wcsncmp() function shall compare not more than n wide-character
+       codes (wide-character codes that follow a null wide-character code
+       are not compared) from the array pointed to by ws1 to the array
+       pointed to by ws2.
+       The sign of a non-zero return value shall be determined by the sign
+       of the difference between the values of the first pair of wide-
+       character codes that differ in the objects being compared.

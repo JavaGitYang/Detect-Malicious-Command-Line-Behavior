@@ -1,0 +1,22 @@
+
+       pcap_open_offline() and pcap_open_offline_with_tstamp_precision() are
+       called to open a ``savefile'' for reading.
+       fname specifies the name of the file to open. The file can have the
+       pcap file format as described in pcap-savefile(5), which is the file
+       format used by, among other programs, tcpdump(1) and tcpslice(1), or
+       can have the pcapng file format, although not all pcapng files can be
+       read.  The name "-" is a synonym for stdin.
+       pcap_open_offline_with_tstamp_precision() takes an additional
+       precision argument specifying the time stamp precision desired; if
+       PCAP_TSTAMP_PRECISION_MICRO is specified, packet time stamps will be
+       supplied in seconds and microseconds, and if
+       PCAP_TSTAMP_PRECISION_NANO is specified, packet time stamps will be
+       supplied in seconds and nanoseconds.  If the time stamps in the file
+       do not have the same precision as the requested precision, they will
+       be scaled up or down as necessary before being supplied.
+       Alternatively, you may call pcap_fopen_offline() or
+       pcap_fopen_offline_with_tstamp_precision() to read dumped data from
+       an existing open stream fp.
+       pcap_fopen_offline_with_tstamp_precision() takes an additional
+       precision argument as described above.  Note that on Windows, that
+       stream should be opened in binary mode.

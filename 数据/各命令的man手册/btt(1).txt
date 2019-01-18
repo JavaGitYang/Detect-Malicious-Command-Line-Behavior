@@ -1,0 +1,16 @@
+
+       btt is a post-processing tool for the block layer IO tracing tool
+       called blktrace(8).  As noted in its documentation, blktrace is a
+       block layer IO tracing mechanism which provides detailed information
+       about request queue operations up to user space.
+       btt will take in binary dump data from blkparse, and analyse the
+       events, producing a series of output from the analysis. It will also
+       build .dat files containing "range data" -- showing things like Q
+       activity (periods of time while Q events are being produced), C
+       activity (likewise for command completions), and etc.
+       Included with the distribution is a simple 3D plotting utility,
+       bno_plot, which can plot the block numbers btt outputs if the -B
+       option is specified. The display will display each IO generated, with
+       the time (seconds) along the X-axis, the block number (start) along
+       the Y-axis and the number of blocks transferred in the IO represented
+       along the Z-axis.

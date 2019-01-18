@@ -1,0 +1,17 @@
+
+       An application using the Performance Metrics Application Programming
+       Interface (PMAPI) may manipulate several concurrent contexts, each
+       associated with a source of performance metrics, e.g. pmcd(1) on some
+       host, or an archive log of performance metrics as created by
+       pmlogger(1).
+       pmDestroyContext destroys the PMAPI context identified by handle.
+       Typically this would imply some termination of a connection to a PMCD
+       or closing an archive log file, and orderly clean-up.
+       The context must have been previously created using pmNewContext(3)
+       or pmDupContext(3).
+       On success, pmDestroyContext returns zero.  If handle was the current
+       PMAPI context, then the current context becomes undefined.  This
+       means the application must explicitly re-establish a valid PMAPI
+       context with pmUseContext(3), or create a new context with
+       pmNewContext(3) or pmDupContext(3), before the next PMAPI operation
+       that requires a PMAPI context.

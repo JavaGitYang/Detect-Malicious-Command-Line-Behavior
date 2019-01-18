@@ -1,0 +1,32 @@
+
+       The posix_fadvise() function shall advise the implementation on the
+       expected behavior of the application with respect to the data in the
+       file associated with the open file descriptor, fd, starting at offset
+       and continuing for len bytes. The specified range need not currently
+       exist in the file. If len is zero, all data following offset is
+       specified. The implementation may use this information to optimize
+       handling of the specified data. The posix_fadvise() function shall
+       have no effect on the semantics of other operations on the specified
+       data, although it may affect the performance of other operations.
+       The advice to be applied to the data is specified by the advice
+       parameter and may be one of the following values:
+       POSIX_FADV_NORMAL
+             Specifies that the application has no advice to give on its
+             behavior with respect to the specified data. It is the default
+             characteristic if no advice is given for an open file.
+       POSIX_FADV_SEQUENTIAL
+             Specifies that the application expects to access the specified
+             data sequentially from lower offsets to higher offsets.
+       POSIX_FADV_RANDOM
+             Specifies that the application expects to access the specified
+             data in a random order.
+       POSIX_FADV_WILLNEED
+             Specifies that the application expects to access the specified
+             data in the near future.
+       POSIX_FADV_DONTNEED
+             Specifies that the application expects that it will not access
+             the specified data in the near future.
+       POSIX_FADV_NOREUSE
+             Specifies that the application expects to access the specified
+             data once and then not reuse it thereafter.
+       These values are defined in <fcntl.h>.

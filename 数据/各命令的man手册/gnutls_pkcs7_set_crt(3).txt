@@ -1,0 +1,4 @@
+
+       This function will add a parsed certificate to the PKCS7 or RFC2630
+       certificate set.  This is a wrapper function over
+       gnutls_pkcs7_set_crt_raw() .

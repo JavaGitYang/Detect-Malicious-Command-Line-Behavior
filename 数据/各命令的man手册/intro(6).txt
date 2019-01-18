@@ -1,0 +1,3 @@
+
+       Section 6 of the manual describes the games and funny little programs
+       available on the system.

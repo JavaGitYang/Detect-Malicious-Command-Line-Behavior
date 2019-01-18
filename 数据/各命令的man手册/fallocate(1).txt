@@ -1,0 +1,8 @@
+
+       fallocate is used to manipulate the allocated disk space for a file,
+       either to deallocate or preallocate it.  For filesystems which
+       support the fallocate system call, preallocation is done quickly by
+       allocating blocks and marking them as uninitialized, requiring no IO
+       to the data blocks.  This is much faster than creating a file by
+       filling it with zeroes.
+       The exit code returned by fallocate is 0 on success and 1 on failure.

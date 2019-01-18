@@ -1,0 +1,4 @@
+
+       The library supports AMD Family 15h processors core PMU in both 32
+       and 64-bit modes. The uncore (NorthBridge) PMU is also supported as a
+       separate PMU model.

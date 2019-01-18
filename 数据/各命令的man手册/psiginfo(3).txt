@@ -1,0 +1,16 @@
+
+       The psignal() function displays a message on stderr consisting of the
+       string s, a colon, a space, a string describing the signal number
+       sig, and a trailing newline.  If the string s is NULL or empty, the
+       colon and space are omitted.  If sig is invalid, the message
+       displayed will indicate an unknown signal.
+       The psiginfo() function is like psignal(), except that it displays
+       information about the signal described by pinfo, which should point
+       to a valid siginfo_t structure.  As well as the signal description,
+       psiginfo() displays information about the origin of the signal, and
+       other information relevant to the signal (e.g., the relevant memory
+       address for hardware-generated signals, the child process ID for
+       SIGCHLD, and the user ID and process ID of the sender, for signals
+       set using kill(2) or sigqueue(3)).
+       The array sys_siglist holds the signal description strings indexed by
+       signal number.

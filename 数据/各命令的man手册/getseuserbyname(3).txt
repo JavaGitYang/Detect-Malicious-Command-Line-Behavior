@@ -1,0 +1,8 @@
+
+       getseuserbyname() retrieves the SELinux username and security level
+       associated with a given Linux username.  The SELinux username and
+       security level can then be passed to other libselinux functions such
+       as get_ordered_context_list_with_level(3) and
+       get_default_context_with_level(3).
+       The returned SELinux username and level should be freed by the caller
+       using free.

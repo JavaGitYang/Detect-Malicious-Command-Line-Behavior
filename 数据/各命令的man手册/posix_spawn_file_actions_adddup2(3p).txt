@@ -1,0 +1,8 @@
+
+       The posix_spawn_file_actions_adddup2() function shall add a dup2()
+       action to the object referenced by file_actions that shall cause the
+       file descriptor fildes to be duplicated as newfildes (as if
+       dup2(fildes, newfildes) had been called) when a new process is
+       spawned using this file actions object.
+       A spawn file actions object is as defined in
+       posix_spawn_file_actions_addclose(3p).

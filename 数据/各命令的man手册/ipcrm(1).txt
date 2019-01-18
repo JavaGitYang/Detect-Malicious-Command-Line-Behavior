@@ -1,0 +1,22 @@
+
+       ipcrm removes System V inter-process communication (IPC) objects and
+       associated data structures from the system.  In order to delete such
+       objects, you must be superuser, or the creator or owner of the
+       object.
+       System V IPC objects are of three types: shared memory, message
+       queues, and semaphores.  Deletion of a message queue or semaphore
+       object is immediate (regardless of whether any process still holds an
+       IPC identifier for the object).  A shared memory object is only
+       removed after all currently attached processes have detached
+       (shmdt(2)) the object from their virtual address space.
+       Two syntax styles are supported.  The old Linux historical syntax
+       specifies a three-letter keyword indicating which class of object is
+       to be deleted, followed by one or more IPC identifiers for objects of
+       this type.
+       The SUS-compliant syntax allows the specification of zero or more
+       objects of all three types in a single command line, with objects
+       specified either by key or by identifier (see below).  Both keys and
+       identifiers may be specified in decimal, hexadecimal (specified with
+       an initial '0x' or '0X'), or octal (specified with an initial '0').
+       The details of the removes are described in shmctl(2), msgctl(2), and
+       semctl(2).  The identifiers and keys can be found by using ipcs(1).

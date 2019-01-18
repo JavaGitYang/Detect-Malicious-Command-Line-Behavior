@@ -1,0 +1,9 @@
+
+       capng_lock will take steps to prevent children of the current process
+       to regain full privileges if the uid is 0. This should be called
+       while possessing the CAP_SETPCAP capability in the kernel. This
+       function will do the following if permitted by the kernel: Set the
+       NOROOT option on for PR_SET_SECUREBITS, set the NOROOT_LOCKED option
+       to on for PR_SET_SECUREBITS, set the PR_NO_SETUID_FIXUP option on for
+       PR_SET_SECUREBITS, and set the PR_NO_SETUID_FIXUP_LOCKED option on
+       for PR_SET_SECUREBITS.

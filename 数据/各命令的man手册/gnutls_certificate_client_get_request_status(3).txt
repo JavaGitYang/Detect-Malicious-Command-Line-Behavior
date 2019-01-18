@@ -1,0 +1,3 @@
+
+       Get whether client certificate was requested on the last handshake or
+       not.

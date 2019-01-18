@@ -1,0 +1,3 @@
+
+       lxc-destroy destroys the system object previously created by the lxc-
+       create command.

@@ -1,0 +1,46 @@
+
+       Enters the namespaces of one or more other processes and then
+       executes the specified program. If program is not given, then
+       ``${SHELL}'' is run (default: /bin/sh).
+       Enterable namespaces are:
+       mount namespace
+              Mounting and unmounting filesystems will not affect the rest
+              of the system, except for filesystems which are explicitly
+              marked as shared (with mount --make-shared; see /proc/self
+              /mountinfo for the shared flag).  For further details, see
+              mount_namespaces(7) and the discussion of the CLONE_NEWNS flag
+              in clone(2).
+       UTS namespace
+              Setting hostname or domainname will not affect the rest of the
+              system.  For further details, see namespaces(7) and the
+              discussion of the CLONE_NEWUTS flag in clone(2).
+       IPC namespace
+              The process will have an independent namespace for POSIX
+              message queues as well as System V message queues, semaphore
+              sets and shared memory segments.  For further details, see
+              namespaces(7) and the discussion of the CLONE_NEWIPC flag in
+              clone(2).
+       network namespace
+              The process will have independent IPv4 and IPv6 stacks, IP
+              routing tables, firewall rules, the /proc/net and /sys/class
+              /net directory trees, sockets, etc.  For further details, see
+              namespaces(7) and the discussion of the CLONE_NEWNET flag in
+              clone(2).
+       PID namespace
+              Children will have a set of PID to process mappings separate
+              from the nsenter process For further details, see
+              pid_namespaces(7) and the discussion of the CLONE_NEWPID flag
+              in nsenter will fork by default if changing the PID namespace,
+              so that the new program and its children share the same PID
+              namespace and are visible to each other.  If --no-fork is
+              used, the new program will be exec'ed without forking.
+       user namespace
+              The process will have a distinct set of UIDs, GIDs and
+              capabilities.  For further details, see user_namespaces(7) and
+              the discussion of the CLONE_NEWUSER flag in clone(2).
+       cgroup namespace
+              The process will have a virtualized view of /proc/self/cgroup,
+              and new cgroup mounts will be rooted at the namespace cgroup
+              root.  For further details, see cgroup_namespaces(7) and the
+              discussion of the CLONE_NEWCGROUP flag in clone(2).
+       See clone(2) for the exact semantics of the flags.

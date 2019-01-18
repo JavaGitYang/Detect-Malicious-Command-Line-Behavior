@@ -1,0 +1,148 @@
+
+     sftp is a file transfer program, similar to ftp(1), which performs all
+     operations over an encrypted ssh(1) transport.  It may also use many
+     features of ssh, such as public key authentication and compression.
+     The destination may be specified either as [user@]host[:path] or as a
+     URI in the form sftp://[user@]host[:port][/path].
+     If the destination includes a path and it is not a directory, sftp will
+     retrieve files automatically if a non-interactive authentication method
+     is used; otherwise it will do so after successful interactive authenti‐
+     cation.
+     If no path is specified, or if the path is a directory, sftp will log
+     in to the specified host and enter interactive command mode, changing
+     to the remote directory if one was specified.  An optional trailing
+     slash can be used to force the path to be interpreted as a directory.
+     Since the destination formats use colon characters to delimit host
+     names from path names or port numbers, IPv6 addresses must be enclosed
+     in square brackets to avoid ambiguity.
+     The options are as follows:
+     -4      Forces sftp to use IPv4 addresses only.
+     -6      Forces sftp to use IPv6 addresses only.
+     -a      Attempt to continue interrupted transfers rather than overwrit‐
+             ing existing partial or complete copies of files.  If the par‐
+             tial contents differ from those being transferred, then the
+             resultant file is likely to be corrupt.
+     -B buffer_size
+             Specify the size of the buffer that sftp uses when transferring
+             files.  Larger buffers require fewer round trips at the cost of
+             higher memory consumption.  The default is 32768 bytes.
+     -b batchfile
+             Batch mode reads a series of commands from an input batchfile
+             instead of stdin.  Since it lacks user interaction it should be
+             used in conjunction with non-interactive authentication to
+             obviate the need to enter a password at connection time (see
+             sshd(8) and ssh-keygen(1) for details).  A batchfile of ‘-’ may
+             be used to indicate standard input.  sftp will abort if any of
+             the following commands fail: get, put, reget, reput, rename,
+             ln, rm, mkdir, chdir, ls, lchdir, chmod, chown, chgrp, lpwd,
+             df, symlink, and lmkdir.  Termination on error can be sup‐
+             pressed on a command by command basis by prefixing the command
+             with a ‘-’ character (for example, -rm /tmp/blah*).
+     -C      Enables compression (via ssh's -C flag).
+     -c cipher
+             Selects the cipher to use for encrypting the data transfers.
+             This option is directly passed to ssh(1).
+     -D sftp_server_path
+             Connect directly to a local sftp server (rather than via
+             ssh(1)).  This option may be useful in debugging the client and
+             server.
+     -F ssh_config
+             Specifies an alternative per-user configuration file for
+             ssh(1).  This option is directly passed to ssh(1).
+     -f      Requests that files be flushed to disk immediately after trans‐
+             fer.  When uploading files, this feature is only enabled if the
+             server implements the "fsync@openssh.com" extension.
+     -i identity_file
+             Selects the file from which the identity (private key) for pub‐
+             lic key authentication is read.  This option is directly passed
+             to ssh(1).
+     -l limit
+             Limits the used bandwidth, specified in Kbit/s.
+     -o ssh_option
+             Can be used to pass options to ssh in the format used in
+             ssh_config(5).  This is useful for specifying options for which
+             there is no separate sftp command-line flag.  For example, to
+             specify an alternate port use: sftp -oPort=24.  For full
+             details of the options listed below, and their possible values,
+             see ssh_config(5).
+                   AddressFamily
+                   BatchMode
+                   BindAddress
+                   BindInterface
+                   CanonicalDomains
+                   CanonicalizeFallbackLocal
+                   CanonicalizeHostname
+                   CanonicalizeMaxDots
+                   CanonicalizePermittedCNAMEs
+                   CertificateFile
+                   ChallengeResponseAuthentication
+                   CheckHostIP
+                   Ciphers
+                   Compression
+                   ConnectionAttempts
+                   ConnectTimeout
+                   ControlMaster
+                   ControlPath
+                   ControlPersist
+                   GlobalKnownHostsFile
+                   GSSAPIAuthentication
+                   GSSAPIDelegateCredentials
+                   HashKnownHosts
+                   Host
+                   HostbasedAuthentication
+                   HostbasedKeyTypes
+                   HostKeyAlgorithms
+                   HostKeyAlias
+                   HostName
+                   IdentitiesOnly
+                   IdentityAgent
+                   IdentityFile
+                   IPQoS
+                   KbdInteractiveAuthentication
+                   KbdInteractiveDevices
+                   KexAlgorithms
+                   LogLevel
+                   MACs
+                   NoHostAuthenticationForLocalhost
+                   NumberOfPasswordPrompts
+                   PasswordAuthentication
+                   PKCS11Provider
+                   Port
+                   PreferredAuthentications
+                   ProxyCommand
+                   ProxyJump
+                   PubkeyAcceptedKeyTypes
+                   PubkeyAuthentication
+                   RekeyLimit
+                   SendEnv
+                   ServerAliveInterval
+                   ServerAliveCountMax
+                   StrictHostKeyChecking
+                   TCPKeepAlive
+                   UpdateHostKeys
+                   UsePrivilegedPort
+                   User
+                   UserKnownHostsFile
+                   VerifyHostKeyDNS
+     -P port
+             Specifies the port to connect to on the remote host.
+     -p      Preserves modification times, access times, and modes from the
+             original files transferred.
+     -q      Quiet mode: disables the progress meter as well as warning and
+             diagnostic messages from ssh(1).
+     -R num_requests
+             Specify how many requests may be outstanding at any one time.
+             Increasing this may slightly improve file transfer speed but
+             will increase memory usage.  The default is 64 outstanding
+             requests.
+     -r      Recursively copy entire directories when uploading and down‐
+             loading.  Note that sftp does not follow symbolic links encoun‐
+             tered in the tree traversal.
+     -S program
+             Name of the program to use for the encrypted connection.  The
+             program must understand ssh(1) options.
+     -s subsystem | sftp_server
+             Specifies the SSH2 subsystem or the path for an sftp server on
+             the remote host.  A path is useful when the remote sshd(8) does
+             not have an sftp subsystem configured.
+     -v      Raise logging level.  This option is also passed to ssh.

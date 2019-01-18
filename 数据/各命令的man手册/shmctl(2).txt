@@ -1,0 +1,117 @@
+
+       shmctl() performs the control operation specified by cmd on the
+       System V shared memory segment whose identifier is given in shmid.
+       The buf argument is a pointer to a shmid_ds structure, defined in
+       <sys/shm.h> as follows:
+           struct shmid_ds {
+               struct ipc_perm shm_perm;    /* Ownership and permissions */
+               size_t          shm_segsz;   /* Size of segment (bytes) */
+               time_t          shm_atime;   /* Last attach time */
+               time_t          shm_dtime;   /* Last detach time */
+               time_t          shm_ctime;   /* Last change time */
+               pid_t           shm_cpid;    /* PID of creator */
+               pid_t           shm_lpid;    /* PID of last shmat(2)/shmdt(2) */
+               shmatt_t        shm_nattch;  /* No. of current attaches */
+               ...
+           };
+       The ipc_perm structure is defined as follows (the highlighted fields
+       are settable using IPC_SET):
+           struct ipc_perm {
+               key_t          __key;    /* Key supplied to shmget(2) */
+               uid_t          uid;      /* Effective UID of owner */
+               gid_t          gid;      /* Effective GID of owner */
+               uid_t          cuid;     /* Effective UID of creator */
+               gid_t          cgid;     /* Effective GID of creator */
+               unsigned short mode;     /* Permissions + SHM_DEST and
+                                           SHM_LOCKED flags */
+               unsigned short __seq;    /* Sequence number */
+           };
+       Valid values for cmd are:
+       IPC_STAT  Copy information from the kernel data structure associated
+                 with shmid into the shmid_ds structure pointed to by buf.
+                 The caller must have read permission on the shared memory
+                 segment.
+       IPC_SET   Write the values of some members of the shmid_ds structure
+                 pointed to by buf to the kernel data structure associated
+                 with this shared memory segment, updating also its
+                 shm_ctime member.  The following fields can be changed:
+                 shm_perm.uid, shm_perm.gid, and (the least significant 9
+                 bits of) shm_perm.mode.  The effective UID of the calling
+                 process must match the owner (shm_perm.uid) or creator
+                 (shm_perm.cuid) of the shared memory segment, or the caller
+                 must be privileged.
+       IPC_RMID  Mark the segment to be destroyed.  The segment will actu‐
+                 ally be destroyed only after the last process detaches it
+                 (i.e., when the shm_nattch member of the associated struc‐
+                 ture shmid_ds is zero).  The caller must be the owner or
+                 creator of the segment, or be privileged.  The buf argument
+                 is ignored.
+                 If a segment has been marked for destruction, then the
+                 (nonstandard) SHM_DEST flag of the shm_perm.mode field in
+                 the associated data structure retrieved by IPC_STAT will be
+                 set.
+                 The caller must ensure that a segment is eventually
+                 destroyed; otherwise its pages that were faulted in will
+                 remain in memory or swap.
+                 See also the description of /proc/sys/ker‐
+                 nel/shm_rmid_forced in proc(5).
+       IPC_INFO (Linux-specific)
+                 Return information about system-wide shared memory limits
+                 and parameters in the structure pointed to by buf.  This
+                 structure is of type shminfo (thus, a cast is required),
+                 defined in <sys/shm.h> if the _GNU_SOURCE feature test
+                 macro is defined:
+                     struct shminfo {
+                         unsigned long shmmax; /* Maximum segment size */
+                         unsigned long shmmin; /* Minimum segment size;
+                                                  always 1 */
+                         unsigned long shmmni; /* Maximum number of segments */
+                         unsigned long shmseg; /* Maximum number of segments
+                                                  that a process can attach;
+                                                  unused within kernel */
+                         unsigned long shmall; /* Maximum number of pages of
+                                                  shared memory, system-wide */
+                     };
+                 The shmmni, shmmax, and shmall settings can be changed via
+                 /proc files of the same name; see proc(5) for details.
+       SHM_INFO (Linux-specific)
+                 Return a shm_info structure whose fields contain informa‐
+                 tion about system resources consumed by shared memory.
+                 This structure is defined in <sys/shm.h> if the _GNU_SOURCE
+                 feature test macro is defined:
+                     struct shm_info {
+                         int           used_ids; /* # of currently existing
+                                                    segments */
+                         unsigned long shm_tot;  /* Total number of shared
+                                                    memory pages */
+                         unsigned long shm_rss;  /* # of resident shared
+                                                    memory pages */
+                         unsigned long shm_swp;  /* # of swapped shared
+                                                    memory pages */
+                         unsigned long swap_attempts;
+                                                 /* Unused since Linux 2.4 */
+                         unsigned long swap_successes;
+                                                 /* Unused since Linux 2.4 */
+                     };
+       SHM_STAT (Linux-specific)
+                 Return a shmid_ds structure as for IPC_STAT.  However, the
+                 shmid argument is not a segment identifier, but instead an
+                 index into the kernel's internal array that maintains
+                 information about all shared memory segments on the system.
+       The caller can prevent or allow swapping of a shared memory segment
+       with the following cmd values:
+       SHM_LOCK (Linux-specific)
+                 Prevent swapping of the shared memory segment.  The caller
+                 must fault in any pages that are required to be present
+                 after locking is enabled.  If a segment has been locked,
+                 then the (nonstandard) SHM_LOCKED flag of the shm_perm.mode
+                 field in the associated data structure retrieved by
+                 IPC_STAT will be set.
+       SHM_UNLOCK (Linux-specific)
+                 Unlock the segment, allowing it to be swapped out.
+       In kernels before 2.6.10, only a privileged process could employ
+       SHM_LOCK and SHM_UNLOCK.  Since kernel 2.6.10, an unprivileged
+       process can employ these operations if its effective UID matches the
+       owner or creator UID of the segment, and (for SHM_LOCK) the amount of
+       memory to be locked falls within the RLIMIT_MEMLOCK resource limit
+       (see setrlimit(2)).

@@ -1,0 +1,6 @@
+
+       The head utility shall copy its input files to the standard output,
+       ending the output for each file at a designated point.
+       Copying shall end at the point in each input file indicated by the −n
+       number option. The option-argument number shall be counted in units
+       of lines.

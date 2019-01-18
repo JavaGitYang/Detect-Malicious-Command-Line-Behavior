@@ -1,0 +1,3 @@
+
+       Check whether the client has asked for session resumption.  This
+       function is valid only on server side.

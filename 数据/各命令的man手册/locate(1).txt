@@ -1,0 +1,27 @@
+
+       This manual page documents the GNU version of locate.  For each given
+       pattern, locate searches one or more databases of file names and
+       displays the file names that contain the pattern.  Patterns can
+       contain shell-style metacharacters: `*', `?', and `[]'.  The
+       metacharacters do not treat `/' or `.'  specially.  Therefore, a
+       pattern `foo*bar' can match a file name that contains `foo3/bar', and
+       a pattern `*duck*' can match a file name that contains `lake/.ducky'.
+       Patterns that contain metacharacters should be quoted to protect them
+       from expansion by the shell.
+       If a pattern is a plain string — it contains no metacharacters —
+       locate displays all file names in the database that contain that
+       string anywhere.  If a pattern does contain metacharacters, locate
+       only displays file names that match the pattern exactly.  As a
+       result, patterns that contain metacharacters should usually begin
+       with a `*', and will most often end with one as well.  The exceptions
+       are patterns that are intended to explicitly match the beginning or
+       end of a file name.
+       The file name databases contain lists of files that were on the
+       system when the databases were last updated.  The system
+       administrator can choose the file name of the default database, the
+       frequency with which the databases are updated, and the directories
+       for which they contain entries; see updatedb(1).
+       If locate's output is going to a terminal, unusual characters in the
+       output are escaped in the same way as for the -print action of the
+       find command.  If the output is not going to a terminal, file names
+       are printed exactly as-is.

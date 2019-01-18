@@ -1,0 +1,11 @@
+
+       This function can be called at any time to get the revision level of
+       the library. It is not necessary to have invoked pfm_initialize()
+       prior to calling this function.
+       The revision number is composed of two fields: a major number and a
+       minor number. Both can be extracted using macros provided in the
+       header file:
+       PFMLIB_MAJ_VERSION(v)
+              returns the major number encoded in v.
+       PFMLIB_MIN_VERSION(v)
+              returns the minor number encoded in v.

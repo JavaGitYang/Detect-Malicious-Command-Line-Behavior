@@ -1,0 +1,39 @@
+
+       These routines are used to access the filesystem description file
+       /etc/fstab and the mounted filesystem description file /etc/mtab.
+       The setmntent() function opens the filesystem description file
+       filename and returns a file pointer which can be used by getmntent().
+       The argument type is the type of access required and can take the
+       same values as the mode argument of fopen(3).
+       The getmntent() function reads the next line of the filesystem
+       description file from stream and returns a pointer to a structure
+       containing the broken out fields from a line in the file.  The
+       pointer points to a static area of memory which is overwritten by
+       subsequent calls to getmntent().
+       The addmntent() function adds the mntent structure mnt to the end of
+       the open stream.
+       The endmntent() function closes the stream associated with the
+       filesystem description file.
+       The hasmntopt() function scans the mnt_opts field (see below) of the
+       mntent structure mnt for a substring that matches opt.  See
+       <mntent.h> and mount(8) for valid mount options.
+       The reentrant getmntent_r() function is similar to getmntent(), but
+       stores the struct mount in the provided *mntbuf and stores the
+       strings pointed to by the entries in that struct in the provided
+       array buf of size buflen.
+       The mntent structure is defined in <mntent.h> as follows:
+           struct mntent {
+               char *mnt_fsname;   /* name of mounted filesystem */
+               char *mnt_dir;      /* filesystem path prefix */
+               char *mnt_type;     /* mount type (see mntent.h) */
+               char *mnt_opts;     /* mount options (see mntent.h) */
+               int   mnt_freq;     /* dump frequency in days */
+               int   mnt_passno;   /* pass number on parallel fsck */
+           };
+       Since fields in the mtab and fstab files are separated by whitespace,
+       octal escapes are used to represent the characters space (\040), tab
+       (\011), newline (\012), and backslash (\\) in those files when they
+       occur in one of the four strings in a mntent structure.  The routines
+       addmntent() and getmntent() will convert from string representation
+       to escaped representation and back.  When converting from escaped
+       representation, the sequence \134 is also converted to a backslash.

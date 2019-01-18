@@ -1,0 +1,12 @@
+
+       The library supports the Intel Broadwell Server C-Box (coherency
+       engine) uncore PMU.  This PMU model exists on various Broadwell
+       server models (79, 86) . There is one C-box PMU per physical core.
+       Therefore there are up to twenty-one identical C-Box PMU instances
+       numbered from 0 to 21. On dual-socket systems, the number refers to
+       the C-Box PMU on the socket where the program runs. For instance, if
+       running on CPU18, then bdx_unc_cbo0 refers to the C-Box for physical
+       core 0 on socket 1. Conversely, if running on CPU0, then the same
+       bdx_unc_cbo0 refers to the C-Box for physical core 0 but on socket 0.
+       Each C-Box PMU implements 4 generic counters and two filter registers
+       used only with certain events and umasks.

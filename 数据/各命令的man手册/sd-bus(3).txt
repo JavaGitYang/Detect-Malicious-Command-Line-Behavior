@@ -1,0 +1,18 @@
+
+       sd-bus.h provides an implementation of a D-Bus IPC client. See
+       https://www.freedesktop.org/software/dbus/ for more information about
+       D-Bus IPC.
+       See sd-bus-errors(3), sd_bus_creds_get_pid(3),
+       sd_bus_creds_new_from_pid(3), sd_bus_default(3), sd_bus_error(3),
+       sd_bus_error_add_map(3), sd_bus_get_name_creds(3),
+       sd_bus_get_owner_creds(3), sd_bus_message_append(3),
+       sd_bus_message_append_array(3), sd_bus_message_append_basic(3),
+       sd_bus_message_append_string_memfd(3), sd_bus_message_append_strv(3),
+       sd_bus_message_can_send(3), sd_bus_message_get_cookie(3),
+       sd_bus_message_get_monotonic_usec(3), sd_bus_negotiate_fds(3),
+       sd_bus_new(3), sd_bus_path_encode(3), sd_bus_request_name(3),
+       sd_bus_send(3), sd_bus_set_address(3),
+       sd_bus_set_allow_interactive_authorization(3)sd_bus_set_description(3),
+       sd_bus_set_prepare(3), sd_bus_start(3), sd_bus_track_add_name(3),
+       sd_bus_track_new(3), for more information about the functions
+       available.

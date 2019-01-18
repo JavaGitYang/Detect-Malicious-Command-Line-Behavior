@@ -1,0 +1,6 @@
+
+       migspeed attempts to move a sample of pages from the indicated node
+       to the target node and measures the time it takes to perform the
+       move.
+       -p pages
+       The default sample is 1000 pages. Override that with another number.

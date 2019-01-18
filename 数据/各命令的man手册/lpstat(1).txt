@@ -1,0 +1,4 @@
+
+       lpstat displays status information about the current classes, jobs,
+       and printers.  When run with no arguments, lpstat will list active
+       jobs queued by the current user.

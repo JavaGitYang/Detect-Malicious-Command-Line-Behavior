@@ -1,0 +1,12 @@
+
+       These routines are used to initiate TLS processing on an LDAP
+       session.  ldap_start_tls_s() sends a StartTLS request to a server,
+       waits for the reply, and then installs TLS handlers on the session if
+       the request succeeded. The routine returns LDAP_SUCCESS if everything
+       succeeded, otherwise it returns an LDAP error code.  ldap_start_tls()
+       sends a StartTLS request to a server and does nothing else. It
+       returns LDAP_SUCCESS if the request was sent successfully.
+       ldap_tls_inplace() returns 1 if TLS handlers have been installed on
+       the specified session, 0 otherwise.  ldap_install_tls() installs the
+       TLS handlers on the given session. It returns LDAP_LOCAL_ERROR if TLS
+       is already installed.

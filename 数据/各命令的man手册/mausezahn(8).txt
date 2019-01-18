@@ -1,0 +1,48 @@
+
+       mausezahn is a fast traffic generator which allows you to send nearly
+       every possible and impossible packet. In contrast to trafgen(8),
+       mausezahn's packet configuration is on a protocol-level instead of
+       byte-level and mausezahn also comes with a built-in Cisco-like
+       command-line interface, making it suitable as a network traffic
+       generator box in your network lab.
+       Next to network labs, it can also be used as a didactical tool and
+       for security audits including penetration and DoS testing. As a
+       traffic generator, mausezahn is also able to test IP multicast or
+       VoIP networks. Packet rates close to the physical limit are
+       reachable, depending on the hardware platform.
+       mausezahn supports two modes, ''direct mode'' and a multi-threaded
+       ''interactive mode''.
+       The ''direct mode'' allows you to create a packet directly on the
+       command line and every packet parameter is specified in the argument
+       list when calling mausezahn.
+       The ''interactive mode'' is an advanced multi-threaded configuration
+       mode with its own command line interface (CLI). This mode allows you
+       to create an arbitrary number of packet types and streams in
+       parallel, each with different parameters.
+       The interactive mode utilizes a completely redesigned and more
+       flexible protocol framework called ''mops'' (mausezahn's own packet
+       system). The look and feel of the CLI is very close to the Cisco
+       IOS^tm command line interface.
+       You can start the interactive mode by executing mausezahn with the
+       ''-x'' argument (an optional port number may follow, otherwise it is
+       25542). Then use telnet(1) to connect to this mausezahn instance. If
+       not otherwise specified, the default login and password combination
+       is mz:mz and the enable password is: mops.  This can be changed in
+       /etc/netsniff-ng/mausezahn.conf.
+       The direct mode supports two specification schemes: The ''raw-
+       layer-2'' scheme, where every single byte to be sent can be
+       specified, and ''higher-layer'' scheme, where packet builder
+       interfaces are used (using the ''-t'' option).
+       To use the ''raw-layer-2'' scheme, simply specify the desired frame
+       as a hexadecimal sequence (the ''hex-string''), such as:
+         mausezahn eth0 "00:ab:cd:ef:00 00:00:00:00:00:01 08:00 ca:fe:ba:be"
+       In this example, whitespaces within the byte string are optional and
+       separate the Ethernet fields (destination and source address, type
+       field, and a short payload). The only additional options supported
+       are ''-a'', ''-b'', ''-c'', and ''-p''. The frame length must be
+       greater than or equal to 15 bytes.
+       The ''higher-layer'' scheme is enabled using the ''-t <packet-type>''
+       option.  This option activates a packet builder, and besides the
+       ''packet-type'', an optional ''arg-string'' can be specified. The
+       ''arg-string'' contains packet- specific parameters, such as TCP
+       flags, port numbers, etc. (see example section).

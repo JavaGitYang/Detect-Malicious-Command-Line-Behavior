@@ -1,0 +1,17 @@
+
+       lxc-execute runs the specified command inside the container specified
+       by name.
+       It will setup the container according to the configuration previously
+       defined with the lxc-create command or with the configuration file
+       parameter.  If no configuration is defined, the default isolation is
+       used.
+       This command is mainly used when you want to quickly launch an
+       application in an isolated environment.
+       lxc-execute command will run the specified command into the container
+       via an intermediate process, lxc-init.  This lxc-init after launching
+       the specified command, will wait for its end and all other reparented
+       processes.  (to support daemons in the container).  In other words,
+       in the container, lxc-init has the pid 1 and the first process of the
+       application has the pid 2.
+       The above lxc-init is designed to forward received signals to the
+       started command.

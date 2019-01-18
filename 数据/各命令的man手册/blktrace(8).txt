@@ -1,0 +1,41 @@
+
+       blktrace is a block layer IO tracing mechanism which provides
+       detailed information about request queue operations up to user space.
+       There are three major components: a kernel component, a utility to
+       record the i/o trace information for the kernel to user space, and
+       utilities to analyse and view the trace information.  This man page
+       describes blktrace, which records the i/o event trace information for
+       a specific block device to a file.
+       The blktrace utility extracts event traces from the kernel (via the
+       relaying through the debug file system). Some background details
+       concerning the run-time behaviour of blktrace will help to understand
+       some of the more arcane command line options:
+       - blktrace receives data from the kernel in buffers passed up through
+         the debug file system (relay). Each device being traced has a file
+         created in the mounted directory for the debugfs, which defaults to
+         /sys/kernel/debug -- this can be overridden with the -r command
+         line argument.
+       - blktrace defaults to collecting all events that can be traced. To
+         limit the events being captured, you can specify one or more filter
+         masks via the -a option.
+         Alternatively, one may specify the entire mask utilising a
+         hexadecimal value that is version-specific. (Requires understanding
+         of the internal representation of the filter mask.)
+       - As noted above, the events are passed up via a series of buffers
+         stored into debugfs files. The size and number of buffers can be
+         specified via the -b and -n arguments respectively.
+       - blktrace stores the extracted data into files stored in the local
+         directory. The format of the file names is (by default)
+         device.blktrace.cpu, where device is the base device name (e.g, if
+         we are tracing /dev/sda, the base device name would be sda); and
+         cpu identifies a CPU for the event stream.
+         The device portion of the event file name can be changed via the -o
+         option.
+       - blktrace may also be run concurrently with blkparse to produce live
+         output -- to do this specify -o - for blktrace.
+       - The default behaviour for blktrace is to run forever until
+         explicitly killed by the user (via a control-C, or sending SIGINT
+         signal to the process via invocation the kill (1) utility). Also
+         you can specify a run-time duration for blktrace via the -w option
+         -- then blktrace will run for the specified number of seconds, and
+         then halt.

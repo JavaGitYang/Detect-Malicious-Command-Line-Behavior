@@ -1,0 +1,14 @@
+
+       sctp_getladdrs returns all locally bound addresses on a socket. On
+       return, addrs will point to a dynamically allocated packed array of
+       sockaddr structures of the appropriate type for each local address.
+       The caller should use sctp_freeladdrs to free the memory. Note that
+       the in/out parameter addrs must not be NULL.
+       If sd is an IPv4 socket, the addresses returned will be all IPv4
+       addresses. If sd is an IPv6 socket, the addresses returned can be a
+       mix of IPv4 or IPv6 addresses.
+       For one-to-many style sockets, id specifies the association to query.
+       For one-to-one style sockets, id is ignored.
+       If the id field is set to 0, then the locally bound addresses are
+       returned without regard to any particular association.
+       sctp_freeladdrs frees all the resources allocated by sctp_getladdrs

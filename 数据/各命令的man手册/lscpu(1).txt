@@ -1,0 +1,62 @@
+
+       lscpu gathers CPU architecture information from sysfs, /proc/cpuinfo
+       and any applicable architecture-specific libraries (e.g. librtas on
+       Powerpc).  The command output can be optimized for parsing or for
+       easy readability by humans.  The information includes, for example,
+       the number of CPUs, threads, cores, sockets, and Non-Uniform Memory
+       Access (NUMA) nodes.  There is also information about the CPU caches
+       and cache sharing, family, model, bogoMIPS, byte order, and stepping.
+       In virtualized environments, the CPU architecture information
+       displayed reflects the configuration of the guest operating system
+       which is typically different from the physical (host) system.  On
+       architectures that support retrieving physical topology information,
+       lscpu also displays the number of physical sockets, chips, cores in
+       the host system.
+       Options that result in an output table have a list argument.  Use
+       this argument to customize the command output.  Specify a comma-
+       separated list of column labels to limit the output table to only the
+       specified columns, arranged in the specified order.  See COLUMNS for
+       a list of valid column labels.  The column labels are not case
+       sensitive.
+       Not all columns are supported on all architectures.  If an
+       unsupported column is specified, lscpu prints the column but does not
+       provide any data for it.
+   COLUMNS
+       Note that topology elements (core, socket, etc.) use a sequential
+       unique ID starting from zero, but CPU logical numbers follow the
+       kernel where there is no guarantee of sequential numbering.
+       CPU    The logical CPU number of a CPU as used by the Linux kernel.
+       CORE   The logical core number.  A core can contain several CPUs.
+       SOCKET The logical socket number.  A socket can contain several
+              cores.
+       BOOK   The logical book number.  A book can contain several sockets.
+       DRAWER The logical drawer number.  A drawer can contain several
+              books.
+       NODE   The logical NUMA node number.  A node can contain several
+              drawers.
+       CACHE  Information about how caches are shared between CPUs.
+       ADDRESS
+              The physical address of a CPU.
+       ONLINE Indicator that shows whether the Linux instance currently
+              makes use of the CPU.
+       CONFIGURED
+              Indicator that shows if the hypervisor has allocated the CPU
+              to the virtual hardware on which the Linux instance runs.
+              CPUs that are configured can be set online by the Linux
+              instance.  This column contains data only if your hardware
+              system and hypervisor support dynamic CPU resource allocation.
+       POLARIZATION
+              This column contains data for Linux instances that run on
+              virtual hardware with a hypervisor that can switch the CPU
+              dispatching mode (polarization).  The polarization can be:
+              horizontal  The workload is spread across all available CPUs.
+              vertical    The workload is concentrated on few CPUs.
+              For vertical polarization, the column also shows the degree of
+              concentration, high, medium, or low.  This column contains
+              data only if your hardware system and hypervisor support CPU
+              polarization.
+       MAXMHZ Maximum megahertz value for the CPU. Useful when lscpu is used
+              as hardware inventory information gathering tool.  Notice that
+              the megahertz value is dynamic, and driven by CPU governor
+              depending on current resource need.
+       MINMHZ Minimum megahertz value for the CPU.

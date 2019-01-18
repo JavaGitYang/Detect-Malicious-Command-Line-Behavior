@@ -1,0 +1,14 @@
+
+       The sem_trywait() function shall lock the semaphore referenced by sem
+       only if the semaphore is currently not locked; that is, if the
+       semaphore value is currently positive. Otherwise, it shall not lock
+       the semaphore.
+       The sem_wait() function shall lock the semaphore referenced by sem by
+       performing a semaphore lock operation on that semaphore. If the
+       semaphore value is currently zero, then the calling thread shall not
+       return from the call to sem_wait() until it either locks the
+       semaphore or the call is interrupted by a signal.
+       Upon successful return, the state of the semaphore shall be locked
+       and shall remain locked until the sem_post() function is executed and
+       returns successfully.
+       The sem_wait() function is interruptible by the delivery of a signal.

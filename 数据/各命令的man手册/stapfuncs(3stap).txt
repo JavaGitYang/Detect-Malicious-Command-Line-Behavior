@@ -1,0 +1,5 @@
+
+       Functions in the standard systemtap tapset are individually
+       documented in the 3stap manual section, with the function:: prefix.
+       Some built-in functions such as printf are documented on the stap(1)
+       man page.

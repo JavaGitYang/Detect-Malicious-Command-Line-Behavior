@@ -1,0 +1,4 @@
+
+       repodiff is a program which will list differences between two sets of
+       repositories.  Note that by default only source packages are
+       compared.

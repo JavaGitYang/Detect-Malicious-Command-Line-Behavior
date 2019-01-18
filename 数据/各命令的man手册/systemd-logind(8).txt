@@ -1,0 +1,32 @@
+
+       systemd-logind is a system service that manages user logins. It is
+       responsible for:
+       ·   Keeping track of users and sessions, their processes and their
+           idle state. This is implemented by allocating a systemd slice
+           unit for each user below user.slice, and a scope unit below it
+           for each concurrent session of a user. Also, a per-user service
+           manager is started as system service instance of user@.service
+           for each user logged in.
+       ·   Generating and managing session IDs. If auditing is available and
+           an audit session ID is set for a session already, the session ID
+           is initialized from it. Otherwise, an independent session counter
+           is used.
+       ·   Providing PolicyKit-based access for users to operations such as
+           system shutdown or sleep
+       ·   Implementing a shutdown/sleep inhibition logic for applications
+       ·   Handling of power/sleep hardware keys
+       ·   Multi-seat management
+       ·   Session switch management
+       ·   Device access management for users
+       ·   Automatic spawning of text logins (gettys) on virtual console
+           activation and user runtime directory management
+       User sessions are registered with logind via the pam_systemd(8) PAM
+       module.
+       See logind.conf(5) for information about the configuration of this
+       service.
+       See Multi-Seat on Linux[1] for an introduction into basic concepts of
+       logind such as users, sessions and seats.
+       See the logind D-Bus API Documentation[2] for information about the
+       APIs systemd-logind provides.
+       For more information on the inhibition logic see the Inhibitor Lock
+       Developer Documentation[3].

@@ -1,0 +1,4 @@
+
+       The sched_yield() function shall force the running thread to
+       relinquish the processor until it again becomes the head of its
+       thread list. It takes no arguments.

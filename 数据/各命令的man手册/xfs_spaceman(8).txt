@@ -1,0 +1,3 @@
+
+       xfs_spaceman reports and controls free space usage in an XFS
+       filesystem.

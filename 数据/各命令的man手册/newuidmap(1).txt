@@ -1,0 +1,18 @@
+
+       The newuidmap sets /proc/[pid]/uid_map based on its command line
+       arguments and the uids allowed in /etc/subuid. Note that the root
+       user is not exempted from the requirement for a valid /etc/subuid
+       entry.
+       After the pid argument, newuidmap expects sets of 3 integers:
+       uid
+           Beginning of the range of UIDs inside the user namespace.
+       loweruid
+           Beginning of the range of UIDs outside the user namespace.
+       count
+           Length of the ranges (both inside and outside the user
+           namespace).
+       newuidmap verifies that the caller is the owner of the process
+       indicated by pid and that for each of the above sets, each of the
+       UIDs in the range [loweruid, loweruid+count] is allowed to the caller
+       according to /etc/subuid before setting /proc/[pid]/uid_map.
+       Note that newuidmap may be used only once for a given process.

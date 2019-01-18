@@ -1,0 +1,5 @@
+
+       The following sections enumerate the variety of probe points
+       supported by the systemtap translator, and some of the additional
+       aliases defined by standard tapset scripts.  Many are individually
+       documented in the 3stap manual section, with the probe:: prefix.

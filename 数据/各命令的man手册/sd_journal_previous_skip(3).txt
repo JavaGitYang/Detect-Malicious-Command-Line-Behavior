@@ -1,0 +1,22 @@
+
+       sd_journal_next() advances the read pointer into the journal by one
+       entry. The only argument taken is a journal context object as
+       allocated via sd_journal_open(3). After successful invocation the
+       entry may be read with functions such as sd_journal_get_data(3).
+       Similarly, sd_journal_previous() sets the read pointer back one
+       entry.
+       sd_journal_next_skip() and sd_journal_previous_skip() advance/set
+       back the read pointer by multiple entries at once, as specified in
+       the skip parameter.
+       The journal is strictly ordered by reception time, and hence
+       advancing to the next entry guarantees that the entry then pointing
+       to is later in time than then previous one, or has the same
+       timestamp.
+       Note that sd_journal_get_data(3) and related calls will fail unless
+       sd_journal_next() has been invoked at least once in order to position
+       the read pointer on a journal entry.
+       Note that the SD_JOURNAL_FOREACH() macro may be used as a wrapper
+       around sd_journal_seek_head(3) and sd_journal_next() in order to make
+       iterating through the journal easier. See below for an example.
+       Similarly, SD_JOURNAL_FOREACH_BACKWARDS() may be used for iterating
+       the journal in reverse order.

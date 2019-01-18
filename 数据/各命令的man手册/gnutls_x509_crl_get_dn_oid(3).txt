@@ -1,0 +1,4 @@
+
+       This function will extract the requested OID of the name of the CRL
+       issuer, specified by the given index.
+       If oid is null then only the size will be filled.

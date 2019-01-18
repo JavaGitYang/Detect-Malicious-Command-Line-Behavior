@@ -1,0 +1,4 @@
+
+       Loads the seccomp filter provided by ctx into the kernel; if the
+       function succeeds the new seccomp filter will be active when the
+       function returns.

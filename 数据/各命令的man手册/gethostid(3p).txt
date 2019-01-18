@@ -1,0 +1,3 @@
+
+       The gethostid() function shall retrieve a 32-bit identifier for the
+       current host.

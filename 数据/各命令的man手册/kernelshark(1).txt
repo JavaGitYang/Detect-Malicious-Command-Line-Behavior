@@ -1,0 +1,4 @@
+
+       KernelShark is a front end reader of trace-cmd(1) output. It reads a
+       trace-cmd.dat(5) formatted file and produces a graph and list view of
+       the data.

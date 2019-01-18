@@ -1,0 +1,2 @@
+
+       The library supports the Intel Silvermont core PMU.

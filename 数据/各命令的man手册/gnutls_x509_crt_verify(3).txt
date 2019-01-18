@@ -1,0 +1,6 @@
+
+       This function will try to verify the given certificate and return its
+       status. Note that a verification error does not imply a negative
+       return status. In that case the  verify status is set.
+       The details of the verification are the same as in
+       gnutls_x509_trust_list_verify_crt2().

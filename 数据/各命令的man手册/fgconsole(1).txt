@@ -1,0 +1,12 @@
+
+       If the active Virtual Terminal is /dev/ttyN, then prints N on
+       standard output.
+       If the console is a serial console, then "serial" is printed instead.
+       -h --help
+              Prints short usage message and exits.
+       -V --version
+              Prints version number and exits.
+       --next-available
+              Will show the next unallocated virtual terminal. Normally 6
+              virtual terminals are allocated, with number 7 used for X;
+              this will return "8" in this case.

@@ -1,0 +1,14 @@
+
+       These are optional files that allow services to define an SELinux
+       user when authenticating via SELinux-aware login applications such as
+       PAM(8).
+       There is one file for each GNU/Linux user name that will be required
+       to run a service with a specific SELinux user name.
+       The path for each configuration file is formed by the path returned
+       by selinux_policy_root(3) with /logins/username appended (where
+       username is a file representing the GNU/Linux user name). The default
+       services directory is located at:
+              /etc/selinux/{SELINUXTYPE}/logins
+       Where {SELINUXTYPE} is the entry from the selinux configuration file
+       config (see selinux_config(5)).
+       getseuser(3) reads this file to map services to an SELinux user.

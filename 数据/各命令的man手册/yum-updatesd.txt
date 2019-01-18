@@ -1,0 +1,4 @@
+
+       yum-updatesd uses a configuration file at /etc/yum/yum-updatesd.conf.
+       Additional configuration information is read from the main yum.conf
+       (5) configuration file.

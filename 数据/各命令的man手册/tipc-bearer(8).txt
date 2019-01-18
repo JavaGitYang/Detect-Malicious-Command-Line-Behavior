@@ -1,0 +1,58 @@
+
+   Bearer identification
+       media MEDIA
+              Specifies the TIPC media type for a particular bearer to
+              operate on.  Different media types have different ways of
+              identifying a unique bearer.  For example, ib and eth identify
+              a bearer with a DEVICE while udp identify a bearer with a
+              LOCALIP and a NAME
+              ib - Infiniband
+              eth - Ethernet
+              udp - User Datagram Protocol (UDP)
+       name NAME
+              Logical bearer identifier valid for bearers on udp media.
+       device DEVICE
+              Physical bearer device valid for bearers on eth and ib media.
+   Bearer properties
+       domain
+              The addressing domain (region) in which a bearer will
+              establish links and accept link establish requests.
+       priority
+              Default link priority inherited by all links subsequently
+              established over a bearer. A single bearer can only host one
+              link to a particular node. This means the default link
+              priority for a bearer typically affects which bearer to use
+              when communicating with a particular node in an multi bearer
+              setup. For more info about link priority see tipc-link(8)
+       tolerance
+              Default link tolerance inherited by all links subsequently
+              established over a bearer. For more info about link tolerance
+              see tipc-link(8)
+       window
+              Default link window inherited by all links subsequently
+              established over a bearer. For more info about the link window
+              size see tipc-link(8)
+   UDP bearer options
+       localip LOCALIP
+              Specify a local IP v4/v6 address for a udp bearer.
+       localport LOCALPORT
+              Specify the local port for a udp bearer. The default port 6118
+              is used if no port is specified.
+       remoteip REMOTEIP
+              Specify a remote IP for a udp bearer. If no remote IP is
+              specified a udp bearer runs in multicast mode and tries to
+              auto-discover its neighbours.  The multicast IP address is
+              generated based on the TIPC network ID. If a remote IP is
+              specified the udp bearer runs in point-to-point mode.
+              Multiple remoteip addresses can be added via the bearer add
+              command. Adding one or more unicast remoteip addresses to an
+              existing udp bearer puts the bearer in replicast mode where IP
+              multicast is emulated by sending multiple unicast messages to
+              each configured remoteip.  When a peer sees a TIPC discovery
+              message from an unknown peer the peer address is automatically
+              added to the remoteip (replicast) list, thus only one side of
+              a link needs to be manually configured. A remoteip address
+              cannot be added to a multicast bearer.
+       remoteport REMOTEPORT
+              Specify the remote port for a udp bearer. The default port
+              6118 is used if no port is specified.

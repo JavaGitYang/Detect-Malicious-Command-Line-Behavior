@@ -1,0 +1,4 @@
+
+       These functions return the largest integral value that is not greater
+       than x.
+       For example, floor(0.5) is 0.0, and floor(-0.5) is -1.0.

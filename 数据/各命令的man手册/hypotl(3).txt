@@ -1,0 +1,6 @@
+
+       These functions return sqrt(x*x+y*y).  This is the length of the
+       hypotenuse of a right-angled triangle with sides of length x and y,
+       or the distance of the point (x,y) from the origin.
+       The calculation is performed without undue overflow or underflow
+       during the intermediate steps of the calculation.

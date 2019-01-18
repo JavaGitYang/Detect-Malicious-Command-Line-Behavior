@@ -1,0 +1,22 @@
+
+       The aio_suspend() function shall suspend the calling thread until at
+       least one of the asynchronous I/O operations referenced by the list
+       argument has completed, until a signal interrupts the function, or,
+       if timeout is not NULL, until the time interval specified by timeout
+       has passed. If any of the aiocb structures in the list correspond to
+       completed asynchronous I/O operations (that is, the error status for
+       the operation is not equal to [EINPROGRESS]) at the time of the call,
+       the function shall return without suspending the calling thread. The
+       list argument is an array of pointers to asynchronous I/O control
+       blocks.  The nent argument indicates the number of elements in the
+       array. Each aiocb structure pointed to has been used in initiating an
+       asynchronous I/O request via aio_read(), aio_write(), or
+       lio_listio().  This array may contain null pointers, which are
+       ignored. If this array contains pointers that refer to aiocb
+       structures that have not been used in submitting asynchronous I/O,
+       the effect is undefined.
+       If the time interval indicated in the timespec structure pointed to
+       by timeout passes before any of the I/O operations referenced by list
+       are completed, then aio_suspend() shall return with an error.  If the
+       Monotonic Clock option is supported, the clock that shall be used to
+       measure this time interval shall be the CLOCK_MONOTONIC clock.

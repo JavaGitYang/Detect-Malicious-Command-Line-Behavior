@@ -1,0 +1,4 @@
+
+       getdtablesize() returns the maximum number of files a process can
+       have open, one more than the largest possible value for a file
+       descriptor.

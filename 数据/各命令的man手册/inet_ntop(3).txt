@@ -1,0 +1,20 @@
+
+       This function converts the network address structure src in the af
+       address family into a character string.  The resulting string is
+       copied to the buffer pointed to by dst, which must be a non-null
+       pointer.  The caller specifies the number of bytes available in this
+       buffer in the argument size.
+       inet_ntop() extends the inet_ntoa(3) function to support multiple
+       address families, inet_ntoa(3) is now considered to be deprecated in
+       favor of inet_ntop().  The following address families are currently
+       supported:
+       AF_INET
+              src points to a struct in_addr (in network byte order) which
+              is converted to an IPv4 network address in the dotted-decimal
+              format, "ddd.ddd.ddd.ddd".  The buffer dst must be at least
+              INET_ADDRSTRLEN bytes long.
+       AF_INET6
+              src points to a struct in6_addr (in network byte order) which
+              is converted to a representation of this address in the most
+              appropriate IPv6 network address format for this address.  The
+              buffer dst must be at least INET6_ADDRSTRLEN bytes long.

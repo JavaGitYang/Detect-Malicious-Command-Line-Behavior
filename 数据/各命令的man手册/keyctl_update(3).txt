@@ -1,0 +1,8 @@
+
+       keyctl_update() updates the payload of a key if the key type permits
+       it.
+       The caller must have write permission on a key to be able update it.
+       payload and plen specify the data for the new payload.  payload may
+       be NULL and plen may be zero if the key type permits that.  The key
+       type may reject the data if it's in the wrong format or in some other
+       way invalid.

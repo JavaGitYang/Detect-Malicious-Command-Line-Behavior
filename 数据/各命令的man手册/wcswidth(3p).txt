@@ -1,0 +1,5 @@
+
+       The wcswidth() function shall determine the number of column
+       positions required for n wide-character codes (or fewer than n wide-
+       character codes if a null wide-character code is encountered before n
+       wide-character codes are exhausted) in the string pointed to by pwcs.

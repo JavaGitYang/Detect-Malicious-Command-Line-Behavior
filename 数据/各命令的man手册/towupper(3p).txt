@@ -1,0 +1,20 @@
+
+       For towupper(): The functionality described on this reference page is
+       aligned with the ISO C standard. Any conflict between the
+       requirements described here and the ISO C standard is unintentional.
+       This volume of POSIX.1‐2008 defers to the ISO C standard.
+       The towupper() and towupper_l() functions have as a domain a type
+       wint_t, the value of which the application shall ensure is a
+       character representable as a wchar_t, and a wide-character code
+       corresponding to a valid character in the current locale or the value
+       of WEOF.  If the argument has any other value, the behavior is
+       undefined.  If the argument of towupper() or towupper_l() represents
+       a lowercase wide-character code, and there exists a corresponding
+       uppercase wide-character code as defined by character type
+       information in the current locale or in the locale represented by
+       locale, respectively (category LC_CTYPE), the result shall be the
+       corresponding uppercase wide-character code.  All other arguments in
+       the domain are returned unchanged.
+       The behavior is undefined if the locale argument to towupper_l() is
+       the special locale object LC_GLOBAL_LOCALE or is not a valid locale
+       object handle.

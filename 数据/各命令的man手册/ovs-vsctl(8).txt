@@ -1,0 +1,39 @@
+
+       The ovs-vsctl program configures ovs-vswitchd(8) by providing a
+       high-level interface to its configuration database.  See
+       ovs-vswitchd.conf.db(5) for comprehensive documentation of the
+       database schema.
+       ovs-vsctl connects to an ovsdb-server process that maintains an Open
+       vSwitch configuration database.  Using this connection, it queries
+       and possibly applies changes to the database, depending on the
+       supplied commands.  Then, if it applied any changes, by default it
+       waits until ovs-vswitchd has finished reconfiguring itself before it
+       exits.  (If you use ovs-vsctl when ovs-vswitchd is not running, use
+       --no-wait.)
+       ovs-vsctl can perform any number of commands in a single run,
+       implemented as a single atomic transaction against the database.
+       The ovs-vsctl command line begins with global options (see OPTIONS
+       below for details).  The global options are followed by one or more
+       commands.  Each command should begin with -- by itself as a command-
+       line argument, to separate it from the following commands.  (The --
+       before the first command is optional.)  The command itself starts
+       with command-specific options, if any, followed by the command name
+       and any arguments.  See EXAMPLES below for syntax examples.
+   Linux VLAN Bridging Compatibility
+       The ovs-vsctl program supports the model of a bridge implemented by
+       Open vSwitch, in which a single bridge supports ports on multiple
+       VLANs.  In this model, each port on a bridge is either a trunk port
+       that potentially passes packets tagged with 802.1Q headers that
+       designate VLANs or it is assigned a single implicit VLAN that is
+       never tagged with an 802.1Q header.
+       For compatibility with software designed for the Linux bridge,
+       ovs-vsctl also supports a model in which traffic associated with a
+       given 802.1Q VLAN is segregated into a separate bridge.  A special
+       form of the add-br command (see below) creates a ``fake bridge''
+       within an Open vSwitch bridge to simulate this behavior.  When such a
+       ``fake bridge'' is active, ovs-vsctl will treat it much like a bridge
+       separate from its ``parent bridge,'' but the actual implementation in
+       Open vSwitch uses only a single bridge, with ports on the fake bridge
+       assigned the implicit VLAN of the fake bridge of which they are
+       members.  (A fake bridge for VLAN 0 receives packets that have no
+       802.1Q tag or a tag with VLAN 0.)

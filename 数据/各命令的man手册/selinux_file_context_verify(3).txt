@@ -1,0 +1,8 @@
+
+       selinux_file_context_verify() compares the context of the specified
+       path that is held on disk (in the extended attribute), to the system
+       default entry held in the file contexts series of files.
+       The mode may be zero.
+       Note that the two contexts are compared for "significant" differences
+       (i.e. the user component of the contexts are ignored) as shown in the
+       EXAMPLE section.

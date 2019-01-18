@@ -1,0 +1,9 @@
+
+       keyctl_chown() changes the user and group ownership details of a key.
+       A setting of -1 on either uid or gid will cause that setting to be
+       ignored.
+       A process that does not have the SysAdmin capability may not change a
+       key's UID or set the key's GID to a value that does not match the
+       process's GID or one of its group list.
+       The caller must have setattr permission on a key to be able change
+       its ownership.

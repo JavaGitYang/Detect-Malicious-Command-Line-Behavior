@@ -1,0 +1,63 @@
+
+       The config backend manages all of the configuration information for
+       the slapd(8) daemon.  This configuration information is also used by
+       the SLAPD tools slapacl(8), slapadd(8), slapauth(8), slapcat(8),
+       slapdn(8), slapindex(8), and slaptest(8).
+       The config backend is backward compatible with the older
+       slapd.conf(5) file but provides the ability to change the
+       configuration dynamically at runtime. If slapd is run with only a
+       slapd.conf file dynamic changes will be allowed but they will not
+       persist across a server restart. Dynamic changes are only saved when
+       slapd is running from a slapd.d configuration directory.
+       Unlike other backends, there can only be one instance of the config
+       backend, and most of its structure is predefined. The root of the
+       database is hardcoded to cn=config and this root entry contains
+       global settings for slapd. Multiple child entries underneath the root
+       entry are used to carry various other settings:
+              cn=Module
+                     dynamically loaded modules
+              cn=Schema
+                     schema definitions
+              olcBackend=xxx
+                     backend-specific settings
+              olcDatabase=xxx
+                     database-specific settings
+       The cn=Module entries will only appear in configurations where slapd
+       was built with support for dynamically loaded modules. There can be
+       multiple entries, one for each configured module path. Within each
+       entry there will be values recorded for each module loaded on a given
+       path. These entries have no children.
+       The cn=Schema entry contains all of the hardcoded schema elements.
+       The children of this entry contain all user-defined schema elements.
+       In schema that were loaded from include files, the child entry will
+       be named after the include file from which the schema was loaded.
+       Typically the first child in this subtree will be
+       cn=core,cn=schema,cn=config.
+       olcBackend entries are for storing settings specific to a single
+       backend type (and thus global to all database instances of that
+       type).  At present there are no backends that implement settings of
+       this nature, so usually there will not be any olcBackend entries.
+       olcDatabase entries store settings specific to a single database
+       instance. These entries may have olcOverlay child entries
+       corresponding to any overlays configured on the database. The
+       olcDatabase and olcOverlay entries may also have miscellaneous child
+       entries for other settings as needed. There are two special database
+       entries that are predefined - one is an entry for the config database
+       itself, and the other is for the "frontend" database. Settings in the
+       frontend database are inherited by the other databases, unless they
+       are explicitly overridden in a specific database.
+       The specific configuration options available are discussed below in
+       the Global Configuration Options, General Backend Options, and
+       General Database Options. Options are set by defining LDAP attributes
+       with specific values.  In general the names of the LDAP attributes
+       are the same as the corresponding slapd.conf keyword, with an "olc"
+       prefix added on.
+       The parser for many of these attributes is the same as used for
+       parsing the slapd.conf keywords. As such, slapd.conf keywords that
+       allow multiple items to be specified on one line, separated by
+       whitespace, will allow multiple items to be specified in one
+       attribute value. However, when reading the attribute via LDAP, the
+       items will be returned as individual attribute values.
+       Backend-specific options are discussed in the slapd-<backend>(5)
+       manual pages.  Refer to the "OpenLDAP Administrator's Guide" for more
+       details on configuring slapd.

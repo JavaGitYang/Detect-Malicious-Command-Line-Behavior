@@ -1,0 +1,4 @@
+
+       The library supports the Intel Broadwell server Ring Transfer unit
+       (S-Box) uncore PMU.  This PMU model only exists on various Broadwell
+       server models (79, 86).

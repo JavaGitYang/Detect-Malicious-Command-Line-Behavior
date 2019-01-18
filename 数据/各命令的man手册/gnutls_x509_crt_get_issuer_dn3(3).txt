@@ -1,0 +1,8 @@
+
+       This function will allocate buffer and copy the name of issuer of the
+       Certificate.  The name will be in the form "C=xxxx,O=yyyy,CN=zzzz" as
+       described in RFC4514. The output string will be ASCII or UTF-8
+       encoded, depending on the certificate data.
+       When the flag GNUTLS_X509_DN_FLAG_COMPAT is specified, the output
+       format will match the format output by previous to 3.5.6 versions of
+       GnuTLS which was not not fully RFC4514-compliant.

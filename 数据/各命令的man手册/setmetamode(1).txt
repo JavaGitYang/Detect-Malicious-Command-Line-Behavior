@@ -1,0 +1,11 @@
+
+       Without argument, setmetamode prints the current Meta key mode.  With
+       argument, it sets the Meta key mode as indicated.  The setting before
+       and after the change are reported.
+       The Meta key mode is specific for each VT (and the VT corresponding
+       to stdin is used).  One might use setmetamode in /etc/rc to define
+       the initial state of the Meta key mode, e.g. by
+            INITTY=/dev/tty[1-8]
+            for tty in $INITTY; do
+                 setmetamode escprefix < $tty
+            done

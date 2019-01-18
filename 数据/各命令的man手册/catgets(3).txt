@@ -1,0 +1,10 @@
+
+       catgets() reads the message message_number, in set set_number, from
+       the message catalog identified by catalog, where catalog is a catalog
+       descriptor returned from an earlier call to catopen(3).  The fourth
+       argument, message, points to a default message string which will be
+       returned by catgets() if the identified message catalog is not
+       currently available.  The message-text is contained in an internal
+       buffer area and should be copied by the application if it is to be
+       saved or modified.  The return string is always terminated with a
+       null byte ('\0').

@@ -1,0 +1,4 @@
+
+       Simple client program to set up a TLS connection to some other
+       computer.  It sets up a TLS connection and forwards data from the
+       standard input to the secured socket and vice versa.

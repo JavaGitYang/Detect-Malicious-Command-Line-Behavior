@@ -1,0 +1,5 @@
+
+       This function will add the given key ID, to the specified, by the
+       index, bag element. The key ID will be encoded as a 'Local key
+       identifier' bag attribute, which is usually used to distinguish the
+       local private key and the certificate pair.

@@ -1,0 +1,34 @@
+
+       chem produces chemical structure diagrams.  Today's version is best
+       suited for organic chemistry (bonds, rings).  The chem program is a
+       groff preprocessor like eqn, pic, tbl, etc.  It generates pic output
+       such that all chem parts are translated into diagrams of the pic
+       language.
+       The program chem originates from the Perl source file chem.pl.  It
+       tells pic to include a copy of the macro file chem.pic.  Moreover the
+       groff source file pic.tmac is loaded.
+       In a style reminiscent of eqn and pic, the chem diagrams are written
+       in a special language.
+       A set of chem lines looks like this
+              .cstart
+              chem data
+              .cend
+       Lines containing the keywords .cstart and .cend start and end the
+       input for chem, respectively.  In pic context, i.e., after the call
+       of .PS, chem input can optionally be started by the line begin chem
+       and ended by the line with the single word end instead.
+       Anything outside these initialization lines is copied through without
+       modification; all data between the initialization lines is converted
+       into pic commands to draw the diagram.
+       As an example,
+              .cstart
+              CH3
+              bond
+              CH3
+              .cend
+       prints two CH3 groups with a bond between them.
+       To actually view this, you must run chem followed by groffer:
+              chem [file ...] | groffer
+       If you want to create just groff output, you must run chem followed
+       by groff with the option -p for the activation of pic:
+              chem [file ...] | groff -p ...

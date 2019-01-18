@@ -1,0 +1,8 @@
+
+       The library supports all AMD64 processors in both 32 and 64-bit
+       modes.
+       The support is broken down in three groups:
+       AMD K7 processors (family 6)
+       AMD K8 processors (family 15)
+       AMD Family 10h processors (family 16)
+       Each group has a distinct man page. See links below.

@@ -1,0 +1,23 @@
+
+       The grpck command verifies the integrity of the groups information.
+       It checks that all entries in /etc/group and /etc/gshadow have the
+       proper format and contain valid data. The user is prompted to delete
+       entries that are improperly formatted or which have other
+       uncorrectable errors.
+       Checks are made to verify that each entry has:
+       ·   the correct number of fields
+       ·   a unique and valid group name
+       ·   a valid group identifier (/etc/group only)
+       ·   a valid list of members and administrators
+       ·   a corresponding entry in the /etc/gshadow file (respectively
+           /etc/group for the gshadow checks)
+       The checks for correct number of fields and unique group name are
+       fatal. If an entry has the wrong number of fields, the user will be
+       prompted to delete the entire line. If the user does not answer
+       affirmatively, all further checks are bypassed. An entry with a
+       duplicated group name is prompted for deletion, but the remaining
+       checks will still be made. All other errors are warnings and the user
+       is encouraged to run the groupmod command to correct the error.
+       The commands which operate on the /etc/group and /etc/gshadow files
+       are not able to alter corrupted or duplicated entries.  grpck should
+       be used in those circumstances to remove the offending entries.

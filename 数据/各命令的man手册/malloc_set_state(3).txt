@@ -1,0 +1,12 @@
+
+       Note: these function are removed in glibc version 2.25.
+       The malloc_get_state() function records the current state of all
+       malloc(3) internal bookkeeping variables (but not the actual contents
+       of the heap or the state of malloc_hook(3) functions pointers).  The
+       state is recorded in a system-dependent opaque data structure
+       dynamically allocated via malloc(3), and a pointer to that data
+       structure is returned as the function result.  (It is the caller's
+       responsibility to free(3) this memory.)
+       The malloc_set_state() function restores the state of all malloc(3)
+       internal bookkeeping variables to the values recorded in the opaque
+       data structure pointed to by state.

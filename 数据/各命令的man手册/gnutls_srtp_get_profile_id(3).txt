@@ -1,0 +1,2 @@
+
+       This function allows you to look up a profile based on a string.

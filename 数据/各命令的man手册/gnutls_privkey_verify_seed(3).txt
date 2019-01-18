@@ -1,0 +1,3 @@
+
+       This function will verify that the given private key was generated
+       from the provided seed.

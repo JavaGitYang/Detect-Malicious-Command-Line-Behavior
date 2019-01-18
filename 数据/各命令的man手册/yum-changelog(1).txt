@@ -1,0 +1,4 @@
+
+       yum-changelog(1) is a Yum plugin for viewing package changelogs
+       before/after updating.  yum will invoke yum-changelog(1) plugin if
+       the --changelog option or the changelog command is used with yum.

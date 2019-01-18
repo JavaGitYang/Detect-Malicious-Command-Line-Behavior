@@ -1,0 +1,15 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The fgets() function shall read bytes from stream into the array
+       pointed to by s, until n−1 bytes are read, or a <newline> is read and
+       transferred to s, or an end-of-file condition is encountered. The
+       string is then terminated with a null byte.
+       The fgets() function may mark the last data access timestamp of the
+       file associated with stream for update. The last data access
+       timestamp shall be marked for update by the first successful
+       execution of fgetc(), fgets(), fread(), fscanf(), getc(), getchar(),
+       getdelim(), getline(), gets(), or scanf() using stream that returns
+       data not supplied by a prior call to ungetc().

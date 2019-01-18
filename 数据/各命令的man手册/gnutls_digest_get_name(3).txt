@@ -1,0 +1,2 @@
+
+       Convert a gnutls_digest_algorithm_t value to a string.

@@ -1,0 +1,50 @@
+
+       The cupsaddsmb program exports printers to the SAMBA software
+       (version 2.2.0 or higher) for use with Windows clients.  Depending on
+       the SAMBA configuration, you may need to provide a password to export
+       the printers.  This program requires the Windows printer driver files
+       described below.
+   SAMBA CONFIGURATION
+       cupsaddsmb uses the RPC-based printing support in SAMBA to provide
+       printer drivers and PPD files to Windows client machines.  In order
+       to use this functionality, you must first configure the SAMBA
+       smb.conf(5) file to support printing through CUPS and provide a
+       printer driver download share, as follows:
+           [global]
+            load printers = yes
+            printing = cups
+            printcap name = cups
+           [printers]
+            comment = All Printers
+            path = /var/spool/samba
+            browseable = no
+            public = yes
+            guest ok = yes
+            writable = no
+            printable = yes
+           [print$]
+            comment = Printer Drivers
+            path = /etc/samba/drivers
+            browseable = yes
+            guest ok = no
+            read only = yes
+            write list = root
+       This configuration assumes a FHS-compliant installation of SAMBA;
+       adjust the [printers] and [print$] share paths accordingly on your
+       system as needed.
+   MICROSOFT POSTSCRIPT DRIVERS FOR WINDOWS
+       The base driver for Windows 2000 and higher is the Microsoft
+       PostScript driver, which is available on any system running Windows
+       2000 or higher in the %WINDIR%\SYSTEM32\SPOOL\DRIVERS\W32X86\3 folder
+       for 32-bit drivers and %WINDIR%\SYSTEM32\SPOOL\DRIVERS\X64\3 folder
+       for 64-bit drivers.
+       Copy the 32-bit drivers to the /usr/share/cups/drivers directory and
+       the 64-bit drivers to the /usr/share/cups/drivers/x64 directory
+       exactly as named below:
+           ps5ui.dll
+           pscript.hlp
+           pscript.ntf
+           pscript5.dll
+       Note: Unlike Windows, case is significant - make sure that you use
+       the lowercase filenames shown above, otherwise cupsaddsmb will fail
+       to export the drivers.

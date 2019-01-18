@@ -1,0 +1,12 @@
+
+       The trace-cmd(1) record command will set up the Ftrace Linux kernel
+       tracer to record the specified plugins or events that happen while
+       the command executes. If no command is given, then it will record
+       until the user hits Ctrl-C.
+       The record command of trace-cmd will set up the Ftrace tracer to
+       start tracing the various events or plugins that are given on the
+       command line. It will then create a number of tracing processes (one
+       per CPU) that will start recording from the kernel ring buffer
+       straight into temporary files. When the command is complete (or
+       Ctrl-C is hit) all the files will be combined into a trace.dat file
+       that can later be read (see trace-cmd-report(1)).

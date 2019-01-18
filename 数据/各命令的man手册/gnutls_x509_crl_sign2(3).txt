@@ -1,0 +1,11 @@
+
+       This function will sign the CRL with the issuer's private key, and
+       will copy the issuer's information into the CRL.
+       This must be the last step in a certificate CRL since all the
+       previously set parameters are now signed.
+       A known limitation of this function is, that a newly-signed CRL will
+       not be fully functional (e.g., for signature verification), until it
+       is exported an re-imported.
+       After GnuTLS 3.6.1 the value of  dig may be GNUTLS_DIG_UNKNOWN, and
+       in that case, a suitable but reasonable for the key algorithm will be
+       selected.

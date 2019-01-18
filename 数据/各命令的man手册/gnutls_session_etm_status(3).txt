@@ -1,0 +1,3 @@
+
+       Get the status of the encrypt-then-mac extension negotiation.  This
+       is in accordance to rfc7366

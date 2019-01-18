@@ -1,0 +1,12 @@
+
+       The getsockname() function shall retrieve the locally-bound name of
+       the specified socket, store this address in the sockaddr structure
+       pointed to by the address argument, and store the length of this
+       address in the object pointed to by the address_len argument.
+       The address_len argument points to a socklen_t object which on input
+       specifies the length of the supplied sockaddr structure, and on
+       output specifies the length of the stored address.  If the actual
+       length of the address is greater than the length of the supplied
+       sockaddr structure, the stored address shall be truncated.
+       If the socket has not been bound to a local name, the value stored in
+       the object pointed to by address is unspecified.

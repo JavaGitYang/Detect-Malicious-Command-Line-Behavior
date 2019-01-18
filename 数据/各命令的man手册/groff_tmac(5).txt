@@ -1,0 +1,9 @@
+
+       The roff(7) type-setting system provides a set of macro packages
+       suitable for special kinds of documents.  Each macro package stores
+       its macros and definitions in a file called the package's tmac file.
+       The name is deduced from ‘TroffMACros’.
+       The tmac files are normal roff source documents, except that they
+       usually contain only definitions and setup commands, but no text.
+       All tmac files are kept in a single or a small number of directories,
+       the tmac directories.

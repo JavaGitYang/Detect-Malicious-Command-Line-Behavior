@@ -1,0 +1,10 @@
+
+       This function will try to verify the given certificate list and
+       return its status. The details of the verification are the same as in
+       gnutls_x509_trust_list_verify_crt2().
+       You must check the peer's name in order to check if the verified
+       certificate belongs to the actual peer.
+       The certificate verification output will be put in  verify and will
+       be one or more of the gnutls_certificate_status_t enumerated elements
+       bitwise or'd.  For a more detailed verification status use
+       gnutls_x509_crt_verify() per list element.

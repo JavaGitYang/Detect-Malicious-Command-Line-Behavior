@@ -1,0 +1,3 @@
+
+       The library supports AMD K8 processors in both 32 and 64-bit modes.
+       They correspond to processor family 15.

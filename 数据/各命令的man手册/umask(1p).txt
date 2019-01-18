@@ -1,0 +1,15 @@
+
+       The umask utility shall set the file mode creation mask of the
+       current shell execution environment (see Section 2.12, Shell
+       Execution Environment) to the value specified by the mask operand.
+       This mask shall affect the initial value of the file permission bits
+       of subsequently created files. If umask is called in a subshell or
+       separate utility execution environment, such as one of the following:
+           (umask 002)
+           nohup umask ...
+           find . −exec umask ... \;
+       it shall not affect the file mode creation mask of the caller's
+       environment.
+       If the mask operand is not specified, the umask utility shall write
+       to standard output the value of the file mode creation mask of the
+       invoking process.

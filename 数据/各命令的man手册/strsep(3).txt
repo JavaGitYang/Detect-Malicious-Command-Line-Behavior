@@ -1,0 +1,8 @@
+
+       If *stringp is NULL, the strsep() function returns NULL and does
+       nothing else.  Otherwise, this function finds the first token in the
+       string *stringp, that is delimited by one of the bytes in the string
+       delim.  This token is terminated by overwriting the delimiter with a
+       null byte ('\0'), and *stringp is updated to point past the token.
+       In case no delimiter was found, the token is taken to be the entire
+       string *stringp, and *stringp is made NULL.

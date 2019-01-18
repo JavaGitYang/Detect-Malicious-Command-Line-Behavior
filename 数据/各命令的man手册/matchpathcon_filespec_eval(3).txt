@@ -1,0 +1,14 @@
+
+       matchpathcon_checkmatches() checks whether any specification has no
+       matches and reports them.  The str argument is used as a prefix for
+       any warning messages.
+       matchpathcon_filespec_add() maintains an association between an inode
+       ino and a specification index specind, and checks whether a
+       conflicting specification is already associated with the same inode
+       (e.g. due to multiple hard links). If so, then it uses the latter of
+       the two specifications based on their order in the file context
+       configuration. Returns the specification index used or -1 on error.
+       matchpathcon_filespec_destroy() destroys any inode associations that
+       have been added, e.g. to restart for a new filesystem.
+       matchpathcon_filespec_eval() displays statistics on the hash table
+       usage for the inode associations.

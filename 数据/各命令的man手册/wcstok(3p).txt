@@ -1,0 +1,36 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       A sequence of calls to wcstok() shall break the wide-character string
+       pointed to by ws1 into a sequence of tokens, each of which shall be
+       delimited by a wide-character code from the wide-character string
+       pointed to by ws2.  The ptr argument points to a caller-provided
+       wchar_t pointer into which the wcstok() function shall store
+       information necessary for it to continue scanning the same wide-
+       character string.
+       The first call in the sequence has ws1 as its first argument, and is
+       followed by calls with a null pointer as their first argument. The
+       separator string pointed to by ws2 may be different from call to
+       call.
+       The first call in the sequence shall search the wide-character string
+       pointed to by ws1 for the first wide-character code that is not
+       contained in the current separator string pointed to by ws2.  If no
+       such wide-character code is found, then there are no tokens in the
+       wide-character string pointed to by ws1 and wcstok() shall return a
+       null pointer. If such a wide-character code is found, it shall be the
+       start of the first token.
+       The wcstok() function shall then search from there for a wide-
+       character code that is contained in the current separator string. If
+       no such wide-character code is found, the current token extends to
+       the end of the wide-character string pointed to by ws1, and
+       subsequent searches for a token shall return a null pointer. If such
+       a wide-character code is found, it shall be overwritten by a null
+       wide character, which terminates the current token. The wcstok()
+       function shall save a pointer to the following wide-character code,
+       from which the next search for a token shall start.
+       Each subsequent call, with a null pointer as the value of the first
+       argument, shall start searching from the saved pointer and behave as
+       described above.
+       The implementation shall behave as if no function calls wcstok().

@@ -1,0 +1,3 @@
+
+       These configuration files control global network parameters.
+       Currently the DHCP Unique Identifier (DUID).

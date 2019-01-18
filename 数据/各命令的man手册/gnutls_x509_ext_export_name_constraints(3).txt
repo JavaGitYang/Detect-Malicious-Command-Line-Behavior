@@ -1,0 +1,5 @@
+
+       This function will convert the provided name constraints type to a
+       DER-encoded PKIX NameConstraints (2.5.29.30) extension. The output
+       data in
+        ext will be allocated usin gnutls_malloc().

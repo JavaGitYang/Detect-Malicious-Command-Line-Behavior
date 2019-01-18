@@ -1,0 +1,10 @@
+
+       Security ID's (SID's) are opaque representations of security
+       contexts, managed by the userspace AVC.
+       avc_context_to_sid() returns a SID for the given context in the
+       memory referenced by sid.
+       avc_sid_to_context() returns a copy of the context represented by sid
+       in the memory referenced by ctx.  The user must free the copy with
+       freecon(3).
+       avc_get_initial_sid() returns a SID for the kernel initial security
+       identifier specified by name.

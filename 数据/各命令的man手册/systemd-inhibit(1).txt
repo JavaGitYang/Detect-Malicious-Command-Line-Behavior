@@ -1,0 +1,11 @@
+
+       systemd-inhibit may be used to execute a program with a shutdown,
+       sleep, or idle inhibitor lock taken. The lock will be acquired before
+       the specified command line is executed and released afterwards.
+       Inhibitor locks may be used to block or delay system sleep and
+       shutdown requests from the user, as well as automatic idle handling
+       of the OS. This is useful to avoid system suspends while an optical
+       disc is being recorded, or similar operations that should not be
+       interrupted.
+       For more information see the Inhibitor Lock Developer
+       Documentation[1].

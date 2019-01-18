@@ -1,0 +1,12 @@
+
+       dpkg-split splits Debian binary package files into smaller parts and
+       reassembles them again, to support the storage of large package files
+       on small media such as floppy disks.
+       It can be operated manually using the --split, --join and --info
+       options.
+       It also has an automatic mode, invoked using the --auto option, where
+       it maintains a queue of parts seen but not yet reassembled and
+       reassembles a package file when it has seen all of its parts. The
+       --listq and --discard options allow the management of the queue.
+       All splitting, joining and queueing operations produce informative
+       messages on standard output; these may safely be ignored.

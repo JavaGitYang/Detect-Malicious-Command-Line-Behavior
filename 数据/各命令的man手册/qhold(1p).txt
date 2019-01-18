@@ -1,0 +1,18 @@
+
+       A hold is placed on a batch job by a request to the batch server that
+       manages the batch job. A batch job that has one or more holds is not
+       eligible for execution. The qhold utility is a user-accessible client
+       of batch services that requests one or more types of hold to be
+       placed on one or more batch jobs.
+       The qhold utility shall place holds on those batch jobs for which a
+       batch job_identifier is presented to the utility.
+       The qhold utility shall place holds on batch jobs in the order in
+       which their batch job_identifiers are presented to the utility. If
+       the qhold utility fails to process any batch job_identifier
+       successfully, the utility shall proceed to process the remaining
+       batch job_identifiers, if any.
+       The qhold utility shall place holds on each batch job by sending a
+       Hold Job Request to the batch server that manages the batch job.
+       The qhold utility shall not exit until holds have been placed on the
+       batch job corresponding to each successfully processed batch
+       job_identifier.

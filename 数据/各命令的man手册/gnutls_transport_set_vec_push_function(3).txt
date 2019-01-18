@@ -1,0 +1,7 @@
+
+       Using this function you can override the default writev(2) function
+       for gnutls to send data. Setting this callback instead of
+       gnutls_transport_set_push_function() is recommended since it
+       introduces less overhead in the TLS handshake process.
+        vec_func is of the form, ssize_t (*gnutls_vec_push_func)
+       (gnutls_transport_ptr_t, const giovec_t * iov, int iovcnt);

@@ -1,0 +1,19 @@
+
+       avc_entry_ref_init() initializes an avc_entry_ref structure; see
+       ENTRY REFERENCES below.  This function may be implemented as a macro.
+       avc_has_perm() checks whether the requested permissions are granted
+       for subject SID ssid and target SID tsid, interpreting the
+       permissions based on tclass and updating aeref, if non-NULL, to refer
+       to a cache entry with the resulting decision.  The granting or denial
+       of permissions is audited in accordance with the policy.  The
+       auditdata parameter is for supplemental auditing; see avc_audit()
+       below.
+       avc_has_perm_noaudit() behaves as avc_has_perm() without producing an
+       audit message.  The access decision is returned in avd and can be
+       passed to avc_audit() explicitly.
+       avc_audit() produces an audit message for the access query
+       represented by ssid, tsid, tclass, and requested, with a decision
+       represented by avd.  Pass the value returned by
+       avc_has_perm_noaudit() as result.  The auditdata parameter is passed
+       to the user-supplied func_audit callback and can be used to add
+       supplemental information to the audit message; see avc_init(3).

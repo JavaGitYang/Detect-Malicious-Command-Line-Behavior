@@ -1,0 +1,7 @@
+
+       The function ttyname() returns a pointer to the null-terminated
+       pathname of the terminal device that is open on the file descriptor
+       fd, or NULL on error (for example, if fd is not connected to a
+       terminal).  The return value may point to static data, possibly
+       overwritten by the next call.  The function ttyname_r() stores this
+       pathname in the buffer buf of length buflen.

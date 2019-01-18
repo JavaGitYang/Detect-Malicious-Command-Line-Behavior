@@ -1,0 +1,3 @@
+
+       Note that the full cipher suite name must be prepended by TLS or SSL
+       depending of the protocol in use.

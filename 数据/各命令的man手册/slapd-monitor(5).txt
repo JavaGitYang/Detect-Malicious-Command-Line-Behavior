@@ -1,0 +1,10 @@
+
+       The monitor backend to slapd(8) is not an actual database; if
+       enabled, it is automatically generated and dynamically maintained by
+       slapd with information about the running status of the daemon.
+       To inspect all monitor information, issue a subtree search with base
+       cn=Monitor, requesting that attributes "+" and "*" are returned.  The
+       monitor backend produces mostly operational attributes, and LDAP only
+       returns operational attributes that are explicitly requested.
+       Requesting attribute "+" is an extension which requests all
+       operational attributes.

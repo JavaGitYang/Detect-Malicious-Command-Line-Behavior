@@ -1,0 +1,29 @@
+
+       raw is used to bind a Linux raw character device to a block device.
+       Any block device may be used: at the time of binding, the device
+       driver does not even have to be accessible (it may be loaded on
+       demand as a kernel module later).
+       raw is used in two modes: it either sets raw device bindings, or it
+       queries existing bindings.  When setting a raw device,
+       /dev/raw/raw<N> is the device name of an existing raw device node in
+       the filesystem.  The block device to which it is to be bound can be
+       specified either in terms of its major and minor device numbers, or
+       as a path name /dev/<blockdev> to an existing block device file.
+       The bindings already in existence can be queried with the -q option,
+       which is used either with a raw device filename to query that one
+       device, or with the -a option to query all bound raw devices.
+       Unbinding can be done by specifying major and minor 0.
+       Once bound to a block device, a raw device can be opened, read and
+       written, just like the block device it is bound to.  However, the raw
+       device does not behave exactly like the block device.  In particular,
+       access to the raw device bypasses the kernel's block buffer cache
+       entirely: all I/O is done directly to and from the address space of
+       the process performing the I/O.  If the underlying block device
+       driver can support DMA, then no data copying at all is required to
+       complete the I/O.
+       Because raw I/O involves direct hardware access to a process's
+       memory, a few extra restrictions must be observed.  All I/Os must be
+       correctly aligned in memory and on disk: they must start at a sector
+       offset on disk, they must be an exact number of sectors long, and the
+       data buffer in virtual memory must also be aligned to a multiple of
+       the sector size.  The sector size is 512 bytes for most devices.

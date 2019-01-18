@@ -1,0 +1,18 @@
+
+       The list-plugins command prints a list of available Babeltrace
+       plugins along with their component classes and their properties.
+       See babeltrace-intro(7) to learn more about the Babeltrace project
+       and its core concepts.
+   Plugin path
+       This command loads Babeltrace plugins to perform its operation. The
+       search path for Babeltrace plugins is, in this order:
+        1. The colon-separated list of directories in the
+           BABELTRACE_PLUGIN_PATH environment variable.
+        2. The colon-separated list of directories in the --plugin-path
+           option.
+        3. If the --omit-home-plugin-path option is absent:
+           $HOME/.local/lib/babeltrace/plugins
+        4. If the --omit-system-plugin-path option is absent:
+           /usr/local/lib/babeltrace/plugins
+       You can use the babeltrace-list-plugins(1) command to dynamically
+       list the available plugins.

@@ -1,0 +1,109 @@
+
+       patch takes a patch file patchfile containing a difference listing
+       produced by the diff program and applies those differences to one or
+       more original files, producing patched versions.  Normally the
+       patched versions are put in place of the originals.  Backups can be
+       made; see the -b or --backup option.  The names of the files to be
+       patched are usually taken from the patch file, but if there's just
+       one file to be patched it can be specified on the command line as
+       originalfile.
+       Upon startup, patch attempts to determine the type of the diff
+       listing, unless overruled by a -c (--context), -e (--ed), -n
+       (--normal), or -u (--unified) option.  Context diffs (old-style, new-
+       style, and unified) and normal diffs are applied by the patch program
+       itself, while ed diffs are simply fed to the ed(1) editor via a pipe.
+       patch tries to skip any leading garbage, apply the diff, and then
+       skip any trailing garbage.  Thus you could feed an article or message
+       containing a diff listing to patch, and it should work.  If the
+       entire diff is indented by a consistent amount, if lines end in CRLF,
+       or if a diff is encapsulated one or more times by prepending "- " to
+       lines starting with "-" as specified by Internet RFC 934, this is
+       taken into account.  After removing indenting or encapsulation, lines
+       beginning with # are ignored, as they are considered to be comments.
+       With context diffs, and to a lesser extent with normal diffs, patch
+       can detect when the line numbers mentioned in the patch are
+       incorrect, and attempts to find the correct place to apply each hunk
+       of the patch.  As a first guess, it takes the line number mentioned
+       for the hunk, plus or minus any offset used in applying the previous
+       hunk.  If that is not the correct place, patch scans both forwards
+       and backwards for a set of lines matching the context given in the
+       hunk.  First patch looks for a place where all lines of the context
+       match.  If no such place is found, and it's a context diff, and the
+       maximum fuzz factor is set to 1 or more, then another scan takes
+       place ignoring the first and last line of context.  If that fails,
+       and the maximum fuzz factor is set to 2 or more, the first two and
+       last two lines of context are ignored, and another scan is made.
+       (The default maximum fuzz factor is 2.)
+       Hunks with less prefix context than suffix context (after applying
+       fuzz) must apply at the start of the file if their first line number
+       is 1.  Hunks with more prefix context than suffix context (after
+       applying fuzz) must apply at the end of the file.
+       If patch cannot find a place to install that hunk of the patch, it
+       puts the hunk out to a reject file, which normally is the name of the
+       output file plus a .rej suffix, or # if .rej would generate a file
+       name that is too long (if even appending the single character # makes
+       the file name too long, then # replaces the file name's last
+       character).
+       The rejected hunk comes out in unified or context diff format.  If
+       the input was a normal diff, many of the contexts are simply null.
+       The line numbers on the hunks in the reject file may be different
+       than in the patch file: they reflect the approximate location patch
+       thinks the failed hunks belong in the new file rather than the old
+       one.
+       As each hunk is completed, you are told if the hunk failed, and if so
+       which line (in the new file) patch thought the hunk should go on.  If
+       the hunk is installed at a different line from the line number
+       specified in the diff, you are told the offset.  A single large
+       offset may indicate that a hunk was installed in the wrong place.
+       You are also told if a fuzz factor was used to make the match, in
+       which case you should also be slightly suspicious.  If the --verbose
+       option is given, you are also told about hunks that match exactly.
+       If no original file origfile is specified on the command line, patch
+       tries to figure out from the leading garbage what the name of the
+       file to edit is, using the following rules.
+       First, patch takes an ordered list of candidate file names as
+       follows:
+        · If the header is that of a context diff, patch takes the old and
+          new file names in the header.  A name is ignored if it does not
+          have enough slashes to satisfy the -pnum or --strip=num option.
+          The name /dev/null is also ignored.
+        · If there is an Index: line in the leading garbage and if either
+          the old and new names are both absent or if patch is conforming to
+          POSIX, patch takes the name in the Index: line.
+        · For the purpose of the following rules, the candidate file names
+          are considered to be in the order (old, new, index), regardless of
+          the order that they appear in the header.
+       Then patch selects a file name from the candidate list as follows:
+        · If some of the named files exist, patch selects the first name if
+          conforming to POSIX, and the best name otherwise.
+        · If patch is not ignoring RCS, ClearCase, Perforce, and SCCS (see
+          the -g num or --get=num option), and no named files exist but an
+          RCS, ClearCase, Perforce, or SCCS master is found, patch selects
+          the first named file with an RCS, ClearCase, Perforce, or SCCS
+          master.
+        · If no named files exist, no RCS, ClearCase, Perforce, or SCCS
+          master was found, some names are given, patch is not conforming to
+          POSIX, and the patch appears to create a file, patch selects the
+          best name requiring the creation of the fewest directories.
+        · If no file name results from the above heuristics, you are asked
+          for the name of the file to patch, and patch selects that name.
+       To determine the best of a nonempty list of file names, patch first
+       takes all the names with the fewest path name components; of those,
+       it then takes all the names with the shortest basename; of those, it
+       then takes all the shortest names; finally, it takes the first
+       remaining name.
+       Additionally, if the leading garbage contains a Prereq: line, patch
+       takes the first word from the prerequisites line (normally a version
+       number) and checks the original file to see if that word can be
+       found.  If not, patch asks for confirmation before proceeding.
+       The upshot of all this is that you should be able to say, while in a
+       news interface, something like the following:
+              | patch -d /usr/src/local/blurfl
+       and patch a file in the blurfl directory directly from the article
+       containing the patch.
+       If the patch file contains more than one patch, patch tries to apply
+       each of them as if they came from separate patch files.  This means,
+       among other things, that it is assumed that the name of the file to
+       patch must be determined for each diff listing, and that the garbage
+       before each diff listing contains interesting things such as file
+       names and revision level, as mentioned previously.

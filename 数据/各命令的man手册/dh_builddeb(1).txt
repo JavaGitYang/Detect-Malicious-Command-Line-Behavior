@@ -1,0 +1,8 @@
+
+       dh_builddeb simply calls dpkg-deb(1) to build a Debian package or
+       packages.  It will also build dbgsym packages when dh_strip(1) and
+       dh_gencontrol(1) have prepared them.
+       It supports building multiple binary packages in parallel, when
+       enabled by DEB_BUILD_OPTIONS.
+       When the Rules-Requires-Root field is not (effectively) binary-
+       targets, dh_builddeb will pass --root-owner-group to dpkg-deb(1).

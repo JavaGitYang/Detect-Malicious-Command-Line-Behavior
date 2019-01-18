@@ -1,0 +1,18 @@
+
+       The nl_langinfo() and nl_langinfo_l() functions shall return a
+       pointer to a string containing information relevant to the particular
+       language or cultural area defined in the current locale, or in the
+       locale represented by locale, respectively (see <langinfo.h>).  The
+       manifest constant names and values of item are defined in
+       <langinfo.h>.  For example:
+           nl_langinfo(ABDAY_1)
+       would return a pointer to the string "Dom" if the identified language
+       was Portuguese, and "Sun" if the identified language was English.
+           nl_langinfo_l(ABDAY_1, loc)
+       would return a pointer to the string "Dom" if the identified language
+       of the locale represented by loc was Portuguese, and "Sun" if the
+       identified language of the locale represented by loc was English.
+       The nl_langinfo() function need not be thread-safe.
+       The behavior is undefined if the locale argument to nl_langinfo_l()
+       is the special locale object LC_GLOBAL_LOCALE or is not a valid
+       locale object handle.

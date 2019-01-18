@@ -1,0 +1,23 @@
+
+       Files in this directory determine the default behavior for utilities
+       when coloring output.
+       The name is a utility name.  The name is optional and when none is
+       specified then the file is used for all unspecified utilities.
+       The term is a terminal identifier (the TERM environment variable).
+       The terminal identifier is optional and when none is specified then
+       the file is used for all unspecified terminals.
+       The type is a file type.  Supported file types are:
+       disable
+              Turns off output colorization for all compatible utilities.
+       enable Turns on output colorization; any matching disable files are
+              ignored.
+       scheme Specifies colors used for output.  The file format may be
+              specific to the utility, the default format is described
+              below.
+       If there are more files that match for a utility, then the file with
+       the more specific filename wins.  For example, the filename
+       "@xterm.scheme" has less priority than "dmesg@xterm.scheme".  The
+       lowest priority are those files without a utility name and terminal
+       identifier (e.g. "disable").
+       The user-specific $XDG_CONFIG_HOME/terminal-colors.d or
+       $HOME/.config/terminal-colors.d overrides the global setting.

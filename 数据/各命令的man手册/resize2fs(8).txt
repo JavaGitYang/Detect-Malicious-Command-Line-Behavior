@@ -1,0 +1,44 @@
+
+       The resize2fs program will resize ext2, ext3, or ext4 file systems.
+       It can be used to enlarge or shrink an unmounted file system located
+       on device.  If the filesystem is mounted, it can be used to expand
+       the size of the mounted filesystem, assuming the kernel and the file
+       system supports on-line resizing.  (Modern Linux 2.6 kernels will
+       support on-line resize for file systems mounted using ext3 and ext4;
+       ext3 file systems will require the use of file systems with the
+       resize_inode feature enabled.)
+       The size parameter specifies the requested new size of the
+       filesystem.  If no units are specified, the units of the size
+       parameter shall be the filesystem blocksize of the filesystem.
+       Optionally, the size parameter may be suffixed by one of the
+       following the units designators: 's', 'K', 'M', or 'G', for 512 byte
+       sectors, kilobytes, megabytes, or gigabytes, respectively.  The size
+       of the filesystem may never be larger than the size of the partition.
+       If size parameter is not specified, it will default to the size of
+       the partition.
+       Note: when kilobytes is used above, I mean real, power-of-2
+       kilobytes, (i.e., 1024 bytes), which some politically correct folks
+       insist should be the stupid-sounding ``kibibytes''.  The same holds
+       true for megabytes, also sometimes known as ``mebibytes'', or
+       gigabytes, as the amazingly silly ``gibibytes''.  Makes you want to
+       gibber, doesn't it?
+       The resize2fs program does not manipulate the size of partitions.  If
+       you wish to enlarge a filesystem, you must make sure you can expand
+       the size of the underlying partition first.  This can be done using
+       fdisk(8) by deleting the partition and recreating it with a larger
+       size or using lvextend(8), if you're using the logical volume manager
+       lvm(8).  When recreating the partition, make sure you create it with
+       the same starting disk cylinder as before!  Otherwise, the resize
+       operation will certainly not work, and you may lose your entire
+       filesystem.  After running fdisk(8), run resize2fs to resize the ext2
+       filesystem to use all of the space in the newly enlarged partition.
+       If you wish to shrink an ext2 partition, first use resize2fs to
+       shrink the size of filesystem.  Then you may use fdisk(8) to shrink
+       the size of the partition.  When shrinking the size of the partition,
+       make sure you do not make it smaller than the new size of the ext2
+       filesystem!
+       The -b and -s options enable and disable the 64bit feature,
+       respectively.  The resize2fs program will, of course, take care of
+       resizing the block group descriptors and moving other data blocks out
+       of the way, as needed.  It is not possible to resize the filesystem
+       concurrent with changing the 64bit status.

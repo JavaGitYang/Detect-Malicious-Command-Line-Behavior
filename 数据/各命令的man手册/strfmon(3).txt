@@ -1,0 +1,47 @@
+
+       The strfmon() function formats the specified monetary amount
+       according to the current locale and format specification format and
+       places the result in the character array s of size max.
+       The strfmon_l() function performs the same task, but uses the locale
+       specified by locale.  The behavior of strfmon_l() is undefined if
+       locale is the special locale object LC_GLOBAL_LOCALE (see
+       duplocale(3)) or is not a valid locale object handle.
+       Ordinary characters in format are copied to s without conversion.
+       Conversion specifiers are introduced by a '%' character.  Immediately
+       following it there can be zero or more of the following flags:
+       =f     The single-byte character f is used as the numeric fill
+              character (to be used with a left precision, see below).  When
+              not specified, the space character is used.
+       ^      Do not use any grouping characters that might be defined for
+              the current locale.  By default, grouping is enabled.
+       ( or + The ( flag indicates that negative amounts should be enclosed
+              between parentheses.  The + flag indicates that signs should
+              be handled in the default way, that is, amounts are preceded
+              by the locale's sign indication, for example, nothing for
+              positive, "-" for negative.
+       !      Omit the currency symbol.
+       -      Left justify all fields.  The default is right justification.
+       Next, there may be a field width: a decimal digit string specifying a
+       minimum field width in bytes.  The default is 0.  A result smaller
+       than this width is padded with spaces (on the left, unless the left-
+       justify flag was given).
+       Next, there may be a left precision of the form "#" followed by a
+       decimal digit string.  If the number of digits left of the radix
+       character is smaller than this, the representation is padded on the
+       left with the numeric fill character.  Grouping characters are not
+       counted in this field width.
+       Next, there may be a right precision of the form "." followed by a
+       decimal digit string.  The amount being formatted is rounded to the
+       specified number of digits prior to formatting.  The default is
+       specified in the frac_digits and int_frac_digits items of the current
+       locale.  If the right precision is 0, no radix character is printed.
+       (The radix character here is determined by LC_MONETARY, and may
+       differ from that specified by LC_NUMERIC.)
+       Finally, the conversion specification must be ended with a conversion
+       character.  The three conversion characters are
+       %      (In this case, the entire specification must be exactly "%%".)
+              Put a '%' character in the result string.
+       i      One argument of type double is converted using the locale's
+              international currency format.
+       n      One argument of type double is converted using the locale's
+              national currency format.

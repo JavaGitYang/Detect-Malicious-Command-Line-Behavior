@@ -1,0 +1,10 @@
+
+       e4defrag reduces fragmentation of extent based file. The file
+       targeted by e4defrag is created on ext4 filesystem made with "-O
+       extent" option (see mke2fs(8)).  The targeted file gets more
+       contiguous blocks and improves the file access speed.
+       target is a regular file, a directory, or a device that is mounted as
+       ext4 filesystem.  If target is a directory, e4defrag reduces
+       fragmentation of all files in it. If target is a device, e4defrag
+       gets the mount point of it and reduces fragmentation of all files in
+       this mount point.

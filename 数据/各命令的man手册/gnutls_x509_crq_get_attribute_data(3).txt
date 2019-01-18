@@ -1,0 +1,7 @@
+
+       This function will return the requested attribute data in the
+       certificate request.  The attribute data will be stored as a string
+       in the provided buffer.
+       Use gnutls_x509_crq_get_attribute_info() to extract the OID.  Use
+       gnutls_x509_crq_get_attribute_by_oid() instead, if you want to get
+       data indexed by the attribute OID rather than sequence.

@@ -1,0 +1,23 @@
+
+       sem_open() creates a new POSIX semaphore or opens an existing
+       semaphore.  The semaphore is identified by name.  For details of the
+       construction of name, see sem_overview(7).
+       The oflag argument specifies flags that control the operation of the
+       call.  (Definitions of the flags values can be obtained by including
+       <fcntl.h>.)  If O_CREAT is specified in oflag, then the semaphore is
+       created if it does not already exist.  The owner (user ID) of the
+       semaphore is set to the effective user ID of the calling process.
+       The group ownership (group ID) is set to the effective group ID of
+       the calling process.  If both O_CREAT and O_EXCL are specified in
+       oflag, then an error is returned if a semaphore with the given name
+       already exists.
+       If O_CREAT is specified in oflag, then two additional arguments must
+       be supplied.  The mode argument specifies the permissions to be
+       placed on the new semaphore, as for open(2).  (Symbolic definitions
+       for the permissions bits can be obtained by including <sys/stat.h>.)
+       The permissions settings are masked against the process umask.  Both
+       read and write permission should be granted to each class of user
+       that will access the semaphore.  The value argument specifies the
+       initial value for the new semaphore.  If O_CREAT is specified, and a
+       semaphore with the given name already exists, then mode and value are
+       ignored.

@@ -1,0 +1,18 @@
+
+       sd_bus_request_name() requests a well-known service name on a bus. It
+       takes a bus connection, a valid bus name and a flags parameter. The
+       flags parameter is a combination of the following flags:
+       SD_BUS_NAME_ALLOW_REPLACEMENT
+           After acquiring the name successfully, permit other peers to take
+           over the name when they try to acquire it with the
+           SD_BUS_NAME_REPLACE_EXISTING flag set. If
+           SD_BUS_NAME_ALLOW_REPLACEMENT is not set on the original request,
+           such a request by other peers will be denied.
+       SD_BUS_NAME_REPLACE_EXISTING
+           Take over the name if it is already acquired by another peer, and
+           that other peer has permitted takeover by setting
+           SD_BUS_NAME_ALLOW_REPLACEMENT while acquiring it.
+       SD_BUS_NAME_QUEUE
+           Queue the acquisition of the name when the name is already taken.
+       sd_bus_release_name() releases an acquired well-known name. It takes
+       a bus connection and a valid bus name as parameters.

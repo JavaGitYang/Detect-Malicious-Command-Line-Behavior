@@ -1,0 +1,35 @@
+
+       The random() function shall use a non-linear additive feedback
+       random-number generator employing a default state array size of 31
+       long integers to return successive pseudo-random numbers in the range
+       from 0 to 231−1. The period of this random-number generator is
+       approximately 16 x (231−1). The size of the state array determines
+       the period of the random-number generator. Increasing the state array
+       size shall increase the period.
+       With 256 bytes of state information, the period of the random-number
+       generator shall be greater than 269.
+       Like rand(), random() shall produce by default a sequence of numbers
+       that can be duplicated by calling srandom() with 1 as the seed.
+       The srandom() function shall initialize the current state array using
+       the value of seed.
+       The initstate() and setstate() functions handle restarting and
+       changing random-number generators. The initstate() function allows a
+       state array, pointed to by the state argument, to be initialized for
+       future use. The size argument, which specifies the size in bytes of
+       the state array, shall be used by initstate() to decide what type of
+       random-number generator to use; the larger the state array, the more
+       random the numbers. Values for the amount of state information are 8,
+       32, 64, 128, and 256 bytes. Other values greater than 8 bytes are
+       rounded down to the nearest one of these values. If initstate() is
+       called with 8≤size<32, then random() shall use a simple linear
+       congruential random number generator. The seed argument specifies a
+       starting point for the random-number sequence and provides for
+       restarting at the same point. The initstate() function shall return a
+       pointer to the previous state information array.
+       If initstate() has not been called, then random() shall behave as
+       though initstate() had been called with seed=1 and size=128.
+       Once a state has been initialized, setstate() allows switching
+       between state arrays. The array defined by the state argument shall
+       be used for further random-number generation until initstate() is
+       called or setstate() is called again. The setstate() function shall
+       return a pointer to the previous state array.

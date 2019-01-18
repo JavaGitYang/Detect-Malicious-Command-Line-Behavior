@@ -1,0 +1,80 @@
+
+       The pthread_cond_timedwait() and pthread_cond_wait() functions shall
+       block on a condition variable. The application shall ensure that
+       these functions are called with mutex locked by the calling thread;
+       otherwise, an error (for PTHREAD_MUTEX_ERRORCHECK and robust mutexes)
+       or undefined behavior (for other mutexes) results.
+       These functions atomically release mutex and cause the calling thread
+       to block on the condition variable cond; atomically here means
+       ``atomically with respect to access by another thread to the mutex
+       and then the condition variable''. That is, if another thread is able
+       to acquire the mutex after the about-to-block thread has released it,
+       then a subsequent call to pthread_cond_broadcast() or
+       pthread_cond_signal() in that thread shall behave as if it were
+       issued after the about-to-block thread has blocked.
+       Upon successful return, the mutex shall have been locked and shall be
+       owned by the calling thread. If mutex is a robust mutex where an
+       owner terminated while holding the lock and the state is recoverable,
+       the mutex shall be acquired even though the function returns an error
+       code.
+       When using condition variables there is always a Boolean predicate
+       involving shared variables associated with each condition wait that
+       is true if the thread should proceed. Spurious wakeups from the
+       pthread_cond_timedwait() or pthread_cond_wait() functions may occur.
+       Since the return from pthread_cond_timedwait() or pthread_cond_wait()
+       does not imply anything about the value of this predicate, the
+       predicate should be re-evaluated upon such return.
+       When a thread waits on a condition variable, having specified a
+       particular mutex to either the pthread_cond_timedwait() or the
+       pthread_cond_wait() operation, a dynamic binding is formed between
+       that mutex and condition variable that remains in effect as long as
+       at least one thread is blocked on the condition variable. During this
+       time, the effect of an attempt by any thread to wait on that
+       condition variable using a different mutex is undefined. Once all
+       waiting threads have been unblocked (as by the
+       pthread_cond_broadcast() operation), the next wait operation on that
+       condition variable shall form a new dynamic binding with the mutex
+       specified by that wait operation. Even though the dynamic binding
+       between condition variable and mutex may be removed or replaced
+       between the time a thread is unblocked from a wait on the condition
+       variable and the time that it returns to the caller or begins
+       cancellation cleanup, the unblocked thread shall always re-acquire
+       the mutex specified in the condition wait operation call from which
+       it is returning.
+       A condition wait (whether timed or not) is a cancellation point. When
+       the cancelability type of a thread is set to PTHREAD_CANCEL_DEFERRED,
+       a side-effect of acting upon a cancellation request while in a
+       condition wait is that the mutex is (in effect) re-acquired before
+       calling the first cancellation cleanup handler. The effect is as if
+       the thread were unblocked, allowed to execute up to the point of
+       returning from the call to pthread_cond_timedwait() or
+       pthread_cond_wait(), but at that point notices the cancellation
+       request and instead of returning to the caller of
+       pthread_cond_timedwait() or pthread_cond_wait(), starts the thread
+       cancellation activities, which includes calling cancellation cleanup
+       handlers.
+       A thread that has been unblocked because it has been canceled while
+       blocked in a call to pthread_cond_timedwait() or pthread_cond_wait()
+       shall not consume any condition signal that may be directed
+       concurrently at the condition variable if there are other threads
+       blocked on the condition variable.
+       The pthread_cond_timedwait() function shall be equivalent to
+       pthread_cond_wait(), except that an error is returned if the absolute
+       time specified by abstime passes (that is, system time equals or
+       exceeds abstime) before the condition cond is signaled or
+       broadcasted, or if the absolute time specified by abstime has already
+       been passed at the time of the call. When such timeouts occur,
+       pthread_cond_timedwait() shall nonetheless release and re-acquire the
+       mutex referenced by mutex, and may consume a condition signal
+       directed concurrently at the condition variable.
+       The condition variable shall have a clock attribute which specifies
+       the clock that shall be used to measure the time specified by the
+       abstime argument. The pthread_cond_timedwait() function is also a
+       cancellation point.
+       If a signal is delivered to a thread waiting for a condition
+       variable, upon return from the signal handler the thread resumes
+       waiting for the condition variable as if it was not interrupted, or
+       it shall return zero due to spurious wakeup.
+       The behavior is undefined if the value specified by the cond or mutex
+       argument to these functions does not refer to an initialized
+       condition variable or an initialized mutex object, respectively.

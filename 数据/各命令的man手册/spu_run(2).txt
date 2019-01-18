@@ -1,0 +1,30 @@
+
+       The spu_run() system call is used on PowerPC machines that implement
+       the Cell Broadband Engine Architecture in order to access Synergistic
+       Processor Units (SPUs).  The fd argument is a file descriptor
+       returned by spu_create(2) that refers to a specific SPU context.
+       When the context gets scheduled to a physical SPU, it starts
+       execution at the instruction pointer passed in npc.
+       Execution of SPU code happens synchronously, meaning that spu_run()
+       blocks while the SPU is still running.  If there is a need to execute
+       SPU code in parallel with other code on either the main CPU or other
+       SPUs, a new thread of execution must be created first (e.g., using
+       pthread_create(3)).
+       When spu_run() returns, the current value of the SPU program counter
+       is written to npc, so successive calls to spu_run() can use the same
+       npc pointer.
+       The event argument provides a buffer for an extended status code.  If
+       the SPU context was created with the SPU_CREATE_EVENTS_ENABLED flag,
+       then this buffer is populated by the Linux kernel before spu_run()
+       returns.
+       The status code may be one (or more) of the following constants:
+       SPE_EVENT_DMA_ALIGNMENT
+              A DMA alignment error occurred.
+       SPE_EVENT_INVALID_DMA
+              An invalid MFC DMA command was attempted.
+       SPE_EVENT_SPE_DATA_STORAGE
+              A DMA storage error occurred.
+       SPE_EVENT_SPE_ERROR
+              An illegal instruction was executed.
+       NULL is a valid value for the event argument.  In this case, the
+       events will not be reported to the calling process.

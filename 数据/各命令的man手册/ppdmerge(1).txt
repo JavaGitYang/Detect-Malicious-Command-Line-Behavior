@@ -1,0 +1,4 @@
+
+       ppdmerge merges two or more PPD files into a single, multi-language
+       PPD file.  This program is deprecated and will be removed in a future
+       release of CUPS.

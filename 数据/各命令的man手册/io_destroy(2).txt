@@ -1,0 +1,5 @@
+
+       The io_destroy() system call will attempt to cancel all outstanding
+       asynchronous I/O operations against ctx_id, will block on the
+       completion of all operations that could not be canceled, and will
+       destroy the ctx_id.

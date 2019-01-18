@@ -1,0 +1,9 @@
+
+       The pthread_attr_getstacksize() and pthread_attr_setstacksize()
+       functions, respectively, shall get and set the thread creation
+       stacksize attribute in the attr object.
+       The stacksize attribute shall define the minimum stack size (in
+       bytes) allocated for the created threads stack.
+       The behavior is undefined if the value specified by the attr argument
+       to pthread_attr_getstacksize() or pthread_attr_setstacksize() does
+       not refer to an initialized thread attributes object.

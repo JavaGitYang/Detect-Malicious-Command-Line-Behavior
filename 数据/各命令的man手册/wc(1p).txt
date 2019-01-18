@@ -1,0 +1,8 @@
+
+       The wc utility shall read one or more input files and, by default,
+       write the number of <newline> characters, words, and bytes contained
+       in each input file to the standard output.
+       The utility also shall write a total count for all named files, if
+       more than one input file is specified.
+       The wc utility shall consider a word to be a non-zero-length string
+       of characters delimited by white space.

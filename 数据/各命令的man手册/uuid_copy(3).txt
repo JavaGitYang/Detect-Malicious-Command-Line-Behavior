@@ -1,0 +1,2 @@
+
+       The uuid_copy function copies the UUID variable src to dst.

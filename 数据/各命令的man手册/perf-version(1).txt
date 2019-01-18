@@ -1,0 +1,5 @@
+
+       With no options given, the perf version prints the perf version on
+       the standard output.
+       If the option --build-options is given, then the status of
+       compiled-in libraries are printed on the standard output.

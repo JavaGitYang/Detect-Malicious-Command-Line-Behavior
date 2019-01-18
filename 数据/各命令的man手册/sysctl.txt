@@ -1,0 +1,10 @@
+
+       sysctl.conf is a simple file containing sysctl values to be read in
+       and set by sysctl.  The syntax is simply as follows:
+              # comment
+              ; comment
+              token = value
+       Note that blank lines are ignored, and whitespace before and after a
+       token or value is ignored, although a value can contain whitespace
+       within.  Lines which begin with a # or ; are considered comments and
+       ignored.

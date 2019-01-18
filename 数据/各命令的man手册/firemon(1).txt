@@ -1,0 +1,5 @@
+
+       Firemon monitors programs started in a Firejail sandbox.  Without a
+       PID specified, all processes started by Firejail are monitored.
+       Descendants of these processes are also being monitored. On
+       Grsecurity systems only root user can run this program.

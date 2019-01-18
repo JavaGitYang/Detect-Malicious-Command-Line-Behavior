@@ -1,0 +1,8 @@
+
+       As part of the Performance Co-Pilot Log Import API (see
+       LOGIMPORT(3)), pmiEnd closes the current context, forcing the trailer
+       records to be written to the PCP archive files, and then these files
+       are closed.
+       In normal operations, an application would include a call to pmiEnd
+       at the end of processing for each context created with a call to
+       pmiStart(3).

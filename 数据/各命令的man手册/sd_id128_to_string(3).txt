@@ -1,0 +1,19 @@
+
+       sd_id128_to_string() formats a 128-bit ID as a character string. It
+       expects the ID and a string array capable of storing 33 characters.
+       The ID will be formatted as 32 lowercase hexadecimal digits and be
+       terminated by a NUL byte.
+       sd_id128_from_string() implements the reverse operation: it takes a
+       33 character string with 32 hexadecimal digits (either lowercase or
+       uppercase, terminated by NUL) and parses them back into a 128-bit ID
+       returned in ret. Alternatively, this call can also parse a
+       37-character string with a 128-bit ID formatted as RFC UUID. If ret
+       is passed as NULL the function will validate the passed ID string,
+       but not actually return it in parsed form.
+       For more information about the "sd_id128_t" type see sd-id128(3).
+       Note that these calls operate the same way on all architectures, i.e.
+       the results do not depend on endianness.
+       When formatting a 128-bit ID into a string, it is often easier to use
+       a format string for printf(3). This is easily done using the
+       SD_ID128_FORMAT_STR and SD_ID128_FORMAT_VAL() macros. For more
+       information see sd-id128(3).

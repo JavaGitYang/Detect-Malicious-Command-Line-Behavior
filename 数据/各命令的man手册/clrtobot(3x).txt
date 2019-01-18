@@ -1,0 +1,14 @@
+
+       The erase and werase routines copy blanks to every position in the
+       window, clearing the screen.
+       The clear and wclear routines are like erase and werase, but they
+       also call clearok, so that the screen is cleared completely on the
+       next call to wrefresh for that window and repainted from scratch.
+       The clrtobot and wclrtobot routines erase from the cursor to the end
+       of screen.  That is, they erase all lines below the cursor in the
+       window.  Also, the current line to the right of the cursor,
+       inclusive, is erased.
+       The clrtoeol and wclrtoeol routines erase the current line to the
+       right of the cursor, inclusive, to the end of the current line.
+       Blanks created by erasure have the current background rendition (as
+       set by wbkgdset) merged into them.

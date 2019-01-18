@@ -1,0 +1,21 @@
+
+       Manage multiple working trees attached to the same repository.
+       A git repository can support multiple working trees, allowing you to
+       check out more than one branch at a time. With git worktree add a new
+       working tree is associated with the repository. This new working tree
+       is called a "linked working tree" as opposed to the "main working
+       tree" prepared by "git init" or "git clone". A repository has one
+       main working tree (if it’s not a bare repository) and zero or more
+       linked working trees. When you are done with a linked working tree,
+       remove it with git worktree remove.
+       If a working tree is deleted without using git worktree remove, then
+       its associated administrative files, which reside in the repository
+       (see "DETAILS" below), will eventually be removed automatically (see
+       gc.worktreePruneExpire in git-config(1)), or you can run git worktree
+       prune in the main or any linked working tree to clean up any stale
+       administrative files.
+       If a linked working tree is stored on a portable device or network
+       share which is not always mounted, you can prevent its administrative
+       files from being pruned by issuing the git worktree lock command,
+       optionally specifying --reason to explain why the working tree is
+       locked.

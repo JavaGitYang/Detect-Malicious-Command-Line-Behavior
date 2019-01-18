@@ -1,0 +1,3 @@
+
+       sched_getcpu() returns the number of the CPU on which the calling
+       thread is currently executing.

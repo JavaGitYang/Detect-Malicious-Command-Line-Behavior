@@ -1,0 +1,8 @@
+
+       perf-inject reads a perf-record event stream and repipes it to
+       stdout. At any point the processing code can inject other events into
+       the event stream - in this case build-ids (-b option) are read and
+       injected as needed into the event stream.
+       Build-ids are just the first user of perf-inject - potentially
+       anything that needs userspace processing to augment the events stream
+       with additional information could make use of this facility.

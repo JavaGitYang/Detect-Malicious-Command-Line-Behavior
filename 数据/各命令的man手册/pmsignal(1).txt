@@ -1,0 +1,20 @@
+
+       pmsignal provides a cross-platform event signalling mechanism for use
+       with tools from the Performance Co-Pilot toolkit.  It can be used to
+       send a named signal (only HUP, USR1, TERM, and KILL are accepted) to
+       one or more processes.
+       The processes are specified directly using PIDs or as program names
+       (with either the -a/--all or -p/--program options).  In the all case,
+       the set of all running processes is searched for a basename(1) match
+       on name.  In the program case, process identifiers are extracted from
+       files in the $PCP_RUN_DIR directrory where file names are matched on
+       name.pid.
+       The -n/--dry-run option reports the list of process identifiers that
+       would have been signalled, but no signals are actually sent.
+       If a signal is not specified, then the TERM signal will be sent.  The
+       list of supported signals is reported when using the -l/--list
+       option.
+       On Linux and UNIX platforms, pmsignal is a simple wrapper around the
+       kill(1) command.  On Windows, the is no direct equivalent to this
+       mechanism, and so an alternate mechanism has been implemented - this
+       is only honoured by PCP tools, however, not all Windows utilities.

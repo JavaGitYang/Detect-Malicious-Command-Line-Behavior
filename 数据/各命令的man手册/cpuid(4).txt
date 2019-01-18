@@ -1,0 +1,14 @@
+
+       CPUID provides an interface for querying information about the x86
+       CPU.
+       This device is accessed by lseek(2) or pread(2) to the appropriate
+       CPUID level and reading in chunks of 16 bytes.  A larger read size
+       means multiple reads of consecutive levels.
+       The lower 32 bits of the file position is used as the incoming %eax,
+       and the upper 32 bits of the file position as the incoming %ecx, the
+       latter intended for "counting" eax levels like eax=4.
+       This driver uses /dev/cpu/CPUNUM/cpuid, where CPUNUM is the minor
+       number, and on an SMP box will direct the access to CPU CPUNUM as
+       listed in /proc/cpuinfo.
+       This file is protected so that it can be read only by the user root,
+       or members of the group root.

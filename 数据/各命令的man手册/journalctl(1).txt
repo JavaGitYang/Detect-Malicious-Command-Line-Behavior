@@ -1,0 +1,61 @@
+
+       journalctl may be used to query the contents of the systemd(1)
+       journal as written by systemd-journald.service(8).
+       If called without parameters, it will show the full contents of the
+       journal, starting with the oldest entry collected.
+       If one or more match arguments are passed, the output is filtered
+       accordingly. A match is in the format "FIELD=VALUE", e.g.
+       "_SYSTEMD_UNIT=httpd.service", referring to the components of a
+       structured journal entry. See systemd.journal-fields(7) for a list of
+       well-known fields. If multiple matches are specified matching
+       different fields, the log entries are filtered by both, i.e. the
+       resulting output will show only entries matching all the specified
+       matches of this kind. If two matches apply to the same field, then
+       they are automatically matched as alternatives, i.e. the resulting
+       output will show entries matching any of the specified matches for
+       the same field. Finally, the character "+" may appear as a separate
+       word between other terms on the command line. This causes all matches
+       before and after to be combined in a disjunction (i.e. logical OR).
+       It is also possible to filter the entries by specifying an absolute
+       file path as an argument. The file path may be a file or a symbolic
+       link and the file must exist at the time of the query. If a file path
+       refers to an executable binary, an "_EXE=" match for the
+       canonicalized binary path is added to the query. If a file path
+       refers to an executable script, a "_COMM=" match for the script name
+       is added to the query. If a file path refers to a device node,
+       "_KERNEL_DEVICE=" matches for the kernel name of the device and for
+       each of its ancestor devices is added to the query. Symbolic links
+       are dereferenced, kernel names are synthesized, and parent devices
+       are identified from the environment at the time of the query. In
+       general, a device node is the best proxy for an actual device, as log
+       entries do not usually contain fields that identify an actual device.
+       For the resulting log entries to be correct for the actual device,
+       the relevant parts of the environment at the time the entry was
+       logged, in particular the actual device corresponding to the device
+       node, must have been the same as those at the time of the query.
+       Because device nodes generally change their corresponding devices
+       across reboots, specifying a device node path causes the resulting
+       entries to be restricted to those from the current boot.
+       Additional constraints may be added using options --boot, --unit=,
+       etc., to further limit what entries will be shown (logical AND).
+       Output is interleaved from all accessible journal files, whether they
+       are rotated or currently being written, and regardless of whether
+       they belong to the system itself or are accessible user journals.
+       The set of journal files which will be used can be modified using the
+       --user, --system, --directory, and --file options, see below.
+       All users are granted access to their private per-user journals.
+       However, by default, only root and users who are members of a few
+       special groups are granted access to the system journal and the
+       journals of other users. Members of the groups "systemd-journal",
+       "adm", and "wheel" can read all journal files. Note that the two
+       latter groups traditionally have additional privileges specified by
+       the distribution. Members of the "wheel" group can often perform
+       administrative tasks.
+       The output is paged through less by default, and long lines are
+       "truncated" to screen width. The hidden part can be viewed by using
+       the left-arrow and right-arrow keys. Paging can be disabled; see the
+       --no-pager option and the "Environment" section below.
+       When outputting to a tty, lines are colored according to priority:
+       lines of level ERROR and higher are colored red; lines of level
+       NOTICE and higher are highlighted; other lines are displayed
+       normally.

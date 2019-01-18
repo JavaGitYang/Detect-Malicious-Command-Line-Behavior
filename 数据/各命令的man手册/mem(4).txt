@@ -1,0 +1,27 @@
+
+       /dev/mem is a character device file that is an image of the main
+       memory of the computer.  It may be used, for example, to examine (and
+       even patch) the system.
+       Byte addresses in /dev/mem are interpreted as physical memory
+       addresses.  References to nonexistent locations cause errors to be
+       returned.
+       Examining and patching is likely to lead to unexpected results when
+       read-only or write-only bits are present.
+       Since Linux 2.6.26, and depending on the architecture, the
+       CONFIG_STRICT_DEVMEM kernel configuration option limits the areas
+       which can be accessed through this file.  For example: on x86, RAM
+       access is not allowed but accessing memory-mapped PCI regions is.
+       It is typically created by:
+           mknod -m 660 /dev/mem c 1 1
+           chown root:kmem /dev/mem
+       The file /dev/kmem is the same as /dev/mem, except that the kernel
+       virtual memory rather than physical memory is accessed.  Since Linux
+       2.6.26, this file is available only if the CONFIG_DEVKMEM kernel con‐
+       figuration option is enabled.
+       It is typically created by:
+           mknod -m 640 /dev/kmem c 1 2
+           chown root:kmem /dev/kmem
+       /dev/port is similar to /dev/mem, but the I/O ports are accessed.
+       It is typically created by:
+           mknod -m 660 /dev/port c 1 4
+           chown root:kmem /dev/port

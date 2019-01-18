@@ -1,0 +1,3 @@
+
+       auparse_get_field_int allows access to the value as an int of the
+       current field of the current record in the current event.

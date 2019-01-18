@@ -1,0 +1,13 @@
+
+       The pam_acct_mgmt function is used to determine if the user's account
+       is valid. It checks for authentication token and account expiration
+       and verifies access restrictions. It is typically called after the
+       user has been authenticated.
+       The pamh argument is an authentication handle obtained by a prior
+       call to pam_start(). The flags argument is the binary or of zero or
+       more of the following values:
+       PAM_SILENT
+           Do not emit any messages.
+       PAM_DISALLOW_NULL_AUTHTOK
+           The PAM module service should return PAM_NEW_AUTHTOK_REQD if the
+           user has a null authentication token.

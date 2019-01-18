@@ -1,0 +1,8 @@
+
+       grep searches for PATTERN in each FILE.  A FILE of “-” stands for
+       standard input.  If no FILE is given, recursive searches examine the
+       working directory, and nonrecursive searches read standard input.  By
+       default, grep prints the matching lines.
+       In addition, the variant programs egrep and fgrep are the same as
+       grep -E and grep -F, respectively.  These variants are deprecated,
+       but are provided for backward compatibility.

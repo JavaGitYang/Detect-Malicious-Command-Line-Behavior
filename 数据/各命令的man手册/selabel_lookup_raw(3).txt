@@ -1,0 +1,8 @@
+
+       selabel_lookup() performs a lookup operation on the handle hnd,
+       returning the result in the memory pointed to by context, which must
+       be freed by the caller using freecon(3).  The key and type parameters
+       are the inputs to the lookup operation and are interpreted according
+       to the specific backend that handle is open on.
+       selabel_lookup_raw() behaves identically to selabel_lookup() but does
+       not perform context translation.

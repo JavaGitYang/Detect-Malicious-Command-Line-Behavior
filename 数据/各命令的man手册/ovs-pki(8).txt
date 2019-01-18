@@ -1,0 +1,8 @@
+
+       The ovs-pki program sets up and manages a public key infrastructure
+       for use with OpenFlow.  It is intended to be a simple interface for
+       organizations that do not have an established public key
+       infrastructure.  Other PKI tools can substitute for or supplement the
+       use of ovs-pki.
+       ovs-pki uses openssl(1) for certificate management and key
+       generation.

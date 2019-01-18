@@ -1,0 +1,22 @@
+
+       The pathchk utility shall check that one or more pathnames are valid
+       (that is, they could be used to access or create a file without
+       causing syntax errors) and portable (that is, no filename truncation
+       results). More extensive portability checks are provided by the −p
+       and −P options.
+       By default, the pathchk utility shall check each component of each
+       pathname operand based on the underlying file system. A diagnostic
+       shall be written for each pathname operand that:
+        *  Is longer than {PATH_MAX} bytes (see Pathname Variable Values in
+           the Base Definitions volume of POSIX.1‐2008, limits.h(0p))
+        *  Contains any component longer than {NAME_MAX} bytes in its
+           containing directory
+        *  Contains any component in a directory that is not searchable
+        *  Contains any byte sequence that is not valid in its containing
+           directory
+       The format of the diagnostic message is not specified, but shall
+       indicate the error detected and the corresponding pathname operand.
+       It shall not be considered an error if one or more components of a
+       pathname operand do not exist as long as a file matching the pathname
+       specified by the missing components could be created that does not
+       violate any of the checks specified above.

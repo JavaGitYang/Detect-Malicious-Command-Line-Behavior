@@ -1,0 +1,11 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The wcsrchr() function shall locate the last occurrence of wc in the
+       wide-character string pointed to by ws.  The application shall ensure
+       that the value of wc is a character representable as a type wchar_t
+       and a wide-character code corresponding to a valid character in the
+       current locale. The terminating null wide-character code shall be
+       considered to be part of the wide-character string.

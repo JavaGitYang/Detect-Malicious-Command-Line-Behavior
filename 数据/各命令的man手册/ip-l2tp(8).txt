@@ -1,0 +1,149 @@
+
+       The ip l2tp commands are used to establish static, or so-called
+       unmanaged L2TPv3 ethernet tunnels. For unmanaged tunnels, there is no
+       L2TP control protocol so no userspace daemon is required - tunnels
+       are manually created by issuing commands at a local system and at a
+       remote peer.
+       L2TPv3 is suitable for Layer-2 tunneling. Static tunnels are useful
+       to establish network links across IP networks when the tunnels are
+       fixed. L2TPv3 tunnels can carry data of more than one session. Each
+       session is identified by a session_id and its parent tunnel's
+       tunnel_id. A tunnel must be created before a session can be created
+       in the tunnel.
+       When creating an L2TP tunnel, the IP address of the remote peer is
+       specified, which can be either an IPv4 or IPv6 address. The local IP
+       address to be used to reach the peer must also be specified. This is
+       the address on which the local system will listen for and accept
+       received L2TP data packets from the peer.
+       L2TPv3 defines two packet encapsulation formats: UDP or IP. UDP
+       encapsulation is most common. IP encapsulation uses a dedicated IP
+       protocol value to carry L2TP data without the overhead of UDP. Use IP
+       encapsulation only when there are no NAT devices or firewalls in the
+       network path.
+       When an L2TPv3 ethernet session is created, a virtual network
+       interface is created for the session, which must then be configured
+       and brought up, just like any other network interface. When data is
+       passed through the interface, it is carried over the L2TP tunnel to
+       the peer. By configuring the system's routing tables or adding the
+       interface to a bridge, the L2TP interface is like a virtual wire
+       (pseudowire) connected to the peer.
+       Establishing an unmanaged L2TPv3 ethernet pseudowire involves
+       manually creating L2TP contexts on the local system and at the peer.
+       Parameters used at each site must correspond or no data will be
+       passed. No consistency checks are possible since there is no control
+       protocol used to establish unmanaged L2TP tunnels. Once the virtual
+       network interface of a given L2TP session is configured and enabled,
+       data can be transmitted, even if the peer isn't yet configured. If
+       the peer isn't configured, the L2TP data packets will be discarded by
+       the peer.
+       To establish an unmanaged L2TP tunnel, use l2tp add tunnel and l2tp
+       add session commands described in this document. Then configure and
+       enable the tunnel's virtual network interface, as required.
+       Note that unmanaged tunnels carry only ethernet frames. If you need
+       to carry PPP traffic (L2TPv2) or your peer doesn't support unmanaged
+       L2TPv3 tunnels, you will need an L2TP server which implements the
+       L2TP control protocol. The L2TP control protocol allows dynamic L2TP
+       tunnels and sessions to be established and provides for detecting and
+       acting upon network failures.
+   ip l2tp add tunnel - add a new tunnel
+       tunnel_id ID
+              set the tunnel id, which is a 32-bit integer value. Uniquely
+              identifies the tunnel. The value used must match the
+              peer_tunnel_id value being used at the peer.
+       peer_tunnel_id ID
+              set the peer tunnel id, which is a 32-bit integer value
+              assigned to the tunnel by the peer. The value used must match
+              the tunnel_id value being used at the peer.
+       remote ADDR
+              set the IP address of the remote peer. May be specified as an
+              IPv4 address or an IPv6 address.
+       local ADDR
+              set the IP address of the local interface to be used for the
+              tunnel. This address must be the address of a local interface.
+              May be specified as an IPv4 address or an IPv6 address.
+       encap ENCAP
+              set the encapsulation type of the tunnel.
+              Valid values for encapsulation are: udp, ip.
+       udp_sport PORT
+              set the UDP source port to be used for the tunnel. Must be
+              present when udp encapsulation is selected. Ignored when ip
+              encapsulation is selected.
+       udp_dport PORT
+              set the UDP destination port to be used for the tunnel. Must
+              be present when udp encapsulation is selected. Ignored when ip
+              encapsulation is selected.
+       udp_csum STATE
+              (IPv4 only) control if IPv4 UDP checksums should be calculated
+              and checked for the encapsulating UDP packets, when UDP
+              encapsulating is selected.  Default is off.
+              Valid values are: on, off.
+       udp6_csum_tx STATE
+              (IPv6 only) control if IPv6 UDP checksums should be calculated
+              for encapsulating UDP packets, when UDP encapsulating is
+              selected.  Default is on.
+              Valid values are: on, off.
+       udp6_csum_rx STATE
+              (IPv6 only) control if IPv6 UDP checksums should be checked
+              for the encapsulating UDP packets, when UDP encapsulating is
+              selected.  Default is on.
+              Valid values are: on, off.
+   ip l2tp del tunnel - destroy a tunnel
+       tunnel_id ID
+              set the tunnel id of the tunnel to be deleted. All sessions
+              within the tunnel must be deleted first.
+   ip l2tp show tunnel - show information about tunnels
+       tunnel_id ID
+              set the tunnel id of the tunnel to be shown. If not specified,
+              information about all tunnels is printed.
+   ip l2tp add session - add a new session to a tunnel
+       name NAME
+              sets the session network interface name. Default is l2tpethN.
+       tunnel_id ID
+              set the tunnel id, which is a 32-bit integer value. Uniquely
+              identifies the tunnel into which the session will be created.
+              The tunnel must already exist.
+       session_id ID
+              set the session id, which is a 32-bit integer value. Uniquely
+              identifies the session being created. The value used must
+              match the peer_session_id value being used at the peer.
+       peer_session_id ID
+              set the peer session id, which is a 32-bit integer value
+              assigned to the session by the peer. The value used must match
+              the session_id value being used at the peer.
+       cookie HEXSTR
+              sets an optional cookie value to be assigned to the session.
+              This is a 4 or 8 byte value, specified as 8 or 16 hex digits,
+              e.g. 014d3636deadbeef. The value must match the peer_cookie
+              value set at the peer. The cookie value is carried in L2TP
+              data packets and is checked for expected value at the peer.
+              Default is to use no cookie.
+       peer_cookie HEXSTR
+              sets an optional peer cookie value to be assigned to the
+              session. This is a 4 or 8 byte value, specified as 8 or 16 hex
+              digits, e.g. 014d3636deadbeef. The value must match the cookie
+              value set at the peer. It tells the local system what cookie
+              value to expect to find in received L2TP packets. Default is
+              to use no cookie.
+       l2spec_type L2SPECTYPE
+              set the layer2specific header type of the session.
+              Valid values are: none, default.
+       seq SEQ
+              controls sequence numbering to prevent or detect out of order
+              packets.  send puts a sequence number in the default
+              layer2specific header of each outgoing packet.  recv reorder
+              packets if they are received out of order.  Default is none.
+              Valid values are: none, send, recv, both.
+   ip l2tp del session - destroy a session
+       tunnel_id ID
+              set the tunnel id in which the session to be deleted is
+              located.
+       session_id ID
+              set the session id of the session to be deleted.
+   ip l2tp show session - show information about sessions
+       tunnel_id ID
+              set the tunnel id of the session(s) to be shown. If not
+              specified, information about sessions in all tunnels is
+              printed.
+       session_id ID
+              set the session id of the session to be shown. If not
+              specified, information about all sessions is printed.

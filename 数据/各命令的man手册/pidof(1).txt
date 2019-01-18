@@ -1,0 +1,3 @@
+
+       Pidof finds the process id's (pids) of the named programs. It prints
+       those id's on the standard output.

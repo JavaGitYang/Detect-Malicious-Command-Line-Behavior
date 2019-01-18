@@ -1,0 +1,18 @@
+
+       By default, the du utility shall write to standard output the size of
+       the file space allocated to, and the size of the file space allocated
+       to each subdirectory of, the file hierarchy rooted in each of the
+       specified files. By default, when a symbolic link is encountered on
+       the command line or in the file hierarchy, du shall count the size of
+       the symbolic link (rather than the file referenced by the link), and
+       shall not follow the link to another portion of the file hierarchy.
+       The size of the file space allocated to a file of type directory
+       shall be defined as the sum total of space allocated to all files in
+       the file hierarchy rooted in the directory plus the space allocated
+       to the directory itself.
+       When du cannot stat() files or stat() or read directories, it shall
+       report an error condition and the final exit status is affected.
+       Files with multiple links shall be counted and written for only one
+       entry. The directory entry that is selected in the report is
+       unspecified. By default, file sizes shall be written in 512-byte
+       units, rounded up to the next 512-byte unit.

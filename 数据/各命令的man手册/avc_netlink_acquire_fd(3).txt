@@ -1,0 +1,28 @@
+
+       These functions enable applications to handle notification of SELinux
+       events via netlink.  The userspace AVC normally checks for netlink
+       messages on each call to avc_has_perm(3).  Applications may wish to
+       override this behavior and check for notification separately, for
+       example in a select(2) loop.  These functions also permit netlink
+       monitoring without requiring a call to avc_open(3).
+       avc_netlink_open() opens a netlink socket to receive SELinux
+       notifications.  The socket descriptor is stored internally; use
+       avc_netlink_acquire_fd(3) to take ownership of it in application
+       code.  The blocking argument controls whether the O_NONBLOCK flag is
+       set on the socket descriptor.  avc_open(3) calls this function
+       internally, specifying non-blocking behavior.
+       avc_netlink_close() closes the netlink socket.  This function is
+       called automatically by avc_destroy(3).
+       avc_netlink_acquire_fd() returns the netlink socket descriptor number
+       and informs the userspace AVC not to check the socket descriptor
+       automatically on calls to avc_has_perm(3).
+       avc_netlink_release_fd() returns control of the netlink socket to the
+       userspace AVC, re-enabling automatic processing of notifications.
+       avc_netlink_check_nb() checks the netlink socket for pending messages
+       and processes them.  Callbacks for policyload and enforcing changes
+       will be called; see selinux_set_callback(3).  This function does not
+       block.
+       avc_netlink_loop() enters a loop blocking on the netlink socket and
+       processing messages as they are received.  This function will not
+       return unless an error occurs on the socket, in which case the socket
+       is closed.

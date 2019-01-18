@@ -1,0 +1,16 @@
+
+       dh_testroot is used to determine if the package has access to at
+       least the level of root access that it declared it needed via the
+       Rules-Requires-Root (R³) field.
+       The following is how dh_testroot behaves based on the effective value
+       of the R³ field:
+       "binary-targets"
+           dh_testroot asserts that it is run as root or under fakeroot(1).
+       "no"
+           dh_testroot returns successfully.
+       Any other value than the above
+           dh_testroot asserts that it is either run as root (or under
+           fakeroot(1)) or the builder has provided the DEB_GAIN_ROOT_CMD
+           environment variable (e.g. via dpkg-buildpackage -r).
+       For backwards compatibility, dh_testroot will consider the absence of
+       the R³ field as if the R³ field was set to "binary-targets".

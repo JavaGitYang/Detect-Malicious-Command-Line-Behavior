@@ -1,0 +1,6 @@
+
+       This function will set a callback function to be used when required
+       to access the object. This function overrides any other global PIN
+       functions.
+       Note that this function must be called right after initialization to
+       have effect.

@@ -1,0 +1,5 @@
+
+       This function will check the provided certificate against the
+       TLSFeatures set in  feat using the RFC7633 p.4.2.2 rules. It will
+       check whether the certificate contains the features in  feat or a
+       superset.

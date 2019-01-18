@@ -1,0 +1,9 @@
+
+       This function can be used to prevent denial of service attacks to a
+       DTLS server by requiring the client to reply using a cookie sent by
+       this function. That way it can be ensured that a client we allocated
+       resources for (i.e. gnutls_session_t) is the one that the original
+       incoming packet was originated from.
+       This function must be called at the first incoming packet, prior to
+       allocating any resources and must be succeeded by
+       gnutls_dtls_cookie_verify().

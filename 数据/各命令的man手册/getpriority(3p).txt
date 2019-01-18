@@ -1,0 +1,37 @@
+
+       The getpriority() function shall obtain the nice value of a process,
+       process group, or user. The setpriority() function shall set the nice
+       value of a process, process group, or user to value+{NZERO}.
+       Target processes are specified by the values of the which and who
+       arguments. The which argument may be one of the following values:
+       PRIO_PROCESS, PRIO_PGRP, or PRIO_USER, indicating that the who
+       argument is to be interpreted as a process ID, a process group ID, or
+       an effective user ID, respectively. A 0 value for the who argument
+       specifies the current process, process group, or user.
+       The nice value set with setpriority() shall be applied to the
+       process. If the process is multi-threaded, the nice value shall
+       affect all system scope threads in the process.
+       If more than one process is specified, getpriority() shall return
+       value {NZERO} less than the lowest nice value pertaining to any of
+       the specified processes, and setpriority() shall set the nice values
+       of all of the specified processes to value+{NZERO}.
+       The default nice value is {NZERO}; lower nice values shall cause more
+       favorable scheduling. While the range of valid nice values is
+       [0,{NZERO}*2−1], implementations may enforce more restrictive limits.
+       If value+{NZERO} is less than the system's lowest supported nice
+       value, setpriority() shall set the nice value to the lowest supported
+       value; if value+{NZERO} is greater than the system's highest
+       supported nice value, setpriority() shall set the nice value to the
+       highest supported value.
+       Only a process with appropriate privileges can lower its nice value.
+       Any processes or threads using SCHED_FIFO or SCHED_RR shall be
+       unaffected by a call to setpriority().  This is not considered an
+       error. A process which subsequently reverts to SCHED_OTHER need not
+       have its priority affected by such a setpriority() call.
+       The effect of changing the nice value may vary depending on the
+       process-scheduling algorithm in effect.
+       Since getpriority() can return the value −1 upon successful
+       completion, it is necessary to set errno to 0 prior to a call to
+       getpriority().  If getpriority() returns the value −1, then errno can
+       be checked to see if an error occurred or if the value is a
+       legitimate nice value.

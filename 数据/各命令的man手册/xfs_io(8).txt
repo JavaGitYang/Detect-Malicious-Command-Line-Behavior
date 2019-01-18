@@ -1,0 +1,7 @@
+
+       xfs_io is a debugging tool like xfs_db(8), but is aimed at examining
+       the regular file I/O paths rather than the raw XFS volume itself.
+       These code paths include not only the obvious read/write/mmap
+       interfaces for manipulating files, but also cover all of the XFS
+       extensions (such as space preallocation, additional inode flags,
+       etc).

@@ -1,0 +1,15 @@
+
+       The function set_form_opts sets all the given form's option bits
+       (form option bits may be logically-OR'ed together).
+       The function form_opts_on turns on the given option bits, and leaves
+       others alone.
+       The function form_opts_off turns off the given option bits, and
+       leaves others alone.
+       The function form_opts returns the form's current option bits.
+       The following options are defined (all are on by default):
+       O_NL_OVERLOAD
+            Overload the REQ_NEW_LINE forms driver request so that calling
+            it at the end of a field goes to the next field.
+       O_BS_OVERLOAD
+            Overload the REQ_DEL_PREV forms driver request so that calling
+            it at the beginning of a field goes to the previous field.

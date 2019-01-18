@@ -1,0 +1,20 @@
+
+       This program is used to enter a system sleep state and to
+       automatically wake from it at a specified time.
+       This uses cross-platform Linux interfaces to enter a system sleep
+       state, and leave it no later than a specified time.  It uses any RTC
+       framework driver that supports standard driver model wakeup flags.
+       This is normally used like the old apmsleep utility, to wake from a
+       suspend state like ACPI S1 (standby) or S3 (suspend-to-RAM).  Most
+       platforms can implement those without analogues of BIOS, APM, or
+       ACPI.
+       On some systems, this can also be used like nvram-wakeup, waking from
+       states like ACPI S4 (suspend to disk).  Not all systems have
+       persistent media that are appropriate for such suspend modes.
+       Note that alarm functionality depends on hardware; not every RTC is
+       able to setup an alarm up to 24 hours in the future.
+       The suspend setup maybe be interrupted by active hardware; for
+       example wireless USB input devices that continue to send events for
+       some fraction of a second after the return key is pressed.  rtcwake
+       tries to avoid this problem and it waits to terminal to settle down
+       before entering a system sleep.

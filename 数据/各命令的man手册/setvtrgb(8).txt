@@ -1,0 +1,9 @@
+
+       The setvtrgb command takes a single argument, either the string vga ,
+       or a path to a file containing the red, green, and blue colors to be
+       used by the Linux virtual terminals.
+       If you use the FILE parameter, FILE should be exactly 3 lines of 16
+       comma-separated decimal values for RED, GREEN, and BLUE.
+       To seed a valid FILE :
+              cat /sys/module/vt/parameters/default_{red,grn,blu} > FILE
+       And then edit the values in FILE

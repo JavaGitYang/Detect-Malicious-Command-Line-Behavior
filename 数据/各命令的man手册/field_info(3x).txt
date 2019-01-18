@@ -1,0 +1,10 @@
+
+       The function field_info returns the sizes and other attributes passed
+       in to the field at its creation time.  The attributes are: height,
+       width, row of upper-left corner, column of upper-left corner, number
+       off-screen rows, and number of working buffers.
+       The function dynamic_field_info returns the actual size of the field,
+       and its maximum possible size.  If the field has no size limit, the
+       location addressed by the third argument will be set to 0.  A field
+       can be made dynamic by turning off the O_STATIC option with
+       field_opts_off.

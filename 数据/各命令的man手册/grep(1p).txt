@@ -1,0 +1,20 @@
+
+       The grep utility shall search the input files, selecting lines
+       matching one or more patterns; the types of patterns are controlled
+       by the options specified. The patterns are specified by the −e
+       option, −f option, or the pattern_list operand. The pattern_list's
+       value shall consist of one or more patterns separated by <newline>
+       characters; the pattern_file's contents shall consist of one or more
+       patterns terminated by a <newline> character. By default, an input
+       line shall be selected if any pattern, treated as an entire basic
+       regular expression (BRE) as described in the Base Definitions volume
+       of POSIX.1‐2008, Section 9.3, Basic Regular Expressions, matches any
+       part of the line excluding the terminating <newline>; a null BRE
+       shall match every line. By default, each selected input line shall be
+       written to the standard output.
+       Regular expression matching shall be based on text lines. Since a
+       <newline> separates or terminates patterns (see the −e and −f options
+       below), regular expressions cannot contain a <newline>.  Similarly,
+       since patterns are matched against individual lines (excluding the
+       terminating <newline> characters) of the input, there is no way for a
+       pattern to match a <newline> found in the input.

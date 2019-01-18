@@ -1,0 +1,18 @@
+
+       nmap-update is an updater for Nmap's architecture-independent files.
+       It is used to keep up to date with changes and new scripts for the
+       Nmap Scripting Engine.
+       Updates are distributed in the form of “channels”, which are named
+       directories that usually correspond to Nmap version numbers. When
+       nmap-update is installed, it will pull from the channel corresponding
+       to the version of Nmap it was installed with, until Nmap and
+       nmap-update are upgraded as a whole.
+       The program works by updating from a remote Subversion repository. To
+       supply authentication credentials, create a configuration file:
+           The contents of the file should be:
+               username = username
+               password = password
+           Alternatively, you can cache your credentials more securely if
+           you have the svn command-line program installed. Run the command
+           svn ls https://svn.nmap.org/updates, enter your credentials, and
+           agree to cache them when asked.

@@ -1,0 +1,7 @@
+
+       The tzselect program asks the user for information about the current
+       location, and outputs the resulting timezone description to standard
+       output.  The output is suitable as a value for the TZ environment
+       variable.
+       All interaction with the user is done via standard input and standard
+       error.

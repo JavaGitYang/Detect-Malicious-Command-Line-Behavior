@@ -1,0 +1,2 @@
+
+       Returns the size of the MAC key used in TLS.

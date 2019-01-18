@@ -1,0 +1,11 @@
+
+       The rmdir utility shall remove the directory entry specified by each
+       dir operand.
+       For each dir operand, the rmdir utility shall perform actions
+       equivalent to the rmdir() function called with the dir operand as its
+       only argument.
+       Directories shall be processed in the order specified. If a directory
+       and a subdirectory of that directory are specified in a single
+       invocation of the rmdir utility, the application shall specify the
+       subdirectory before the parent directory so that the parent directory
+       will be empty when the rmdir utility tries to remove it.

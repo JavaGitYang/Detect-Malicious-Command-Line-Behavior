@@ -1,0 +1,5 @@
+
+       The ulimit utility shall set or report the file-size writing limit
+       imposed on files written by the shell and its child processes (files
+       of any size may be read). Only a process with appropriate privileges
+       can increase the limit.

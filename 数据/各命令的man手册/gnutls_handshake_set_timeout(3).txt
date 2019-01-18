@@ -1,0 +1,8 @@
+
+       This function sets the timeout for the TLS handshake process to the
+       provided value. Use an  ms value of zero to disable timeout, or
+       GNUTLS_DEFAULT_HANDSHAKE_TIMEOUT for a reasonable default value. For
+       the DTLS protocol, the more detailed gnutls_dtls_set_timeouts() is
+       provided.
+       This function requires to set a pull timeout callback. See
+       gnutls_transport_set_pull_timeout_function().

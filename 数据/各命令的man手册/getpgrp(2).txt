@@ -1,0 +1,36 @@
+
+       All of these interfaces are available on Linux, and are used for
+       getting and setting the process group ID (PGID) of a process.  The
+       preferred, POSIX.1-specified ways of doing this are: getpgrp(void),
+       for retrieving the calling process's PGID; and setpgid(), for setting
+       a process's PGID.
+       setpgid() sets the PGID of the process specified by pid to pgid.  If
+       pid is zero, then the process ID of the calling process is used.  If
+       pgid is zero, then the PGID of the process specified by pid is made
+       the same as its process ID.  If setpgid() is used to move a process
+       from one process group to another (as is done by some shells when
+       creating pipelines), both process groups must be part of the same
+       session (see setsid(2) and credentials(7)).  In this case, the pgid
+       specifies an existing process group to be joined and the session ID
+       of that group must match the session ID of the joining process.
+       The POSIX.1 version of getpgrp(), which takes no arguments, returns
+       the PGID of the calling process.
+       getpgid() returns the PGID of the process specified by pid.  If pid
+       is zero, the process ID of the calling process is used.  (Retrieving
+       the PGID of a process other than the caller is rarely necessary, and
+       the POSIX.1 getpgrp() is preferred for that task.)
+       The System V-style setpgrp(), which takes no arguments, is equivalent
+       to setpgid(0, 0).
+       The BSD-specific setpgrp() call, which takes arguments pid and pgid,
+       is a wrapper function that calls
+           setpgid(pid, pgid)
+       Since glibc 2.19, the BSD-specific setpgrp() function is no longer
+       exposed by <unistd.h>; calls should be replaced with the setpgid()
+       call shown above.
+       The BSD-specific getpgrp() call, which takes a single pid argument,
+       is a wrapper function that calls
+           getpgid(pid)
+       Since glibc 2.19, the BSD-specific getpgrp() function is no longer
+       exposed by <unistd.h>; calls should be replaced with calls to the
+       POSIX.1 getpgrp() which takes no arguments (if the intent is to
+       obtain the caller's PGID), or with the getpgid() call shown above.

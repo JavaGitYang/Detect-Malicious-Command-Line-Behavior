@@ -1,0 +1,4 @@
+
+       This function will initialize (format) a token. If the token is at a
+       factory defaults state the security officer's PIN given will be set
+       to be the default. Otherwise it should match the officer's PIN.

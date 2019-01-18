@@ -1,0 +1,19 @@
+
+       This manual page describes the GNU version of eqn, which is part of
+       the groff document formatting system.  eqn compiles descriptions of
+       equations embedded within troff input files into commands that are
+       understood by troff.  Normally, it should be invoked using the -e
+       option of groff.  The syntax is quite compatible with Unix eqn.  The
+       output of GNU eqn cannot be processed with Unix troff; it must be
+       processed with GNU troff.  If no files are given on the command line,
+       the standard input is read.  A filename of - causes the standard
+       input to be read.
+       eqn searches for the file eqnrc in the directories given with the -M
+       option first, then in /usr/local/lib/groff/site-tmac,
+       /usr/local/share/groff/site-tmac, and finally in the standard macro
+       directory /usr/local/share/groff/1.22.3/tmac.  If it exists, eqn
+       processes it before the other input files.  The -R option prevents
+       this.
+       GNU eqn does not provide the functionality of neqn: it does not
+       support low-resolution, typewriter-like devices (although it may work
+       adequately for very simple input).

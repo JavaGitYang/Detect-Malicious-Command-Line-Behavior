@@ -1,0 +1,4 @@
+
+       audit_detect_machine queries uname and converts the kernel machine
+       string to an enum value defined in machine_t. The machine type is
+       needed for any use of the audit_name_to_syscall function.

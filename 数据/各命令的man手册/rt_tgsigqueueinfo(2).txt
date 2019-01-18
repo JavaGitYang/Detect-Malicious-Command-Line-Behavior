@@ -1,0 +1,41 @@
+
+       The rt_sigqueueinfo() and rt_tgsigqueueinfo() system calls are the
+       low-level interfaces used to send a signal plus data to a process or
+       thread.  The receiver of the signal can obtain the accompanying data
+       by establishing a signal handler with the sigaction(2) SA_SIGINFO
+       flag.
+       These system calls are not intended for direct application use; they
+       are provided to allow the implementation of sigqueue(3) and
+       pthread_sigqueue(3).
+       The rt_sigqueueinfo() system call sends the signal sig to the thread
+       group with the ID tgid.  (The term "thread group" is synonymous with
+       "process", and tid corresponds to the traditional UNIX process ID.)
+       The signal will be delivered to an arbitrary member of the thread
+       group (i.e., one of the threads that is not currently blocking the
+       signal).
+       The uinfo argument specifies the data to accompany the signal.  This
+       argument is a pointer to a structure of type siginfo_t, described in
+       sigaction(2) (and defined by including <sigaction.h>).  The caller
+       should set the following fields in this structure:
+       si_code
+              This must be one of the SI_* codes in the Linux kernel source
+              file include/asm-generic/siginfo.h, with the restriction that
+              the code must be negative (i.e., cannot be SI_USER, which is
+              used by the kernel to indicate a signal sent by kill(2)) and
+              cannot (since Linux 2.6.39) be SI_TKILL (which is used by the
+              kernel to indicate a signal sent using tgkill(2)).
+       si_pid This should be set to a process ID, typically the process ID
+              of the sender.
+       si_uid This should be set to a user ID, typically the real user ID of
+              the sender.
+       si_value
+              This field contains the user data to accompany the signal.
+              For more information, see the description of the last (union
+              sigval) argument of sigqueue(3).
+       Internally, the kernel sets the si_signo field to the value specified
+       in sig, so that the receiver of the signal can also obtain the signal
+       number via that field.
+       The rt_tgsigqueueinfo() system call is like rt_sigqueueinfo(), but
+       sends the signal and data to the single thread specified by the
+       combination of tgid, a thread group ID, and tid, a thread in that
+       thread group.

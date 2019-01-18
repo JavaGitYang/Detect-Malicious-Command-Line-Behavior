@@ -1,0 +1,19 @@
+
+       sd_event_source_set_prepare() may be used to set a preparation
+       callback for the event source object specified as source. The
+       callback function specified as callback will be invoked immediately
+       before the event loop goes to sleep to wait for incoming events. It
+       is invoked with the user data pointer passed when the event source
+       was created. The event source will be disabled if the callback
+       function returns a negative error code. The callback function may be
+       used to reconfigure the precise events to wait for. If the callback
+       parameter is passed as NULL the callback function is reset.
+       Event source objects have no preparation callback associated when
+       they are first created with calls such as sd_event_add_io(3),
+       sd_event_add_time(3). Preparation callback functions are supported
+       for all event source types with the exception of those created with
+       sd_event_add_exit(3). Preparation callback functions are dispatched
+       in the order indicated by the event source's priority field, as set
+       with sd_event_source_set_priority(3). Preparation callbacks of
+       disabled event sources (see sd_event_source_set_enabled(3)) are not
+       invoked.

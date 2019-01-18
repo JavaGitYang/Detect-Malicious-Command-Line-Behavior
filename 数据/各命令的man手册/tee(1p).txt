@@ -1,0 +1,6 @@
+
+       The tee utility shall copy standard input to standard output, making
+       a copy in zero or more files. The tee utility shall not buffer
+       output.
+       If the −a option is not specified, output files shall be written (see
+       Section 1.1.1.4, File Read, Write, and Creation.

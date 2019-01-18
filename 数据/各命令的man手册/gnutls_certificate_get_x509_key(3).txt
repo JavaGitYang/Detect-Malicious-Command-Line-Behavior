@@ -1,0 +1,15 @@
+
+       Obtains a X.509 private key that has been stored in  res with one of
+       gnutls_certificate_set_x509_key(), gnutls_certificate_set_key(),
+       gnutls_certificate_set_x509_key_file(),
+       gnutls_certificate_set_x509_key_file2(),
+       gnutls_certificate_set_x509_key_mem(), or
+       gnutls_certificate_set_x509_key_mem2(). The returned key must be
+       deallocated with gnutls_x509_privkey_deinit() when no longer needed.
+       The  index matches the return value of
+       gnutls_certificate_set_x509_key() and friends functions, when the
+       GNUTLS_CERTIFICATE_API_V2 flag is set.
+       If there is no key with the given index,
+       GNUTLS_E_REQUESTED_DATA_NOT_AVAILABLE is returned. If the key with
+       the given index is not a X.509 key, GNUTLS_E_INVALID_REQUEST is
+       returned.

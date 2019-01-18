@@ -1,0 +1,17 @@
+
+       These functions operate in the same way as pthread_join(3), except
+       for the differences described on this page.
+       The pthread_tryjoin_np() function performs a nonblocking join with
+       the thread thread, returning the exit status of the thread in
+       *retval.  If thread has not yet terminated, then instead of blocking,
+       as is done by pthread_join(3), the call returns an error.
+       The pthread_timedjoin_np() function performs a join-with-timeout.  If
+       thread has not yet terminated, then the call blocks until a maximum
+       time, specified in abstime.  If the timeout expires before thread
+       terminates, the call returns an error.  The abstime argument is a
+       structure of the following form, specifying an absolute time measured
+       since the Epoch (see time(2)):
+           struct timespec {
+               time_t tv_sec;     /* seconds */
+               long   tv_nsec;    /* nanoseconds */
+           };

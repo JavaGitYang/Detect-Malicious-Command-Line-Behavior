@@ -1,0 +1,8 @@
+
+     The acl_add_perm() function adds the permission contained in the argu‐
+     ment perm (one of ACL_READ, ACL_WRITE, ACL_EXECUTE) to the permission
+     set referred to by the argument permset_d.  An attempt to add a permis‐
+     sion that is already contained in the permission set is not considered
+     an error.
+     Any existing descriptors that refer to permset_d continue to refer to
+     that permission set.

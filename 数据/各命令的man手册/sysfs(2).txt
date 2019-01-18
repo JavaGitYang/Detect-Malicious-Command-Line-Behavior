@@ -1,0 +1,16 @@
+
+       Note: if you are looking for information about the sysfs filesystem
+       that is normally mounted at /sys, see sysfs(5).
+       The (obsolete) sysfs() system call returns information about the
+       filesystem types currently present in the kernel.  The specific form
+       of the sysfs() call and the information returned depends on the
+       option in effect:
+       1  Translate the filesystem identifier string fsname into a
+          filesystem type index.
+       2  Translate the filesystem type index fs_index into a null-
+          terminated filesystem identifier string.  This string will be
+          written to the buffer pointed to by buf.  Make sure that buf has
+          enough space to accept the string.
+       3  Return the total number of filesystem types currently present in
+          the kernel.
+       The numbering of the filesystem type indexes begins with zero.

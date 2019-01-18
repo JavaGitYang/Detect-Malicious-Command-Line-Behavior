@@ -1,0 +1,15 @@
+
+       Apply the TLS Pseudo-Random-Function (PRF) on the master secret and
+       the provided data.
+       The  label variable usually contains a string denoting the purpose
+       for the generated data.  The  seed usually contains data such as the
+       client and server random, perhaps together with some additional data
+       that is added to guarantee uniqueness of the output for a particular
+       purpose.
+       Because the output is not guaranteed to be unique for a particular
+       session unless  seed includes the client random and server random
+       fields (the PRF would output the same data on another connection
+       resumed from the first one), it is not recommended to use this
+       function directly.  The gnutls_prf() function seeds the PRF with the
+       client and server random fields directly, and is recommended if you
+       want to generate pseudo random data unique for each session.

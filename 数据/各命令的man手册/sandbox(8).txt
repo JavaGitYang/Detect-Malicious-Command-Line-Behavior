@@ -1,0 +1,69 @@
+
+       Run the cmd application within a tightly confined SELinux domain.
+       The default sandbox domain only allows applications the ability to
+       read and write stdin, stdout and any other file descriptors handed to
+       it. It is not allowed to open any other files.  The -M option will
+       mount an alternate homedir and tmpdir to be used by the sandbox.
+       If you have the policycoreutils-sandbox package installed, you can
+       use the -X option and the -M option.  sandbox -X allows you to run X
+       applications within a sandbox.  These applications will start up
+       their own X Server and create a temporary home directory and /tmp.
+       The default SELinux policy does not allow any capabilities or network
+       access.  It also prevents all access to the users other processes and
+       files.  Files specified on the command that are in the home directory
+       or /tmp will be copied into the sandbox directories.
+       If directories are specified with -H or -T the directory will have
+       its context modified with chcon(1) unless a level is specified with
+       -l.  If the MLS/MCS security level is specified, the user is
+       responsible to set the correct labels.
+       -h --help
+              display usage message
+       -H --homedir
+              Use alternate homedir to mount over your home directory.
+              Defaults to temporary. Requires -X or -M.
+       -i --include
+              Copy this file into the appropriate temporary sandbox
+              directory. Command can be repeated.
+       -I --includefile
+              Copy all files listed in inputfile into the appropriate
+              temporary sandbox directories.
+       -l --level
+              Specify the MLS/MCS Security Level to run the sandbox with.
+              Defaults to random.
+       -M --mount
+              Create a Sandbox with temporary files for $HOME and /tmp.
+       -s --shred
+              Shred temporary files created in $HOME and /tmp, before
+              deleting.
+       -t --type
+              Use alternate sandbox type, defaults to sandbox_t or
+              sandbox_x_t for -X.
+              Examples:
+              sandbox_t -    No X, No Network Access, No Open, read/write on
+              passed in file descriptors.
+              sandbox_min_t  -    No Network Access
+              sandbox_x_t    -    Ports for X applications to run locally
+              sandbox_web_t  -    Ports required for web browsing
+              sandbox_net_t  -         Network ports (for server software)
+              sandbox_net_client_t     -    All network ports
+       -T --tmpdir
+              Use alternate temporary directory to mount on /tmp.  Defaults
+              to tmpfs. Requires -X or -M.
+       -S --session
+              Run a full desktop session, Requires level, and home and
+              tmpdir.
+       -w --windowsize
+              Specifies the windowsize when creating an X based Sandbox. The
+              default windowsize is 1000x700.
+       -W --windowmanager
+              Select alternative window manager to run within sandbox -X.
+              Default to /usr/bin/openbox.
+       -X     Create an X based Sandbox for gui apps, temporary files for
+              $HOME and /tmp, secondary Xserver, defaults to sandbox_x_t
+       -d --dpi
+              Set the DPI value for the sandbox X Server. Defaults to the
+              current X Sever DPI.
+       -C --capabilities Use capabilities within the
+              sandbox. By default applications executed within the sandbox
+              will not be allowed to use capabilities (setuid apps), with
+              the -C flag, you can use programs requiring capabilities.

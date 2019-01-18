@@ -1,0 +1,23 @@
+
+       The normal relational operations (like <, "less than") fail if one of
+       the operands is NaN.  This will cause an exception.  To avoid this,
+       C99 defines the macros listed below.
+       These macros are guaranteed to evaluate their arguments only once.
+       The arguments must be of real floating-point type (note: do not pass
+       integer values as arguments to these macros, since the arguments will
+       not be promoted to real-floating types).
+       isgreater()
+              determines (x) > (y) without an exception if x or y is NaN.
+       isgreaterequal()
+              determines (x) >= (y) without an exception if x or y is NaN.
+       isless()
+              determines (x) < (y) without an exception if x or y is NaN.
+       islessequal()
+              determines (x) <= (y) without an exception if x or y is NaN.
+       islessgreater()
+              determines (x) < (y) || (x) > (y) without an exception if x or
+              y is NaN.  This macro is not equivalent to x != y because that
+              expression is true if x or y is NaN.
+       isunordered()
+              determines whether its arguments are unordered, that is,
+              whether at least one of the arguments is a NaN.

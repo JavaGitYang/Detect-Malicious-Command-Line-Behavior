@@ -1,0 +1,16 @@
+
+       Initially, the MySQL C API was developed to be very similar to that
+       for the mSQL database system. Because of this, mSQL programs often
+       can be converted relatively easily for use with MySQL by changing the
+       names of the C API functions.
+       The msql2mysql utility performs the conversion of mSQL C API function
+       calls to their MySQL equivalents.  msql2mysql converts the input file
+       in place, so make a copy of the original before converting it. For
+       example, use msql2mysql like this:
+           shell> cp client-prog.c client-prog.c.orig
+           shell> msql2mysql client-prog.c
+           client-prog.c converted
+       Then examine client-prog.c and make any post-conversion revisions
+       that may be necessary.
+       msql2mysql uses the replace utility to make the function name
+       substitutions. See replace(1).

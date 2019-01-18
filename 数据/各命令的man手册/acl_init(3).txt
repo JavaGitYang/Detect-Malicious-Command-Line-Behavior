@@ -1,0 +1,8 @@
+
+     The acl_init() function allocates and initializes the working storage
+     for an ACL of at least count ACL entries.  The ACL created initially
+     contains no ACL entries.  A pointer to the working storage is returned.
+     This function may cause memory to be allocated.  The caller should free
+     any releasable memory, when the new ACL is no longer required, by call‐
+     ing acl_free(3) with the (void*)acl_t returned by acl_init() as an
+     argument.

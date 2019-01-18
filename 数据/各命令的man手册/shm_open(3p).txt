@@ -1,0 +1,69 @@
+
+       The shm_open() function shall establish a connection between a shared
+       memory object and a file descriptor. It shall create an open file
+       description that refers to the shared memory object and a file
+       descriptor that refers to that open file description. The file
+       descriptor is used by other functions to refer to that shared memory
+       object. The name argument points to a string naming a shared memory
+       object. It is unspecified whether the name appears in the file system
+       and is visible to other functions that take pathnames as arguments.
+       The name argument conforms to the construction rules for a pathname,
+       except that the interpretation of <slash> characters other than the
+       leading <slash> character in name is implementation-defined, and that
+       the length limits for the name argument are implementation-defined
+       and need not be the same as the pathname limits {PATH_MAX} and
+       {NAME_MAX}.  If name begins with the <slash> character, then
+       processes calling shm_open() with the same value of name refer to the
+       same shared memory object, as long as that name has not been removed.
+       If name does not begin with the <slash> character, the effect is
+       implementation-defined.
+       If successful, shm_open() shall return a file descriptor for the
+       shared memory object that is the lowest numbered file descriptor not
+       currently open for that process.  The open file description is new,
+       and therefore the file descriptor does not share it with any other
+       processes. It is unspecified whether the file offset is set. The
+       FD_CLOEXEC file descriptor flag associated with the new file
+       descriptor is set.
+       The file status flags and file access modes of the open file
+       description are according to the value of oflag.  The oflag argument
+       is the bitwise-inclusive OR of the following flags defined in the
+       <fcntl.h> header. Applications specify exactly one of the first two
+       values (access modes) below in the value of oflag:
+       O_RDONLY    Open for read access only.
+       O_RDWR      Open for read or write access.
+       Any combination of the remaining flags may be specified in the value
+       of oflag:
+       O_CREAT     If the shared memory object exists, this flag has no
+                   effect, except as noted under O_EXCL below. Otherwise,
+                   the shared memory object is created. The user ID of the
+                   shared memory object shall be set to the effective user
+                   ID of the process. The group ID of the shared memory
+                   object shall be set to the effective group ID of the
+                   process; however, if the name argument is visible in the
+                   file system, the group ID may be set to the group ID of
+                   the containing directory. The permission bits of the
+                   shared memory object shall be set to the value of the
+                   mode argument except those set in the file mode creation
+                   mask of the process. When bits in mode other than the
+                   file permission bits are set, the effect is unspecified.
+                   The mode argument does not affect whether the shared
+                   memory object is opened for reading, for writing, or for
+                   both. The shared memory object has a size of zero.
+       O_EXCL      If O_EXCL and O_CREAT are set, shm_open() fails if the
+                   shared memory object exists. The check for the existence
+                   of the shared memory object and the creation of the
+                   object if it does not exist is atomic with respect to
+                   other processes executing shm_open() naming the same
+                   shared memory object with O_EXCL and O_CREAT set. If
+                   O_EXCL is set and O_CREAT is not set, the result is
+                   undefined.
+       O_TRUNC     If the shared memory object exists, and it is
+                   successfully opened O_RDWR, the object shall be truncated
+                   to zero length and the mode and owner shall be unchanged
+                   by this function call. The result of using O_TRUNC with
+                   O_RDONLY is undefined.
+       When a shared memory object is created, the state of the shared
+       memory object, including all data associated with the shared memory
+       object, persists until the shared memory object is unlinked and all
+       other references are gone. It is unspecified whether the name and
+       shared memory object state remain valid after a system reboot.

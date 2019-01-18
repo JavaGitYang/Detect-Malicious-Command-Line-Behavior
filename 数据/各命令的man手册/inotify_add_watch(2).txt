@@ -1,0 +1,19 @@
+
+       inotify_add_watch() adds a new watch, or modifies an existing watch,
+       for the file whose location is specified in pathname; the caller must
+       have read permission for this file.  The fd argument is a file
+       descriptor referring to the inotify instance whose watch list is to
+       be modified.  The events to be monitored for pathname are specified
+       in the mask bit-mask argument.  See inotify(7) for a description of
+       the bits that can be set in mask.
+       A successful call to inotify_add_watch() returns a unique watch
+       descriptor for this inotify instance, for the filesystem object
+       (inode) that corresponds to pathname.  If the filesystem object was
+       not previously being watched by this inotify instance, then the watch
+       descriptor is newly allocated.  If the filesystem object was already
+       being watched (perhaps via a different link to the same object), then
+       the descriptor for the existing watch is returned.
+       The watch descriptor is returned by later read(2)s from the inotify
+       file descriptor.  These reads fetch inotify_event structures (see
+       inotify(7)) indicating filesystem events; the watch descriptor inside
+       this structure identifies the object for which the event occurred.

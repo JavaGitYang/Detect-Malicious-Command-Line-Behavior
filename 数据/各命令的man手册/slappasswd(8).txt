@@ -1,0 +1,4 @@
+
+       Slappasswd is used to generate an userPassword value suitable for use
+       with ldapmodify(1), slapd.conf(5) rootpw configuration directive or
+       the slapd-config(5) olcRootPW configuration directive.

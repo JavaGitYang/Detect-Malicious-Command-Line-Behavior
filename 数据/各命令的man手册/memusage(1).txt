@@ -1,0 +1,47 @@
+
+       memusage is a bash script which profiles memory usage of the program,
+       program.  It preloads the libmemusage.so library into the caller's
+       environment (via the LD_PRELOAD environment variable; see ld.so(8)).
+       The libmemusage.so library traces memory allocation by intercepting
+       calls to malloc(3), calloc(3), free(3), and realloc(3); optionally,
+       calls to mmap(2), mremap(2), and munmap(2) can also be intercepted.
+       memusage can output the collected data in textual form, or it can use
+       memusagestat(1) (see the -p option,  below) to create a PNG file
+       containing graphical representation of the collected data.
+   Memory usage summary
+       The "Memory usage summary" line output by memusage contains three
+       fields:
+           heap total
+                  Sum of size arguments of all malloc(3) calls, products of
+                  arguments (nmemb*size) of all calloc(3) calls, and sum of
+                  length arguments of all mmap(2) calls.  In the case of
+                  realloc(3) and mremap(2), if the new size of an allocation
+                  is larger than the previous size, the sum of all such
+                  differences (new size minus old size) is added.
+           heap peak
+                  Maximum of all size arguments of malloc(3), all products
+                  of nmemb*size of calloc(3), all size arguments of
+                  realloc(3), length arguments of mmap(2), and new_size
+                  arguments of mremap(2).
+           stack peak
+                  Before the first call to any monitored function, the stack
+                  pointer address (base stack pointer) is saved.  After each
+                  function call, the actual stack pointer address is read
+                  and the difference from the base stack pointer computed.
+                  The maximum of these differences is then the stack peak.
+       Immediately following this summary line, a table shows the number
+       calls, total memory allocated or deallocated, and number of failed
+       calls for each intercepted function.  For realloc(3) and mremap(2),
+       the additional field "nomove" shows reallocations that changed the
+       address of a block, and the additional "dec" field shows
+       reallocations that decreased the size of the block.  For realloc(3),
+       the additional field "free" shows reallocations that caused a block
+       to be freed (i.e., the reallocated size was 0).
+       The "realloc/total memory" of the table output by memusage does not
+       reflect cases where realloc(3) is used to reallocate a block of
+       memory to have a smaller size than previously.  This can cause sum of
+       all "total memory" cells (excluding "free") to be larger than the
+       "free/total memory" cell.
+   Histogram for block sizes
+       The "Histogram for block sizes" provides a breakdown of memory
+       allocations into various bucket sizes.

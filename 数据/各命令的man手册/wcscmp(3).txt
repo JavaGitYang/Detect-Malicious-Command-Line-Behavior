@@ -1,0 +1,4 @@
+
+       The wcscmp() function is the wide-character equivalent of the
+       strcmp(3) function.  It compares the wide-character string pointed to
+       by s1 and the wide-character string pointed to by s2.

@@ -1,0 +1,3 @@
+
+       This function will encrypt the given data using the algorithm
+       specified by the context.

@@ -1,0 +1,20 @@
+
+       ausearch_add_timestamp_item adds an event time condition to the
+       current audit search expression. The search conditions can then be
+       used to scan logs, files, or buffers for something of interest. The
+       op parameter specifies the desired comparison. Legal op values are <,
+       <=, >=, > and =.  The left operand of the comparison operator is the
+       timestamp of the examined event, the right operand is specified by
+       the sec and milli parameters.
+       The how value determines how this search condition will affect the
+       existing search expression if one is already defined. The possible
+       values are:
+              AUSEARCH_RULE_CLEAR
+                     Clear the current search expression, if any, and use
+                     only this search condition.
+              AUSEARCH_RULE_OR
+                     If a search expression E is already configured, replace
+                     it by (E || this_search_condition).
+              AUSEARCH_RULE_AND
+                     If a search expression E is already configured, replace
+                     it by (E && this_search_condition).

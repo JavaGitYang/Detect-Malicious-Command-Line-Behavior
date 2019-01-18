@@ -1,0 +1,35 @@
+
+       pmdalogger is a configurable log file monitoring Performance Metrics
+       Domain Agent (PMDA).  It can be seen as analogous to the -f option to
+       tail(1) and converts each new log line into a performance event.  It
+       was the first PMDA to make extensive use of event metrics, which can
+       be consumed by client tools like pmevent(1).
+       The logger PMDA exports both event-style metrics reflecting
+       timestamped event records for text logged to a file (or set of files
+       or output from a process), as well as the more orthodox sample-style
+       metrics such as event counts and throughput size values.
+       The PMDA is configured via a configfile which contains one line for
+       each source of events (file or process).  This file is setup by the
+       Install script described in the later section on ``INSTALLATION'' of
+       the PMDA.
+       A brief description of the pmdalogger command line options follows:
+       -d   It is absolutely crucial that the performance metrics domain
+            number specified here is unique and consistent.  That is, domain
+            should be different for every PMDA on the one host, and the same
+            domain number should be used for the same PMDA on all hosts.
+       -l   Location of the log file.  By default, a log file named
+            logger.log is written in the current directory of pmcd(1) when
+            pmdalogger is started, i.e.  $PCP_LOG_DIR/pmcd.  If the log file
+            cannot be created or is not writable, output is written to the
+            standard error instead.
+       -m   Limit the physical memory used by the PMDA to buffer event
+            records to maxsize bytes.  As log events arrive at the PMDA,
+            they must be buffered until individual client tools request the
+            next batch since their previous batch of events.  The default
+            maximum is 2 megabytes.
+       -s   Sets the polling interval for detecting newly arrived log lines.
+            Mirrors the same option from the tail(1) command.
+       -U   User account under which to run the agent.  The default is the
+            unprivileged "pcp" account in current versions of PCP, but in
+            older versions the superuser account ("root") was used by
+            default.

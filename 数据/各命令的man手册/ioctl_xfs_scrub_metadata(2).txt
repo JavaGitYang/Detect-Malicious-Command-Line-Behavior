@@ -1,0 +1,139 @@
+
+       This XFS ioctl asks the kernel driver to examine a piece of
+       filesystem metadata for errors or suboptimal metadata.  Examination
+       includes running metadata verifiers, checking records for obviously
+       incorrect or impossible values, and cross-referencing each record
+       with any other available metadata in the filesystem.  This ioctl can
+       also try to repair or optimize metadata, though this may block normal
+       filesystem operations for a long period of time.  The type and
+       location of the metadata to scrub is conveyed in a structure of the
+       following form:
+           struct xfs_scrub_metadata {
+                __u32 sm_type;
+                __u32 sm_flags;
+                __u64 sm_ino;
+                __u32 sm_gen;
+                __u32 sm_agno;
+                __u64 sm_reserved[5];
+           };
+       The field sm_reserved must be zero.
+       The field sm_type indicates the type of metadata to check:
+           XFS_SCRUB_TYPE_PROBE
+                  Probe the kernel to see if it is willing to try to check
+                  or repair this filesystem.  sm_agno, sm_ino, and sm_gen
+                  must be zero.
+           XFS_SCRUB_TYPE_SB
+           XFS_SCRUB_TYPE_AGF
+           XFS_SCRUB_TYPE_AGFL
+           XFS_SCRUB_TYPE_AGI
+                  Examine a given allocation group's superblock, free space
+                  header, free block list, or inode header, respectively.
+                  Headers are checked for obviously incorrect values and
+                  cross-referenced against the allocation group's metadata
+                  btrees, if possible.  The allocation group number must be
+                  given in sm_agno.  sm_ino and sm_gen must be zero.
+           XFS_SCRUB_TYPE_BNOBT
+           XFS_SCRUB_TYPE_CNTBT
+           XFS_SCRUB_TYPE_INOBT
+           XFS_SCRUB_TYPE_FINOBT
+           XFS_SCRUB_TYPE_RMAPBT
+           XFS_SCRUB_TYPE_REFCNTBT
+                  Examine a given allocation group's two free space btrees,
+                  two inode btrees, reverse mapping btrees, or reference
+                  count btrees, respectively.  Records are checked for
+                  obviously incorrect values and cross-referenced with other
+                  allocation group metadata records to ensure that there are
+                  no conflicts.  The allocation group number must be given
+                  in sm_agno.  sm_ino and sm_gen must be zero.
+           XFS_SCRUB_TYPE_INODE
+                  Examine a given inode record for obviously incorrect
+                  values and discrepancies with the rest of filesystem
+                  metadata.  Parent pointers are checked for impossible
+                  inode values and are then followed up to the parent
+                  directory to ensure that the linkage is correct.  The
+                  inode to examine may be specified either through sm_ino
+                  and sm_gen; if not specified, then the file described by
+                  dest_fd will be examined.  sm_agno must be zero.
+           XFS_SCRUB_TYPE_BMBTD
+           XFS_SCRUB_TYPE_BMBTA
+           XFS_SCRUB_TYPE_BMBTC
+           XFS_SCRUB_TYPE_PARENT
+                  Examine a given inode's data block map, extended attribute
+                  block map, copy on write block map, or parent inode
+                  pointer.  Inode records are examined for obviously
+                  incorrect values and discrepancies with the three block
+                  map types.  The block maps are checked for obviously wrong
+                  values and cross-referenced with the allocation group
+                  space extent metadata for discrepancies.  The inode to
+                  examine can be specified in the same manner as
+                  XFS_SCRUB_TYPE_INODE.
+           XFS_SCRUB_TYPE_XATTR
+                  Examine the extended attribute records and indices of a
+                  given inode for incorrect pointers and other signs of
+                  damage.  The inode to examine can be specified in the same
+                  manner as XFS_SCRUB_TYPE_INODE.
+           XFS_SCRUB_TYPE_DIR
+                  Examine the entries in a given directory for invalid data
+                  or dangling pointers.  The directory to examine can be
+                  specified in the same manner as XFS_SCRUB_TYPE_INODE.
+           XFS_SCRUB_TYPE_SYMLINK
+                  Examine the target of a symbolic link for obvious pathname
+                  problems.  The link to examine can be specified in the
+                  same manner as XFS_SCRUB_TYPE_INODE.
+           XFS_SCRUB_TYPE_RTBITMAP
+           XFS_SCRUB_TYPE_RTSUM
+                  Examine the realtime block bitmap and realtime summary
+                  inodes for corruption.
+           XFS_SCRUB_TYPE_UQUOTA
+           XFS_SCRUB_TYPE_GQUOTA
+           XFS_SCRUB_TYPE_PQUOTA
+                  Examine all user, group, or project quota records for
+                  corruption.
+       The field sm_flags control the behavior of the scrub operation and
+       provide more information about the outcome of the operation.  If none
+       of the XFS_SCRUB_OFLAG_* flags are set upon return, the metadata is
+       clean.
+           XFS_SCRUB_IFLAG_REPAIR
+                  If the caller sets this flag, the kernel driver will
+                  examine the metadata and try to fix all problems and to
+                  optimize metadata when possible.  If no errors occur
+                  during the repair operation, the check is performed a
+                  second time to determine whether the repair succeeded.  If
+                  errors occur, the call returns an error status
+                  immediately.
+           XFS_SCRUB_OFLAG_CORRUPT
+                  The metadata was corrupt when the call returned.  If
+                  XFS_SCRUB_IFLAG_REPAIR was specified, then an attempted
+                  repair failed to fix the problem.  Unmount the filesystem
+                  and run xfs_repair to fix the filesystem.
+           XFS_SCRUB_OFLAG_PREEN
+                  The metadata is ok, but some aspect of the metadata could
+                  be optimized to increase performance.  Call again with
+                  XFS_SCRUB_IFLAG_REPAIR to optimize the metadata.
+           XFS_SCRUB_OFLAG_XFAIL
+                  Filesystem errors were encountered when accessing other
+                  metadata to cross-reference the records attached to this
+                  metadata object.
+           XFS_SCRUB_OFLAG_XCORRUPT
+                  Discrepancies were found when cross-referencing the
+                  records attached to this metadata object against all other
+                  available metadata in the system.
+           XFS_SCRUB_OFLAG_INCOMPLETE
+                  The checker was unable to complete its check of all
+                  records.
+           XFS_SCRUB_OFLAG_WARNING
+                  The checker encountered a metadata object with potentially
+                  problematic records.  However, the records were not
+                  obviously corrupt.
+       For metadata checkers that operate on inodes or inode metadata, the
+       fields sm_ino and sm_gen are the inode number and generation number
+       of the inode to check.  If the inode number is zero, the inode
+       represented by dest_fd is used instead.  If the generation number of
+       the inode does not match sm_gen, the call will return an error code
+       for the invalid argument.  The sm_agno field must be zero.
+       For metadata checkers that operate on allocation group metadata, the
+       field sm_agno indicates the allocation group in which to find the
+       metadata.  The sm_ino and sm_gen fields must be zero.
+       For metadata checkers that operate on filesystem-wide metadata, no
+       further arguments are required.  sm_agno, sm_ino, and sm_gen must all
+       be zero.

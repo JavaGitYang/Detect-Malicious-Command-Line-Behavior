@@ -1,0 +1,15 @@
+
+       The chgrp utility shall set the group ID of the file named by each
+       file operand to the group ID specified by the group operand.
+       For each file operand, or, if the −R option is used, each file
+       encountered while walking the directory trees specified by the file
+       operands, the chgrp utility shall perform actions equivalent to the
+       chown() function defined in the System Interfaces volume of
+       POSIX.1‐2008, called with the following arguments:
+        *  The file operand shall be used as the path argument.
+        *  The user ID of the file shall be used as the owner argument.
+        *  The specified group ID shall be used as the group argument.
+       Unless chgrp is invoked by a process with appropriate privileges, the
+       set-user-ID and set-group-ID bits of a regular file shall be cleared
+       upon successful completion; the set-user-ID and set-group-ID bits of
+       other file types may be cleared.

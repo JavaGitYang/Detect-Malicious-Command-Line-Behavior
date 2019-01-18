@@ -1,0 +1,6 @@
+
+       The Babeltrace lttng-utils plugin contains utilities that apply to
+       LTTng traces. You can use the source.ctf.fs and source.ctf.lttng-live
+       components to read LTTng traces (see babeltrace-plugin-ctf(7)).
+       See babeltrace-intro(7) to learn more about the Babeltrace project
+       and its core concepts.

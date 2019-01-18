@@ -1,0 +1,36 @@
+
+       The <ftw.h> header shall define the FTW structure, which shall
+       include at least the following members:
+           int  base
+           int  level
+       The <ftw.h> header shall define the following symbolic constants for
+       use as values of the third argument to the application-supplied
+       function that is passed as the second argument to ftw() and nftw():
+       FTW_F         Non-directory file.
+       FTW_D         Directory.
+       FTW_DNR       Directory without read permission.
+       FTW_DP        Directory with subdirectories visited.
+       FTW_NS        Unknown type; stat() failed.
+       FTW_SL        Symbolic link.
+       FTW_SLN       Symbolic link that names a nonexistent file.
+       The <ftw.h> header shall define the following symbolic constants for
+       use as values of the fourth argument to nftw():
+       FTW_PHYS      Physical walk, does not follow symbolic links.
+                     Otherwise, nftw() follows links but does not walk down
+                     any path that crosses itself.
+       FTW_MOUNT     The walk does not cross a mount point.
+       FTW_DEPTH     All subdirectories are visited before the directory
+                     itself.
+       FTW_CHDIR     The walk changes to each directory before reading it.
+       The following shall be declared as functions and may also be defined
+       as macros. Function prototypes shall be provided.
+           int ftw(const char *, int (*)(const char *, const struct stat *,
+               int), int);
+           int nftw(const char *, int (*)(const char *, const struct stat *,
+               int, struct FTW *), int, int);
+       The <ftw.h> header shall define the stat structure and the symbolic
+       names for st_mode and the file type test macros as described in
+       <sys/stat.h>.
+       Inclusion of the <ftw.h> header may also make visible all symbols
+       from <sys/stat.h>.
+       The following sections are informative.

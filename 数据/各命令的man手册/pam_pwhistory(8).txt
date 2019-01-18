@@ -1,0 +1,8 @@
+
+       This module saves the last passwords for each user in order to force
+       password change history and keep the user from alternating between
+       the same password too frequently.
+       This module does not work together with kerberos. In general, it does
+       not make much sense to use this module in conjunction with NIS or
+       LDAP, since the old passwords are stored on the local machine and are
+       not available on another machine for password history checking.

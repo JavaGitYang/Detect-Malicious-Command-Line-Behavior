@@ -1,0 +1,11 @@
+
+       systemd-fstab-generator is a generator that translates /etc/fstab
+       (see fstab(5) for details) into native systemd units early at boot
+       and when configuration of the system manager is reloaded. This will
+       instantiate mount and swap units as necessary.
+       The passno field is treated like a simple boolean, and the ordering
+       information is discarded. However, if the root file system is
+       checked, it is checked before all the other file systems.
+       See systemd.mount(5) and systemd.swap(5) for more information about
+       special /etc/fstab mount options this generator understands.
+       systemd-fstab-generator implements systemd.generator(7).

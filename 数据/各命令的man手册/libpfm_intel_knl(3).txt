@@ -1,0 +1,7 @@
+
+       The library supports the Intel Kinghts Landing core PMU. It should be
+       noted that this PMU model only covers each core's PMU and not the
+       socket level PMU.
+       On Knights Landing, the number of generic counters is 4. There is
+       4-way HyperThreading support.  The pfm_get_pmu_info() function
+       returns the maximum number of generic counters in num_cntrs.

@@ -1,0 +1,58 @@
+
+       pmSetMode is used to define the collection time and/or mode for
+       accessing performance metrics and meta-data in the current
+       Performance Metrics Application Programming Interface (PMAPI)
+       context.  This mode affects the semantics of subsequent calls to the
+       following PMAPI routines: pmFetch(3), pmFetchArchive(3),
+       pmLookupDesc(3), pmGetInDom(3), pmLookupInDom(3) and pmNameInDom(3).
+       If mode is PM_MODE_LIVE then all information is returned from the
+       active pool of performance metrics as of the time that the PMAPI call
+       is made, and the other two parameters to pmSetMode are ignored.
+       PM_MODE_LIVE is the default mode when a new PMAPI context of type
+       PM_CONTEXT_HOST is created.
+       If the mode is not PM_MODE_LIVE, then the when parameter defines a
+       time origin, and all requests for meta-data (metric descriptions and
+       instance identifiers from the instance domains) will be processed to
+       reflect the state of the meta-data as of the time origin, i.e. we use
+       the last state of this information at, or before, the time origin.
+       If the mode is PM_MODE_INTERP then, in the case of pmFetch(3), the
+       underlying code will use an interpolation scheme to compute the
+       values of the metrics from the values recorded for times in the
+       proximity of the time origin.  A mode of PM_MODE_INTERP may only be
+       used with an archive context.
+       If the mode is PM_MODE_FORW then, in the case of pmFetch(3), the
+       collection of recorded metric values will be scanned in a forwards
+       direction in time, until values for at least one of the requested
+       metrics is located after the time origin, and then all requested
+       metrics stored in the set of archives at that time will be returned
+       with the corresponding timestamp.  A mode of PM_MODE_FORW may only be
+       used with an archive context.
+       If the mode is PM_MODE_BACK then, the situation is the same as for
+       PM_MODE_FORW, except a pmFetch(3) will be serviced by scanning the
+       collection of recorded metrics in a backwards direction in time for
+       metrics before the time origin.  A mode of PM_MODE_BACK may only be
+       used with an archive context.
+       If the mode is PM_MODE_FORW or PM_MODE_BACK, and no qualifying
+       metrics can be found in the requested direction of searching before
+       the end or start of the set of archive logs is found, then pmFetch(3)
+       returns the special error indicator, PM_ERR_EOL.
+       For modes other than PM_MODE_LIVE, after each successful pmFetch(3),
+       the time origin is reset to the timestamp returned via the pmResult
+       structure from pmFetch(3).
+       The pmSetMode parameter delta defines an additional number of time
+       units that should be used to adjust the time origin (forwards or
+       backwards), after the new time origin from the pmResult has been
+       determined.  This automatic adjustment of the time origin only occurs
+       when the mode is PM_MODE_INTERP, and the adjustment is applied, even
+       if the pmFetch(3) fails because the time origin is outside the range
+       defined by the records in a set of archive logs, i.e. returns
+       PM_ERR_EOL.
+       By default delta is interpreted as milliseconds (but see the LARGE
+       DELTA VALUES section below).
+       Using these mode options, an application can implement replay,
+       playback, fast forward, reverse, etc. for performance metric values
+       held in the set of archive logs by alternating calls to pmSetMode and
+       pmFetch(3).
+       As a special case, if when is NULL then the mode and delta arguments
+       are used as described above, but the current time in the archive is
+       not altered.

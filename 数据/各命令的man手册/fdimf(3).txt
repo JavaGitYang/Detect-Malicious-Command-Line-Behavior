@@ -1,0 +1,3 @@
+
+       These functions return the positive difference, max(x-y,0), between
+       their arguments.

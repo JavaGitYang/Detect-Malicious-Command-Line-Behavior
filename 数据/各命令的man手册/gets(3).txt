@@ -1,0 +1,6 @@
+
+       Never use this function.
+       gets() reads a line from stdin into the buffer pointed to by s until
+       either a terminating newline or EOF, which it replaces with a null
+       byte ('\0').  No check for buffer overrun is performed (see BUGS
+       below).

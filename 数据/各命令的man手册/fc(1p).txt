@@ -1,0 +1,29 @@
+
+       The fc utility shall list, or shall edit and re-execute, commands
+       previously entered to an interactive sh.
+       The command history list shall reference commands by number. The
+       first number in the list is selected arbitrarily. The relationship of
+       a number to its command shall not change except when the user logs in
+       and no other process is accessing the list, at which time the system
+       may reset the numbering to start the oldest retained command at
+       another number (usually 1). When the number reaches an
+       implementation-defined upper limit, which shall be no smaller than
+       the value in HISTSIZE or 32767 (whichever is greater), the shell may
+       wrap the numbers, starting the next command with a lower number
+       (usually 1). However, despite this optional wrapping of numbers, fc
+       shall maintain the time-ordering sequence of the commands. For
+       example, if four commands in sequence are given the numbers 32766,
+       32767, 1 (wrapped), and 2 as they are executed, command 32767 is
+       considered the command previous to 1, even though its number is
+       higher.
+       When commands are edited (when the −l option is not specified), the
+       resulting lines shall be entered at the end of the history list and
+       then re-executed by sh.  The fc command that caused the editing shall
+       not be entered into the history list. If the editor returns a non-
+       zero exit status, this shall suppress the entry into the history list
+       and the command re-execution.  Any command line variable assignments
+       or redirection operators used with fc shall affect both the fc
+       command itself as well as the command that results; for example:
+           fc −s −− −1 2>/dev/null
+       reinvokes the previous command, suppressing standard error for both
+       fc and the previous command.

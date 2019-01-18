@@ -1,0 +1,20 @@
+
+       The warnquota.conf file stores a configuration for warnquota(8) tool
+       which is used to notify a user or a group who exceeds its disk quota
+       limits.
+       The syntax is an option name followed by an equal sign and the option
+       value.  White space characters surrounding the option names and
+       values are allowed.
+       Empty lines or lines starting with a hash sign or a semicolon are
+       ignored.
+       An option value can but does not have to be quoted. The value can
+       span across multiple lines provided each previous line ends with a
+       backslash.
+       Some option values can contain formatting sequences which will be
+       expanded to their respective values. Following sequences are
+       recognized:
+       %d                  domain name
+       %h                  host name
+       %i, %s              user or group name
+       %%                  literal % character
+       |                   new-line character

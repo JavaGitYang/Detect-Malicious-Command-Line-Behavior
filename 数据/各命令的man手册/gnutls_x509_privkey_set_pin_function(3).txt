@@ -1,0 +1,5 @@
+
+       This function will set a callback function to be used when it is
+       required to access a protected object. This function overrides the
+       global function set using gnutls_pkcs11_set_pin_function().
+       Note that this callback is used when decrypting a key.

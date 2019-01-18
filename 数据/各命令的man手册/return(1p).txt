@@ -1,0 +1,4 @@
+
+       The return utility shall cause the shell to stop executing the
+       current function or dot script. If the shell is not currently
+       executing a function or dot script, the results are unspecified.

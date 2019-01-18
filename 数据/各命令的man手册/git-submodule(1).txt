@@ -1,0 +1,3 @@
+
+       Inspects, updates and manages submodules.
+       For more information about submodules, see gitsubmodules(7).

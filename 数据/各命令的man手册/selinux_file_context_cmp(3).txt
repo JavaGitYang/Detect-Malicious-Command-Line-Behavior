@@ -1,0 +1,5 @@
+
+       selinux_file_context_cmp() compares two context strings excluding the
+       user component with strcmp(3) as shown in the EXAMPLE section.
+       This is useful as for most object contexts, the user component is not
+       relevant.

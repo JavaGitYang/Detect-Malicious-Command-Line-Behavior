@@ -1,0 +1,5 @@
+
+       The trace-cmd(1) list displays the available plugins, events or
+       Ftrace options that are configured on the current machine. If no
+       option is given, then it lists all plugins, events and Ftrace options
+       to standard output.

@@ -1,0 +1,2 @@
+
+       Get a list of available compression method in the priority structure.

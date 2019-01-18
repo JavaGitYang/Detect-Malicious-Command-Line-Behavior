@@ -1,0 +1,2 @@
+
+       pcap_dump_close() closes the ``savefile.''

@@ -1,0 +1,11 @@
+
+       The readv() function shall be equivalent to read(), except as
+       described below. The readv() function shall place the input data into
+       the iovcnt buffers specified by the members of the iov array: iov[0],
+       iov[1], ..., iov[iovcnt−1].  The iovcnt argument is valid if greater
+       than 0 and less than or equal to {IOV_MAX}.
+       Each iovec entry specifies the base address and length of an area in
+       memory where data should be placed. The readv() function shall always
+       fill an area completely before proceeding to the next.
+       Upon successful completion, readv() shall mark for update the last
+       data access timestamp of the file.

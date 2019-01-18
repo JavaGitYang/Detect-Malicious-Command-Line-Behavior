@@ -1,0 +1,22 @@
+
+       The pthread_getspecific() function shall return the value currently
+       bound to the specified key on behalf of the calling thread.
+       The pthread_setspecific() function shall associate a thread-specific
+       value with a key obtained via a previous call to
+       pthread_key_create().  Different threads may bind different values to
+       the same key. These values are typically pointers to blocks of
+       dynamically allocated memory that have been reserved for use by the
+       calling thread.
+       The effect of calling pthread_getspecific() or pthread_setspecific()
+       with a key value not obtained from pthread_key_create() or after key
+       has been deleted with pthread_key_delete() is undefined.
+       Both pthread_getspecific() and pthread_setspecific() may be called
+       from a thread-specific data destructor function. A call to
+       pthread_getspecific() for the thread-specific data key being
+       destroyed shall return the value NULL, unless the value is changed
+       (after the destructor starts) by a call to pthread_setspecific().
+       Calling pthread_setspecific() from a thread-specific data destructor
+       routine may result either in lost storage (after at least
+       PTHREAD_DESTRUCTOR_ITERATIONS attempts at destruction) or in an
+       infinite loop.
+       Both functions may be implemented as macros.

@@ -1,0 +1,62 @@
+
+       A Performance Metrics Domain Agent (PMDA) that wishes to export event
+       records (or trace records) is encouraged to use a metric of either
+       type PM_TYPE_EVENT or PM_TYPE_HIGHRES_EVENT to encode a group of
+       event records into a single packed array.
+       The only difference between the two metric types is the resolution of
+       the timestamp associated with each - in high resolution form it is
+       nanosecond scale (see clock_gettime(2)), otherwise it is microseconds
+       (see gettimeofday(2)).  For simplicity, we will only refer to the
+       lower resolution API and data structures hereafter - however, the
+       higher resolution variants are all named similarly and are used in
+       the same way.
+       The packed array of event records format is defined in <pcp/pmapi.h>
+       and consists of a pmEventArray structure containing a variable number
+       of pmEventRecord structures, each of which contains a variable number
+       of pmEventParameter structures, which in turn may contain a variable
+       length value for each parameter of each event record.
+       The higher resolution equivalents are defined in the same location,
+       and the structures are named the same.  Note that the
+       pmEventParameter structure has no timestamp associated with it, hence
+       it this does not have a high resolution counterpart.
+       The routines described here are designed to assist the PMDA developer
+       in building a packed array of event records, and managing all of the
+       memory allocations required to hold each instance of an array of
+       event records in a contiguous buffer.  Normal use would be as part of
+       PMDA's pmdaFetchCallBack method.
+       pmdaEventNewArray is used to create a new event array.  The return
+       value is a small integer that is used as the idx parameter to the
+       other routines to identify a specific event array.  If needed, a PMDA
+       can create and use multiple event arrays.
+       To start a new cycle and refill an event array from the beginning,
+       call pmdaEventResetArray.
+       If the PMDA has finished with an event array, pmdaEventReleaseArray
+       may be used to release the underlying storage and ``close'' the event
+       array so that subsequent attempts to use idx will return
+       PM_ERR_NOCONTEXT.
+       To start a new event record, use pmdaEventAddRecord.  The timestamp
+       for the event record is given via tp and the flags parameter may be
+       used to set the control field that determines the type of the event
+       record - flags may be the bit-wise ``or'' of one or more of the
+       PM_EVENT_FLAG_* values defined in <pcp/pmapi.h> (but note that
+       PM_EVENT_FLAG_MISSED should not be used in this context).
+       If event records have been missed, either because the PMDA cannot
+       keep up or because the PMAPI client cannot keep up, then
+       pmdaEventAddMissedRecord may be used.  idx and tp have the same
+       meaning as for pmdaEventAddRecord and nmissed is the number of event
+       records that have been missed at this point in the time-series of
+       event records.  pmdaEventAddMissedRecord may be called multiple times
+       for a single batch of event records if there are more than one
+       ``missed event record'' episode.
+       Once an event record has been started by calling pmdaEventAddRecord,
+       one or more event parameters may be added using pmdaEventAddParam.
+       The pmid and type parameters decribe the PMID of the parameter and
+       the data type (one of the PM_TYPE_* values from <pcp/pmapi.h>) of the
+       value that is passed via avp.  type should one where the size of the
+       value is implied by the type or by the length of a string value (for
+       PM_TYPE_STRING) or encoded within avp->vbp (for PM_TYPE_AGGREGATE).
+       Once the packed array has been constructed, pmdaEventGetAddr should
+       be used to initialize the ea_type and ea_len fields at the start of
+       the pmEventArray and return the base address of the event array that
+       is assigned to the vp field of the pmAtomValue structure that the
+       pmdaFetchCallBack method should return.

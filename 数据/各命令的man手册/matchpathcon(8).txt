@@ -1,0 +1,8 @@
+
+       matchpathcon queries the system policy and outputs the default
+       security context associated with the filepath.
+       Note: Identical paths can have different security contexts, depending
+       on the file type (regular file, directory, link file, char file ...).
+       matchpathcon will also take the file type into consideration in
+       determining the default security context if the file exists.  If the
+       file does not exist, no file type matching will occur.

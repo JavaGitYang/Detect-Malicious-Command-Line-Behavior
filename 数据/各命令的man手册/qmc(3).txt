@@ -1,0 +1,5 @@
+
+       The Qt-based Performance Metrics Class (QMC) class library is a
+       collection of C++ classes for managing a large set of performance
+       metrics from a variety of sources.  This library is built over
+       PMAPI(3).

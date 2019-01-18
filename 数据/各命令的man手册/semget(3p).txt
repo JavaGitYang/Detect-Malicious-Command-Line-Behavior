@@ -1,0 +1,29 @@
+
+       The semget() function operates on XSI semaphores (see the Base
+       Definitions volume of POSIX.1‐2008, Section 4.16, Semaphore).  It is
+       unspecified whether this function interoperates with the realtime
+       interprocess communication facilities defined in Section 2.8,
+       Realtime.
+       The semget() function shall return the semaphore identifier
+       associated with key.
+       A semaphore identifier with its associated semid_ds data structure
+       and its associated set of nsems semaphores (see <sys/sem.h>) is
+       created for key if one of the following is true:
+        *  The argument key is equal to IPC_PRIVATE.
+        *  The argument key does not already have a semaphore identifier
+           associated with it and (semflg &IPC_CREAT) is non-zero.
+       Upon creation, the semid_ds data structure associated with the new
+       semaphore identifier is initialized as follows:
+        *  In the operation permissions structure sem_perm.cuid,
+           sem_perm.uid, sem_perm.cgid, and sem_perm.gid shall be set to the
+           effective user ID and effective group ID, respectively, of the
+           calling process.
+        *  The low-order 9 bits of sem_perm.mode shall be set to the low-
+           order 9 bits of semflg.
+        *  The variable sem_nsems shall be set to the value of nsems.
+        *  The variable sem_otime shall be set to 0 and sem_ctime shall be
+           set to the current time, as described in Section 2.7.1, IPC
+           General Description.
+        *  The data structure associated with each semaphore in the set need
+           not be initialized. The semctl() function with the command SETVAL
+           or SETALL can be used to initialize each semaphore.

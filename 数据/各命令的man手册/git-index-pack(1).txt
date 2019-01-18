@@ -1,0 +1,5 @@
+
+       Reads a packed archive (.pack) from the specified file, and builds a
+       pack index file (.idx) for it. The packed archive together with the
+       pack index can then be placed in the objects/pack/ directory of a Git
+       repository.

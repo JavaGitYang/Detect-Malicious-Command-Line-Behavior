@@ -1,0 +1,2 @@
+
+       auparse_get_milli gets the millisecond value of the current event.

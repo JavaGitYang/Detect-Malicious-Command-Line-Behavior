@@ -1,0 +1,21 @@
+
+       Gawk is the GNU Project's implementation of the AWK programming
+       language.  It conforms to the definition of the language in the POSIX
+       1003.1 standard.  This version in turn is based on the description in
+       The AWK Programming Language, by Aho, Kernighan, and Weinberger.
+       Gawk provides the additional features found in the current version of
+       Brian Kernighan's awk and numerous GNU-specific extensions.
+       The command line consists of options to gawk itself, the AWK program
+       text (if not supplied via the -f or -i options), and values to be
+       made available in the ARGC and ARGV pre-defined AWK variables.
+       When gawk is invoked with the --profile option, it starts gathering
+       profiling statistics from the execution of the program.  Gawk runs
+       more slowly in this mode, and automatically produces an execution
+       profile in the file awkprof.out when done.  See the --profile option,
+       below.
+       Gawk also has an integrated debugger. An interactive debugging
+       session can be started by supplying the --debug option to the command
+       line. In this mode of execution, gawk loads the AWK source code and
+       then prompts for debugging commands.  Gawk can only debug AWK program
+       source provided with the -f option.  The debugger is documented in
+       GAWK: Effective AWK Programming.

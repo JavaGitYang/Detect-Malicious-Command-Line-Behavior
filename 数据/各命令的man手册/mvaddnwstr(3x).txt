@@ -1,0 +1,11 @@
+
+       These functions write the characters of the (null-terminated) wchar_t
+       character string wstr on the given window.  It is similar to
+       constructing a cchar_t for each wchar_t in the string, then calling
+       wadd_wch for the resulting cchar_t.
+       The mv functions perform cursor movement once, before writing any
+       characters.  Thereafter, the cursor is advanced as a side-effect of
+       writing to the window.
+       The four functions with n as the last argument write at most n
+       wchar_t characters, or until a terminating null is reached.  If n is
+       -1, then the entire string will be added.

@@ -1,0 +1,8 @@
+
+       The seccomp_version() and seccomp_reset() functions return a pointer
+       to a scmp_version struct which contains the version information of
+       the currently loaded libseccomp library.  This function can be used
+       by applications that need to verify that they are linked to a
+       specific libseccomp version at runtime.
+       The caller should not attempt to free the returned scmp_version
+       struct when finished.

@@ -1,0 +1,7 @@
+
+       This function will find the issuer of the given certificate.  If the
+       flag GNUTLS_TL_GET_COPY is specified a copy of the issuer will be
+       returned which must be freed using gnutls_x509_crt_deinit().  In that
+       case the provided  issuer must not be initialized.
+       Note that the flag GNUTLS_TL_GET_COPY is required for this function
+       to work with PKCS11 trust lists in a thread-safe way.

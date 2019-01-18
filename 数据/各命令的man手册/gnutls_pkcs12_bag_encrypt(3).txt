@@ -1,0 +1,2 @@
+
+       This function will encrypt the given bag.

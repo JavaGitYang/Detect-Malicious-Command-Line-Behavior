@@ -1,0 +1,3 @@
+
+       This function will convert the given DSA raw parameters to the native
+       gnutls_privkey_t format.  The output will be stored in  key .

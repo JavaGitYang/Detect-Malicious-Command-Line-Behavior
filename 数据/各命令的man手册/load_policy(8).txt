@@ -1,0 +1,5 @@
+
+       load_policy loads the installed policy file into the kernel.  The
+       existing policy boolean values are automatically preserved across
+       policy reloads rather than being reset to the default values in the
+       policy file.

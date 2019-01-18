@@ -1,0 +1,9 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       These functions shall produce a value with the magnitude of x and the
+       sign of y.  On implementations that represent a signed zero but do
+       not treat negative zero consistently in arithmetic operations, these
+       functions regard the sign of zero as positive.

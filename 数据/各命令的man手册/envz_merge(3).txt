@@ -1,0 +1,25 @@
+
+       These functions are glibc-specific.
+       An argz vector is a pointer to a character buffer together with a
+       length, see argz_add(3).  An envz vector is a special argz vector,
+       namely one where the strings have the form "name=value".  Everything
+       after the first '=' is considered to be the value.  If there is no
+       '=', the value is taken to be NULL.  (While the value in case of a
+       trailing '=' is the empty string "".)
+       These functions are for handling envz vectors.
+       envz_add() adds the string "name=value" (in case value is non-NULL)
+       or "name" (in case value is NULL) to the envz vector
+       (*envz, *envz_len) and updates *envz and *envz_len.  If an entry with
+       the same name existed, it is removed.
+       envz_entry() looks for name in the envz vector (envz, envz_len) and
+       returns the entry if found, or NULL if not.
+       envz_get() looks for name in the envz vector (envz, envz_len) and
+       returns the value if found, or NULL if not.  (Note that the value can
+       also be NULL, namely when there is an entry for name without '='
+       sign.)
+       envz_merge() adds each entry in envz2 to *envz, as if with
+       envz_add().  If override is true, then values in envz2 will supersede
+       those with the same name in *envz, otherwise not.
+       envz_remove() removes the entry for name from (*envz, *envz_len) if
+       there was one.
+       envz_strip() removes all entries with value NULL.

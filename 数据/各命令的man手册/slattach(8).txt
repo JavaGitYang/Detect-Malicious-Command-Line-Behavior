@@ -1,0 +1,4 @@
+
+       Slattach is a tiny little program that can be used to put a normal
+       terminal ("serial") line into one of several "network" modes, thus
+       allowing you to use it for point-to-point links to other computers.

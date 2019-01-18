@@ -1,0 +1,31 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The realloc() function shall deallocate the old object pointed to by
+       ptr and return a pointer to a new object that has the size specified
+       by size.  The contents of the new object shall be the same as that of
+       the old object prior to deallocation, up to the lesser of the new and
+       old sizes. Any bytes in the new object beyond the size of the old
+       object have indeterminate values. If the size of the space requested
+       is zero, the behavior shall be implementation-defined: either a null
+       pointer is returned, or the behavior shall be as if the size were
+       some non-zero value, except that the returned pointer shall not be
+       used to access an object. If the space cannot be allocated, the
+       object shall remain unchanged.
+       If ptr is a null pointer, realloc() shall be equivalent to malloc()
+       for the specified size.
+       If ptr does not match a pointer returned earlier by calloc(),
+       malloc(), or realloc() or if the space has previously been
+       deallocated by a call to free() or realloc(), the behavior is
+       undefined.
+       The order and contiguity of storage allocated by successive calls to
+       realloc() is unspecified. The pointer returned if the allocation
+       succeeds shall be suitably aligned so that it may be assigned to a
+       pointer to any type of object and then used to access such an object
+       in the space allocated (until the space is explicitly freed or
+       reallocated). Each such allocation shall yield a pointer to an object
+       disjoint from any other object. The pointer returned shall point to
+       the start (lowest byte address) of the allocated space. If the space
+       cannot be allocated, a null pointer shall be returned.

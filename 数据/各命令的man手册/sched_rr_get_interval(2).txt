@@ -1,0 +1,12 @@
+
+       sched_rr_get_interval() writes into the timespec structure pointed to
+       by tp the round-robin time quantum for the process identified by pid.
+       The specified process should be running under the SCHED_RR scheduling
+       policy.
+       The timespec structure has the following form:
+           struct timespec {
+               time_t tv_sec;    /* seconds */
+               long   tv_nsec;   /* nanoseconds */
+           };
+       If pid is zero, the time quantum for the calling process is written
+       into *tp.

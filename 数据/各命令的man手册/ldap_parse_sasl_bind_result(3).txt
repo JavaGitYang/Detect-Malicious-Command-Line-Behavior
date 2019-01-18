@@ -1,0 +1,45 @@
+
+       These routines are used to extract information from a result message.
+       They will operate on the first result message in a chain of search
+       results (skipping past other message types). They take the result as
+       returned by a call to ldap_result(3), ldap_search_s(3) or
+       ldap_search_st(3).  In addition to ldap_parse_result(), the routines
+       ldap_parse_sasl_bind_result() and ldap_parse_extended_result() are
+       used to get all the result information from SASL bind and extended
+       operations.
+       The errcodep parameter will be filled in with the result code from
+       the result message.
+       The server might supply a matched DN string in the message indicating
+       how much of a name in a request was recognized. The matcheddnp
+       parameter will be filled in with this string if supplied, else it
+       will be NULL. If a string is returned, it should be freed using
+       ldap_memfree(3).
+       The errmsgp parameter will be filled in with the error message field
+       from the parsed message. This string should be freed using
+       ldap_memfree(3).
+       The referralsp parameter will be filled in with an allocated array of
+       referral strings from the parsed message. This array should be freed
+       using ldap_memvfree(3).  If no referrals were returned, *referralsp
+       is set to NULL.
+       The serverctrlsp parameter will be filled in with an allocated array
+       of controls copied from the parsed message. The array should be freed
+       using ldap_controls_free(3).  If no controls were returned,
+       *serverctrlsp is set to NULL.
+       The freeit parameter determines whether the parsed message is freed
+       or not after the extraction. Any non-zero value will make it free the
+       message. The ldap_msgfree(3) routine can also be used to free the
+       message later.
+       For SASL bind results, the servercredp parameter will be filled in
+       with an allocated berval structure containing the credentials from
+       the server if present. The structure should be freed using
+       ber_bvfree(3).
+       For extended results, the retoidp parameter will be filled in with
+       the dotted-OID text representation of the name of the extended
+       operation response. The string should be freed using ldap_memfree(3).
+       If no OID was returned, *retoidp is set to NULL.
+       For extended results, the retdatap parameter will be filled in with a
+       pointer to a berval structure containing the data from the extended
+       operation response. The structure should be freed using
+       ber_bvfree(3).  If no data were returned, *retdatap is set to NULL.
+       For all the above result parameters, NULL values can be used in calls
+       in order to ignore certain fields.

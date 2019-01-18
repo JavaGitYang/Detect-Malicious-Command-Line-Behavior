@@ -1,0 +1,7 @@
+
+       This function will verify session's certificate chain against the CA
+       constrains and/or the certificate available via DANE.  See
+       dane_verify_crt() for more information.
+       This will not verify the chain for validity; unless the DANE
+       verification is restricted to end certificates, this must be be
+       performed separately using gnutls_certificate_verify_peers3().

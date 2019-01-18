@@ -1,0 +1,11 @@
+
+       Configuration settings used by automount(8) may be changed in the
+       configuration file @mapdir@/autofs.conf.
+       This file contains two primary sections, autofs and amd.
+       Configuration entries may be present at the beginning of the
+       configuration file without a section header and are implicitly
+       included as part of the autofs section.
+       Each section name is enclosed in square brackets with spaces between
+       the brackets and the section name. The amd section may be followed by
+       further sections, named by the top level mount point path, that
+       contain per mount configuration settings.

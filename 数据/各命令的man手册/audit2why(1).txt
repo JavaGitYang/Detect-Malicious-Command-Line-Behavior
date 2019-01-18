@@ -1,0 +1,19 @@
+
+       This utility scans the logs for messages logged when the system
+       denied permission for operations, and generates a snippet of policy
+       rules which, if loaded into policy, might have allowed those
+       operations to succeed. However, this utility only generates Type
+       Enforcement (TE) allow rules.  Certain permission denials may require
+       other kinds of policy changes, e.g. adding an attribute to a type
+       declaration to satisfy an existing constraint, adding a role allow
+       rule, or modifying a constraint.  The audit2why(8) utility may be
+       used to diagnose the reason when it is unclear.
+       Care must be exercised while acting on the output of this utility to
+       ensure that the operations being permitted do not pose a security
+       threat. Often it is better to define new domains and/or types, or
+       make other structural changes to narrowly allow an optimal set of
+       operations to succeed, as opposed to blindly implementing the
+       sometimes broad changes recommended by this utility.   Certain
+       permission denials are not fatal to the application, in which case it
+       may be preferable to simply suppress logging of the denial via a
+       'dontaudit' rule rather than an 'allow' rule.

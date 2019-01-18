@@ -1,0 +1,27 @@
+
+       The sigwait() function shall select a pending signal from set,
+       atomically clear it from the system's set of pending signals, and
+       return that signal number in the location referenced by sig.  If
+       prior to the call to sigwait() there are multiple pending instances
+       of a single signal number, it is implementation-defined whether upon
+       successful return there are any remaining pending signals for that
+       signal number.  If the implementation supports queued signals and
+       there are multiple signals queued for the signal number selected, the
+       first such queued signal shall cause a return from sigwait() and the
+       remainder shall remain queued. If no signal in set is pending at the
+       time of the call, the thread shall be suspended until one or more
+       becomes pending. The signals defined by set shall have been blocked
+       at the time of the call to sigwait(); otherwise, the behavior is
+       undefined. The effect of sigwait() on the signal actions for the
+       signals in set is unspecified.
+       If more than one thread is using sigwait() to wait for the same
+       signal, no more than one of these threads shall return from sigwait()
+       with the signal number. If more than a single thread is blocked in
+       sigwait() for a signal when that signal is generated for the process,
+       it is unspecified which of the waiting threads returns from
+       sigwait().  If the signal is generated for a specific thread, as by
+       pthread_kill(), only that thread shall return.
+       Should any of the multiple pending signals in the range SIGRTMIN to
+       SIGRTMAX be selected, it shall be the lowest numbered one. The
+       selection order between realtime and non-realtime signals, or between
+       multiple pending non-realtime signals, is unspecified.

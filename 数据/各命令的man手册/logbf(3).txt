@@ -1,0 +1,9 @@
+
+       These functions extract the exponent from the internal floating-point
+       representation of x and return it as a floating-point value.  The
+       integer constant FLT_RADIX, defined in <float.h>, indicates the radix
+       used for the system's floating-point representation.  If FLT_RADIX is
+       2, logb(x) is equal to floor(log2(x)), except that it is probably
+       faster.
+       If x is subnormal, logb() returns the exponent x would have if it
+       were normalized.

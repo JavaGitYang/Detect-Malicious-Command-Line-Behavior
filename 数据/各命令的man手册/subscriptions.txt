@@ -1,0 +1,5 @@
+
+       The subscriptions.conf file defines the local event notification
+       subscriptions that are active. It is normally located in the
+       /etc/cups directory and is maintained by the cupsd(8) program. This
+       file is not intended to be edited or managed manually.

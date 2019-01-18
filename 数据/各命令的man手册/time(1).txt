@@ -1,0 +1,13 @@
+
+       The time command runs the specified program command with the given
+       arguments.  When command finishes, time writes a message to standard
+       error giving timing statistics about this program run.  These
+       statistics consist of (i) the elapsed real time between invocation
+       and termination, (ii) the user CPU time (the sum of the tms_utime and
+       tms_cutime values in a struct tms as returned by times(2)), and (iii)
+       the system CPU time (the sum of the tms_stime and tms_cstime values
+       in a struct tms as returned by times(2)).
+       Note: some shells (e.g., bash(1)) have a built-in time command that
+       provides similar information on the usage of time and possibly other
+       resources.  To access the real command, you may need to specify its
+       pathname (something like /usr/bin/time).

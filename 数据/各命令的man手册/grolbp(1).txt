@@ -1,0 +1,9 @@
+
+       grolbp is a driver for groff that produces output in CAPSL and VDM
+       format suitable for Canon LBP-4 and LBP-8 printers.
+       For compatibility with grolj4 there is an additional drawing command
+       available:
+       \D'R dh dv'
+              Draw a rule (i.e. a solid black rectangle), with one corner at
+              the current position, and the diagonally opposite corner at
+              the current position +(dh,dv).

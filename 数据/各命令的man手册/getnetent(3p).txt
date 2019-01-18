@@ -1,0 +1,28 @@
+
+       These functions shall retrieve information about networks. This
+       information is considered to be stored in a database that can be
+       accessed sequentially or randomly. The implementation of this
+       database is unspecified.
+       The setnetent() function shall open and rewind the database. If the
+       stayopen argument is non-zero, the connection to the net database
+       shall not be closed after each call to getnetent() (either directly,
+       or indirectly through one of the other getnet*() functions), and the
+       implementation may maintain an open file descriptor to the database.
+       The getnetent() function shall read the next entry of the database,
+       opening and closing a connection to the database as necessary.
+       The getnetbyaddr() function shall search the database from the
+       beginning, and find the first entry for which the address family
+       specified by type matches the n_addrtype member and the network
+       number net matches the n_net member, opening and closing a connection
+       to the database as necessary.  The net argument shall be the network
+       number in host byte order.
+       The getnetbyname() function shall search the database from the
+       beginning and find the first entry for which the network name
+       specified by name matches the n_name member, opening and closing a
+       connection to the database as necessary.
+       The getnetbyaddr(), getnetbyname(), and getnetent() functions shall
+       each return a pointer to a netent structure, the members of which
+       shall contain the fields of an entry in the network database.
+       The endnetent() function shall close the database, releasing any open
+       file descriptor.
+       These functions need not be thread-safe.

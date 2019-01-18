@@ -1,0 +1,12 @@
+
+       systemd-tmpfiles uses the configuration files from the above
+       directories to describe the creation, cleaning and removal of
+       volatile and temporary files and directories which usually reside in
+       directories such as /run or /tmp.
+       Volatile and temporary files and directories are those located in
+       /run (and its alias /var/run), /tmp, /var/tmp, the API file systems
+       such as /sys or /proc, as well as some other directories below /var.
+       System daemons frequently require private runtime directories below
+       /run to place communication sockets and similar in. For these,
+       consider declaring them in their unit files using RuntimeDirectory=
+       (see systemd.exec(5) for details), if this is feasible.

@@ -1,0 +1,11 @@
+
+       This overlay implements the LDAP Server Side Sorting (RFC2891)
+       control as well as the Virtual List View control. It also replaces
+       the default implementation of the LDAP PagedResults (RFC2696)
+       control, to ensure that it works with Sorting. The overlay can be
+       used with any backend or globally for all backends.
+       Since a complete result set must be generated in memory before
+       sorting can be performed, processing sort requests can have a large
+       impact on the server's memory use. As such, any connection is limited
+       to having only a limited number of sort requests active at a time.
+       Additional limits may be configured as described below.

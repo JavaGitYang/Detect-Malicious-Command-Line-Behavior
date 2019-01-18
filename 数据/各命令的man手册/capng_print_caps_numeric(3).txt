@@ -1,0 +1,11 @@
+
+       capng_print_caps_numeric will create a numeric representation of the
+       internal capabilities. The representation can be sent to either
+       stdout or a buffer by passing CAPNG_PRINT_STDOUT or
+       CAPNG_PRINT_BUFFER respectively for the where parameter. If the
+       option was for a buffer, this function will malloc a buffer that the
+       caller must free.
+       The set parameter controls what is included in the representation.
+       The legal options are CAPNG_SELECT_CAPS for the traditional
+       capabilities, CAPNG_SELECT_BOUNDS for the bounding set, or
+       CAPNG_SELECT_BOTH if clearing both is desired.

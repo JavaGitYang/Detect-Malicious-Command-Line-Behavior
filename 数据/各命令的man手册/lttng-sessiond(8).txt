@@ -1,0 +1,47 @@
+
+       The Linux Trace Toolkit: next generation <http://lttng.org/> is an
+       open source software package used for correlated tracing of the Linux
+       kernel, user applications, and user libraries.
+       LTTng consists of Linux kernel modules (for Linux kernel tracing) and
+       dynamically loaded libraries (for user application and library
+       tracing).
+       The LTTng session daemon is a tracing registry which allows the user
+       to interact with multiple tracers (kernel and user space) within the
+       same container, a tracing session. Traces can be gathered from the
+       Linux kernel and/or from instrumented applications (see
+       lttng-ust(3)). You can aggregate and read the events of LTTng traces
+       using babeltrace(1).
+       To trace the Linux kernel, the session daemon needs to be running as
+       root. LTTng uses a tracing group to allow specific users to interact
+       with the root session daemon. The default tracing group name is
+       tracing. You can use the --group option to set the tracing group name
+       to use.
+       Session daemons can coexist. You can have a session daemon running as
+       user Alice that can be used to trace her applications alongside a
+       root session daemon or a session daemon running as user Bob.
+       The LTTng session daemon manages trace data consumer daemons by
+       spawning them when necessary. You do not need to manage the consumer
+       daemons manually.
+           Note
+           It is highly recommended to start the session daemon at boot time
+           for stable and long-term tracing.
+   Automatic loading of tracing session configurations
+       When the session daemon starts, it automatically loads session
+       configuration files.
+       The following directories are searched, non-recursively, in this
+       order for configuration files to load on launch:
+        1. $LTTNG_HOME/.lttng/sessions/auto ($LTTNG_HOME defaults to $HOME)
+        2. /usr/local/etc/lttng/sessions/auto
+       Note that both the directory containing the tracing session
+       configurations and the session daemon binary must share the same UID
+       for the configurations to be automatically loaded.
+       The --load option overrides the default directories and the UID
+       check. The session daemon simply checks if the path is accessible and
+       tries to load every tracing session configuration in it. When this
+       option is specified, the default directories are NOT searched for
+       configuration files. When the option is not specified, both default
+       directories are searched for configuration files.
+       If the --load option’s argument is a directory, then all the tracing
+       session configurations found in all the files in this directory are
+       loaded. If the argument is a file, then all the tracing session
+       configurations found in this file are loaded.

@@ -1,0 +1,10 @@
+
+       These functions are used to access or to change the NIS domain name
+       of the host system.
+       setdomainname() sets the domain name to the value given in the
+       character array name.  The len argument specifies the number of bytes
+       in name.  (Thus, name does not require a terminating null byte.)
+       getdomainname() returns the null-terminated domain name in the
+       character array name, which has a length of len bytes.  If the null-
+       terminated domain name requires more than len bytes, getdomainname()
+       returns the first len bytes (glibc) or gives an error (libc).

@@ -1,0 +1,33 @@
+
+       unlink() deletes a name from the filesystem.  If that name was the
+       last link to a file and no processes have the file open, the file is
+       deleted and the space it was using is made available for reuse.
+       If the name was the last link to a file but any processes still have
+       the file open, the file will remain in existence until the last file
+       descriptor referring to it is closed.
+       If the name referred to a symbolic link, the link is removed.
+       If the name referred to a socket, FIFO, or device, the name for it is
+       removed but processes which have the object open may continue to use
+       it.
+   unlinkat()
+       The unlinkat() system call operates in exactly the same way as either
+       unlink() or rmdir(2) (depending on whether or not flags includes the
+       AT_REMOVEDIR flag) except for the differences described here.
+       If the pathname given in pathname is relative, then it is interpreted
+       relative to the directory referred to by the file descriptor dirfd
+       (rather than relative to the current working directory of the calling
+       process, as is done by unlink() and rmdir(2) for a relative
+       pathname).
+       If the pathname given in pathname is relative and dirfd is the
+       special value AT_FDCWD, then pathname is interpreted relative to the
+       current working directory of the calling process (like unlink() and
+       rmdir(2)).
+       If the pathname given in pathname is absolute, then dirfd is ignored.
+       flags is a bit mask that can either be specified as 0, or by ORing
+       together flag values that control the operation of unlinkat().
+       Currently, only one such flag is defined:
+       AT_REMOVEDIR
+              By default, unlinkat() performs the equivalent of unlink() on
+              pathname.  If the AT_REMOVEDIR flag is specified, then
+              performs the equivalent of rmdir(2) on pathname.
+       See openat(2) for an explanation of the need for unlinkat().

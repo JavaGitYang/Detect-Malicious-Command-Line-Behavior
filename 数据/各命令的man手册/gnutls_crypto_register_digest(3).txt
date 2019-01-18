@@ -1,0 +1,6 @@
+
+       This function will register a digest algorithm to be used by gnutls.
+       Any algorithm registered will override the included algorithms and by
+       convention kernel implemented algorithms have priority of 90 and
+       CPU-assisted of 80.  The algorithm with the lowest priority will be
+       used by gnutls.

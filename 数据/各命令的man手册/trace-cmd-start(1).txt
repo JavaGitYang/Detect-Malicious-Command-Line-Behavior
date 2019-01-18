@@ -1,0 +1,8 @@
+
+       The trace-cmd(1) start enables all the Ftrace tracing the same way
+       trace-cmd-record(1) does. The difference is that it does not run
+       threads to create a trace.dat file. This is useful just to enable
+       Ftrace and you are only interested in the trace after some event has
+       occurred and the trace is stopped. Then the trace can be read
+       straight from the Ftrace pseudo file system or can be extracted with
+       trace-cmd-extract(1).

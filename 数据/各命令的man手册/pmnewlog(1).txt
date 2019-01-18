@@ -1,0 +1,75 @@
+
+       pmnewlog may be used to stop and restart a running instance of
+       pmlogger(1).  This is most useful for managing multiple sets of
+       Performance Co-Pilot (PCP) archive logs.  These archive logs record
+       the history of performance metric values that may be ``played back''
+       by other PCP tools, and they form the basis of the VCR paradigm and
+       retrospective performance analysis services common to the PCP
+       toolkit.
+       In normal usage, pmnewlog would be executed by cron(1) in the wee
+       hours to terminate one PCP archive log and start another, i.e. to
+       perform log rotation.
+       Even more common, would be the execution of pmnewlog from the PCP
+       archive management script pmlogger_daily(1).  In this case, direct
+       end-user execution of pmnewlog is most unlikely.
+       The mandatory argument archive is the base name for the physical
+       files that will constitute the new archive log.
+       The pmlogger instance to be stopped and restarted must be running on
+       the same system as pmnewlog and is either the primary logger (the
+       default) or the logger with pid as specified by the -p option.
+       If the -n option is specified, then pmnewlog will use the namespace
+       in the pmnsfile, rather than the default Performance Metrics Name
+       Space (PMNS).
+       If no -c option is specified, pmnewlog will use pmlc(1) to connect to
+       the running pmlogger(1) and so determine all those metrics and
+       instances that are subject to mandatory logging or advisory on
+       logging, and the associated logging frequencies.  This information is
+       used to synthesize a new pmlogger(1) configuration file.  If the -n
+       option is specified, it will also be used for these interactions with
+       pmlc(1).
+       If the -c option is specified, pmlogger(1) will be restarted with
+       configfile as the configuration file.  Normally configfile would be
+       the same configuration file used to start pmlogger(1) in the first
+       place, however note that since pmlogger(1) is restarted, any changes
+       to the logging status made using pmlc(1) will be lost, unless these
+       have also been reflected in changes to configfile.
+       If configfile does not exist, then a search is made in the directory
+       $PCP_VAR_DIR/config/pmlogger for a file of the same name, and if
+       found that file is used, e.g. if config.mumble does not exist in the
+       current directory and the file
+       $PCP_VAR_DIR/config/pmlogger/config.mumble does exist, then -c
+       config.mumble and -c $PCP_VAR_DIR/config/pmlogger/config.mumble are
+       equivalent.
+       Access controls specifications for the new pmlogger(1) instance may
+       optionally be provided via the -a option.  The contents of accessfile
+       should start with the literal token [access] and conform to the
+       syntax of the access controls section as described for pmlogger(1).
+       The -C option may be used to save the configuration file that
+       pmnewlog passes to the newly launched pmlogger(1).
+       If the pmlogger(1) instance needs to be started under the control of
+       pmsocks(1) to connect to a pmcd through a firewall, the -s option may
+       be used.
+       The -V option enables verbose reporting of the activity.  By default
+       no output is generated unless some error or warning condition is
+       encountered.
+       The -N option enables a ``show me'' mode, where the actions are
+       echoed, but not executed, in the style of ``make -n''.  Using -N in
+       conjunction with -V maximizes the diagnostic capabilities for
+       debugging.
+       The other pmlogger options are as described for pmlogger(1).  Note
+       that pmnewlog does not support the following options of pmlogger(1).
+       -h host
+              pmnewlog determines the host to which the new pmlogger(1)
+              should connect based upon the current host connection for the
+              old pmlogger(1).
+       -s samples
+              The new pmlogger(1) is expected to be long running, and the -s
+              option of pmnewlog takes precedence.
+       -T runtime
+              The new pmlogger(1) is expected to be long running
+       -V version
+              The new pmlogger will always create the latest version PCP
+              archive format, and the -V option of pmnewlog takes
+              precedence.
+       -x fd  The launched pmlogger cannot be controlled by
+              pmRecordControl(3).

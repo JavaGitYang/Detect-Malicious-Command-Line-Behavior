@@ -1,0 +1,14 @@
+
+       These functions are obsolete: do not use them.  Use
+       pthread_attr_setstack(3) and pthread_attr_getstack(3) instead.
+       The pthread_attr_setstackaddr() function sets the stack address
+       attribute of the thread attributes object referred to by attr to the
+       value specified in stackaddr.  This attribute specifies the location
+       of the stack that should be used by a thread that is created using
+       the thread attributes object attr.
+       stackaddr should point to a buffer of at least PTHREAD_STACK_MIN
+       bytes that was allocated by the caller.  The pages of the allocated
+       buffer should be both readable and writable.
+       The pthread_attr_getstackaddr() function returns the stack address
+       attribute of the thread attributes object referred to by attr in the
+       buffer pointed to by stackaddr.

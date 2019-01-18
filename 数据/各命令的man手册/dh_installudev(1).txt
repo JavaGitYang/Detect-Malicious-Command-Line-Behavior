@@ -1,0 +1,3 @@
+
+       dh_installudev is a debhelper program that is responsible for
+       installing udev rules files.

@@ -1,0 +1,3 @@
+
+       Unhide a hidden range of patches so that they are shown in the plain
+       stg series command output.

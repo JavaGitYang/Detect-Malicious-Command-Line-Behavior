@@ -1,0 +1,53 @@
+
+       The misc_conv function is part of libpam_misc and not of the standard
+       libpam library. This function will prompt the user with the
+       appropriate comments and obtain the appropriate inputs as directed by
+       authentication modules.
+       In addition to simply slotting into the appropriate pam_conv(3), this
+       function provides some time-out facilities. The function exports five
+       variables that can be used by an application programmer to limit the
+       amount of time this conversation function will spend waiting for the
+       user to type something. The five variabls are as follows:
+       time_t pam_misc_conv_warn_time;
+           This variable contains the time (as returned by time(2)) that the
+           user should be first warned that the clock is ticking. By default
+           it has the value 0, which indicates that no such warning will be
+           given. The application may set its value to sometime in the
+           future, but this should be done prior to passing control to the
+           Linux-PAM library.
+       const char *pam_misc_conv_warn_line;
+           Used in conjuction with pam_misc_conv_warn_time, this variable is
+           a pointer to the string that will be displayed when it becomes
+           time to warn the user that the timeout is approaching. Its
+           default value is a translated version of “...Time is running
+           out...”, but this can be changed by the application prior to
+           passing control to Linux-PAM.
+       time_t pam_misc_conv_die_time;
+           This variable contains the time (as returned by time(2)) that the
+           will time out. By default it has the value 0, which indicates
+           that the conversation function will not timeout. The application
+           may set its value to sometime in the future, but this should be
+           done prior to passing control to the Linux-PAM library.
+       const char *pam_misc_conv_die_line;
+           Used in conjuction with pam_misc_conv_die_time, this variable is
+           a pointer to the string that will be displayed when the
+           conversation times out. Its default value is a translated version
+           of “...Sorry, your time is up!”, but this can be changed by the
+           application prior to passing control to Linux-PAM.
+       int pam_misc_conv_died;
+           Following a return from the Linux-PAM libraray, the value of this
+           variable indicates whether the conversation has timed out. A
+           value of 1 indicates the time-out occurred.
+       The following two function pointers are available for supporting
+       binary prompts in the conversation function. They are optimized for
+       the current incarnation of the libpamc library and are subject to
+       change.
+       int (*pam_binary_handler_fn)(void *appdata, pamc_bp_t *prompt_p);
+           This function pointer is initialized to NULL but can be filled
+           with a function that provides machine-machine (hidden) message
+           exchange. It is intended for use with hidden authentication
+           protocols such as RSA or Diffie-Hellman key exchanges. (This is
+           still under development.)
+       int (*pam_binary_handler_free)(void *appdata, pamc_bp_t *delete_me);
+           This function pointer is initialized to PAM_BP_RENEW(delete_me,
+           0, 0), but can be redefined as desired by the application.

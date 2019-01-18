@@ -1,0 +1,5 @@
+
+       The memberof overlay to slapd(8) allows automatic reverse group
+       membership maintenance.  Any time a group entry is modified, its
+       members are modified as appropriate in order to keep a DN-valued "is
+       member of" attribute updated with the DN of the group.

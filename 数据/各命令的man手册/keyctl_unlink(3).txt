@@ -1,0 +1,9 @@
+
+       keyctl_link() creates a link from keyring to key, displacing any link
+       to another key of the same type and description in that keyring if
+       one exists.
+       keyctl_unlink() removes the link from keyring to key if it exists.
+       The caller must have write permission on a keyring to be able create
+       or remove links in it.
+       The caller must have link permission on a key to be able to create a
+       link to it.

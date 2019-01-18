@@ -1,0 +1,36 @@
+
+       Linux dedicates three global descriptor table (GDT) entries for
+       thread-local storage.  For more information about the GDT, see the
+       Intel Software Developer's Manual or the AMD Architecture Programming
+       Manual.
+       Both of these system calls take an argument that is a pointer to a
+       structure of the following type:
+           struct user_desc {
+               unsigned int  entry_number;
+               unsigned long base_addr;
+               unsigned int  limit;
+               unsigned int  seg_32bit:1;
+               unsigned int  contents:2;
+               unsigned int  read_exec_only:1;
+               unsigned int  limit_in_pages:1;
+               unsigned int  seg_not_present:1;
+               unsigned int  useable:1;
+           };
+       get_thread_area() reads the GDT entry indicated by u_info->entry_num‐
+       ber and fills in the rest of the fields in u_info.
+       set_thread_area() sets a TLS entry in the GDT.
+       The TLS array entry set by set_thread_area() corresponds to the value
+       of u_info->entry_number passed in by the user.  If this value is in
+       bounds, set_thread_area() writes the TLS descriptor pointed to by
+       u_info into the thread's TLS array.
+       When set_thread_area() is passed an entry_number of -1, it searches
+       for a free TLS entry.  If set_thread_area() finds a free TLS entry,
+       the value of u_info->entry_number is set upon return to show which
+       entry was changed.
+       A user_desc is considered "empty" if read_exec_only and
+       seg_not_present are set to 1 and all of the other fields are 0.  If
+       an "empty" descriptor is passed to set_thread_area, the corresponding
+       TLS entry will be cleared.  See BUGS for additional details.
+       Since Linux 3.19, set_thread_area() cannot be used to write non-
+       present segments, 16-bit segments, or code segments, although clear‐
+       ing a segment is still acceptable.

@@ -1,0 +1,3 @@
+
+       auparse_get_field_name allows access to the current field name of the
+       current record in the current event.

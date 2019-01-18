@@ -1,0 +1,20 @@
+
+       The SELinux config file controls the state of SELinux regarding:
+              1.  The policy enforcement status - enforcing, permissive or
+                  disabled.
+              2.  The policy name or type that forms a path to the policy to
+                  be loaded and its supporting configuration files.
+              3.  How local users and booleans will be managed when the
+                  policy is loaded (note that this function was used by
+                  older releases of SELinux and is now deprecated).
+              4.  How SELinux-aware login applications should behave if no
+                  valid SELinux users are configured.
+              5.  Whether the system is to be relabeled or not.
+       The entries controlling these functions are described in the FILE
+       FORMAT section.
+       The fully qualified path name of the SELinux configuration file is
+       /etc/selinux/config.
+       If the config file is missing or corrupt, then no SELinux policy is
+       loaded (i.e. SELinux is disabled).
+       The sestatus (8) command and the libselinux function selinux_path (3)
+       will return the location of the config file.

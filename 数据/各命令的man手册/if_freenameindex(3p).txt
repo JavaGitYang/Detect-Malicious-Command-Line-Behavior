@@ -1,0 +1,6 @@
+
+       The if_freenameindex() function shall free the memory allocated by
+       if_nameindex().  The ptr argument shall be a pointer that was
+       returned by if_nameindex().  After if_freenameindex() has been
+       called, the application shall not use the array of which ptr is the
+       address.

@@ -1,0 +1,11 @@
+
+       auparse_feed supplies new data for the parser to consume.
+       auparse_init() must have been called with a source type of
+       AUSOURCE_FEED and a NULL pointer.
+       The parser consumes as much data as it can invoking a user supplied
+       callback specified with auparse_add_callback with a cb_event_type of
+       AUPARSE_CB_EVENT_READY each time the parser recognizes a complete
+       event in the data stream. Data not fully parsed will persist and be
+       prepended to the next feed data. After all data has been feed to the
+       parser auparse_flush_feed should be called to signal the end of input
+       data and flush any pending parse data through the parsing system.

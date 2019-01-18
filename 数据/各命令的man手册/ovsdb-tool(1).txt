@@ -1,0 +1,106 @@
+
+       The ovsdb-tool program is a command-line tool for managing Open
+       vSwitch database (OVSDB) files.  It does not interact directly with
+       running Open vSwitch database servers (instead, use ovsdb-client).
+   Basic Commands
+       create db schema
+              Reads an OVSDB schema from the file named schema and creates a
+              new OVSDB database file named db using that schema.  The new
+              database is initially empty.  This command will not overwrite
+              an existing db.
+              schema must contain an OVSDB schema in JSON format.  Refer to
+              the OVSDB specification for details.
+       compact db [target]
+              Reads db and writes a compacted version.  If target is
+              specified, the compacted version is written as a new file
+              named target, which must not already exist.  If target is
+              omitted, then the compacted version of the database replaces
+              db in-place.
+   Version Management Commands
+       An OVSDB schema has a schema version number, and an OVSDB database
+       embeds a particular version of an OVSDB schema.  These version
+       numbers take the form x.y.z, e.g. 1.2.3.  The OVSDB implementation
+       does not enforce a particular version numbering scheme, but schemas
+       managed within the Open vSwitch project use the following approach.
+       Whenever the database schema is changed in a non-backward compatible
+       way (e.g. deleting a column or a table), x is incremented (and y and
+       z are reset to 0).  When the database schema is changed in a backward
+       compatible way (e.g. adding a new column), y is incremented (and z is
+       reset to 0).  When the database schema is changed cosmetically (e.g.
+       reindenting its syntax), z is incremented.
+       Some OVSDB databases and schemas, especially very old ones, do not
+       have a version number.
+       These commands work with different versions of OVSDB schemas and
+       databases.
+       convert db schema [target]
+              Reads db, translating it into to the schema specified in
+              schema, and writes out the new interpretation.  If target is
+              specified, the translated version is written as a new file
+              named target, which must not already exist.  If target is
+              omitted, then the translated version of the database replaces
+              db in-place.
+              This command can do simple ``upgrades'' and ``downgrades'' on
+              a database's schema.  The data in db must be valid when
+              interpreted under schema, with only one exception: data in db
+              for tables and columns that do not exist in schema are
+              ignored.  Columns that exist in schema but not in db are set
+              to their default values.  All of schema's constraints apply in
+              full.
+       needs-conversion db schema
+              Reads the schema embedded in db and the standalone schema in
+              schema and compares them.  If the schemas are the same, prints
+              no on stdout; if they differ, print yes.
+       db-version db
+       schema-version schema
+              Prints the version number in the schema embedded within the
+              database db or in the standalone schema schema on stdout.  A
+              schema version number has the form x.y.z.  See
+              ovs-vswitchd.conf.db(5) for details.
+              Schema version numbers and Open vSwitch version numbers are
+              independent.
+              If schema or db was created before schema versioning was
+              introduced, then it will not have a version number and this
+              command will print a blank line.
+       db-cksum db
+       schema-cksum schema
+              Prints the checksum in the schema embedded within the database
+              db or of the standalone schema schema on stdout.
+              If schema or db was created before schema checksums were
+              introduced, then it will not have a checksum and this command
+              will print a blank line.
+   Other Commands
+       [--rbac-role=role] query db transaction
+              Opens db, executes transaction on it, and prints the results.
+              The transaction must be a JSON array in the format of the
+              params array for the JSON-RPC transact method, as described in
+              the OVSDB specification.
+              The db is opened for read-only access, so this command may
+              safely run concurrently with other database activity,
+              including ovsdb-server and other database writers.  The
+              transaction may specify database modifications, but these will
+              have no effect on db.
+              By default, the transaction is executed using the
+              ``superuser'' RBAC role.  Use --rbac-role to specify a
+              different role.
+       [--rbac-role=role] transact db transaction
+              Opens db, executes transaction on it, prints the results, and
+              commits any changes to db.  The transaction must be a JSON
+              array in the format of the params array for the JSON-RPC
+              transact method, as described in the OVSDB specification.
+              The db is opened and locked for read/write access, so this
+              command will fail if the database is opened for writing by any
+              other process, including ovsdb-server(1).  Use
+              ovsdb-client(1), instead, to write to a database that is
+              served by ovsdb-server(1).
+              By default, the transaction is executed using the
+              ``superuser'' RBAC role.  Use --rbac-role to specify a
+              different role.
+       show-log db
+              Prints a summary of the records in db's log, including the
+              time and date at which each database change occurred and any
+              associated comment.  This may be useful for debugging.
+              To increase the verbosity of output, add -m (or --more) one or
+              more times to the command line.  With one -m, show-log prints
+              a summary of the records added, deleted, or modified by each
+              transaction.  With two -ms, show-log also prints the values of
+              the columns modified by each change to a record.

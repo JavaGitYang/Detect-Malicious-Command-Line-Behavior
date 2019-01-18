@@ -1,0 +1,5 @@
+
+       The btowc() function converts c, interpreted as a multibyte sequence
+       of length 1, starting in the initial shift state, to a wide character
+       and returns it.  If c is EOF or not a valid multibyte sequence of
+       length 1, the btowc() function returns WEOF.

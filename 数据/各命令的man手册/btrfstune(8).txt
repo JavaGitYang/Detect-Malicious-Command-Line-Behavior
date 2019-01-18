@@ -1,0 +1,12 @@
+
+       btrfstune can be used to enable, disable, or set various filesystem
+       parameters. The filesystem must be unmounted.
+       The common usecase is to enable features that were not enabled at
+       mkfs time. Please make sure that you have kernel support for the
+       features. You can find a complete list of features and kernel version
+       of their introduction at
+       https://btrfs.wiki.kernel.org/index.php/Changelog#By_feature . Also,
+       the manual page mkfs.btrfs(8) contains more details about the
+       features.
+       Some of the features could be also enabled on a mounted filesystem by
+       other means. Please refer to the FILESYSTEM FEATURES in btrfs(5).

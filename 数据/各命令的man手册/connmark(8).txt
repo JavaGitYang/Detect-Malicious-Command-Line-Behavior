@@ -1,0 +1,3 @@
+
+       The connmark action is used to restore the connection's mark value
+       into the packet's fwmark.

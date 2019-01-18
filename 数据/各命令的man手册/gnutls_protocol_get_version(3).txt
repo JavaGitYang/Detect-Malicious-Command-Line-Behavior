@@ -1,0 +1,2 @@
+
+       Get TLS version, a gnutls_protocol_t value.

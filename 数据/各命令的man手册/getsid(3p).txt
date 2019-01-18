@@ -1,0 +1,4 @@
+
+       The getsid() function shall obtain the process group ID of the
+       process that is the session leader of the process specified by pid.
+       If pid is (pid_t)0, it specifies the calling process.

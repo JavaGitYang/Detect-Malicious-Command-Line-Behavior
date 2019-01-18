@@ -1,0 +1,17 @@
+
+       As part of the Performance Co-Pilot Log Import API (see
+       LOGIMPORT(3)), pmiPutResult provides an interface for developers
+       familiar with the internal PCP data structures to create output
+       archives directly.
+       By building the pmResult data structure directly, then calling
+       pmiPutResult the developer avoids calls to pmiPutValue(3) and/or
+       pmiPutValueHandle(3) followed by a call to pmiWrite(3) for each
+       record written to the archive.
+       Any metrics and instances appearing in the result must have been
+       defined by prior calls to pmiAddMetric(3) and pmiAddInstance(3).
+       pmiPutResult will arrange for any new metadata (metrics and/or
+       instance domain changes) covered by result to be also written to the
+       PCP archive.
+       Because of the complexity of the pmResult data structure, this
+       routine is not available in the Perl interface to the LOGIMPORT
+       services.

@@ -1,0 +1,63 @@
+
+       Quilt is a tool to manage large sets of patches by keeping track of
+       the changes each patch makes. Patches can be applied, un-applied,
+       refreshed, etc. The key philosophical concept is that your primary
+       output is patches.
+       With quilt, all work occurs within a single directory tree. Commands
+       can be invoked from anywhere within the source tree. They are of the
+       form quilt cmd similar to CVS, svn or git commands. They can be
+       abbreviated as long as the specified part of the command is unique.
+       All commands print some help text with quilt cmd -h.
+       Quilt manages a stack of patches. Patches are applied incrementally
+       on top of the base tree plus all preceding patches. They can be
+       pushed on top of the stack (quilt push), and popped off the stack
+       (quilt pop).  Commands are available for querying the contents of the
+       series file (quilt series, see below), the contents of the stack
+       (quilt applied, quilt previous, quilt top), and the patches that are
+       not applied at a particular moment (quilt next, quilt unapplied).  By
+       default, most commands apply to the topmost patch on the stack.
+       Patch files are located in the patches sub-directory of the source
+       tree (see EXAMPLE OF WORKING TREE below). The QUILT_PATCHES
+       environment variable can be used to override this location. When not
+       found in the current directory, that subdirectory is searched
+       recursively in the parent directories (this is similar to the way git
+       searches for its configuration files). The patches directory may
+       contain sub-directories. It may also be a symbolic link instead of a
+       directory.
+       A file called series contains a list of patch file names that defines
+       the order in which patches are applied. Unless there are means by
+       which series files can be generated automatically, it is usually
+       provided along with a set of patches. In this file, each patch file
+       name is on a separate line. Patch files are identified by path names
+       that are relative to the patches directory; patches may be in sub-
+       directories below this directory. Lines in the series file that start
+       with a hash character (#) are ignored.  You can also add a comment
+       after each patch file name, introduced by a space  followed by a hash
+       character. When quilt adds, removes, or renames patches, it
+       automatically updates the series file. Users of quilt can modify
+       series files while some patches are applied, as long as the applied
+       patches remain in their original order.
+       Different series files can be used to assemble patches in different
+       ways, corresponding for example to different development branches.
+       Before a patch is applied (or ``pushed on the stack''), copies of all
+       files the patch modifies are saved to the .pc/patch directory. The
+       patch is added to the list of currently applied patches (.pc/applied-
+       patches). Later when a patch is regenerated (quilt refresh), the
+       backup copies in .pc/patch are compared with the current versions of
+       the files in the source tree using GNU diff.
+       Documentation related to a patch can be put at the beginning of a
+       patch file.  Quilt is careful to preserve all text that precedes the
+       actual patch when doing a refresh. (This is limited to patches in
+       unified format; see diff documentation).
+       The series file is looked up in the .pc directory, in the root of the
+       source tree, and in the patches directory.  The first series file
+       that is found is used. This may also be a symbolic link, or a file
+       with multiple hard links.  Usually, only one series file is used for
+       a set of patches, so the patches sub-directory is a convenient
+       location.
+       The .pc directory and its sub-directories cannot be relocated, but it
+       can be a symbolic link. While patches are applied to the source tree,
+       this directory is essential for many operations, including taking
+       patches off the stack (quilt pop), and refreshing patches (quilt
+       refresh).  Files in the .pc directory are automatically removed when
+       they are no longer needed, so there is no need to clean up manually.

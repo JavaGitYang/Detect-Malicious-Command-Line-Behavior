@@ -1,0 +1,4 @@
+
+       This function will return the subject key ID stored in the provided
+       SubjectKeyIdentifier extension. The ID will be allocated using
+       gnutls_malloc().

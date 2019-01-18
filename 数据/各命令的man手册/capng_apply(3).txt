@@ -1,0 +1,5 @@
+
+       capng_apply will transfer the specified internal posix capabilities
+       settings to the kernel. The options are CAPNG_SELECT_CAPS for the
+       traditional capabilities, CAPNG_SELECT_BOUNDS for the bounding set,
+       or CAPNG_SELECT_BOTH if transferring both is desired.

@@ -1,0 +1,9 @@
+
+       gropdf translates the output of GNU troff to PDF.  Normally gropdf
+       should be invoked by using the groff command with a -Tpdf option.  If
+       no files are given, gropdf reads the standard input.  A filename of -
+       also causes gropdf to read the standard input.  PDF output is written
+       to the standard output.  When gropdf is run by groff options can be
+       passed to gropdf using groff's -P option.
+       See section FONT INSTALLATION below for a guide how to install fonts
+       for gropdf.

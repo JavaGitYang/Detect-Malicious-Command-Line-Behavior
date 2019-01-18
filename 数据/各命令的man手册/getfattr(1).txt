@@ -1,0 +1,14 @@
+
+       For each file, getfattr displays the file name, and the set of
+       extended attribute names (and optionally values) which are associated
+       with that file. Per default only attributes in the user namespace are
+       displayed, see -m.
+       The output format of getfattr -d is as follows:
+               1:  # file: somedir/
+               2:  user.name0="value0"
+               3:  user.name1="value1"
+               4:  user.name2="value2"
+               5:  ...
+       Line 1 identifies the file name for which the following lines are
+       being reported.  The remaining lines (lines 2 to 4 above) show the
+       name and value pairs associated with the specified file.

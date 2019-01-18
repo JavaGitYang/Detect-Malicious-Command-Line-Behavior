@@ -1,0 +1,8 @@
+
+       sepolicy transition will show all domains that a give SELinux source
+       domain can transition to, including the entrypoint.
+       If a target domain is given, sepolicy transition will examine policy
+       for all transition paths from the source domain to the target domain,
+       and will list the paths.  If a transition is possible, this tool will
+       print out all transition paths from the source domain to the target
+       domain

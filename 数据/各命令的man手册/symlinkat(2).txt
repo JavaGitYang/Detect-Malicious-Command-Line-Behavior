@@ -1,0 +1,28 @@
+
+       symlink() creates a symbolic link named linkpath which contains the
+       string target.
+       Symbolic links are interpreted at run time as if the contents of the
+       link had been substituted into the path being followed to find a file
+       or directory.
+       Symbolic links may contain ..  path components, which (if used at the
+       start of the link) refer to the parent directories of that in which
+       the link resides.
+       A symbolic link (also known as a soft link) may point to an existing
+       file or to a nonexistent one; the latter case is known as a dangling
+       link.
+       The permissions of a symbolic link are irrelevant; the ownership is
+       ignored when following the link, but is checked when removal or
+       renaming of the link is requested and the link is in a directory with
+       the sticky bit (S_ISVTX) set.
+       If linkpath exists, it will not be overwritten.
+   symlinkat()
+       The symlinkat() system call operates in exactly the same way as
+       symlink(), except for the differences described here.
+       If the pathname given in linkpath is relative, then it is interpreted
+       relative to the directory referred to by the file descriptor newdirfd
+       (rather than relative to the current working directory of the calling
+       process, as is done by symlink() for a relative pathname).
+       If linkpath is relative and newdirfd is the special value AT_FDCWD,
+       then linkpath is interpreted relative to the current working
+       directory of the calling process (like symlink()).
+       If linkpath is absolute, then newdirfd is ignored.

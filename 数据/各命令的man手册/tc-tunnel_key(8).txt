@@ -1,0 +1,15 @@
+
+       The tunnel_key action combined with a shared IP tunnel device, allows
+       to perform IP tunnel en- or decapsulation on a packet, reflected by
+       the operation modes UNSET and SET.  The UNSET mode is optional - even
+       without using it, the metadata information will be released
+       automatically when packet processing will be finished.  UNSET
+       function could be used in cases when traffic is forwarded between two
+       tunnels, where the metadata from the first tunnel will be used for
+       encapsulation done by the second tunnel.  SET mode requires the
+       source and destination ip ADDRESS and the tunnel key id KEY_ID which
+       will be used by the ip tunnel shared device to create the tunnel
+       header. The tunnel_key action is useful only in combination with a
+       mirred redirect action to a shared IP tunnel device which will use
+       the metadata (for SET ) and unset the metadata created by it (for
+       UNSET ).

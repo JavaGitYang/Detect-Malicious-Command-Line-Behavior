@@ -1,0 +1,7 @@
+
+       If an application needs to know where the Performance Metrics Name
+       Space (PMNS) is coming from then pmGetPMNSLocation will return
+       whether it is from an archive, PMNS_ARCHIVE, or from a local PMNS
+       file, PMNS_LOCAL, or from a remote pmcd, PMNS_REMOTE.
+       This information may be useful in determining an appropriate error
+       message depending on the PMNS' location.

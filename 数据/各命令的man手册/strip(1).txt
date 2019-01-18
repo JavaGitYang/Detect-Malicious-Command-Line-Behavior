@@ -1,0 +1,6 @@
+
+       GNU strip discards all symbols from object files objfile.  The list
+       of object files may include archives.  At least one object file must
+       be given.
+       strip modifies the files named in its argument, rather than writing
+       modified copies under different names.

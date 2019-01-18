@@ -1,0 +1,8 @@
+
+       ipc() is a common kernel entry point for the System V IPC calls for
+       messages, semaphores, and shared memory.  call determines which IPC
+       function to invoke; the other arguments are passed through to the
+       appropriate call.
+       User-space programs should call the appropriate functions by their
+       usual names.  Only standard library implementors and kernel hackers
+       need to know about ipc().

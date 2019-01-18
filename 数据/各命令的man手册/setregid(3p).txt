@@ -1,0 +1,17 @@
+
+       The setregid() function shall set the real and effective group IDs of
+       the calling process.
+       If rgid is −1, the real group ID shall not be changed; if egid is −1,
+       the effective group ID shall not be changed.
+       The real and effective group IDs may be set to different values in
+       the same call.
+       Only a process with appropriate privileges can set the real group ID
+       and the effective group ID to any valid value.
+       A non-privileged process can set either the real group ID to the
+       saved set-group-ID from one of the exec family of functions, or the
+       effective group ID to the saved set-group-ID or the real group ID.
+       If the real group ID is being set (rgid is not −1), or the effective
+       group ID is being set to a value not equal to the real group ID, then
+       the saved set-group-ID of the current process shall be set equal to
+       the new effective group ID.
+       Any supplementary group IDs of the calling process remain unchanged.

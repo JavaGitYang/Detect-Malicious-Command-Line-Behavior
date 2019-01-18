@@ -1,0 +1,3 @@
+
+       Use sepolicy interface to print interfaces information based on
+       SELinux Policy.

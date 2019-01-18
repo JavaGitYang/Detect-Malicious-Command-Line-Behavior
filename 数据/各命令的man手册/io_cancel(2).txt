@@ -1,0 +1,7 @@
+
+       The io_cancel() system call attempts to cancel an asynchronous I/O
+       operation previously submitted with io_submit(2).  The iocb argument
+       describes the operation to be canceled and the ctx_id argument is the
+       AIO context to which the operation was submitted.  If the operation
+       is successfully canceled, the event will be copied into the memory
+       pointed to by result without being placed into the completion queue.

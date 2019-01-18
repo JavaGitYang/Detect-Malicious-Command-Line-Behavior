@@ -1,0 +1,4 @@
+
+       pmdazimbra is a Performance Metrics Domain Agent (PMDA) which exports
+       metric values from several subsystems of the Zimbra Suite.  Further
+       details on Zimbra can be found at http://www.zimbra.com/.

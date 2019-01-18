@@ -1,0 +1,49 @@
+
+       pmsnap is a shell script that is normally run periodically from
+       crontab(1) to generate graphic images of pmchart(1) performance
+       charts.  These images can be in any of the supported pmchart formats,
+       including png, bmp, and jpeg, and may be incorporated into the
+       content offered by the local Web server.  The -V option enables
+       verbose tracing of the actions.  By default pmsnap generates no
+       output unless some error or warning condition is encountered.
+       pmsnap generates images according to its control file,
+       $PCP_PMSNAPCONTROL_PATH (or dir/control if the -C option is
+       specified), and uses archive logs created by pmlogger(1) or PCP
+       archive folios created by pmafm(1) and pmlogger_check(1).  Before
+       attempting to configure pmsnap, it is strongly recommended that
+       pmlogger be configured according to the descriptions in
+       pmlogger_daily(1), pmlogger_check(1) and pmlogger(1).
+       Once pmlogger has been configured, it is necessary to configure
+       pmsnap as follows;
+       1.     Edit the control file $PCP_PMSNAPCONTROL_PATH.  The syntax of
+              this file is described in the comment at the head of the file
+              and an example is supplied for one and twelve hour "Summary"
+              performance charts for the local host.  Suitable arguments for
+              pmchart are also described in the comment.  The user should
+              consult pmchart for further details.  Note that when pmsnap is
+              run, it globally substitutes the string LOCALHOSTNAME with the
+              name of the local host in the control file.
+       2.     Test the configuration by running
+                                 $PCP_BINADM_DIR/pmsnap.
+              Without any arguments pmsnap will process every non-comment
+              line in $PCP_PMSNAPCONTROL_PATH.  The output images will be
+              placed in the files named in the first field of each line in
+              the control file, with the file format appended if necessary.
+              If these file names do not start with / or .  then they are
+              assumed relative to dir, as specified with the -o option.  The
+              default dir is the current directory.  Note that if pmlogger
+              has only been recently started (within about the last 15
+              minutes), snap-shot images may not be produced and no error
+              messages will be issued - the reason is that pmchart can not
+              use very short archives and hence, neither can pmsnap.  For
+              debugging purposes the -V flag should be used.
+       3.     Add an appropriate entry for pmsnap in the root user's
+              crontab.  An example is supplied in
+              $PCP_VAR_DIR/config/pmlogger/crontab.
+       4.     Incorporate the pmsnap images into the local WWW content.
+              Usually, WWW pages use images that are relative to a
+              particular document root, so it is often convenient to use the
+              -o command line option to specify a sub-directory of the local
+              WWW content, and then create a web page in this directory that
+              shows the snapshot images with text and other content
+              appropriate to the local environment.

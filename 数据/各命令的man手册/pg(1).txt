@@ -1,0 +1,9 @@
+
+       pg displays a text file on a CRT one screenful at once.  After each
+       page, a prompt is displayed.  The user may then either press the
+       newline key to view the next page or one of the keys described below.
+       If no filename is given on the command line, pg reads from standard
+       input.  If standard output is not a terminal, pg acts like cat(1) but
+       precedes each file with its name if there is more than one.
+       If input comes from a pipe, pg stores the data in a buffer file while
+       reading, to make navigation possible.

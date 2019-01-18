@@ -1,0 +1,5 @@
+
+       Push a patch or a range of patches to the top even if applied. The
+       necessary pop and push operations will be performed to accomplish
+       this. The --series option can be used to rearrange the (top) patches
+       as specified by the given series file (or the standard input).

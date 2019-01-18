@@ -1,0 +1,24 @@
+
+       The pthread_setschedparam() function sets the scheduling policy and
+       parameters of the thread thread.
+       policy specifies the new scheduling policy for thread.  The supported
+       values for policy, and their semantics, are described in sched(7).
+       The structure pointed to by param specifies the new scheduling
+       parameters for thread.  Scheduling parameters are maintained in the
+       following structure:
+           struct sched_param {
+               int sched_priority;     /* Scheduling priority */
+           };
+       As can be seen, only one scheduling parameter is supported.  For
+       details of the permitted ranges for scheduling priorities in each
+       scheduling policy, see sched(7).
+       The pthread_getschedparam() function returns the scheduling policy
+       and parameters of the thread thread, in the buffers pointed to by
+       policy and param, respectively.  The returned priority value is that
+       set by the most recent pthread_setschedparam(),
+       pthread_setschedprio(3), or pthread_create(3) call that affected
+       thread.  The returned priority does not reflect any temporary prior‐
+       ity adjustments as a result of calls to any priority inheritance or
+       priority ceiling functions (see, for example,
+       pthread_mutexattr_setprioceiling(3) and
+       pthread_mutexattr_setprotocol(3)).

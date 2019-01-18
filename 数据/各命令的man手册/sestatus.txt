@@ -1,0 +1,12 @@
+
+       The sestatus.conf file is used by the sestatus(8) command with the -v
+       option to determine what file and process security contexts should be
+       displayed.
+       The fully qualified path name of the configuration file is:
+              /etc/sestatus.conf
+       The file consists of two optional sections as described in the FILE
+       FORMAT section. Whether these exist or not, the following will always
+       be displayed:
+              The current process context
+              The init process context
+              The controlling terminal file context

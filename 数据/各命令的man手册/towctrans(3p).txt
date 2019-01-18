@@ -1,0 +1,23 @@
+
+       For towctrans(): The functionality described on this reference page
+       is aligned with the ISO C standard. Any conflict between the
+       requirements described here and the ISO C standard is unintentional.
+       This volume of POSIX.1‐2008 defers to the ISO C standard.
+       The towctrans() and towctrans_l() functions shall transliterate the
+       wide-character code wc using the mapping described by desc.
+       The current setting of the LC_CTYPE category in the current locale or
+       in the locale represented by locale, respectively, should be the same
+       as during the call to wctrans() or wctrans_l() that returned the
+       value desc.
+       If the value of desc is invalid (that is, not obtained by a call to
+       wctrans() or desc is invalidated by a subsequent call to setlocale()
+       that has affected category LC_CTYPE), the result is unspecified.
+       If the value of desc is invalid (that is, not obtained by a call to
+       wctrans_l() with the same locale object locale) the result is
+       unspecified.
+       An application wishing to check for error situations should set errno
+       to 0 before calling towctrans() or towctrans_l().
+       If errno is non-zero on return, an error has occurred.
+       The behavior is undefined if the locale argument to towctrans_l() is
+       the special locale object LC_GLOBAL_LOCALE or is not a valid locale
+       object handle.

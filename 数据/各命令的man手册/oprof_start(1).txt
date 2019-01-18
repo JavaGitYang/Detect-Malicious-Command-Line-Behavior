@@ -1,0 +1,5 @@
+
+       The oprof_start application provides a GUI interface to control the
+       operation of OProfile.  Running oprof_start requires root privileges
+       and does not support operf due to oprof_start using the older
+       opcontrol script.

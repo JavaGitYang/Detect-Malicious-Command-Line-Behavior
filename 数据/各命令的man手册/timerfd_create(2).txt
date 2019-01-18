@@ -1,0 +1,168 @@
+
+       These system calls create and operate on a timer that delivers timer
+       expiration notifications via a file descriptor.  They provide an
+       alternative to the use of setitimer(2) or timer_create(2), with the
+       advantage that the file descriptor may be monitored by select(2),
+       poll(2), and epoll(7).
+       The use of these three system calls is analogous to the use of
+       timer_create(2), timer_settime(2), and timer_gettime(2).  (There is
+       no analog of timer_getoverrun(2), since that functionality is
+       provided by read(2), as described below.)
+   timerfd_create()
+       timerfd_create() creates a new timer object, and returns a file
+       descriptor that refers to that timer.  The clockid argument specifies
+       the clock that is used to mark the progress of the timer, and must
+       one of the following:
+       CLOCK_REALTIME
+              A settable system-wide real-time clock.
+       CLOCK_MONOTONIC
+              A nonsettable monotonically increasing clock that measures
+              time from some unspecified point in the past that does not
+              change after system startup.
+       CLOCK_BOOTTIME (Since Linux 3.15)
+              Like CLOCK_MONOTONIC, this is a monotonically increasing
+              clock.  However, whereas the CLOCK_MONOTONIC clock does not
+              measure the time while a system is suspended, the
+              CLOCK_BOOTTIME clock does include the time during which the
+              system is suspended.  This is useful for applications that
+              need to be suspend-aware.  CLOCK_REALTIME is not suitable for
+              such applications, since that clock is affected by
+              discontinuous changes to the system clock.
+       CLOCK_REALTIME_ALARM (since Linux 3.11)
+              This clock is like CLOCK_REALTIME, but will wake the system if
+              it is suspended.  The caller must have the CAP_WAKE_ALARM
+              capability in order to set a timer against this clock.
+       CLOCK_BOOTTIME_ALARM (since Linux 3.11)
+              This clock is like CLOCK_BOOTTIME, but will wake the system if
+              it is suspended.  The caller must have the CAP_WAKE_ALARM
+              capability in order to set a timer against this clock.
+       The current value of each of these clocks can be retrieved using
+       clock_gettime(2).
+       Starting with Linux 2.6.27, the following values may be bitwise ORed
+       in flags to change the behavior of timerfd_create():
+       TFD_NONBLOCK  Set the O_NONBLOCK file status flag on the new open
+                     file description.  Using this flag saves extra calls to
+                     fcntl(2) to achieve the same result.
+       TFD_CLOEXEC   Set the close-on-exec (FD_CLOEXEC) flag on the new file
+                     descriptor.  See the description of the O_CLOEXEC flag
+                     in open(2) for reasons why this may be useful.
+       In Linux versions up to and including 2.6.26, flags must be specified
+       as zero.
+   timerfd_settime()
+       timerfd_settime() arms (starts) or disarms (stops) the timer referred
+       to by the file descriptor fd.
+       The new_value argument specifies the initial expiration and interval
+       for the timer.  The itimerspec structure used for this argument
+       contains two fields, each of which is in turn a structure of type
+       timespec:
+           struct timespec {
+               time_t tv_sec;                /* Seconds */
+               long   tv_nsec;               /* Nanoseconds */
+           };
+           struct itimerspec {
+               struct timespec it_interval;  /* Interval for periodic timer */
+               struct timespec it_value;     /* Initial expiration */
+           };
+       new_value.it_value specifies the initial expiration of the timer, in
+       seconds and nanoseconds.  Setting either field of new_value.it_value
+       to a nonzero value arms the timer.  Setting both fields of
+       new_value.it_value to zero disarms the timer.
+       Setting one or both fields of new_value.it_interval to nonzero values
+       specifies the period, in seconds and nanoseconds, for repeated timer
+       expirations after the initial expiration.  If both fields of
+       new_value.it_interval are zero, the timer expires just once, at the
+       time specified by new_value.it_value.
+       By default, the initial expiration time specified in new_value is
+       interpreted relative to the current time on the timer's clock at the
+       time of the call (i.e., new_value.it_value specifies a time relative
+       to the current value of the clock specified by clockid).  An absolute
+       timeout can be selected via the flags argument.
+       The flags argument is a bit mask that can include the following val‐
+       ues:
+       TFD_TIMER_ABSTIME
+              Interpret new_value.it_value as an absolute value on the
+              timer's clock.  The timer will expire when the value of the
+              timer's clock reaches the value specified in
+              new_value.it_value.
+       TFD_TIMER_CANCEL_ON_SET
+              If this flag is specified along with TFD_TIMER_ABSTIME and the
+              clock for this timer is CLOCK_REALTIME or CLOCK_REAL‐
+              TIME_ALARM, then mark this timer as cancelable if the real-
+              time clock undergoes a discontinuous change (settimeofday(2),
+              clock_settime(2), or similar).  When such changes occur, a
+              current or future read(2) from the file descriptor will fail
+              with the error ECANCELED.
+       If the old_value argument is not NULL, then the itimerspec structure
+       that it points to is used to return the setting of the timer that was
+       current at the time of the call; see the description of timerfd_get‐
+       time() following.
+   timerfd_gettime()
+       timerfd_gettime() returns, in curr_value, an itimerspec structure
+       that contains the current setting of the timer referred to by the
+       file descriptor fd.
+       The it_value field returns the amount of time until the timer will
+       next expire.  If both fields of this structure are zero, then the
+       timer is currently disarmed.  This field always contains a relative
+       value, regardless of whether the TFD_TIMER_ABSTIME flag was specified
+       when setting the timer.
+       The it_interval field returns the interval of the timer.  If both
+       fields of this structure are zero, then the timer is set to expire
+       just once, at the time specified by curr_value.it_value.
+   Operating on a timer file descriptor
+       The file descriptor returned by timerfd_create() supports the follow‐
+       ing operations:
+       read(2)
+              If the timer has already expired one or more times since its
+              settings were last modified using timerfd_settime(), or since
+              the last successful read(2), then the buffer given to read(2)
+              returns an unsigned 8-byte integer (uint64_t) containing the
+              number of expirations that have occurred.  (The returned value
+              is in host byte order—that is, the native byte order for inte‐
+              gers on the host machine.)
+              If no timer expirations have occurred at the time of the
+              read(2), then the call either blocks until the next timer
+              expiration, or fails with the error EAGAIN if the file
+              descriptor has been made nonblocking (via the use of the
+              fcntl(2) F_SETFL operation to set the O_NONBLOCK flag).
+              A read(2) fails with the error EINVAL if the size of the sup‐
+              plied buffer is less than 8 bytes.
+              If the associated clock is either CLOCK_REALTIME or
+              CLOCK_REALTIME_ALARM, the timer is absolute
+              (TFD_TIMER_ABSTIME), and the flag TFD_TIMER_CANCEL_ON_SET was
+              specified when calling timerfd_settime(), then read(2) fails
+              with the error ECANCELED if the real-time clock undergoes a
+              discontinuous change.  (This allows the reading application to
+              discover such discontinuous changes to the clock.)
+       poll(2), select(2) (and similar)
+              The file descriptor is readable (the select(2) readfds argu‐
+              ment; the poll(2) POLLIN flag) if one or more timer expira‐
+              tions have occurred.
+              The file descriptor also supports the other file-descriptor
+              multiplexing APIs: pselect(2), ppoll(2), and epoll(7).
+       ioctl(2)
+              The following timerfd-specific command is supported:
+              TFD_IOC_SET_TICKS (since Linux 3.17)
+                     Adjust the number of timer expirations that have
+                     occurred.  The argument is a pointer to a nonzero
+                     8-byte integer (uint64_t*) containing the new number of
+                     expirations.  Once the number is set, any waiter on the
+                     timer is woken up.  The only purpose of this command is
+                     to restore the expirations for the purpose of check‐
+                     point/restore.  This operation is available only if the
+                     kernel was configured with the CONFIG_CHECK‐
+                     POINT_RESTORE option.
+       close(2)
+              When the file descriptor is no longer required it should be
+              closed.  When all file descriptors associated with the same
+              timer object have been closed, the timer is disarmed and its
+              resources are freed by the kernel.
+   fork(2) semantics
+       After a fork(2), the child inherits a copy of the file descriptor
+       created by timerfd_create().  The file descriptor refers to the same
+       underlying timer object as the corresponding file descriptor in the
+       parent, and read(2)s in the child will return information about expi‐
+       rations of the timer.
+   execve(2) semantics
+       A file descriptor created by timerfd_create() is preserved across
+       execve(2), and continues to generate timer expirations if the timer
+       was armed.

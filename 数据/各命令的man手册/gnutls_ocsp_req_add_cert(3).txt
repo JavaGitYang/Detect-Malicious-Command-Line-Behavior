@@ -1,0 +1,7 @@
+
+       This function will add another request to the OCSP request for a
+       particular certificate.  The issuer name hash, issuer key hash, and
+       serial number fields is populated as follows.  The issuer name and
+       the serial number is taken from  cert .  The issuer key is taken from
+       issuer .  The hashed values will be hashed using the  digest
+       algorithm, normally GNUTLS_DIG_SHA1.

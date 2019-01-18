@@ -1,0 +1,2 @@
+
+       This function will return the key usage of the public key.

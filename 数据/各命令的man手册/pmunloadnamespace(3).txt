@@ -1,0 +1,8 @@
+
+       If one has previously loaded a local Name Space using
+       pmLoadNameSpace(3) or pmLoadASCIINameSpace(3), then calling
+       pmUnloadNameSpace(3) will free up the memory associated with the Name
+       Space and force all subsequent PMNS routine calls to use the
+       distributed PMNS.  If pmUnloadNameSpace(3) is called before calling
+       pmLoadNameSpace(3) or pmLoadASCIINameSpace(3), then it will
+       effectively do nothing.

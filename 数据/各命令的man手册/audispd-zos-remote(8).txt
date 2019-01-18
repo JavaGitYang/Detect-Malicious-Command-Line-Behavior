@@ -1,0 +1,17 @@
+
+       audispd-zos-remote is a remote-auditing plugin for the Audit
+       subsystem. It should be started by the audispd(8) daemon and will
+       forward all incoming audit events, as they happen, to a configured
+       z/OS SMF (Service Management Facility) database, through an IBM
+       Tivoli Directory Server (ITDS) set for Remote Audit service.  See SMF
+       MAPPING section below for more information about the resulting SMF
+       record format.
+       audispd(8) must be configured to start the plugin. This is done by a
+       configuration file usually located at
+       /etc/audisp/plugins.d/audispd-zos-remote.conf, but multiple instances
+       can be spawned by having multiple configuration files in
+       /etc/audisp/plugins.d for the same plugin executable (see
+       audispd(8)).
+       Each instance needs a configuration file, located by default at
+       /etc/audisp/zos-remote.conf.  Check zos-remote.conf(5) for details
+       about the plugin configuration.

@@ -1,0 +1,4 @@
+
+       This function will convert the given DER encoded OCSP request to the
+       native gnutls_ocsp_req_t format. The output will be stored in
+        req .

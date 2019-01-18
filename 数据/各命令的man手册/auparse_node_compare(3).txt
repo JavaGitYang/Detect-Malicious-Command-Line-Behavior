@@ -1,0 +1,2 @@
+
+       auparse_node_compare compares the node name values of 2 events.

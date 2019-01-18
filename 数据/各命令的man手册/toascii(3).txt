@@ -1,0 +1,3 @@
+
+       toascii() converts c to a 7-bit unsigned char value that fits into
+       the ASCII character set, by clearing the high-order bits.

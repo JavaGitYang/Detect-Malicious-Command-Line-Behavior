@@ -1,0 +1,13 @@
+
+       The pthread_atfork() function registers fork handlers that are to be
+       executed when fork(2) is called by this thread.  The handlers are
+       executed in the context of the thread that calls fork(2).
+       Three kinds of handler can be registered:
+       *  prepare specifies a handler that is executed before fork(2)
+          processing starts.
+       *  parent specifies a handler that is executed in the parent process
+          after fork(2) processing completes.
+       *  child specifies a handler that is executed in the child process
+          after fork(2) processing completes.
+       Any of the three arguments may be NULL if no handler is needed in the
+       corresponding phase of fork(2) processing.

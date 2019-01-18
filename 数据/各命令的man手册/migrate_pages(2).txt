@@ -1,0 +1,20 @@
+
+       migrate_pages() attempts to move all pages of the process pid that
+       are in memory nodes old_nodes to the memory nodes in new_nodes.
+       Pages not located in any node in old_nodes will not be migrated.  As
+       far as possible, the kernel maintains the relative topology
+       relationship inside old_nodes during the migration to new_nodes.
+       The old_nodes and new_nodes arguments are pointers to bit masks of
+       node numbers, with up to maxnode bits in each mask.  These masks are
+       maintained as arrays of unsigned long integers (in the last long
+       integer, the bits beyond those specified by maxnode are ignored).
+       The maxnode argument is the maximum node number in the bit mask plus
+       one (this is the same as in mbind(2), but different from select(2)).
+       The pid argument is the ID of the process whose pages are to be
+       moved.  To move pages in another process, the caller must be
+       privileged (CAP_SYS_NICE) or the real or effective user ID of the
+       calling process must match the real or saved-set user ID of the
+       target process.  If pid is 0, then migrate_pages() moves pages of the
+       calling process.
+       Pages shared with another process will be moved only if the
+       initiating process has the CAP_SYS_NICE privilege.

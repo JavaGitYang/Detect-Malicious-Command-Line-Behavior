@@ -1,0 +1,16 @@
+
+       The important thing to know about a system call is its prototype.
+       You need to know how many arguments, their types, and the function
+       return type.  There are seven macros that make the actual call into
+       the system easier.  They have the form:
+           _syscallX(type,name,type1,arg1,type2,arg2,...)
+       where
+              X is 0–6, which are the number of arguments taken by the sys‐
+              tem call
+              type is the return type of the system call
+              name is the name of the system call
+              typeN is the Nth argument's type
+              argN is the name of the Nth argument
+       These macros create a function called name with the arguments you
+       specify.  Once you include the _syscall() in your source file, you
+       call the system call by name.

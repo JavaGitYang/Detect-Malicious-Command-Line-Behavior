@@ -1,0 +1,7 @@
+
+       This function will import the given private key to the abstract
+       gnutls_privkey_t type.
+       Note that unless GNUTLS_PUBKEY_DISABLE_CALLBACKS is specified, if
+       incorrect (or NULL) passwords are given the PKCS11 callback functions
+       will be used to obtain the correct passwords. Otherwise if the SRK
+       password is wrong GNUTLS_E_TPM_SRK_PASSWORD_ERROR is returned.

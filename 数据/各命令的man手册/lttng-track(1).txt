@@ -1,0 +1,44 @@
+
+       The lttng track commands adds one or more entries to a resource
+       tracker.
+       A resource tracker is a whitelist of resources. Tracked resources are
+       allowed to emit events, provided those events are targeted by enabled
+       event rules (see lttng-enable-event(1)).
+       Tracker entries can be removed from the whitelist with
+       lttng-untrack(1).
+       As of this version, the only available tracker is the PID tracker.
+       The process ID (PID) tracker follows one or more process IDs; only
+       the processes with a tracked PID are allowed to emit events. By
+       default, all possible PIDs on the system are tracked: any process may
+       emit enabled events (equivalent of lttng track --pid --all for all
+       domains).
+       With the PID tracker, it is possible, for example, to record all
+       system calls called by a given process:
+           # lttng enable-event --kernel --all --syscall
+           # lttng track --kernel --pid=2345
+           # lttng start
+       If all the PIDs are tracked (i.e. lttng track --pid --all, which is
+       the default state of all domains when creating a tracing session),
+       then using the track command with one or more specific PIDs has the
+       effect of first removing all the PIDs from the whitelist, then adding
+       the specified PIDs.
+   Example
+       Assume the maximum system PID is 7 for this example.
+       Initial whitelist:
+           [0] [1] [2] [3] [4] [5] [6] [7]
+       Command:
+           $ lttng track --userspace --pid=3,6,7
+       Whitelist:
+           [ ] [ ] [ ] [3] [ ] [ ] [6] [7]
+       Command:
+           $ lttng untrack --userspace --pid=7
+       Whitelist:
+           [ ] [ ] [ ] [3] [ ] [ ] [6] [ ]
+       Command:
+           $ lttng track --userspace --pid=1,5
+       Whitelist:
+           [ ] [1] [ ] [3] [ ] [5] [6] [ ]
+       It should be noted that the PID tracker tracks the numeric process
+       IDs. Should a process with a given ID exit and another process be
+       given this ID, then the latter would also be allowed to emit events.
+       See the lttng-untrack(1) for more details about removing entries.

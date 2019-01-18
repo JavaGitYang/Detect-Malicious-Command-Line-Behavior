@@ -1,0 +1,19 @@
+
+       The failsafe_context file allows SELinux-aware applications such as
+       PAM(8) to obtain a known valid login context for an administrator if
+       no valid default entries can be found elsewhere.
+       selinux_failsafe_context_path(3) will return the active policy path
+       to this file. The default failsafe context file is:
+              /etc/selinux/{SELINUXTYPE}/contexts/failsafe_context
+       Where {SELINUXTYPE} is the entry from the selinux configuration file
+       config (see selinux_config(5)).
+       The following functions read this file from the active policy path if
+       they cannot obtain a default context:
+              get_default_context(3)
+              get_ordered_context_list(3)
+              get_ordered_context_list_with_level(3)
+              get_default_context_with_level(3)
+              get_default_context_with_role(3)
+              get_default_context_with_rolelevel(3)
+              query_user_context(3)
+              manual_user_enter_context(3)

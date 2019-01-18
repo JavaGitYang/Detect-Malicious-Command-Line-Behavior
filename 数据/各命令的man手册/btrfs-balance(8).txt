@@ -1,0 +1,28 @@
+
+       The primary purpose of the balance feature is to spread block groups
+       across all devices so they match constraints defined by the
+       respective profiles. See mkfs.btrfs(8) section PROFILES for more
+       details. The scope of the balancing process can be further tuned by
+       use of filters that can select the block groups to process. Balance
+       works only on a mounted filesystem.
+       The balance operation is cancellable by the user. The on-disk state
+       of the filesystem is always consistent so an unexpected interruption
+       (eg. system crash, reboot) does not corrupt the filesystem. The
+       progress of the balance operation is temporarily stored as an
+       internal state and will be resumed upon mount, unless the mount
+       option skip_balance is specified.
+           Warning
+           running balance without filters will take a lot of time as it
+           basically rewrites the entire filesystem and needs to update all
+           block pointers.
+       The filters can be used to perform following actions:
+       ·   convert block group profiles (filter convert)
+       ·   make block group usage more compact (filter usage)
+       ·   perform actions only on a given device (filters devid, drange)
+       The filters can be applied to a combination of block group types
+       (data, metadata, system). Note that changing system needs the force
+       option.
+           Note
+           the balance operation needs enough work space, ie. space that is
+           completely unused in the filesystem, otherwise this may lead to
+           ENOSPC reports. See the section ENOSPC for more details.

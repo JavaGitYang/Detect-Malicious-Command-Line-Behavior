@@ -1,0 +1,4 @@
+
+       This function will return information about the PKCS 11 token flags.
+       The supported flags are: GNUTLS_PKCS11_TOKEN_HW and
+       GNUTLS_PKCS11_TOKEN_TRUSTED.

@@ -1,0 +1,3 @@
+
+       This function will return the number of signatures in the PKCS7
+       structure.

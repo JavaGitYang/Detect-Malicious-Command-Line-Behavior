@@ -1,0 +1,12 @@
+
+       This module is intended to be a platform for providing access to all
+       of the input/output that passes between the user and the application.
+       It is only suitable for tty-based and (stdin/stdout) applications.
+       To function this module requires filters to be installed on the
+       system. The single filter provided with the module simply transposes
+       upper and lower case letters in the input and output streams. (This
+       can be very annoying and is not kind to termcap based editors).
+       Each component of the module has the potential to invoke the desired
+       filter. The filter is always execv(2) with the privilege of the
+       calling application and not that of the user. For this reason it
+       cannot usually be killed by the user without closing their session.

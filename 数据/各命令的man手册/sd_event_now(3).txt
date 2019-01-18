@@ -1,0 +1,16 @@
+
+       sd_event_now() returns the time when the most recent event loop
+       iteration began. A timestamp is taken right after returning from the
+       event sleep, and before dispatching any event sources. The event
+       parameter specifies the event loop object to retrieve the timestamp
+       from. The clock parameter specifies the clock to retrieve the
+       timestamp for, and is one of CLOCK_REALTIME (or equivalently
+       CLOCK_REALTIME_ALARM), CLOCK_MONOTONIC, or CLOCK_BOOTTIME (or
+       equivalently CLOCK_BOOTTIME_ALARM), see clock_gettime(2) for more
+       information on the various clocks. The retrieved timestamp is stored
+       in the usec parameter, in µs since the clock's epoch. If this
+       function is invoked before the first event loop iteration, the
+       current time is returned, as reported by clock_gettime(). To
+       distinguish this case from a regular invocation the return value will
+       be positive, and zero when the returned timestamp refers to an actual
+       event loop iteration.

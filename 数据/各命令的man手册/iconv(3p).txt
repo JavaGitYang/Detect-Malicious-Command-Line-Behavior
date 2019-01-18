@@ -1,0 +1,46 @@
+
+       The iconv() function shall convert the sequence of characters from
+       one codeset, in the array specified by inbuf, into a sequence of
+       corresponding characters in another codeset, in the array specified
+       by outbuf.  The codesets are those specified in the iconv_open() call
+       that returned the conversion descriptor, cd.  The inbuf argument
+       points to a variable that points to the first character in the input
+       buffer and inbytesleft indicates the number of bytes to the end of
+       the buffer to be converted. The outbuf argument points to a variable
+       that points to the first available byte in the output buffer and
+       outbytesleft indicates the number of the available bytes to the end
+       of the buffer.
+       For state-dependent encodings, the conversion descriptor cd is placed
+       into its initial shift state by a call for which inbuf is a null
+       pointer, or for which inbuf points to a null pointer. When iconv() is
+       called in this way, and if outbuf is not a null pointer or a pointer
+       to a null pointer, and outbytesleft points to a positive value,
+       iconv() shall place, into the output buffer, the byte sequence to
+       change the output buffer to its initial shift state. If the output
+       buffer is not large enough to hold the entire reset sequence, iconv()
+       shall fail and set errno to [E2BIG].  Subsequent calls with inbuf as
+       other than a null pointer or a pointer to a null pointer cause the
+       conversion to take place from the current state of the conversion
+       descriptor.
+       If a sequence of input bytes does not form a valid character in the
+       specified codeset, conversion shall stop after the previous
+       successfully converted character. If the input buffer ends with an
+       incomplete character or shift sequence, conversion shall stop after
+       the previous successfully converted bytes. If the output buffer is
+       not large enough to hold the entire converted input, conversion shall
+       stop just prior to the input bytes that would cause the output buffer
+       to overflow. The variable pointed to by inbuf shall be updated to
+       point to the byte following the last byte successfully used in the
+       conversion. The value pointed to by inbytesleft shall be decremented
+       to reflect the number of bytes still not converted in the input
+       buffer. The variable pointed to by outbuf shall be updated to point
+       to the byte following the last byte of converted output data. The
+       value pointed to by outbytesleft shall be decremented to reflect the
+       number of bytes still available in the output buffer. For state-
+       dependent encodings, the conversion descriptor shall be updated to
+       reflect the shift state in effect at the end of the last successfully
+       converted byte sequence.
+       If iconv() encounters a character in the input buffer that is valid,
+       but for which an identical character does not exist in the target
+       codeset, iconv() shall perform an implementation-defined conversion
+       on this character.

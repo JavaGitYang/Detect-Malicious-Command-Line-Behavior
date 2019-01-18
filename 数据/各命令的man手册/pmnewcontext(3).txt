@@ -1,0 +1,84 @@
+
+       An application using the Performance Metrics Application Programming
+       Interface (PMAPI) may manipulate several concurrent contexts, each
+       associated with a source of performance metrics, e.g. pmcd(1) on some
+       host, or a set of archive logs of performance metrics as created by
+       pmlogger(1), or a standalone connection on the local host that does
+       not involve pmcd(1).
+       pmNewContext may be used to establish a new context.  The source of
+       the metrics is identified by name, and may be either a host name
+       (type is PM_CONTEXT_HOST), or a comma-separated list of names
+       referring to a set of archive logs (type is PM_CONTEXT_ARCHIVE).
+       Each element of the list may either be the base name common to all of
+       the physical files of an archive log or the name of a directory
+       containing archive logs.
+       For a type of PM_CONTEXT_HOST, in addition to identifying a host the
+       name may also be used to encode additional optional information in
+       the form of a pmcd(1) port number, a pmproxy(1) hostname and a proxy
+       port number. For example the name
+       "app23:14321,4321@firewall.example.com:11111" specifies a connection
+       on port 14321 (or port 4321 if 14321 is unavailable) to pmcd(1) on
+       the host app23 via port 11111 to pmproxy(1) on the host
+       firewall.example.com.
+       For a type of PM_CONTEXT_ARCHIVE, each element of the list of names
+       in name may also be the name of any of the physical files of an
+       archive, e.g.  myarchive.meta (the metadata file) or myarchive.index
+       (the temporal index) or myarchive.0 (the first data volume of the
+       archive) or myarchive.0.bz2 or myarchive.0.bz (the first data volume
+       compressed with bzip2(1)) or myarchive.0.gz or myarchive.0.Z or
+       myarchive.0.z (the first data volume compressed with gzip(1)),
+       myarchive.1 or myarchive.3.bz2 or myarchive.42.gz etc.
+       If more than one archive is specified for a type of
+       PM_CONTEXT_ARCHIVE, there are some restrictions on the archives
+       within the set:
+       ·  The archives must all have been generated on the same host.
+       ·  The archives must not overlap in time.
+       ·  The archives must all have been created using the same time zone.
+       ·  The PMID of each metric should be the same in all of the archives.
+          Multiple PMIDs are currently tolerated by using the first PMID
+          defined for each metric and ignoring subsequent PMIDs.
+       ·  The type of each metric must be the same in all of the archives.
+       ·  The semantics of each metric must be the same in all of the
+          archives.
+       ·  The units of each metric must be the same in all of the archives.
+       ·  The instance domain of each metric must be the same in all of the
+          archives.
+       In the case where type is PM_CONTEXT_LOCAL, name is ignored, and the
+       context uses a standalone connection to the PMDA methods used by
+       pmcd(1).  When this type of context is used, the range of accessible
+       performance metrics is constrained to those from the operating
+       system, and optionally the ``proc'', ``sample'' and ``ib'' PMDAs.
+       In the case where type is PM_CONTEXT_HOST, additional flags can be
+       added to the type to indicate if the connection to pmcd(1) should be
+       encrypted (PM_CTXFLAG_SECURE), deferred (PM_CTXFLAG_SHALLOW) and if
+       the file descriptor used to communicate with pmcd(1), should not be
+       shared across contexts (PM_CTXFLAG_EXCLUSIVE).  Both the
+       PM_CTXFLAG_SHALLOW and PM_CTXFLAG_EXCLUSIVE flags are now deprecated
+       and ignored.
+       The initial instance profile is set up to select all instances in all
+       instance domains.  In the case of a set of archives, the initial
+       collection time is also set to zero, so that an initial pmFetch(3)
+       will result in the earliest set of metrics being returned from the
+       set of archives.
+       Once established, the association between a context and a source of
+       metrics is fixed for the life of the context, however routines are
+       provided to independently manipulate both the instance profile (see
+       pmAddProfile(3) and pmDelProfile(3)) and the collection time for
+       archives (see pmSetMode(3)).
+       pmNewContext returns a handle that may be used with subsequent calls
+       to pmUseContext(3).
+       The new context remains the current PMAPI context for all subsequent
+       calls across the PMAPI, until another call to pmNewContext(3) is
+       made, or the context is explicitly changed with a call to
+       pmDupContext(3) or pmUseContext(3), or destroyed using
+       pmDestroyContext(3).
+       When attempting to connect to a remote pmcd(1) on a machine that is
+       booting, pmNewContext could potentially block for a long time until
+       the remote machine finishes its initialization.  pmNewContext will
+       abort and return an error if the connection has not been established
+       after some specified interval has elapsed.  The default interval is 5
+       seconds.  This may be modified by setting PMCD_CONNECT_TIMEOUT in the
+       environment to a real number of seconds for the desired timeout.
+       This is most useful in cases where the remote host is at the end of a
+       slow network, requiring longer latencies to establish the connection
+       correctly.

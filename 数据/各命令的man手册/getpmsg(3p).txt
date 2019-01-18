@@ -1,0 +1,2 @@
+
+       Refer to getmsg(3p).

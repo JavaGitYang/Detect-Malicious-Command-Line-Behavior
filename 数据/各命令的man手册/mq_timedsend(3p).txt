@@ -1,0 +1,2 @@
+
+       Refer to mq_send(3p).

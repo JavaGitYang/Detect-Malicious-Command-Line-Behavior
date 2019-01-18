@@ -1,0 +1,26 @@
+
+       The help command prints the details and help text of either the
+       plugin PLUGIN or the specific component class TYPE.PLUGIN.COMPCLS.
+       See babeltrace-intro(7) to learn more about the Babeltrace project
+       and its core concepts.
+       The available values for TYPE are:
+       source or src
+           Source component class.
+       filter or flt
+           Filter component class.
+       sink
+           Sink component class.
+       See EXAMPLES for usage examples.
+   Plugin path
+       This command loads Babeltrace plugins to perform its operation. The
+       search path for Babeltrace plugins is, in this order:
+        1. The colon-separated list of directories in the
+           BABELTRACE_PLUGIN_PATH environment variable.
+        2. The colon-separated list of directories in the --plugin-path
+           option.
+        3. If the --omit-home-plugin-path option is absent:
+           $HOME/.local/lib/babeltrace/plugins
+        4. If the --omit-system-plugin-path option is absent:
+           /usr/local/lib/babeltrace/plugins
+       You can use the babeltrace-list-plugins(1) command to dynamically
+       list the available plugins.

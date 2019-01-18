@@ -1,0 +1,42 @@
+
+       The <sys/sem.h> header shall define the following symbolic constant
+       for use as a semaphore operation flag:
+       SEM_UNDO    Set up adjust on exit entry.
+       The <sys/sem.h> header shall define the following symbolic constants
+       for use as commands for the semctl() function:
+       GETNCNT     Get semncnt.
+       GETPID      Get sempid.
+       GETVAL      Get semval.
+       GETALL      Get all cases of semval.
+       GETZCNT     Get semzcnt.
+       SETVAL      Set semval.
+       SETALL      Set all cases of semval.
+       The <sys/sem.h> header shall define the semid_ds structure, which
+       shall include the following members:
+           struct ipc_perm  sem_perm  Operation permission structure.
+           unsigned short   sem_nsems Number of semaphores in set.
+           time_t           sem_otime Last semop() time.
+           time_t           sem_ctime Last time changed by semctl().
+       The <sys/sem.h> header shall define the pid_t, size_t, and time_t
+       types as described in <sys/types.h>.
+       A semaphore shall be represented by an anonymous structure, which
+       shall include the following members:
+           unsigned short  semval   Semaphore value.
+           pid_t           sempid   Process ID of last operation.
+           unsigned short  semncnt  Number of processes waiting for semval
+                                    to become greater than current value.
+           unsigned short  semzcnt  Number of processes waiting for semval
+                                    to become 0.
+       The <sys/sem.h> header shall define the sembuf structure, which shall
+       include the following members:
+           unsigned short  sem_num   Semaphore number.
+           short           sem_op    Semaphore operation.
+           short           sem_flg   Operation flags.
+       The following shall be declared as functions and may also be defined
+       as macros. Function prototypes shall be provided.
+           int   semctl(int, int, int, ...);
+           int   semget(key_t, int, int);
+           int   semop(int, struct sembuf *, size_t);
+       In addition, the <sys/sem.h> header shall include the <sys/ipc.h>
+       header.
+       The following sections are informative.

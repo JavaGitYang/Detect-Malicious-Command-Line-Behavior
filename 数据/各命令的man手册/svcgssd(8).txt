@@ -1,0 +1,9 @@
+
+       The rpcsec_gss protocol gives a means of using the gss-api generic
+       security api to provide security for protocols using rpc (in
+       particular, nfs).  Before exchanging any rpc requests using
+       rpcsec_gss, the rpc client must first establish a security context
+       with the rpc server.  The linux kernel's implementation of rpcsec_gss
+       depends on the userspace daemon rpc.svcgssd to handle context
+       establishment on the rpc server.  The daemon uses files in the proc
+       filesystem to communicate with the kernel.

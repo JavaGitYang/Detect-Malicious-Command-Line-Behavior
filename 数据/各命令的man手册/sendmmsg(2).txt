@@ -1,0 +1,26 @@
+
+       The sendmmsg() system call is an extension of sendmsg(2) that allows
+       the caller to transmit multiple messages on a socket using a single
+       system call.  (This has performance benefits for some applications.)
+       The sockfd argument is the file descriptor of the socket on which
+       data is to be transmitted.
+       The msgvec argument is a pointer to an array of mmsghdr structures.
+       The size of this array is specified in vlen.
+       The mmsghdr structure is defined in <sys/socket.h> as:
+           struct mmsghdr {
+               struct msghdr msg_hdr;  /* Message header */
+               unsigned int  msg_len;  /* Number of bytes transmitted */
+           };
+       The msg_hdr field is a msghdr structure, as described in sendmsg(2).
+       The msg_len field is used to return the number of bytes sent from the
+       message in msg_hdr (i.e., the same as the return value from a single
+       sendmsg(2) call).
+       The flags argument contains flags ORed together.  The flags are the
+       same as for sendmsg(2).
+       A blocking sendmmsg() call blocks until vlen messages have been sent.
+       A nonblocking call sends as many messages as possible (up to the
+       limit specified by vlen) and returns immediately.
+       On return from sendmmsg(), the msg_len fields of successive elements
+       of msgvec are updated to contain the number of bytes transmitted from
+       the corresponding msg_hdr.  The return value of the call indicates
+       the number of elements of msgvec that have been updated.

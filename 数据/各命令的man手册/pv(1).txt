@@ -1,0 +1,36 @@
+
+       pv shows the progress of data through a pipeline by giving
+       information such as time elapsed, percentage completed (with progress
+       bar), current throughput rate, total data transferred, and ETA.
+       To use it, insert it in a pipeline between two processes, with the
+       appropriate options.  Its standard input will be passed through to
+       its standard output and progress will be shown on standard error.
+       pv will copy each supplied FILE in turn to standard output (- means
+       standard input), or if no FILEs are specified just standard input is
+       copied. This is the same behaviour as cat(1).
+       A simple example to watch how quickly a file is transferred using
+       nc(1):
+              pv file | nc -w 1 somewhere.com 3000
+       A similar example, transferring a file from another process and
+       passing the expected size to pv:
+              cat file | pv -s 12345 | nc -w 1 somewhere.com 3000
+       A more complicated example using numeric output to feed into the
+       dialog(1) program for a full-screen progress display:
+              (tar cf - . \
+               | pv -n -s $(du -sb . | awk '{print $1}') \
+               | gzip -9 > out.tgz) 2>&1 \
+              | dialog --gauge 'Progress' 7 70
+       Taking an image of a disk, skipping errors:
+              pv -EE /dev/sda > disk-image.img
+       Writing an image back to a disk:
+              pv disk-image.img > /dev/sda
+       Zeroing a disk:
+              pv < /dev/zero > /dev/sda
+       Note that if the input size cannot be calculated, and the output is a
+       block device, then the size of the block device will be used and pv
+       will automatically stop at that size as if -S had been given.
+       (Linux only): Watching file descriptor 3 opened by another process
+       1234:
+              pv -d 1234:3
+       (Linux only): Watching all file descriptors used by process 1234:
+              pv -d 1234

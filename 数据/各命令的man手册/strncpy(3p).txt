@@ -1,0 +1,13 @@
+
+       For strncpy(): The functionality described on this reference page is
+       aligned with the ISO C standard. Any conflict between the
+       requirements described here and the ISO C standard is unintentional.
+       This volume of POSIX.1‐2008 defers to the ISO C standard.
+       The stpncpy() and strncpy() functions shall copy not more than n
+       bytes (bytes that follow a NUL character are not copied) from the
+       array pointed to by s2 to the array pointed to by s1.
+       If the array pointed to by s2 is a string that is shorter than n
+       bytes, NUL characters shall be appended to the copy in the array
+       pointed to by s1, until n bytes in all are written.
+       If copying takes place between objects that overlap, the behavior is
+       undefined.

@@ -1,0 +1,16 @@
+
+       restorecon_xattr will display the SHA1 digests added to extended
+       attributes security.restorecon_last or delete the attribute
+       completely. These attributes are set by restorecon(8) or setfiles(8)
+       to specified directories when relabeling recursively.
+       restorecon_xattr is useful for managing the extended attribute
+       entries particularly when users forget what directories they ran
+       restorecon(8) or setfiles(8) from.
+       RAMFS and TMPFS filesystems do not support the
+       security.restorecon_last extended attribute and are automatically
+       excluded from searches.
+       By default restorecon_xattr will display the SHA1 digests with
+       "Match" appended if they match the default specfile set or the
+       specfile set used with the -f option. Non-matching SHA1 digests will
+       be displayed with "No Match" appended.  This feature can be disabled
+       by the -n option.

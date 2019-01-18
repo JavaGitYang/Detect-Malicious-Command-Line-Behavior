@@ -1,0 +1,10 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The isgreater() macro shall determine whether its first argument is
+       greater than its second argument. The value of isgreater(x, y) shall
+       be equal to (x) > (y); however, unlike (x) > (y), isgreater(x, y)
+       shall not raise the invalid floating-point exception when x and y are
+       unordered.

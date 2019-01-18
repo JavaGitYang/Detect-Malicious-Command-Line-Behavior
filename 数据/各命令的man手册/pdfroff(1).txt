@@ -1,0 +1,24 @@
+
+       pdfroff is a wrapper program for the GNU text processing system,
+       groff.  It transparently handles the mechanics of multiple pass groff
+       processing, when applied to suitably marked up groff source files,
+       such that tables of contents and body text are formatted separately,
+       and are subsequently combined in the correct order, for final
+       publication as a single PDF document.  A further optional “style
+       sheet” capability is provided; this allows for the definition of
+       content which is required to precede the table of contents, in the
+       published document.
+       For each invocation of pdfroff, the ultimate groff output stream is
+       post-processed by the GhostScript interpreter, to produce a finished
+       PDF document.
+       pdfroff makes no assumptions about, and imposes no restrictions on,
+       the use of any groff macro packages which the user may choose to
+       employ, in order to achieve a desired document format; however, it
+       does include specific built in support for the pdfmark macro package,
+       should the user choose to employ it.  Specifically, if the pdfhref
+       macro, defined in the pdfmark.tmac package, is used to define public
+       reference marks, or dynamic links to such reference marks, then
+       pdfroff performs as many preformatting groff passes as required, up
+       to a maximum limit of four, in order to compile a document reference
+       dictionary, to resolve references, and to expand the dynamically
+       defined content of links.

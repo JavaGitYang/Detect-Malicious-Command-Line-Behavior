@@ -1,0 +1,58 @@
+
+       Updates files in the working tree to match the version in the index
+       or the specified tree. If no paths are given, git checkout will also
+       update HEAD to set the specified branch as the current branch.
+       git checkout <branch>
+           To prepare for working on <branch>, switch to it by updating the
+           index and the files in the working tree, and by pointing HEAD at
+           the branch. Local modifications to the files in the working tree
+           are kept, so that they can be committed to the <branch>.
+           If <branch> is not found but there does exist a tracking branch
+           in exactly one remote (call it <remote>) with a matching name,
+           treat as equivalent to
+               $ git checkout -b <branch> --track <remote>/<branch>
+           You could omit <branch>, in which case the command degenerates to
+           "check out the current branch", which is a glorified no-op with
+           rather expensive side-effects to show only the tracking
+           information, if exists, for the current branch.
+       git checkout -b|-B <new_branch> [<start point>]
+           Specifying -b causes a new branch to be created as if
+           git-branch(1) were called and then checked out. In this case you
+           can use the --track or --no-track options, which will be passed
+           to git branch. As a convenience, --track without -b implies
+           branch creation; see the description of --track below.
+           If -B is given, <new_branch> is created if it doesn’t exist;
+           otherwise, it is reset. This is the transactional equivalent of
+               $ git branch -f <branch> [<start point>]
+               $ git checkout <branch>
+           that is to say, the branch is not reset/created unless "git
+           checkout" is successful.
+       git checkout --detach [<branch>], git checkout [--detach] <commit>
+           Prepare to work on top of <commit>, by detaching HEAD at it (see
+           "DETACHED HEAD" section), and updating the index and the files in
+           the working tree. Local modifications to the files in the working
+           tree are kept, so that the resulting working tree will be the
+           state recorded in the commit plus the local modifications.
+           When the <commit> argument is a branch name, the --detach option
+           can be used to detach HEAD at the tip of the branch (git checkout
+           <branch> would check out that branch without detaching HEAD).
+           Omitting <branch> detaches HEAD at the tip of the current branch.
+       git checkout [<tree-ish>] [--] <pathspec>...
+           Overwrite paths in the working tree by replacing with the
+           contents in the index or in the <tree-ish> (most often a commit).
+           When a <tree-ish> is given, the paths that match the <pathspec>
+           are updated both in the index and in the working tree.
+           The index may contain unmerged entries because of a previous
+           failed merge. By default, if you try to check out such an entry
+           from the index, the checkout operation will fail and nothing will
+           be checked out. Using -f will ignore these unmerged entries. The
+           contents from a specific side of the merge can be checked out of
+           the index by using --ours or --theirs. With -m, changes made to
+           the working tree file can be discarded to re-create the original
+           conflicted merge result.
+       git checkout (-p|--patch) [<tree-ish>] [--] [<pathspec>...]
+           This is similar to the "check out paths to the working tree from
+           either the index or from a tree-ish" mode described above, but
+           lets you use the interactive interface to show the "diff" output
+           and choose which hunks to use in the result. See below for the
+           description of --patch option.

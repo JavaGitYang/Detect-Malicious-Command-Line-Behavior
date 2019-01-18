@@ -1,0 +1,112 @@
+
+       The pcp-atopsar program can be used to report statistics at the
+       system level.
+       In the first synopsis line (no sampling interval specified), pcp-
+       atopsar extracts data from a raw logfile that has been recorded
+       previously by pmlogger(1) (or via the -w option of the pcp-atop
+       program).
+       You can specify the name of the logfile with the -r option of the
+       pcp-atopsar program.  When a pmlogger daily logfile is used, named
+       $PCP_LOG_DIR/pmlogger/[host]/YYYYMMDD (where YYYYMMDD reflects the
+       date), the required date of the form YYYYMMDD can be specified with
+       the -r option instead of the filename, or the symbolic name 'y' can
+       be used for yesterday's daily logfile (this can be repeated so 'yyyy'
+       indicates the logfile of four days ago).  If the -r option is not
+       specified at all, today's daily logfile is used by default.
+       By default, the hostname of the localhost will be used when resolving
+       pmlogger archives, however an alternative host can be specified using
+       the -h option.
+       The starting and ending times of the report can be defined using the
+       options -b and -e followed by a time argument of the form hh:mm.
+       In the second synopsis line, pcp-atopsar reads actual activity
+       counters from the kernel with the specified interval (in seconds) and
+       the specified number of samples (optionally).  When pcp-atopsar is
+       activated in this way it immediately sends the output for every
+       requested report to standard output.  If only one type of report is
+       requested, the header is printed once and after every interval
+       seconds the statistical counters are shown for that period.  If
+       several reports are requested, a header is printed per sample
+       followed by the statistical counters for that period.
+       When invoked via the pcp(1) command, the PCPIntro(1) options
+       -h/--host, -a/--archive, -O/--origin, -s/--samples, -t/--interval,
+       -Z/--timezone and several other pcp options become indirectly
+       available.
+       Some generic flags can be specified to influence the behaviour of the
+       pcp-atopsar program:
+       -S   By default the timestamp at the beginning of a line is
+            suppressed if more lines are shown for one interval. With this
+            flag a timestamp is given for every output-line (easier for
+            post-processing).
+       -a   By default certain resources as disks and network interfaces are
+            only shown when they were active during the interval.  With this
+            flag all resources of a given type are shown, even if they were
+            inactive during the interval.
+       -x   By default pcp-atopsar only uses colors if output is directed to
+            a terminal (window).  These colors might indicate that a
+            critical occupation percentage has been reached (red) or has
+            been almost reached (cyan) for a particular resource.  See the
+            man-page of atop for a detailed description of this feature
+            (section COLORS).
+            With the flag -x the use of colors is suppressed
+            unconditionally.
+       -C   By default pcp-atopsar only uses colors if output is directed to
+            a terminal (window).  These colors might indicate that a
+            critical occupation percentage has been reached (red) or has
+            been almost reached (cyan) for a particular resource.  See the
+            man-page of atop for a detailed description of this feature
+            (section COLORS).
+            With the flag -C colors will always be used, even if output is
+            not directed to a terminal.
+       -M   Use markers at the end of a line to indicate that a critical
+            occupation percentage has been reached ('*') or has been almost
+            reached ('+') for particular resources. The marker '*' is
+            similar to the color red and the marker '+' to the color cyan.
+            See the man-page of atop for a detailed description of these
+            colors (section COLORS).
+       -H   Repeat the header line within a report for every N detail lines.
+            The value of N is determined dynamically in case of output to a
+            tty/window (depending on the number of lines); for output to a
+            file or pipe this value is 23.
+       -R   Summarize cnt samples into one sample. When the logfile contains
+            e.g. samples of 10 minutes, the use of the flag '-R 6' shows a
+            report with one sample for every hour.
+       Other flags are used to define which reports are required:
+       -A   Show all possible reports.
+       -c   Report about CPU utilization (in total and per cpu).
+       -p   Report about processor-related matters, like load-averages and
+            hardware interrupts.
+       -P   Report about processes.
+       -m   Current memory- and swap-occupation.
+       -s   Report about paging- and swapping-activity, and overcommitment.
+       -l   Report about utilization of logical volumes.
+       -f   Report about utilization of multiple devices.
+       -d   Report about utilization of disks.
+       -n   Report about NFS mounted filesystems on NFS client.
+       -j   Report about NFS client activity.
+       -J   Report about NFS server activity.
+       -i   Report about the network interfaces.
+       -I   Report about errors for network-interfaces.
+       -w   Report about IP version 4 network traffic.
+       -W   Report about errors for IP version 4 traffic.
+       -y   General report about ICMP version 4 layer activity.
+       -Y   Per-type report about ICMP version 4 layer activity.
+       -u   Report about UDP version 4 network traffic.
+       -z   Report about IP version 6 network traffic.
+       -Z   Report about errors for IP version 6 traffic.
+       -k   General report about ICMP version 6 layer activity.
+       -K   Per-type report about ICMP version 6 layer activity.
+       -U   Report about UDP version 6 network traffic.
+       -t   Report about TCP network traffic.
+       -T   Report about errors for TCP-traffic.
+       -O   Report about top-3 processes consuming most processor capacity.
+            This report is only available when using a log file (not when
+            specifying an interval).
+       -G   Report about top-3 processes consuming most resident memory.
+            This report is only available when using a log file (not when
+            specifying an interval).
+       -D   Report about top-3 processes issueing most disk transfers.  This
+            report is only available when using a log file (not when
+            specifying an interval).
+       -N   Report about top-3 processes issueing most IPv4/IPv6 socket
+            transfers.  This report is only available when using a log file
+            (not when specifying an interval).

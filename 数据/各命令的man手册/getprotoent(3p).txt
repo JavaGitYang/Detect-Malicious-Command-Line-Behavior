@@ -1,0 +1,28 @@
+
+       These functions shall retrieve information about protocols. This
+       information is considered to be stored in a database that can be
+       accessed sequentially or randomly. The implementation of this
+       database is unspecified.
+       The setprotoent() function shall open a connection to the database,
+       and set the next entry to the first entry. If the stayopen argument
+       is non-zero, the connection to the network protocol database shall
+       not be closed after each call to getprotoent() (either directly, or
+       indirectly through one of the other getproto*() functions), and the
+       implementation may maintain an open file descriptor for the database.
+       The getprotobyname() function shall search the database from the
+       beginning and find the first entry for which the protocol name
+       specified by name matches the p_name member, opening and closing a
+       connection to the database as necessary.
+       The getprotobynumber() function shall search the database from the
+       beginning and find the first entry for which the protocol number
+       specified by proto matches the p_proto member, opening and closing a
+       connection to the database as necessary.
+       The getprotoent() function shall read the next entry of the database,
+       opening and closing a connection to the database as necessary.
+       The getprotobyname(), getprotobynumber(), and getprotoent() functions
+       shall each return a pointer to a protoent structure, the members of
+       which shall contain the fields of an entry in the network protocol
+       database.
+       The endprotoent() function shall close the connection to the
+       database, releasing any open file descriptor.
+       These functions need not be thread-safe.

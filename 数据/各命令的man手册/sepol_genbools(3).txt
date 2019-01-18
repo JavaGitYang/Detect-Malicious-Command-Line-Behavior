@@ -1,0 +1,8 @@
+
+       sepol_genbools rewrites a binary policy stored in the memory region
+       described by (data, len) to use the boolean settings specified in the
+       file named by boolpath.  The boolean settings are specified by
+       name=value lines where value may be 0 or false to disable or 1 or
+       true to enable.  The binary policy is rewritten in place in memory.
+       sepol_genbools_array does likewise, but obtains the boolean settings
+       from the parallel arrays (names, values) with nel elements each.

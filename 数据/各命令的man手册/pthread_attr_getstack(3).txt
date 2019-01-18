@@ -1,0 +1,14 @@
+
+       The pthread_attr_setstack() function sets the stack address and stack
+       size attributes of the thread attributes object referred to by attr
+       to the values specified in stackaddr and stacksize, respectively.
+       These attributes specify the location and size of the stack that
+       should be used by a thread that is created using the thread
+       attributes object attr.
+       stackaddr should point to the lowest addressable byte of a buffer of
+       stacksize bytes that was allocated by the caller.  The pages of the
+       allocated buffer should be both readable and writable.
+       The pthread_attr_getstack() function returns the stack address and
+       stack size attributes of the thread attributes object referred to by
+       attr in the buffers pointed to by stackaddr and stacksize,
+       respectively.

@@ -1,0 +1,2 @@
+
+       This function will compare two X.509 certificate structures.

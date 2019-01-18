@@ -1,0 +1,62 @@
+
+       The PAM library uses an application-defined callback to allow a
+       direct communication between a loaded module and the application.
+       This callback is specified by the struct pam_conv passed to
+       pam_start(3) at the start of the transaction.
+       When a module calls the referenced conv() function, the argument
+       appdata_ptr is set to the second element of this structure.
+       The other arguments of a call to conv() concern the information
+       exchanged by module and application. That is to say, num_msg holds
+       the length of the array of pointers, msg. After a successful return,
+       the pointer resp points to an array of pam_response structures,
+       holding the application supplied text. The resp_retcode member of
+       this struct is unused and should be set to zero. It is the caller's
+       responsibility to release both, this array and the responses
+       themselves, using free(3). Note, *resp is a struct pam_response array
+       and not an array of pointers.
+       The number of responses is always equal to the num_msg conversation
+       function argument. This does require that the response array is
+       free(3)'d after every call to the conversation function. The index of
+       the responses corresponds directly to the prompt index in the
+       pam_message array.
+       On failure, the conversation function should release any resources it
+       has allocated, and return one of the predefined PAM error codes.
+       Each message can have one of four types, specified by the msg_style
+       member of struct pam_message:
+       PAM_PROMPT_ECHO_OFF
+           Obtain a string without echoing any text.
+       PAM_PROMPT_ECHO_ON
+           Obtain a string whilst echoing text.
+       PAM_ERROR_MSG
+           Display an error message.
+       PAM_TEXT_INFO
+           Display some text.
+       The point of having an array of messages is that it becomes possible
+       to pass a number of things to the application in a single call from
+       the module. It can also be convenient for the application that
+       related things come at once: a windows based application can then
+       present a single form with many messages/prompts on at once.
+       In passing, it is worth noting that there is a descrepency between
+       the way Linux-PAM handles the const struct pam_message **msg
+       conversation function argument from the way that Solaris' PAM (and
+       derivitives, known to include HP/UX, are there others?) does.
+       Linux-PAM interprets the msg argument as entirely equivalent to the
+       following prototype const struct pam_message *msg[] (which, in
+       spirit, is consistent with the commonly used prototypes for argv
+       argument to the familiar main() function: char **argv; and char
+       *argv[]). Said another way Linux-PAM interprets the msg argument as a
+       pointer to an array of num_msg read only 'struct pam_message'
+       pointers. Solaris' PAM implementation interprets this argument as a
+       pointer to a pointer to an array of num_msg pam_message structures.
+       Fortunately, perhaps, for most module/application developers when
+       num_msg has a value of one these two definitions are entirely
+       equivalent. Unfortunately, casually raising this number to two has
+       led to unanticipated compatibility problems.
+       For what its worth the two known module writer work-arounds for
+       trying to maintain source level compatibility with both PAM
+       implementations are:
+       ·   never call the conversation function with num_msg greater than
+           one.
+       ·   set up msg as doubly referenced so both types of conversation
+           function can find the messages. That is, make
+                      msg[n] = & (( *msg )[n])

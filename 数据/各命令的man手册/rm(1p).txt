@@ -1,0 +1,55 @@
+
+       The rm utility shall remove the directory entry specified by each
+       file argument.
+       If either of the files dot or dot-dot are specified as the basename
+       portion of an operand (that is, the final pathname component) or if
+       an operand resolves to the root directory, rm shall write a
+       diagnostic message to standard error and do nothing more with such
+       operands.
+       For each file the following steps shall be taken:
+        1. If the file does not exist:
+            a. If the −f option is not specified, rm shall write a
+               diagnostic message to standard error.
+            b. Go on to any remaining files.
+        2. If file is of type directory, the following steps shall be taken:
+            a. If neither the −R option nor the −r option is specified, rm
+               shall write a diagnostic message to standard error, do
+               nothing more with file, and go on to any remaining files.
+            b. If the −f option is not specified, and either the permissions
+               of file do not permit writing and the standard input is a
+               terminal or the −i option is specified, rm shall write a
+               prompt to standard error and read a line from the standard
+               input. If the response is not affirmative, rm shall do
+               nothing more with the current file and go on to any remaining
+               files.
+            c. For each entry contained in file, other than dot or dot-dot,
+               the four steps listed here (1 to 4) shall be taken with the
+               entry as if it were a file operand. The rm utility shall not
+               traverse directories by following symbolic links into other
+               parts of the hierarchy, but shall remove the links
+               themselves.
+            d. If the −i option is specified, rm shall write a prompt to
+               standard error and read a line from the standard input. If
+               the response is not affirmative, rm shall do nothing more
+               with the current file, and go on to any remaining files.
+        3. If file is not of type directory, the −f option is not specified,
+           and either the permissions of file do not permit writing and the
+           standard input is a terminal or the −i option is specified, rm
+           shall write a prompt to the standard error and read a line from
+           the standard input. If the response is not affirmative, rm shall
+           do nothing more with the current file and go on to any remaining
+           files.
+        4. If the current file is a directory, rm shall perform actions
+           equivalent to the rmdir() function defined in the System
+           Interfaces volume of POSIX.1‐2008 called with a pathname of the
+           current file used as the path argument. If the current file is
+           not a directory, rm shall perform actions equivalent to the
+           unlink() function defined in the System Interfaces volume of
+           POSIX.1‐2008 called with a pathname of the current file used as
+           the path argument.
+           If this fails for any reason, rm shall write a diagnostic message
+           to standard error, do nothing more with the current file, and go
+           on to any remaining files.
+       The rm utility shall be able to descend to arbitrary depths in a file
+       hierarchy, and shall not fail due to path length limitations (unless
+       an operand specified by the user exceeds system limitations).

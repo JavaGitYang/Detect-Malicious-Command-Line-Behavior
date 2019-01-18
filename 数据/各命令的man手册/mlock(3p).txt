@@ -1,0 +1,27 @@
+
+       The mlock() function shall cause those whole pages containing any
+       part of the address space of the process starting at address addr and
+       continuing for len bytes to be memory-resident until unlocked or
+       until the process exits or execs another process image. The
+       implementation may require that addr be a multiple of {PAGESIZE}.
+       The munlock() function shall unlock those whole pages containing any
+       part of the address space of the process starting at address addr and
+       continuing for len bytes, regardless of how many times mlock() has
+       been called by the process for any of the pages in the specified
+       range. The implementation may require that addr be a multiple of
+       {PAGESIZE}.
+       If any of the pages in the range specified to a call to munlock() are
+       also mapped into the address spaces of other processes, any locks
+       established on those pages by another process are unaffected by the
+       call of this process to munlock().  If any of the pages in the range
+       specified by a call to munlock() are also mapped into other portions
+       of the address space of the calling process outside the range
+       specified, any locks established on those pages via the other
+       mappings are also unaffected by this call.
+       Upon successful return from mlock(), pages in the specified range
+       shall be locked and memory-resident. Upon successful return from
+       munlock(), pages in the specified range shall be unlocked with
+       respect to the address space of the process. Memory residency of
+       unlocked pages is unspecified.
+       Appropriate privileges are required to lock process memory with
+       mlock().

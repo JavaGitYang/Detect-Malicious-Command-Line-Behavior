@@ -1,0 +1,20 @@
+
+       The getgrent() function returns a pointer to a structure containing
+       the broken-out fields of a record in the group database (e.g., the
+       local group file /etc/group, NIS, and LDAP).  The first time
+       getgrent() is called, it returns the first entry; thereafter, it
+       returns successive entries.
+       The setgrent() function rewinds to the beginning of the group
+       database, to allow repeated scans.
+       The endgrent() function is used to close the group database after all
+       processing has been performed.
+       The group structure is defined in <grp.h> as follows:
+           struct group {
+               char   *gr_name;        /* group name */
+               char   *gr_passwd;      /* group password */
+               gid_t   gr_gid;         /* group ID */
+               char  **gr_mem;         /* NULL-terminated array of pointers
+                                          to names of group members */
+           };
+       For more information about the fields of this structure, see
+       group(5).

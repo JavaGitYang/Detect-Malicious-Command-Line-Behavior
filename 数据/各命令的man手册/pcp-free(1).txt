@@ -1,0 +1,24 @@
+
+       pcp-free gives a summary display of the total amount of free and used
+       physical memory and swap in the system, as well as the caches used by
+       the kernel.
+       When invoked via the pcp(1) command, the -h/--host, -a/--archive,
+       -O/--origin, -s/--samples, -t/--interval, -Z/--timezone and several
+       other pcp options become indirectly available.
+   Options
+       The -b/--bytes switch displays the amount of memory in bytes; the
+       -k/--kilobytes switch (set by default) displays it in kilobytes; the
+       -m/--megabytes switch displays it in megabytes.
+       The -t/--total switch displays a line containing the totals.
+       The -o switch disables the display of a "buffer adjusted" line.  If
+       the -o option is not specified, free subtracts buffer memory from the
+       used memory and adds it to the free memory reported.
+       The -s/--interval switch activates continuous polling delay seconds
+       apart.  You may specify any floating point number for delay, or
+       indeed any valid pmParseInterval(3) specification, which includes
+       microsecond resolution delay times.  This can be used in conjunction
+       with the -c/--samples option to terminate the display after count
+       iterations.
+       The -l switch shows detailed low and high memory statistics.
+       The current version of pcp-free can be queried using the -V/--version
+       option.

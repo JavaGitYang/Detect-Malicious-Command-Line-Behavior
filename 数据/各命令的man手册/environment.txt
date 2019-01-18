@@ -1,0 +1,10 @@
+
+       The environment.d directories contain a list of "global" environment
+       variable assignments for the user environment.
+       systemd-environment-d-generator(8) parses them and updates the
+       environment exported by the systemd user instance to the services it
+       starts.
+       It is recommended to use numerical prefixes for file names to
+       simplify ordering.
+       For backwards compatibility, a symlink to /etc/environment is
+       installed, so this file is also parsed.

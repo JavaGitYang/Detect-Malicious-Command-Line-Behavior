@@ -1,0 +1,6 @@
+
+       This function will check if the given certificate was issued by the
+       given issuer. It checks the DN fields and the authority key
+       identifier and subject key identifier fields match.
+       If the same certificate is provided at the  cert and  issuer fields,
+       it will check whether the certificate is self-signed.

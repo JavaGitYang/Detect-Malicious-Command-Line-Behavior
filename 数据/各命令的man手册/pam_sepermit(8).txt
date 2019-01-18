@@ -1,0 +1,17 @@
+
+       The pam_sepermit module allows or denies login depending on SELinux
+       enforcement state.
+       When the user which is logging in matches an entry in the config file
+       he is allowed access only when the SELinux is in enforcing mode.
+       Otherwise he is denied access. For users not matching any entry in
+       the config file the pam_sepermit module returns PAM_IGNORE return
+       value.
+       The config file contains a list of user names one per line with
+       optional arguments. If the name is prefixed with @ character it means
+       that all users in the group name match. If it is prefixed with a %
+       character the SELinux user is used to match against the name instead
+       of the account name. Note that when SELinux is disabled the SELinux
+       user assigned to the account cannot be determined. This means that
+       such entries are never matched when SELinux is disabled and
+       pam_sepermit will return PAM_IGNORE.
+       See sepermit.conf(5) for details.

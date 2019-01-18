@@ -1,0 +1,11 @@
+
+       These tools are obsolete and unportable.  The command syntax is
+       poorly defined.  Consider using the killall, pkill, and pgrep
+       commands instead.
+       The default signal for skill is TERM.  Use -l or -L to list available
+       signals.  Particularly useful signals include HUP, INT, KILL, STOP,
+       CONT, and 0.  Alternate signals may be specified in three ways: -9
+       -SIGKILL -KILL.
+       The default priority for snice is +4.  Priority numbers range from
+       +20 (slowest) to -20 (fastest).  Negative priority numbers are
+       restricted to administrative users.

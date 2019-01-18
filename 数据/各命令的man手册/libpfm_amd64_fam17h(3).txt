@@ -1,0 +1,3 @@
+
+       The library supports AMD Family 17h processors core PMU in both 32
+       and 64-bit modes.

@@ -1,0 +1,16 @@
+
+       pmconfig displays the values for some or all configuration parameters
+       of the local Performance Co-Pilot toolkit installation.
+       The -L option may be used to change the default reporting mode so
+       that the capabilities of the PCP library are reported, rather than
+       the PCP environment.
+       An output format suitable for sourcing in shell scripts can be
+       obtained using the -s option, which ensures configuration information
+       is quoted and preceded by an export statement.  When not reporting
+       the library capabilities, this mode will produce a statement that
+       does not override an existing setting in the environment for PCP
+       configuration variables.
+       In the default operating mode, pmconfig is often used in conjunction
+       with the $PCP_DIR environment variable to setup scripts running under
+       the Windows operating system, where the filesystem hierarchy differs
+       greatly to the of Linux/UNIX-based operating systems.

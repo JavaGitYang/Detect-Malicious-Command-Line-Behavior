@@ -1,0 +1,32 @@
+
+       This manual page describes the intermediate output format of the GNU
+       roff(7) text processing system groff(1).  This output is produced by
+       a run of the GNU troff(1) program.  It contains already all device-
+       specific information, but it is not yet fed into a device
+       postprocessor program.
+       As the GNU roff processor groff(1) is a wrapper program around troff
+       that automatically calls a postprocessor, this output does not show
+       up normally.  This is why it is called intermediate within the groff
+       system.  The groff program provides the option -Z to inhibit
+       postprocessing, such that the produced intermediate output is sent to
+       standard output just like calling troff manually.
+       In this document, the term troff output describes what is output by
+       the GNU troff program, while intermediate output refers to the
+       language that is accepted by the parser that prepares this output for
+       the postprocessors.  This parser is smarter on whitespace and
+       implements obsolete elements for compatibility, otherwise both
+       formats are the same.  Both formats can be viewed directly with
+       gxditview(1).
+       The main purpose of the intermediate output concept is to facilitate
+       the development of postprocessors by providing a common programming
+       interface for all devices.  It has a language of its own that is
+       completely different from the groff(7) language.  While the groff
+       language is a high-level programming language for text processing,
+       the intermediate output language is a kind of low-level assembler
+       language by specifying all positions on the page for writing and
+       drawing.
+       The pre-groff roff versions are denoted as classical troff.  The
+       intermediate output produced by groff is fairly readable, while
+       classical troff output was hard to understand because of strange
+       habits that are still supported, but not used any longer by GNU
+       troff.

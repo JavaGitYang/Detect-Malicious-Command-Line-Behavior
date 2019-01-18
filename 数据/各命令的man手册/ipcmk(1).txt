@@ -1,0 +1,3 @@
+
+       ipcmk allows you to create shared memory segments, message queues,
+       and semaphore arrays.

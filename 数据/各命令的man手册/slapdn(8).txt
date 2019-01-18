@@ -1,0 +1,6 @@
+
+       Slapdn is used to check the conformance of a DN based on the schema
+       defined in slapd(8) and that loaded via slapd.conf(5).  It opens the
+       slapd.conf(5) configuration file or the slapd-config (5) backend,
+       reads in the schema definitions, and then parses the DN list given on
+       the command-line.

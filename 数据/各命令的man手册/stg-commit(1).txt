@@ -1,0 +1,11 @@
+
+       Merge one or more patches into the base of the current stack and
+       remove them from the series while advancing the base. This is the
+       opposite of stg uncommit. Use this command if you no longer want to
+       manage a patch with StGIT.
+       By default, the bottommost patch is committed. If patch names are
+       given, the stack is rearranged so that those patches are at the
+       bottom, and then they are committed.
+       The -n/--number option specifies the number of applied patches to
+       commit (counting from the bottom of the stack). If -a/--all is given,
+       all applied patches are committed.

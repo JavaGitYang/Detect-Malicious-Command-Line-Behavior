@@ -1,0 +1,2 @@
+
+       Refer to pthread_attr_getschedparam(3p).

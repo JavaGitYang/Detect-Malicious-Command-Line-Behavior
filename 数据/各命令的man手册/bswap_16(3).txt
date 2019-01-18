@@ -1,0 +1,3 @@
+
+       These macros return a value in which the order of the bytes in their
+       2-, 4-, or 8-byte arguments is reversed.

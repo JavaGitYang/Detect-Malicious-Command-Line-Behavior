@@ -1,0 +1,3 @@
+
+       pcap_set_snaplen() sets the snapshot length to be used on a capture
+       handle when the handle is activated to snaplen.

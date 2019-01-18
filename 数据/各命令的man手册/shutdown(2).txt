@@ -1,0 +1,6 @@
+
+       The shutdown() call causes all or part of a full-duplex connection on
+       the socket associated with sockfd to be shut down.  If how is
+       SHUT_RD, further receptions will be disallowed.  If how is SHUT_WR,
+       further transmissions will be disallowed.  If how is SHUT_RDWR,
+       further receptions and transmissions will be disallowed.

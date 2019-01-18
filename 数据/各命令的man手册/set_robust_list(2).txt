@@ -1,0 +1,25 @@
+
+       These system calls deal with per-thread robust futex lists.  These
+       lists are managed in user space: the kernel knows only about the
+       location of the head of the list.  A thread can inform the kernel of
+       the location of its robust futex list using set_robust_list().  The
+       address of a thread's robust futex list can be obtained using
+       get_robust_list().
+       The purpose of the robust futex list is to ensure that if a thread
+       accidentally fails to unlock a futex before terminating or calling
+       execve(2), another thread that is waiting on that futex is notified
+       that the former owner of the futex has died.  This notification
+       consists of two pieces: the FUTEX_OWNER_DIED bit is set in the futex
+       word, and the kernel performs a futex(2) FUTEX_WAKE operation on one
+       of the threads waiting on the futex.
+       The get_robust_list() system call returns the head of the robust
+       futex list of the thread whose thread ID is specified in pid.  If pid
+       is 0, the head of the list for the calling thread is returned.  The
+       list head is stored in the location pointed to by head_ptr.  The size
+       of the object pointed to by **head_ptr is stored in len_ptr.
+       Permission to employ get_robust_list() is governed by a ptrace access
+       mode PTRACE_MODE_READ_REALCREDS check; see ptrace(2).
+       The set_robust_list() system call requests the kernel to record the
+       head of the list of robust futexes owned by the calling thread.  The
+       head argument is the list head to record.  The len argument should be
+       sizeof(*head).

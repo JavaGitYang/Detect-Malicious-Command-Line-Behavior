@@ -1,0 +1,10 @@
+
+       Operating systems using the systemd(1) system and service manager are
+       organized based on a file system hierarchy inspired by UNIX, more
+       specifically the hierarchy described in the File System Hierarchy[1]
+       specification and hier(7). This manual page describes a more minimal,
+       modernized subset of these specifications that defines more strictly
+       the suggestions and restrictions systemd makes on the file system
+       hierarchy.
+       Many of the paths described here can be queried with the
+       systemd-path(1) tool.

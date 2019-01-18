@@ -1,0 +1,11 @@
+
+       This function will extract the name of the Basic OCSP Response in the
+       provided buffer. The name will be in the form "C=xxxx,O=yyyy,CN=zzzz"
+       as described in RFC2253. The output string will be ASCII or UTF-8
+       encoded, depending on the certificate data.
+       If the responder ID is not a name but a hash, this function will
+       return zero and the  dn elements will be set to NULL.
+       The caller needs to deallocate memory by calling gnutls_free() on
+        dn ->data.
+       This function does not output a fully RFC4514 compliant string, if
+       that is required see gnutls_ocsp_resp_get_responder2().

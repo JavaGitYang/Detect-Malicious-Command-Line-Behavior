@@ -1,0 +1,4 @@
+
+       pcap_dump_flush() flushes the output buffer to the ``savefile,'' so
+       that any packets written with pcap_dump() but not yet written to the
+       ``savefile'' will be written.

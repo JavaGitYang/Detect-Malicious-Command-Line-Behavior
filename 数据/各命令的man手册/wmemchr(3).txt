@@ -1,0 +1,4 @@
+
+       The wmemchr() function is the wide-character equivalent of the
+       memchr(3) function.  It searches the n wide characters starting at s
+       for the first occurrence of the wide character c.

@@ -1,0 +1,11 @@
+
+       Sets the default priority on the ciphers, key exchange methods, and
+       macs. This is the recommended method of setting the defaults, in
+       order to promote consistency between applications using GnuTLS, and
+       to allow GnuTLS using applications to update settings in par with the
+       library. For client applications which require maximum compatibility
+       consider calling gnutls_session_enable_compatibility_mode() after
+       this function.
+       To allow a user to override the defaults (e.g., when a user interface
+       or configuration file is available), the functions
+       gnutls_priority_set_direct() or gnutls_priority_set() can be used.

@@ -1,0 +1,12 @@
+
+       The dmstats program manages IO statistics regions for devices that
+       use the device-mapper driver. Statistics regions may be created,
+       deleted, listed and reported on using the tool.
+       The first argument to dmstats is a command.
+       The second argument is the device name, uuid or major and minor
+       numbers.
+       Further options permit the selection of regions, output format
+       control, and reporting behaviour.
+       When no device argument is given dmstats will by default operate on
+       all device-mapper devices present. The create and delete commands
+       require the use of --alldevices when used in this way.

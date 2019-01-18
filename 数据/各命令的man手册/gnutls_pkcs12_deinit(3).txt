@@ -1,0 +1,2 @@
+
+       This function will deinitialize a PKCS12 type.

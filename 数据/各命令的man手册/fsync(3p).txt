@@ -1,0 +1,12 @@
+
+       The fsync() function shall request that all data for the open file
+       descriptor named by fildes is to be transferred to the storage device
+       associated with the file described by fildes.  The nature of the
+       transfer is implementation-defined. The fsync() function shall not
+       return until the system has completed that action or until an error
+       is detected.
+       If _POSIX_SYNCHRONIZED_IO is defined, the fsync() function shall
+       force all currently queued I/O operations associated with the file
+       indicated by file descriptor fildes to the synchronized I/O
+       completion state. All I/O operations shall be completed as defined
+       for synchronized I/O file integrity completion.

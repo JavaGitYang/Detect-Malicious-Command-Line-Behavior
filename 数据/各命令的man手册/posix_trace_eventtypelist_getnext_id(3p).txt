@@ -1,0 +1,17 @@
+
+       The first time posix_trace_eventtypelist_getnext_id() is called, the
+       function shall return in the variable pointed to by event the first
+       trace event type identifier of the list of trace events of the trace
+       stream identified by the trid argument. Successive calls to
+       posix_trace_eventtypelist_getnext_id() return in the variable pointed
+       to by event the next trace event type identifier in that same list.
+       Each time a trace event type identifier is successfully written into
+       the variable pointed to by the event argument, the variable pointed
+       to by the unavailable argument shall be set to zero. When no more
+       trace event type identifiers are available, and so none is returned,
+       the variable pointed to by the unavailable argument shall be set to a
+       value different from zero.
+       The posix_trace_eventtypelist_rewind() function shall reset the next
+       trace event type identifier to be read to the first trace event type
+       identifier from the list of trace events used in the trace stream
+       identified by trid.

@@ -1,0 +1,131 @@
+
+       semctl() performs the control operation specified by cmd on the
+       System V semaphore set identified by semid, or on the semnum-th
+       semaphore of that set.  (The semaphores in a set are numbered
+       starting at 0.)
+       This function has three or four arguments, depending on cmd.  When
+       there are four, the fourth has the type union semun.  The calling
+       program must define this union as follows:
+           union semun {
+               int              val;    /* Value for SETVAL */
+               struct semid_ds *buf;    /* Buffer for IPC_STAT, IPC_SET */
+               unsigned short  *array;  /* Array for GETALL, SETALL */
+               struct seminfo  *__buf;  /* Buffer for IPC_INFO
+                                           (Linux-specific) */
+           };
+       The semid_ds data structure is defined in <sys/sem.h> as follows:
+           struct semid_ds {
+               struct ipc_perm sem_perm;  /* Ownership and permissions */
+               time_t          sem_otime; /* Last semop time */
+               time_t          sem_ctime; /* Last change time */
+               unsigned long   sem_nsems; /* No. of semaphores in set */
+           };
+       The ipc_perm structure is defined as follows (the highlighted fields
+       are settable using IPC_SET):
+           struct ipc_perm {
+               key_t          __key; /* Key supplied to semget(2) */
+               uid_t          uid;   /* Effective UID of owner */
+               gid_t          gid;   /* Effective GID of owner */
+               uid_t          cuid;  /* Effective UID of creator */
+               gid_t          cgid;  /* Effective GID of creator */
+               unsigned short mode;  /* Permissions */
+               unsigned short __seq; /* Sequence number */
+           };
+       Valid values for cmd are:
+       IPC_STAT  Copy information from the kernel data structure associated
+                 with semid into the semid_ds structure pointed to by
+                 arg.buf.  The argument semnum is ignored.  The calling
+                 process must have read permission on the semaphore set.
+       IPC_SET   Write the values of some members of the semid_ds structure
+                 pointed to by arg.buf to the kernel data structure associ‐
+                 ated with this semaphore set, updating also its sem_ctime
+                 member.  The following members of the structure are
+                 updated: sem_perm.uid, sem_perm.gid, and (the least signif‐
+                 icant 9 bits of) sem_perm.mode.  The effective UID of the
+                 calling process must match the owner (sem_perm.uid) or cre‐
+                 ator (sem_perm.cuid) of the semaphore set, or the caller
+                 must be privileged.  The argument semnum is ignored.
+       IPC_RMID  Immediately remove the semaphore set, awakening all pro‐
+                 cesses blocked in semop(2) calls on the set (with an error
+                 return and errno set to EIDRM).  The effective user ID of
+                 the calling process must match the creator or owner of the
+                 semaphore set, or the caller must be privileged.  The argu‐
+                 ment semnum is ignored.
+       IPC_INFO (Linux-specific)
+                 Return information about system-wide semaphore limits and
+                 parameters in the structure pointed to by arg.__buf.  This
+                 structure is of type seminfo, defined in <sys/sem.h> if the
+                 _GNU_SOURCE feature test macro is defined:
+                     struct  seminfo {
+                         int semmap;  /* Number of entries in semaphore
+                                         map; unused within kernel */
+                         int semmni;  /* Maximum number of semaphore sets */
+                         int semmns;  /* Maximum number of semaphores in all
+                                         semaphore sets */
+                         int semmnu;  /* System-wide maximum number of undo
+                                         structures; unused within kernel */
+                         int semmsl;  /* Maximum number of semaphores in a
+                                         set */
+                         int semopm;  /* Maximum number of operations for
+                                         semop(2) */
+                         int semume;  /* Maximum number of undo entries per
+                                         process; unused within kernel */
+                         int semusz;  /* Size of struct sem_undo */
+                         int semvmx;  /* Maximum semaphore value */
+                         int semaem;  /* Max. value that can be recorded for
+                                         semaphore adjustment (SEM_UNDO) */
+                     };
+                 The semmsl, semmns, semopm, and semmni settings can be
+                 changed via /proc/sys/kernel/sem; see proc(5) for details.
+       SEM_INFO (Linux-specific)
+                 Return a seminfo structure containing the same information
+                 as for IPC_INFO, except that the following fields are
+                 returned with information about system resources consumed
+                 by semaphores: the semusz field returns the number of sema‐
+                 phore sets that currently exist on the system; and the
+                 semaem field returns the total number of semaphores in all
+                 semaphore sets on the system.
+       SEM_STAT (Linux-specific)
+                 Return a semid_ds structure as for IPC_STAT.  However, the
+                 semid argument is not a semaphore identifier, but instead
+                 an index into the kernel's internal array that maintains
+                 information about all semaphore sets on the system.
+       GETALL    Return semval (i.e., the current value) for all semaphores
+                 of the set into arg.array.  The argument semnum is ignored.
+                 The calling process must have read permission on the sema‐
+                 phore set.
+       GETNCNT   Return the value of semncnt for the semnum-th semaphore of
+                 the set (i.e., the number of processes waiting for an
+                 increase of semval for the semnum-th semaphore of the set).
+                 The calling process must have read permission on the sema‐
+                 phore set.
+       GETPID    Return the value of sempid for the semnum-th semaphore of
+                 the set.  This is the PID of the process that last per‐
+                 formed an operation on that semaphore (but see NOTES).  The
+                 calling process must have read permission on the semaphore
+                 set.
+       GETVAL    Return the value of semval for the semnum-th semaphore of
+                 the set.  The calling process must have read permission on
+                 the semaphore set.
+       GETZCNT   Return the value of semzcnt for the semnum-th semaphore of
+                 the set (i.e., the number of processes waiting for semval
+                 of the semnum-th semaphore of the set to become 0).  The
+                 calling process must have read permission on the semaphore
+                 set.
+       SETALL    Set semval for all semaphores of the set using arg.array,
+                 updating also the sem_ctime member of the semid_ds struc‐
+                 ture associated with the set.  Undo entries (see semop(2))
+                 are cleared for altered semaphores in all processes.  If
+                 the changes to semaphore values would permit blocked
+                 semop(2) calls in other processes to proceed, then those
+                 processes are woken up.  The argument semnum is ignored.
+                 The calling process must have alter (write) permission on
+                 the semaphore set.
+       SETVAL    Set the value of semval to arg.val for the semnum-th sema‐
+                 phore of the set, updating also the sem_ctime member of the
+                 semid_ds structure associated with the set.  Undo entries
+                 are cleared for altered semaphores in all processes.  If
+                 the changes to semaphore values would permit blocked
+                 semop(2) calls in other processes to proceed, then those
+                 processes are woken up.  The calling process must have
+                 alter permission on the semaphore set.

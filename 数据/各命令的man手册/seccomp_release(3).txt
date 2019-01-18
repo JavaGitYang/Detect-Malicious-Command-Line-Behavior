@@ -1,0 +1,5 @@
+
+       Releases the seccomp filter in ctx which was first initialized by
+       seccomp_init(3) or seccomp_reset(3) and frees any memory associated
+       with the given seccomp filter context.  Any seccomp filters loaded
+       into the kernel are not affected.

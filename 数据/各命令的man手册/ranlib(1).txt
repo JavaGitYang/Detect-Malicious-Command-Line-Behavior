@@ -1,0 +1,10 @@
+
+       ranlib generates an index to the contents of an archive and stores it
+       in the archive.  The index lists each symbol defined by a member of
+       an archive that is a relocatable object file.
+       You may use nm -s or nm --print-armap to list this index.
+       An archive with such an index speeds up linking to the library and
+       allows routines in the library to call each other without regard to
+       their placement in the archive.
+       The GNU ranlib program is another form of GNU ar; running ranlib is
+       completely equivalent to executing ar -s.

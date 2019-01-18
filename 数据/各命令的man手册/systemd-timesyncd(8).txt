@@ -1,0 +1,17 @@
+
+       systemd-timesyncd is a system service that may be used to synchronize
+       the local system clock with a remote Network Time Protocol server. It
+       also saves the local time to disk every time the clock has been
+       synchronized and uses this to possibly advance the system realtime
+       clock on subsequent reboots to ensure it monotonically advances even
+       if the system lacks a battery-buffered RTC chip.
+       The systemd-timesyncd service specifically implements only SNTP. This
+       minimalistic service will set the system clock for large offsets or
+       slowly adjust it for smaller deltas. More complex use cases are not
+       covered by systemd-timesyncd.
+       The NTP servers contacted are determined from the global settings in
+       timesyncd.conf(5), the per-link static settings in .network files,
+       and the per-link dynamic settings received over DHCP. See
+       systemd.network(5) for more details.
+       timedatectl(1)'s set-ntp command may be used to enable and start, or
+       disable and stop this service.

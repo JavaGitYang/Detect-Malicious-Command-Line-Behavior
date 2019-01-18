@@ -1,0 +1,6 @@
+
+       The blkrawverify utility can be used to verify data retrieved via
+       blktrace. It will check for valid event formats, forward progressing
+       sequence numbers and time stamps, also does reasonable checks for
+       other potential issues within individual events.
+       Errors found will be tracked in <dev>.verify.out.

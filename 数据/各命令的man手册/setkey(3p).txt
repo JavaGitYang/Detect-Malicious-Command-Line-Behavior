@@ -1,0 +1,13 @@
+
+       The setkey() function provides access to an implementation-defined
+       encoding algorithm. The argument of setkey() is an array of length 64
+       bytes containing only the bytes with numerical value of 0 and 1. If
+       this string is divided into groups of 8, the low-order bit in each
+       group is ignored; this gives a 56-bit key which is used by the
+       algorithm. This is the key that shall be used with the algorithm to
+       encode a string block passed to encrypt().
+       The setkey() function shall not change the setting of errno if
+       successful. An application wishing to check for error situations
+       should set errno to 0 before calling setkey().  If errno is non-zero
+       on return, an error has occurred.
+       The setkey() function need not be thread-safe.

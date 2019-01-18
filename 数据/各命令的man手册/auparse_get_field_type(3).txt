@@ -1,0 +1,4 @@
+
+       auparse_get_field_type returns a value from the auparse_type_t enum
+       that describes the kind of data in the current field of the current
+       record in the current event.

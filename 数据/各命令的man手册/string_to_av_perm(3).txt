@@ -1,0 +1,20 @@
+
+       security_class_to_string() returns a string name for class tclass, or
+       NULL if the class is invalid.  The returned string must not be
+       modified or freed.
+       security_av_perm_to_string() returns a string name for the access
+       vector bit av of class tclass, or NULL if either argument is invalid.
+       The returned string must not be modified or freed.
+       security_av_string() computes a full access vector string
+       representation using tclass and av, which may have multiple bits set.
+       The string is returned in the memory pointed to by result, and should
+       be freed by the caller using free(3).
+       string_to_security_class() returns the class value corresponding to
+       the string name name, or zero if no such class exists.
+       mode_to_security_class() returns the class value corresponding to the
+       specified mode, or zero if no such class exists.
+       string_to_av_perm() returns the access vector bit corresponding to
+       the string name name and security class tclass, or zero if no such
+       value exists.
+       print_access_vector() displays an access vector in human-readable
+       form on the standard output stream.

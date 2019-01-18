@@ -1,0 +1,15 @@
+
+       The basename() function shall take the pathname pointed to by path
+       and return a pointer to the final component of the pathname, deleting
+       any trailing '/' characters.
+       If the string pointed to by path consists entirely of the '/'
+       character, basename() shall return a pointer to the string "/".  If
+       the string pointed to by path is exactly "//", it is implementation-
+       defined whether '/' or "//" is returned.
+       If path is a null pointer or points to an empty string, basename()
+       shall return a pointer to the string ".".
+       The basename() function may modify the string pointed to by path, and
+       may return a pointer to internal storage. The returned pointer might
+       be invalidated or the storage might be overwritten by a subsequent
+       call to basename().
+       The basename() function need not be thread-safe.

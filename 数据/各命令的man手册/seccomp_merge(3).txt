@@ -1,0 +1,9 @@
+
+       The seccomp_merge() function merges the seccomp filter in src with
+       the filter in dst and stores the resulting in the dst filter.  If
+       successful, the src seccomp filter is released and all internal
+       memory associated with the filter is freed; there is no need to call
+       seccomp_release(3) on src and the caller should discard any
+       references to the filter.
+       In order to merge two seccomp filters, both filters must have the
+       same attribute values and no overlapping architectures.

@@ -1,0 +1,2 @@
+
+       Validates the GPG signature created by git commit -S.

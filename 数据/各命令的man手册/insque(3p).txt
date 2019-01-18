@@ -1,0 +1,23 @@
+
+       The insque() and remque() functions shall manipulate queues built
+       from doubly-linked lists.  The queue can be either circular or
+       linear. An application using insque() or remque() shall ensure it
+       defines a structure in which the first two members of the structure
+       are pointers to the same type of structure, and any further members
+       are application-specific. The first member of the structure is a
+       forward pointer to the next entry in the queue. The second member is
+       a backward pointer to the previous entry in the queue.  If the queue
+       is linear, the queue is terminated with null pointers. The names of
+       the structure and of the pointer members are not subject to any
+       special restriction.
+       The insque() function shall insert the element pointed to by element
+       into a queue immediately after the element pointed to by pred.
+       The remque() function shall remove the element pointed to by element
+       from a queue.
+       If the queue is to be used as a linear list, invoking
+       insque(&element, NULL), where element is the initial element of the
+       queue, shall initialize the forward and backward pointers of element
+       to null pointers.
+       If the queue is to be used as a circular list, the application shall
+       ensure it initializes the forward pointer and the backward pointer of
+       the initial element of the queue to the element's own address.

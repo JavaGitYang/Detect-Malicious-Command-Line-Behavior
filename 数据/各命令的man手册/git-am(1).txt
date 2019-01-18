@@ -1,0 +1,3 @@
+
+       Splits mail messages in a mailbox into commit log message, authorship
+       information and patches, and applies them to the current branch.

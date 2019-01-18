@@ -1,0 +1,2 @@
+
+       rmdir() deletes a directory, which must be empty.

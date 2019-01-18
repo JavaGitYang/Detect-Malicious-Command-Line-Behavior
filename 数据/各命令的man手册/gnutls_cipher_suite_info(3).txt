@@ -1,0 +1,5 @@
+
+       Get information about supported cipher suites.  Use the function
+       iteratively to get information about all supported cipher suites.
+       Call with idx=0 to get information about first cipher suite, then
+       idx=1 and so on until the function returns NULL.

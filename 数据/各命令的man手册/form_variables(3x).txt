@@ -1,0 +1,18 @@
+
+       These are building blocks for the form library, defining fields that
+       can be created using set_fieldtype(3X).  Each provides functions for
+       field- and character-validation, according to the given datatype.
+   TYPE_ALNUM
+       This holds alphanumeric data.
+   TYPE_ALPHA
+       This holds alphabetic data.
+   TYPE_ENUM
+       This holds an enumerated type.
+   TYPE_INTEGER
+       This holds a decimal integer.
+   TYPE_IPV4
+       This holds an IPv4 internet address, e.g., "127.0.0.1".
+   TYPE_NUMERIC
+       This holds a decimal number, with optional sign and decimal point.
+   TYPE_REGEXP
+       This holds a regular expression.

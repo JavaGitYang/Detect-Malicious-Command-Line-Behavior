@@ -1,0 +1,8 @@
+
+       This function will copy the name of the Certificate request subject
+       to the provided buffer.  The name will be in the form
+       "C=xxxx,O=yyyy,CN=zzzz" as described in RFC 2253. The output string
+        buf will be ASCII or UTF-8 encoded, depending on the certificate
+       data.
+       This function does not output a fully RFC4514 compliant string, if
+       that is required see gnutls_x509_crq_get_dn3().

@@ -1,0 +1,5 @@
+
+       This is an extension to the curses library.  It permits an
+       application to disable specific keycodes, rather than use the keypad
+       function to disable all keycodes.  Keys that have been disabled can
+       be re-enabled.

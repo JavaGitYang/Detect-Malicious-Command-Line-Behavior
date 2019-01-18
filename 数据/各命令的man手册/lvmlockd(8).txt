@@ -1,0 +1,10 @@
+
+       LVM commands use lvmlockd to coordinate access to shared storage.
+       When LVM is used on devices shared by multiple hosts, locks will:
+       · coordinate reading and writing of LVM metadata
+       · validate caching of LVM metadata
+       · prevent conflicting activation of logical volumes
+       lvmlockd uses an external lock manager to perform basic locking.
+       Lock manager (lock type) options are:
+       · sanlock: places locks on disk within LVM storage.
+       · dlm: uses network communication and a cluster manager.

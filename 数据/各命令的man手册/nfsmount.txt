@@ -1,0 +1,20 @@
+
+       The configuration file is made up of multiple sections followed by
+       variables associated with that section.  A section is defined by a
+       string enclosed by [ and ] branches.  Variables are assignment
+       statements that assign values to particular variables using the =
+       operator, as in Proto=Tcp.  The variables that can be assigned are
+       exactly the set of NFS specific mount options listed in nfs(5).
+       Sections are broken up into three basic categories: Global options,
+       Server options and Mount Point options.
+       [ NFSMount_Global_Options ] - This statically named section defines
+              all of the global mount options that can be applied to every
+              NFS mount.
+       [ Server “Server_Name” ] - This section defines all the mount options
+              that should be used on mounts to a particular NFS server. The
+              “Server_Name” strings needs to be surrounded by '“' and be an
+              exact match of the server name used in the mount command.
+       [ MountPoint “Mount_Point” ] - This section defines all the mount
+              options that should be used on a particular mount point.  The
+              “Mount_Point” string needs to be surrounded by '“' and be an
+              exact match of the mount point used in the mount command.

@@ -1,0 +1,10 @@
+
+       This function will get the X.509 TLS features extension structure
+       from the certificate request.  The returned structure needs to be
+       freed using gnutls_x509_tlsfeatures_deinit().
+       When the  flags is set to GNUTLS_EXT_FLAG_APPEND, then if the
+       features structure is empty this function will behave identically as
+       if the flag was not set. Otherwise if there are elements in the
+       features structure then they will be merged with.
+       Note that  features must be initialized prior to calling this
+       function.

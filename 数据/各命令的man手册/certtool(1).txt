@@ -1,0 +1,7 @@
+
+       Tool to parse and generate X.509 certificates, requests and private
+       keys.  It can be used interactively or non interactively by
+       specifying the template command line option.
+       The tool accepts files or supported URIs via the --infile option. In
+       case PIN is required for URI access you can provide it using the
+       environment variables GNUTLS_PIN and GNUTLS_SO_PIN.

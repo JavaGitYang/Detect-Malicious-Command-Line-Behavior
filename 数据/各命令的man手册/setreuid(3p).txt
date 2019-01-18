@@ -1,0 +1,16 @@
+
+       The setreuid() function shall set the real and effective user IDs of
+       the current process to the values specified by the ruid and euid
+       arguments. If ruid or euid is −1, the corresponding effective or real
+       user ID of the current process shall be left unchanged.
+       A process with appropriate privileges can set either ID to any value.
+       An unprivileged process can only set the effective user ID if the
+       euid argument is equal to either the real, effective, or saved user
+       ID of the process.
+       If the real user ID is being set (ruid is not −1), or the effective
+       user ID is being set to a value not equal to the real user ID, then
+       the saved set-user-ID of the current process shall be set equal to
+       the new effective user ID.
+       It is unspecified whether a process without appropriate privileges is
+       permitted to change the real user ID to match the current effective
+       user ID or saved set-user-ID of the process.

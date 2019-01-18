@@ -1,0 +1,19 @@
+
+       This function returns the current time as seconds and milliseconds
+       since the Epoch, 1970-01-01 00:00:00 +0000 (UTC).  The time is
+       returned in tp, which is declared as follows:
+           struct timeb {
+               time_t         time;
+               unsigned short millitm;
+               short          timezone;
+               short          dstflag;
+           };
+       Here time is the number of seconds since the Epoch, and millitm is
+       the number of milliseconds since time seconds since the Epoch.  The
+       timezone field is the local timezone measured in minutes of time west
+       of Greenwich (with a negative value indicating minutes east of Green‐
+       wich).  The dstflag field is a flag that, if nonzero, indicates that
+       Daylight Saving time applies locally during the appropriate part of
+       the year.
+       POSIX.1-2001 says that the contents of the timezone and dstflag
+       fields are unspecified; avoid relying on them.

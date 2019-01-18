@@ -1,0 +1,31 @@
+
+       General note: Most programs should use mutexes instead of spin locks.
+       Spin locks are primarily useful in conjunction with real-time
+       scheduling policies.  See NOTES.
+       The pthread_spin_init() function allocates any resources required for
+       the use of the spin lock referred to by lock and initializes the lock
+       to be in the unlocked state.  The pshared argument must have one of
+       the following values:
+       PTHREAD_PROCESS_PRIVATE
+              The spin lock is to be operated on only by threads in the same
+              process as the thread that calls pthread_spin_init().
+              (Attempting to share the spin lock between processes results
+              in undefined behavior.)
+       PTHREAD_PROCESS_SHARED
+              The spin lock may be operated on by any thread in any process
+              that has access to the memory containing the lock (i.e., the
+              lock may be in a shared memory object that is shared among
+              multiple processes).
+       Calling pthread_spin_init() on a spin lock that has already been
+       initialized results in undefined behavior.
+       The pthread_spin_destroy() function destroys a previously initialized
+       spin lock, freeing any resources that were allocated for that lock.
+       Destroying a spin lock that has not been previously been initialized
+       or destroying a spin lock while another thread holds the lock results
+       in undefined behavior.
+       Once a spin lock has been destroyed, performing any operation on the
+       lock other than once more initializing it with pthread_spin_init()
+       results in undefined behavior.
+       The result of performing operations such as pthread_spin_lock(3),
+       pthread_spin_unlock(3), and pthread_spin_destroy(3) on copies of the
+       object referred to by lock is undefined.

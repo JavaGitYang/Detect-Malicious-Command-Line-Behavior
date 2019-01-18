@@ -1,0 +1,15 @@
+
+       The <sys/utsname.h> header shall define the structure utsname which
+       shall include at least the following members:
+           char  sysname[]  Name of this implementation of the operating system.
+           char  nodename[] Name of this node within the communications
+                            network to which this node is attached, if any.
+           char  release[]  Current release level of this implementation.
+           char  version[]  Current version level of this release.
+           char  machine[]  Name of the hardware type on which the system is running.
+       The character arrays are of unspecified size, but the data stored in
+       them shall be terminated by a null byte.
+       The following shall be declared as a function and may also be defined
+       as a macro:
+           int uname(struct utsname *);
+       The following sections are informative.

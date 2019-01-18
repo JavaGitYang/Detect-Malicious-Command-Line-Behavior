@@ -1,0 +1,3 @@
+
+       reposync is used to synchronize a remote yum repository to a local
+       directory, using yum to retrieve the packages.

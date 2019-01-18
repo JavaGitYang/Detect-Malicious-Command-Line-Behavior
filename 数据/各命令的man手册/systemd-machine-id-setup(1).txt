@@ -1,0 +1,24 @@
+
+       systemd-machine-id-setup may be used by system installer tools to
+       initialize the machine ID stored in /etc/machine-id at install time,
+       with a provisioned or randomly generated ID. See machine-id(5) for
+       more information about this file.
+       If the tool is invoked without the --commit switch, /etc/machine-id
+       is initialized with a valid, new machined ID if it is missing or
+       empty. The new machine ID will be acquired in the following fashion:
+        1. If a valid D-Bus machine ID is already configured for the system,
+           the D-Bus machine ID is copied and used to initialize the machine
+           ID in /etc/machine-id.
+        2. If run inside a KVM virtual machine and a UUID is configured (via
+           the -uuid option), this UUID is used to initialize the machine
+           ID. The caller must ensure that the UUID passed is sufficiently
+           unique and is different for every booted instance of the VM.
+        3. Similarly, if run inside a Linux container environment and a UUID
+           is configured for the container, this is used to initialize the
+           machine ID. For details, see the documentation of the Container
+           Interface[1].
+        4. Otherwise, a new ID is randomly generated.
+       The --commit switch may be used to commit a transient machined ID to
+       disk, making it persistent. For details, see below.
+       Use systemd-firstboot(1) to initialize the machine ID on mounted (but
+       not booted) system images.

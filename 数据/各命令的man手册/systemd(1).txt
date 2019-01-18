@@ -1,0 +1,14 @@
+
+       systemd is a system and service manager for Linux operating systems.
+       When run as first process on boot (as PID 1), it acts as init system
+       that brings up and maintains userspace services.
+       For compatibility with SysV, if systemd is called as init and a PID
+       that is not 1, it will execute telinit and pass all command line
+       arguments unmodified. That means init and telinit are mostly
+       equivalent when invoked from normal login sessions. See telinit(8)
+       for more information.
+       When run as a system instance, systemd interprets the configuration
+       file system.conf and the files in system.conf.d directories; when run
+       as a user instance, systemd interprets the configuration file
+       user.conf and the files in user.conf.d directories. See
+       systemd-system.conf(5) for more information.

@@ -1,0 +1,3 @@
+
+       Converts a textual object identifier typically from PKCS5 values to a
+       gnutls_mac_algorithm_t value.

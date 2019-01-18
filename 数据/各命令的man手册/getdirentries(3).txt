@@ -1,0 +1,4 @@
+
+       Read directory entries from the directory specified by fd into buf.
+       At most nbytes are read.  Reading starts at offset *basep, and *basep
+       is updated with the new position after reading.

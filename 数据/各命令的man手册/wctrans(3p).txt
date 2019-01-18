@@ -1,0 +1,26 @@
+
+       For wctrans(): The functionality described on this reference page is
+       aligned with the ISO C standard. Any conflict between the
+       requirements described here and the ISO C standard is unintentional.
+       This volume of POSIX.1‐2008 defers to the ISO C standard.
+       The wctrans() and wctrans_l() functions are defined for valid
+       character mapping names identified in the current locale. The
+       charclass is a string identifying a generic character mapping name
+       for which codeset-specific information is required. The following
+       character mapping names are defined in all locales: tolower and
+       toupper.
+       These functions shall return a value of type wctrans_t, which can be
+       used as the second argument to subsequent calls of towctrans() and
+       towctrans_l().
+       The wctrans() and wctrans_l() functions shall determine values of
+       wctrans_t according to the rules of the coded character set defined
+       by character mapping information in the current locale or in the
+       locale represented by locale, respectively (category LC_CTYPE).
+       The values returned by wctrans() shall be valid until a call to
+       setlocale() that modifies the category LC_CTYPE.
+       The values returned by wctrans_l() shall be valid only in calls to
+       towctrans_l() with a locale represented by locale with the same
+       LC_CTYPE category value.
+       The behavior is undefined if the locale argument to wctrans_l() is
+       the special locale object LC_GLOBAL_LOCALE or is not a valid locale
+       object handle.

@@ -1,0 +1,14 @@
+
+       The pthread_setattr_default_np() function sets the default attributes
+       used for creation of a new thread—that is, the attributes that are
+       used when pthread_create(3) is called with a second argument that is
+       NULL.  The default attributes are set using the attributes supplied
+       in *attr, a previously initialized thread attributes object.  Note
+       the following details about the supplied attributes object:
+       *  The attribute settings in the object must be valid.
+       *  The stack address attribute must not be set in the object.
+       *  Setting the stack size attribute to zero means leave the default
+          stack size unchanged.
+       The pthread_getattr_default_np() function initializes the thread
+       attributes object referred to by attr so that it contains the default
+       attributes used for thread creation.

@@ -1,0 +1,4 @@
+
+       keyctl_clear() clears the contents of a keyring.
+       The caller must have write permission on a keyring to be able clear
+       it.

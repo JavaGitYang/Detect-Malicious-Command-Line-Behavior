@@ -1,0 +1,5 @@
+
+       This function will check the provided name against the constraints in
+        nc using the RFC5280 rules. Currently this function is limited to
+       DNS names, emails and IP addresses (of type GNUTLS_SAN_DNSNAME,
+       GNUTLS_SAN_RFC822NAME and GNUTLS_SAN_IPADDRESS).

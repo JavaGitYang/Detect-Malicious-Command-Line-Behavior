@@ -1,0 +1,5 @@
+
+       This function will set the sequence number in the current record
+       state.  This function is useful if sending and receiving are
+       offloaded from gnutls. That is, if gnutls_record_get_state() was
+       used.

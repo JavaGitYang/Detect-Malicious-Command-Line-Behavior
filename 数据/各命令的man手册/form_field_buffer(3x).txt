@@ -1,0 +1,31 @@
+
+       The function set_field_buffer sets the numbered buffer of the given
+       field to contain a given string:
+          ·   Buffer 0 is the displayed value of the field.
+          ·   Other numbered buffers may be allocated by applications
+              through the nbuf argument of (see form_field_new(3X)) but are
+              not manipulated by the forms library.
+       The function field_buffer returns a pointer to the contents of the
+       given numbered buffer:
+          ·   The buffer contents always have the same length, and are
+              padded with trailing spaces as needed to ensure this length is
+              the same.
+          ·   The buffer may contain leading spaces, depending on how it was
+              set.
+          ·   The buffer contents are set with set_field_buffer, or as a
+              side effect of any editing operations on the corresponding
+              field.
+          ·   Editing operations are based on the window which displays the
+              field, rather than a string.  The window contains only
+              printable characters, and is filled with blanks.  If you want
+              the raw data, you must write your own routine that copies the
+              value out of the buffer and removes the leading and trailing
+              spaces.
+          ·   Because editing operations change the content of the buffer to
+              correspond to the window, you should not rely on using buffers
+              for long-term storage of form data.
+       The function set_field_status sets the associated status flag of
+       field; field_status gets the current value.  The status flag is set
+       to a nonzero value whenever the field changes.
+       The function set_max_field sets the maximum size for a dynamic field.
+       An argument of 0 turns off any maximum size threshold for that field.

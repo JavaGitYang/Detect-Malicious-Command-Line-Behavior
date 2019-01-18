@@ -1,0 +1,11 @@
+
+       This function will extract the X.509 certificates found in the Basic
+       OCSP Response.  The  certs output variable will hold a newly
+       allocated zero-terminated array with X.509 certificates.
+       Every certificate in the array needs to be de-allocated with
+       gnutls_x509_crt_deinit() and the array itself must be freed using
+       gnutls_free().
+       Both the  certs and  ncerts variables may be NULL.  Then the function
+       will work as normal but will not return the NULL:d information.  This
+       can be used to get the number of certificates only, or to just get
+       the certificate array without its size.

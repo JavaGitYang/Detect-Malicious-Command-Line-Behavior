@@ -1,0 +1,9 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The clock() function shall return the implementation's best
+       approximation to the processor time used by the process since the
+       beginning of an implementation-defined era related only to the
+       process invocation.

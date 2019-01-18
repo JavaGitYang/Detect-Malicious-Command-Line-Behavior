@@ -1,0 +1,14 @@
+
+       The pam_chauthtok function is used to change the authentication token
+       for a given user (as indicated by the state associated with the
+       handle pamh).
+       The pamh argument is an authentication handle obtained by a prior
+       call to pam_start(). The flags argument is the binary or of zero or
+       more of the following values:
+       PAM_SILENT
+           Do not emit any messages.
+       PAM_CHANGE_EXPIRED_AUTHTOK
+           This argument indicates to the modules that the user's
+           authentication token (password) should only be changed if it has
+           expired. If this argument is not passed, the application requires
+           that all authentication tokens are to be changed.

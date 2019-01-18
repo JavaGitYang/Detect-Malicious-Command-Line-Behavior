@@ -1,0 +1,14 @@
+
+       The seccomp_syscall_resolve_name(),
+       seccomp_syscall_resolve_name_arch(), and
+       seccomp_syscall_resolve_name_rewrite() functions resolve the commonly
+       used syscall name to the syscall number used by the kernel and the
+       rest of the libseccomp API, with
+       seccomp_syscall_resolve_name_rewrite() rewriting the syscall number
+       for architectures that modify the syscall.  Syscall rewriting
+       typically happens in case of a multiplexed syscall, like
+       socketcall(2) or ipc(2) on x86.  seccomp_syscall_resolve_num_arch()
+       function resolves the syscall number used by the kernel to the
+       commonly used syscall name.
+       The caller is responsible for freeing the returned string from
+       seccomp_syscall_resolve_num_arch().

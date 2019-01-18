@@ -1,0 +1,3 @@
+
+       selinuxexeccon reports the SELinux process context for the specified
+       command from the specified context or the current context.

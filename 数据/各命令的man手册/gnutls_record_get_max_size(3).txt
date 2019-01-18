@@ -1,0 +1,3 @@
+
+       Get the record size.  The maximum record size is negotiated by the
+       client after the first handshake message.

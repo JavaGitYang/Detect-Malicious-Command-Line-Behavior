@@ -1,0 +1,26 @@
+
+       /usr/local/etc/lxc/lxc-usernet controls the limits which the program
+       lxc-user-nic places on network interfaces which an unprivileged user
+       may create.
+   CONFIGURATION
+       This file consists of multiple entries, one per line, of the form:
+       user type bridge number
+       or
+       @group type bridge number
+       Where
+       user   is the username to whom this entry applies.
+       @group is the groupname to which this entry applies.
+       type   is the type of network interface being allowed. Only veth is
+              currently supported.
+       bridge is the bridge to which the network interfaces may be attached,
+              for instance lxcbr0.
+       number is the number or quota of network interfaces of the given type
+              which the given user or group may attach to the given bridge,
+              for instance 2.
+       Since a user can be specified both by username as well as one or more
+       usergroups, it is possible that several configuration lines enable
+       that user to create network interfaces. In such cases, any interfaces
+       create are counted towards the quotas of the user or group in the
+       order in which they appear in the file. If the quota of one line is
+       full, the rest will be parsed until one is found or the end of the
+       file.

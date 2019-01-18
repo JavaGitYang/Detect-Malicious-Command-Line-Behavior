@@ -1,0 +1,45 @@
+
+       The msync() function shall write all modified data to permanent
+       storage locations, if any, in those whole pages containing any part
+       of the address space of the process starting at address addr and
+       continuing for len bytes. If no such storage exists, msync() need not
+       have any effect. If requested, the msync() function shall then
+       invalidate cached copies of data.
+       The implementation may require that addr be a multiple of the page
+       size as returned by sysconf().
+       For mappings to files, the msync() function shall ensure that all
+       write operations are completed as defined for synchronized I/O data
+       integrity completion. It is unspecified whether the implementation
+       also writes out other file attributes. When the msync() function is
+       called on MAP_PRIVATE mappings, any modified data shall not be
+       written to the underlying object and shall not cause such data to be
+       made visible to other processes. It is unspecified whether data in
+       MAP_PRIVATE mappings has any permanent storage locations.  The effect
+       of msync() on a shared memory object or a typed memory object is
+       unspecified.  The behavior of this function is unspecified if the
+       mapping was not established by a call to mmap().
+       The flags argument is constructed from the bitwise-inclusive OR of
+       one or more of the following flags defined in the <sys/mman.h>
+       header:
+                ┌──────────────────┬──────────────────────────────┐
+                │Symbolic Constant │         Description          │
+                ├──────────────────┼──────────────────────────────┤
+                │MS_ASYNC          │ Perform asynchronous writes. │
+                │MS_SYNC           │ Perform synchronous writes.  │
+                │MS_INVALIDATE     │ Invalidate cached data.      │
+                └──────────────────┴──────────────────────────────┘
+       When MS_ASYNC is specified, msync() shall return immediately once all
+       the write operations are initiated or queued for servicing; when
+       MS_SYNC is specified, msync() shall not return until all write
+       operations are completed as defined for synchronized I/O data
+       integrity completion. Either MS_ASYNC or MS_SYNC shall be specified,
+       but not both.
+       When MS_INVALIDATE is specified, msync() shall invalidate all cached
+       copies of mapped data that are inconsistent with the permanent
+       storage locations such that subsequent references shall obtain data
+       that was consistent with the permanent storage locations sometime
+       between the call to msync() and the first subsequent memory reference
+       to the data.
+       If msync() causes any write to a file, the file's last data
+       modification and last file status change timestamps shall be marked
+       for update.

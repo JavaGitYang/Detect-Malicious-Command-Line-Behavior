@@ -1,0 +1,7 @@
+
+       Slapauth is used to check the behavior of the slapd in mapping
+       identities for authentication and authorization purposes, as
+       specified in slapd.conf(5).  It opens the slapd.conf(5) configuration
+       file or the slapd-config(5) backend, reads in the
+       authz-policy/olcAuthzPolicy and authz-regexp/olcAuthzRegexp
+       directives, and then parses the ID list given on the command-line.

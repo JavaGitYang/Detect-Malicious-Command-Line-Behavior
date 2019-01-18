@@ -1,0 +1,23 @@
+
+       ld combines a number of object and archive files, relocates their
+       data and ties up symbol references. Usually the last step in
+       compiling a program is to run ld.
+       ld accepts Linker Command Language files written in a superset of
+       AT&T's Link Editor Command Language syntax, to provide explicit and
+       total control over the linking process.
+       This man page does not describe the command language; see the ld
+       entry in "info" for full details on the command language and on other
+       aspects of the GNU linker.
+       This version of ld uses the general purpose BFD libraries to operate
+       on object files. This allows ld to read, combine, and write object
+       files in many different formats---for example, COFF or "a.out".
+       Different formats may be linked together to produce any available
+       kind of object file.
+       Aside from its flexibility, the GNU linker is more helpful than other
+       linkers in providing diagnostic information.  Many linkers abandon
+       execution immediately upon encountering an error; whenever possible,
+       ld continues executing, allowing you to identify other errors (or, in
+       some cases, to get an output file in spite of the error).
+       The GNU linker ld is meant to cover a broad range of situations, and
+       to be as compatible as possible with other linkers.  As a result, you
+       have many choices to control its behavior.

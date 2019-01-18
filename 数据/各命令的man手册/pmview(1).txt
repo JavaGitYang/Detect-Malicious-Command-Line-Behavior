@@ -1,0 +1,37 @@
+
+       pmview is a generalized 3D performance metrics visualization tool for
+       the Performance Co-Pilot (PCP(1)).
+       pmview is the base utility behind performance metrics visualization
+       tools such as dkvis(1), mpvis(1), osvis(1) and nfsvis(1), It is also
+       used by a range of related tools that are specific to optional
+       Performance Domain Agents (PMDA) and/or PCP add-on products.  pmview
+       may also be used to construct customized 3D performance displays.
+       pmview displays performance metrics as colored blocks and cylinders
+       arranged on monochrome base planes. Each object may represent a
+       single performance metric, or a stack of several performance metrics.
+       Since the objects are modulated by the value of the metric they
+       represent, only numerical metrics may be visualized.  Objects
+       representing a single metric may be modulated in terms of height,
+       color, or height and color.  Objects in a stack may only be height
+       modulated, but the stack can be normalized to the maximum height.
+       Labels may be added to the scene to help identify groups of metrics.
+       A configuration file (as specified by the -c option, or read from
+       standard input) is used to specify the position, color, maximum value
+       and labels of metrics and metric instances in the scene.  The maximum
+       value acts as a normalization factor and is used to scale the object
+       height and/or color in proportion to the metric values.  Metric
+       values which exceed the associated maximum value are displayed as
+       solid white objects.  If a metric is unavailable, the object will
+       have minimum height and will be colored grey.
+       Normally, the tool operates in ``live'' mode where performance
+       metrics are fetched in real-time.  The user can view metrics from any
+       host running pmcd(1).  pmview can also replay archives of performance
+       metrics (see pmlogger(1)) and allow the user to interactively control
+       the current replay time and rate using the VCR paradigm.  This is
+       particularly useful for retrospective comparisons and for post-mortem
+       analysis of performance problems where a remote system is not
+       accessible or a performance analyst is not available on-site.
+       All metrics in the Performance Metrics Name Space (PMNS) with numeric
+       value semantics from any number of hosts or archives may be
+       visualized.  pmview examines the semantics of the metrics and where
+       sensible, converts metric values to a rate before scaling.

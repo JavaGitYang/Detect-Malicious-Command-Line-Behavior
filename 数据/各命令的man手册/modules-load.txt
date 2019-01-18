@@ -1,0 +1,9 @@
+
+       systemd-modules-load.service(8) reads files from the above
+       directories which contain kernel modules to load during boot in a
+       static list. Each configuration file is named in the style of
+       /etc/modules-load.d/program.conf. Note that it is usually a better
+       idea to rely on the automatic module loading by PCI IDs, USB IDs, DMI
+       IDs or similar triggers encoded in the kernel modules themselves
+       instead of static configuration like this. In fact, most modern
+       kernel modules are prepared for automatic loading already.

@@ -1,0 +1,4 @@
+
+       auparse_find_field_next finds the next occurrence of the previously
+       stored field name. It will scan until it reaches the last record of
+       the current event.

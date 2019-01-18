@@ -1,0 +1,24 @@
+
+       The variables whose names are specified shall be given the readonly
+       attribute. The values of variables with the readonly attribute cannot
+       be changed by subsequent assignment, nor can those variables be unset
+       by the unset utility. If the name of a variable is followed by =word,
+       then the value of that variable shall be set to word.
+       The readonly special built-in shall support the Base Definitions
+       volume of POSIX.1‐2008, Section 12.2, Utility Syntax Guidelines.
+       When −p is specified, readonly writes to the standard output the
+       names and values of all read-only variables, in the following format:
+           "readonly %s=%s\n", <name>, <value>
+       if name is set, and
+           "readonly %s\n", <name>
+       if name is unset.
+       The shell shall format the output, including the proper use of
+       quoting, so that it is suitable for reinput to the shell as commands
+       that achieve the same value and readonly attribute-setting results in
+       a shell execution environment in which:
+        1. Variables with values at the time they were output do not have
+           the readonly attribute set.
+        2. Variables that were unset at the time they were output do not
+           have a value at the time at which the saved output is reinput to
+           the shell.
+       When no arguments are given, the results are unspecified.

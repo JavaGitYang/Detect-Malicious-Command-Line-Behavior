@@ -1,0 +1,11 @@
+
+       The sem_getvalue() function shall update the location referenced by
+       the sval argument to have the value of the semaphore referenced by
+       sem without affecting the state of the semaphore. The updated value
+       represents an actual semaphore value that occurred at some
+       unspecified time during the call, but it need not be the actual value
+       of the semaphore when it is returned to the calling process.
+       If sem is locked, then the object to which sval points shall either
+       be set to zero or to a negative number whose absolute value
+       represents the number of processes waiting for the semaphore at some
+       unspecified time during the call.

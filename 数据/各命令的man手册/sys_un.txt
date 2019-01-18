@@ -1,0 +1,11 @@
+
+       The <sys/un.h> header shall define the sockaddr_un structure, which
+       shall include at least the following members:
+           sa_family_t  sun_family  Address family.
+           char         sun_path[]  Socket pathname.
+       The sockaddr_un structure is used to store addresses for UNIX domain
+       sockets.  Pointers to this type shall be cast by applications to
+       struct sockaddr * for use with socket functions.
+       The <sys/un.h> header shall define the sa_family_t type as described
+       in <sys/socket.h>.
+       The following sections are informative.

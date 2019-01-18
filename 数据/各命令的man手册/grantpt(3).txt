@@ -1,0 +1,8 @@
+
+       The grantpt() function changes the mode and owner of the slave
+       pseudoterminal device corresponding to the master pseudoterminal
+       referred to by fd.  The user ID of the slave is set to the real UID
+       of the calling process.  The group ID is set to an unspecified value
+       (e.g., tty).  The mode of the slave is set to 0620 (crw--w----).
+       The behavior of grantpt() is unspecified if a signal handler is
+       installed to catch SIGCHLD signals.

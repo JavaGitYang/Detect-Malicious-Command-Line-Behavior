@@ -1,0 +1,24 @@
+
+       The sigqueue() function shall cause the signal specified by signo to
+       be sent with the value specified by value to the process specified by
+       pid.  If signo is zero (the null signal), error checking is performed
+       but no signal is actually sent. The null signal can be used to check
+       the validity of pid.
+       The conditions required for a process to have permission to queue a
+       signal to another process are the same as for the kill() function.
+       The sigqueue() function shall return immediately. If SA_SIGINFO is
+       set for signo and if the resources were available to queue the
+       signal, the signal shall be queued and sent to the receiving process.
+       If SA_SIGINFO is not set for signo, then signo shall be sent at least
+       once to the receiving process; it is unspecified whether value shall
+       be sent to the receiving process as a result of this call.
+       If the value of pid causes signo to be generated for the sending
+       process, and if signo is not blocked for the calling thread and if no
+       other thread has signo unblocked or is waiting in a sigwait()
+       function for signo, either signo or at least the pending, unblocked
+       signal shall be delivered to the calling thread before the sigqueue()
+       function returns. Should any multiple pending signals in the range
+       SIGRTMIN to SIGRTMAX be selected for delivery, it shall be the lowest
+       numbered one.  The selection order between realtime and non-realtime
+       signals, or between multiple pending non-realtime signals, is
+       unspecified.

@@ -1,0 +1,6 @@
+
+       The stap-report executable collects system information that is useful
+       for debugging systemtap bugs. It is a good idea to include such a
+       report in bug reports especially if you send them directly to the
+       upstream. stap-report can be run either as a normal user or as root.
+       The report will be more complete if stap-report is run as root.

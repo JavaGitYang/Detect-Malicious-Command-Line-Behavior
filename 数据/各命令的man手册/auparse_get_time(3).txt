@@ -1,0 +1,3 @@
+
+       auparse_get_time will access just the time portion of the timestamp
+       data structure for the current event.

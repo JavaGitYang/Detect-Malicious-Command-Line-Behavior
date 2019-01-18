@@ -1,0 +1,4 @@
+
+       These functions return the hyperbolic tangent of x, which is defined
+       mathematically as:
+           tanh(x) = sinh(x) / cosh(x)

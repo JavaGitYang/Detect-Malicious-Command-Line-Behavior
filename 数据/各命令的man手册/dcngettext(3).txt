@@ -1,0 +1,16 @@
+
+       The ngettext, dngettext and dcngettext functions attempt to translate
+       a text string into the user's native language, by looking up the
+       appropriate plural form of the translation in a message catalog.
+       Plural forms are grammatical variants depending on the a number. Some
+       languages have two forms, called singular and plural. Other languages
+       have three forms, called singular, dual and plural. There are also
+       languages with four forms.
+       The ngettext, dngettext and dcngettext functions work like the
+       gettext, dgettext and dcgettext functions, respectively.
+       Additionally, they choose the appropriate plural form, which depends
+       on the number n and the language of the message catalog where the
+       translation was found.
+       In the "C" locale, or if none of the used catalogs contain a
+       translation for msgid, the ngettext, dngettext and dcngettext
+       functions return msgid if n == 1, or msgid_plural if n != 1.

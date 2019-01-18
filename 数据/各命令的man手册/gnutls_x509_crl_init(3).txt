@@ -1,0 +1,6 @@
+
+       This function will initialize a CRL structure. CRL stands for
+       Certificate Revocation List. A revocation list usually contains lists
+       of certificate serial numbers that have been revoked by an Authority.
+       The revocation lists are always signed with the authority's private
+       key.

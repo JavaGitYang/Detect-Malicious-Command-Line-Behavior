@@ -1,0 +1,3 @@
+
+       This function will deinitialize any allocated value in the provided
+       gnutls_pkcs7_signature_info_st.

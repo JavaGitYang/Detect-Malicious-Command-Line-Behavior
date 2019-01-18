@@ -1,0 +1,5 @@
+
+       These functions shall convert 16-bit and 32-bit quantities between
+       network byte order and host byte order.
+       On some implementations, these functions are defined as macros.
+       The uint32_t and uint16_t types are defined in <inttypes.h>.

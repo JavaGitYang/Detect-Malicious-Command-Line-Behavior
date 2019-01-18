@@ -1,0 +1,5 @@
+
+       This function will return the information from a proxy certificate
+       extension. It reads the ProxyCertInfo X.509 extension
+       (1.3.6.1.5.5.7.1.14).  The  policyLanguage and  policy values must be
+       deinitialized using gnutls_free() after use.

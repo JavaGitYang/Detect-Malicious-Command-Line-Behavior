@@ -1,0 +1,4 @@
+
+       dh_installexamples is a debhelper program that is responsible for
+       installing examples into usr/share/doc/package/examples in package
+       build directories.

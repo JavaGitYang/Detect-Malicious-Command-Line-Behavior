@@ -1,0 +1,5 @@
+
+       The pldd command displays a list of the dynamic shared objects that
+       are linked into the process with the specified process ID.  The list
+       includes the libraries that have been dynamically loaded using
+       dlopen(3).

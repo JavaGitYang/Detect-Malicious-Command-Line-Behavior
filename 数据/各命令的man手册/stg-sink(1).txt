@@ -1,0 +1,13 @@
+
+       This is the opposite operation of stg-float(1): move the specified
+       patches down the stack. It is for example useful to group stable
+       patches near the bottom of the stack, where they are less likely to
+       be impacted by the push of another patch, and from where they can be
+       more easily committed or pushed.
+       If no patch is specified on command-line, the current patch gets
+       sunk. By default patches are sunk to the bottom of the stack, but the
+       --to option allows one to place them under any applied patch.
+       Sinking internally involves popping all patches (or all patches
+       including <target patch>), then pushing the patches to sink, and then
+       (unless --nopush is also given) pushing back into place the
+       formerly-applied patches.

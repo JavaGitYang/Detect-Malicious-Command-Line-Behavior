@@ -1,0 +1,7 @@
+
+       The groupmems command allows a user to administer his/her own group
+       membership list without the requirement of superuser privileges. The
+       groupmems utility is for systems that configure its users to be in
+       their own name sake primary group (i.e., guest / guest).
+       Only the superuser, as administrator, can use groupmems to alter the
+       memberships of other groups.

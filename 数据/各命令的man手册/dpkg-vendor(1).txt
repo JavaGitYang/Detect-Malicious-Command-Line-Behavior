@@ -1,0 +1,4 @@
+
+       dpkg-vendor is a tool to query information about vendors listed in
+       /usr/local/etc/dpkg/origins. /usr/local/etc/dpkg/origins/default
+       contains information about the current vendor.

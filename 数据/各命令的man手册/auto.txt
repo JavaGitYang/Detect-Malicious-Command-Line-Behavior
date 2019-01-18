@@ -1,0 +1,29 @@
+
+       The auto.master map is consulted to set up automount managed mount
+       points when the autofs(8) script is invoked or the automount(8) pro‐
+       gram is run. Each line describes a mount point and refers to an aut‐
+       ofs map describing file systems to be mounted under the mount point.
+       The default location of the master map is @mapdir@/auto.master but an
+       alternate name may be given on the command line when running the au‐
+       tomounter and the default master map may changed by setting the
+       MASTER_MAP_NAME configuration variable in @confdir@/autofs.  If the
+       master map name has no path then the system Name Service Switch con‐
+       figuration will be consulted and each of the sources searched in line
+       with the rules given in the Name Service Switch configuration.
+       Access to mounts in maps is governed by a key.
+       For direct maps the mount point is always specified as:
+       /-
+       and the key used within the direct map is the full path to the mount
+       point. The direct map may have multiple entries in the master map.
+       For indirect maps access is by using the path scheme:
+       /mount-point/key
+       where mount-point is one of the entries listed in the master map. The
+       key is a single directory component and is matched against entries in
+       the map given in the entry (See autofs(5)).
+       Additionally, a map may be included from its source as if it were it‐
+       self present in the master map by including a line of the form:
+       +[maptype[,format]:]map [options]
+       and automount(8) will process the map according to the specification
+       described below for map entries. Indirect map entries must be unique
+       in the master map so second and subsequent entries for an indirect
+       mount point are ignored by automount(8).

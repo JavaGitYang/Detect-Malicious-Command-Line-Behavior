@@ -1,0 +1,17 @@
+
+       selabel_open() is used to initialize a labeling handle to be used for
+       lookup operations.  The backend argument specifies which backend is
+       to be opened; the list of current backends appears in BACKENDS below.
+       The options argument should be NULL or a pointer to an array of
+       selinux_opt structures of length nopt:
+              struct selinux_opt {
+                  int         type;
+                  const char  *value;
+              };
+       The available option types are described in GLOBAL OPTIONS below as
+       well as in the documentation for each individual backend.  The return
+       value on success is a non-NULL value for use in subsequent label
+       operations.
+       selabel_close() terminates use of a handle, freeing any internal
+       resources associated with it.  After this call has been made, the
+       handle must not be used again.

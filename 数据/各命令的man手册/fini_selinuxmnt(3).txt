@@ -1,0 +1,6 @@
+
+       init_selinuxmnt() initializes the global variable selinux_mnt to the
+       selinuxfs mountpoint.
+       fini_selinuxmnt() deinitializes the global variable selinux_mnt that
+       stores the selinuxfs mountpoint.
+       set_selinuxmnt() changes the selinuxfs mountpoint to mnt.

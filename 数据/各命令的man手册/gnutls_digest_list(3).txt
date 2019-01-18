@@ -1,0 +1,3 @@
+
+       Get a list of hash (digest) algorithms supported by GnuTLS.
+       This function is not thread safe.

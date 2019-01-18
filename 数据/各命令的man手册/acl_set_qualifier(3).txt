@@ -1,0 +1,16 @@
+
+     The acl_set_qualifier() function sets the qualifier of the ACL entry
+     indicated by the argument entry_d to the value referred to by the argu‐
+     ment qualifier_p.  If the value of the tag type in the ACL entry
+     referred to by entry_d is ACL_USER, then the value referred to by
+     qualifier_p shall be of type uid_t.  If the value of the tag type in
+     the ACL entry referred to by entry_d is ACL_GROUP, then the value
+     referred to by qualifier_p shall be of type gid_t.  If the value of the
+     tag type in the ACL entry referred to by entry_d is a tag type for
+     which a qualifier is not supported, acl_set_qualifier() returns an
+     error.
+     Any ACL entry descriptors that refer to the entry referred to by
+     entry_d continue to refer to that entry. This function may cause memory
+     to be allocated. The caller should free any releasable memory, when the
+     ACL is no longer required, by calling acl_free() with a pointer to the
+     ACL as argument.

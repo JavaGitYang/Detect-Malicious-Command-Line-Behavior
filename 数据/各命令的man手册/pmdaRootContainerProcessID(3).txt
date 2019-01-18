@@ -1,0 +1,10 @@
+
+       pmdaRootConnect initializes an IPC channel between a PCP collector
+       process - either a PMDA(3) or pmcd(1) itself - and the pmdaroot(1)
+       server.
+       On success, the return value from pmdaRootConnect is a unix(7) domain
+       socket file descriptor, which can be subsequently passed to each of
+       the other APIs described here.  This channel can be used to perform
+       limited privilege escalation for specific scenarios needed by PCP
+       collector services.  The channel can be deactivated using the
+       pmdaRootShutdown interface.

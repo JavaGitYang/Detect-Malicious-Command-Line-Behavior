@@ -1,0 +1,6 @@
+
+       A package declares its list of conffiles by including a conffiles
+       file in its control archive (i.e. DEBIAN/conffiles during package
+       creation).
+       This file contains a list of files, one per line.  Trailing
+       whitespace will be trimmed, and empty lines will be ignored.

@@ -1,0 +1,32 @@
+
+       The touch utility shall change the last data modification timestamps,
+       the last data access timestamps, or both.
+       The time used can be specified by the −t time option-argument, the
+       corresponding time fields of the file referenced by the −r ref_file
+       option-argument, or the −d date_time option-argument, as specified in
+       the following sections. If none of these are specified, touch shall
+       use the current time.
+       For each file operand, touch shall perform actions equivalent to the
+       following functions defined in the System Interfaces volume of
+       POSIX.1‐2008:
+        1. If file does not exist:
+            a. The creat() function is called with the following arguments:
+               --  The file operand is used as the path argument.
+               --  The value of the bitwise-inclusive OR of S_IRUSR,
+                   S_IWUSR, S_IRGRP, S_IWGRP, S_IROTH, and S_IWOTH is used
+                   as the mode argument.
+            b. The futimens() function is called with the following
+               arguments:
+               --  The file descriptor opened in step 1a.
+               --  The access time and the modification time, set as
+                   described in the OPTIONS section, are used as the first
+                   and second elements of the times array argument,
+                   respectively.
+        2. If file exists, the utimensat() function is called with the
+           following arguments:
+            a. The AT_FDCWD special value is used as the fd argument.
+            b. The file operand is used as the path argument.
+            c. The access time and the modification time, set as described
+               in the OPTIONS section, are used as the first and second
+               elements of the times array argument, respectively.
+            d. The flag argument is set to zero.

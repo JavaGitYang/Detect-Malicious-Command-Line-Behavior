@@ -1,0 +1,55 @@
+
+       If a filesystem supports files sharing physical storage between
+       multiple files, this ioctl(2) operation can be used to make some of
+       the data in the src_fd file appear in the dest_fd file by sharing the
+       underlying storage if the file data is identical ("deduplication").
+       Both files must reside within the same filesystem.  This reduces
+       storage consumption by allowing the filesystem to store one shared
+       copy of the data.  If a file write should occur to a shared region,
+       the filesystem must ensure that the changes remain private to the
+       file being written.  This behavior is commonly referred to as "copy
+       on write".
+       This ioctl performs the "compare and share if identical" operation on
+       up to src_length bytes from file descriptor src_fd at offset
+       src_offset.  This information is conveyed in a structure of the
+       following form:
+           struct file_dedupe_range {
+               __u64 src_offset;
+               __u64 src_length;
+               __u16 dest_count;
+               __u16 reserved1;
+               __u32 reserved2;
+               struct file_dedupe_range_info info[0];
+           };
+       Deduplication is atomic with regards to concurrent writes, so no
+       locks need to be taken to obtain a consistent deduplicated copy.
+       The fields reserved1 and reserved2 must be zero.
+       Destinations for the deduplication operation are conveyed in the
+       array at the end of the structure.  The number of destinations is
+       given in dest_count, and the destination information is conveyed in
+       the following form:
+           struct file_dedupe_range_info {
+               __s64 dest_fd;
+               __u64 dest_offset;
+               __u64 bytes_deduped;
+               __s32 status;
+               __u32 reserved;
+           };
+       Each deduplication operation targets src_length bytes in file
+       descriptor dest_fd at offset dest_offset.  The field reserved must be
+       zero.  During the call, src_fd must be open for reading and dest_fd
+       must be open for writing.  The combined size of the struct
+       file_dedupe_range and the struct file_dedupe_range_info array must
+       not exceed the system page size.  The maximum size of src_length is
+       filesystem dependent and is typically 16 MiB.  This limit will be
+       enforced silently by the filesystem.  By convention, the storage used
+       by src_fd is mapped into dest_fd and the previous contents in dest_fd
+       are freed.
+       Upon successful completion of this ioctl, the number of bytes suc‐
+       cessfully deduplicated is returned in bytes_deduped and a status code
+       for the deduplication operation is returned in status.  If even a
+       single byte in the range does not match, the deduplication request
+       will be ignored and status set to FILE_DEDUPE_RANGE_DIFFERS.  The
+       status code is set to FILE_DEDUPE_RANGE_SAME for success, a negative
+       error code in case of error, or FILE_DEDUPE_RANGE_DIFFERS if the data
+       did not match.

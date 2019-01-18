@@ -1,0 +1,4 @@
+
+       This filter allows to match packets based on their tcindex field
+       value, i.e. the combination of the DSCP and ECN fields as present in
+       IPv4 and IPv6 headers.

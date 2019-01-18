@@ -1,0 +1,2 @@
+
+       These functions return the base 10 logarithm of x.

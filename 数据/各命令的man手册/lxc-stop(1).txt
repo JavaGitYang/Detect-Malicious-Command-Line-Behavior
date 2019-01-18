@@ -1,0 +1,15 @@
+
+       lxc-stop reboots, cleanly shuts down, or kills all the processes
+       inside the container. By default, it will request a clean shutdown of
+       the container by sending lxc.signal.halt (defaults to SIGPWR) to the
+       container's init process, waiting up to 60 seconds for the container
+       to exit, and then returning. If the container fails to cleanly exit
+       in 60 seconds, it will be sent the lxc.signal.stop (defaults to
+       SIGKILL) to force it to shut down. A request to reboot will send the
+       lxc.signal.reboot (defaults to SIGINT) to the container's init
+       process.
+       The [-W], [-r], [-k] and [--nokill] options specify the action to
+       perform.  [-W] indicates that after performing the specified action,
+       lxc-stop should immediately exit, while [-t TIMEOUT] specifies the
+       maximum amount of time to wait for the container to complete the
+       shutdown or reboot.

@@ -1,0 +1,53 @@
+
+       These functions are wrappers for pmgetopt_r(3).  The behavior of each
+       function is that certain options are assumed to have a predefined
+       behavior which initializes several fields in the pmdaInterface
+       structure.  The pmdaGetOptions interface allows both short and long
+       options to be given, whereas pmdaGetOpt allows for short form options
+       only.
+       The options that both pmdaGetOptions and pmdaGetOpt will trap are:
+       -Ddebugspec    Set the PMAPI(3) debugging options to debugspec, as
+                      described in PCPIntro(1).  Used for controlling levels
+                      of trace output while debugging.
+       -ddomain       Set the domain number of this agent.
+       -hhelpfile     Obtain the help text (see pmdaText(3)) for the metrics
+                      from this file rather than from the path specified
+                      with pmdaDSO(3) or pmdaDaemon(3).
+       -iport         Expect PMCD to connect on inet port (number or name).
+       -6port         Expect PMCD to connect on ipv6 port (number or name).
+       -llogfile      Redirect diagnostics and trace output to logfile.
+       -p             Expect PMCD to supply stdin/stdout pipe.
+       -usocket       Expect PMCD to connect on unix domain socket.
+       The pmdaGetOptions interface will also capture the following options,
+       and store them within the opts parameter:
+       -Uusername     Set the user account name under which the PMDA should
+                      execute.
+       Only one of -i, -6, -p and -u may be specified.  If none of these
+       three options is given, a pipe (-p) is assumed.  When these options
+       are encountered by pmdaGetOpt, the option is processed and the next
+       option is examined.  Therefore, pmdaGetOpt will only return when an
+       option other than those listed above is found, or the end of the list
+       is reached.  The returned value will be the argument or EOF,
+       respectively.
+       A PMDA can control which of these options the program will accept
+       with either the opts or optstring argument.  To accept all the
+       options, the PMDA should call pmdaGetOptions with the short_options
+       field of the opts structure set to the PMDA_OPTIONS macro, or
+       pmdaGetOpt with the option string "D:d:h:i:l:pu:".  Any PMDA specific
+       options should be added to these strings in the style of getopt(3),
+       and will be returned by both pmdaGetOptions and pmdaGetOpt if
+       encountered.
+       When a command line option usage error is detected in the
+       pmdaGetOptions interface, the error field of the opts structure will
+       contain a non-zero error count.
+       pmdaGetOpt takes a pointer to an int, err, which is used as an error
+       count.  This variable should be initialized to zero before pmdaGetOpt
+       is first called, and tested when pmdaGetOpt returns EOF.
+       Neither pmdaGetOptions nor pmdaGetOpt modify their argc or argv
+       parameters.
+       The global variables used by the system getopt(3) interface may also
+       be used by the caller of pmdaGetOpt within the argument parsing loop.
+       On the other hand, the pmdaGetOptions interface does not utilize
+       global variables at all (neither reading nor modifying them).
+       Instead, these variables can be access via the opts fields of the
+       same name.

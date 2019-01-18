@@ -1,0 +1,9 @@
+
+       This function initializes the provided session. Every session must be
+       initialized before use, and must be deinitialized after used by
+       calling gnutls_deinit().
+        flags can be any combination of flags from gnutls_init_flags_t.
+       Note that since version 3.1.2 this function enables some common TLS
+       extensions such as session tickets and OCSP certificate status
+       request in client side by default. To prevent that use the
+       GNUTLS_NO_EXTENSIONS flag.

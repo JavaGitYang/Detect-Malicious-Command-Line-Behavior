@@ -1,0 +1,7 @@
+
+       The logger utility saves a message, in an unspecified manner and
+       format, containing the string operands provided by the user. The
+       messages are expected to be evaluated later by personnel performing
+       system administration tasks.
+       It is implementation-defined whether messages written in locales
+       other than the POSIX locale are effective.

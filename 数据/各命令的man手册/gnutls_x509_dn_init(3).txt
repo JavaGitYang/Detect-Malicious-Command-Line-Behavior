@@ -1,0 +1,4 @@
+
+       This function initializes a gnutls_x509_dn_t type.
+       The object returned must be deallocated using
+       gnutls_x509_dn_deinit().

@@ -1,0 +1,3 @@
+
+       The unget utility shall reverse the effect of a get −e done prior to
+       creating the intended new delta.

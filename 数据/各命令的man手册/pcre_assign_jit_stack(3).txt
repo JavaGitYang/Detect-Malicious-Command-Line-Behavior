@@ -1,0 +1,23 @@
+
+       This function provides control over the memory used as a stack at
+       run-time by a call to pcre[16|32]_exec() with a pattern that has been
+       successfully compiled with JIT optimization. The arguments are:
+         extra     the data pointer returned by pcre[16|32]_study()
+         callback  a callback function
+         data      a JIT stack or a value to be passed to the callback
+                     function
+       If callback is NULL and data is NULL, an internal 32K block on the
+       machine stack is used.
+       If callback is NULL and data is not NULL, data must be a valid JIT
+       stack, the result of calling pcre[16|32]_jit_stack_alloc().
+       If callback not NULL, it is called with data as an argument at the
+       start of matching, in order to set up a JIT stack. If the result is
+       NULL, the internal 32K stack is used; otherwise the return value must
+       be a valid JIT stack, the result of calling
+       pcre[16|32]_jit_stack_alloc().
+       You may safely assign the same JIT stack to multiple patterns, as
+       long as they are all matched in the same thread. In a multithread
+       application, each thread must use its own JIT stack. For more
+       details, see the pcrejit page.
+       There is a complete description of the PCRE native API in the pcreapi
+       page and a description of the POSIX API in the pcreposix page.

@@ -1,0 +1,11 @@
+
+       The pthread_spin_lock() function shall lock the spin lock referenced
+       by lock.  The calling thread shall acquire the lock if it is not held
+       by another thread. Otherwise, the thread shall spin (that is, shall
+       not return from the pthread_spin_lock() call) until the lock becomes
+       available. The results are undefined if the calling thread holds the
+       lock at the time the call is made. The pthread_spin_trylock()
+       function shall lock the spin lock referenced by lock if it is not
+       held by any thread. Otherwise, the function shall fail.
+       The results are undefined if any of these functions is called with an
+       uninitialized spin lock.

@@ -1,0 +1,3 @@
+
+       This is a synonym for git-add(1). Please refer to the documentation
+       of that command.

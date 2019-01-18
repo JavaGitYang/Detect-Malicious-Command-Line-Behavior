@@ -1,0 +1,8 @@
+
+       This function will return a unique ID that depends on the public key
+       parameters. This ID can be used in checking whether a certificate
+       corresponds to the given public key.
+       If the buffer provided is not long enough to hold the output, then
+       *output_data_size is updated and GNUTLS_E_SHORT_MEMORY_BUFFER will be
+       returned.  The output will normally be a SHA-1 hash output, which is
+       20 bytes.

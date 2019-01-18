@@ -1,0 +1,42 @@
+
+       This family of functions is deprecated.  For new code, please use
+       selabel_open(3) with the SELABEL_CTX_FILE backend in place of
+       matchpathcon_init(), use selabel_close(3) in place of
+       matchpathcon_fini(), and use selabel_lookup(3) in place of
+       matchpathcon().
+       The remaining description below is for the legacy interface.
+       matchpathcon_init() loads the file contexts configuration specified
+       by path into memory for use by subsequent matchpathcon() calls.  If
+       path is NULL, then the active file contexts configuration is loaded
+       by default, i.e. the path returned by selinux_file_context_path(3).
+       Unless the MATCHPATHCON_BASEONLY flag has been set via
+       set_matchpathcon_flags(3), files with the same path prefix but a
+       .homedirs and .local suffix are also looked up and loaded if present.
+       These files provide dynamically generated entries for user home
+       directories and for local customizations.
+       matchpathcon_init_prefix() is the same as matchpathcon_init() but
+       only loads entries with regular expressions whose first pathname
+       component is a prefix of prefix , e.g. pass "/dev" if you only intend
+       to call matchpathcon() with pathnames beginning with /dev.  However,
+       this optimization is no longer necessary due to the use of
+       file_contexts.bin files with precompiled regular expressions, so use
+       of this interface is deprecated.
+       matchpathcon_fini() frees the memory allocated by a prior call to
+       matchpathcon_init.() This function can be used to free and reset the
+       internal state between multiple matchpathcon_init() calls, or to free
+       memory when finished using matchpathcon().
+       matchpathcon() matches the specified pathname, after transformation
+       via realpath(3) excepting any final symbolic link component if
+       S_IFLNK was specified as the mode, and mode against the file contexts
+       configuration and sets the security context con to refer to the
+       resulting context. The caller must free the returned security context
+       con using freecon(3) when finished using it.  mode can be 0 to
+       disable mode matching, but should be provided whenever possible, as
+       it may affect the matching.  Only the file format bits (i.e. the file
+       type) of the mode are used.  If matchpathcon_init() has not already
+       been called, then this function will call it upon its first
+       invocation with a NULL path, defaulting to the active file contexts
+       configuration.
+       matchpathcon_index() is the same as matchpathcon() but returns a
+       specification index that can later be used in a
+       matchpathcon_filespec_add(3) call.

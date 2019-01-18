@@ -1,0 +1,29 @@
+
+       The primary purpose of this slapd(8) backend is to PRESENT
+       information stored in some RDBMS as an LDAP subtree without any
+       programming (some SQL and maybe stored procedures can't be considered
+       programming, anyway ;).
+       That is, for example, when you (some ISP) have account information
+       you use in an RDBMS, and want to use modern solutions that expect
+       such information in LDAP (to authenticate users, make email lookups
+       etc.).  Or you want to synchronize or distribute information between
+       different sites/applications that use RDBMSes and/or LDAP.  Or
+       whatever else...
+       It is NOT designed as a general-purpose backend that uses RDBMS
+       instead of BerkeleyDB (as the standard BDB backend does), though it
+       can be used as such with several limitations.  You can take a look at
+       http://www.openldap.org/faq/index.cgi?file=378 (OpenLDAP
+       FAQ-O-Matic/General LDAP FAQ/Directories vs. conventional databases)
+       to find out more on this point.
+       The idea (detailed below) is to use some meta-information to
+       translate LDAP queries to SQL queries, leaving relational schema
+       untouched, so that old applications can continue using it without any
+       modifications.  This allows SQL and LDAP applications to inter-
+       operate without replication, and exchange data as needed.
+       The SQL backend is designed to be tunable to virtually any relational
+       schema without having to change source (through that meta-information
+       mentioned).  Also, it uses ODBC to connect to RDBMSes, and is highly
+       configurable for SQL dialects RDBMSes may use, so it may be used for
+       integration and distribution of data on different RDBMSes, OSes,
+       hosts etc., in other words, in highly heterogeneous environment.
+       This backend is experimental.

@@ -1,0 +1,27 @@
+
+       This function will attempt to verify the given certificate chain and
+       return its status. The  voutput parameter will hold an OR'ed sequence
+       of gnutls_certificate_status_t flags.
+       When a certificate chain of  cert_list_size with more than one
+       certificates is provided, the verification status will apply to the
+       first certificate in the chain that failed verification. The
+       verification process starts from the end of the chain (from CA to end
+       certificate). The first certificate in the chain must be the
+       end-certificate while the rest of the members may be sorted or not.
+       Additionally a certificate verification profile can be specified from
+       the ones in gnutls_certificate_verification_profiles_t by ORing the
+       result of GNUTLS_PROFILE_TO_VFLAGS() to the verification flags.
+       Additional verification parameters are possible via the  data types;
+       the acceptable types are GNUTLS_DT_DNS_HOSTNAME, GNUTLS_DT_IP_ADDRESS
+       and GNUTLS_DT_KEY_PURPOSE_OID.  The former accepts as data a
+       null-terminated hostname, and the latter a null-terminated object
+       identifier (e.g., GNUTLS_KP_TLS_WWW_SERVER).  If a DNS hostname is
+       provided then this function will compare the hostname in the end
+       certificate against the given. If names do not match the
+       GNUTLS_CERT_UNEXPECTED_OWNER status flag will be set. In addition it
+       will consider certificates provided with
+       gnutls_x509_trust_list_add_named_crt().
+       If a key purpose OID is provided and the end-certificate contains the
+       extended key usage PKIX extension, it will be required to match the
+       provided OID or be marked for any purpose, otherwise verification
+       will fail with GNUTLS_CERT_PURPOSE_MISMATCH status.

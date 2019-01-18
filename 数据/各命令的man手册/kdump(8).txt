@@ -1,0 +1,2 @@
+
+       kdump does not have a man page yet.

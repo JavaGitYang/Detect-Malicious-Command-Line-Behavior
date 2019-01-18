@@ -1,0 +1,3 @@
+
+       The getppid() function shall return the parent process ID of the
+       calling process.

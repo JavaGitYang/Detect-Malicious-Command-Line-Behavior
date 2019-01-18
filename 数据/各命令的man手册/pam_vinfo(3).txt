@@ -1,0 +1,6 @@
+
+       The pam_info function prints messages through the conversation
+       function to the user.
+       The pam_vinfo function performs the same task as pam_info() with the
+       difference that it takes a set of arguments which have been obtained
+       using the stdarg(3) variable argument list macros.

@@ -1,0 +1,8 @@
+
+       This function will calculate a fingerprint (actually a hash), of the
+       given data.  The result is not printable data.  You should convert it
+       to hex, or to something else printable.
+       This is the usual way to calculate a fingerprint of an X.509 DER
+       encoded certificate.  Note however that the fingerprint of an OpenPGP
+       certificate is not just a hash and cannot be calculated with this
+       function.

@@ -1,0 +1,19 @@
+
+       xfs_logprint prints the log of an XFS filesystem (see xfs(5)).  The
+       device argument is the pathname of the partition or logical volume
+       containing the filesystem. The device can be a regular file if the -f
+       option is used. The contents of the filesystem remain undisturbed.
+       There are two major modes of operation in xfs_logprint.
+       One mode is better for filesystem operation debugging.  It is called
+       the transactional view and is enabled through the -t option. The
+       transactional view prints only the portion of the log that pertains
+       to recovery. In other words, it prints out complete transactions
+       between the tail and the head. This view tries to display each
+       transaction without regard to how they are split across log records.
+       The second mode starts printing out information from the beginning of
+       the log.  Some error blocks might print out in the beginning because
+       the last log record usually overlaps the oldest log record. A message
+       is printed when the physical end of the log is reached and when the
+       logical end of the log is reached. A log record view is displayed one
+       record at a time. Transactions that span log records may not be
+       decoded fully.

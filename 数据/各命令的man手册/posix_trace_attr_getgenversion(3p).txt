@@ -1,0 +1,29 @@
+
+       The posix_trace_attr_getclockres() function shall copy the clock
+       resolution of the clock used to generate timestamps from the clock-
+       resolution attribute of the attributes object pointed to by the attr
+       argument into the structure pointed to by the resolution argument.
+       The posix_trace_attr_getcreatetime() function shall copy the trace
+       stream creation time from the creation-time attribute of the
+       attributes object pointed to by the attr argument into the structure
+       pointed to by the createtime argument. The creation-time attribute
+       shall represent the time of creation of the trace stream.
+       The posix_trace_attr_getgenversion() function shall copy the string
+       containing version information from the generation-version attribute
+       of the attributes object pointed to by the attr argument into the
+       string pointed to by the genversion argument. The genversion argument
+       shall be the address of a character array which can store at least
+       {TRACE_NAME_MAX} characters.
+       The posix_trace_attr_getname() function shall copy the string
+       containing the trace name from the trace-name attribute of the
+       attributes object pointed to by the attr argument into the string
+       pointed to by the tracename argument. The tracename argument shall be
+       the address of a character array which can store at least
+       {TRACE_NAME_MAX} characters.
+       The posix_trace_attr_setname() function shall set the name in the
+       trace-name attribute of the attributes object pointed to by the attr
+       argument, using the trace name string supplied by the tracename
+       argument. If the supplied string contains more than {TRACE_NAME_MAX}
+       characters, the name copied into the trace-name attribute may be
+       truncated to one less than the length of {TRACE_NAME_MAX} characters.
+       The default value is a null string.

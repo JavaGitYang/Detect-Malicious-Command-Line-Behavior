@@ -1,0 +1,8 @@
+
+       These programs are a set of helper scripts you can use instead of raw
+       iproute2 commands.
+       The routel script will list routes in a format that some might
+       consider easier to interpret then the ip route list equivalent.
+       The routef script does not take any arguments and will simply flush
+       the routing table down the drain. Beware! This means deleting all
+       routes which will make your network unusable!

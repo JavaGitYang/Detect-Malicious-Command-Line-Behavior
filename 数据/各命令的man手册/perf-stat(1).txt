@@ -1,0 +1,3 @@
+
+       This command runs a command and gathers performance counter
+       statistics from it.

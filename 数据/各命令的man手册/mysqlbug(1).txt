@@ -1,0 +1,25 @@
+
+       To report MariaDB bugs, see
+       https://mariadb.com/kb/en/mariadb/reporting-bugs/ - the mysqlbug
+       program has now been deprecated by Oracle, and was never useful for
+       MariaDB.
+       Originally, the program enabled you to generate a bug report and send
+       it to Oracle Corporation. It is a shell script and runs on Unix.
+       The normal way to report MySQL bugs is to visit
+       http://bugs.mysql.com/ , which is the address for MySQL's bugs
+       database. This database is public and can be browsed and searched by
+       anyone. If you log in to the system, you can enter new reports. If
+       you have no Web access, you can generate a bug report by using the
+       mysqlbug script.
+       mysqlbug helps you generate a report by determining much of the
+       following information automatically, but if something important is
+       missing, please include it with your message.  mysqlbug can be found
+       in the scripts directory (source distribution) and in the bin
+       directory under your MySQL installation directory (binary
+       distribution).
+       Invoke mysqlbug without arguments:
+           shell> mysqlbug
+       The script will place you in an editor with a copy of the report to
+       be sent. Edit the lines near the beginning that indicate the nature
+       of the problem. Then write the file to save your changes, quit the
+       editor, and mysqlbug will send the report by email.

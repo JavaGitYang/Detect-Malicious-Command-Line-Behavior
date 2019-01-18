@@ -1,0 +1,20 @@
+
+       The function posix_memalign() allocates size bytes and places the
+       address of the allocated memory in *memptr.  The address of the
+       allocated memory will be a multiple of alignment, which must be a
+       power of two and a multiple of sizeof(void *).  If size is 0, then
+       the value placed in *memptr is either NULL, or a unique pointer value
+       that can later be successfully passed to free(3).
+       The obsolete function memalign() allocates size bytes and returns a
+       pointer to the allocated memory.  The memory address will be a
+       multiple of alignment, which must be a power of two.
+       The function aligned_alloc() is the same as memalign(), except for
+       the added restriction that size should be a multiple of alignment.
+       The obsolete function valloc() allocates size bytes and returns a
+       pointer to the allocated memory.  The memory address will be a
+       multiple of the page size.  It is equivalent to
+       memalign(sysconf(_SC_PAGESIZE),size).
+       The obsolete function pvalloc() is similar to valloc(), but rounds
+       the size of the allocation up to the next multiple of the system page
+       size.
+       For all of these functions, the memory is not zeroed.

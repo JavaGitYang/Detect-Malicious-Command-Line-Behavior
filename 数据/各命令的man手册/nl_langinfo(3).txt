@@ -1,0 +1,59 @@
+
+       The nl_langinfo() and nl_langinfo_l() functions provide access to
+       locale information in a more flexible way than localeconv(3).
+       nl_langinfo() returns a string which is the value corresponding to
+       item in the program's current global locale.  nl_langinfo() returns a
+       string which is the value corresponding to item for the locale
+       identified by the locale object locale, which was previously created
+       by newlocale(1).  Individual and additional elements of the locale
+       categories can be queried.
+       Examples for the locale elements that can be specified in item using
+       the constants defined in <langinfo.h> are:
+       CODESET (LC_CTYPE)
+              Return a string with the name of the character encoding used
+              in the selected locale, such as "UTF-8", "ISO-8859-1", or
+              "ANSI_X3.4-1968" (better known as US-ASCII).  This is the same
+              string that you get with "locale charmap".  For a list of
+              character encoding names, try "locale -m" (see locale(1)).
+       D_T_FMT (LC_TIME)
+              Return a string that can be used as a format string for
+              strftime(3) to represent time and date in a locale-specific
+              way.
+       D_FMT (LC_TIME)
+              Return a string that can be used as a format string for
+              strftime(3) to represent a date in a locale-specific way.
+       T_FMT (LC_TIME)
+              Return a string that can be used as a format string for
+              strftime(3) to represent a time in a locale-specific way.
+       DAY_{1–7} (LC_TIME)
+              Return name of the n-th day of the week. [Warning: this
+              follows the US convention DAY_1 = Sunday, not the
+              international convention (ISO 8601) that Monday is the first
+              day of the week.]
+       ABDAY_{1–7} (LC_TIME)
+              Return abbreviated name of the n-th day of the week.
+       MON_{1–12} (LC_TIME)
+              Return name of the n-th month.
+       ABMON_{1–12} (LC_TIME)
+              Return abbreviated name of the n-th month.
+       RADIXCHAR (LC_NUMERIC)
+              Return radix character (decimal dot, decimal comma, etc.).
+       THOUSEP (LC_NUMERIC)
+              Return separator character for thousands (groups of three
+              digits).
+       YESEXPR (LC_MESSAGES)
+              Return a regular expression that can be used with the regex(3)
+              function to recognize a positive response to a yes/no
+              question.
+       NOEXPR (LC_MESSAGES)
+              Return a regular expression that can be used with the regex(3)
+              function to recognize a negative response to a yes/no
+              question.
+       CRNCYSTR (LC_MONETARY)
+              Return the currency symbol, preceded by "-" if the symbol
+              should appear before the value, "+" if the symbol should
+              appear after the value, or "." if the symbol should replace
+              the radix character.
+       The above list covers just some examples of items that can be
+       requested.  For a more detailed list, consult The GNU C Library
+       Reference Manual.

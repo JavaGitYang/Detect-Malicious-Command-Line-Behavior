@@ -1,0 +1,9 @@
+
+       The aio_error() function shall return the error status associated
+       with the aiocb structure referenced by the aiocbp argument. The error
+       status for an asynchronous I/O operation is the errno value that
+       would be set by the corresponding read(), write(), fdatasync(), or
+       fsync() operation. If the operation has not yet completed, then the
+       error status shall be equal to [EINPROGRESS].
+       If the aiocb structure pointed to by aiocbp is not associated with an
+       operation that has been scheduled, the results are undefined.

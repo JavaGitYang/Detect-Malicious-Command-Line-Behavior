@@ -1,0 +1,110 @@
+
+       The loop device is a block device that maps its data blocks not to a
+       physical device such as a hard disk or optical disk drive, but to the
+       blocks of a regular file in a filesystem or to another block device.
+       This can be useful for example to provide a block device for a
+       filesystem image stored in a file, so that it can be mounted with the
+       mount(8) command.  You could do
+           $ dd if=/dev/zero of=file.img bs=1MiB count=10
+           $ sudo losetup /dev/loop4 file.img
+           $ sudo mkfs -t ext4 /dev/loop4
+           $ sudo mkdir /myloopdev
+           $ sudo mount /dev/loop4 /myloopdev
+       See losetup(8) for another example.
+       A transfer function can be specified for each loop device for encryp‐
+       tion and decryption purposes.
+       The following ioctl(2) operations are provided by the loop block
+       device:
+       LOOP_SET_FD
+              Associate the loop device with the open file whose file
+              descriptor is passed as the (third) ioctl(2) argument.
+       LOOP_CLR_FD
+              Disassociate the loop device from any file descriptor.
+       LOOP_SET_STATUS
+              Set the status of the loop device using the (third) ioctl(2)
+              argument.  This argument is a pointer to loop_info structure,
+              defined in <linux/loop.h> as:
+                  struct loop_info {
+                      int           lo_number;            /* ioctl r/o */
+                      dev_t         lo_device;            /* ioctl r/o */
+                      unsigned long lo_inode;             /* ioctl r/o */
+                      dev_t         lo_rdevice;           /* ioctl r/o */
+                      int           lo_offset;
+                      int           lo_encrypt_type;
+                      int           lo_encrypt_key_size;  /* ioctl w/o */
+                      int           lo_flags;             /* ioctl r/o */
+                      char          lo_name[LO_NAME_SIZE];
+                      unsigned char lo_encrypt_key[LO_KEY_SIZE];
+                                                          /* ioctl w/o */
+                      unsigned long lo_init[2];
+                      char          reserved[4];
+                  };
+              The encryption type (lo_encrypt_type) should be one of
+              LO_CRYPT_NONE, LO_CRYPT_XOR, LO_CRYPT_DES, LO_CRYPT_FISH2,
+              LO_CRYPT_BLOW, LO_CRYPT_CAST128, LO_CRYPT_IDEA,
+              LO_CRYPT_DUMMY, LO_CRYPT_SKIPJACK, or (since Linux 2.6.0)
+              LO_CRYPT_CRYPTOAPI.
+              The lo_flags field is a bit mask that can include zero or more
+              of the following:
+              LO_FLAGS_READ_ONLY
+                     The loopback device is read-only.
+              LO_FLAGS_AUTOCLEAR (since Linux 2.6.25)
+                     The loopback device will autodestruct on last close.
+              LO_FLAGS_PARTSCAN (since Linux 3.2)
+                     Allow automatic partition scanning.
+       LOOP_GET_STATUS
+              Get the status of the loop device.  The (third) ioctl(2) argu‐
+              ment must be a pointer to a struct loop_info.
+       LOOP_CHANGE_FD (since Linux 2.6.5)
+              Switch the backing store of the loop device to the new file
+              identified file descriptor specified in the (third) ioctl(2)
+              argument, which is an integer.  This operation is possible
+              only if the loop device is read-only and the new backing store
+              is the same size and type as the old backing store.
+       LOOP_SET_CAPACITY (since Linux 2.6.30)
+              Resize a live loop device.  One can change the size of the
+              underlying backing store and then use this operation so that
+              the loop driver learns about the new size.  This operation
+              takes no argument.
+       Since Linux 2.6, there are two new ioctl(2) operations:
+       LOOP_SET_STATUS64, LOOP_GET_STATUS64
+              These are similar to LOOP_SET_STATUS and LOOP_GET_STATUS
+              described above but use the loop_info64 structure, which has
+              some additional fields and a larger range for some other
+              fields:
+                  struct loop_info64 {
+                      uint64_t lo_device;                   /* ioctl r/o */
+                      uint64_t lo_inode;                    /* ioctl r/o */
+                      uint64_t lo_rdevice;                  /* ioctl r/o */
+                      uint64_t lo_offset;
+                      uint64_t lo_sizelimit;/* bytes, 0 == max available */
+                      uint32_t lo_number;                   /* ioctl r/o */
+                      uint32_t lo_encrypt_type;
+                      uint32_t lo_encrypt_key_size;         /* ioctl w/o */
+                      uint32_t lo_flags;                    /* ioctl r/o */
+                      uint8_t  lo_file_name[LO_NAME_SIZE];
+                      uint8_t  lo_crypt_name[LO_NAME_SIZE];
+                      uint8_t  lo_encrypt_key[LO_KEY_SIZE]; /* ioctl w/o */
+                      uint64_t lo_init[2];
+                  };
+   /dev/loop-control
+       Since Linux 3.1, the kernel provides the /dev/loop-control device,
+       which permits an application to dynamically find a free device, and
+       to add and remove loop devices from the system.  To perform these
+       operations, one first opens /dev/loop-control and then employs one of
+       the following ioctl(2) operations:
+       LOOP_CTL_GET_FREE
+              Allocate or find a free loop device for use.  On success, the
+              device number is returned as the result of the call.  This
+              operation takes no argument.
+       LOOP_CTL_ADD
+              Add the new loop device whose device number is specified as a
+              long integer in the third ioctl(2) argument.  On success, the
+              device index is returned as the result of the call.  If the
+              device is already allocated, the call fails with the error
+              EEXIST.
+       LOOP_CTL_REMOVE
+              Remove the loop device whose device number is specified as a
+              long integer in the third ioctl(2) argument.  On success, the
+              device number is returned as the result of the call.  If the
+              device is in use, the call fails with the error EBUSY.

@@ -1,0 +1,35 @@
+
+       pcap_next_ex() reads the next packet and returns a success/failure
+       indication.  If the packet was read without problems, the pointer
+       pointed to by the pkt_header argument is set to point to the
+       pcap_pkthdr struct for the packet, and the pointer pointed to by the
+       pkt_data argument is set to point to the data in the packet.  The
+       struct pcap_pkthdr and the packet data are not to be freed by the
+       caller, and are not guaranteed to be valid after the next call to
+       pcap_next_ex(), pcap_next(), pcap_loop(), or pcap_dispatch(); if the
+       code needs them to remain valid, it must make a copy of them.
+       pcap_next() reads the next packet (by calling pcap_dispatch() with a
+       cnt of 1) and returns a u_char pointer to the data in that packet.
+       The packet data is not to be freed by the caller, and is not
+       guaranteed to be valid after the next call to pcap_next_ex(),
+       pcap_next(), pcap_loop(), or pcap_dispatch(); if the code needs it to
+       remain valid, it must make a copy of it.  The pcap_pkthdr structure
+       pointed to by h is filled in with the appropriate values for the
+       packet.
+       The bytes of data from the packet begin with a link-layer header.
+       The format of the link-layer header is indicated by the return value
+       of the pcap_datalink() routine when handed the pcap_t value also
+       passed to pcap_loop() or pcap_dispatch().
+       http://www.tcpdump.org/linktypes.html  lists the values
+       pcap_datalink() can return and describes the packet formats that
+       correspond to those values.  The value it returns will be valid for
+       all packets received unless and until pcap_set_datalink() is called;
+       after a successful call to pcap_set_datalink(), all subsequent
+       packets will have a link-layer header of the type specified by the
+       link-layer header type value passed to pcap_set_datalink().
+       Do NOT assume that the packets for a given capture or ``savefile``
+       will have any given link-layer header type, such as DLT_EN10MB for
+       Ethernet.  For example, the "any" device on Linux will have a link-
+       layer header type of DLT_LINUX_SLL even if all devices on the system
+       at the time the "any" device is opened have some other data link
+       type, such as DLT_EN10MB for Ethernet.

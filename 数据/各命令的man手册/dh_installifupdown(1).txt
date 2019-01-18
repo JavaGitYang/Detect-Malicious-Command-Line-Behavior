@@ -1,0 +1,4 @@
+
+       dh_installifupdown is a debhelper program that is responsible for
+       installing if-up, if-down, if-pre-up, and if-post-down hook scripts
+       into package build directories.

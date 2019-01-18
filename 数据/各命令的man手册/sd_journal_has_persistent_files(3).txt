@@ -1,0 +1,7 @@
+
+       sd_journal_has_runtime_files() returns a positive value if runtime
+       journal files (present in /run/systemd/journal/) have been found.
+       Otherwise returns 0.
+       sd_journal_has_persistent_files() returns a positive value if
+       persistent journal files (present in /var/log/journal/) have been
+       found. Otherwise returns 0.

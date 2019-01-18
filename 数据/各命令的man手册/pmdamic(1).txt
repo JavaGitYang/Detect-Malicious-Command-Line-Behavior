@@ -1,0 +1,5 @@
+
+       pmdamic is a Performance Metrics Domain Agent (PMDA) which exports
+       metric values about Intel MIC cards using the libmicmgmt(7) python
+       bindings.
+       This provides information on core, memory and power utilization

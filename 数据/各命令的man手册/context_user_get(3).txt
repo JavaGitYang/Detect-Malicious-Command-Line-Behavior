@@ -1,0 +1,17 @@
+
+       These functions allow an application to manipulate the fields of a
+       security context string without requiring it to know the format of
+       the string.
+       context_new() returns a new context initialized to a context string.
+       context_str() returns a pointer to the string value of the context_t,
+       valid until the next call to context_str() or context_free() for the
+       same context_t*.
+       context_free() frees the storage used by a context.
+       context_type_get(), context_range_get(), context_role_get(),
+       context_user_get() get a pointer to the string value of a context
+       component.
+       Note: Values returned by the get functions are only valid until the
+       next call to a set function or context_free() for the same context_t
+       structure.
+       context_type_set(), context_range_set(), context_role_set(),
+       context_user_set() set a context component.

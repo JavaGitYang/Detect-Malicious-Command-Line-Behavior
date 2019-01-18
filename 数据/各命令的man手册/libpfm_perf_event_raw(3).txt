@@ -1,0 +1,14 @@
+
+       The library supports a pseudo PMU model to allow raw encodings of PMU
+       events for the Linux perf_events kernel interface.
+       With this PMU, it is possible to provide the raw hexadecimal encoding
+       of any hardware event for any PMU models. The raw encoding is passed
+       as is to the kernel. All events are encoded as PERF_TYPE_RAW. As
+       such, perf_events generic events, such as cycles, instructions,
+       cannot be encoded by this PMU.
+       The syntax is very simple: rX. X is the hexadecimal 64-bit value for
+       the event.  It may include event filters on some PMU models. The
+       hexadecimal number is passed without the 0x prefix, e.g., r01c4.
+       The library's standard perf_events attributes are supported by this
+       PMU model.  They are separated with colons as is customary with the
+       library.

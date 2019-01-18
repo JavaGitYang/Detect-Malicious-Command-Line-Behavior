@@ -1,0 +1,2 @@
+
+       This function will initialize an OCSP response structure.

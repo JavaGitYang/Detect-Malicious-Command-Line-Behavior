@@ -1,0 +1,10 @@
+
+       The scanw, wscanw and mvscanw routines are analogous to scanf [see
+       scanf(3)].  The effect of these routines is as though wgetstr were
+       called on the window, and the resulting line used as input for
+       sscanf(3).  Fields which do not map to a variable in the fmt field
+       are lost.
+       The vwscanw and vw_scanw routines are analogous to vscanf(3).  They
+       perform a wscanw using a variable argument list.  The third argument
+       is a va_list, a pointer to a list of arguments, as defined in
+       <stdarg.h>.

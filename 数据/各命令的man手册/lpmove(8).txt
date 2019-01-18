@@ -1,0 +1,4 @@
+
+       lpmove moves the specified job or all jobs from source to
+       destination. job can be the job ID number or the old destination and
+       job ID.

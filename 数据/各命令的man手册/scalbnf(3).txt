@@ -1,0 +1,5 @@
+
+       These functions multiply their first argument x by FLT_RADIX
+       (probably 2) to the power of exp, that is:
+           x * FLT_RADIX ** exp
+       The definition of FLT_RADIX can be obtained by including <float.h>.

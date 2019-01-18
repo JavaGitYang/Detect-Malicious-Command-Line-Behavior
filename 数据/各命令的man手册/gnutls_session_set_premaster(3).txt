@@ -1,0 +1,5 @@
+
+       This function sets the premaster secret in a session. This is a
+       function intended for exceptional uses. Do not use this function
+       unless you are implementing a legacy protocol.  Use
+       gnutls_session_set_data() instead.

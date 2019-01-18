@@ -1,0 +1,3 @@
+
+       lvrename renames an existing LV or a historical LV (see lvremove for
+       historical LV information.)

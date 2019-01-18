@@ -1,0 +1,55 @@
+
+       A collection of one or more Performance Co-Pilot (see PCPIntro(1))
+       archive logs may be combined with mkaf to produce a PCP archive folio
+       and the associated archive folio control file.  Some PCP tools use
+       mkaf to create archive folios, e.g.  the ``record'' facility in the
+       pmchart(1) and pmview(1) tools, to facilitate playback with pmafm(1).
+       mkaf processes each filename argument, and if this is a component
+       file from a PCP archive that archive is added to the folio.
+       If filename is a directory, then this is searched recursively using
+       find(1).  Any filename argument beginning with a ``-'' is assumed to
+       be a find(1) command line option (findopts); the default is -follow
+       if no findopts are specified.
+       The first named archive in the folio is assumed to be associated with
+       the default host for any tool that tries to replay multiple archives
+       from the folio.
+       The folio control file is written to standard output, and has the
+       following format.
+       1. The first line contains the word PCPFolio.
+       2. The second line contains the tag Version: followed by the format
+          version number (currently 1).
+       3. For subsequent lines, blank lines and lines beginning with ``#''
+          are ignored.
+       4. The line beginning with the tag Created: documents where and when
+          the folio was created.
+       5. The line beginning with the tag Creator: identifies the tool which
+          created the folio (and is assumed to know how to replay the
+          archive folio).  If present, the second argument is the name of a
+          configuration file that the creator tool could use to replay the
+          archive folio, e.g. with the replay command for pmafm(1).  In the
+          case of mkaf (unlike pmchart(1) or pmview(1)) there is no
+          knowledge of the contents of the archives, so the ``creator''
+          cannot replay the archive, however pmchart(1) is able to replay
+          any archive, and so this tool is identified as the Creator: for
+          archive folios created by mkaf(1).
+       6. This is then followed by one or more lines beginning with the tag
+          Archive: followed by the hostname and base name of the archive.
+       For example
+            $ mkaf mydir/gonzo
+       might produce the following folio control file.
+       PCPFolio
+       Version: 1
+       # use pmafm(1) to process this PCP archive folio
+       #
+       Created: on gonzo at Tue Jul  2 03:35:54 EST 1996
+       Creator: pmchart
+       #               Host                    Basename
+       #
+       Archive:        gonzo                   mydir/gonzo/960627
+       Archive:        gonzo                   mydir/gonzo/960628
+       Archive:        gonzo                   mydir/gonzo/960629
+       Archive:        gonzo                   mydir/gonzo/960630
+       Archive:        gonzo                   mydir/gonzo/960701
+       Archive:        gonzo                   mydir/gonzo/960701.00.10
+       Archive:        gonzo                   mydir/gonzo/960701.05.25
+       Archive:        gonzo                   mydir/gonzo/960702.00.10

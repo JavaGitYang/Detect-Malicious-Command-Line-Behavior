@@ -1,0 +1,9 @@
+
+       Recode Serbian text from Cyrillic to Latin script.  The input text is
+       read from standard input.  The converted text is output to standard
+       output.
+   Informative output:
+       -h, --help
+              display this help and exit
+       -V, --version
+              output version information and exit

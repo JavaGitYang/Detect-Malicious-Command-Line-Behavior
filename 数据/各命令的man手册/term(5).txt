@@ -1,0 +1,122 @@
+
+   STORAGE LOCATION
+       Compiled terminfo descriptions are placed under the directory
+       @TERMINFO@.  Two configurations are supported (when building the
+       ncurses libraries):
+       directory tree
+            A two-level scheme is used to avoid a linear search of a huge
+            UNIX system directory: @TERMINFO@/c/name where name is the name
+            of the terminal, and c is the first character of name.  Thus,
+            act4 can be found in the file @TERMINFO@/a/act4.  Synonyms for
+            the same terminal are implemented by multiple links to the same
+            compiled file.
+       hashed database
+            Using Berkeley database, two types of records are stored: the
+            terminfo data in the same format as stored in a directory tree
+            with the terminfo's primary name as a key, and records
+            containing only aliases pointing to the primary name.
+            If built to write hashed databases, ncurses can still read
+            terminfo databases organized as a directory tree, but cannot
+            write entries into the directory tree.  It can write (or
+            rewrite) entries in the hashed database.
+            ncurses distinguishes the two cases in the TERMINFO and
+            TERMINFO_DIRS environment variable by assuming a directory tree
+            for entries that correspond to an existing directory, and hashed
+            database otherwise.
+   LEGACY STORAGE FORMAT
+       The format has been chosen so that it will be the same on all
+       hardware.  An 8 or more bit byte is assumed, but no assumptions about
+       byte ordering or sign extension are made.
+       The compiled file is created with the @TIC@ program, and read by the
+       routine setupterm(3X).  The file is divided into six parts: the
+       header, terminal names, boolean flags, numbers, strings, and string
+       table.
+       The header section begins the file.  This section contains six short
+       integers in the format described below.  These integers are
+            (1) the magic number (octal 0432);
+            (2) the size, in bytes, of the names section;
+            (3) the number of bytes in the boolean section;
+            (4) the number of short integers in the numbers section;
+            (5) the number of offsets (short integers) in the strings
+            section;
+            (6) the size, in bytes, of the string table.
+       Short integers are stored in two 8-bit bytes.  The first byte
+       contains the least significant 8 bits of the value, and the second
+       byte contains the most significant 8 bits.  (Thus, the value
+       represented is 256*second+first.)  The value -1 is represented by the
+       two bytes 0377, 0377; other negative values are illegal.  This value
+       generally means that the corresponding capability is missing from
+       this terminal.  Note that this format corresponds to the hardware of
+       the VAX and PDP-11 (that is, little-endian machines).  Machines where
+       this does not correspond to the hardware must read the integers as
+       two bytes and compute the little-endian value.
+       The terminal names section comes next.  It contains the first line of
+       the terminfo description, listing the various names for the terminal,
+       separated by the “|” character.  The section is terminated with an
+       ASCII NUL character.
+       The boolean flags have one byte for each flag.  This byte is either 0
+       or 1 as the flag is present or absent.  The capabilities are in the
+       same order as the file <term.h>.
+       Between the boolean section and the number section, a null byte will
+       be inserted, if necessary, to ensure that the number section begins
+       on an even byte (this is a relic of the PDP-11's word-addressed
+       architecture, originally designed in to avoid IOT traps induced by
+       addressing a word on an odd byte boundary).  All short integers are
+       aligned on a short word boundary.
+       The numbers section is similar to the flags section.  Each capability
+       takes up two bytes, and is stored as a little-endian short integer.
+       If the value represented is -1, the capability is taken to be
+       missing.
+       The strings section is also similar.  Each capability is stored as a
+       short integer, in the format above.  A value of -1 means the
+       capability is missing.  Otherwise, the value is taken as an offset
+       from the beginning of the string table.  Special characters in ^X or
+       \c notation are stored in their interpreted form, not the printing
+       representation.  Padding information $<nn> and parameter information
+       %x are stored intact in uninterpreted form.
+       The final section is the string table.  It contains all the values of
+       string capabilities referenced in the string section.  Each string is
+       null terminated.
+   EXTENDED STORAGE FORMAT
+       The previous section describes the conventional terminfo binary
+       format.  With some minor variations of the offsets (see PORTABILITY),
+       the same binary format is used in all modern UNIX systems.  Each
+       system uses a predefined set of boolean, number or string
+       capabilities.
+       The ncurses libraries and applications support extended terminfo
+       binary format, allowing users to define capabilities which are loaded
+       at runtime.  This extension is made possible by using the fact that
+       the other implementations stop reading the terminfo data when they
+       have reached the end of the size given in the header.  ncurses checks
+       the size, and if it exceeds that due to the predefined data,
+       continues to parse according to its own scheme.
+       First, it reads the extended header (5 short integers):
+            (1)  count of extended boolean capabilities
+            (2)  count of extended numeric capabilities
+            (3)  count of extended string capabilities
+            (4)  count of the items in extended string table
+            (5)  size of the extended string table in bytes
+       The count- and size-values for the extended string table include the
+       extended capability names as well as extended capability values.
+       Using the counts and sizes, ncurses allocates arrays and reads data
+       for the extended capabilities in the same order as the header
+       information.
+       The extended string table contains values for string capabilities.
+       After the end of these values, it contains the names for each of the
+       extended capabilities in order, e.g., booleans, then numbers and
+       finally strings.
+       Applications which manipulate terminal data can use the definitions
+       described in term_variables(3X) which associate the long capability
+       names with members of a TERMTYPE structure.
+   EXTENDED NUMBER FORMAT
+       On occasion, 16-bit signed integers are not large enough.  With
+       ncurses 6.1, a new format was introduced by making a few changes to
+       the legacy format:
+       ·   a different magic number (0542)
+       ·   changing the type for the number array from signed 16-bit
+           integers to signed 32-bit integers.
+       To maintain compatibility, the library presents the same data
+       structures to direct users of the TERMTYPE structure as in previous
+       formats.  However, that cannot provide callers with the extended
+       numbers.  The library uses a similar but hidden data structure
+       TERMTYPE2 to provide data for the terminfo functions.

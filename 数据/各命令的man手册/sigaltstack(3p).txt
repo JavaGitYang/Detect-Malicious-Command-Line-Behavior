@@ -1,0 +1,44 @@
+
+       The sigaltstack() function allows a process to define and examine the
+       state of an alternate stack for signal handlers for the current
+       thread. Signals that have been explicitly declared to execute on the
+       alternate stack shall be delivered on the alternate stack.
+       If ss is not a null pointer, it points to a stack_t structure that
+       specifies the alternate signal stack that shall take effect upon
+       return from sigaltstack().  The ss_flags member specifies the new
+       stack state. If it is set to SS_DISABLE, the stack is disabled and
+       ss_sp and ss_size are ignored. Otherwise, the stack shall be enabled,
+       and the ss_sp and ss_size members specify the new address and size of
+       the stack.
+       The range of addresses starting at ss_sp up to but not including
+       ss_sp+ss_size is available to the implementation for use as the
+       stack. This function makes no assumptions regarding which end is the
+       stack base and in which direction the stack grows as items are
+       pushed.
+       If oss is not a null pointer, upon successful completion it shall
+       point to a stack_t structure that specifies the alternate signal
+       stack that was in effect prior to the call to sigaltstack().  The
+       ss_sp and ss_size members specify the address and size of that stack.
+       The ss_flags member specifies the stack's state, and may contain one
+       of the following values:
+       SS_ONSTACK  The process is currently executing on the alternate
+                   signal stack.  Attempts to modify the alternate signal
+                   stack while the process is executing on it fail. This
+                   flag shall not be modified by processes.
+       SS_DISABLE  The alternate signal stack is currently disabled.
+       The value SIGSTKSZ is a system default specifying the number of bytes
+       that would be used to cover the usual case when manually allocating
+       an alternate stack area. The value MINSIGSTKSZ is defined to be the
+       minimum stack size for a signal handler. In computing an alternate
+       stack size, a program should add that amount to its stack
+       requirements to allow for the system implementation overhead. The
+       constants SS_ONSTACK, SS_DISABLE, SIGSTKSZ, and MINSIGSTKSZ are
+       defined in <signal.h>.
+       After a successful call to one of the exec functions, there are no
+       alternate signal stacks in the new process image.
+       In some implementations, a signal (whether or not indicated to
+       execute on the alternate stack) shall always execute on the alternate
+       stack if it is delivered while another signal is being caught using
+       the alternate stack.
+       Use of this function by library threads that are not bound to kernel-
+       scheduled entities results in undefined behavior.

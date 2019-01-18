@@ -1,0 +1,10 @@
+
+       This function returns a string which describes the libpfm error value
+       in code. The string returned by the call is read-only.
+       The function must only be used with libpfm calls documented to return
+       specific error codes. The value -1 is not considered a specific error
+       code.  Strings and pfm_pmu_t return values cannot be used with this
+       function.  Typically NULL is returned in case of error for string
+       values, and PFM_PMU_NONE is returned for pfm_pmu_t values.
+       The function is also not designed to handle OS system call errors,
+       i.e., errno values.

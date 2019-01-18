@@ -1,0 +1,4 @@
+
+       The expiry command checks (-c) the current password expiration and
+       forces (-f) changes when required. It is callable as a normal user
+       command.

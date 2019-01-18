@@ -1,0 +1,12 @@
+
+       The chgpasswd command reads a list of group name and password pairs
+       from standard input and uses this information to update a set of
+       existing groups. Each line is of the format:
+       group_name:password
+       By default the supplied password must be in clear-text, and is
+       encrypted by chgpasswd.
+       The default encryption algorithm can be defined for the system with
+       the ENCRYPT_METHOD variable of /etc/login.defs, and can be
+       overwritten with the -e, -m, or -c options.
+       This command is intended to be used in a large system environment
+       where many accounts are created at a single time.

@@ -1,0 +1,3 @@
+
+       selinux_lsetfilecon_default() sets the file context to the system
+       defaults.

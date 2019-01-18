@@ -1,0 +1,4 @@
+
+       This function retrieves the CRL distribution points (2.5.29.31),
+       contained in the given certificate in the X509v3 Certificate
+       Extensions.

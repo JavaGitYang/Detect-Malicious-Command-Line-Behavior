@@ -1,0 +1,6 @@
+
+       is_selinux_enabled() returns 1 if SELinux is running or 0 if it is
+       not.  On error, -1 is returned.
+       is_selinux_mls_enabled() returns 1 if SELinux is capable of running
+       in MLS mode or 0 if it is not. To determine the policy in use on the
+       system, use selinux_getpolicytype(3).

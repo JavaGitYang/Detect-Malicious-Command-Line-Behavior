@@ -1,0 +1,3 @@
+
+       pcap_dump_file() returns the standard I/O stream of the ``savefile''
+       opened by pcap_dump_open().

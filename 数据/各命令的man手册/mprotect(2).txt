@@ -1,0 +1,43 @@
+
+       mprotect() changes the access protections for the calling process's
+       memory pages containing any part of the address range in the interval
+       [addr, addr+len-1].  addr must be aligned to a page boundary.
+       If the calling process tries to access memory in a manner that
+       violates the protections, then the kernel generates a SIGSEGV signal
+       for the process.
+       prot is a combination of the following access flags: PROT_NONE or a
+       bitwise-or of the other values in the following list:
+       PROT_NONE  The memory cannot be accessed at all.
+       PROT_READ  The memory can be read.
+       PROT_WRITE The memory can be modified.
+       PROT_EXEC  The memory can be executed.
+       PROT_SEM (since Linux 2.5.7)
+                  The memory can be used for atomic operations.  This flag
+                  was introduced as part of the futex(2) implementation (in
+                  order to guarantee the ability to perform atomic
+                  operations required by commands such as FUTEX_WAIT), but
+                  is not currently used in on any architecture.
+       PROT_SAO (since Linux 2.6.26)
+                  The memory should have strong access ordering.  This
+                  feature is specific to the PowerPC architecture (version
+                  2.06 of the architecture specification adds the SAO CPU
+                  feature, and it is available on POWER 7 or PowerPC A2, for
+                  example).
+       Additionally (since Linux 2.6.0), prot can have one of the following
+       flags set:
+       PROT_GROWSUP
+                  Apply the protection mode up to the end of a mapping that
+                  grows upwards.  (Such mappings are created for the stack
+                  area on architectures—for example, HP-PARISC—that have an
+                  upwardly growing stack.)
+       PROT_GROWSDOWN
+                  Apply the protection mode down to the beginning of a
+                  mapping that grows downward (which should be a stack
+                  segment or a segment mapped with the MAP_GROWSDOWN flag
+                  set).
+       Like mprotect(), pkey_mprotect() changes the protection on the pages
+       specified by addr and len.  The pkey argument specifies the
+       protection key (see pkeys(7)) to assign to the memory.  The
+       protection key must be allocated with pkey_alloc(2) before it is
+       passed to pkey_mprotect().  For an example of the use of this system
+       call, see pkeys(7).

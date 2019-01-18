@@ -1,0 +1,11 @@
+
+       The dlerror() function shall return a null-terminated character
+       string (with no trailing <newline>) that describes the last error
+       that occurred during dynamic linking processing. If no dynamic
+       linking errors have occurred since the last invocation of dlerror(),
+       dlerror() shall return NULL.  Thus, invoking dlerror() a second time,
+       immediately following a prior invocation, shall result in NULL being
+       returned.
+       It is implementation-defined whether or not the dlerror() function is
+       thread-safe. A thread-safe implementation shall return only errors
+       that occur on the current thread.

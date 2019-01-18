@@ -1,0 +1,3 @@
+
+       lvmdbusd is a service which provides a D-Bus API to the logical
+       volume manager (LVM).  Run lvmdbusd(8) as root.

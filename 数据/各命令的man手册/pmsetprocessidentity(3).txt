@@ -1,0 +1,10 @@
+
+       pmSetProcessIdentity provides a platform-independent method to set
+       the user id of a process to that matching username.
+       If possible (when the caller is already running as root)
+       pmSetProcessIdentity will set the group id of the process to that of
+       the matching user, e.g. using username and getpwnam(3).
+       A return value of 0 indicates success, otherwise the return value is
+       an error code that may be decoded with pmErrStr(3).
+       pmSetProcessIdentity is most often used in conjunction with
+       pmGetUsername(3) at process start up.

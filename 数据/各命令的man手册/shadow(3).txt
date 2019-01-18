@@ -1,0 +1,26 @@
+
+       shadow manipulates the contents of the shadow password file,
+       /etc/shadow. The structure in the #include file is:
+           struct spwd {
+                 char          *sp_namp; /* user login name */
+                 char          *sp_pwdp; /* encrypted password */
+                 long int      sp_lstchg; /* last password change */
+                 long int      sp_min; /* days until change allowed. */
+                 long int      sp_max; /* days before change required */
+                 long int      sp_warn; /* days warning for expiration */
+                 long int      sp_inact; /* days before account inactive */
+                 long int      sp_expire; /* date when account expires */
+                 unsigned long int  sp_flag; /* reserved for future use */
+           }
+       The meanings of each field are:
+       ·   sp_namp - pointer to null-terminated user name
+       ·   sp_pwdp - pointer to null-terminated password
+       ·   sp_lstchg - days since Jan 1, 1970 password was last changed
+       ·   sp_min - days before which password may not be changed
+       ·   sp_max - days after which password must be changed
+       ·   sp_warn - days before password is to expire that user is warned
+           of pending password expiration
+       ·   sp_inact - days after password expires that account is considered
+           inactive and disabled
+       ·   sp_expire - days since Jan 1, 1970 when account will be disabled
+       ·   sp_flag - reserved for future use

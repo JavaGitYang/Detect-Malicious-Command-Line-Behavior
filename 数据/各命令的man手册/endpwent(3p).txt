@@ -1,0 +1,22 @@
+
+       These functions shall retrieve information about users.
+       The getpwent() function shall return a pointer to a structure
+       containing the broken-out fields of an entry in the user database.
+       Each entry in the user database contains a passwd structure. When
+       first called, getpwent() shall return a pointer to a passwd structure
+       containing the first entry in the user database. Thereafter, it shall
+       return a pointer to a passwd structure containing the next entry in
+       the user database. Successive calls can be used to search the entire
+       user database.
+       If an end-of-file or an error is encountered on reading, getpwent()
+       shall return a null pointer.
+       An implementation that provides extended security controls may impose
+       further implementation-defined restrictions on accessing the user
+       database. In particular, the system may deny the existence of some or
+       all of the user database entries associated with users other than the
+       caller.
+       The setpwent() function effectively rewinds the user database to
+       allow repeated searches.
+       The endpwent() function may be called to close the user database when
+       processing is complete.
+       These functions need not be thread-safe.

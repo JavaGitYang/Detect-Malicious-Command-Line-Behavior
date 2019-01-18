@@ -1,0 +1,3 @@
+
+       The library supports the Intel Skylake X server IIO uncore PMU. The
+       IIO PMU is used to analyze I/O traffic from the PCIe controllers.

@@ -1,0 +1,21 @@
+
+       tftpd is a server which supports the DARPA Trivial File Transfer
+       Protocol (RFC1350). The TFTP server is started by inetd(8).
+       directory is required argument; if it is not given tftpd aborts. This
+       path is prepended to any file name requested via TFTP protocol,
+       effectively chrooting tftpd to this directory. File names are
+       validated not to escape out of this directory, however administrator
+       may configure such escape using symbolic links.
+       It is in difference of variants of tftpd usually distributed with
+       unix-like systems, which take a list of directories and match file
+       names to start from one of given prefixes or to some random default,
+       when no arguments were given. There are two reasons not to behave in
+       this way: first, it is inconvenient, clients are not expected to know
+       something about layout of filesystem on server host. And second, TFTP
+       protocol is not a tool for browsing of server's filesystem, it is
+       just an agent allowing to boot dumb clients.
+       In the case when tftpd is used together with rarpd(8), tftp
+       directories in these services should coincide and it is expected that
+       each client booted via TFTP has boot image corresponding its IP
+       address with an architecture suffix following Sun Microsystems
+       conventions. See rarpd(8) for more details.

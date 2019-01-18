@@ -1,0 +1,21 @@
+
+       The trace macro package of groff(1) can be a valuable tool for
+       debugging documents written in the roff formatting language.  A call
+       stack trace is protocolled on standard error, this is, a diagnostic
+       message is emitted on entering and exiting of a macro call.  This
+       greatly eases to track down an error in some macro.
+       This tracing process is activated by specifying the groff or troff
+       command-line option -m trace.  This works also with the groffer(1)
+       viewer program.  A finer control can be obtained by including the
+       macro file within the document by the groff macro call
+       .mso trace.tmac.  Only macros that are defined after this line are
+       traced.
+       If the command-line option -r trace-full=1 is given (or if this
+       register is set in the document), number and string register
+       assignments together with some other requests are traced also.
+       If some other macro package should be traced as well it must be
+       specified after -m trace on the command line.
+       The macro file trace.tmac is unusual because it does not contain any
+       macros to be called by a user.  Instead, the existing macro
+       definition and appending facilities are modified such that they
+       display diagnostic messages.

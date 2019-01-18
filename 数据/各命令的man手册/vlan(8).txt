@@ -1,0 +1,7 @@
+
+       The vlan action allows to perform 802.1Q en- or decapsulation on a
+       packet, reflected by the operation modes POP, PUSH and MODIFY.  The
+       POP mode is simple, as no further information is required to just
+       drop the outer-most VLAN encapsulation. The PUSH and MODIFY modes
+       require at least a VLANID and allow to optionally choose the
+       VLANPROTO to use.

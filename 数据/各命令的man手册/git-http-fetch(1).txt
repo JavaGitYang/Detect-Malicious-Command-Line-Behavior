@@ -1,0 +1,4 @@
+
+       Downloads a remote Git repository via HTTP.
+       NOTE: use of this command without -a is deprecated. The -a behaviour
+       will become the default in a future release.

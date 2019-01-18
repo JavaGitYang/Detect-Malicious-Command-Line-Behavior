@@ -1,0 +1,3 @@
+
+       The library supports the Intel Ivy Bridge R2 PCIe uncore PMU.  This
+       PMU model only exists on Ivy Bridge model 62.

@@ -1,0 +1,28 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The ungetwc() function shall push the character corresponding to the
+       wide-character code specified by wc back onto the input stream
+       pointed to by stream.  The pushed-back characters shall be returned
+       by subsequent reads on that stream in the reverse order of their
+       pushing. A successful intervening call (with the stream pointed to by
+       stream) to a file-positioning function (fseek(), fseeko(), fsetpos(),
+       or rewind()) or fflush() shall discard any pushed-back characters for
+       the stream. The external storage corresponding to the stream is
+       unchanged.
+       At least one character of push-back shall be provided. If ungetwc()
+       is called too many times on the same stream without an intervening
+       read or file-positioning operation on that stream, the operation may
+       fail.
+       If the value of wc equals that of the macro WEOF, the operation shall
+       fail and the input stream shall be left unchanged.
+       A successful call to ungetwc() shall clear the end-of-file indicator
+       for the stream. The value of the file-position indicator for the
+       stream after all pushed-back characters have been read, or discarded
+       by calling fseek(), fseeko(), fsetpos(), or rewind() (but not
+       fflush()), shall be the same as it was before the characters were
+       pushed back. The file-position indicator is decremented (by one or
+       more) by each successful call to ungetwc(); if its value was 0 before
+       a call, its value is unspecified after the call.

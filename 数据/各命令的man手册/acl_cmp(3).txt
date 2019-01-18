@@ -1,0 +1,5 @@
+
+     The acl_cmp() function compares the ACLs pointed to by the arguments
+     acl1 and acl2 for equality. The two ACLs are considered equal if for
+     each entry in acl1 there is an entry in acl2 with matching tag type,
+     qualifier, and permissions, and vice versa.

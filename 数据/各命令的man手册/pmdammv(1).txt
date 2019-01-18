@@ -1,0 +1,27 @@
+
+       pmdammv is a Performance Metrics Domain Agent (PMDA) which exports
+       application level performance metrics using memory mapped files.  It
+       offers an extremely low overhead instrumentation facility that is
+       well-suited to long running, mission critical applications where it
+       is desirable to have performance metrics and availability information
+       permanently enabled.
+       The mmv PMDA exports instrumentation that has been added to an
+       application using the MMV APIs (refer to mmv_stats_init(3) and mmv(5)
+       for further details).  These APIs can be called from several
+       languages, including C, C++, Perl, Python, Java (via the separate
+       ``Parfait'' class library) and GoLang (via the separate ``Speed''
+       library).
+       A brief description of the pmdammv command line options follows:
+       -d   It is absolutely crucial that the performance metrics domain
+            number specified here is unique and consistent.  That is, domain
+            should be different for every PMDA on the one host, and the same
+            domain number should be used for the same PMDA on all hosts.
+       -l   Location of the log file.  By default, a log file named mmv.log
+            is written in the current directory of pmcd(1) when pmdammv is
+            started, i.e.  $PCP_LOG_DIR/pmcd.  If the log file cannot be
+            created or is not writable, output is written to the standard
+            error instead.
+       -U   User account under which to run the agent.  The default is the
+            unprivileged "pcp" account in current versions of PCP, but in
+            older versions the superuser account ("root") was used by
+            default.

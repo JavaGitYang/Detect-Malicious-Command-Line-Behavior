@@ -1,0 +1,4 @@
+
+       rmmod is a trivial program to remove a module (when module unloading
+       support is provided) from the kernel. Most users will want to use
+       modprobe(8) with the -r option instead.

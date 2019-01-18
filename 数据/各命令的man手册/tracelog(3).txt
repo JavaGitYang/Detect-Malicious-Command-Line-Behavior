@@ -1,0 +1,70 @@
+
+       The LTTng-UST tracelog() API allows you to trace your application
+       with the help of a simple printf(3)-like macro, with an additional
+       parameter for the desired log level. The fmt argument is passed
+       directly to the fmt parameter of vasprintf(3), as well as the
+       optional parameters following fmt.
+       The purpose of tracelog() is to ease the migration from logging to
+       tracing.
+       The available values for the level parameter are:
+       TRACE_EMERG
+           System is unusable.
+       TRACE_ALERT
+           Action must be taken immediately.
+       TRACE_CRIT
+           Critical conditions.
+       TRACE_ERR
+           Error conditions.
+       TRACE_WARNING
+           Warning conditions.
+       TRACE_NOTICE
+           Normal, but significant, condition.
+       TRACE_INFO
+           Informational message.
+       TRACE_DEBUG_SYSTEM
+           Debug information with system-level scope (set of programs).
+       TRACE_DEBUG_PROGRAM
+           Debug information with program-level scope (set of processes).
+       TRACE_DEBUG_PROCESS
+           Debug information with process-level scope (set of modules).
+       TRACE_DEBUG_MODULE
+           Debug information with module (executable/library) scope (set of
+           units).
+       TRACE_DEBUG_UNIT
+           Debug information with compilation unit scope (set of functions).
+       TRACE_DEBUG_FUNCTION
+           Debug information with function-level scope.
+       TRACE_DEBUG_LINE
+           Debug information with line-level scope (default log level).
+       TRACE_DEBUG
+           Debug-level message.
+       To use tracelog(), include <lttng/tracelog.h> where you need it, and
+       link your application with liblttng-ust. See the EXAMPLE section
+       below for a complete usage example.
+       Once your application is instrumented with tracelog() calls and ready
+       to run, use lttng-enable-event(1) to enable the lttng_ust_tracelog:*
+       event. You can isolate specific log levels with the --loglevel and
+       --loglevel-only options of this command.
+       The tracelog() events contain the following fields:
+       ┌───────────┬───────────────────────────┐
+       │Field name │ Description               │
+       ├───────────┼───────────────────────────┤
+       │           │                           │
+       │line       │ Line in source file where │
+       │           │ tracelog() was called.    │
+       ├───────────┼───────────────────────────┤
+       │           │                           │
+       │file       │ Source file from which    │
+       │           │ tracelog() was called.    │
+       ├───────────┼───────────────────────────┤
+       │           │                           │
+       │func       │ Function name from which  │
+       │           │ tracelog() was called.    │
+       ├───────────┼───────────────────────────┤
+       │           │                           │
+       │msg        │ Formatted string output.  │
+       └───────────┴───────────────────────────┘
+       If you do not need to attach a specific log level to a tracelog()
+       call, use tracef(3) instead.
+       See also the LIMITATIONS section below for important limitations to
+       consider when using tracelog().

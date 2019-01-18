@@ -1,0 +1,9 @@
+
+       This man page is generated from the file indent.texinfo.  This is
+       Edition  of "The indent Manual", for Indent Version , last updated .
+       The indent program can be used to make code easier to read.  It can
+       also convert from one style of writing C to another.
+       indent understands a substantial amount about the syntax of C, but it
+       also attempts to cope with incomplete and misformed syntax.
+       In version 1.2 and more recent versions, the GNU style of indenting
+       is the default.

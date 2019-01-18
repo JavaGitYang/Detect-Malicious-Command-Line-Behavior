@@ -1,0 +1,20 @@
+
+       Run the executable within the specified context, using the alternate
+       home directory and /tmp directory.  The seunshare command unshares
+       from the default namespace, then mounts the specified homedir and
+       tmpdir over the default homedir and /tmp. Finally it tells the kernel
+       to execute the application under the specified SELinux context.
+       -h homedir
+              Alternate homedir to be used by the application.  Homedir must
+              be owned by the user.
+       -t tmpdir
+              Use alternate tempory directory to mount on /tmp.  tmpdir must
+              be owned by the user.
+       -C --capabilities
+              Allow apps executed within the namespace to use capabilities.
+              Default is no capabilities.
+       -k --kill
+              Kill all processes with matching MCS level.
+       -Z context
+              Use alternate SELinux context while running the executable.
+       -v     Verbose output

@@ -1,0 +1,5 @@
+
+       The atof() function converts the initial portion of the string
+       pointed to by nptr to double.  The behavior is the same as
+           strtod(nptr, NULL);
+       except that atof() does not detect errors.

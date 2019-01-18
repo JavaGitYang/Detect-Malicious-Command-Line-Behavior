@@ -1,0 +1,4 @@
+
+       The library supports the ARM Cortex A8 core PMU.
+       This PMU supports 2 counters and has no privilege levels filtering.
+       No event modifiers are available.

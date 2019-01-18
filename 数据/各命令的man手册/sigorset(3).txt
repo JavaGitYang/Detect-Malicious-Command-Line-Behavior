@@ -1,0 +1,13 @@
+
+       These functions allow the manipulation of POSIX signal sets.
+       sigemptyset() initializes the signal set given by set to empty, with
+       all signals excluded from the set.
+       sigfillset() initializes set to full, including all signals.
+       sigaddset() and sigdelset() add and delete respectively signal signum
+       from set.
+       sigismember() tests whether signum is a member of set.
+       Objects of type sigset_t must be initialized by a call to either
+       sigemptyset() or sigfillset() before being passed to the functions
+       sigaddset(), sigdelset() and sigismember() or the additional glibc
+       functions described below (sigisemptyset(), sigandset(), and
+       sigorset()).  The results are undefined if this is not done.

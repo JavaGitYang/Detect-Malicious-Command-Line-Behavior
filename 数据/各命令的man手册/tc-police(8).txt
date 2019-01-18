@@ -1,0 +1,8 @@
+
+       The police action allows to limit bandwidth of traffic matched by the
+       filter it is attached to. Basically there are two different
+       algorithms available to measure the packet rate: The first one uses
+       an internal dual token bucket and is configured using the rate,
+       burst, mtu, peakrate, overhead and linklayer parameters. The second
+       one uses an in-kernel sampling mechanism. It can be fine-tuned using
+       the estimator filter parameter.

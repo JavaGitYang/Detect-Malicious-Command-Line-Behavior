@@ -1,0 +1,13 @@
+
+       As part of the Performance Metrics Domain Agent (PMDA) API (see
+       PMDA(3)), pmdaPMID is the generic callback for translating a dynamic
+       metric name into a PMID (pmid).
+       Because implementing dynamic performance metrics requires specific
+       PMDA support, and the facility is an optional component of a PMDA
+       (most PMDAs do not support dynamic performance metrics), pmdaPMID is
+       a skeleton implementation that returns PM_ERR_NAME.
+       A PMDA that supports dynamic performance metrics will provide a
+       private callback that replaces pmdaPMID (by assignment to
+       version.four.pmid of the pmdaInterface structure) and implements the
+       translation from a dynamic performance metric name into the
+       associated pmid.

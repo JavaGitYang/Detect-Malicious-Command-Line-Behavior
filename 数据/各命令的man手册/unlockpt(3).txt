@@ -1,0 +1,5 @@
+
+       The unlockpt() function unlocks the slave pseudoterminal device
+       corresponding to the master pseudoterminal referred to by fd.
+       unlockpt() should be called before opening the slave side of a
+       pseudoterminal.

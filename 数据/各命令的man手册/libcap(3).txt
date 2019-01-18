@@ -1,0 +1,15 @@
+
+       These functions work on a capability state held in working storage.
+       A cap_t holds information about the capabilities in each of the three
+       sets, Permitted, Inheritable, and Effective.  Each capability in a
+       set may be clear (disabled, 0) or set (enabled, 1).
+       These functions work with the following data types:
+       cap_value_t       identifies a capability, such as CAP_CHOWN.
+       cap_flag_t        identifies one of the three flags associated with a
+                         capability (i.e., it identifies one of the three
+                         capability sets).  Valid values for this type are
+                         CAP_EFFECTIVE, CAP_INHERITABLE or CAP_PERMITTED.
+       cap_flag_value_t  identifies the setting of a particular capability
+                         flag (i.e, the value of a capability in a set).
+                         Valid values for this type are CAP_CLEAR(0) or
+                         CAP_SET(1).

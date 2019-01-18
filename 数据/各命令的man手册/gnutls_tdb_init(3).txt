@@ -1,0 +1,2 @@
+
+       This function will initialize a public key trust storage structure.

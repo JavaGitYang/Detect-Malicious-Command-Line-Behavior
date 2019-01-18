@@ -1,0 +1,9 @@
+
+       mkfs.btrfs is used to create the btrfs filesystem on a single or
+       multiple devices. <device> is typically a block device but can be a
+       file-backed image as well. Multiple devices are grouped by UUID of
+       the filesystem.
+       Before mounting such filesystem, the kernel module must know all the
+       devices either via preceding execution of btrfs device scan or using
+       the device mount option. See section MULTIPLE DEVICES for more
+       details.

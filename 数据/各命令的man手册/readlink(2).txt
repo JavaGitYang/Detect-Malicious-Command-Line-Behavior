@@ -1,0 +1,22 @@
+
+       readlink() places the contents of the symbolic link pathname in the
+       buffer buf, which has size bufsiz.  readlink() does not append a null
+       byte to buf.  It will (silently) truncate the contents (to a length
+       of bufsiz characters), in case the buffer is too small to hold all of
+       the contents.
+   readlinkat()
+       The readlinkat() system call operates in exactly the same way as
+       readlink(), except for the differences described here.
+       If the pathname given in pathname is relative, then it is interpreted
+       relative to the directory referred to by the file descriptor dirfd
+       (rather than relative to the current working directory of the calling
+       process, as is done by readlink() for a relative pathname).
+       If pathname is relative and dirfd is the special value AT_FDCWD, then
+       pathname is interpreted relative to the current working directory of
+       the calling process (like readlink()).
+       If pathname is absolute, then dirfd is ignored.
+       Since Linux 2.6.39, pathname can be an empty string, in which case
+       the call operates on the symbolic link referred to by dirfd (which
+       should have been obtained using open(2) with the O_PATH and
+       O_NOFOLLOW flags).
+       See openat(2) for an explanation of the need for readlinkat().

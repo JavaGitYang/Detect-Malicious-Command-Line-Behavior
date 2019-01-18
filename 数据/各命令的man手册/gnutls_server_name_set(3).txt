@@ -1,0 +1,11 @@
+
+       This function is to be used by clients that want to inform (via a TLS
+       extension mechanism) the server of the name they connected to.  This
+       should be used by clients that connect to servers that do virtual
+       hosting.
+       The value of  name depends on the  type type.  In case of
+       GNUTLS_NAME_DNS, a UTF-8 null-terminated domain name string, without
+       the trailing dot, is expected.
+       IPv4 or IPv6 addresses are not permitted to be set by this function.
+       If the function is called with a name of  name_length zero it will
+       clear all server names set.

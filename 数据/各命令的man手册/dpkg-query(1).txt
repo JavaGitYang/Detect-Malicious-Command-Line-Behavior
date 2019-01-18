@@ -1,0 +1,3 @@
+
+       dpkg-query is a tool to show information about packages listed in the
+       dpkg database.

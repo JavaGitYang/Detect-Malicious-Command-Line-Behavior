@@ -1,0 +1,7 @@
+
+       The fchdir() function shall be equivalent to chdir() except that the
+       directory that is to be the new current working directory is
+       specified by the file descriptor fildes.
+       A conforming application can obtain a file descriptor for a file of
+       type directory using open(), provided that the file status flags and
+       access modes do not contain O_WRONLY or O_RDWR.

@@ -1,0 +1,28 @@
+
+       The meta backend to slapd(8) performs basic LDAP proxying with
+       respect to a set of remote LDAP servers, called "targets".  The
+       information contained in these servers can be presented as belonging
+       to a single Directory Information Tree (DIT).
+       A basic knowledge of the functionality of the slapd-ldap(5) backend
+       is recommended.  This backend has been designed as an enhancement of
+       the ldap backend.  The two backends share many features (actually
+       they also share portions of code).  While the ldap backend is
+       intended to proxy operations directed to a single server, the meta
+       backend is mainly intended for proxying of multiple servers and
+       possibly naming context masquerading.  These features, although
+       useful in many scenarios, may result in excessive overhead for some
+       applications, so its use should be carefully considered.  In the
+       examples section, some typical scenarios will be discussed.
+       The proxy instance of slapd(8) must contain schema information for
+       the attributes and objectClasses used in filters, request DN and
+       request-related data in general.  It should also contain schema
+       information for the data returned by the proxied server.  It is the
+       responsibility of the proxy administrator to keep the schema of the
+       proxy lined up with that of the proxied server.
+       Note: When looping back to the same instance of slapd(8), each
+       connection requires a new thread; as a consequence, slapd(8) must be
+       compiled with thread support, and the threads parameter may need some
+       tuning; in those cases, unless the multiple target feature is
+       required, one may consider using slapd-relay(5) instead, which
+       performs the relayed operation internally and thus reuses the same
+       connection.

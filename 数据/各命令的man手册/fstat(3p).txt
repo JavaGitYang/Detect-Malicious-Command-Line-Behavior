@@ -1,0 +1,26 @@
+
+       The fstat() function shall obtain information about an open file
+       associated with the file descriptor fildes, and shall write it to the
+       area pointed to by buf.
+       If fildes references a shared memory object, the implementation shall
+       update in the stat structure pointed to by the buf argument the
+       st_uid, st_gid, st_size, and st_mode fields, and only the S_IRUSR,
+       S_IWUSR, S_IRGRP, S_IWGRP, S_IROTH, and S_IWOTH file permission bits
+       need be valid.  The implementation may update other fields and flags.
+       If fildes references a typed memory object, the implementation shall
+       update in the stat structure pointed to by the buf argument the
+       st_uid, st_gid, st_size, and st_mode fields, and only the S_IRUSR,
+       S_IWUSR, S_IRGRP, S_IWGRP, S_IROTH, and S_IWOTH file permission bits
+       need be valid. The implementation may update other fields and flags.
+       The buf argument is a pointer to a stat structure, as defined in
+       <sys/stat.h>, into which information is placed concerning the file.
+       For all other file types defined in this volume of POSIX.1‐2008, the
+       structure members st_mode, st_ino, st_dev, st_uid, st_gid, st_atim,
+       st_ctim, and st_mtim shall have meaningful values and the value of
+       the st_nlink member shall be set to the number of links to the file.
+       An implementation that provides additional or alternative file access
+       control mechanisms may, under implementation-defined conditions,
+       cause fstat() to fail.
+       The fstat() function shall update any time-related fields (as
+       described in the Base Definitions volume of POSIX.1‐2008, Section
+       4.8, File Times Update), before writing into the stat structure.

@@ -1,0 +1,39 @@
+
+       The send() function shall initiate transmission of a message from the
+       specified socket to its peer. The send() function shall send a
+       message only when the socket is connected. If the socket is a
+       connectionless-mode socket, the message shall be sent to the pre-
+       specified peer address.
+       The send() function takes the following arguments:
+       socket      Specifies the socket file descriptor.
+       buffer      Points to the buffer containing the message to send.
+       length      Specifies the length of the message in bytes.
+       flags       Specifies the type of message transmission. Values of
+                   this argument are formed by logically OR'ing zero or more
+                   of the following flags:
+                   MSG_EOR       Terminates a record (if supported by the
+                                 protocol).
+                   MSG_OOB       Sends out-of-band data on sockets that
+                                 support out-of-band communications. The
+                                 significance and semantics of out-of-band
+                                 data are protocol-specific.
+                   MSG_NOSIGNAL  Requests not to send the SIGPIPE signal if
+                                 an attempt to send is made on a stream-
+                                 oriented socket that is no longer
+                                 connected. The [EPIPE] error shall still be
+                                 returned.
+       The length of the message to be sent is specified by the length
+       argument. If the message is too long to pass through the underlying
+       protocol, send() shall fail and no data shall be transmitted.
+       Successful completion of a call to send() does not guarantee delivery
+       of the message. A return value of −1 indicates only locally-detected
+       errors.
+       If space is not available at the sending socket to hold the message
+       to be transmitted, and the socket file descriptor does not have
+       O_NONBLOCK set, send() shall block until space is available. If space
+       is not available at the sending socket to hold the message to be
+       transmitted, and the socket file descriptor does have O_NONBLOCK set,
+       send() shall fail. The select() and poll() functions can be used to
+       determine when it is possible to send more data.
+       The socket in use may require the process to have appropriate
+       privileges to use the send() function.

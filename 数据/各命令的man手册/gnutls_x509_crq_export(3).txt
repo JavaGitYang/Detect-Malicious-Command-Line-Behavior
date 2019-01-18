@@ -1,0 +1,8 @@
+
+       This function will export the certificate request to a PEM or DER
+       encoded PKCS10 structure.
+       If the buffer provided is not long enough to hold the output, then
+       GNUTLS_E_SHORT_MEMORY_BUFFER will be returned and * output_data_size
+       will be updated.
+       If the structure is PEM encoded, it will have a header of "BEGIN NEW
+       CERTIFICATE REQUEST".

@@ -1,0 +1,186 @@
+
+       pmcd is the collector used by the Performance Co-Pilot (see
+       PCPIntro(1)) to gather performance metrics on a system.  As a rule,
+       there must be an instance of pmcd running on a system for any
+       performance metrics to be available to the PCP.
+       pmcd accepts connections from client applications running either on
+       the same machine or remotely and provides them with metrics and other
+       related information from the machine that pmcd is executing on.  pmcd
+       delegates most of this request servicing to a collection of
+       Performance Metrics Domain Agents (or just agents), where each agent
+       is responsible for a particular group of metrics, known as the domain
+       of the agent.  For example the postgresql agent is responsible for
+       reporting information relating to the PostgreSQL database, such as
+       the transaction and query counts, indexing and replication
+       statistics, and so on.
+       The agents may be processes started by pmcd, independent processes or
+       Dynamic Shared Objects (DSOs, see dlopen(3)) attached to pmcd's
+       address space.  The configuration section below describes how
+       connections to agents are specified.
+       The options to pmcd are as follows.
+       -A     Disable service advertisement.  By default, pmcd will
+              advertise its presence on the network using any available
+              mechanisms (such as Avahi/DNS-SD), assisting remote monitoring
+              tools with finding it.  These mechanisms are disabled with
+              this option.
+       -c config
+              On startup pmcd uses a configuration file from either the
+              $PCP_PMCDCONF_PATH, configuration variable in /etc/pcp.conf,
+              or an environment variable of the same name.  However, these
+              values may be overridden with config using this option.  The
+              format of this configuration file is described below.
+       -C dirname
+              Specify the path to the Network Security Services certificate
+              database, for (optional) secure connections.  The default is
+              /etc/pki/nssdb.  Refer also to the -P option.  If it does not
+              already exist, this database can be created using the certutil
+              utility.  This process and other certificate database
+              maintenance information is provided in the PCPIntro(1) manual
+              page and the online PCP tutorials.
+       -f     By default pmcd is started as a daemon.  The -f option
+              indicates that it should run in the foreground.  This is most
+              useful when trying to diagnose problems with misbehaving
+              agents.
+       -H hostname
+              This option can be used to set the hostname that pmcd will use
+              to represent this instance of itself.  This is used by client
+              tools like pmlogger(1) when reporting on the (possibly remote)
+              host.  If this option is not set, the pmcd.hostname metric
+              will match that returned by pmhostname(1).  Refer to the
+              manual page for that tool for full details on how the hostname
+              is evaluated.
+       -i ipaddress
+              This option is usually only used on hosts with more than one
+              network interface.  If no -i options are specified pmcd
+              accepts connections made to any of its host's IP (Internet
+              Protocol) addresses.  The -i option is used to specify
+              explicitly an IP address that connections should be accepted
+              on.  ipaddress should be in the standard dotted form (e.g.
+              100.23.45.6).  The -i option may be used multiple times to
+              define a list of IP addresses.  Connections made to any other
+              IP addresses the host has will be refused.  This can be used
+              to limit connections to one network interface if the host is a
+              network gateway.  It is also useful if the host takes over the
+              IP address of another host that has failed.  In such a
+              situation only the standard IP addresses of the host should be
+              given (not the ones inherited from the failed host).  This
+              allows PCP applications to determine that a host has failed,
+              rather than connecting to the host that has assumed the
+              identity of the failed host.
+       -l logfile
+              By default a log file named pmcd.log is written in the
+              directory $PCP_LOG_DIR/pmcd.  The -l option causes the log
+              file to be written to logfile instead of the default.  If the
+              log file cannot be created or is not writable, output is
+              written to the standard error instead.
+       -L bytes
+              PDUs received by pmcd from monitoring clients are restricted
+              to a maximum size of 65536 bytes by default to defend against
+              Denial of Service attacks.  The -L option may be used to
+              change the maximum incoming PDU size.
+       -M certname
+              By default, pmcd will try to use a certificate called PCP
+              Collector certificate .  The -M option allows this to be
+              changed.
+       -n pmnsfile
+              Normally pmcd loads the default Performance Metrics Name Space
+              (PMNS) from $PCP_VAR_DIR/pmns/root, however if the -n option
+              is specified an alternative namespace is loaded from the file
+              pmnsfile.
+       -N pmnsfile
+              Same function as -n, except for the handling of duplicate
+              Performance Metric Identifiers (PMIDs) in pmnsfile - duplicate
+              names are allowed with -n they are not allowed with -N.
+       -P passfile
+              Specify the path to a file containing the Network Security
+              Services certificate database password for (optional) secure
+              connections, and for databases that are password protected.
+              Refer also to the -C option.  When using this option, great
+              care should be exercised to ensure appropriate ownership
+              ("pcp" user, typically) and permissions on this file (0400, so
+              as to be unreadable by any user other than the user running
+              the pmcd process).
+       -q timeout
+              The pmcd to agent version exchange protocol (new in PCP 2.0 -
+              introduced to provide backward compatibility) uses this
+              timeout to specify how long pmcd should wait before assuming
+              that no version response is coming from an agent.  If this
+              timeout is reached, the agent is assumed to be an agent which
+              does not understand the PCP 2.0 protocol.  The default timeout
+              interval is five seconds, but the -q option allows an
+              alternative timeout interval (which must be greater than zero)
+              to be specified.  The unit of time is seconds.
+       -Q     Require that all remote client connections provide a
+              certficate.
+       -S     Require that all client connections provide user credentials.
+              This means that only unix domain sockets, or authenticated
+              connections are permitted (requires secure sockets support).
+              If any user or group access control requirements are specified
+              in the pmcd configuration file, then this mode of operation is
+              automatically entered, whether the -S flag is specified or
+              not.
+       -s sockname
+              Specify the path to a local unix domain socket (for platforms
+              supporting this socket family only).  The default value is
+              $PCP_RUN_DIR/pmcd.socket.
+       -t timeout
+              To prevent misbehaving clients or agents from hanging the
+              entire Performance Metrics Collection System (PMCS), pmcd uses
+              timeouts on PDU exchanges with clients and agents running as
+              processes.  By default the timeout interval is five seconds.
+              The -t option allows an alternative timeout interval in
+              seconds to be specified.  If timeout is zero, timeouts are
+              turned off.  It is almost impossible to use the debugger
+              interactively on an agent unless timeouts have been turned off
+              for its "parent" pmcd.
+              Once pmcd is running, the timeout may be dynamically modified
+              by storing an integer value (the timeout in seconds) into the
+              metric pmcd.control.timeout via pmstore(1).
+       -T traceflag
+              To assist with error diagnosis for agents and/or clients of
+              pmcd that are not behaving correctly, an internal event
+              tracing mechanism is supported within pmcd.  The value of
+              traceflag is interpreted as a bit field with the following
+              control functions:
+              1   enable client connection tracing
+              2   enable PDU tracing
+              256 unbuffered event tracing
+              By default, event tracing is buffered using a circular buffer
+              that is over-written as new events are recorded.  The default
+              buffer size holds the last 20 events, although this number may
+              be over-ridden by using pmstore(1) to modify the metric
+              pmcd.control.tracebufs.
+              Similarly once pmcd is running, the event tracing control may
+              be dynamically modified by storing 1 (enable) or 0 (disable)
+              into the metrics pmcd.control.traceconn, pmcd.control.tracepdu
+              and pmcd.control.tracenobuf.  These metrics map to the bit
+              fields associated with the traceflag argument for the -T
+              option.
+              When operating in buffered mode, the event trace buffer will
+              be dumped whenever an agent connection is terminated by pmcd,
+              or when any value is stored into the metric
+              pmcd.control.dumptrace via pmstore(1).
+              In unbuffered mode, every event will be reported when it
+              occurs.
+       -U username
+              User account under which to run pmcd.  The default is the
+              unprivileged "pcp" account in current versions of PCP, but in
+              older versions the superuser account ("root") was used by
+              default.
+       -v     Verify the pmcd configuration file, reporting on any errors
+              then exiting with a status indicating verification success or
+              failure.
+       -x file
+              Before the pmcd logfile can be opened, pmcd may encounter a
+              fatal error which prevents it from starting.  By default, the
+              output describing this error is sent to /dev/tty but it may
+              redirected to file.
+       If a PDU exchange with an agent times out, the agent has violated the
+       requirement that it delivers metrics with little or no delay.  This
+       is deemed a protocol failure and the agent is disconnected from pmcd.
+       Any subsequent requests for information from the agent will fail with
+       a status indicating that there is no agent to provide it.
+       It is possible to specify access control to pmcd based on users,
+       groups and hosts.  This allows one to prevent users, groups of users,
+       and certain hosts from accessing the metrics provided by pmcd and is
+       described in more detail in the Section on ACCESS CONTROL below.

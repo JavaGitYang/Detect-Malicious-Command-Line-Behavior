@@ -1,0 +1,40 @@
+
+       The rpc.mountd daemon implements the server side of the NFS MOUNT
+       protocol, an NFS side protocol used by NFS version 2 [RFC1094] and
+       NFS version 3 [RFC1813].
+       An NFS server maintains a table of local physical file systems that
+       are accessible to NFS clients.  Each file system in this table is
+       referred to as an exported file system, or export, for short.
+       Each file system in the export table has an access control list.
+       rpc.mountd uses these access control lists to determine whether an
+       NFS client is permitted to access a given file system.  For details
+       on how to manage your NFS server's export table, see the exports(5)
+       and exportfs(8) man pages.
+   Mounting exported NFS File Systems
+       The NFS MOUNT protocol has several procedures.  The most important of
+       these are MNT (mount an export) and UMNT (unmount an export).
+       A MNT request has two arguments: an explicit argument that contains
+       the pathname of the root directory of the export to be mounted, and
+       an implicit argument that is the sender's IP address.
+       When receiving a MNT request from an NFS client, rpc.mountd checks
+       both the pathname and the sender's IP address against its export
+       table.  If the sender is permitted to access the requested export,
+       rpc.mountd returns an NFS file handle for the export's root directory
+       to the client.  The client can then use the root file handle and NFS
+       LOOKUP requests to navigate the directory structure of the export.
+   The rmtab File
+       The rpc.mountd daemon registers every successful MNT request by
+       adding an entry to the /var/lib/nfs/rmtab file.  When receivng a UMNT
+       request from an NFS client, rpc.mountd simply removes the matching
+       entry from /var/lib/nfs/rmtab, as long as the access control list for
+       that export allows that sender to access the export.
+       Clients can discover the list of file systems an NFS server is
+       currently exporting, or the list of other clients that have mounted
+       its exports, by using the showmount(8) command.  showmount(8) uses
+       other procedures in the NFS MOUNT protocol to report information
+       about the server's exported file systems.
+       Note, however, that there is little to guarantee that the contents of
+       /var/lib/nfs/rmtab are accurate.  A client may continue accessing an
+       export even after invoking UMNT.  If the client reboots without
+       sending a UMNT request, stale entries remain for that client in
+       /var/lib/nfs/rmtab.

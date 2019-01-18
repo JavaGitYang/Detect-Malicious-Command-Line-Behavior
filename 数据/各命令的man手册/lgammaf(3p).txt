@@ -1,0 +1,17 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       These functions shall compute $log_ e" " │ Γ ( ^ x ) │$ where $Γ ( ^
+       x )$ is defined as $int from 0 to inf e"^" " "{ - t } t"^" " "{ x - 1
+       } dt$.  The argument x need not be a non-positive integer ($Γ( ^ x )$
+       is defined over the reals, except the non-positive integers).
+       If x is NaN, −Inf, or a negative integer, the value of signgam is
+       unspecified.
+       These functions need not be thread-safe.
+       An application wishing to check for error situations should set errno
+       to zero and call feclearexcept(FE_ALL_EXCEPT) before calling these
+       functions. On return, if errno is non-zero or fetestexcept(FE_INVALID
+       | FE_DIVBYZERO | FE_OVERFLOW | FE_UNDERFLOW) is non-zero, an error
+       has occurred.

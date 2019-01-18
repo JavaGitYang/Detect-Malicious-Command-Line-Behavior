@@ -1,0 +1,44 @@
+
+       sd_bus_path_encode() and sd_bus_path_decode() convert external
+       identifier strings into object paths and back. These functions are
+       useful to map application-specific string identifiers of any kind
+       into bus object paths in a simple, reversible and safe way.
+       sd_bus_path_encode() takes a bus path prefix and an external
+       identifier string as arguments, plus a place to store the returned
+       bus path string. The bus path prefix must be a valid bus path,
+       starting with a slash "/", and not ending in one. The external
+       identifier string may be in any format, may be the empty string, and
+       has no restrictions on the charset — however, it must always be
+       NUL-terminated. The returned string will be the concatenation of the
+       bus path prefix plus an escaped version of the external identifier
+       string. This operation may be reversed with sd_bus_decode(). It is
+       recommended to only use external identifiers that generally require
+       little escaping to be turned into valid bus path identifiers (for
+       example, by sticking to a 7-bit ASCII character set), in order to
+       ensure the resulting bus path is still short and easily processed.
+       sd_bus_path_decode() reverses the operation of sd_bus_path_encode()
+       and thus regenerates an external identifier string from a bus path.
+       It takes a bus path and a prefix string, plus a place to store the
+       returned external identifier string. If the bus path does not start
+       with the specified prefix, 0 is returned and the returned string is
+       set to NULL. Otherwise, the string following the prefix is unescaped
+       and returned in the external identifier string.
+       The escaping used will replace all characters which are invalid in a
+       bus object path by "_", followed by a hexadecimal value. As a special
+       case, the empty string will be replaced by a lone "_".
+       sd_bus_path_encode_many() works like its counterpart
+       sd_bus_path_encode(), but takes a path template as argument and
+       encodes multiple labels according to its embedded directives. For
+       each "%" character found in the template, the caller must provide a
+       string via varargs, which will be encoded and embedded at the
+       position of the "%" character. Any other character in the template is
+       copied verbatim into the encoded path.
+       sd_bus_path_decode_many() does the reverse of
+       sd_bus_path_encode_many(). It decodes the passed object path
+       according to the given path template. For each "%" character in the
+       template, the caller must provide an output storage ("char **") via
+       varargs. The decoded label will be stored there. Each "%" character
+       will only match the current label. It will never match across labels.
+       Furthermore, only a single directive is allowed per label. If "NULL"
+       is passed as output storage, the label is verified but not returned
+       to the caller.

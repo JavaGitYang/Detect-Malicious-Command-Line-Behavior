@@ -1,0 +1,9 @@
+
+       ldapmodify is a shell-accessible interface to the ldap_add_ext(3),
+       ldap_modify_ext(3), ldap_delete_ext(3) and ldap_rename(3).  library
+       calls.  ldapadd is implemented as a hard link to the ldapmodify tool.
+       When invoked as ldapadd the -a (add new entry) flag is turned on
+       automatically.
+       ldapmodify opens a connection to an LDAP server, binds, and modifies
+       or adds entries.  The entry information is read from standard input
+       or from file through the use of the -f option.

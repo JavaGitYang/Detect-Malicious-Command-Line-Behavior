@@ -1,0 +1,3 @@
+
+     The acl_entries() function returns the number of ACL entries that are
+     contained in the ACL referred to by the argument acl.

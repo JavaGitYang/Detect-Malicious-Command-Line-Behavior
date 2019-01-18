@@ -1,0 +1,5 @@
+
+       This function will import the given private key to the abstract
+       gnutls_privkey_t type.
+       With respect to passwords the same as in
+       gnutls_privkey_import_tpm_url() apply.

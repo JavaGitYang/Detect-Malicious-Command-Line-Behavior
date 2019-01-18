@@ -1,0 +1,4 @@
+
+       yum-debug-restore is a program which takes a gzipped file created by
+       yum-debug-dump and acts on the information about installed packages
+       contained within.

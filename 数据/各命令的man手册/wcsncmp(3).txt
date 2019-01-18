@@ -1,0 +1,7 @@
+
+       The wcsncmp() function is the wide-character equivalent of the
+       strncmp(3) function.  It compares the wide-character string pointed
+       to by s1 and the wide-character string pointed to by s2, but at most
+       n wide characters from each string.  In each string, the comparison
+       extends only up to the first occurrence of a null wide character
+       (L'\0'), if any.

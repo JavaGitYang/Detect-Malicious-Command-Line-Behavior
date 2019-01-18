@@ -1,0 +1,13 @@
+
+       dh_installdocs is a debhelper program that is responsible for
+       installing documentation into usr/share/doc/package in package build
+       directories.
+       In compat 10 and earlier, dh_install(1) may be a better tool for
+       handling the upstream documentation, when upstream's own build system
+       installs all the desired documentation correctly.  In this case,
+       dh_installdocs is still useful for installing packaging related
+       documentation (e.g. the debian/copyright file).
+       In compat 11 and later, dh_installdocs offers many of the features
+       that dh_install(1) also have.  Furthermore, dh_installdocs also
+       supports the nodoc build profile to exclude documentation (regardless
+       of compat level).

@@ -1,0 +1,4 @@
+
+       The chage command changes the number of days between password changes
+       and the date of the last password change. This information is used by
+       the system to determine when a user must change his/her password.

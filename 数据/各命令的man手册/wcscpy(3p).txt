@@ -1,0 +1,13 @@
+
+       For wcscpy(): The functionality described on this reference page is
+       aligned with the ISO C standard. Any conflict between the
+       requirements described here and the ISO C standard is unintentional.
+       This volume of POSIX.1‐2008 defers to the ISO C standard.
+       The wcpcpy() and wcscpy() functions shall copy the wide-character
+       string pointed to by ws2 (including the terminating null wide-
+       character code) into the array pointed to by ws1.
+       The application shall ensure that there is room for at least
+       wcslen(ws2)+1 wide characters in the ws1 array, and that the ws2 and
+       ws1 arrays do not overlap.
+       If copying takes place between objects that overlap, the behavior is
+       undefined.

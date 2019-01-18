@@ -1,0 +1,11 @@
+
+       sd_machine_get_class() may be used to determine the class of a
+       locally running virtual machine or container that is registered with
+       systemd-machined.service(8). The string returned is either "vm" or
+       "container". The returned string needs to be freed with the libc
+       free(3) call after use.
+       sd_machine_get_ifindices() may be used to determine the numeric
+       indices of the network interfaces on the host that are pointing
+       towards the specified locally running virtual machine or container
+       that is registered with systemd-machined.service(8). The returned
+       array needs to be freed with the libc free(3) call after use.

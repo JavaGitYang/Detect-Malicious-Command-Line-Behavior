@@ -1,0 +1,16 @@
+
+       The <net/if.h> header shall define the if_nameindex structure, which
+       shall include at least the following members:
+           unsigned  if_index  Numeric index of the interface.
+           char     *if_name   Null-terminated name of the interface.
+       The <net/if.h> header shall define the following symbolic constant
+       for the length of a buffer containing an interface name (including
+       the terminating NULL character):
+       IF_NAMESIZE Interface name length.
+       The following shall be declared as functions and may also be defined
+       as macros. Function prototypes shall be provided.
+           void                  if_freenameindex(struct if_nameindex *);
+           char                 *if_indextoname(unsigned, char *);
+           struct if_nameindex  *if_nameindex(void);
+           unsigned              if_nametoindex(const char *);
+       The following sections are informative.

@@ -1,0 +1,2 @@
+
+       This function will export the OCSP request to DER format.

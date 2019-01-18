@@ -1,0 +1,9 @@
+
+       This function gets the failure_action tunable value stored in
+       /etc/libaudit.conf. get_auditfail_action should be called after an
+       audit_open call returns an error to see what action the admin
+       prefers.
+       The failure_action value found in /etc/libaudit.conf is copied into
+       the failmode argument upon function return.  This value should then
+       be used by the calling application to determine what action should be
+       taken when the audit subsystem is unavailable.

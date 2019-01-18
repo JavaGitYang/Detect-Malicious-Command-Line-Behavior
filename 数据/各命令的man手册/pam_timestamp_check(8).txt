@@ -1,0 +1,3 @@
+
+       With no arguments pam_timestamp_check will check to see if the
+       default timestamp is valid, or optionally remove it.

@@ -1,0 +1,4 @@
+
+       This function will add an extension to the OCSP request.  Calling
+       this function multiple times for the same OID will overwrite values
+       from earlier calls.

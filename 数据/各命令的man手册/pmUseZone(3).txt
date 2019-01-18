@@ -1,0 +1,6 @@
+
+       The current reporting timezone effects the timezone used by
+       pmCtime(3) and pmLocaltime(3).
+       The argument tz_handle identifies a reporting timezone as previously
+       established by a call to pmNewZone(3) or pmNewContextZone(3), and
+       this becomes the current reporting timezone.

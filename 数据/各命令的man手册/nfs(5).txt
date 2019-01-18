@@ -1,0 +1,31 @@
+
+       NFS is an Internet Standard protocol created by Sun Microsystems in
+       1984. NFS was developed to allow file sharing between systems
+       residing on a local area network.  Depending on kernel configuration,
+       the Linux NFS client may support NFS versions 2, 3, 4.0, 4.1, or 4.2.
+       The mount(8) command attaches a file system to the system's name
+       space hierarchy at a given mount point.  The /etc/fstab file
+       describes how mount(8) should assemble a system's file name hierarchy
+       from various independent file systems (including file systems
+       exported by NFS servers).  Each line in the /etc/fstab file describes
+       a single file system, its mount point, and a set of default mount
+       options for that mount point.
+       For NFS file system mounts, a line in the /etc/fstab file specifies
+       the server name, the path name of the exported server directory to
+       mount, the local directory that is the mount point, the type of file
+       system that is being mounted, and a list of mount options that
+       control the way the filesystem is mounted and how the NFS client
+       behaves when accessing files on this mount point.  The fifth and
+       sixth fields on each line are not used by NFS, thus conventionally
+       each contain the digit zero. For example:
+               server:path   /mountpoint   fstype   option,option,...   0 0
+       The server's hostname and export pathname are separated by a colon,
+       while the mount options are separated by commas. The remaining fields
+       are separated by blanks or tabs.
+       The server's hostname can be an unqualified hostname, a fully
+       qualified domain name, a dotted quad IPv4 address, or an IPv6 address
+       enclosed in square brackets.  Link-local and site-local IPv6
+       addresses must be accompanied by an interface identifier.  See
+       ipv6(7) for details on specifying raw IPv6 addresses.
+       The fstype field contains "nfs".  Use of the "nfs4" fstype in
+       /etc/fstab is deprecated.

@@ -1,0 +1,3 @@
+
+       This function will set the public key parameters for an RSA-PSS
+       algorithm, in the SubjectPublicKeyInfo structure.

@@ -1,0 +1,5 @@
+
+       lsinitrd shows the contents of an initramfs image. if <image> is
+       omitted, then lsinitrd uses the default image
+       /boot/<machine-id>/<kernel-version>/initrd or
+       /boot/initramfs-<kernel-version>.img.

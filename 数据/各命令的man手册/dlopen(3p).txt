@@ -1,0 +1,123 @@
+
+       The dlopen() function shall make the symbols (function identifiers
+       and data object identifiers) in the executable object file specified
+       by file available to the calling program.
+       The class of executable object files eligible for this operation and
+       the manner of their construction are implementation-defined, though
+       typically such files are shared libraries or programs.
+       Implementations may permit the construction of embedded dependencies
+       in executable object files. In such cases, a dlopen() operation shall
+       load those dependencies in addition to the executable object file
+       specified by file.  Implementations may also impose specific
+       constraints on the construction of programs that can employ dlopen()
+       and its related services.
+       A successful dlopen() shall return a symbol table handle which the
+       caller may use on subsequent calls to dlsym() and dlclose().
+       The value of this symbol table handle should not be interpreted in
+       any way by the caller.
+       The file argument is used to construct a pathname to the executable
+       object file. If file contains a <slash> character, the file argument
+       is used as the pathname for the file. Otherwise, file is used in an
+       implementation-defined manner to yield a pathname.
+       If file is a null pointer, dlopen() shall return a global symbol
+       table handle for the currently running process image. This symbol
+       table handle shall provide access to the symbols from an ordered set
+       of executable object files consisting of the original program image
+       file, any executable object files loaded at program start-up as
+       specified by that process file (for example, shared libraries), and
+       the set of executable object files loaded using dlopen() operations
+       with the RTLD_GLOBAL flag. As the latter set of executable object
+       files can change during execution, the set of symbols made available
+       by this symbol table handle can also change dynamically.
+       Only a single copy of an executable object file shall be brought into
+       the address space, even if dlopen() is invoked multiple times in
+       reference to the executable object file, and even if different
+       pathnames are used to reference the executable object file.
+       The mode parameter describes how dlopen() shall operate upon file
+       with respect to the processing of relocations and the scope of
+       visibility of the symbols provided within file.  When an executable
+       object file is brought into the address space of a process, it may
+       contain references to symbols whose addresses are not known until the
+       executable object file is loaded.
+       These references shall be relocated before the symbols can be
+       accessed. The mode parameter governs when these relocations take
+       place and may have the following values:
+       RTLD_LAZY   Relocations shall be performed at an implementation-
+                   defined time, ranging from the time of the dlopen() call
+                   until the first reference to a given symbol occurs.
+                   Specifying RTLD_LAZY should improve performance on
+                   implementations supporting dynamic symbol binding since a
+                   process might not reference all of the symbols in an
+                   executable object file. And, for systems supporting
+                   dynamic symbol resolution for normal process execution,
+                   this behavior mimics the normal handling of process
+                   execution.
+       RTLD_NOW    All necessary relocations shall be performed when the
+                   executable object file is first loaded. This may waste
+                   some processing if relocations are performed for symbols
+                   that are never referenced. This behavior may be useful
+                   for applications that need to know that all symbols
+                   referenced during execution will be available before
+                   dlopen() returns.
+       Any executable object file loaded by dlopen() that requires
+       relocations against global symbols can reference the symbols in the
+       original process image file, any executable object files loaded at
+       program start-up, from the initial process image itself, from any
+       other executable object file included in the same dlopen()
+       invocation, and any executable object files that were loaded in any
+       dlopen() invocation and which specified the RTLD_GLOBAL flag. To
+       determine the scope of visibility for the symbols loaded with a
+       dlopen() invocation, the mode parameter should be a bitwise-inclusive
+       OR with one of the following values:
+       RTLD_GLOBAL The executable object file's symbols shall be made
+                   available for relocation processing of any other
+                   executable object file. In addition, symbol lookup using
+                   dlopen(NULL,mode) and an associated dlsym() allows
+                   executable object files loaded with this mode to be
+                   searched.
+       RTLD_LOCAL  The executable object file's symbols shall not be made
+                   available for relocation processing of any other
+                   executable object file.
+       If neither RTLD_GLOBAL nor RTLD_LOCAL is specified, the default
+       behavior is unspecified.
+       If an executable object file is specified in multiple dlopen()
+       invocations, mode is interpreted at each invocation.
+       If RTLD_NOW has been specified, all relocations shall have been
+       completed rendering further RTLD_NOW operations redundant and any
+       further RTLD_LAZY operations irrelevant.
+       If RTLD_GLOBAL has been specified, the executable object file shall
+       maintain the RTLD_GLOBAL status regardless of any previous or future
+       specification of RTLD_LOCAL, as long as the executable object file
+       remains in the address space (see dlclose(3p)).
+       Symbols introduced into the process image through calls to dlopen()
+       may be used in relocation activities. Symbols so introduced may
+       duplicate symbols already defined by the program or previous dlopen()
+       operations. To resolve the ambiguities such a situation might
+       present, the resolution of a symbol reference to symbol definition is
+       based on a symbol resolution order. Two such resolution orders are
+       defined: load order and dependency order. Load order establishes an
+       ordering among symbol definitions, such that the first definition
+       loaded (including definitions from the process image file and any
+       dependent executable object files loaded with it) has priority over
+       executable object files added later (by dlopen()).  Load ordering is
+       used in relocation processing. Dependency ordering uses a breadth-
+       first order starting with a given executable object file, then all of
+       its dependencies, then any dependents of those, iterating until all
+       dependencies are satisfied. With the exception of the global symbol
+       table handle obtained via a dlopen() operation with a null pointer as
+       the file argument, dependency ordering is used by the dlsym()
+       function. Load ordering is used in dlsym() operations upon the global
+       symbol table handle.
+       When an executable object file is first made accessible via dlopen(),
+       it and its dependent executable object files are added in dependency
+       order. Once all the executable object files are added, relocations
+       are performed using load order. Note that if an executable object
+       file or its dependencies had been previously loaded, the load and
+       dependency orders may yield different resolutions.
+       The symbols introduced by dlopen() operations and available through
+       dlsym() are at a minimum those which are exported as identifiers of
+       global scope by the executable object file. Typically, such
+       identifiers shall be those that were specified in (for example) C
+       source code as having extern linkage. The precise manner in which an
+       implementation constructs the set of exported symbols for an
+       executable object file is implementation-defined.

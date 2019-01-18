@@ -1,0 +1,40 @@
+
+       The pthread_mutex_timedlock() function shall lock the mutex object
+       referenced by mutex.  If the mutex is already locked, the calling
+       thread shall block until the mutex becomes available as in the
+       pthread_mutex_lock() function. If the mutex cannot be locked without
+       waiting for another thread to unlock the mutex, this wait shall be
+       terminated when the specified timeout expires.
+       The timeout shall expire when the absolute time specified by abstime
+       passes, as measured by the clock on which timeouts are based (that
+       is, when the value of that clock equals or exceeds abstime), or if
+       the absolute time specified by abstime has already been passed at the
+       time of the call.
+       The timeout shall be based on the CLOCK_REALTIME clock.  The
+       resolution of the timeout shall be the resolution of the clock on
+       which it is based. The timespec data type is defined in the <time.h>
+       header.
+       Under no circumstance shall the function fail with a timeout if the
+       mutex can be locked immediately. The validity of the abstime
+       parameter need not be checked if the mutex can be locked immediately.
+       As a consequence of the priority inheritance rules (for mutexes
+       initialized with the PRIO_INHERIT protocol), if a timed mutex wait is
+       terminated because its timeout expires, the priority of the owner of
+       the mutex shall be adjusted as necessary to reflect the fact that
+       this thread is no longer among the threads waiting for the mutex.
+       If mutex is a robust mutex and the process containing the owning
+       thread terminated while holding the mutex lock, a call to
+       pthread_mutex_timedlock() shall return the error value [EOWNERDEAD].
+       If mutex is a robust mutex and the owning thread terminated while
+       holding the mutex lock, a call to pthread_mutex_timedlock() may
+       return the error value [EOWNERDEAD] even if the process in which the
+       owning thread resides has not terminated. In these cases, the mutex
+       is locked by the thread but the state it protects is marked as
+       inconsistent. The application should ensure that the state is made
+       consistent for reuse and when that is complete call
+       pthread_mutex_consistent().  If the application is unable to recover
+       the state, it should unlock the mutex without a prior call to
+       pthread_mutex_consistent(), after which the mutex is marked
+       permanently unusable.
+       If mutex does not refer to an initialized mutex object, the behavior
+       is undefined.

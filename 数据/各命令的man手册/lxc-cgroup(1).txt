@@ -1,0 +1,8 @@
+
+       lxc-cgroup gets or sets the value of a state-object (e.g.,
+       'cpuset.cpus') in the container's cgroup for the corresponding
+       subsystem (e.g., 'cpuset'). If no [value] is specified, the current
+       value of the state-object is displayed; otherwise it is set.
+       Note that lxc-cgroup does not check that the state-object is valid
+       for the running kernel, or that the corresponding subsystem is
+       contained in any mounted cgroup hierarchy.

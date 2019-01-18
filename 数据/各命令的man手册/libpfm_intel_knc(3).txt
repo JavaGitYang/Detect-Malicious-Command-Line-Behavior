@@ -1,0 +1,2 @@
+
+       The library supports Intel Knights Corner processors.

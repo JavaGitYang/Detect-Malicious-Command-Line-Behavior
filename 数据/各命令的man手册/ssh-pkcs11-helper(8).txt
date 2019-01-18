@@ -1,0 +1,5 @@
+
+     ssh-pkcs11-helper is used by ssh-agent(1) to access keys provided by a
+     PKCS#11 token.
+     ssh-pkcs11-helper is not intended to be invoked by the user, but from
+     ssh-agent(1).

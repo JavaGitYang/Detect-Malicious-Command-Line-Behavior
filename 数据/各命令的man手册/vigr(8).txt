@@ -1,0 +1,8 @@
+
+       The vipw and vigr commands edits the files /etc/passwd and
+       /etc/group, respectively. With the -s flag, they will edit the shadow
+       versions of those files, /etc/shadow and /etc/gshadow, respectively.
+       The programs will set the appropriate locks to prevent file
+       corruption. When looking for an editor, the programs will first try
+       the environment variable $VISUAL, then the environment variable
+       $EDITOR, and finally the default editor, vi(1).

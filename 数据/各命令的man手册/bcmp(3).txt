@@ -1,0 +1,4 @@
+
+       The bcmp() function compares the two byte sequences s1 and s2 of
+       length n each.  If they are equal, and in particular if n is zero,
+       bcmp() returns 0.  Otherwise, it returns a nonzero result.

@@ -1,0 +1,10 @@
+
+       pcp-pidstat command is used for monitoring individual tasks currently
+       being managed by the Linux kernel. Using various options it helps
+       user to see useful information related with the processes. This
+       information can include percentage CPU, memory and stack usages,
+       scheduling and priority information. By default pcp-pidstat reports
+       live data for the local host but can also report for a remote host
+       (--host) or from a previously captured PCP archive (-a).  pcp-pidstat
+       fetches the data to be analysed from PMCD unless provided -a option.
+       (See below)

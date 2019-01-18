@@ -1,0 +1,4 @@
+
+       The link utility shall perform the function call:
+           link(file1, file2);
+       A user may need appropriate privileges to invoke the link utility.

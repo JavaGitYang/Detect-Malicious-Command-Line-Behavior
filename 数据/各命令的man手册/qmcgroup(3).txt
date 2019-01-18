@@ -1,0 +1,5 @@
+
+       A QmcGroup object is a container for contexts and metrics that should
+       be fetched at the same time.  The class manages the QmcContext(3)
+       objects, timezones and bounds for every context created with
+       QmcGroup::use and QmcGroup::addMetric.

@@ -1,0 +1,6 @@
+
+       This function is only useful to check where the last performed
+       handshake failed.  If the previous handshake succeed or was not
+       performed at all then no meaningful value will be returned.
+       Check gnutls_handshake_description_t in gnutls.h for the available
+       handshake descriptions.

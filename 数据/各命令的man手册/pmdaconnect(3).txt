@@ -1,0 +1,35 @@
+
+       pmdaConnect initializes an IPC channel between a PMDA(3) and the
+       pmcd(1) process on the local host.  The type of the connection is
+       dependent on the e_io field of the pmdaExt structure:
+       pmdaPipe       Use stdin/stdout to communicate; assumes this is a
+                      pipe created by pmcd before the PMDA(3) was launched.
+       pmdaInet       Assume pmcd(1) will establish a connection to an IPv4
+                      internet domain socket set up by the PMDA(3).  The
+                      name or number of the port must be specified in the
+                      e_sockname or e_port fields of the pmdaExt structure,
+                      respectively.
+       pmdaIPv6       Assume pmcd(1) will establish a connection to an IPv6
+                      internet domain socket set up by the PMDA(3).  The
+                      name or number of the port must be specified in the
+                      e_sockname or e_port fields of the pmdaExt structure,
+                      respectively.
+       pmdaUnix       Assume pmcd(1) will establish a connection to a unix
+                      domain socket set up by the PMDA(3).  The port number
+                      must be specified in the e_port field of the pmdaExt
+                      structure.
+       pmdaUnknown    The initial value of e_io which defaults to using
+                      stdin/stdout.
+       The relevant pmdaExt fields are initialized by pmdaDaemon(3) and set
+       by pmdaGetOpt(3) or pmdaGetOptions(3) so most PMDAs should not need
+       to access or modify them.
+       Traditionally most PMDAs have called pmdaConnect after calls to
+       pmdaDaemon(3), pmdaGetOptions(3) (or pmdaGetOpt(3)) and pmdaInit(3).
+       If the PMDA requires significant processing at startup to identify
+       the available metrics and/or instance domains before pmdaInit(3) can
+       be called, then it risks timing out during the handshake protocol
+       that starts as soon as pmcd(1) launches the PMDA and does not
+       conclude until pmdaConnect is called.  In this case, it is advisable
+       to move the pmdaConnect call, so that it comes after the call to
+       pmdaGetOptions(3) (or pmdaGetOpt(3)) and before the call to
+       pmdaInit(3).

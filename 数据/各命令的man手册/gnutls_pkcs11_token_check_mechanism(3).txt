@@ -1,0 +1,4 @@
+
+       This function will return whether a mechanism is supported by the
+       given token. If the mechanism is supported and
+        ptr is set, it will be updated with the token information.

@@ -1,0 +1,7 @@
+
+       systemd-bus-proxyd.socket will launch systemd-bus-proxyd.service for
+       connections to the classic D-Bus socket in
+       /var/run/dbus/system_bus_socket.
+       systemd-bus-proxyd.service is launched for an existing D-Bus
+       connection and will use systemd-bus-proxyd to proxy messages from
+       this connection to the system bus (either kdbus or classic D-Bus).

@@ -1,0 +1,32 @@
+
+       For each operand that names a file of a type other than directory or
+       symbolic link to a directory, ls shall write the name of the file as
+       well as any requested, associated information. For each operand that
+       names a file of type directory, ls shall write the names of files
+       contained within the directory as well as any requested, associated
+       information. Filenames beginning with a <period> ('.')  and any
+       associated information shall not be written out unless explicitly
+       referenced, the −A or −a option is supplied, or an implementation-
+       defined condition causes them to be written. If one or more of the
+       −d, −F, or −l options are specified, and neither the −H nor the −L
+       option is specified, for each operand that names a file of type
+       symbolic link to a directory, ls shall write the name of the file as
+       well as any requested, associated information. If none of the −d, −F,
+       or −l options are specified, or the −H or −L options are specified,
+       for each operand that names a file of type symbolic link to a
+       directory, ls shall write the names of files contained within the
+       directory as well as any requested, associated information. In each
+       case where the names of files contained within a directory are
+       written, if the directory contains any symbolic links then ls shall
+       evaluate the file information and file type to be those of the
+       symbolic link itself, unless the −L option is specified.
+       If no operands are specified, ls shall behave as if a single operand
+       of dot ('.')  had been specified. If more than one operand is
+       specified, ls shall write non-directory operands first; it shall sort
+       directory and non-directory operands separately according to the
+       collating sequence in the current locale.
+       The ls utility shall detect infinite loops; that is, entering a
+       previously visited directory that is an ancestor of the last file
+       encountered.  When it detects an infinite loop, ls shall write a
+       diagnostic message to standard error and shall either recover its
+       position in the hierarchy or terminate.

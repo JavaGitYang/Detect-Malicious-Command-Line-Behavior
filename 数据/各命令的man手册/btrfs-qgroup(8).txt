@@ -1,0 +1,9 @@
+
+       btrfs qgroup is used to control quota group (qgroup) of a btrfs
+       filesystem.
+           Note
+           To use qgroup you need to enable quota first using btrfs quota
+           enable command.
+           Warning
+           Qgroup is not stable yet and will impact performance in current
+           mainline kernel (v4.14).

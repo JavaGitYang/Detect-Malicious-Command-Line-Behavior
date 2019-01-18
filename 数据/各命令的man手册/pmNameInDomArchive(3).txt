@@ -1,0 +1,16 @@
+
+       Provided that the current Performance Metrics Application Programming
+       Interface (PMAPI) context is associated with a set of archive logs,
+       pmNameInDomArchive will scan the union of all the instance domain
+       metadata for the instance domain indom, locate the first instance
+       with the internal instance identifier given by inst, and return the
+       full external instance identification via name.
+       This routine is a specialized version of the more general PMAPI
+       routine pmNameInDom.
+       The value for the instance domain indom is typically extracted from a
+       pmDesc structure, following a call to pmLookupDesc(3) for a
+       particular performance metric.
+       The space for the value of name will have been allocated in
+       pmNameInDomArchive with malloc(3), and it is the responsibility of
+       the caller to free(3) the space when it is no longer required.
+       pmNameInDomArchive returns zero on success.

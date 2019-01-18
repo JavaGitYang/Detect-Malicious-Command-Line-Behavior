@@ -1,0 +1,2 @@
+
+       lxc-info queries and shows information about a container.

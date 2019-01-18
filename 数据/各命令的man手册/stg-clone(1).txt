@@ -1,0 +1,9 @@
+
+       Clone a git repository into the local directory <dir> (using
+       stg-clone(1)) and initialise the local branch "master".
+       This operation is for example suitable to start working using the
+       "tracking branch" workflow (see 1[1]). Other means to setup an StGit
+       stack are stg-init(1) and the --create and --clone commands of
+       stg-branch(1).
+       The target directory <dir> will be created by this command, and must
+       not already exist.

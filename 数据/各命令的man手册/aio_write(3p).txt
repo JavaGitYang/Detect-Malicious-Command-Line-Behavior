@@ -1,0 +1,46 @@
+
+       The aio_write() function shall write aiocbp->aio_nbytes to the file
+       associated with aiocbp->aio_fildes from the buffer pointed to by
+       aiocbp->aio_buf. The function shall return when the write request has
+       been initiated or, at a minimum, queued to the file or device.
+       If prioritized I/O is supported for this file, then the asynchronous
+       operation shall be submitted at a priority equal to a base scheduling
+       priority minus aiocbp->aio_reqprio. If Thread Execution Scheduling is
+       not supported, then the base scheduling priority is that of the
+       calling process;
+       otherwise, the base scheduling priority is that of the calling
+       thread.
+       The aiocbp argument may be used as an argument to aio_error() and
+       aio_return() in order to determine the error status and return
+       status, respectively, of the asynchronous operation while it is
+       proceeding.
+       The aiocbp argument points to an aiocb structure. If the buffer
+       pointed to by aiocbp->aio_buf or the control block pointed to by
+       aiocbp becomes an illegal address prior to asynchronous I/O
+       completion, then the behavior is undefined.
+       If O_APPEND is not set for the file descriptor aio_fildes, then the
+       requested operation shall take place at the absolute position in the
+       file as given by aio_offset, as if lseek() were called immediately
+       prior to the operation with an offset equal to aio_offset and a
+       whence equal to SEEK_SET.  If O_APPEND is set for the file
+       descriptor, or if aio_fildes is associated with a device that is
+       incapable of seeking, write operations append to the file in the same
+       order as the calls were made, except under circumstances described in
+       Section 2.8.2, Asynchronous I/O.  After a successful call to enqueue
+       an asynchronous I/O operation, the value of the file offset for the
+       file is unspecified.
+       The aio_sigevent member specifies the notification which occurs when
+       the request is completed.
+       The aiocbp->aio_lio_opcode field shall be ignored by aio_write().
+       Simultaneous asynchronous operations using the same aiocbp produce
+       undefined results.
+       If synchronized I/O is enabled on the file associated with
+       aiocbp->aio_fildes, the behavior of this function shall be according
+       to the definitions of synchronized I/O data integrity completion, and
+       synchronized I/O file integrity completion.
+       For any system action that changes the process memory space while an
+       asynchronous I/O is outstanding to the address range being changed,
+       the result of that action is undefined.
+       For regular files, no data transfer shall occur past the offset
+       maximum established in the open file description associated with
+       aiocbp->aio_fildes.

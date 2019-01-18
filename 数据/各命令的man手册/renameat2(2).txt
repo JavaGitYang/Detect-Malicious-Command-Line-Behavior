@@ -1,0 +1,77 @@
+
+       rename() renames a file, moving it between directories if required.
+       Any other hard links to the file (as created using link(2)) are
+       unaffected.  Open file descriptors for oldpath are also unaffected.
+       Various restrictions determine whether or not the rename operation
+       succeeds: see ERRORS below.
+       If newpath already exists, it will be atomically replaced, so that
+       there is no point at which another process attempting to access
+       newpath will find it missing.  However, there will probably be a
+       window in which both oldpath and newpath refer to the file being
+       renamed.
+       If oldpath and newpath are existing hard links referring to the same
+       file, then rename() does nothing, and returns a success status.
+       If newpath exists but the operation fails for some reason, rename()
+       guarantees to leave an instance of newpath in place.
+       oldpath can specify a directory.  In this case, newpath must either
+       not exist, or it must specify an empty directory.
+       If oldpath refers to a symbolic link, the link is renamed; if newpath
+       refers to a symbolic link, the link will be overwritten.
+   renameat()
+       The renameat() system call operates in exactly the same way as
+       rename(), except for the differences described here.
+       If the pathname given in oldpath is relative, then it is interpreted
+       relative to the directory referred to by the file descriptor olddirfd
+       (rather than relative to the current working directory of the calling
+       process, as is done by rename() for a relative pathname).
+       If oldpath is relative and olddirfd is the special value AT_FDCWD,
+       then oldpath is interpreted relative to the current working directory
+       of the calling process (like rename()).
+       If oldpath is absolute, then olddirfd is ignored.
+       The interpretation of newpath is as for oldpath, except that a
+       relative pathname is interpreted relative to the directory referred
+       to by the file descriptor newdirfd.
+       See openat(2) for an explanation of the need for renameat().
+   renameat2()
+       renameat2() has an additional flags argument.  A renameat2() call
+       with a zero flags argument is equivalent to renameat().
+       The flags argument is a bit mask consisting of zero or more of the
+       following flags:
+       RENAME_EXCHANGE
+              Atomically exchange oldpath and newpath.  Both pathnames must
+              exist but may be of different types (e.g., one could be a non-
+              empty directory and the other a symbolic link).
+       RENAME_NOREPLACE
+              Don't overwrite newpath of the rename.  Return an error if
+              newpath already exists.
+              RENAME_NOREPLACE can't be employed together with
+              RENAME_EXCHANGE.
+       RENAME_WHITEOUT (since Linux 3.18)
+              This operation makes sense only for overlay/union filesystem
+              implementations.
+              Specifying RENAME_WHITEOUT creates a "whiteout" object at the
+              source of the rename at the same time as performing the
+              rename.  The whole operation is atomic, so that if the rename
+              succeeds then the whiteout will also have been created.
+              A "whiteout" is an object that has special meaning in
+              union/overlay filesystem constructs.  In these constructs,
+              multiple layers exist and only the top one is ever modified.
+              A whiteout on an upper layer will effectively hide a matching
+              file in the lower layer, making it appear as if the file
+              didn't exist.
+              When a file that exists on the lower layer is renamed, the
+              file is first copied up (if not already on the upper layer)
+              and then renamed on the upper, read-write layer.  At the same
+              time, the source file needs to be "whiteouted" (so that the
+              version of the source file in the lower layer is rendered
+              invisible).  The whole operation needs to be done atomically.
+              When not part of a union/overlay, the whiteout appears as a
+              character device with a {0,0} device number.
+              RENAME_WHITEOUT requires the same privileges as creating a
+              device node (i.e., the CAP_MKNOD capability).
+              RENAME_WHITEOUT can't be employed together with
+              RENAME_EXCHANGE.
+              RENAME_WHITEOUT requires support from the underlying
+              filesystem.  Among the filesystems that provide that support
+              are shmem (since Linux 3.18), ext4 (since Linux 3.18), and XFS
+              (since Linux 4.1).

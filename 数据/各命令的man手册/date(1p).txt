@@ -1,0 +1,6 @@
+
+       The date utility shall write the date and time to standard output or
+       attempt to set the system date and time.  By default, the current
+       date and time shall be written. If an operand beginning with '+' is
+       specified, the output format of date shall be controlled by the
+       conversion specifications and other text in the operand.

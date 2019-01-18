@@ -1,0 +1,14 @@
+
+       The pam_get_user function returns the name of the user specified by
+       pam_start(3). If no user was specified it what pam_get_item (pamh,
+       PAM_USER, ... ); would have returned. If this is NULL it obtains the
+       username via the pam_conv(3) mechanism, it prompts the user with the
+       first non-NULL string in the following list:
+       ·   The prompt argument passed to the function.
+       ·   What is returned by pam_get_item (pamh, PAM_USER_PROMPT, ... );
+       ·   The default prompt: "login: "
+       By whatever means the username is obtained, a pointer to it is
+       returned as the contents of *user. Note, this memory should not be
+       free()'d or modified by the module.
+       This function sets the PAM_USER item associated with the
+       pam_set_item(3) and pam_get_item(3) functions.

@@ -1,0 +1,20 @@
+
+       The pam_namespace PAM module sets up a private namespace for a
+       session with polyinstantiated directories. A polyinstantiated
+       directory provides a different instance of itself based on user name,
+       or when using SELinux, user name, security context or both. If an
+       executable script /etc/security/namespace.init exists, it is used to
+       initialize the instance directory after it is set up and mounted on
+       the polyinstantiated directory. The script receives the
+       polyinstantiated directory path, the instance directory path, flag
+       whether the instance directory was newly created (0 for no, 1 for
+       yes), and the user name as its arguments.
+       The pam_namespace module disassociates the session namespace from the
+       parent namespace. Any mounts/unmounts performed in the parent
+       namespace, such as mounting of devices, are not reflected in the
+       session namespace. To propagate selected mount/unmount events from
+       the parent namespace into the disassociated session namespace, an
+       administrator may use the special shared-subtree feature. For
+       additional information on shared-subtree feature, please refer to the
+       mount(8) man page and the shared-subtree description at
+       http://lwn.net/Articles/159077 and http://lwn.net/Articles/159092.

@@ -1,0 +1,19 @@
+
+       The pthread_barrierattr_destroy() function shall destroy a barrier
+       attributes object. A destroyed attr attributes object can be
+       reinitialized using pthread_barrierattr_init(); the results of
+       otherwise referencing the object after it has been destroyed are
+       undefined. An implementation may cause pthread_barrierattr_destroy()
+       to set the object referenced by attr to an invalid value.
+       The pthread_barrierattr_init() function shall initialize a barrier
+       attributes object attr with the default value for all of the
+       attributes defined by the implementation.
+       If pthread_barrierattr_init() is called specifying an already
+       initialized attr attributes object, the results are undefined.
+       After a barrier attributes object has been used to initialize one or
+       more barriers, any function affecting the attributes object
+       (including destruction) shall not affect any previously initialized
+       barrier.
+       The behavior is undefined if the value specified by the attr argument
+       to pthread_barrierattr_destroy() does not refer to an initialized
+       barrier attributes object.

@@ -1,0 +1,4 @@
+
+       This function will set flags for the specified certificate.
+       Currently this is useful for the GNUTLS_X509_CRT_FLAG_IGNORE_SANITY
+       which allows importing certificates even if they have known issues.

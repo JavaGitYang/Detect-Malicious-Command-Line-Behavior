@@ -1,0 +1,111 @@
+
+       Given a Performance Metrics Identifier (PMID) as pmid, fill in the
+       given pmDesc structure, pointed to by the parameter desc, from the
+       current Performance Metrics Application Programming Interface (PMAPI)
+       context.
+       The pmDesc structure provides all of the information required to
+       describe and manipulate a performance metric via the PMAPI, and has
+       the following declaration.
+            /* Performance Metric Descriptor */
+            typedef struct {
+                pmID    pmid;   /* unique identifier */
+                int     type;   /* base data type (see below) */
+                pmInDom indom;  /* instance domain */
+                int     sem;    /* semantics of value (see below) *
+                pmUnits units;  /* dimension and units (see below) */
+            } pmDesc;
+            /* pmDesc.type -- data type of metric values */
+            #define PM_TYPE_NOSUPPORT        -1    /* not impl. in this version */
+            #define PM_TYPE_32               0    /* 32-bit signed integer */
+            #define PM_TYPE_U32              1    /* 32-bit unsigned integer */
+            #define PM_TYPE_64               2    /* 64-bit signed integer */
+            #define PM_TYPE_U64              3    /* 64-bit unsigned integer */
+            #define PM_TYPE_FLOAT            4    /* 32-bit floating point */
+            #define PM_TYPE_DOUBLE           5    /* 64-bit floating point */
+            #define PM_TYPE_STRING           6    /* array of char */
+            #define PM_TYPE_AGGREGATE        7    /* arbitrary binary data */
+            #define PM_TYPE_AGGREGATE_STATIC 8    /* static pointer to aggregate */
+            #define PM_TYPE_EVENT            9    /* packed pmEventArray */
+            #define PM_TYPE_UNKNOWN          255  /* used in pmValueBlock, not pmDesc */
+            /* pmDesc.sem -- semantics/interpretation of metric values */
+            #define PM_SEM_COUNTER  1  /* cumulative ctr (monotonic incr) */
+            #define PM_SEM_INSTANT  3  /* instant. value continuous domain */
+            #define PM_SEM_DISCRETE 4  /* instant. value discrete domain */
+       The type field in the pmDesc describes various encodings (or formats)
+       for a metric's value.
+       If a value is counted in the underlying base instrumentation with
+       less than 32 bits of integer precision, it is the responsibility of
+       the Performance Metrics Domain Agent (PMDA) to promote the value to a
+       32-bit integer before it is exported into the Performance Metrics
+       Collection Subsystem (PMCS); i.e. applications above the PMAPI never
+       have to deal with 8-bit and 16-bit counters.
+       If the value of a performance metric is of type PM_TYPE_AGGREGATE,
+       PM_TYPE_AGGREGATE_STATIC, PM_TYPE_EVENT or PM_TYPE_STRING, the
+       interpretation of the value is unknown to the PMCS.  In these cases,
+       the application using the value, and the PMDA providing the value
+       must have some common understanding about how the value is structured
+       and interpreted.
+       Each value for a performance metric is assumed to be drawn from a set
+       of values that can be described in terms of their dimensionality and
+       scale by a compact encoding as follows.  The dimensionality is
+       defined by a power, or index, in each of 3 orthogonal dimensions,
+       namely Space, Time and Count (or Events, which are dimensionless).
+       For example I/O throughput might be represented as
+                    -1
+          Space.Time
+       while the running total of system calls is Count, memory allocation
+       is Space and average service time is
+                    -1
+          Time.Count
+       In each dimension there are a number of common scale values that may
+       be used to better encode ranges that might otherwise exhaust the
+       precision of a 32-bit value.  This information is encoded in the
+       pmUnits structure which is embedded in the pmDesc structure.
+            /*
+             * Encoding for the units (dimensions Time and Space) and scale
+             * for Performance Metric Values
+             *
+             * For example, a pmUnits struct of
+             *      { 1, -1, 0, PM_SPACE_MBYTE, PM_TIME_SEC, 0 }
+             * represents Mbytes/sec, while
+             *      { 0, 1, -1, 0, PM_TIME_HOUR, 6 }
+             * represents hours/million-events
+             */
+            typedef struct {
+                int dimSpace:4;             /* space dimension */
+                int dimTime:4;              /* time dimension */
+                int dimCount:4;             /* event dimension */
+                unsigned int scaleSpace:4;  /* one of PM_SPACE_* below */
+                unsigned int scaleTime:4;   /* one of PM_TIME_* below */
+                int scaleCount:4;           /* one of PM_COUNT_* below */
+            } pmUnits;                      /* dimensional units and scale of value */
+            /* pmUnits.scaleSpace */
+            #define PM_SPACE_BYTE   0       /* bytes */
+            #define PM_SPACE_KBYTE  1       /* Kilobytes (1024) */
+            #define PM_SPACE_MBYTE  2       /* Megabytes (1024^2) */
+            #define PM_SPACE_GBYTE  3       /* Gigabytes (1024^3) */
+            #define PM_SPACE_TBYTE  4       /* Terabytes (1024^4) */
+            /* pmUnits.scaleTime */
+            #define PM_TIME_NSEC    0       /* nanoseconds */
+            #define PM_TIME_USEC    1       /* microseconds */
+            #define PM_TIME_MSEC    2       /* milliseconds */
+            #define PM_TIME_SEC     3       /* seconds */
+            #define PM_TIME_MIN     4       /* minutes */
+            #define PM_TIME_HOUR    5       /* hours */
+            /*
+             * pmUnits.scaleCount (e.g. count events, syscalls, interrupts,
+             * etc.) these are simply powers of 10, and not enumerated here,
+             * e.g. 6 for 10^6, or -3 for 10^-3
+             */
+            #define PM_COUNT_ONE    0       /* 1 */
+       Special routines (e.g. pmExtractValue(3), pmConvScale(3)) are
+       provided to manipulate values in conjunction with the pmUnits
+       structure that defines the dimension and scale of the values for a
+       particular performance metric.
+       Below the PMAPI, the information required to complete the pmDesc
+       structure, is fetched from the PMDAs, and in this way the format and
+       scale of performance metrics may change dynamically, as the PMDAs and
+       their underlying instrumentation evolve with time.  In particular,
+       when some metrics suddenly become 64-bits long, or change their units
+       from Mbytes to Gbytes, well-written applications using the services
+       provided by the PMAPI will continue to function correctly.

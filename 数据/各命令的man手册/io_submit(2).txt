@@ -1,0 +1,91 @@
+
+       The io_submit() system call queues nr I/O request blocks for
+       processing in the AIO context ctx_id.  The iocbpp argument should be
+       an array of nr AIO control blocks, which will be submitted to context
+       ctx_id.
+       The iocb (I/O control block) structure defined in linux/aio_abi.h
+       defines the parameters that control the I/O operation.
+           #include <linux/aio_abi.h>
+           struct iocb {
+               __u64   aio_data;
+               __u32   PADDED(aio_key, aio_rw_flags);
+               __u16   aio_lio_opcode;
+               __s16   aio_reqprio;
+               __u32   aio_fildes;
+               __u64   aio_buf;
+               __u64   aio_nbytes;
+               __s64   aio_offset;
+               __u64   aio_reserved2;
+               __u32   aio_flags;
+               __u32   aio_resfd;
+           };
+       The fields of this structure are as follows:
+       aio_data
+              This is an internal field used by the kernel.  Do not modify
+              this field after an io_submit(2) call.
+       aio_key
+              This is an internal field used by the kernel.  Do not modify
+              this field after an io_submit(2) call.
+       aio_rw_flags
+              This defines the R/W flags passed with structure.  The valid
+              values are:
+              RWF_APPEND (since Linux 4.16)
+                     Append data to the end of the file.  See the descrip‐
+                     tion of the flag of the same name in pwritev2(2) as
+                     well as the description of O_APPEND in open(2).  The
+                     aio_offset field is ignored.  The file offset is not
+                     changed.
+              RWF_DSYNC (since Linux 4.7)
+                     Write operation complete according to requirement of
+                     synchronized I/O data integrity.  See the description
+                     of the flag of the same name in pwritev2(2) as well the
+                     description of O_DSYNC in open(2).
+              RWF_HIPRI (since Linux 4.6)
+                     High priority request, poll if possible
+              RWF_NOWAIT (since Linux 4.14)
+                     Don't wait if the I/O will block for operations such as
+                     file block allocations, dirty page flush, mutex locks,
+                     or a congested block device inside the kernel.  If any
+                     of these conditions are met, the control block is
+                     returned immediately with a return value of -EAGAIN in
+                     the res field of the io_event structure (see
+                     io_getevents(2)).
+              RWF_SYNC (since Linux 4.7)
+                     Write operation complete according to requirement of
+                     synchronized I/O file integrity.  See the description
+                     of the flag of the same name in pwritev2(2) as well the
+                     description of O_SYNC in open(2).
+       aio_lio_opcode
+              This defines the type of I/O to be performed by the iocb
+              structure.  The valid values are defined by the enum defined
+              in linux/aio_abi.h:
+                  enum {
+                      IOCB_CMD_PREAD = 0,
+                      IOCB_CMD_PWRITE = 1,
+                      IOCB_CMD_FSYNC = 2,
+                      IOCB_CMD_FDSYNC = 3,
+                      IOCB_CMD_NOOP = 6,
+                      IOCB_CMD_PREADV = 7,
+                      IOCB_CMD_PWRITEV = 8,
+                  };
+       aio_reqprio
+              This defines the requests priority.
+       aio_filedes
+              The file descriptor on which the I/O operation is to be per‐
+              formed.
+       aio_buf
+              This is the buffer used to transfer data for a read or write
+              operation.
+       aio_nbytes
+              This is the size of the buffer pointed to by aio_buf.
+       aio_offset
+              This is the file offset at which the I/O operation is to be
+              performed.
+       aio_flags
+              This is the flag to be passed iocb structure.  The only valid
+              value is IOCB_FLAG_RESFD, which indicates that the asynchro‐
+              nous I/O control must signal the file descriptor mentioned in
+              aio_resfd upon completion.
+       aio_resfd
+              The file descriptor to signal in the event of asynchronous I/O
+              completion.

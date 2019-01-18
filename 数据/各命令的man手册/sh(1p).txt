@@ -1,0 +1,9 @@
+
+       The sh utility is a command language interpreter that shall execute
+       commands read from a command line string, the standard input, or a
+       specified file. The application shall ensure that the commands to be
+       executed are expressed in the language described in Chapter 2, Shell
+       Command Language.
+       Pathname expansion shall not fail due to the size of a file.
+       Shell input and output redirections have an implementation-defined
+       offset maximum that is established in the open file description.

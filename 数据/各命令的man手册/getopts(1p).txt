@@ -1,0 +1,58 @@
+
+       The getopts utility shall retrieve options and option-arguments from
+       a list of parameters. It shall support the Utility Syntax Guidelines
+       3 to 10, inclusive, described in the Base Definitions volume of
+       POSIX.1‐2008, Section 12.2, Utility Syntax Guidelines.
+       Each time it is invoked, the getopts utility shall place the value of
+       the next option in the shell variable specified by the name operand
+       and the index of the next argument to be processed in the shell
+       variable OPTIND.  Whenever the shell is invoked, OPTIND shall be
+       initialized to 1.
+       When the option requires an option-argument, the getopts utility
+       shall place it in the shell variable OPTARG.  If no option was found,
+       or if the option that was found does not have an option-argument,
+       OPTARG shall be unset.
+       If an option character not contained in the optstring operand is
+       found where an option character is expected, the shell variable
+       specified by name shall be set to the <question-mark> ('?')
+       character. In this case, if the first character in optstring is a
+       <colon> (':'), the shell variable OPTARG shall be set to the option
+       character found, but no output shall be written to standard error;
+       otherwise, the shell variable OPTARG shall be unset and a diagnostic
+       message shall be written to standard error. This condition shall be
+       considered to be an error detected in the way arguments were
+       presented to the invoking application, but shall not be an error in
+       getopts processing.
+       If an option-argument is missing:
+        *  If the first character of optstring is a <colon>, the shell
+           variable specified by name shall be set to the <colon> character
+           and the shell variable OPTARG shall be set to the option
+           character found.
+        *  Otherwise, the shell variable specified by name shall be set to
+           the <question-mark> character, the shell variable OPTARG shall be
+           unset, and a diagnostic message shall be written to standard
+           error. This condition shall be considered to be an error detected
+           in the way arguments were presented to the invoking application,
+           but shall not be an error in getopts processing; a diagnostic
+           message shall be written as stated, but the exit status shall be
+           zero.
+       When the end of options is encountered, the getopts utility shall
+       exit with a return value greater than zero; the shell variable OPTIND
+       shall be set to the index of the first operand, or the value "$#"+1
+       if there are no operands; the name variable shall be set to the
+       <question-mark> character. Any of the following shall identify the
+       end of options: the first "−−" argument that is not an option-
+       argument, finding an argument that is not an option-argument and does
+       not begin with a '−', or encountering an error.
+       The shell variables OPTIND and OPTARG shall be local to the caller of
+       getopts and shall not be exported by default.
+       The shell variable specified by the name operand, OPTIND, and OPTARG
+       shall affect the current shell execution environment; see Section
+       2.12, Shell Execution Environment.
+       If the application sets OPTIND to the value 1, a new set of
+       parameters can be used: either the current positional parameters or
+       new arg values. Any other attempt to invoke getopts multiple times in
+       a single shell execution environment with parameters (positional
+       parameters or arg operands) that are not the same in all invocations,
+       or with an OPTIND value modified to be a value other than 1, produces
+       unspecified results.

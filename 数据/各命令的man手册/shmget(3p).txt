@@ -1,0 +1,28 @@
+
+       The shmget() function operates on XSI shared memory (see the Base
+       Definitions volume of POSIX.1‐2008, Section 3.342, Shared Memory
+       Object).  It is unspecified whether this function interoperates with
+       the realtime interprocess communication facilities defined in Section
+       2.8, Realtime.
+       The shmget() function shall return the shared memory identifier
+       associated with key.
+       A shared memory identifier, associated data structure, and shared
+       memory segment of at least size bytes (see <sys/shm.h>) are created
+       for key if one of the following is true:
+        *  The argument key is equal to IPC_PRIVATE.
+        *  The argument key does not already have a shared memory identifier
+           associated with it and (shmflg &IPC_CREAT) is non-zero.
+       Upon creation, the data structure associated with the new shared
+       memory identifier shall be initialized as follows:
+        *  The values of shm_perm.cuid, shm_perm.uid, shm_perm.cgid, and
+           shm_perm.gid are set to the effective user ID and effective group
+           ID, respectively, of the calling process.
+        *  The low-order nine bits of shm_perm.mode are set to the low-order
+           nine bits of shmflg.
+        *  The value of shm_segsz is set to the value of size.
+        *  The values of shm_lpid, shm_nattch, shm_atime, and shm_dtime are
+           set to 0.
+        *  The value of shm_ctime is set to the current time, as described
+           in Section 2.7.1, IPC General Description.
+       When the shared memory segment is created, it shall be initialized
+       with all zero values.

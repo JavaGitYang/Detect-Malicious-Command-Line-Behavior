@@ -1,0 +1,11 @@
+
+       pgrep looks through the currently running processes and lists the
+       process IDs which match the selection criteria to stdout.  All the
+       criteria have to match.  For example,
+              $ pgrep -u root sshd
+       will only list the processes called sshd AND owned by root.  On the
+       other hand,
+              $ pgrep -u root,daemon
+       will list the processes owned by root OR daemon.
+       pkill will send the specified signal (by default SIGTERM) to each
+       process instead of listing them on stdout.

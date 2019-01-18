@@ -1,0 +1,5 @@
+
+       Checks the status of the private key token. This function is an
+       actual wrapper over gnutls_pkcs11_privkey_status(), and if the
+       private key is a PKCS 11 token it will check whether it is inserted
+       or not.

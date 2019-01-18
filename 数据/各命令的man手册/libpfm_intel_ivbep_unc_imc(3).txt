@@ -1,0 +1,4 @@
+
+       The library supports the Intel Ivy Bridge Integrated Memory
+       Controller (IMC) uncore PMU.  This PMU model only exists on Ivy
+       Bridge model 62.

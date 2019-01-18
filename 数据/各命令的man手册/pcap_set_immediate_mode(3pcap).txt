@@ -1,0 +1,5 @@
+
+       pcap_set_immediate_mode() sets whether immediate mode should be set
+       on a capture handle when the handle is activated.  If immediate_mode
+       is non-zero, immediate mode will be set, otherwise it will not be
+       set.

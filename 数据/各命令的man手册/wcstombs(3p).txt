@@ -1,0 +1,20 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The wcstombs() function shall convert the sequence of wide-character
+       codes that are in the array pointed to by pwcs into a sequence of
+       characters that begins in the initial shift state and store these
+       characters into the array pointed to by s, stopping if a character
+       would exceed the limit of n total bytes or if a null byte is stored.
+       Each wide-character code shall be converted as if by a call to
+       wctomb(), except that the shift state of wctomb() shall not be
+       affected.
+       The behavior of this function shall be affected by the LC_CTYPE
+       category of the current locale.
+       No more than n bytes shall be modified in the array pointed to by s.
+       If copying takes place between objects that overlap, the behavior is
+       undefined.  If s is a null pointer, wcstombs() shall return the
+       length required to convert the entire array regardless of the value
+       of n, but no values are stored.

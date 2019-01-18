@@ -1,0 +1,15 @@
+
+       The Sync Provider overlay implements the provider-side support for
+       the LDAP Content Synchronization (RFC4533) as well as syncrepl
+       replication support.  The overlay can be used with any backend that
+       maintains entryCSN and entryUUID attributes for its entries. It also
+       creates a contextCSN attribute in the root entry of the database.
+       The contextCSN is updated for every write operation performed against
+       the database. To reduce database contention, the contextCSN is only
+       updated in memory. The value is written to the database on server
+       shutdown and read into memory on startup, and maintained in memory
+       thereafter. Checkpoints may be configured to write the contextCSN
+       into the underlying database to minimize recovery time after an
+       unclean shutdown.
+       On databases that support inequality indexing, it is mandatory to set
+       an eq index on the entryCSN attribute when using this overlay.

@@ -1,0 +1,22 @@
+
+     The acl_get_qualifier() function retrieves the qualifier from the ACL
+     entry indicated by the argument entry_d into working storage and
+     returns a pointer to that storage.
+     If the value of the tag type in the ACL entry referred to by entry_d is
+     ACL_USER, then the value returned by acl_get_qualifier() is a pointer
+     to type uid_t.  If the value of the tag type in the ACL entry referred
+     to by entry_d is ACL_GROUP, then the value returned by
+     acl_get_qualifier() is a pointer to type gid_t.  If the tag type in the
+     ACL entry referred to by entry_d is a tag type for which a qualifier is
+     not supported, acl_get_qualifier() returns a value of (void *)NULL and
+     the function fails. Subsequent operations using the returned pointer
+     operate on an independent copy of the qualifier in working storage, and
+     will not change the qualifier of the ACL entry.
+     This function may cause memory to be allocated. The caller should free
+     any releasable memory, when the new qualifier is no longer required, by
+     calling acl_free() with the void * value returned by
+     acl_get_qualifier() as an argument.
+     The argument entry_d and any other ACL entry descriptors that refer to
+     entries within the ACL containing the entry referred to by entry_d con‐
+     tinue to refer to those entries. The order of all existing entries in
+     the ACL containing the entry referred to by entry_d remains unchanged.

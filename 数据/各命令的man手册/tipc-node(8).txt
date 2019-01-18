@@ -1,0 +1,8 @@
+
+   Node parameters
+       address
+              The TIPC logical address. On the form x.y.z where x, y and z
+              are unsigned integers.
+       netid
+              Network identity. Can by used to create individual TIPC
+              clusters on the same media.

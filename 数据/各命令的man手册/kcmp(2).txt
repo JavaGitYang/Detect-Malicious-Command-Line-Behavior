@@ -1,0 +1,62 @@
+
+       The kcmp() system call can be used to check whether the two processes
+       identified by pid1 and pid2 share a kernel resource such as virtual
+       memory, file descriptors, and so on.
+       Permission to employ kcmp() is governed by ptrace access mode
+       PTRACE_MODE_READ_REALCREDS checks against both pid1 and pid2; see
+       ptrace(2).
+       The type argument specifies which resource is to be compared in the
+       two processes.  It has one of the following values:
+       KCMP_FILE
+              Check whether a file descriptor idx1 in the process pid1
+              refers to the same open file description (see open(2)) as file
+              descriptor idx2 in the process pid2.  The existence of two
+              file descriptors that refer to the same open file description
+              can occur as a result of dup(2) (and similar) fork(2), or
+              passing file descriptors via a domain socket (see unix(7)).
+       KCMP_FILES
+              Check whether the processes share the same set of open file
+              descriptors.  The arguments idx1 and idx2 are ignored.  See
+              the discussion of the CLONE_FILES flag in clone(2).
+       KCMP_FS
+              Check whether the processes share the same filesystem
+              information (i.e., file mode creation mask, working directory,
+              and filesystem root).  The arguments idx1 and idx2 are
+              ignored.  See the discussion of the CLONE_FS flag in clone(2).
+       KCMP_IO
+              Check whether the processes share I/O context.  The arguments
+              idx1 and idx2 are ignored.  See the discussion of the CLONE_IO
+              flag in clone(2).
+       KCMP_SIGHAND
+              Check whether the processes share the same table of signal
+              dispositions.  The arguments idx1 and idx2 are ignored.  See
+              the discussion of the CLONE_SIGHAND flag in clone(2).
+       KCMP_SYSVSEM
+              Check whether the processes share the same list of System V
+              semaphore undo operations.  The arguments idx1 and idx2 are
+              ignored.  See the discussion of the CLONE_SYSVSEM flag in
+              clone(2).
+       KCMP_VM
+              Check whether the processes share the same address space.  The
+              arguments idx1 and idx2 are ignored.  See the discussion of
+              the CLONE_VM flag in clone(2).
+       KCMP_EPOLL_TFD (since Linux 4.13)
+              Check whether the file descriptor idx1 of the process pid1 is
+              present in the epoll(7) instance described by idx2 of the
+              process pid2.  The argument idx2 is a pointer to a structure
+              where the target file is described.  This structure has the
+              form:
+           struct kcmp_epoll_slot {
+               __u32 efd;
+               __u32 tfd;
+               __u64 toff;
+           };
+       Within this structure, efd is an epoll file descriptor returned from
+       epoll_create(2), tfd is a target file descriptor number, and toff is
+       a target file offset counted from zero.  Several different targets
+       may be registered with the same file descriptor number and setting a
+       specific offset helps to investigate each of them.
+       Note the kcmp() is not protected against false positives which may
+       occur if the processes are currently running.  One should stop the
+       processes by sending SIGSTOP (see signal(7)) prior to inspection with
+       this system call to obtain meaningful results.

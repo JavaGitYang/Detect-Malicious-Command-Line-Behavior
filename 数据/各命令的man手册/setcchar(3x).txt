@@ -1,0 +1,26 @@
+
+   getcchar
+       The getcchar function gets a wide-character string and rendition from
+       a cchar_t argument.  When wch is not a null pointer, the getcchar
+       function does the following:
+       ·   Extracts information from a cchar_t value wcval
+       ·   Stores the character attributes in the location pointed to by
+           attrs
+       ·   Stores the color-pair in the location pointed to by color_pair
+       ·   Stores the wide-character string, characters referenced by wcval,
+           into the array pointed to by wch.
+       When wch is a null pointer, the getcchar function does the following:
+       ·   Obtains the number of wide characters pointed to by wcval
+       ·   Does not change the data referenced by attrs or color_pair
+   setcchar
+       The setcchar function initializes the location pointed to by wcval by
+       using:
+       ·   The character attributes in attrs
+       ·   The color pair in color_pair
+       ·   The wide-character string pointed to by wch.  The string must be
+           L'\0' terminated, contain at most one spacing character, which
+           must be the first.
+           Up to CCHARW_MAX-1 nonspacing characters may follow.  Additional
+           nonspacing characters are ignored.
+           The string may contain a single control character instead.  In
+           that case, no nonspacing characters are allowed.

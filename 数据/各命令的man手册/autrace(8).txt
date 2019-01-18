@@ -1,0 +1,8 @@
+
+       autrace is a program that will add the audit rules to trace a process
+       similar to strace. It will then execute the program passing arguments
+       to it. The resulting audit information will be in the audit logs if
+       the audit daemon is running or syslog. This command deletes all audit
+       rules prior to executing the target program and after executing it.
+       As a safety precaution, it will not run unless all rules are deleted
+       with auditctl prior to use.

@@ -1,0 +1,6 @@
+
+       find_key_by_type_and_name() searches for a key with the given type
+       and exact description, firstly in the thread, process and session
+       keyrings to which a process is subscribed and secondly in /proc/keys.
+       If a key is found, and destringid is not 0 and specifies a keyring,
+       then the found key will be linked into it.

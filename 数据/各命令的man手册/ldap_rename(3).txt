@@ -1,0 +1,22 @@
+
+       These routines are used to perform a LDAP rename operation.  The
+       function changes the leaf component of an entry's distinguished name
+       and  optionally moves the entry to a new parent container. The
+       ldap_rename_s performs a rename operation synchronously.  The method
+       takes dn, which points to the distinguished name of the entry whose
+       attribute is being compared, newparent,the distinguished name of the
+       entry's new parent. If this parameter is NULL, only the RDN is
+       changed.  The root DN is specified by passing a zero length string,
+       "".  deleteoldrdn specifies whether the old RDN should be retained or
+       deleted.  Zero indicates that the old RDN should be retained. If you
+       choose this option, the attribute will contain both names (the old
+       and the new).  Non-zero indicates that the old RDN should be deleted.
+       serverctrls points to an array of LDAPControl structures that list
+       the client controls to use with this extended operation. Use NULL to
+       specify no client controls. clientctrls points to an array of
+       LDAPControl structures that list the client controls to use with the
+       search.
+       ldap_rename works just like ldap_rename_s, but the operation is
+       asynchronous. It returns the message id of the request it initiated.
+       The result of this operation can be obtained by calling
+       ldap_result(3).

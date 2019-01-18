@@ -1,0 +1,8 @@
+
+       Sets or queries various Linux privilege settings that are inherited
+       across execve(2).
+       In comparison to su(1) and runuser(1), setpriv(1) neither uses PAM,
+       nor does it prompt for a password.  It is a simple, non-set-user-ID
+       wrapper around execve(2), and can be used to drop privileges in the
+       same way as setuidgid(8) from daemontools, chpst(8) from runit, or
+       similar tools shipped by other service managers.

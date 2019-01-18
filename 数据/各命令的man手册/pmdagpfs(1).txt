@@ -1,0 +1,4 @@
+
+       pmdagpfs is a Performance Metrics Domain Agent (PMDA) which exports
+       metric values from the /usr/lpp/mmfs/bin/mmpmon program to provide
+       information on mounted gpfs filesystems.

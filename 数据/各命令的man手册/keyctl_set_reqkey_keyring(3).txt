@@ -1,0 +1,30 @@
+
+       keyctl_set_reqkey_keyring() sets the default destination for implicit
+       key requests for the current thread and returns the old setting.
+       After this operation has been issued, keys acquired by implicit key
+       requests, such as might be performed by open() on an AFS or NFS
+       filesystem, will be linked by default to the specified keyring by
+       this function.
+       The valid values of reqkey_defl are:
+       KEY_REQKEY_DEFL_NO_CHANGE
+              This makes no change to the current setting.
+       KEY_REQKEY_DEFL_THREAD_KEYRING
+              This makes the thread-specific keyring the default
+              destination.
+       KEY_REQKEY_DEFL_PROCESS_KEYRING
+              This makes the process-specific keyring the default
+              destination.
+       KEY_REQKEY_DEFL_SESSION_KEYRING
+              This makes the session keyring the default destination.
+       KEY_REQKEY_DEFL_USER_KEYRING
+              This makes the UID-specific keyring the default destination.
+       KEY_REQKEY_DEFL_USER_SESSION_KEYRING
+              This makes the UID-specific session keyring the default
+              destination.
+       KEY_REQKEY_DEFL_DEFAULT
+              This selects the default behaviour which is to use the thread-
+              specific keyring if there is one, otherwise the process-
+              specific keyring if there is one, otherwise the session
+              keyring if there is one, otherwise the UID-specific session
+              keyring.
+       This setting is inherited across fork() and exec().

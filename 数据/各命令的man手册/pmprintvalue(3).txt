@@ -1,0 +1,16 @@
+
+       The value of a single performance metric (as identified by val) is
+       printed on the standard I/O stream identified by f.
+       The value of the performance metric is interpreted according to the
+       format of val as defined by valfmt (from a pmValueSet within a
+       pmResult structure; see pmFetch(3)) and the generic description of
+       the metrics type passed in via type.
+       The value for type is typically extracted from a pmDesc structure,
+       following a call to pmLookupDesc(3) for a particular performance
+       metric.
+       The output will be optionally padded to be at least minwidth
+       characters wide.
+       pmPrintValue is most useful for displaying values of performance
+       metrics from pmFetch(3) (which returns a set of valfmt and val pairs
+       for each requested metric), based upon the metrics type as returned
+       from pmLookupDesc(3).

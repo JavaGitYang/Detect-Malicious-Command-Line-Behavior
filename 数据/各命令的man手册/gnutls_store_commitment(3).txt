@@ -1,0 +1,8 @@
+
+       This function will store the provided hash commitment to the list of
+       stored public keys. The key with the given hash will be considered
+       valid until the provided expiration time.
+       The  store variable if non-null specifies a custom backend for the
+       storage of entries. If it is NULL then the default file backend will
+       be used.
+       Note that this function is not thread safe with the default backend.

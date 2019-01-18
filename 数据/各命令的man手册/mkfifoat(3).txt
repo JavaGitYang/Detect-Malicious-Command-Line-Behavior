@@ -1,0 +1,27 @@
+
+       mkfifo() makes a FIFO special file with name pathname.  mode
+       specifies the FIFO's permissions.  It is modified by the process's
+       umask in the usual way: the permissions of the created file are (mode
+       & ~umask).
+       A FIFO special file is similar to a pipe, except that it is created
+       in a different way.  Instead of being an anonymous communications
+       channel, a FIFO special file is entered into the filesystem by
+       calling mkfifo().
+       Once you have created a FIFO special file in this way, any process
+       can open it for reading or writing, in the same way as an ordinary
+       file.  However, it has to be open at both ends simultaneously before
+       you can proceed to do any input or output operations on it.  Opening
+       a FIFO for reading normally blocks until some other process opens the
+       same FIFO for writing, and vice versa.  See fifo(7) for nonblocking
+       handling of FIFO special files.
+   mkfifoat()
+       The mkfifoat() function operates in exactly the same way as mkfifo(),
+       except for the differences described here.
+       If the pathname given in pathname is relative, then it is interpreted
+       relative to the directory referred to by the file descriptor dirfd
+       (rather than relative to the current working directory of the calling
+       process, as is done by mkfifo() for a relative pathname).
+       If pathname is relative and dirfd is the special value AT_FDCWD, then
+       pathname is interpreted relative to the current working directory of
+       the calling process (like mkfifo()).
+       If pathname is absolute, then dirfd is ignored.

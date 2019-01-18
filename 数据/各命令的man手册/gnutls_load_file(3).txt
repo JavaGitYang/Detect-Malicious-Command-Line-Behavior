@@ -1,0 +1,4 @@
+
+       This function will load a file into a datum. The data are zero
+       terminated but the terminating null is not included in length.  The
+       returned data are allocated using gnutls_malloc().

@@ -1,0 +1,4 @@
+
+       The gcvt() function converts number to a minimal length null-
+       terminated ASCII string and stores the result in buf.  It produces
+       ndigit significant digits in either printf(3) F format or E format.

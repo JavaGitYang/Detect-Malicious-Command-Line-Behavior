@@ -1,0 +1,5 @@
+
+       This function parses an RDN sequence and stores the result to a
+       gnutls_x509_dn_t type. The data must have been initialized with
+       gnutls_x509_dn_init(). You may use gnutls_x509_dn_get_rdn_ava() to
+       decode the DN.

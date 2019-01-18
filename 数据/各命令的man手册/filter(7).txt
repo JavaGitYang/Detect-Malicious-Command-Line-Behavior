@@ -1,0 +1,13 @@
+
+       The CUPS filter interface provides a standard method for adding
+       support for new document types or printers to CUPS.  Each filter is
+       capable of converting from one or more input formats to another
+       format that can either be printed directly or piped into another
+       filter to get it to a printable format.
+       Filters MUST be capable of reading from a filename on the command-
+       line or from the standard input, copying the standard input to a
+       temporary file as required by the file format.  All output MUST be
+       sent to the standard output.  Filters MUST NOT attempt to communicate
+       directly with the printer, other processes, or other services.
+       The command name (argv[0]) is set to the name of the destination
+       printer but is also available in the PRINTER environment variable.

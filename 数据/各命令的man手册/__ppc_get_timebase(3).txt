@@ -1,0 +1,8 @@
+
+       __ppc_get_timebase() reads the current value of the Time Base
+       Register and returns its value, while __ppc_get_timebase_freq()
+       returns the frequency in which the Time Base Register is updated.
+       The Time Base Register is a 64-bit register provided by Power
+       Architecture processors.  It stores a monotonically incremented value
+       that is updated at a system-dependent frequency that may be different
+       from the processor frequency.

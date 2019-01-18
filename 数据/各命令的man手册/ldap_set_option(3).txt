@@ -1,0 +1,184 @@
+
+       These routines provide access to options stored either in a LDAP
+       handle or as global options, where applicable.  They make use of a
+       neutral interface, where the type of the value either retrieved by
+       ldap_get_option(3) or set by ldap_set_option(3) is cast to void *.
+       The actual type is determined based on the value of the option
+       argument.  Global options are set/retrieved by passing a NULL LDAP
+       handle. LDAP handles inherit their default settings from the global
+       options in effect at the time the handle is created.
+       LDAP_OPT_API_FEATURE_INFO
+              Fills-in a LDAPAPIFeatureInfo; outvalue must be a
+              LDAPAPIFeatureInfo *, pointing to an already allocated struct.
+              The ldapaif_info_version field of the struct must be
+              initialized to LDAP_FEATURE_INFO_VERSION before making the
+              call. The ldapaif_name field must be set to the name of a
+              feature to query.  This is a read-only option.
+       LDAP_OPT_API_INFO
+              Fills-in a LDAPAPIInfo; outvalue must be a LDAPAPIInfo *,
+              pointing to an already allocated struct. The
+              ldapai_info_version field of the struct must be initialized to
+              LDAP_API_INFO_VERSION before making the call.  If the version
+              passed in does not match the current library version, the
+              expected version number will be stored in the struct and the
+              call will fail.  The caller is responsible for freeing the
+              elements of the ldapai_extensions array and the array itself
+              using ldap_memfree(3).  The caller must also free the
+              ldapi_vendor_name.  This is a read-only option.
+       LDAP_OPT_CLIENT_CONTROLS
+              Sets/gets the client-side controls to be used for all
+              operations.  This is now deprecated as modern LDAP C API
+              provides replacements for all main operations which accepts
+              client-side controls as explicit arguments; see for example
+              ldap_search_ext(3), ldap_add_ext(3), ldap_modify_ext(3) and so
+              on.  outvalue must be LDAPControl ***, and the caller is
+              responsible of freeing the returned controls, if any, by
+              calling ldap_controls_free(3), while invalue must be
+              LDAPControl *const *; the library duplicates the controls
+              passed via invalue.
+       LDAP_OPT_CONNECT_ASYNC
+              Sets/gets the status of the asynchronous connect flag.
+              invalue should either be LDAP_OPT_OFF or LDAP_OPT_ON; outvalue
+              must be int *.  When set, the library will call connect(2) and
+              return, without waiting for response.  This leaves the handle
+              in a connecting state.  Subsequent calls to library routines
+              will poll for completion of the connect before performing
+              further operations.  As a consequence, library calls that need
+              to establish a connection with a DSA do not block even for the
+              network timeout (option LDAP_OPT_NETWORK_TIMEOUT).  This
+              option is OpenLDAP specific.
+       LDAP_OPT_CONNECT_CB
+              This option allows to set a connect callback.  invalue must be
+              a const struct ldap_conncb *.  Callbacks are executed in last
+              in-first served order.  Handle-specific callbacks are executed
+              first, followed by global ones.  Right before freeing the
+              callback structure, the lc_del callback handler is passed a
+              NULL Sockbuf.  Calling ldap_get_option(3) for this option
+              removes the callback whose pointer matches outvalue.  This
+              option is OpenLDAP specific.
+       LDAP_OPT_DEBUG_LEVEL
+              Sets/gets the debug level of the client library.  invalue must
+              be a const int *; outvalue must be a int *.  Valid debug
+              levels are LDAP_DEBUG_ANY, LDAP_DEBUG_ARGS, LDAP_DEBUG_BER,
+              LDAP_DEBUG_CONNS, LDAP_DEBUG_NONE, LDAP_DEBUG_PACKETS,
+              LDAP_DEBUG_PARSE, and LDAP_DEBUG_TRACE.  This option is
+              OpenLDAP specific.
+       LDAP_OPT_DEFBASE
+              Sets/gets a string containing the DN to be used as default
+              base for search operations.  outvalue must be a char **, and
+              the caller is responsible of freeing the returned string by
+              calling ldap_memfree(3), while invalue must be a const char *;
+              the library duplicates the corresponding string.  This option
+              is OpenLDAP specific.
+       LDAP_OPT_DEREF
+              Sets/gets the value that defines when alias dereferencing must
+              occur.  invalue must be const int *; outvalue must be int *.
+              They cannot be NULL.  The value of *invalue should be one of
+              LDAP_DEREF_NEVER (the default), LDAP_DEREF_SEARCHING,
+              LDAP_DEREF_FINDING, or LDAP_DEREF_ALWAYS.  Note that this has
+              ever been the only means to determine alias dereferencing
+              within search operations.
+       LDAP_OPT_DESC
+              Returns the file descriptor associated to the socket buffer of
+              the LDAP handle passed in as ld; outvalue must be a int *.
+              This is a read-only, handle-specific option.
+       LDAP_OPT_DIAGNOSTIC_MESSAGE
+              Sets/gets a string containing the error string associated to
+              the LDAP handle.  This option was formerly known as
+              LDAP_OPT_ERROR_STRING.  outvalue must be a char **, and the
+              caller is responsible of freeing the returned string by
+              calling ldap_memfree(3), while invalue must be a char *; the
+              library duplicates the corresponding string.
+       LDAP_OPT_HOST_NAME
+              Sets/gets a space-separated list of hosts to be contacted by
+              the library when trying to establish a connection.  This is
+              now deprecated in favor of LDAP_OPT_URI.  outvalue must be a
+              char **, and the caller is responsible of freeing the
+              resulting string by calling ldap_memfree(3), while invalue
+              must be a const char *; the library duplicates the
+              corresponding string.
+       LDAP_OPT_MATCHED_DN
+              Sets/gets a string containing the matched DN associated to the
+              LDAP handle.  outvalue must be a char **, and the caller is
+              responsible of freeing the returned string by calling
+              ldap_memfree(3), while invalue must be a const char *; the
+              library duplicates the corresponding string.
+       LDAP_OPT_NETWORK_TIMEOUT
+              Sets/gets the network timeout value after which
+              poll(2)/select(2) following a connect(2) returns in case of no
+              activity.  outvalue must be a struct timeval ** (the caller
+              has to free *outvalue), and invalue must be a const struct
+              timeval *.  They cannot be NULL. Using a struct with seconds
+              set to -1 results in an infinite timeout, which is the
+              default.  This option is OpenLDAP specific.
+       LDAP_OPT_PROTOCOL_VERSION
+              Sets/gets the protocol version.  outvalue and invalue must be
+              int *.
+       LDAP_OPT_REFERRAL_URLS
+              Sets/gets an array containing the referral URIs associated to
+              the LDAP handle.  outvalue must be a char ***, and the caller
+              is responsible of freeing the returned string by calling
+              ldap_memvfree(3), while invalue must be a NULL-terminated char
+              *const *; the library duplicates the corresponding string.
+              This option is OpenLDAP specific.
+       LDAP_OPT_REFERRALS
+              Determines whether the library should implicitly chase
+              referrals or not.  invalue must be const int *; its value
+              should either be LDAP_OPT_OFF or LDAP_OPT_ON.  outvalue must
+              be int *.
+       LDAP_OPT_RESTART
+              Determines whether the library should implicitly restart
+              connections (FIXME).  invalue must be const int *; its value
+              should either be LDAP_OPT_OFF or LDAP_OPT_ON.  outvalue must
+              be int *.
+       LDAP_OPT_RESULT_CODE
+              Sets/gets the LDAP result code associated to the handle.  This
+              option was formerly known as LDAP_OPT_ERROR_NUMBER.  invalue
+              must be a const int *.  outvalue must be a int *.
+       LDAP_OPT_SERVER_CONTROLS
+              Sets/gets the server-side controls to be used for all
+              operations.  This is now deprecated as modern LDAP C API
+              provides replacements for all main operations which accepts
+              server-side controls as explicit arguments; see for example
+              ldap_search_ext(3), ldap_add_ext(3), ldap_modify_ext(3) and so
+              on.  outvalue must be LDAPControl ***, and the caller is
+              responsible of freeing the returned controls, if any, by
+              calling ldap_controls_free(3), while invalue must be
+              LDAPControl *const *; the library duplicates the controls
+              passed via invalue.
+       LDAP_OPT_SESSION_REFCNT
+              Returns the reference count associated with the LDAP handle
+              passed in as ld; outvalue must be a int *.  This is a read-
+              only, handle-specific option.  This option is OpenLDAP
+              specific.
+       LDAP_OPT_SIZELIMIT
+              Sets/gets the value that defines the maximum number of entries
+              to be returned by a search operation.  invalue must be const
+              int *, while outvalue must be int *; They cannot be NULL.
+       LDAP_OPT_SOCKBUF
+              Returns a pointer to the socket buffer of the LDAP handle
+              passed in as ld; outvalue must be a Sockbuf **.  This is a
+              read-only, handle-specific option.  This option is OpenLDAP
+              specific.
+       LDAP_OPT_TIMELIMIT
+              Sets/gets the value that defines the time limit after which a
+              search operation should be terminated by the server.  invalue
+              must be const int *, while outvalue must be int *, and they
+              cannot be NULL.
+       LDAP_OPT_TIMEOUT
+              Sets/gets a timeout value for the synchronous API calls.
+              outvalue must be a struct timeval ** (the caller has to free
+              *outvalue), and invalue must be a struct timeval *, and they
+              cannot be NULL. Using a struct with seconds set to -1 results
+              in an infinite timeout, which is the default.  This option is
+              OpenLDAP specific.
+       LDAP_OPT_URI
+              Sets/gets a comma- or space-separated list of URIs to be
+              contacted by the library when trying to establish a
+              connection.  outvalue must be a char **, and the caller is
+              responsible of freeing the resulting string by calling
+              ldap_memfree(3), while invalue must be a const char *; the
+              library parses the string into a list of LDAPURLDesc
+              structures, so the invocation of ldap_set_option(3) may fail
+              if URL parsing fails.  URIs may only contain the schema, the
+              host, and the port fields.  This option is OpenLDAP specific.

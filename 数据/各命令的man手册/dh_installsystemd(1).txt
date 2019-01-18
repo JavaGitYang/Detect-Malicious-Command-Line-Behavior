@@ -1,0 +1,12 @@
+
+       dh_installsystemd is a debhelper program that is responsible for
+       enabling, disabling, starting, stopping and restarting systemd unit
+       files.
+       In the simple case, it finds all unit files installed by a package
+       (e.g.  bacula-fd.service) and enables them. It is not necessary that
+       the machine actually runs systemd during package installation time,
+       enabling happens on all machines in order to be able to switch from
+       sysvinit to systemd and back.
+       For only generating blocks for specific service files, you need to
+       pass them as arguments, e.g. dh_installsystemd quota.service and
+       dh_installsystemd --name=quotarpc quotarpc.service.

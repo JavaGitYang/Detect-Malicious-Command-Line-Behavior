@@ -1,0 +1,12 @@
+
+       These functions calculate the Gamma function of x.
+       The Gamma function is defined by
+              Gamma(x) = integral from 0 to infinity of t^(x-1) e^-t dt
+       It is defined for every real number except for nonpositive integers.
+       For nonnegative integral m one has
+              Gamma(m+1) = m!
+       and, more generally, for all x:
+              Gamma(x+1) = x * Gamma(x)
+       Furthermore, the following is valid for all values of x outside the
+       poles:
+              Gamma(x) * Gamma(1 - x) = PI / sin(PI * x)

@@ -1,0 +1,9 @@
+
+       This function will set the part of the name of the Certificate
+       subject, specified by the given OID. The input string should be ASCII
+       or UTF-8 encoded.
+       Some helper macros with popular OIDs can be found in gnutls/x509.h
+       With this function you can only set the known OIDs. You can test for
+       known OIDs using gnutls_x509_dn_oid_known(). For OIDs that are not
+       known (by gnutls) you should properly DER encode your data, and call
+       this function with  raw_flag set.

@@ -1,0 +1,29 @@
+
+       The pthread_create() function shall create a new thread, with
+       attributes specified by attr, within a process. If attr is NULL, the
+       default attributes shall be used. If the attributes specified by attr
+       are modified later, the thread's attributes shall not be affected.
+       Upon successful completion, pthread_create() shall store the ID of
+       the created thread in the location referenced by thread.
+       The thread is created executing start_routine with arg as its sole
+       argument. If the start_routine returns, the effect shall be as if
+       there was an implicit call to pthread_exit() using the return value
+       of start_routine as the exit status. Note that the thread in which
+       main() was originally invoked differs from this. When it returns from
+       main(), the effect shall be as if there was an implicit call to
+       exit() using the return value of main() as the exit status.
+       The signal state of the new thread shall be initialized as follows:
+        *  The signal mask shall be inherited from the creating thread.
+        *  The set of signals pending for the new thread shall be empty.
+       The thread-local current locale and the alternate stack shall not be
+       inherited.
+       The floating-point environment shall be inherited from the creating
+       thread.
+       If pthread_create() fails, no new thread is created and the contents
+       of the location referenced by thread are undefined.
+       If _POSIX_THREAD_CPUTIME is defined, the new thread shall have a CPU-
+       time clock accessible, and the initial value of this clock shall be
+       set to zero.
+       The behavior is undefined if the value specified by the attr argument
+       to pthread_create() does not refer to an initialized thread
+       attributes object.

@@ -1,0 +1,10 @@
+
+       auparse_get_timestamp provides an accessor function for the event's
+       timestamp data structure. The data structure is as follows:
+       typedef struct
+       {
+               time_t sec;             // Event seconds
+               unsigned int milli;     // millisecond of the timestamp
+               unsigned long serial;   // Serial number of the event
+               const char *host;       // Machine's node name
+       } au_event_t;

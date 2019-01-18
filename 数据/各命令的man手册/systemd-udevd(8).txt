@@ -1,0 +1,7 @@
+
+       systemd-udevd listens to kernel uevents. For every event,
+       systemd-udevd executes matching instructions specified in udev rules.
+       See udev(7).
+       The behavior of the daemon can be configured using udev.conf(5), its
+       command line options, environment variables, and on the kernel
+       command line, or changed dynamically with udevadm control.

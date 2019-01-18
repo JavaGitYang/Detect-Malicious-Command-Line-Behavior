@@ -1,0 +1,17 @@
+
+       pmcd_wait waits for the Performance Metrics Collector Daemon (PMCD)
+       to be running and accepting client connections.
+       Unless directed to another host by the -h option, pmcd_wait will try
+       to contact pmcd(1) on the local host.
+       pmcd_wait will timeout and abandon the attempt to connect to pmcd
+       after 60 seconds.  This default timeout interval may be changed using
+       the -t option, where the interval argument follows the syntax
+       described in PCPIntro(1) and in the simplest form may be an unsigned
+       integer (the implied units in this case are seconds).
+       On successful connection to pmcd an exit status of zero is returned.
+       If an error or timeout occurs, then a non-zero exit status is
+       returned as described below.
+       The other options are as follows:
+       -v     This option turns the verbose mode on.  With the verbose mode
+              off (which is the default), no output will be generated.  With
+              verbose mode on, error messages will be output on stderr.

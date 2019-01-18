@@ -1,0 +1,8 @@
+
+       This function will provide information on the MAC algorithm used in a
+       PKCS 12 structure. If the structure algorithms are unknown the code
+       GNUTLS_E_UNKNOWN_HASH_ALGORITHM will be returned, and only  oid ,
+       will be set. That is,  oid will be set on structures with a MAC
+       whether supported or not. It must be deinitialized using
+       gnutls_free().  The other variables are only set on supported
+       structures.

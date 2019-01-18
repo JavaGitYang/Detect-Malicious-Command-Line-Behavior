@@ -1,0 +1,13 @@
+
+       The mkfifo utility shall create the FIFO special files specified by
+       the operands, in the order specified.
+       For each file operand, the mkfifo utility shall perform actions
+       equivalent to the mkfifo() function defined in the System Interfaces
+       volume of POSIX.1‐2008, called with the following arguments:
+        1. The file operand is used as the path argument.
+        2. The value of the bitwise-inclusive OR of S_IRUSR, S_IWUSR,
+           S_IRGRP, S_IWGRP, S_IROTH, and S_IWOTH is used as the mode
+           argument. (If the −m option is specified, the value of the
+           mkfifo() mode argument is unspecified, but the FIFO shall at no
+           time have permissions less restrictive than the −m mode option-
+           argument.)

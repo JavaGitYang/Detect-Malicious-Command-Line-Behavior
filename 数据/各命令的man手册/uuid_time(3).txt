@@ -1,0 +1,7 @@
+
+       The uuid_time function extracts the time at which the supplied time-
+       based UUID uu was created.  Note that the UUID creation time is only
+       encoded within certain types of UUIDs.  This function can only
+       reasonably expect to extract the creation time for UUIDs created with
+       the uuid_generate_time(3) and uuid_generate_time_safe(3) functions.
+       It may or may not work with UUIDs created by other mechanisms.

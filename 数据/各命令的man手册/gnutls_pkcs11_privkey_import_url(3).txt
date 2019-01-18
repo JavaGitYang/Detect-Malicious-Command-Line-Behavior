@@ -1,0 +1,5 @@
+
+       This function will "import" a PKCS 11 URL identifying a private key
+       to the gnutls_pkcs11_privkey_t type. In reality since in most cases
+       keys cannot be exported, the private key structure is being
+       associated with the available operations on the token.

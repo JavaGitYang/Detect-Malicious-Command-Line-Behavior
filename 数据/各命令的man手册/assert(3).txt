@@ -1,0 +1,15 @@
+
+       This macro can help programmers find bugs in their programs, or
+       handle exceptional cases via a crash that will produce limited
+       debugging output.
+       If expression is false (i.e., compares equal to zero), assert()
+       prints an error message to standard error and terminates the program
+       by calling abort(3).  The error message includes the name of the file
+       and function containing the assert() call, the source code line
+       number of the call, and the text of the argument; something like:
+           prog: some_file.c:16: some_func: Assertion `val == 0' failed.
+       If the macro NDEBUG is defined at the moment <assert.h> was last
+       included, the macro assert() generates no code, and hence does
+       nothing at all.  It is not recommended to define NDEBUG if using
+       assert() to detect error conditions since the software may behave
+       non-deterministically.

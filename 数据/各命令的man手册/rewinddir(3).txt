@@ -1,0 +1,3 @@
+
+       The rewinddir() function resets the position of the directory stream
+       dirp to the beginning of the directory.

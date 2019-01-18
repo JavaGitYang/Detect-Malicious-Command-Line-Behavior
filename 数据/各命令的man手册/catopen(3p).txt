@@ -1,0 +1,27 @@
+
+       The catopen() function shall open a message catalog and return a
+       message catalog descriptor. The name argument specifies the name of
+       the message catalog to be opened. If name contains a '/', then name
+       specifies a complete name for the message catalog. Otherwise, the
+       environment variable NLSPATH is used with name substituted for the %N
+       conversion specification (see the Base Definitions volume of
+       POSIX.1‐2008, Chapter 8, Environment Variables).  If NLSPATH exists
+       in the environment when the process starts, then if the process has
+       appropriate privileges, the behavior of catopen() is undefined. If
+       NLSPATH does not exist in the environment, or if a message catalog
+       cannot be found in any of the components specified by NLSPATH, then
+       an implementation-defined default path shall be used. This default
+       may be affected by the setting of LC_MESSAGES if the value of oflag
+       is NL_CAT_LOCALE, or the LANG environment variable if oflag is 0.
+       A message catalog descriptor shall remain valid in a process until
+       that process closes it, or a successful call to one of the exec
+       functions. A change in the setting of the LC_MESSAGES category may
+       invalidate existing open catalogs.
+       If a file descriptor is used to implement message catalog
+       descriptors, the FD_CLOEXEC flag shall be set; see <fcntl.h>.
+       If the value of the oflag argument is 0, the LANG environment
+       variable is used to locate the catalog without regard to the
+       LC_MESSAGES category. If the oflag argument is NL_CAT_LOCALE, the
+       LC_MESSAGES category is used to locate the message catalog (see the
+       Base Definitions volume of POSIX.1‐2008, Section 8.2,
+       Internationalization Variables).

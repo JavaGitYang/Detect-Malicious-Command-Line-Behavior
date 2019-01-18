@@ -1,0 +1,20 @@
+
+       epoll_create() creates a new epoll(7) instance.  Since Linux 2.6.8,
+       the size argument is ignored, but must be greater than zero; see
+       NOTES below.
+       epoll_create() returns a file descriptor referring to the new epoll
+       instance.  This file descriptor is used for all the subsequent calls
+       to the epoll interface.  When no longer required, the file descriptor
+       returned by epoll_create() should be closed by using close(2).  When
+       all file descriptors referring to an epoll instance have been closed,
+       the kernel destroys the instance and releases the associated
+       resources for reuse.
+   epoll_create1()
+       If flags is 0, then, other than the fact that the obsolete size
+       argument is dropped, epoll_create1() is the same as epoll_create().
+       The following value can be included in flags to obtain different
+       behavior:
+       EPOLL_CLOEXEC
+              Set the close-on-exec (FD_CLOEXEC) flag on the new file
+              descriptor.  See the description of the O_CLOEXEC flag in
+              open(2) for reasons why this may be useful.

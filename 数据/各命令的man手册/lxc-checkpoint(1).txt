@@ -1,0 +1,2 @@
+
+       lxc-checkpoint checkpoints and restores containers.

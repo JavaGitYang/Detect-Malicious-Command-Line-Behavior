@@ -1,0 +1,32 @@
+
+       All performance metric values may be encoded in a pmAtomValue union,
+       defined as follows;
+            typedef union {
+                __int32_t    l;     /* 32-bit signed */
+                __uint32_t   ul;    /* 32-bit unsigned */
+                __int64_t    ll;    /* 64-bit signed */
+                __uint64_t   ull;   /* 64-bit unsigned */
+                float        f;     /* 32-bit floating point */
+                double       d;     /* 64-bit floating point */
+                char         *cp;   /* char ptr */
+                pmValueBlock *vbp;  /* pmValueBlock ptr */
+            } pmAtomValue;
+       The encoding of a performance metric's dimensionality and scale uses
+       a pmUnits structure; see pmLookupDesc(3).
+       Given a performance metric value pointed to by ival multiply it by a
+       scale factor and return the value in oval.  The scaling takes place
+       from the units defined by iunit into the units defined by ounit.
+       Both input and output units must have the same dimensionality.
+       The performance metric type for both input and output values is
+       determined by type, the value for which is typically extracted from a
+       pmDesc structure, following a call to pmLookupDesc(3) for a
+       particular performance metric.
+       pmConvScale is most useful when values returned via pmFetch(3), (and
+       possibly extracted using pmExtractValue(3)) need to be normalized
+       into some canonical scale and units for the purposes of computation.
+       As a special case, if all components of the dimension are zero, then
+       this is treated as synonymous with a ``count'' dimension of one, and
+       so the ``count'' scale components determine the relative scaling.
+       This accommodates the case where performance metrics are
+       dimensionless, without special case handling on the part of the
+       caller.

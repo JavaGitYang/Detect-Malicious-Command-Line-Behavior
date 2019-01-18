@@ -1,0 +1,9 @@
+
+       pcap_set_tstamp_precision() sets the precision of the time stamp
+       desired for packets captured on the pcap descriptor to the type
+       specified by tstamp_precision.  It must be called on a pcap
+       descriptor created by pcap_create() that has not yet been activated
+       by pcap_activate().  Two time stamp precisions are supported,
+       microseconds and nanoseconds. One can use options
+       PCAP_TSTAMP_PRECISION_MICRO and PCAP_TSTAMP_PRECISION_NANO to request
+       desired precision. By default, time stamps are in microseconds.

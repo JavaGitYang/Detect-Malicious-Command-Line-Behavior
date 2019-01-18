@@ -1,0 +1,19 @@
+
+       To rerun a batch job is to terminate the session leader of the batch
+       job, delete any associated checkpoint files, and return the batch job
+       to the batch queued state. A batch job is rerun by a request to the
+       batch server that manages the batch job. The qrerun utility is a
+       user-accessible batch client that requests the rerunning of one or
+       more batch jobs.
+       The qrerun utility shall rerun those batch jobs for which a batch
+       job_identifier is presented to the utility.
+       The qrerun utility shall rerun batch jobs in the order in which their
+       batch job_identifiers are presented to the utility.
+       If the qrerun utility fails to process any batch job_identifier
+       successfully, the utility shall proceed to process the remaining
+       batch job_identifiers, if any.
+       The qrerun utility shall rerun batch jobs by sending a Rerun Job
+       Request to the batch server that manages each batch job.
+       For each successfully processed batch job_identifier, the qrerun
+       utility shall have rerun the corresponding batch job at the time the
+       utility exits.

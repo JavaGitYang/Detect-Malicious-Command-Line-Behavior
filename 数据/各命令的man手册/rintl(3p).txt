@@ -1,0 +1,24 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       These functions shall return the integral value (represented as a
+       double) nearest x in the direction of the current rounding mode. The
+       current rounding mode is implementation-defined.
+       If the current rounding mode rounds toward negative infinity, then
+       rint() shall be equivalent to floor(3p).  If the current rounding
+       mode rounds toward positive infinity, then rint() shall be equivalent
+       to ceil(3p).  If the current rounding mode rounds towards zero, then
+       rint() shall be equivalent to trunc(3p).  If the current rounding
+       mode rounds towards nearest, then rint() differs from round(3p) in
+       that halfway cases are rounded to even rather than away from zero.
+       These functions differ from the nearbyint(), nearbyintf(), and
+       nearbyintl() functions only in that they may raise the inexact
+       floating-point exception if the result differs in value from the
+       argument.
+       An application wishing to check for error situations should set errno
+       to zero and call feclearexcept(FE_ALL_EXCEPT) before calling these
+       functions. On return, if errno is non-zero or fetestexcept(FE_INVALID
+       | FE_DIVBYZERO | FE_OVERFLOW | FE_UNDERFLOW) is non-zero, an error
+       has occurred.

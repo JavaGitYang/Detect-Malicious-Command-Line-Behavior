@@ -1,0 +1,21 @@
+
+       Tc is used to configure Traffic Control in the Linux kernel. Traffic
+       Control consists of the following:
+       SHAPING
+              When traffic is shaped, its rate of transmission is under
+              control. Shaping may be more than lowering the available
+              bandwidth - it is also used to smooth out bursts in traffic
+              for better network behaviour. Shaping occurs on egress.
+       SCHEDULING
+              By scheduling the transmission of packets it is possible to
+              improve interactivity for traffic that needs it while still
+              guaranteeing bandwidth to bulk transfers. Reordering is also
+              called prioritizing, and happens only on egress.
+       POLICING
+              Whereas shaping deals with transmission of traffic, policing
+              pertains to traffic arriving. Policing thus occurs on ingress.
+       DROPPING
+              Traffic exceeding a set bandwidth may also be dropped
+              forthwith, both on ingress and on egress.
+       Processing of traffic is controlled by three kinds of objects:
+       qdiscs, classes and filters.

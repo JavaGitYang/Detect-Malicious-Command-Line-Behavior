@@ -1,0 +1,7 @@
+
+       This is a convenience function for freeing the store obtained by a
+       previous call to pcre[16|32]_get_substring() or
+       pcre[16|32]_get_named_substring().  Its only argument is a pointer to
+       the string.
+       There is a complete description of the PCRE native API in the pcreapi
+       page and a description of the POSIX API in the pcreposix page.

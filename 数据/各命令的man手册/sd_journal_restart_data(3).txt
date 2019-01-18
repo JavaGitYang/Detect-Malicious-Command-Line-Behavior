@@ -1,0 +1,47 @@
+
+       sd_journal_get_data() gets the data object associated with a specific
+       field from the current journal entry. It takes four arguments: the
+       journal context object, a string with the field name to request, plus
+       a pair of pointers to pointer/size variables where the data object
+       and its size shall be stored in. The field name should be an entry
+       field name. Well-known field names are listed in
+       systemd.journal-fields(7). The returned data is in a read-only memory
+       map and is only valid until the next invocation of
+       sd_journal_get_data() or sd_journal_enumerate_data(), or the read
+       pointer is altered. Note that the data returned will be prefixed with
+       the field name and '='. Also note that, by default, data fields
+       larger than 64K might get truncated to 64K. This threshold may be
+       changed and turned off with sd_journal_set_data_threshold() (see
+       below).
+       sd_journal_enumerate_data() may be used to iterate through all fields
+       of the current entry. On each invocation the data for the next field
+       is returned. The order of these fields is not defined. The data
+       returned is in the same format as with sd_journal_get_data() and also
+       follows the same life-time semantics.
+       sd_journal_restart_data() resets the data enumeration index to the
+       beginning of the entry. The next invocation of
+       sd_journal_enumerate_data() will return the first field of the entry
+       again.
+       Note that the SD_JOURNAL_FOREACH_DATA() macro may be used as a handy
+       wrapper around sd_journal_restart_data() and
+       sd_journal_enumerate_data().
+       Note that these functions will not work before sd_journal_next(3) (or
+       related call) has been called at least once, in order to position the
+       read pointer at a valid entry.
+       sd_journal_set_data_threshold() may be used to change the data field
+       size threshold for data returned by sd_journal_get_data(),
+       sd_journal_enumerate_data() and sd_journal_enumerate_unique(). This
+       threshold is a hint only: it indicates that the client program is
+       interested only in the initial parts of the data fields, up to the
+       threshold in size — but the library might still return larger data
+       objects. That means applications should not rely exclusively on this
+       setting to limit the size of the data fields returned, but need to
+       apply an explicit size limit on the returned data as well. This
+       threshold defaults to 64K by default. To retrieve the complete data
+       fields this threshold should be turned off by setting it to 0, so
+       that the library always returns the complete data objects. It is
+       recommended to set this threshold as low as possible since this
+       relieves the library from having to decompress large compressed data
+       objects in full.
+       sd_journal_get_data_threshold() returns the currently configured data
+       field size threshold.

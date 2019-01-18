@@ -1,0 +1,6 @@
+
+       The pthread_sigmask() function is just like sigprocmask(2), with the
+       difference that its use in multithreaded programs is explicitly
+       specified by POSIX.1.  Other differences are noted in this page.
+       For a description of the arguments and operation of this function,
+       see sigprocmask(2).

@@ -1,0 +1,19 @@
+
+       The pthread_rwlockattr_destroy() function shall destroy a read-write
+       lock attributes object. A destroyed attr attributes object can be
+       reinitialized using pthread_rwlockattr_init(); the results of
+       otherwise referencing the object after it has been destroyed are
+       undefined. An implementation may cause pthread_rwlockattr_destroy()
+       to set the object referenced by attr to an invalid value.
+       The pthread_rwlockattr_init() function shall initialize a read-write
+       lock attributes object attr with the default value for all of the
+       attributes defined by the implementation.
+       Results are undefined if pthread_rwlockattr_init() is called
+       specifying an already initialized attr attributes object.
+       After a read-write lock attributes object has been used to initialize
+       one or more read-write locks, any function affecting the attributes
+       object (including destruction) shall not affect any previously
+       initialized read-write locks.
+       The behavior is undefined if the value specified by the attr argument
+       to pthread_rwlockattr_destroy() does not refer to an initialized
+       read-write lock attributes object.

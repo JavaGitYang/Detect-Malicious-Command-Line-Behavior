@@ -1,0 +1,74 @@
+
+       mysqlaccess is a diagnostic tool written by Yves Carlier. It checks
+       the access privileges for a host name, user name, and database
+       combination. Note that mysqlaccess checks access using only the user,
+       db, and host tables. It does not check table, column, or routine
+       privileges specified in the tables_priv, columns_priv, or procs_priv
+       tables.
+       Invoke mysqlaccess like this:
+           shell> mysqlaccess [host_name [user_name [db_name]]] [options]
+       mysqlaccess supports the following options.
+       ·   --help, -?
+           Display a help message and exit.
+       ·   --brief, -b
+           Generate reports in single-line tabular format.
+       ·   --commit
+           Copy the new access privileges from the temporary tables to the
+           original grant tables. The grant tables must be flushed for the
+           new privileges to take effect. (For example, execute a mysqladmin
+           reload command.)
+       ·   --copy
+           Reload the temporary grant tables from original ones.
+       ·   --db=db_name, -d db_name
+           Specify the database name.
+       ·   --debug=N
+           Specify the debug level.  N can be an integer from 0 to 3.
+       ·   --host=host_name, -h host_name
+           The host name to use in the access privileges.
+       ·   --howto
+           Display some examples that show how to use mysqlaccess.
+       ·   --old_server
+           Connect to a very old MySQL server (before MySQL 3.21) that does
+           not know how to handle full WHERE clauses.
+       ·   --password[=password], -p[password]
+           The password to use when connecting to the server. If you omit
+           the password value following the --password or -p option on the
+           command line, mysqlaccess prompts for one.
+           Specifying a password on the command line should be considered
+           insecure. See Section 5.3.2.2, “End-User Guidelines for Password
+           Security”.
+       ·   --plan
+           Display suggestions and ideas for future releases.
+       ·   --preview
+           Show the privilege differences after making changes to the
+           temporary grant tables.
+       ·   --relnotes
+           Display the release notes.
+       ·   --rhost=host_name, -H host_name
+           Connect to the MariaDB server on the given host.
+       ·   --rollback
+           Undo the most recent changes to the temporary grant tables.
+       ·   --spassword[=password], -P[password]
+           The password to use when connecting to the server as the
+           superuser. If you omit the password value following the
+           --spassword or -p option on the command line, mysqlaccess prompts
+           for one.
+           Specifying a password on the command line should be considered
+           insecure. See Section 5.3.2.2, “End-User Guidelines for Password
+           Security”.
+       ·   --superuser=user_name, -U user_name
+           Specify the user name for connecting as the superuser.
+       ·   --table, -t
+           Generate reports in table format.
+       ·   --user=user_name, -u user_name
+           The user name to use in the access privileges.
+       ·   --version, -v
+           Display version information and exit.
+       If your MariaDB distribution is installed in some non-standard
+       location, you must change the location where mysqlaccess expects to
+       find the mysql client. Edit the mysqlaccess script at approximately
+       line 18. Search for a line that looks like this:
+           $MYSQL     = ´/usr/local/bin/mysql´;    # path to mysql executable
+       Change the path to reflect the location where mysql actually is
+       stored on your system. If you do not do this, a Broken pipe error
+       will occur when you run mysqlaccess.

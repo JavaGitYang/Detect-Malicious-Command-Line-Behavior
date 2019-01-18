@@ -1,0 +1,18 @@
+
+       The wcstok() function is the wide-character equivalent of the
+       strtok(3) function, with an added argument to make it multithread-
+       safe.  It can be used to split a wide-character string wcs into
+       tokens, where a token is defined as a substring not containing any
+       wide-characters from delim.
+       The search starts at wcs, if wcs is not NULL, or at *ptr, if wcs is
+       NULL.  First, any delimiter wide-characters are skipped, that is, the
+       pointer is advanced beyond any wide-characters which occur in delim.
+       If the end of the wide-character string is now reached, wcstok()
+       returns NULL, to indicate that no tokens were found, and stores an
+       appropriate value in *ptr, so that subsequent calls to wcstok() will
+       continue to return NULL.  Otherwise, the wcstok() function recognizes
+       the beginning of a token and returns a pointer to it, but before
+       doing that, it zero-terminates the token by replacing the next wide-
+       character which occurs in delim with a null wide character (L'\0'),
+       and it updates *ptr so that subsequent calls will continue searching
+       after the end of recognized token.

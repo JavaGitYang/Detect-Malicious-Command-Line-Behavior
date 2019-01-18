@@ -1,0 +1,5 @@
+
+       This function will extract the key purpose OIDs of the Certificate
+       specified by the given index.  These are stored in the Extended Key
+       Usage extension (2.5.29.37).  See the GNUTLS_KP_* definitions for
+       human readable names.

@@ -1,0 +1,3 @@
+
+       The iconv_close() function deallocates a conversion descriptor cd
+       previously allocated using iconv_open(3).

@@ -1,0 +1,7 @@
+
+       This function will provide information on the encryption algorithms
+       used in an encrypted bag. If the structure algorithms are unknown the
+       code GNUTLS_E_UNKNOWN_CIPHER_TYPE will be returned, and only  oid ,
+       will be set. That is,  oid will be set on encrypted bags whether
+       supported or not. It must be deinitialized using gnutls_free().  The
+       other variables are only set on supported structures.

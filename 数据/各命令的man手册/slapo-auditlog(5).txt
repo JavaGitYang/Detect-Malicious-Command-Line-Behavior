@@ -1,0 +1,9 @@
+
+       The Audit Logging overlay can be used to record all changes on a
+       given backend database to a specified log file. Changes are logged as
+       standard LDIF, with an additional comment header giving the timestamp
+       of the change and the identity of the user making the change.
+       For Add and Modify operations the identity comes from the
+       modifiersName associated with the operation. This is usually the same
+       as the requestor's identity, but may be set by other overlays to
+       reflect other values.

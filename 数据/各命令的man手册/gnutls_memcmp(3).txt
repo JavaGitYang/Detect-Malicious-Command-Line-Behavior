@@ -1,0 +1,4 @@
+
+       This function will operate similarly to memcmp(), but will operate on
+       time that depends only on the size of the string. That is will not
+       return early if the strings don't match on the first byte.

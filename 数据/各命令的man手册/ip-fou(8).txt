@@ -1,0 +1,14 @@
+
+       The ip fou commands are used to create and delete receive ports for
+       Foo-over-UDP (FOU) as well as Generic UDP Encapsulation (GUE).
+       Foo-over-UDP allows encapsulating packets of an IP protocol directly
+       over UDP. The receiver infers the protocol of a packet received on a
+       FOU UDP port to be the protocol configured for the port.
+       Generic UDP Encapsulation (GUE) encapsulates packets of an IP
+       protocol within UDP and an encapsulation header. The encapsulation
+       header contains the IP protocol number for the encapsulated packet.
+       When creating a FOU or GUE receive port, the port number is specified
+       in PORT argument. If FOU is used, the IP protocol number associated
+       with the port is specified in PROTO argument.
+       A FOU or GUE receive port is deleted by specifying PORT in the delete
+       command.

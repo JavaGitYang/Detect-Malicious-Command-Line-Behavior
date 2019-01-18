@@ -1,0 +1,14 @@
+
+       This function will log a message to the audit system using a
+       predefined message format. This function should be used by all ELF
+       console apps that do not manipulate accounts or groups. If the
+       application is written in Python or another interpreter, then use the
+       audit_log_user_comm_message function instead. The function parameters
+       are as follows:
+       audit_fd - The fd returned by audit_open
+       type - type of message, ex: AUDIT_USYS_CONFIG, AUDIT_USER_LOGIN
+       message - the message text being sent
+       hostname - the hostname if known, NULL if unknown
+       addr - The network address of the user, NULL if unknown
+       tty - The tty of the user, if NULL will attempt to figure out
+       result - 1 is "success" and 0 is "failed"

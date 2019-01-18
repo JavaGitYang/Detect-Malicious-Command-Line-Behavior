@@ -1,0 +1,20 @@
+
+       Note: this function is obsolete.
+       The IA-64-specific getunwind() system call copies the kernel's call
+       frame unwind data into the buffer pointed to by buf and returns the
+       size of the unwind data; this data describes the gate page (kernel
+       code that is mapped into user space).
+       The size of the buffer buf is specified in buf_size.  The data is
+       copied only if buf_size is greater than or equal to the size of the
+       unwind data and buf is not NULL; otherwise, no data is copied, and
+       the call succeeds, returning the size that would be needed to store
+       the unwind data.
+       The first part of the unwind data contains an unwind table.  The rest
+       contains the associated unwind information, in no particular order.
+       The unwind table contains entries of the following form:
+           u64 start;      (64-bit address of start of function)
+           u64 end;        (64-bit address of end of function)
+           u64 info;       (BUF-relative offset to unwind info)
+       An entry whose start value is zero indicates the end of the table.
+       For more information about the format, see the IA-64 Software Conven‐
+       tions and Runtime Architecture manual.

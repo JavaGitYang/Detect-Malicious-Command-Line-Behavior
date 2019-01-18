@@ -1,0 +1,12 @@
+
+       Slapd is the stand-alone LDAP daemon. It listens for LDAP connections
+       on any number of ports (default 389), responding to the LDAP
+       operations it receives over these connections.  slapd is typically
+       invoked at boot time, usually out of /etc/rc.local.  Upon startup,
+       slapd normally forks and disassociates itself from the invoking tty.
+       If configured in the config file (or config directory), the slapd
+       process will print its process ID (see getpid(2)) to a .pid file, as
+       well as the command line options during invocation to an .args file
+       (see slapd.conf(5)).  If the -d flag is given, even with a zero
+       argument, slapd will not fork and disassociate from the invoking tty.
+       See the "OpenLDAP Administrator's Guide" for more details on slapd.

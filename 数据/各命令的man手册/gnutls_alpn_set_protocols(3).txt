@@ -1,0 +1,6 @@
+
+       This function is to be used by both clients and servers, to declare
+       the supported ALPN protocols, which are used during negotiation with
+       peer.
+       See gnutls_alpn_flags_t description for the documentation of
+       available flags.

@@ -1,0 +1,4 @@
+
+       This function will return the extension specified by the OID in the
+       certificate.  The extensions will be returned as binary data DER
+       encoded, in the provided buffer.

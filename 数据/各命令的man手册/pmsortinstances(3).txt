@@ -1,0 +1,6 @@
+
+       The routine pmSortInstances may be used to guarantee that for each
+       performance metric in the result from pmFetch(3), the instances are
+       in ascending instance identifier sequence.
+       This is most useful when trying to compute rates from two consecutive
+       pmFetch(3) results.

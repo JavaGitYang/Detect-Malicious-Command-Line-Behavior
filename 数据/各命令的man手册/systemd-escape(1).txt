@@ -1,0 +1,12 @@
+
+       systemd-escape may be used to escape strings for inclusion in systemd
+       unit names. The command may be used to escape and to undo escaping of
+       strings.
+       The command takes any number of strings on the command line, and will
+       process them individually, one after another. It will output them
+       separated by spaces to stdout.
+       By default, this command will escape the strings passed, unless
+       --unescape is passed which results in the inverse operation being
+       applied. If --mangle is given, a special mode of escaping is applied
+       instead, which assumes the string is already escaped but will escape
+       everything that appears obviously non-escaped.

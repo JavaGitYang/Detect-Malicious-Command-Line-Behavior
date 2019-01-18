@@ -1,0 +1,8 @@
+
+       The nm utility shall display symbolic information appearing in the
+       object file, executable file, or object-file library named by file.
+       If no symbolic information is available for a valid input file, the
+       nm utility shall report that fact, but not consider it an error
+       condition.
+       The default base used when numeric values are written is unspecified.
+       On XSI-conformant systems, it shall be decimal.

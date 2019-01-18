@@ -1,0 +1,14 @@
+
+       The chmod utility shall change any or all of the file mode bits of
+       the file named by each file operand in the way specified by the mode
+       operand.
+       It is implementation-defined whether and how the chmod utility
+       affects any alternate or additional file access control mechanism
+       (see the Base Definitions volume of POSIX.1‐2008, Section 4.4, File
+       Access Permissions) being used for the specified file.
+       Only a process whose effective user ID matches the user ID of the
+       file, or a process with appropriate privileges, shall be permitted to
+       change the file mode bits of a file.
+       Upon successfully changing the file mode bits of a file, the chmod
+       utility shall mark for update the last file status change timestamp
+       of the file.

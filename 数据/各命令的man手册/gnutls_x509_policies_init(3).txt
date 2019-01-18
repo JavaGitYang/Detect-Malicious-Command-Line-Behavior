@@ -1,0 +1,2 @@
+
+       This function will initialize an authority key ID type.

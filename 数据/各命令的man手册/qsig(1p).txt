@@ -1,0 +1,19 @@
+
+       To signal a batch job is to send a signal to the session leader of
+       the batch job. A batch job is signaled by sending a request to the
+       batch server that manages the batch job. The qsig utility is a user-
+       accessible batch client that requests the signaling of a batch job.
+       The qsig utility shall signal those batch jobs for which a batch
+       job_identifier is presented to the utility. The qsig utility shall
+       not signal any batch jobs whose batch job_identifiers are not
+       presented to the utility.
+       The qsig utility shall signal batch jobs in the order in which the
+       corresponding batch job_identifiers are presented to the utility. If
+       the qsig utility fails to process a batch job_identifier
+       successfully, the utility shall proceed to process the remaining
+       batch job_identifiers, if any.
+       The qsig utility shall signal batch jobs by sending a Signal Job
+       Request to the batch server that manages the batch job.
+       For each successfully processed batch job_identifier, the qsig
+       utility shall have received a completion reply to each Signal Job
+       Request sent to a batch server at the time the utility exits.

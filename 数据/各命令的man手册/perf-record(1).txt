@@ -1,0 +1,4 @@
+
+       This command runs a command and gathers a performance counter profile
+       from it, into perf.data - without displaying anything.
+       This file can then be inspected later on, using perf report.

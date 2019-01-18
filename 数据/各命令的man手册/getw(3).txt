@@ -1,0 +1,6 @@
+
+       getw() reads a word (that is, an int) from stream.  It's provided for
+       compatibility with SVr4.  We recommend you use fread(3) instead.
+       putw() writes the word w (that is, an int) to stream.  It is provided
+       for compatibility with SVr4, but we recommend you use fwrite(3)
+       instead.

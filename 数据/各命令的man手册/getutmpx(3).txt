@@ -1,0 +1,5 @@
+
+       The getutmp() function copies the fields of the utmpx structure
+       pointed to by ux to the corresponding fields of the utmp structure
+       pointed to by u.  The getutmpx() function performs the converse
+       operation.

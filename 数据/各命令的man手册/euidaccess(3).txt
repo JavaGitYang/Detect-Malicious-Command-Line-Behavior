@@ -1,0 +1,9 @@
+
+       Like access(2), euidaccess() checks permissions and existence of the
+       file identified by its argument pathname.  However, whereas access(2)
+       performs checks using the real user and group identifiers of the
+       process, euidaccess() uses the effective identifiers.
+       mode is a mask consisting of one or more of R_OK, W_OK, X_OK, and
+       F_OK, with the same meanings as for access(2).
+       eaccess() is a synonym for euidaccess(), provided for compatibility
+       with some other systems.

@@ -1,0 +1,7 @@
+
+       The bc utility shall implement an arbitrary precision calculator. It
+       shall take input from any files given, then read from the standard
+       input. If the standard input and standard output to bc are attached
+       to a terminal, the invocation of bc shall be considered to be
+       interactive, causing behavioral constraints described in the
+       following sections.

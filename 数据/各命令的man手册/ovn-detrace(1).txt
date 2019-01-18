@@ -1,0 +1,6 @@
+
+       The ovn-detrace program reads ovs-appctl ofproto/trace output on
+       stdin, looking for flow cookies, and expand each cookie with
+       corresponding OVN logical flows. It expands logical flow further with
+       the north-bound information e.g. the ACL that generated the logical
+       flow, when relevant.

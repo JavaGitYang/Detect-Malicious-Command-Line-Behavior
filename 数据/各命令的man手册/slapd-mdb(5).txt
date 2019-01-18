@@ -1,0 +1,9 @@
+
+       The mdb backend to slapd(8) uses OpenLDAP's Lightning Memory-Mapped
+       DB (LMDB) library to store data.  It relies completely on the
+       underlying operating system for memory management and does no caching
+       of its own. It is the recommended primary database backend.
+       The mdb backend is similar to the hdb backend in that it uses a
+       hierarchical database layout which supports subtree renames. It is
+       both more space-efficient and more execution-efficient than the bdb
+       backend, while being overall much simpler to manage.

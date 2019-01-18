@@ -1,0 +1,17 @@
+
+       These routines insert a wchar_t character string (as many characters
+       as will fit on the line) before the character under the cursor.  All
+       characters to the right of the cursor are shifted right, with the
+       possibility of the rightmost characters on the line being lost.  No
+       wrapping is performed.  The cursor position does not change (after
+       moving to y, x, if specified).  The four routines with n as the last
+       argument insert a leading substring of at most n wchar_t characters.
+       If n is less than 1, the entire string is inserted.
+       If a character in wstr is a tab, newline, carriage return or
+       backspace, the cursor is moved appropriately within the window.  A
+       newline also does a clrtoeol before moving.  Tabs are considered to
+       be at every eighth column.  If a character in wstr is another control
+       character, it is drawn in the ^X notation.  Calling win_wch after
+       adding a control character (and moving to it, if necessary) does not
+       return the control character, but instead returns a character in the
+       ^-representation of the control character.

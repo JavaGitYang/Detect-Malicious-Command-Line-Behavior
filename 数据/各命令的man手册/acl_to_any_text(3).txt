@@ -1,0 +1,48 @@
+
+     The acl_to_any_text() function translates the ACL pointed to by the
+     argument acl into a NULL terminated character string. This character
+     string is composed of the ACL entries contained in acl, in the entry
+     text format described on acl(5).  Entries are separated from each other
+     by the separator character. If the argument prefix is not (const char
+     *)NULL, each entry is prefixed by this character string.
+     If the argument options is 0, ACL entries are converted using the entry
+     tag type keywords user, group, mask, and other.  User IDs and group IDs
+     of ACL entries that contain such qualifiers are converted to their cor‐
+     responding names; if an identifier has no corresponding name, a decimal
+     number string is produced. The ACL text representation contains no
+     additional comments.  A bitwise combinations of the following options
+     can be used to modify the result:
+     TEXT_ABBREVIATE
+                   Instead of the full tag type keywords, single letter
+                   abbreviations are used.  The abbreviation for user is u,
+                   the abbreviation for group is g, the abbreviation for
+                   mask is m, and the abbreviation for other is o.
+     TEXT_NUMERIC_IDS
+                   User IDs and group IDs are included as decimal numbers
+                   instead of names.
+     TEXT_SOME_EFFECTIVE
+                   A comment containing the effective permissions of the ACL
+                   entry is included after ACL entries that contain permis‐
+                   sions which are ineffective because they are masked by an
+                   ACL_MASK entry. The ACL entry and the comment are sepa‐
+                   rated by a tab character.
+     TEXT_ALL_EFFECTIVE
+                   A comment containing the effective permissions of the ACL
+                   entry is included after all ACL entries that are affected
+                   by an ACL_MASK entry.  The comment is included even if
+                   the permissions contained in the ACL entry equal the
+                   effective permissions. The ACL entry and the comment are
+                   separated by a tab character.
+     TEXT_SMART_INDENT
+                   This option is used in combination with the
+                   TEXT_SOME_EFFECTIVE or TEXT_ALL_EFFECTIVE option. The
+                   number of tab characters inserted between the ACL entry
+                   and the comment is increased so that the comment is
+                   aligned to the fourth tab stop position.  A tab width of
+                   8 characters is assumed.
+     The ACL referred to by acl is not changed.
+     This function allocates any memory necessary to contain the string and
+     returns a pointer to the string.  The caller should free any releasable
+     memory, when the new string is no longer required, by calling
+     acl_free() with the (void*)char returned by acl_to_any_text() as an
+     argument.

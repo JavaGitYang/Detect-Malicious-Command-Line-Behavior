@@ -1,0 +1,120 @@
+
+       The ovsdb-client program is a command-line client for interacting
+       with a running ovsdb-server process.  Each command connects to an
+       OVSDB server, which is unix:/usr/local/var/run/openvswitch/db.sock by
+       default, or may be specified as server in one of the following forms:
+              ssl:ip:port
+              tcp:ip:port
+                     The given SSL or plain TCP port on the host at the
+                     given ip, which must be expressed as an IP address (not
+                     a DNS name) in IPv4 or IPv6 address format.  If ip is
+                     an IPv6 address, then wrap ip with square brackets,
+                     e.g.: ssl:[::1]:6640.  On Linux, use %device to
+                     designate a scope for IPv6 link-level addresses, e.g.
+                     ssl:[fe80::1234%eth0]:6653.  For ssl, the
+                     --private-key, --certificate, and --ca-cert options are
+                     mandatory.
+              unix:file
+                     On POSIX, connect to the Unix domain server socket
+                     named file.
+                     On Windows, connect to a local named pipe that is
+                     represented by a file created in the path file to mimic
+                     the behavior of a Unix domain socket.
+              pssl:port[:ip]
+              ptcp:port[:ip]
+                     Listen on the given SSL or TCP port for a connection.
+                     By default, connections are not bound to a particular
+                     local IP address and it listens only on IPv4 (but not
+                     IPv6) addresses, but specifying ip limits connections
+                     to those from the given ip, either IPv4 or IPv6
+                     address.  If ip is an IPv6 address, then wrap ip with
+                     square brackets, e.g.: pssl:6640:[::1].  On Linux, use
+                     %device to designate a scope for IPv6 link-level
+                     addresses, e.g. pssl:6653:[fe80::1234%eth0].  For pssl,
+                     the --private-key, --certificate, and --ca-cert options
+                     are mandatory.
+              punix:file
+                     On POSIX, listen on the Unix domain server socket named
+                     file for a connection.
+                     On Windows, listen on a local named pipe.  A file is
+                     created in the path file to mimic the behavior of a
+                     Unix domain socket.
+       The default database is Open_vSwitch.
+   Commands
+       The following commands are implemented:
+       list-dbs [server]
+              Connects to server, retrieves the list of known databases, and
+              prints them one per line.  These database names are the ones
+              that may be used for database in the following commands.
+       get-schema [server] [database]
+              Connects to server, retrieves the schema for database, and
+              prints it in JSON format.
+       get-schema-version [server] [database]
+              Connects to server, retrieves the schema for database, and
+              prints its version number on stdout.  A schema version number
+              has the form x.y.z.  See ovs-vswitchd.conf.db(5) for details.
+              Schema version numbers and Open vSwitch version numbers are
+              independent.
+              If database was created before schema versioning was
+              introduced, then it will not have a version number and this
+              command will print a blank line.
+       list-tables [server] [database]
+              Connects to server, retrieves the schema for database, and
+              prints a table listing the name of each table within the
+              database.
+       list-columns [server] [database] table
+              Connects to server, retrieves the schema for database, and
+              prints a table listing the name and type of each column.  If
+              table is specified, only columns in that table are listed;
+              otherwise, the tables include columns in all tables.
+       transact [server] transaction
+              Connects to server, sends it the specified transaction, which
+              must be a JSON array containing one or more valid OVSDB
+              operations, and prints the received reply on stdout.
+       dump [server] [database] [table [column...]]
+              Connects to server, retrieves all of the data in database, and
+              prints it on stdout as a series of tables. If table is
+              specified, only that table is retrieved.  If at least one
+              column is specified, only those columns are retrieved.
+       monitor [server] [database] table [column[,column]...]...
+       monitor-cond [server] [database] conditions table
+       [column[,column]...]...
+              Connects to server and monitors the contents of rows that
+              match conditions in table in database. By default, the initial
+              contents of table are printed, followed by each change as it
+              occurs.  If conditions empty, all rows will be monitored. If
+              at least one column is specified, only those columns are
+              monitored.  The following column names have special meanings:
+              !initial
+                     Do not print the initial contents of the specified
+                     columns.
+              !insert
+                     Do not print newly inserted rows.
+              !delete
+                     Do not print deleted rows.
+              !modify
+                     Do not print modifications to existing rows.
+              Multiple [column[,column]...] groups may be specified as
+              separate arguments, e.g. to apply different reporting
+              parameters to each group.  Whether multiple groups or only a
+              single group is specified, any given column may only be
+              mentioned once on the command line.
+              conditions is a JSON array of <condition> as defined in RFC
+              7047 5.1 with the following change: A condition can be either
+              a 3-element JSON array as deescribed in the RFC or a boolean
+              value..
+              If --detach is used with monitor or monitor-cond, then
+              ovsdb-client detaches after it has successfully received and
+              printed the initial contents of table.
+              The monitor command uses RFC 7047 "monitor" method to open a
+              monitor session with the server. The monitor-cond command uses
+              RFC 7047 extension "monitor_cond" method. See ovsdb-server(1)
+              for details.
+       monitor [server] [database] ALL
+              Connects to server and monitors the contents of all tables in
+              database.  Prints initial values and all kinds of changes to
+              all columns in the database.  The --detach option causes
+              ovsdb-client to detach after it successfully receives and
+              prints the initial database contents.
+              The monitor command uses RFC 7047 "monitor" method to open a
+              monitor session with the server.

@@ -1,0 +1,6 @@
+
+       The LDIF backend to slapd(8) is a basic storage backend that stores
+       entries in text files in LDIF format, and exploits the filesystem to
+       create the tree structure of the database.  It is intended as a
+       cheap, low performance easy to use backend, and it is exploited by
+       higher-level internal structures to provide a permanent storage.

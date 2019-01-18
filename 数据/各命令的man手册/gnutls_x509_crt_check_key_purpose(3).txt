@@ -1,0 +1,4 @@
+
+       This function will check whether the given certificate matches the
+       provided key purpose. If  flags contains GNUTLS_KP_FLAG_ALLOW_ANY
+       then it a certificate marked for any purpose will not match.

@@ -1,0 +1,23 @@
+
+       The ppolicy overlay is an implementation of the most recent IETF
+       Password Policy proposal for LDAP.   When instantiated, it
+       intercepts, decodes and applies specific password policy controls to
+       overall use of a backend database, changes to user password fields,
+       etc.
+       The overlay provides a variety of password control mechanisms.  They
+       include password aging -- both minimum and maximum ages, password
+       reuse and duplication control, account time-outs, mandatory password
+       resets, acceptable password content, and even grace logins.
+       Different groups of users may be associated with different password
+       policies, and there is no limit to the number of password policies
+       that may be created.
+       Note that some of the policies do not take effect when the operation
+       is performed with the rootdn identity; all the operations, when
+       performed with any other identity, may be subjected to constraints,
+       like access control.  This overlay requires a rootdn to be configured
+       on the database.
+       Note that the IETF Password Policy proposal for LDAP makes sense when
+       considering a single-valued password attribute, while the
+       userPassword attribute allows multiple values.  This implementation
+       enforces a single value for the userPassword attribute, despite its
+       specification.

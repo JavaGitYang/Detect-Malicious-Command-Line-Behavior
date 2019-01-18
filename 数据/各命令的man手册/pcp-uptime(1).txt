@@ -1,0 +1,10 @@
+
+       pcp-uptime gives a one line display of the following information.
+       The current time, how long the system has been running, how many
+       users are currently logged on, and the system load averages for the
+       past 1, 5, and 15 minutes.
+       When invoked via the pcp(1) command, the -h/--host, -a/--archive,
+       -O/--origin, -Z/--timezone and several other pcp options become
+       indirectly available.
+       The current version of pcp-uptime can be queried using the
+       -V/--version option.

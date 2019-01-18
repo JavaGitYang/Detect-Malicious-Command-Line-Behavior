@@ -1,0 +1,16 @@
+
+       The restart_syscall() system call is used to restart certain system
+       calls after a process that was stopped by a signal (e.g., SIGSTOP or
+       SIGTSTP) is later resumed after receiving a SIGCONT signal.  This
+       system call is designed only for internal use by the kernel.
+       restart_syscall() is used for restarting only those system calls
+       that, when restarted, should adjust their time-related parameters—
+       namely poll(2) (since Linux 2.6.24), nanosleep(2) (since Linux 2.6),
+       clock_nanosleep(2) (since Linux 2.6), and futex(2), when employed
+       with the FUTEX_WAIT (since Linux 2.6.22) and FUTEX_WAIT_BITSET (since
+       Linux 2.6.31) operations.  restart_syscall() restarts the interrupted
+       system call with a time argument that is suitably adjusted to account
+       for the time that has already elapsed (including the time where the
+       process was stopped by a signal).  Without the restart_syscall()
+       mechanism, restarting these system calls would not correctly deduct
+       the already elapsed time when the process continued execution.

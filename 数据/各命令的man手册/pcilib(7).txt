@@ -1,0 +1,3 @@
+
+       The PCI library (also known as pcilib and libpci) is a portable
+       library for accessing PCI devices and their configuration space.

@@ -1,0 +1,16 @@
+
+       This manual page documents briefly the lnstat command.
+       lnstat is a generalized and more feature-complete replacement for the
+       old rtstat program. It is commonly used to periodically print a
+       selection of statistical values exported by the kernel.  In addition
+       to routing cache statistics, it supports any kind of statistics the
+       linux kernel exports via a file in /proc/net/stat/.
+       Each file in /proc/net/stat/ contains a header line listing the
+       column names.  These names are used by lnstat as keys for selecting
+       which statistics to print. For every CPU present in the system, a
+       line follows which lists the actual values for each column of the
+       file. lnstat sums these values up (which in fact are counters) before
+       printing them. After each interval, only the difference to the last
+       value is printed.
+       Files and columns may be selected by using the -f and -k parameters.
+       By default, all columns of all files are printed.

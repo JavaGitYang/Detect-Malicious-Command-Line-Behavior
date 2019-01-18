@@ -1,0 +1,5 @@
+
+       Clears the invalid flag in a session. That means that sessions were
+       corrupt or invalid data were received can be re-used. Use only when
+       debugging or experimenting with the TLS protocol. Should not be used
+       in typical applications.

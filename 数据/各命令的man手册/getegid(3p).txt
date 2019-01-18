@@ -1,0 +1,3 @@
+
+       The getegid() function shall return the effective group ID of the
+       calling process.

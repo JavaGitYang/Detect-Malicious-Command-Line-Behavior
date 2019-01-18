@@ -1,0 +1,5 @@
+
+       This function will set the time this Certificate will expire.
+       Setting an expiration time to (time_t)-1 or to
+       GNUTLS_X509_NO_WELL_DEFINED_EXPIRATION will set to the no
+       well-defined expiration date value.

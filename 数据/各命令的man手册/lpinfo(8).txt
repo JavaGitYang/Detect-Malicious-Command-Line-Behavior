@@ -1,0 +1,4 @@
+
+       lpinfo lists the available devices or drivers known to the CUPS
+       server.  The first form (-m) lists the available drivers, while the
+       second form (-v) lists the available devices.

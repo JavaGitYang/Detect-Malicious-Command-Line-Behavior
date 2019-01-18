@@ -1,0 +1,18 @@
+
+       sd-journal.h provides APIs to submit and query log entries. The APIs
+       exposed act both as client for the systemd-journald.service(8)
+       journal service and as parser for the journal files on disk.
+       See sd_journal_print(3), sd_journal_stream_fd(3), sd_journal_open(3),
+       sd_journal_next(3), sd_journal_get_realtime_usec(3),
+       sd_journal_add_match(3), sd_journal_seek_head(3),
+       sd_journal_enumerate_fields(3), sd_journal_get_cursor(3),
+       sd_journal_get_cutoff_realtime_usec(3),
+       sd_journal_get_cutoff_monotonic_usec(3), sd_journal_get_usage(3),
+       sd_journal_get_catalog(3), sd_journal_get_fd(3),
+       sd_journal_has_runtime_files(3) and
+       sd_journal_has_persistent_files(3) for more information about the
+       functions implemented.
+       Command line access for submitting entries to the journal is
+       available with the systemd-cat(1) tool. Command line access for
+       querying entries from the journal is available with the journalctl(1)
+       tool.

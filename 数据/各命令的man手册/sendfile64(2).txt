@@ -1,0 +1,22 @@
+
+       sendfile() copies data between one file descriptor and another.
+       Because this copying is done within the kernel, sendfile() is more
+       efficient than the combination of read(2) and write(2), which would
+       require transferring data to and from user space.
+       in_fd should be a file descriptor opened for reading and out_fd
+       should be a descriptor opened for writing.
+       If offset is not NULL, then it points to a variable holding the file
+       offset from which sendfile() will start reading data from in_fd.
+       When sendfile() returns, this variable will be set to the offset of
+       the byte following the last byte that was read.  If offset is not
+       NULL, then sendfile() does not modify the file offset of in_fd;
+       otherwise the file offset is adjusted to reflect the number of bytes
+       read from in_fd.
+       If offset is NULL, then data will be read from in_fd starting at the
+       file offset, and the file offset will be updated by the call.
+       count is the number of bytes to copy between the file descriptors.
+       The in_fd argument must correspond to a file which supports
+       mmap(2)-like operations (i.e., it cannot be a socket).
+       In Linux kernels before 2.6.33, out_fd must refer to a socket.  Since
+       Linux 2.6.33 it can be any file.  If it is a regular file, then
+       sendfile() changes the file offset appropriately.

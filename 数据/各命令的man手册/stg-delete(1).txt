@@ -1,0 +1,2 @@
+
+       Delete the patches passed as arguments.

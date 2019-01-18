@@ -1,0 +1,61 @@
+
+       These are not the interfaces you are interested in.  Look at
+       readdir(3) for the POSIX-conforming C library interface.  This page
+       documents the bare kernel system call interfaces.
+   getdents()
+       The system call getdents() reads several linux_dirent structures from
+       the directory referred to by the open file descriptor fd into the
+       buffer pointed to by dirp.  The argument count specifies the size of
+       that buffer.
+       The linux_dirent structure is declared as follows:
+           struct linux_dirent {
+               unsigned long  d_ino;     /* Inode number */
+               unsigned long  d_off;     /* Offset to next linux_dirent */
+               unsigned short d_reclen;  /* Length of this linux_dirent */
+               char           d_name[];  /* Filename (null-terminated) */
+                                 /* length is actually (d_reclen - 2 -
+                                    offsetof(struct linux_dirent, d_name)) */
+               /*
+               char           pad;       // Zero padding byte
+               char           d_type;    // File type (only since Linux
+                                         // 2.6.4); offset is (d_reclen - 1)
+               */
+           }
+       d_ino is an inode number.  d_off is the distance from the start of
+       the directory to the start of the next linux_dirent.  d_reclen is the
+       size of this entire linux_dirent.  d_name is a null-terminated file‐
+       name.
+       d_type is a byte at the end of the structure that indicates the file
+       type.  It contains one of the following values (defined in
+       <dirent.h>):
+       DT_BLK      This is a block device.
+       DT_CHR      This is a character device.
+       DT_DIR      This is a directory.
+       DT_FIFO     This is a named pipe (FIFO).
+       DT_LNK      This is a symbolic link.
+       DT_REG      This is a regular file.
+       DT_SOCK     This is a UNIX domain socket.
+       DT_UNKNOWN  The file type is unknown.
+       The d_type field is implemented since Linux 2.6.4.  It occupies a
+       space that was previously a zero-filled padding byte in the
+       linux_dirent structure.  Thus, on kernels up to and including 2.6.3,
+       attempting to access this field always provides the value 0
+       (DT_UNKNOWN).
+       Currently, only some filesystems (among them: Btrfs, ext2, ext3, and
+       ext4) have full support for returning the file type in d_type.  All
+       applications must properly handle a return of DT_UNKNOWN.
+   getdents64()
+       The original Linux getdents() system call did not handle large
+       filesystems and large file offsets.  Consequently, Linux 2.4 added
+       getdents64(), with wider types for the d_ino and d_off fields.  In
+       addition, getdents64() supports an explicit d_type field.
+       The getdents64() system call is like getdents(), except that its sec‐
+       ond argument is a pointer to a buffer containing structures of the
+       following type:
+           struct linux_dirent64 {
+               ino64_t        d_ino;    /* 64-bit inode number */
+               off64_t        d_off;    /* 64-bit offset to next structure */
+               unsigned short d_reclen; /* Size of this dirent */
+               unsigned char  d_type;   /* File type */
+               char           d_name[]; /* Filename (null-terminated) */
+           };

@@ -1,0 +1,26 @@
+
+       pmParseUnitsStr is designed to encapsulate the interpretation of a
+       units (dimension and scale) specification in command line switches
+       for use by the PCP client tools.
+       This function expects to be called with the unit/scale specification
+       as string.  This specification takes the general form produced by
+       pmUnitsStr(3).  Briefly, the format allows /-separated divisor and
+       dividend, each listing space-separated dimensions/scales along the
+       space, time, and count axes.  There are also a few extra
+       possibilities:
+       First, multiple equivalent sets of keywords are accepted for the time
+       and space dimensions, insensitive to case.  For example,
+       "microseconds", "microsecond", "microsec", "us" are considered
+       synonymous, as are "kilobytes", "KB", "KiB", "kiloByte", and so on.
+       Second, units may be offered in any order, e.g., ms kb count x 10^3
+       or count x 10^3 kb ms.  They may not be repeated within the
+       denominator or within the numerator.  Each scale/unit keyword may be
+       immediately followed by positive or negative exponents, e.g., ^-4.
+       Third, numerical scaling factors may be supplied.  These are factored
+       together with implicit scale conversions into the final outMult
+       result.
+       The out and outMult values must both be allocated before calling
+       pmParseUnitsStr(3).  If the conversion is successful, pmParseUnitsStr
+       returns 0, and fills in out and outMult with the unit/scales defined
+       by the input parameter.  If the argument strings could not be parsed,
+       it returns a negative status code.

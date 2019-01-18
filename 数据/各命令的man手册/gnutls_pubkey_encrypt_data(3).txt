@@ -1,0 +1,3 @@
+
+       This function will encrypt the given data, using the public key. On
+       success the  ciphertext will be allocated using gnutls_malloc().

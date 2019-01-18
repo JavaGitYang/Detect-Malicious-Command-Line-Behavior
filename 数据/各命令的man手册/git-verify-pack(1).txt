@@ -1,0 +1,4 @@
+
+       Reads given idx file for packed Git archive created with the git
+       pack-objects command and verifies idx file and the corresponding pack
+       file.

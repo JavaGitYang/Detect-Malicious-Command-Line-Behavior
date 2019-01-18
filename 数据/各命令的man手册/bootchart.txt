@@ -1,0 +1,5 @@
+
+       When starting, systemd-bootchart will read the configuration file
+       /etc/systemd/bootchart.conf, followed by the files in the
+       bootchart.conf.d directories. These configuration files determine
+       logging parameters and graph output.

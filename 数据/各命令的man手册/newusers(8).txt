@@ -1,0 +1,68 @@
+
+       The newusers command reads a file (or the standard input by default)
+       and uses this information to update a set of existing users or to
+       create new users. Each line is in the same format as the standard
+       password file (see passwd(5)) with the exceptions explained below:
+       pw_name:pw_passwd:pw_uid:pw_gid:pw_gecos:pw_dir:pw_shell
+       pw_name
+           This is the name of the user.
+           It can be the name of a new user or the name of an existing user
+           (or a user created before by newusers). In case of an existing
+           user, the user's information will be changed, otherwise a new
+           user will be created.
+       pw_passwd
+           This field will be encrypted and used as the new value of the
+           encrypted password.
+       pw_uid
+           This field is used to define the UID of the user.
+           If the field is empty, a new (unused) UID will be defined
+           automatically by newusers.
+           If this field contains a number, this number will be used as the
+           UID.
+           If this field contains the name of an existing user (or the name
+           of a user created before by newusers), the UID of the specified
+           user will be used.
+           If the UID of an existing user is changed, the files ownership of
+           the user's file should be fixed manually.
+       pw_gid
+           This field is used to define the primary group ID for the user.
+           If this field contains the name of an existing group (or a group
+           created before by newusers), the GID of this group will be used
+           as the primary group ID for the user.
+           If this field is a number, this number will be used as the
+           primary group ID of the user. If no groups exist with this GID, a
+           new group will be created with this GID, and the name of the
+           user.
+           If this field is empty, a new group will be created with the name
+           of the user and a GID will be automatically defined by newusers
+           to be used as the primary group ID for the user and as the GID
+           for the new group.
+           If this field contains the name of a group which does not exist
+           (and was not created before by newusers), a new group will be
+           created with the specified name and a GID will be automatically
+           defined by newusers to be used as the primary group ID for the
+           user and GID for the new group.
+       pw_gecos
+           This field is copied in the GECOS field of the user.
+       pw_dir
+           This field is used to define the home directory of the user.
+           If this field does not specify an existing directory, the
+           specified directory is created, with ownership set to the user
+           being created or updated and its primary group.
+           If the home directory of an existing user is changed, newusers
+           does not move or copy the content of the old directory to the new
+           location. This should be done manually.
+       pw_shell
+           This field defines the shell of the user. No checks are performed
+           on this field.
+       newusers first tries to create or change all the specified users, and
+       then write these changes to the user or group databases. If an error
+       occurs (except in the final writes to the databases), no changes are
+       committed to the databases.
+       During this first pass, users are created with a locked password (and
+       passwords are not changed for the users which are not created). A
+       second pass is used to update the passwords using PAM. Failures to
+       update a password are reported, but will not stop the other password
+       updates.
+       This command is intended to be used in a large system environment
+       where many accounts are updated at a single time.

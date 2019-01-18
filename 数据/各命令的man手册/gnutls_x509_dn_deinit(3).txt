@@ -1,0 +1,3 @@
+
+       This function deallocates the DN object as returned by
+       gnutls_x509_dn_import().

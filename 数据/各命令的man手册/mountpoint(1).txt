@@ -1,0 +1,3 @@
+
+       mountpoint checks whether the given directory or file is mentioned in
+       the /proc/self/mountinfo file.

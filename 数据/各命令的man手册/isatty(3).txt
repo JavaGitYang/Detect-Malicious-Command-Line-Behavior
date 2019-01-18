@@ -1,0 +1,3 @@
+
+       The isatty() function tests whether fd is an open file descriptor
+       referring to a terminal.

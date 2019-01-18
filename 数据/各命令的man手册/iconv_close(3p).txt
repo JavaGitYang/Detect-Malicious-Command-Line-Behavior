@@ -1,0 +1,5 @@
+
+       The iconv_close() function shall deallocate the conversion descriptor
+       cd and all other associated resources allocated by iconv_open().
+       If a file descriptor is used to implement the type iconv_t, that file
+       descriptor shall be closed.

@@ -1,0 +1,14 @@
+
+       The aio_return() function shall return the return status associated
+       with the aiocb structure referenced by the aiocbp argument. The
+       return status for an asynchronous I/O operation is the value that
+       would be returned by the corresponding read(), write(), or fsync()
+       function call. If the error status for the operation is equal to
+       [EINPROGRESS], then the return status for the operation is undefined.
+       The aio_return() function may be called exactly once to retrieve the
+       return status of a given asynchronous operation; thereafter, if the
+       same aiocb structure is used in a call to aio_return() or
+       aio_error(), an error may be returned. When the aiocb structure
+       referred to by aiocbp is used to submit another asynchronous
+       operation, then aio_return() may be successfully used to retrieve the
+       return status of that operation.

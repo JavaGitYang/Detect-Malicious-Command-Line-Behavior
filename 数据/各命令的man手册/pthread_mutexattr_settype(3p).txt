@@ -1,0 +1,2 @@
+
+       Refer to pthread_mutexattr_gettype(3p).

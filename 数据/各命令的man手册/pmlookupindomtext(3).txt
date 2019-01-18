@@ -1,0 +1,13 @@
+
+       Retrieve descriptive text about the performance metrics instance
+       domain identified by indom.
+       The value for the instance domain indom is typically extracted from a
+       pmDesc structure, following a call to pmLookupDesc(3) for a
+       particular performance metric.
+       The argument level should be PM_TEXT_ONELINE for a one-line summary,
+       else PM_TEXT_HELP for a more verbose description, suited to a help
+       dialog.
+       The space pointed to by buffer will have been allocated in
+       pmLookupInDomText with malloc(3), and it is the responsibility of the
+       caller to free(3) the space when it is no longer required.
+       pmLookupInDomText returns zero on success.

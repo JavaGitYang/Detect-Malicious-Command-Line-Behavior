@@ -1,0 +1,28 @@
+
+       The attributes of a batch job are altered by a request to the batch
+       server that manages the batch job. The qalter utility is a user-
+       accessible batch client that requests the alteration of the
+       attributes of one or more batch jobs.
+       The qalter utility shall alter the attributes of those batch jobs,
+       and only those batch jobs, for which a batch job_identifier is
+       presented to the utility.
+       The qalter utility shall alter the attributes of batch jobs in the
+       order in which the batch job_identifiers are presented to the
+       utility.
+       If the qalter utility fails to process a batch job_identifier
+       successfully, the utility shall proceed to process the remaining
+       batch job_identifiers, if any.
+       For each batch job_identifier for which the qalter utility succeeds,
+       each attribute of the identified batch job shall be altered as
+       indicated by all the options presented to the utility.
+       For each identified batch job for which the qalter utility fails, the
+       utility shall not alter any attribute of the batch job.
+       For each batch job that the qalter utility processes, the utility
+       shall not modify any attribute other than those required by the
+       options and option-arguments presented to the utility.
+       The qalter utility shall alter batch jobs by sending a Modify Job
+       Request to the batch server that manages each batch job. At the time
+       the qalter utility exits, it shall have modified the batch job
+       corresponding to each successfully processed batch job_identifier.
+       An attempt to alter the attributes of a batch job in the RUNNING
+       state is implementation-defined.

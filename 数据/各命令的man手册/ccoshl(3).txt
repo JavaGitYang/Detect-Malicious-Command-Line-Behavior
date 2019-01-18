@@ -1,0 +1,4 @@
+
+       These functions calculate the complex hyperbolic cosine of z.
+       The complex hyperbolic cosine function is defined as:
+           ccosh(z) = (exp(z)+exp(-z))/2

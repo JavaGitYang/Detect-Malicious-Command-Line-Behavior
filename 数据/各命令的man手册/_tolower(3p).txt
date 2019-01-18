@@ -1,0 +1,4 @@
+
+       The _tolower() macro shall be equivalent to tolower(c) except that
+       the application shall ensure that the argument c is an uppercase
+       letter.

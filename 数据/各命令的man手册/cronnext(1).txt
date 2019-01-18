@@ -1,0 +1,8 @@
+
+       Determine the time cron will execute the next job.  Without
+       arguments, it prints that time considering all crontabs, in number of
+       seconds since the Epoch, rounded to the minute. This number can be
+       converted into other formats using date(1), like date --date
+       @43243254
+       The file arguments are optional. If provided, cronnext uses them as
+       crontabs instead of the ones installed in the system.

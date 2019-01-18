@@ -1,0 +1,12 @@
+
+       pmParseTimeWindow is designed to encapsulate the interpretation of
+       the -S, -T, -A and -O command line options used by Performance Co-
+       Pilot (PCP) applications to define a time window of interest.  The
+       time window is defined by a start time and an end time that
+       constrains the time interval during which the PCP application will
+       retrieve and display performance metrics.  In the absence of the -O
+       and -A options to specify an initial sample time origin and time
+       alignment (see below), the PCP application will retrieve the first
+       sample at the start of the time window.
+       The syntax and meaning of the various argument formats for these
+       options is described in PCPIntro(1).

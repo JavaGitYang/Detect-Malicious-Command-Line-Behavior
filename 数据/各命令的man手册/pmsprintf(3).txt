@@ -1,0 +1,9 @@
+
+       Safe string formatting interface that wraps the vsnprintf(3) call.
+       It differs primarily in that pmsprintf guarantees that the output
+       buffer str will be null-terminated even when the provided buffer size
+       is insufficient to contain the formatted string.  In this case a
+       null-terminated truncated string will be returned in str.
+       In the case of a failure in the underlying vsnprintf interface, a
+       null-terminated empty string will be returned in str, and the return
+       value will be zero.

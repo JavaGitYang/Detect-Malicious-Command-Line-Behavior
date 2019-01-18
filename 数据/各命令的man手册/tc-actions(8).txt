@@ -1,0 +1,7 @@
+
+       The actions object in tc allows a user to define actions
+       independently of a classifier (filter). These actions can then be
+       assigned to one or more filters, with any packets matching the
+       classifier's criteria having that action performed on them.
+       Each action type (mirred, police, etc.) will have its own table to
+       store all created actions.

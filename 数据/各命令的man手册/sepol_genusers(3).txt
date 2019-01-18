@@ -1,0 +1,16 @@
+
+       sepol_genusers generates a new binary policy image from an existing
+       binary policy image stored in the memory region described by the
+       starting address data and the length len and a pair of user
+       configuration files named system.users and local.users from the
+       directory specified by usersdir.  The resulting binary policy is
+       placed into dynamically allocated memory and the variables newdata
+       and newlen are set to refer to the new binary image's starting
+       address and length.  The original binary policy image is not
+       modified.
+       By default, sepol_genusers will preserve user entries that are
+       defined in the original binary policy image but not defined in the
+       user configuration files.  If such user entries should instead by
+       omitted entirely from the new binary policy image, then the
+       sepol_set_delusers function may be called with on set to 1 prior to
+       calling sepol_genusers in order to enable deletion of such users.

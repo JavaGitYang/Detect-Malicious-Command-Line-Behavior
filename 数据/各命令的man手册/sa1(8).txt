@@ -1,0 +1,15 @@
+
+       The sa1 command is a shell procedure variant of the sadc command and
+       handles all of the flags and parameters of that command. The sa1
+       command collects and stores binary data in the current standard
+       system activity daily data file.
+       The standard system activity daily data file is named saDD unless
+       sadc's option -D is used, in which case its name is saYYYYMMDD, where
+       YYYY stands for the current year, MM for the current month and DD for
+       the current day. By default it is located in the /var/log/sa
+       directory.
+       The interval and count parameters specify that the record should be
+       written count times at interval seconds. If no arguments are given to
+       sa1 then a single record is written.
+       The sa1 command is designed to be started automatically by the cron
+       command.

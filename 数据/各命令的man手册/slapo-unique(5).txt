@@ -1,0 +1,15 @@
+
+       The Attribute Uniqueness overlay can be used with a backend database
+       such as slapd-bdb(5) to enforce the uniqueness of some or all
+       attributes within a scope. This subtree defaults to all objects
+       within the subtree of the database for which the Uniqueness overlay
+       is configured.
+       Uniqueness is enforced by searching the subtree to ensure that the
+       values of all attributes presented with an add, modify or modrdn
+       operation are unique within the scope.  For example, if uniqueness
+       were enforced for the uid attribute, the subtree would be searched
+       for any other records which also have a uid attribute containing the
+       same value. If any are found, the request is rejected.
+       The search is performed using the rootdn of the database, to avoid
+       issues with ACLs preventing the overlay from seeing all of the
+       relevant data. As such, the database must have a rootdn configured.

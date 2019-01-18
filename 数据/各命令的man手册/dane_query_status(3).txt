@@ -1,0 +1,3 @@
+
+       This function will return the status of the query response.  See
+       dane_query_status_t for the possible types.

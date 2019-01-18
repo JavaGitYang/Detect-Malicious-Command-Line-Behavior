@@ -1,0 +1,10 @@
+
+       The trace-cmd(1) reset command turns off all tracing of Ftrace. This
+       will bring back the performance of the system before tracing was
+       enabled. This is necessary since trace-cmd-record(1),
+       trace-cmd-stop(1) and trace-cmd-extract(1) do not disable the tracer,
+       event after the data has been pulled from the buffers. The rational
+       is that the user may want to manually enable the tracer with the
+       Ftrace pseudo file system, or examine other parts of Ftrace to see
+       what trace-cmd did. After the reset command happens, the data in the
+       ring buffer, and the options that were used are all lost.

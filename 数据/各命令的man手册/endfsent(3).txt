@@ -1,0 +1,26 @@
+
+       These functions read from the file /etc/fstab.  The struct fstab is
+       defined by:
+           struct fstab {
+               char       *fs_spec;       /* block device name */
+               char       *fs_file;       /* mount point */
+               char       *fs_vfstype;    /* file-system type */
+               char       *fs_mntops;     /* mount options */
+               const char *fs_type;       /* rw/rq/ro/sw/xx option */
+               int         fs_freq;       /* dump frequency, in days */
+               int         fs_passno;     /* pass number on parallel dump */
+           };
+       Here the field fs_type contains (on a *BSD system) one of the five
+       strings "rw", "rq", "ro", "sw", "xx" (read-write, read-write with
+       quota, read-only, swap, ignore).
+       The function setfsent() opens the file when required and positions it
+       at the first line.
+       The function getfsent() parses the next line from the file.  (After
+       opening it when required.)
+       The function endfsent() closes the file when required.
+       The function getfsspec() searches the file from the start and returns
+       the first entry found for which the fs_spec field matches the spe‐
+       cial_file argument.
+       The function getfsfile() searches the file from the start and returns
+       the first entry found for which the fs_file field matches the
+       mount_point argument.

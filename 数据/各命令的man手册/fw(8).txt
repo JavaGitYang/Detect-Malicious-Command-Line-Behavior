@@ -1,0 +1,10 @@
+
+       the fw filter allows to classify packets based on a previously set
+       fwmark by iptables.  If it is identical to the filter's handle, the
+       filter matches.  iptables allows to mark single packets with the MARK
+       target, or whole connections using CONNMARK.  The benefit of using
+       this filter instead of doing the heavy-lifting with tc itself is that
+       on one hand it might be convenient to keep packet filtering and
+       classification in one place, possibly having to match a packet just
+       once, and on the other users familiar with iptables but not tc will
+       have a less hard time adding QoS to their setups.

@@ -1,0 +1,4 @@
+
+       The call clog2(z) is equivalent to clog(z)/log(2).
+       The other functions perform the same task for float and long double.
+       Note that z close to zero will cause an overflow.

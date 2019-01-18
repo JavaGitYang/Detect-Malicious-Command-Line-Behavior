@@ -1,0 +1,65 @@
+
+       systemd-nspawn may be used to run a command or OS in a light-weight
+       namespace container. In many ways it is similar to chroot(1), but
+       more powerful since it fully virtualizes the file system hierarchy,
+       as well as the process tree, the various IPC subsystems and the host
+       and domain name.
+       systemd-nspawn may be invoked on any directory tree containing an
+       operating system tree, using the --directory= command line option. By
+       using the --machine= option an OS tree is automatically searched for
+       in a couple of locations, most importantly in /var/lib/machines, the
+       suggested directory to place container images installed on the
+       system.
+       In contrast to chroot(1) systemd-nspawn may be used to boot full
+       Linux-based operating systems in a container.
+       systemd-nspawn limits access to various kernel interfaces in the
+       container to read-only, such as /sys, /proc/sys or /sys/fs/selinux.
+       The host's network interfaces and the system clock may not be changed
+       from within the container. Device nodes may not be created. The host
+       system cannot be rebooted and kernel modules may not be loaded from
+       within the container.
+       Use a tool like dnf(8), debootstrap(8), or pacman(8) to set up an OS
+       directory tree suitable as file system hierarchy for systemd-nspawn
+       containers. See the Examples section below for details on suitable
+       invocation of these commands.
+       As a safety check systemd-nspawn will verify the existence of
+       /usr/lib/os-release or /etc/os-release in the container tree before
+       starting the container (see os-release(5)). It might be necessary to
+       add this file to the container tree manually if the OS of the
+       container is too old to contain this file out-of-the-box.
+       systemd-nspawn may be invoked directly from the interactive command
+       line or run as system service in the background. In this mode each
+       container instance runs as its own service instance; a default
+       template unit file systemd-nspawn@.service is provided to make this
+       easy, taking the container name as instance identifier. Note that
+       different default options apply when systemd-nspawn is invoked by the
+       template unit file than interactively on the command line. Most
+       importantly the template unit file makes use of the --boot which is
+       not the default in case systemd-nspawn is invoked from the
+       interactive command line. Further differences with the defaults are
+       documented along with the various supported options below.
+       The machinectl(1) tool may be used to execute a number of operations
+       on containers. In particular it provides easy-to-use commands to run
+       containers as system services using the systemd-nspawn@.service
+       template unit file.
+       Along with each container a settings file with the .nspawn suffix may
+       exist, containing additional settings to apply when running the
+       container. See systemd.nspawn(5) for details. Settings files override
+       the default options used by the systemd-nspawn@.service template unit
+       file, making it usually unnecessary to alter this template file
+       directly.
+       Note that systemd-nspawn will mount file systems private to the
+       container to /dev, /run and similar. These will not be visible
+       outside of the container, and their contents will be lost when the
+       container exits.
+       Note that running two systemd-nspawn containers from the same
+       directory tree will not make processes in them see each other. The
+       PID namespace separation of the two containers is complete and the
+       containers will share very few runtime objects except for the
+       underlying file system. Use machinectl(1)'s login or shell commands
+       to request an additional login session in a running container.
+       systemd-nspawn implements the Container Interface[1] specification.
+       While running, containers invoked with systemd-nspawn are registered
+       with the systemd-machined(8) service that keeps track of running
+       containers, and provides programming interfaces to interact with
+       them.

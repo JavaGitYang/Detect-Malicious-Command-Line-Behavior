@@ -1,0 +1,13 @@
+
+       The current reporting timezone affects the timezone used by
+       pmCtime(3) and pmLocaltime(3).
+       If the current PMAPI context is an archive, pmNewContextZone uses the
+       timezone from the archive label record to set the current reporting
+       timezone.
+       If the current PMAPI context corresponds to a host source of metrics,
+       pmNewContextZone executes a pmFetch(3) to retrieve the value for the
+       metric pmcd.timezone and uses that to set the current reporting
+       timezone.
+       In both cases, pmNewContextZone returns a value to identify the
+       current reporting timezone that may be used in a subsequent call to
+       pmUseZone(3) to restore this reporting timezone.

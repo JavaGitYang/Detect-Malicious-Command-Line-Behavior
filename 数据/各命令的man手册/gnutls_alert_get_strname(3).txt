@@ -1,0 +1,2 @@
+
+       This function will return a string of the name of the alert.

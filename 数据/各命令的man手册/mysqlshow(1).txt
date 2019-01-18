@@ -1,0 +1,129 @@
+
+       The mysqlshow client can be used to quickly see which databases
+       exist, their tables, or a table´s columns or indexes.
+       mysqlshow provides a command-line interface to several SQL SHOW
+       statements. The same information can be obtained by using those
+       statements directly. For example, you can issue them from the mysql
+       client program.
+       Invoke mysqlshow like this:
+           shell> mysqlshow [options] [db_name [tbl_name [col_name]]]
+       ·   If no database is given, a list of database names is shown.
+       ·   If no table is given, all matching tables in the database are
+           shown.
+       ·   If no column is given, all matching columns and column types in
+           the table are shown.
+       The output displays only the names of those databases, tables, or
+       columns for which you have some privileges.
+       If the last argument contains shell or SQL wildcard characters (“*”,
+       “?”, “%”, or “_”), only those names that are matched by the wildcard
+       are shown. If a database name contains any underscores, those should
+       be escaped with a backslash (some Unix shells require two) to get a
+       list of the proper tables or columns.  “*” and “?”  characters are
+       converted into SQL “%” and “_” wildcard characters. This might cause
+       some confusion when you try to display the columns for a table with a
+       “_” in the name, because in this case, mysqlshow shows you only the
+       table names that match the pattern. This is easily fixed by adding an
+       extra “%” last on the command line as a separate argument.
+       mysqlshow supports the following options, which can be specified on
+       the command line or in the [mysqlshow] and [client] option file
+       groups.  mysqlshow also supports the options for processing option
+       files described.
+       ·   --help, -?
+           Display a help message and exit.
+       ·   --character-sets-dir=path, -c path
+           The directory where character sets are installed.
+       ·   --compress, -C
+           Compress all information sent between the client and the server
+           if both support compression.
+       ·   --count
+           Show the number of rows per table. This can be slow for
+           non-MyISAM tables.
+       ·   --debug[=debug_options], -# [debug_options]
+           Write a debugging log. A typical debug_options string is
+           ´d:t:o,file_name´. The default is ´d:t:o´.
+       ·   --debug-check
+           Print some debugging information when the program exits.
+       ·   --debug-info
+           Print debugging information and memory and CPU usage statistics
+           when the program exits.
+       ·   --default-auth=name
+           Default authentication client-side plugin to use.
+       ·   --default-character-set=charset_name
+           Use charset_name as the default character set.
+       ·   --defaults-extra-file=filename
+           Set filename as the file to read default options from after the
+           global defaults files has been read.  Must be given as first
+           option.
+       ·   --defaults-file=filename
+           Set filename as the file to read default options from, override
+           global defaults files.  Must be given as first option.
+       ·   --defaults-group-suffix=suffix
+           In addition to the groups named on the command line, read groups
+           that have the given suffix.
+       ·   --host=host_name, -h host_name
+           Connect to the MariaDB server on the given host.
+       ·   --keys, -k
+           Show table indexes.
+       ·   --no-defaults
+           Do not read default options from any option file. This must be
+           given as the first argument.
+       ·   --password[=password], -p[password]
+           The password to use when connecting to the server. If you use the
+           short option form (-p), you cannot have a space between the
+           option and the password. If you omit the password value following
+           the --password or -p option on the command line, mysqlshow
+           prompts for one.
+           Specifying a password on the command line should be considered
+           insecure. You can use an option file to avoid giving the password
+           on the command line.
+       ·   --pipe, -W
+           On Windows, connect to the server via a named pipe. This option
+           applies only if the server supports named-pipe connections.
+       ·   --plugin-dir=dir_name
+           Directory for client-side plugins.
+       ·   --port=port_num, -P port_num
+           The TCP/IP port number to use for the connection.
+       ·   --protocol={TCP|SOCKET|PIPE|MEMORY}
+           The connection protocol to use for connecting to the server. It
+           is useful when the other connection parameters normally would
+           cause a protocol to be used other than the one you want.
+       ·   --print-defaults
+           Print the program argument list and exit.  This must be given as
+           the first argument.
+       ·   --show-table-type, -t
+           Show a column indicating the table type, as in SHOW FULL TABLES.
+           The type is BASE TABLE or VIEW.
+       ·   --socket=path, -S path
+           For connections to localhost, the Unix socket file to use, or, on
+           Windows, the name of the named pipe to use.
+       ·   --ssl
+           Enable SSL for connection (automatically enabled with other
+           flags). Disable with --skip-ssl.
+       ·   --ssl-ca=name
+           CA file in PEM format (check OpenSSL docs, implies --ssl).
+       ·   --ssl-capath=name
+           CA directory (check OpenSSL docs, implies --ssl).
+       ·   --ssl-cert=name
+           X509 cert in PEM format (check OpenSSL docs, implies --ssl).
+       ·   --ssl-cipher=name
+           SSL cipher to use (check OpenSSL docs, implies --ssl).
+       ·   --ssl-key=name
+           X509 key in PEM format (check OpenSSL docs, implies --ssl).
+       ·   --ssl-crl=name
+           Certificate revocation list (check OpenSSL docs, implies --ssl).
+       ·   --ssl-crlpath=name
+           Certificate revocation list path (check OpenSSL docs, implies
+           --ssl).
+       ·   --ssl-verify-server-cert
+           Verify server's "Common Name" in its cert against hostname used
+           when connecting. This option is disabled by default.
+       ·   --status, -i
+           Display extra information about each table.
+       ·   --user=user_name, -u user_name
+           The MariaDB user name to use when connecting to the server.
+       ·   --verbose, -v
+           Verbose mode. Print more information about what the program does.
+           This option can be used multiple times to increase the amount of
+           information.
+       ·   --version, -V
+           Display version information and exit.

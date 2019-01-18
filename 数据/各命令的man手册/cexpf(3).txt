@@ -1,0 +1,5 @@
+
+       These functions calculate e (2.71828..., the base of natural
+       logarithms) raised to the power of z.
+       One has:
+           cexp(I * z) = ccos(z) + I * csin(z)

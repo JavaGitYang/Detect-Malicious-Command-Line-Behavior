@@ -1,0 +1,13 @@
+
+       A package can perform several pre-installation actions via maintainer
+       scripts, by including an executable preinst file in its control
+       archive (i.e. DEBIAN/preinst during package creation).
+       The script can be called in the following ways:
+       new-preinst install
+              Before the package is installed.
+       new-preinst install old-version new-version
+              Before removed package is upgraded.
+       new-preinst upgrade old-version new-version
+              Before the package is upgraded.
+       old-preinst abort-upgrade new-version
+              If postrm fails during upgrade or fails on failed upgrade.

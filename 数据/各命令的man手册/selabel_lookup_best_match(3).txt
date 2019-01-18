@@ -1,0 +1,14 @@
+
+       selabel_lookup_best_match() performs a best match lookup operation on
+       the handle hnd, returning the result in the memory pointed to by
+       context, which must be freed by the caller using freecon(3).  The key
+       parameter is a file path to check for best match using zero or more
+       link (aliases) parameters. The order of precedence for best match is:
+              1.  An exact match for the real path (key) or
+              2.  An exact match for any of the links (aliases), or
+              3.  The longest fixed prefix match.
+       The type parameter is an optional file mode argument that should be
+       set to the mode bits of the file, as determined by lstat(2).  mode
+       may be zero, however full matching may not occur.
+       selabel_lookup_best_match_raw() behaves identically to
+       selabel_lookup_best_match() but does not perform context translation.

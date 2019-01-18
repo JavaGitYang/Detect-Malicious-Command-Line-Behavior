@@ -1,0 +1,22 @@
+
+       This PMDA extracts performance data from BIND (Berkeley Internet Name
+       Domain).  It enables collection of most of the statistics metrics
+       from the Bind server version 9 or later, which includes:
+       · overall memory statistics
+       · overall per-query statistics (general queries, EDNS/truncated
+         responses, Update/Notify/AXFR/IXFR messages)
+       · overall error statistics (Rejected, SERVFAIL, Update/XFR failures
+         ...)
+       · overall statistics per transport protocol, EDNS and per version of
+         IP protocol
+       · resolver statistics (successes, errors, round-trip times in several
+         ranges)
+       · detailed per-socket statistics with respect to the transport
+         protcol and IP version including errors
+       · detailed per-file-descriptor statistics including errors
+       The PMDA performs per-second collection of the whole data set (148
+       metrics on the test environment) with modest requirements (2% CPU
+       usage on Intel i7-4700MQ @2.4 GHz, cca 30 MB RAM).
+       If more than 1 requests/sec is performed, the memoized values are
+       used so that the statistics interface of the Bind server does not get
+       overloaded.

@@ -1,0 +1,22 @@
+
+       pmdaprometheus is a Performance Metrics Domain Agent (PMDA) which
+       creates PCP metrics from Prometheus endpoints, which provide HTTP
+       based access to application metrics.  The default config directory is
+       $PCP_PMDAS_DIR/prometheus/config.d/, see ``CONFIGURATION SOURCES''
+       below.  The default URL fetch timeout is 2 seconds.  The default
+       user, if not specified with the -u option, is the current user.  If
+       the -n option is given, the list of configuration files will not be
+       sorted prior to processing.  This list is sorted by default but that
+       can be expensive if there are a large number of configuration files
+       (URLs and/or scripts).
+       If the -D option is given, additional diagnostic messages will be
+       written to the PMDA log file, which is
+       $PCP_LOG_DIR/pmcd/prometheus.log by default.  In addition, the metric
+       prometheus.control.debug controls the same debug flag and can be set
+       with the following command:
+            pmstore prometheus.control.debug value
+       where value is either 1 (to enable verbose log messages) or 0 (to
+       disable verbose log messages).  This is particularly useful for
+       examining the http headers passed to each fetch request, filter
+       settings and other processing details that are logged when the
+       debugging flag is enabled.

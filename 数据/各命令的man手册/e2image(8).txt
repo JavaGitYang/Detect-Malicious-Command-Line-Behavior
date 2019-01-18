@@ -1,0 +1,40 @@
+
+       The e2image program will save critical ext2, ext3, or ext4 filesystem
+       metadata located on device to a file specified by image-file.  The
+       image file may be examined by dumpe2fs and debugfs, by using the -i
+       option to those programs.  This can assist an expert in recovering
+       catastrophically corrupted filesystems.  In the future, e2fsck will
+       be enhanced to be able to use the image file to help recover a badly
+       damaged filesystem.
+       When saving an e2image for debugging purposes, using either the -r or
+       -Q options, the filesystem must be unmounted or be mounted read/only,
+       in order for the image file to be in a consistent state.  This
+       requirement can be overridden using the -f option, but the resulting
+       image file is very likely not going to be useful.
+       If image-file is -, then the output of e2image will be sent to
+       standard output, so that the output can be piped to another program,
+       such as gzip(1).  (Note that this is currently only supported when
+       creating a raw image file using the -r option, since the process of
+       creating a normal image file, or QCOW2 image currently requires
+       random access to the file, which cannot be done using a pipe.  This
+       restriction will hopefully be lifted in a future version of e2image.)
+       It is a very good idea to create image files for all of filesystems
+       on a system and save the partition layout (which can be generated
+       using the fdisk -l command) at regular intervals --- at boot time,
+       and/or every week or so.  The image file should be stored on some
+       filesystem other than the filesystem whose data it contains, to
+       ensure that this data is accessible in the case where the filesystem
+       has been badly damaged.
+       To save disk space, e2image creates the image file as a sparse file,
+       or in QCOW2 format.  Hence, if the sparse image file needs to be
+       copied to another location, it should either be compressed first or
+       copied using the --sparse=always option to the GNU version of cp.
+       This does not apply to the QCOW2 image, which is not sparse.
+       The size of an ext2 image file depends primarily on the size of the
+       filesystems and how many inodes are in use.  For a typical 10
+       gigabyte filesystem, with 200,000 inodes in use out of 1.2 million
+       inodes, the image file will be approximately 35 megabytes; a 4
+       gigabyte filesystem with 15,000 inodes in use out of 550,000 inodes
+       will result in a 3 megabyte image file.  Image files tend to be quite
+       compressible; an image file taking up 32 megabytes of space on disk
+       will generally compress down to 3 or 4 megabytes.

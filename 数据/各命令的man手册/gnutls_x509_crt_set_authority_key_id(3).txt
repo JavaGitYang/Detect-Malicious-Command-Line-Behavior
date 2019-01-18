@@ -1,0 +1,4 @@
+
+       This function will set the X.509 certificate's authority key ID
+       extension.  Only the keyIdentifier field can be set with this
+       function.

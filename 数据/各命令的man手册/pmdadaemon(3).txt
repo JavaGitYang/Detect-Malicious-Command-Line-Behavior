@@ -1,0 +1,23 @@
+
+       pmdaDaemon initializes the pmdaInterface structure to use the
+       interface extensions assuming the PMDA(3) is to be run as a daemon.
+       The pmdaInterface structure is initialized with:
+       name           The name of the agent.
+       domain         The default domain number of the agent which uniquely
+                      identifies this PMDA from other running PMDAs.  This
+                      may be subsequently changed by a command line option
+                      -d (see pmdaGetOpt(3)).
+       logfile        The default path to the log file.  This may be
+                      replaced by the -l command line option if using
+                      pmdaGetOpt.  logfile will be copied with strdup(3), so
+                      the storage associated with logfile may be released
+                      after the call to pmdaDaemon.
+       helptext       The default path to the help text (see pmdaText(3).
+                      This may be replaced by the -h command line option if
+                      using pmdaGetOpt(3).  If no help text is installed, or
+                      you are not using pmdaText(3), then this should be set
+                      to NULL, otherwise helptext will be copied with
+                      strdup(3), so the storage associated with helptext may
+                      be released after the call to pmdaDaemon.
+       The callbacks are initialized to pmdaProfile(3), pmdaFetch(3),
+       pmdaDesc(3), pmdaText(3), pmdaInstance(3) and pmdaStore(3).

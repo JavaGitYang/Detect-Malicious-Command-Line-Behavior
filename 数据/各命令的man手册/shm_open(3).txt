@@ -1,0 +1,56 @@
+
+       shm_open() creates and opens a new, or opens an existing, POSIX
+       shared memory object.  A POSIX shared memory object is in effect a
+       handle which can be used by unrelated processes to mmap(2) the same
+       region of shared memory.  The shm_unlink() function performs the
+       converse operation, removing an object previously created by
+       shm_open().
+       The operation of shm_open() is analogous to that of open(2).  name
+       specifies the shared memory object to be created or opened.  For
+       portable use, a shared memory object should be identified by a name
+       of the form /somename; that is, a null-terminated string of up to
+       NAME_MAX (i.e., 255) characters consisting of an initial slash,
+       followed by one or more characters, none of which are slashes.
+       oflag is a bit mask created by ORing together exactly one of O_RDONLY
+       or O_RDWR and any of the other flags listed here:
+       O_RDONLY   Open the object for read access.  A shared memory object
+                  opened in this way can be mmap(2)ed only for read
+                  (PROT_READ) access.
+       O_RDWR     Open the object for read-write access.
+       O_CREAT    Create the shared memory object if it does not exist.  The
+                  user and group ownership of the object are taken from the
+                  corresponding effective IDs of the calling process, and
+                  the object's permission bits are set according to the low-
+                  order 9 bits of mode, except that those bits set in the
+                  process file mode creation mask (see umask(2)) are cleared
+                  for the new object.  A set of macro constants which can be
+                  used to define mode is listed in open(2).  (Symbolic
+                  definitions of these constants can be obtained by
+                  including <sys/stat.h>.)
+                  A new shared memory object initially has zero length—the
+                  size of the object can be set using ftruncate(2).  The
+                  newly allocated bytes of a shared memory object are
+                  automatically initialized to 0.
+       O_EXCL     If O_CREAT was also specified, and a shared memory object
+                  with the given name already exists, return an error.  The
+                  check for the existence of the object, and its creation if
+                  it does not exist, are performed atomically.
+       O_TRUNC    If the shared memory object already exists, truncate it to
+                  zero bytes.
+       Definitions of these flag values can be obtained by including
+       <fcntl.h>.
+       On successful completion shm_open() returns a new file descriptor
+       referring to the shared memory object.  This file descriptor is
+       guaranteed to be the lowest-numbered file descriptor not previously
+       opened within the process.  The FD_CLOEXEC flag (see fcntl(2)) is set
+       for the file descriptor.
+       The file descriptor is normally used in subsequent calls to
+       ftruncate(2) (for a newly created object) and mmap(2).  After a call
+       to mmap(2) the file descriptor may be closed without affecting the
+       memory mapping.
+       The operation of shm_unlink() is analogous to unlink(2): it removes a
+       shared memory object name, and, once all processes have unmapped the
+       object, de-allocates and destroys the contents of the associated
+       memory region.  After a successful shm_unlink(), attempts to
+       shm_open() an object with the same name fail (unless O_CREAT was
+       specified, in which case a new, distinct object is created).

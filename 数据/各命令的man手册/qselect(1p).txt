@@ -1,0 +1,40 @@
+
+       To select a set of batch jobs is to return the batch job_identifiers
+       for each batch job that meets a list of selection criteria. A set of
+       batch jobs is selected by a request to a batch server. The qselect
+       utility is a user-accessible batch client that requests the selection
+       of batch jobs.
+       Upon successful completion, the qselect utility shall have returned a
+       list of zero or more batch job_identifiers that meet the criteria
+       specified by the options and option-arguments presented to the
+       utility.
+       The qselect utility shall select batch jobs by sending a Select Jobs
+       Request to a batch server. The qselect utility shall not exit until
+       the server replies to each request generated.
+       For each option presented to the qselect utility, the utility shall
+       restrict the set of selected batch jobs as described in the OPTIONS
+       section.
+       The qselect utility shall not restrict selection of batch jobs except
+       by authorization and as required by the options presented to the
+       utility.
+       When an option is specified with a mandatory or optional op component
+       to the option-argument, then op shall specify a relation between the
+       value of a certain batch job attribute and the value component of the
+       option-argument. If an op is allowable on an option, then the
+       description of the option letter indicates the op as either mandatory
+       or optional. Acceptable strings for the op component, and the
+       relation the string indicates, are shown in the following list:
+       .eq.    The value represented by the attribute of the batch job is
+               equal to the value represented by the option-argument.
+       .ge.    The value represented by the attribute of the batch job is
+               greater than or equal to the value represented by the option-
+               argument.
+       .gt.    The value represented by the attribute of the batch job is
+               greater than the value represented by the option-argument.
+       .lt.    The value represented by the attribute of the batch job is
+               less than the value represented by the option-argument.
+       .le.    The value represented by the attribute of the batch job is
+               less than or equal to the value represented by the option-
+               argument.
+       .ne.    The value represented by the attribute of the batch job is
+               not equal to the value represented by the option-argument.

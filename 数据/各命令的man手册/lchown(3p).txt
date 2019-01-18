@@ -1,0 +1,6 @@
+
+       The lchown() function shall be equivalent to chown(), except in the
+       case where the named file is a symbolic link. In this case, lchown()
+       shall change the ownership of the symbolic link file itself, while
+       chown() changes the ownership of the file or directory to which the
+       symbolic link refers.

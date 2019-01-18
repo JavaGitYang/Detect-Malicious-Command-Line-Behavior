@@ -1,0 +1,8 @@
+
+       The pthread_setschedprio() function shall set the scheduling priority
+       for the thread whose thread ID is given by thread to the value given
+       by prio.  See Scheduling Policies for a description on how this
+       function call affects the ordering of the thread in the thread list
+       for its new priority.
+       If the pthread_setschedprio() function fails, the scheduling priority
+       of the target thread shall not be changed.

@@ -1,0 +1,5 @@
+
+     The acl_clear_perms() function clears all permissions from the permis‐
+     sion set referred to by the argument permset_d.
+     Any existing descriptors that refer to permset_d shall continue to
+     refer to that permission set.

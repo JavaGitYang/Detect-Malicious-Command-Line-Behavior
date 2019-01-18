@@ -1,0 +1,3 @@
+
+       The library supports all Intel Core-based processors that includes
+       models 15, 23, 29.

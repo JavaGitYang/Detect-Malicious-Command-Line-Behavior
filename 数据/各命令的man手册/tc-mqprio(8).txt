@@ -1,0 +1,22 @@
+
+       The MQPRIO qdisc is a simple queuing discipline that allows mapping
+       traffic flows to hardware queue ranges using priorities and a
+       configurable priority to traffic class mapping. A traffic class in
+       this context is a set of contiguous qdisc classes which map 1:1 to a
+       set of hardware exposed queues.
+       By default the qdisc allocates a pfifo qdisc (packet limited first
+       in, first out queue) per TX queue exposed by the lower layer device.
+       Other queuing disciplines may be added subsequently. Packets are
+       enqueued using the map parameter and hashed across the indicated
+       queues in the offset and count.  By default these parameters are
+       configured by the hardware driver to match the hardware QOS
+       structures.
+       Channel mode supports full offload of the mqprio options, the traffic
+       classes, the queue configurations and QOS attributes to the hardware.
+       Enabled hardware can provide hardware QOS with the ability to steer
+       traffic flows to designated traffic classes provided by this qdisc.
+       Hardware based QOS is configured using the shaper parameter.
+       bw_rlimit with minimum and maximum bandwidth rates can be used for
+       setting transmission rates on each traffic class. Also further qdiscs
+       may be added to the classes of MQPRIO to create more complex
+       configurations.

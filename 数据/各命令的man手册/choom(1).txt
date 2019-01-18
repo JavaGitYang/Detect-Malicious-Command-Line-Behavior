@@ -1,0 +1,3 @@
+
+       The choom command displays and adjusts Out-Of-Memory killer score
+       setting.

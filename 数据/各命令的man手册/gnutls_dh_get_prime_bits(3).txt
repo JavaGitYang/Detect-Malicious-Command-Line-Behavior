@@ -1,0 +1,6 @@
+
+       This function will return the bits of the prime used in the last
+       Diffie-Hellman key exchange with the peer.  Should be used for both
+       anonymous and ephemeral Diffie-Hellman.  Note that some ciphers, like
+       RSA and DSA without DHE, do not use a Diffie-Hellman key exchange,
+       and then this function will return 0.

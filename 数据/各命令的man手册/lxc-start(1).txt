@@ -1,0 +1,10 @@
+
+       lxc-start runs the specified command inside the container specified
+       by name.
+       It will setup the container according to the configuration previously
+       defined with the lxc-create command or with the configuration file
+       parameter.  If no configuration is defined, the default isolation is
+       used.
+       If no command is specified, lxc-start will use the command defined in
+       lxc.init.cmd or if not set, the default "/sbin/init" command to run a
+       system container.

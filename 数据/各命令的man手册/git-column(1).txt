@@ -1,0 +1,2 @@
+
+       This command formats its input into multiple columns.

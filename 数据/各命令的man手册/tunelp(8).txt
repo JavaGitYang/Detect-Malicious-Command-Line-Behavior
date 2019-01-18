@@ -1,0 +1,6 @@
+
+       tunelp sets several parameters for the /dev/lp? devices, for better
+       performance (or for any performance at all, if your printer won't
+       work without it...) Without parameters, it tells whether the device
+       is using interrupts, and if so, which one.  With parameters, it sets
+       the device characteristics accordingly.

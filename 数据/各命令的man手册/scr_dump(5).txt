@@ -1,0 +1,52 @@
+
+       The curses library provides applications with the ability to write
+       the contents of a window to an external file using scr_dump or
+       putwin, and read it back using scr_restore or getwin.
+       The putwin and getwin functions do the work; while scr_dump and
+       scr_restore conveniently save and restore the whole screen, i.e.,
+       stdscr.
+   ncurses6
+       A longstanding implementation of screen-dump was revised with
+       ncurses6 to remedy problems with the earlier approach:
+       ·   A “magic number” is written to the beginning of the dump file,
+           allowing applications (such as file(1)) to recognize curses dump
+           files.
+           Because ncurses6 uses a new format, that requires a new magic
+           number was unused by other applications.  This 16-bit number was
+           unused:
+               0x8888 (octal “\210\210”)
+           but to be more certain, this 32-bit number was chosen:
+               0x88888888 (octal “\210\210\210\210”)
+           This is the pattern submitted to the maintainers of the file
+           program:
+               #
+               # ncurses5 (and before) did not use a magic number,
+               # making screen dumps "data".
+               #
+               # ncurses6 (2015) uses this format, ignoring byte-order
+               0    string    \210\210\210\210ncurses    ncurses6 screen image
+               #
+       ·   The screen dumps are written in textual form, so that internal
+           data sizes are not directly related to the dump-format, and
+           enabling the library to read dumps from either narrow- or wide-
+           character- configurations.
+           The narrow library configuration holds characters and video
+           attributes in a 32-bit chtype, while the wide-character library
+           stores this information in the cchar_t structure, which is much
+           larger than 32-bits.
+       ·   It is possible to read a screen dump into a terminal with a
+           different screen-size, because the library truncates or fills the
+           screen as necessary.
+       ·   The ncurses6 getwin reads the legacy screen dumps from ncurses5.
+   ncurses5 (legacy)
+       The screen-dump feature was added to ncurses in June 1995.  While
+       there were fixes and improvements in succeeding years, the basic
+       scheme was unchanged:
+       ·   The WINDOW structure was written in binary form.
+       ·   The WINDOW structure refers to lines of data, which were written
+           as an array of binary data following the WINDOW.
+       ·   When getwin restored the window, it would keep track of offsets
+           into the array of line-data and adjust the WINDOW structure which
+           was read back into memory.
+       This is similar to Unix SystemV, but does not write a “magic number”
+       to identify the file format.

@@ -1,0 +1,6 @@
+
+       These routines insert the character ch before the character under the
+       cursor.  All characters to the right of the cursor are moved one
+       space to the right, with the possibility of the rightmost character
+       on the line being lost.  The insertion operation does not change the
+       cursor position.

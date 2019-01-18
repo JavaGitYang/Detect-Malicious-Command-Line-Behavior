@@ -1,0 +1,4 @@
+
+       This function will read the certificate's basic constraints, and
+       return the certificates CA status.  It reads the basicConstraints
+       X.509 extension (2.5.29.19).

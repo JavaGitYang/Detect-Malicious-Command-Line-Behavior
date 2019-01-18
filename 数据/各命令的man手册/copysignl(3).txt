@@ -1,0 +1,5 @@
+
+       These functions return a value whose absolute value matches that of
+       x, but whose sign bit matches that of y.
+       For example, copysign(42.0, -1.0) and copysign(-42.0, -1.0) both
+       return -42.0.

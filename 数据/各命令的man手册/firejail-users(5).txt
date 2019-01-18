@@ -1,0 +1,22 @@
+
+       /etc/firejail/firejail.users lists the users allowed to run firejail
+       SUID executable.  If the file is not present in the system, all users
+       are allowed to use the sandbox.  root user is allowed by default.
+       Other system users (users with an ID below UID_MIN value defined in
+       /etc/login.defs, typically 1000) are not allowed to start the
+       sandbox.
+       If the user is not allowed to start the sandbox, Firejail will
+       attempt to run the program without sandboxing it.
+       Example:
+            $ cat /etc/firejail/firejail.users
+            dustin
+            lucas
+            mike
+            eleven
+       Use a text editor to add or remove users from the list. You can also
+       use firecfg --add-users command. Example:
+            $ sudo firecfg --add-users dustin lucas mike eleven
+       By default, running firecfg creates the file and adds the current
+       user to the list. Example:
+            $ sudo firecfg
+       See man 1 firecfg for details.

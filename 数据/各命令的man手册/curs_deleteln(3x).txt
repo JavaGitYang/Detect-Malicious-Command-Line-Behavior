@@ -1,0 +1,12 @@
+
+       The deleteln and wdeleteln routines delete the line under the cursor
+       in the window; all lines below the current line are moved up one
+       line.  The bottom line of the window is cleared.  The cursor position
+       does not change.
+       The insdelln and winsdelln routines, for positive n, insert n lines
+       into the specified window above the current line.  The n bottom lines
+       are lost.  For negative n, delete n lines (starting with the one
+       under the cursor), and move the remaining lines up.  The bottom n
+       lines are cleared.  The current cursor position remains the same.
+       The insertln and winsertln routines insert a blank line above the
+       current line and the bottom line is lost.

@@ -1,0 +1,4 @@
+
+       This function will convert the periods provided to a private key
+       usage DER encoded extension (2.5.29.16).  The  ext data will be
+       allocated using gnutls_malloc().

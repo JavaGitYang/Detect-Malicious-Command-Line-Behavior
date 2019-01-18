@@ -1,0 +1,6 @@
+
+       This function will sign the given data using the specified signature
+       algorithm. This function is an enhancement of
+       gnutls_privkey_sign_data(), as it allows utilizing a alternative
+       signature algorithm where possible (e.g, use an RSA key with
+       RSA-PSS).

@@ -1,0 +1,4 @@
+
+       This function will return the seed that was used to generate the
+       given private key. That function will succeed only if the key was
+       generated as a provable key.

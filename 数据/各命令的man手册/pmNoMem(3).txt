@@ -1,0 +1,9 @@
+
+       pmNoMem is a convenience method that may be used when malloc(3) or a
+       related memory allocation service fails.
+       A standard message is emitted using pmNotifyErr(3) with where used as
+       a message prefix and the failing allocation size is also reported.
+       If fatal is zero (and PM_RECOV_ERR is zero), pmNoMem returns (the
+       allocation failure is assumed to be recoverable by the caller), else
+       (and PM_FATAL_ERR is a good value to use in this case) exit(2) is
+       called with an argument of 1.

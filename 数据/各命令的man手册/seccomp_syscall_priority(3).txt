@@ -1,0 +1,17 @@
+
+       The seccomp_syscall_priority() function provides a priority hint to
+       the seccomp filter generator in libseccomp such that higher priority
+       syscalls are placed earlier in the seccomp filter code so that they
+       incur less overhead at the expense of lower priority syscalls.  A
+       syscall's priority can be set regardless of if any rules currently
+       exist for that syscall; the library will remember the priority and it
+       will be assigned to the syscall if and when a rule for that syscall
+       is created.
+       While it is possible to specify the syscall value directly using the
+       standard __NR_syscall values, in order to ensure proper operation
+       across multiple architectures it is highly recommended to use the
+       SCMP_SYS() macro instead.  See the EXAMPLES section below.
+       The priority parameter takes an 8-bit value ranging from 0 - 255; a
+       higher value represents a higher priority.
+       The filter context ctx is the value returned by the call to
+       seccomp_init().

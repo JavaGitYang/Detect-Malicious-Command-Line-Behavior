@@ -1,0 +1,7 @@
+
+       semodule_link is a developer tool for manually linking together a set
+       of SELinux policy module packages into a single policy module
+       package.  This tool is not necessary for normal operation of SELinux.
+       In normal operation, such linking is performed internally by
+       libsemanage in response to semodule commands.  Module packages are
+       created by semodule_package.

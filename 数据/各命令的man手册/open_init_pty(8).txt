@@ -1,0 +1,11 @@
+
+       Run a program under a pseudo terminal. This is used by run_init to
+       run actually run the program after setting up the proper context.
+       This program acquires a new Pseudo terminal, forks a child process
+       that binds to the pseudo terminal, and then sits around and connects
+       the physical terminal it was invoked upon with the pseudo terminal,
+       passing keyboard input into to the child process, and passing the
+       output of the child process to the physical terminal.
+       It sets up the pseudo terminal properly based on the physical
+       terminal attributes, and then sets the user's terminal to RAW mode,
+       taking care to reset it on exit.

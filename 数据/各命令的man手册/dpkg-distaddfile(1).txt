@@ -1,0 +1,8 @@
+
+       dpkg-distaddfile adds an entry for a named file to debian/files.
+       It takes three non-option arguments, the filename and the section and
+       priority for the .changes file.
+       The filename should be specified relative to the directory where
+       dpkg-genchanges will expect to find the files, usually .., rather
+       than being a pathname relative to the current directory when
+       dpkg-distaddfile is run.

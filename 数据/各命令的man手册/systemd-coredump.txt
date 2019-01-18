@@ -1,0 +1,30 @@
+
+       systemd-coredump@.service is a system service that can acquire core
+       dumps from the kernel and handle them in various ways. The
+       systemd-coredump executable does the actual work. It is invoked
+       twice: once as the handler by the kernel, and the second time in the
+       systemd-coredump@.service to actually write the data to the journal.
+       When the kernel invokes systemd-coredump to handle a core dump, it
+       runs in privileged mode, and will connect to the socket created by
+       the systemd-coredump.socket unit, which in turn will spawn an
+       unprivileged systemd-coredump@.service instance to process the core
+       dump. Hence systemd-coredump.socket and systemd-coredump@.service are
+       helper units which do the actual processing of core dumps and are
+       subject to normal service management.
+       Core dumps can be written to the journal or saved as a file. Once
+       saved they can be retrieved for further processing, for example in
+       gdb(1).
+       By default, systemd-coredump will log the core dump including a
+       backtrace if possible to the journal and store the core dump itself
+       in an external file in /var/lib/systemd/coredump.
+       The behavior of a specific program upon reception of a signal is
+       governed by a few factors which are described in detail in core(5).
+       In particular, the core dump will only be processed when the related
+       resource limits are sufficient.
+       It is also possible to invoke systemd-coredump with --backtrace
+       option. In this case, systemd-coredump expects a journal entry in the
+       journal Journal Export Format[1] on standard input. The entry should
+       contain a MESSAGE= field and any additional metadata fields the
+       caller deems reasonable.  systemd-coredump will append additional
+       metadata fields in the same way it does for core dumps received from
+       the kernel. In this mode, no core dump is stored in the journal.

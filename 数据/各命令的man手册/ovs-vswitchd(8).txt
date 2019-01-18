@@ -1,0 +1,67 @@
+
+       A daemon that manages and controls any number of Open vSwitch
+       switches on the local machine.
+       The database argument specifies how ovs-vswitchd connects to
+       ovsdb-server.  The default is
+       unix:/usr/local/var/run/openvswitch/db.sock.  The following forms are
+       accepted:
+       ssl:ip:port
+       tcp:ip:port
+              The given SSL or plain TCP port on the host at the given ip,
+              which must be expressed as an IP address (not a DNS name) in
+              IPv4 or IPv6 address format.  If ip is an IPv6 address, then
+              wrap ip with square brackets, e.g.: ssl:[::1]:6640.  On Linux,
+              use %device to designate a scope for IPv6 link-level
+              addresses, e.g. ssl:[fe80::1234%eth0]:6653.  For ssl, the
+              --private-key, --certificate, and --ca-cert options are
+              mandatory.
+       unix:file
+              On POSIX, connect to the Unix domain server socket named file.
+              On Windows, connect to a local named pipe that is represented
+              by a file created in the path file to mimic the behavior of a
+              Unix domain socket.
+       pssl:port[:ip]
+       ptcp:port[:ip]
+              Listen on the given SSL or TCP port for a connection.  By
+              default, connections are not bound to a particular local IP
+              address and it listens only on IPv4 (but not IPv6) addresses,
+              but specifying ip limits connections to those from the given
+              ip, either IPv4 or IPv6 address.  If ip is an IPv6 address,
+              then wrap ip with square brackets, e.g.: pssl:6640:[::1].  On
+              Linux, use %device to designate a scope for IPv6 link-level
+              addresses, e.g. pssl:6653:[fe80::1234%eth0].  For pssl, the
+              --private-key, --certificate, and --ca-cert options are
+              mandatory.
+       punix:file
+              On POSIX, listen on the Unix domain server socket named file
+              for a connection.
+              On Windows, listen on a local named pipe.  A file is created
+              in the path file to mimic the behavior of a Unix domain
+              socket.
+       ovs-vswitchd retrieves its configuration from database at startup.
+       It sets up Open vSwitch datapaths and then operates switching across
+       each bridge described in its configuration files.  As the database
+       changes, ovs-vswitchd automatically updates its configuration to
+       match.
+       ovs-vswitchd switches may be configured with any of the following
+       features:
+       ·      L2 switching with MAC learning.
+       ·      NIC bonding with automatic fail-over and source MAC-based TX
+              load balancing ("SLB").
+       ·      802.1Q VLAN support.
+       ·      Port mirroring, with optional VLAN tagging.
+       ·      NetFlow v5 flow logging.
+       ·      sFlow(R) monitoring.
+       ·      Connectivity to an external OpenFlow controller, such as NOX.
+       Only a single instance of ovs-vswitchd is intended to run at a time.
+       A single ovs-vswitchd can manage any number of switch instances, up
+       to the maximum number of supported Open vSwitch datapaths.
+       ovs-vswitchd does all the necessary management of Open vSwitch
+       datapaths itself.  Thus, external tools, such ovs-dpctl(8), are not
+       needed for managing datapaths in conjunction with ovs-vswitchd, and
+       their use to modify datapaths when ovs-vswitchd is running can
+       interfere with its operation.  (ovs-dpctl may still be useful for
+       diagnostics.)
+       An Open vSwitch datapath kernel module must be loaded for
+       ovs-vswitchd to be useful.  Refer to the documentation for
+       instructions on how to build and load the Open vSwitch kernel module.

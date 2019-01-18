@@ -1,0 +1,23 @@
+
+       WARNING: git cvsimport uses cvsps version 2, which is considered
+       deprecated; it does not work with cvsps version 3 and later. If you
+       are performing a one-shot import of a CVS repository consider using
+       cvs2git[1] or cvs-fast-export[2].
+       Imports a CVS repository into Git. It will either create a new
+       repository, or incrementally import into an existing one.
+       Splitting the CVS log into patch sets is done by cvsps. At least
+       version 2.1 is required.
+       WARNING: for certain situations the import leads to incorrect
+       results. Please see the section ISSUES for further reference.
+       You should never do any work of your own on the branches that are
+       created by git cvsimport. By default initial import will create and
+       populate a "master" branch from the CVS repository’s main branch
+       which you’re free to work with; after that, you need to git merge
+       incremental imports, or any CVS branches, yourself. It is advisable
+       to specify a named remote via -r to separate and protect the incoming
+       branches.
+       If you intend to set up a shared public repository that all
+       developers can read/write, or if you want to use git-cvsserver(1),
+       then you probably want to make a bare clone of the imported
+       repository, and use the clone as the shared repository. See
+       gitcvs-migration(7).

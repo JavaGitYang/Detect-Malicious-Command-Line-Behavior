@@ -1,0 +1,19 @@
+
+       keyctl_get_persistent() gets the persistent keyring for the specified
+       user ID.  Unlike the session and user keyrings, this keyring will
+       persist once all login sessions have been deleted and can thus be
+       used to carry authentication tokens for processes that run without
+       user interaction, such as programs started by cron.
+       The persistent keyring will be created by the kernel if it does not
+       yet exist.  Each time this function is called, the persistent keyring
+       will have its expiration timeout reset to the value in:
+              /proc/sys/kernel/keys/persistent_keyring_expiry
+       (by default three days).  Should the timeout be reached, the
+       persistent keyring will be removed and everything it pins can then be
+       garbage collected.
+       If uid is -1 then the calling process's real user ID will be used.
+       If uid is not -1 then error EPERM will be given if the user ID
+       requested does not match either the caller's real or effective user
+       IDs or if the calling process does not have SetUid capability.
+       If successful, a link to the persistent keyring will be added into
+       keyring.

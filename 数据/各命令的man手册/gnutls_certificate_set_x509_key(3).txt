@@ -1,0 +1,16 @@
+
+       This function sets a certificate/private key pair in the
+       gnutls_certificate_credentials_t type.  This function may be called
+       more than once, in case multiple keys/certificates exist for the
+       server.  For clients that wants to send more than their own end
+       entity certificate (e.g., also an intermediate CA cert) then put the
+       certificate chain in  cert_list .
+       Note that the certificates and keys provided, can be safely
+       deinitialized after this function is called.
+       If that function fails to load the  res type is at an undefined
+       state, it must not be reused to load other keys or certificates.
+       Note that, this function by default returns zero on success and a
+       negative value on error.  Since 3.5.6, when the flag
+       GNUTLS_CERTIFICATE_API_V2 is set using gnutls_certificate_set_flags()
+       it returns an index (greater or equal to zero). That index can be
+       used to other functions to refer to the added key-pair.

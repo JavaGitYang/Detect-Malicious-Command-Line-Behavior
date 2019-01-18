@@ -1,0 +1,9 @@
+
+       The pcp command is used in one of two modes.  By default, it
+       summarizes the Performance Co-Pilot (PCP) installation on the local
+       host.  This mode can also be used to summarize the installation from
+       a remote host, or a historical installation from a set of PCP
+       archives.  This mode indirectly invokes the pcp-summary command (in
+       the absence of any other requested command).
+       Alternatively, a command can be passed to pcp to run, again possibly
+       in the context of a remote host or set of historical archives.

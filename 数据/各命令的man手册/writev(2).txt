@@ -1,0 +1,77 @@
+
+       The readv() system call reads iovcnt buffers from the file associated
+       with the file descriptor fd into the buffers described by iov
+       ("scatter input").
+       The writev() system call writes iovcnt buffers of data described by
+       iov to the file associated with the file descriptor fd ("gather
+       output").
+       The pointer iov points to an array of iovec structures, defined in
+       <sys/uio.h> as:
+           struct iovec {
+               void  *iov_base;    /* Starting address */
+               size_t iov_len;     /* Number of bytes to transfer */
+           };
+       The readv() system call works just like read(2) except that multiple
+       buffers are filled.
+       The writev() system call works just like write(2) except that multi‐
+       ple buffers are written out.
+       Buffers are processed in array order.  This means that readv() com‐
+       pletely fills iov[0] before proceeding to iov[1], and so on.  (If
+       there is insufficient data, then not all buffers pointed to by iov
+       may be filled.)  Similarly, writev() writes out the entire contents
+       of iov[0] before proceeding to iov[1], and so on.
+       The data transfers performed by readv() and writev() are atomic: the
+       data written by writev() is written as a single block that is not
+       intermingled with output from writes in other processes (but see
+       pipe(7) for an exception); analogously, readv() is guaranteed to read
+       a contiguous block of data from the file, regardless of read opera‐
+       tions performed in other threads or processes that have file descrip‐
+       tors referring to the same open file description (see open(2)).
+   preadv() and pwritev()
+       The preadv() system call combines the functionality of readv() and
+       pread(2).  It performs the same task as readv(), but adds a fourth
+       argument, offset, which specifies the file offset at which the input
+       operation is to be performed.
+       The pwritev() system call combines the functionality of writev() and
+       pwrite(2).  It performs the same task as writev(), but adds a fourth
+       argument, offset, which specifies the file offset at which the output
+       operation is to be performed.
+       The file offset is not changed by these system calls.  The file
+       referred to by fd must be capable of seeking.
+   preadv2() and pwritev2()
+       These system calls are similar to preadv() and pwritev() calls, but
+       add a fifth argument, flags, which modifies the behavior on a per-
+       call basis.
+       Unlike preadv() and pwritev(), if the offset argument is -1, then the
+       current file offset is used and updated.
+       The flags argument contains a bitwise OR of zero or more of the fol‐
+       lowing flags:
+       RWF_DSYNC (since Linux 4.7)
+              Provide a per-write equivalent of the O_DSYNC open(2) flag.
+              This flag is meaningful only for pwritev2(), and its effect
+              applies only to the data range written by the system call.
+       RWF_HIPRI (since Linux 4.6)
+              High priority read/write.  Allows block-based filesystems to
+              use polling of the device, which provides lower latency, but
+              may use additional resources.  (Currently, this feature is
+              usable only on a file descriptor opened using the O_DIRECT
+              flag.)
+       RWF_SYNC (since Linux 4.7)
+              Provide a per-write equivalent of the O_SYNC open(2) flag.
+              This flag is meaningful only for pwritev2(), and its effect
+              applies only to the data range written by the system call.
+       RWF_NOWAIT (since Linux 4.14)
+              Do not wait for data which is not immediately available.  If
+              this flag is specified, the preadv2() system call will return
+              instantly if it would have to read data from the backing stor‐
+              age or wait for a lock.  If some data was successfully read,
+              it will return the number of bytes read.  If no bytes were
+              read, it will return -1 and set errno to EAGAIN.  Currently,
+              this flag is meaningful only for preadv2().
+       RWF_APPEND (since Linux 4.16)
+              Provide a per-write equivalent of the O_APPEND open(2) flag.
+              This flag is meaningful only for pwritev2(), and its effect
+              applies only to the data range written by the system call.
+              The offset argument does not affect the write operation; the
+              data is always appended to the end of the file.  However, if
+              the offset argument is -1, the current file offset is updated.

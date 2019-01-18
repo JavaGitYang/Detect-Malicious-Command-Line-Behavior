@@ -1,0 +1,6 @@
+
+       This function will extract the OIDs of the name of the Certificate
+       subject specified by the given index.
+       If  oid is null then only the size will be filled. The  oid returned
+       will be null terminated, although  oid_size will not account for the
+       trailing null.

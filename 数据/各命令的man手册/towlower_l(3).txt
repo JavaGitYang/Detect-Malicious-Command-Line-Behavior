@@ -1,0 +1,13 @@
+
+       The towlower() function is the wide-character equivalent of the
+       tolower(3) function.  If wc is an uppercase wide character, and there
+       exists a lowercase equivalent in the current locale, it returns the
+       lowercase equivalent of wc.  In all other cases, wc is returned
+       unchanged.
+       The towlower_l() function performs the same task, but performs the
+       conversion based on the character type information in the locale
+       specified by locale.  The behavior of towlower_l() is undefined if
+       locale is the special locale object LC_GLOBAL_LOCALE (see
+       duplocale(3)) or is not a valid locale object handle.
+       The argument wc must be representable as a wchar_t and be a valid
+       character in the locale or be the value WEOF.

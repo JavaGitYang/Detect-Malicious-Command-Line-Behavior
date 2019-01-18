@@ -1,0 +1,10 @@
+
+       The posix_spawnattr_getsigmask() function shall obtain the value of
+       the spawn-sigmask attribute from the attributes object referenced by
+       attr.
+       The posix_spawnattr_setsigmask() function shall set the spawn-sigmask
+       attribute in an initialized attributes object referenced by attr.
+       The spawn-sigmask attribute represents the signal mask in effect in
+       the new process image of a spawn operation (if POSIX_SPAWN_SETSIGMASK
+       is set in the spawn-flags attribute). The default value of this
+       attribute is unspecified.

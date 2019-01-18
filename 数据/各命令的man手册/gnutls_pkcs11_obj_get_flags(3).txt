@@ -1,0 +1,4 @@
+
+       This function will return the flags of the object.  The  oflags will
+       be flags from gnutls_pkcs11_obj_flags. That is, the
+       GNUTLS_PKCS11_OBJ_FLAG_MARK_* flags.

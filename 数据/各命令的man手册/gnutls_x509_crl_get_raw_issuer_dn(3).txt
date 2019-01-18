@@ -1,0 +1,3 @@
+
+       This function will return a pointer to the DER encoded DN structure
+       and the length.

@@ -1,0 +1,6 @@
+
+       This function will convert the given DER or PEM encoded Certificate
+       to the native gnutls_x509_crt_t format. The output will be stored in
+       cert .
+       If the Certificate is PEM encoded it should have a header of "X509
+       CERTIFICATE", or "CERTIFICATE".

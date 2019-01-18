@@ -1,0 +1,6 @@
+
+       These routines return a string of characters in str, extracted
+       starting at the current cursor position in the named window.
+       Attributes are stripped from the characters.  The four functions with
+       n as the last argument return a leading substring at most n
+       characters long (exclusive of the trailing NUL).

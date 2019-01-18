@@ -1,0 +1,44 @@
+
+       Extended Berkeley Packet Filter ( eBPF ) and classic Berkeley Packet
+       Filter (originally known as BPF, for better distinction referred to
+       as cBPF here) are both available as a fully programmable and highly
+       efficient classifier and actions. They both offer a minimal
+       instruction set for implementing small programs which can safely be
+       loaded into the kernel and thus executed in a tiny virtual machine
+       from kernel space. An in-kernel verifier guarantees that a specified
+       program always terminates and neither crashes nor leaks data from the
+       kernel.
+       In Linux, it's generally considered that eBPF is the successor of
+       cBPF.  The kernel internally transforms cBPF expressions into eBPF
+       expressions and executes the latter. Execution of them can be
+       performed in an interpreter or at setup time, they can be just-in-
+       time compiled (JIT'ed) to run as native machine code. Currently,
+       x86_64, ARM64, s390, ppc64 and sparc64 architectures have eBPF JIT
+       support, whereas PPC, SPARC, ARM and MIPS have cBPF, but did not
+       (yet) switch to eBPF JIT support.
+       eBPF's instruction set has similar underlying principles as the cBPF
+       instruction set, it however is modelled closer to the underlying
+       architecture to better mimic native instruction sets with the aim to
+       achieve a better run-time performance. It is designed to be JIT'ed
+       with a one to one mapping, which can also open up the possibility for
+       compilers to generate optimized eBPF code through an eBPF backend
+       that performs almost as fast as natively compiled code. Given that
+       LLVM provides such an eBPF backend, eBPF programs can therefore
+       easily be programmed in a subset of the C language. Other than that,
+       eBPF infrastructure also comes with a construct called "maps". eBPF
+       maps are key/value stores that are shared between multiple eBPF
+       programs, but also between eBPF programs and user space applications.
+       For the traffic control subsystem, classifier and actions that can be
+       attached to ingress and egress qdiscs can be written in eBPF or cBPF.
+       The advantage over other classifier and actions is that eBPF/cBPF
+       provides the generic framework, while users can implement their
+       highly specialized use cases efficiently. This means that the
+       classifier or action written that way will not suffer from feature
+       bloat, and can therefore execute its task highly efficient. It allows
+       for non-linear classification and even merging the action part into
+       the classification. Combined with efficient eBPF map data structures,
+       user space can push new policies like classids into the kernel
+       without reloading a classifier, or it can gather statistics that are
+       pushed into one map and use another one for dynamically load
+       balancing traffic based on the determined load, just to provide a few
+       examples.

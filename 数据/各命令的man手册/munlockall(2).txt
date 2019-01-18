@@ -1,0 +1,63 @@
+
+       mlock(), mlock2(), and mlockall() lock part or all of the calling
+       process's virtual address space into RAM, preventing that memory from
+       being paged to the swap area.
+       munlock() and munlockall() perform the converse operation, unlocking
+       part or all of the calling process's virtual address space, so that
+       pages in the specified virtual address range may once more to be
+       swapped out if required by the kernel memory manager.
+       Memory locking and unlocking are performed in units of whole pages.
+   mlock(), mlock2(), and munlock()
+       mlock() locks pages in the address range starting at addr and
+       continuing for len bytes.  All pages that contain a part of the
+       specified address range are guaranteed to be resident in RAM when the
+       call returns successfully; the pages are guaranteed to stay in RAM
+       until later unlocked.
+       mlock2() also locks pages in the specified range starting at addr and
+       continuing for len bytes.  However, the state of the pages contained
+       in that range after the call returns successfully will depend on the
+       value in the flags argument.
+       The flags argument can be either 0 or the following constant:
+       MLOCK_ONFAULT
+              Lock pages that are currently resident and mark the entire
+              range so that the remaining nonresident pages locked when they
+              are populated by a page fault.
+       If flags is 0, mlock2() behaves exactly the same as mlock().
+       munlock() unlocks pages in the address range starting at addr and
+       continuing for len bytes.  After this call, all pages that contain a
+       part of the specified memory range can be moved to external swap
+       space again by the kernel.
+   mlockall() and munlockall()
+       mlockall() locks all pages mapped into the address space of the
+       calling process.  This includes the pages of the code, data and stack
+       segment, as well as shared libraries, user space kernel data, shared
+       memory, and memory-mapped files.  All mapped pages are guaranteed to
+       be resident in RAM when the call returns successfully; the pages are
+       guaranteed to stay in RAM until later unlocked.
+       The flags argument is constructed as the bitwise OR of one or more of
+       the following constants:
+       MCL_CURRENT Lock all pages which are currently mapped into the
+                   address space of the process.
+       MCL_FUTURE  Lock all pages which will become mapped into the address
+                   space of the process in the future.  These could be, for
+                   instance, new pages required by a growing heap and stack
+                   as well as new memory-mapped files or shared memory
+                   regions.
+       MCL_ONFAULT (since Linux 4.4)
+                   Used together with MCL_CURRENT, MCL_FUTURE, or both.
+                   Mark all current (with MCL_CURRENT) or future (with
+                   MCL_FUTURE) mappings to lock pages when they are faulted
+                   in.  When used with MCL_CURRENT, all present pages are
+                   locked, but mlockall() will not fault in non-present
+                   pages.  When used with MCL_FUTURE, all future mappings
+                   will be marked to lock pages when they are faulted in,
+                   but they will not be populated by the lock when the
+                   mapping is created.  MCL_ONFAULT must be used with either
+                   MCL_CURRENT or MCL_FUTURE or both.
+       If MCL_FUTURE has been specified, then a later system call (e.g.,
+       mmap(2), sbrk(2), malloc(3)), may fail if it would cause the number
+       of locked bytes to exceed the permitted maximum (see below).  In the
+       same circumstances, stack growth may likewise fail: the kernel will
+       deny stack expansion and deliver a SIGSEGV signal to the process.
+       munlockall() unlocks all pages mapped into the address space of the
+       calling process.

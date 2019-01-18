@@ -1,0 +1,4 @@
+
+       auparse_get_node gets the machine's node name if it exists in the
+       audit event from the current event's timestamp data structure. Not
+       all records have node names since its an admin configurable option.

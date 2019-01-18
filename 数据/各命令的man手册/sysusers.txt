@@ -1,0 +1,7 @@
+
+       systemd-sysusers uses the files from sysusers.d directory to create
+       system users and groups at package installation or boot time. This
+       tool may be used to allocate system users and groups only, it is not
+       useful for creating non-system users and groups, as it accesses
+       /etc/passwd and /etc/group directly, bypassing any more complex user
+       databases, for example any database involving NIS or LDAP.

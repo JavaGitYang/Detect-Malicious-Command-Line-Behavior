@@ -1,0 +1,7 @@
+
+       The function get_nprocs_conf() returns the number of processors
+       configured by the operating system.
+       The function get_nprocs() returns the number of processors currently
+       available in the system.  This may be less than the number returned
+       by get_nprocs_conf() because processors may be offline (e.g., on
+       hotpluggable systems).

@@ -1,0 +1,9 @@
+
+       The files in $PCP_TMP_DIR/mmv are generated either by the
+       mmv_stats_init(3) and mmv_stats2_init(3) functions from the
+       libpcp_mmv library, or by a native language module such as Parfait
+       (Java), Speed (Golang) or Hornet (Rust).
+       There could be multiple files in this directory, each file
+       representing a single source of the performance metrics.  The metrics
+       are harvested by pmdammv(1) which exports them to the rest of the
+       Performance Co-Pilot infrastructure.

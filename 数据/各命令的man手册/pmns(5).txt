@@ -1,0 +1,28 @@
+
+       When using the Performance Metrics Programming Interface (PMAPI) of
+       the Performance Co-Pilot (PCP), performance metrics are identified by
+       an external name in a hierarchic Performance Metrics Name Space
+       (PMNS), and an internal identifier, the Performance Metric Identifier
+       (PMID).
+       A PMNS specifies the association between a metric's name and its
+       PMID.
+       A PMNS is defined on one or more ASCII source files.
+       Loading of a PMNS is done by calling pmLoadNameSpace(3) or
+       pmLoadASCIINameSpace(3).
+       As of Version 3.10.3 of PCP, by default duplicate names for the same
+       PMID are allowed in the PMNS, although pmLoadASCIINameSpace(3)
+       provides an alternative interface with user-defined control over the
+       processing of duplicate names in the PMNS.  The external format for a
+       PMNS conforms to the syntax and semantics described in the following
+       sections.
+       There is one default PMNS in the files below $PCP_VAR_DIR/pmns,
+       although users and application developers are free to create and use
+       alternate PMNS's.  For an example of this, see the PCP Tutorial in
+       $PCP_DEMOS_DIR/Tutorial.
+       Although an application can call pmLoadNameSpace(3), normally this is
+       only done directly for the -n command line option where an explicit
+       root PMNS file is specified.  Since PCP version 2 uses a distributed
+       PMNS (see below), an application can extract PMNS information from a
+       host's PMCD or an archive.  If the PMNS source is a version 1 archive
+       (see PCPIntro(1)), however, then the local PMNS will be loaded using
+       the path specified by the environment variable PMNS_DEFAULT.

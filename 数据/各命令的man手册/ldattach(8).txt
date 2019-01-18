@@ -1,0 +1,10 @@
+
+       The ldattach daemon opens the specified device file (which should
+       refer to a serial device) and attaches the line discipline ldisc to
+       it for processing of the sent and/or received data.  It then goes
+       into the background keeping the device open so that the line
+       discipline stays loaded.
+       The line discipline ldisc may be specified either by name or by
+       number.
+       In order to detach the line discipline, kill(1) the ldattach process.
+       With no arguments, ldattach prints usage information.

@@ -1,0 +1,4 @@
+
+       clockdiff Measures clock difference between us and destination with 1
+       msec resolution using ICMP TIMESTAMP [2] packets or, optionally, IP
+       TIMESTAMP option [3] option added to ICMP ECHO. [1]

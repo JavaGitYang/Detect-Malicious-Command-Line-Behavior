@@ -1,0 +1,15 @@
+
+       This function instructs GnuTLS to verify the peer's certificate using
+       the provided hostname. If the verification fails the handshake will
+       also fail with GNUTLS_E_CERTIFICATE_VERIFICATION_ERROR. In that case
+       the verification result can be obtained using
+       gnutls_session_get_verify_cert_status().
+       The  hostname pointer provided must remain valid for the lifetime of
+       the session. More precisely it should be available during any
+       subsequent handshakes. If no hostname is provided, no hostname
+       verification will be performed. For a more advanced verification
+       function check gnutls_session_set_verify_cert2().
+       If  flags is provided which contain a profile, this function should
+       be called after any session priority setting functions.
+       The gnutls_session_set_verify_cert() function is intended to be used
+       by TLS clients to verify the server's certificate.

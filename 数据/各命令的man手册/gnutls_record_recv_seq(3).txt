@@ -1,0 +1,7 @@
+
+       This function is the same as gnutls_record_recv(), except that it
+       returns in addition to data, the sequence number of the data.  This
+       is useful in DTLS where record packets might be received
+       out-of-order. The returned 8-byte sequence number is an integer in
+       big-endian format and should be treated as a unique message
+       identification.

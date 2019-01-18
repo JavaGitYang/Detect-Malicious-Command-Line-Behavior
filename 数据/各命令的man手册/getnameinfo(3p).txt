@@ -1,0 +1,57 @@
+
+       The getnameinfo() function shall translate a socket address to a node
+       name and service location, all of which are defined as in
+       freeaddrinfo(3p).
+       The sa argument points to a socket address structure to be
+       translated. The salen argument contains the length of the address
+       pointed to by sa.
+       If the socket address structure contains an IPv4-mapped IPv6 address
+       or an IPv4-compatible IPv6 address, the implementation shall extract
+       the embedded IPv4 address and lookup the node name for that IPv4
+       address.
+       If the address is the IPv6 unspecified address ("::"), a lookup shall
+       not be performed and the behavior shall be the same as when the
+       node's name cannot be located.
+       If the node argument is non-NULL and the nodelen argument is non-
+       zero, then the node argument points to a buffer able to contain up to
+       nodelen bytes that receives the node name as a null-terminated
+       string. If the node argument is NULL or the nodelen argument is zero,
+       the node name shall not be returned. If the node's name cannot be
+       located, the numeric form of the address contained in the socket
+       address structure pointed to by the sa argument is returned instead
+       of its name.
+       If the service argument is non-NULL and the servicelen argument is
+       non-zero, then the service argument points to a buffer able to
+       contain up to servicelen bytes that receives the service name as a
+       null-terminated string.  If the service argument is NULL or the
+       servicelen argument is zero, the service name shall not be returned.
+       If the service's name cannot be located, the numeric form of the
+       service address (for example, its port number) shall be returned
+       instead of its name.
+       The flags argument is a flag that changes the default actions of the
+       function. By default the fully-qualified domain name (FQDN) for the
+       host shall be returned, but:
+        *  If the flag bit NI_NOFQDN is set, only the node name portion of
+           the FQDN shall be returned for local hosts.
+        *  If the flag bit NI_NUMERICHOST is set, the numeric form of the
+           address contained in the socket address structure pointed to by
+           the sa argument shall be returned instead of its name.
+        *  If the flag bit NI_NAMEREQD is set, an error shall be returned if
+           the host's name cannot be located.
+        *  If the flag bit NI_NUMERICSERV is set, the numeric form of the
+           service address shall be returned (for example, its port number)
+           instead of its name.
+        *  If the flag bit NI_NUMERICSCOPE is set, the numeric form of the
+           scope identifier shall be returned (for example, interface index)
+           instead of its name. This flag shall be ignored if the sa
+           argument is not an IPv6 address.
+        *  If the flag bit NI_DGRAM is set, this indicates that the service
+           is a datagram service (SOCK_DGRAM). The default behavior shall
+           assume that the service is a stream service (SOCK_STREAM).
+       Notes:
+                  1. The two NI_NUMERICxxx flags are required to support the
+                     −n flag that many commands provide.
+                  2. The NI_DGRAM flag is required for the few AF_INET and
+                     AF_INET6 port numbers (for example, [512,514]) that
+                     represent different services for UDP and TCP.
+       The getnameinfo() function shall be thread-safe.

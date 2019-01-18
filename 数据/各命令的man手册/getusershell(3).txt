@@ -1,0 +1,8 @@
+
+       The getusershell() function returns the next line from the file
+       /etc/shells, opening the file if necessary.  The line should contain
+       the pathname of a valid user shell.  If /etc/shells does not exist or
+       is unreadable, getusershell() behaves as if /bin/sh and /bin/csh were
+       listed in the file.
+       The setusershell() function rewinds /etc/shells.
+       The endusershell() function closes /etc/shells.

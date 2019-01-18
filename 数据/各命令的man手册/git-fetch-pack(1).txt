@@ -1,0 +1,11 @@
+
+       Usually you would want to use git fetch, which is a higher level
+       wrapper of this command, instead.
+       Invokes git-upload-pack on a possibly remote repository and asks it
+       to send objects missing from this repository, to update the named
+       heads. The list of commits available locally is found out by scanning
+       the local refs/ hierarchy and sent to git-upload-pack running on the
+       other end.
+       This command degenerates to download everything to complete the asked
+       refs from the remote side when the local side does not have a common
+       ancestor commit.

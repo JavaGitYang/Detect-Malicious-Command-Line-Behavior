@@ -1,0 +1,6 @@
+
+       This function will set the certificate policy extension (2.5.29.32).
+       Multiple calls to this function append a new policy.
+       Note the maximum text size for the qualifier
+       GNUTLS_X509_QUALIFIER_NOTICE is 200 characters. This function will
+       fail with GNUTLS_E_INVALID_REQUEST if this is exceeded.

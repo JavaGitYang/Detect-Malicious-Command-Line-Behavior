@@ -1,0 +1,19 @@
+
+       As part of the Performance Co-Pilot Log Import API (see
+       LOGIMPORT(3)), pmiAddInstance adds a new element to the instance
+       domain identified by indom.
+       indom would normally be constructed using the pmInDom_build macro,
+       e.g. pmInDom_build(PMI_DOMAIN,0) for the first instance domain in the
+       Performance Metrics Domain PMI_DOMAIN (which is the default for all
+       meta data created by the LOGIMPORT library).
+       The new instance must have both an external name (instance) and an
+       internal instance identifier (inst) that is unique across all
+       instances in the indom instance domain.  There is a special
+       ``uniqueness rule'' for instance that is imposed by pmLookupInDom(3),
+       namely that the external instance name must be unique in the leading
+       non-space characters, e.g. the instance names ``foo'' and ``foo bar''
+       are considered the same by this rule and not allowed in the same
+       instance domain, but ``foo'' and ``foobar'' would be allowed.
+       Once defined, the external instance name can be used in calls to
+       pmiGetHandle(3) and/or pmiPutValue(3) with the name of a metric
+       defined over the same instance domain.

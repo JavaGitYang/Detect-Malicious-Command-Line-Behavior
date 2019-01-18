@@ -1,0 +1,22 @@
+
+       This tutorial explains how to use the "core" Git commands to set up
+       and work with a Git repository.
+       If you just need to use Git as a revision control system you may
+       prefer to start with "A Tutorial Introduction to Git" (‐
+       gittutorial(7)) or the Git User Manual[1].
+       However, an understanding of these low-level tools can be helpful if
+       you want to understand Git’s internals.
+       The core Git is often called "plumbing", with the prettier user
+       interfaces on top of it called "porcelain". You may not want to use
+       the plumbing directly very often, but it can be good to know what the
+       plumbing does when the porcelain isn’t flushing.
+       Back when this document was originally written, many porcelain
+       commands were shell scripts. For simplicity, it still uses them as
+       examples to illustrate how plumbing is fit together to form the
+       porcelain commands. The source tree includes some of these scripts in
+       contrib/examples/ for reference. Although these are not implemented
+       as shell scripts anymore, the description of what the plumbing layer
+       commands do is still valid.
+           Note
+           Deeper technical details are often marked as Notes, which you can
+           skip on your first reading.

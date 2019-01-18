@@ -1,0 +1,10 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       These functions shall break the argument x into integral and
+       fractional parts, each of which has the same sign as the argument. It
+       stores the integral part as a double (for the modf() function), a
+       float (for the modff() function), or a long double (for the modfl()
+       function), in the object pointed to by iptr.

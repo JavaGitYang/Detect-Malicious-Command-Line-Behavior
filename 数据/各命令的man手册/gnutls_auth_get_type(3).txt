@@ -1,0 +1,7 @@
+
+       Returns type of credentials for the current authentication schema.
+       The returned information is to be used to distinguish the function
+       used to access authentication data.
+       Eg. for CERTIFICATE ciphersuites (key exchange algorithms:
+       GNUTLS_KX_RSA, GNUTLS_KX_DHE_RSA), the same function are to be used
+       to access the authentication data.

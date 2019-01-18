@@ -1,0 +1,9 @@
+
+       sd_id128_randomize() generates a new randomized 128-bit ID and
+       returns it in ret. Every invocation returns a new randomly generated
+       ID. This uses the /dev/urandom kernel random number generator.
+       Note that sd_id128_randomize() always returns a UUID v4-compatible
+       ID.
+       For more information about the "sd_id128_t" type, see sd-id128(3).
+       journalctl(1)'s --new-id128 option may be used as a command line
+       front-end for sd_id128_randomize().

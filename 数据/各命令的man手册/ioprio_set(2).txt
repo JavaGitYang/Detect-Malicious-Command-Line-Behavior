@@ -1,0 +1,47 @@
+
+       The ioprio_get() and ioprio_set() system calls respectively get and
+       set the I/O scheduling class and priority of one or more threads.
+       The which and who arguments identify the thread(s) on which the
+       system calls operate.  The which argument determines how who is
+       interpreted, and has one of the following values:
+       IOPRIO_WHO_PROCESS
+              who is a process ID or thread ID identifying a single process
+              or thread.  If who is 0, then operate on the calling thread.
+       IOPRIO_WHO_PGRP
+              who is a process group ID identifying all the members of a
+              process group.  If who is 0, then operate on the process group
+              of which the caller is a member.
+       IOPRIO_WHO_USER
+              who is a user ID identifying all of the processes that have a
+              matching real UID.
+       If which is specified as IOPRIO_WHO_PGRP or IOPRIO_WHO_USER when
+       calling ioprio_get(), and more than one process matches who, then the
+       returned priority will be the highest one found among all of the
+       matching processes.  One priority is said to be higher than another
+       one if it belongs to a higher priority class (IOPRIO_CLASS_RT is the
+       highest priority class; IOPRIO_CLASS_IDLE is the lowest) or if it
+       belongs to the same priority class as the other process but has a
+       higher priority level (a lower priority number means a higher
+       priority level).
+       The ioprio argument given to ioprio_set() is a bit mask that
+       specifies both the scheduling class and the priority to be assigned
+       to the target process(es).  The following macros are used for
+       assembling and dissecting ioprio values:
+       IOPRIO_PRIO_VALUE(class, data)
+              Given a scheduling class and priority (data), this macro
+              combines the two values to produce an ioprio value, which is
+              returned as the result of the macro.
+       IOPRIO_PRIO_CLASS(mask)
+              Given mask (an ioprio value), this macro returns its I/O class
+              component, that is, one of the values IOPRIO_CLASS_RT,
+              IOPRIO_CLASS_BE, or IOPRIO_CLASS_IDLE.
+       IOPRIO_PRIO_DATA(mask)
+              Given mask (an ioprio value), this macro returns its priority
+              (data) component.
+       See the NOTES section for more information on scheduling classes and
+       priorities, as well as the meaning of specifying ioprio as 0.
+       I/O priorities are supported for reads and for synchronous (O_DIRECT,
+       O_SYNC) writes.  I/O priorities are not supported for asynchronous
+       writes because they are issued outside the context of the program
+       dirtying the memory, and thus program-specific priorities do not
+       apply.

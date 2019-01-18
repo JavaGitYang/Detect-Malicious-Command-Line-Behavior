@@ -1,0 +1,30 @@
+
+       The posix_madvise() function shall advise the implementation on the
+       expected behavior of the application with respect to the data in the
+       memory starting at address addr, and continuing for len bytes. The
+       implementation may use this information to optimize handling of the
+       specified data. The posix_madvise() function shall have no effect on
+       the semantics of access to memory in the specified range, although it
+       may affect the performance of access.
+       The implementation may require that addr be a multiple of the page
+       size, which is the value returned by sysconf() when the name value
+       _SC_PAGESIZE is used.
+       The advice to be applied to the memory range is specified by the
+       advice parameter and may be one of the following values:
+       POSIX_MADV_NORMAL
+             Specifies that the application has no advice to give on its
+             behavior with respect to the specified range. It is the default
+             characteristic if no advice is given for a range of memory.
+       POSIX_MADV_SEQUENTIAL
+             Specifies that the application expects to access the specified
+             range sequentially from lower addresses to higher addresses.
+       POSIX_MADV_RANDOM
+             Specifies that the application expects to access the specified
+             range in a random order.
+       POSIX_MADV_WILLNEED
+             Specifies that the application expects to access the specified
+             range in the near future.
+       POSIX_MADV_DONTNEED
+             Specifies that the application expects that it will not access
+             the specified range in the near future.
+       These values are defined in the <sys/mman.h> header.

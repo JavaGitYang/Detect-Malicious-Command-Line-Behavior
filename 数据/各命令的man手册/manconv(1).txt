@@ -1,0 +1,13 @@
+
+       manconv converts a manual page from one encoding to another, like
+       iconv.  Unlike iconv, it can try multiple possible input encodings in
+       sequence.  This is useful for manual pages installed in directories
+       without an explicit encoding declaration, since they may be in UTF-8
+       or in a legacy character set.
+       If an encoding declaration is found on the first line of the manual
+       page, that declaration overrides any input encodings specified on
+       manconv's command line.  Encoding declarations have the following
+       form:
+              '\" -*- coding: UTF-8 -*-
+       or (if manual page preprocessors are also to be declared):
+              '\" t -*- coding: ISO-8859-1 -*-

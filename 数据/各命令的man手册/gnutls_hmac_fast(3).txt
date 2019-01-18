@@ -1,0 +1,3 @@
+
+       This convenience function will hash the given data and return output
+       on a single call.

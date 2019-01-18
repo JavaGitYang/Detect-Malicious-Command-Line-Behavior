@@ -1,0 +1,6 @@
+
+       Print the prime factors of each specified integer NUMBER.  If none
+       are specified on the command line, read them from standard input.
+       --help display this help and exit
+       --version
+              output version information and exit

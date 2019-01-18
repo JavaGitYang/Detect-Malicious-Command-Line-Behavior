@@ -1,0 +1,12 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       Except that it returns no value, the function call:
+           setbuf(stream, buf)
+       shall be equivalent to:
+           setvbuf(stream, buf, _IOFBF, BUFSIZ)
+       if buf is not a null pointer, or to:
+           setvbuf(stream, buf, _IONBF, BUFSIZ)
+       if buf is a null pointer.

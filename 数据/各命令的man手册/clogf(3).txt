@@ -1,0 +1,9 @@
+
+       These functions calculate the complex natural logarithm of z, with a
+       branch cut along the negative real axis.
+       The logarithm clog() is the inverse function of the exponential
+       cexp(3).  Thus, if y = clog(z), then z = cexp(y).  The imaginary part
+       of y is chosen in the interval [-pi,pi].
+       One has:
+           clog(z) = log(cabs(z)) + I * carg(z)
+       Note that z close to zero will cause an overflow.

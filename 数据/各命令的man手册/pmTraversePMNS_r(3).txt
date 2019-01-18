@@ -1,0 +1,32 @@
+
+       The routine pmTraversePMNS may be used to perform a depth-first
+       traversal of the Performance Metrics Name Space (PMNS).
+       The traversal starts at the node identified by name - if name is an
+       empty string (i.e. ""), the traversal starts at the root of the PMNS.
+       Usually name would be the pathname of a non-leaf node in the PMNS.
+       For each leaf node (i.e. performance metric) found in the traversal,
+       the user-supplied routine dometric is called with the full pathname
+       of that metric in the PMNS as the single argument.  This argument is
+       null-byte terminated, and is constructed from a buffer that is
+       managed internally to pmTraversePMNS.  Consequently the value is only
+       valid during the call to dometric - if the pathname needs to be
+       retained, it should be copied using strdup(3) before returning from
+       dometric.
+       The pmTraversePMNS_r routine performs the same function, except the
+       callback method func_r has an additional parameter that will be
+       closure from the initial call to pmTraversePMNS_r.  The additional
+       parameter to pmTraversePMNS_r and the callback method allows the
+       caller to pass context through pmTraversePMNS_r and into the callback
+       method func_r, making the service more useful for multi-threaded
+       applications where thread-private data can be accessed in the
+       callback method via the closure argument.
+       On success pmTraversePMNS and pmTraversePMNS_r return the number of
+       leaf nodes found in the traversal, which will be one (1) if name is
+       either a leaf node, or a derived metric or a non-leaf node with one
+       child.  If name is a non-leaf node, the returned value will be zero
+       or greater (zero is returned in the special case where name is a
+       dynamic root node that currently has no children).  In all cases,
+       derived metrics present in the PMNS subtree below name are counted as
+       leaf-nodes.  If an an error occurs, pmTraversePMNS and
+       pmTraversePMNS_r will return a negative error code, as described in
+       the DIAGNOSTICS section below.

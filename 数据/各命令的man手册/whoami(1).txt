@@ -1,0 +1,6 @@
+
+       Print the user name associated with the current effective user ID.
+       Same as id -un.
+       --help display this help and exit
+       --version
+              output version information and exit

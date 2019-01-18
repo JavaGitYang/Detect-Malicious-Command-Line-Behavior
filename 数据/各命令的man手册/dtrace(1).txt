@@ -1,0 +1,4 @@
+
+       The dtrace command converts probe descriptions defined in file.d into
+       a probe header file via the -h option or a probe description file via
+       the -G option.

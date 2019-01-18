@@ -1,0 +1,10 @@
+
+       The mapscrn command is obsolete - its function is now built-in into
+       setfont.  However, for backwards compatibility it is still available
+       as a separate command.
+       The mapscrn command loads a user defined output character mapping
+       table into the console driver. The console driver may be later put
+       into use user-defined mapping table mode by outputting a special
+       escape sequence to the console device.  This sequence is <esc>(K for
+       the G0 character set and <esc>)K for the G1 character set.  When the
+       -o option is given, the old map is saved in map.orig.

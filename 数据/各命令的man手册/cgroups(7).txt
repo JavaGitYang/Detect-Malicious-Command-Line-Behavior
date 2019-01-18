@@ -1,0 +1,55 @@
+
+       Control cgroups, usually referred to as cgroups, are a Linux kernel
+       feature which allow processes to be organized into hierarchical
+       groups whose usage of various types of resources can then be limited
+       and monitored.  The kernel's cgroup interface is provided through a
+       pseudo-filesystem called cgroupfs.  Grouping is implemented in the
+       core cgroup kernel code, while resource tracking and limits are
+       implemented in a set of per-resource-type subsystems (memory, CPU,
+       and so on).
+   Terminology
+       A cgroup is a collection of processes that are bound to a set of
+       limits or parameters defined via the cgroup filesystem.
+       A subsystem is a kernel component that modifies the behavior of the
+       processes in a cgroup.  Various subsystems have been implemented,
+       making it possible to do things such as limiting the amount of CPU
+       time and memory available to a cgroup, accounting for the CPU time
+       used by a cgroup, and freezing and resuming execution of the
+       processes in a cgroup.  Subsystems are sometimes also known as
+       resource controllers (or simply, controllers).
+       The cgroups for a controller are arranged in a hierarchy.  This
+       hierarchy is defined by creating, removing, and renaming
+       subdirectories within the cgroup filesystem.  At each level of the
+       hierarchy, attributes (e.g., limits) can be defined.  The limits,
+       control, and accounting provided by cgroups generally have effect
+       throughout the subhierarchy underneath the cgroup where the
+       attributes are defined.  Thus, for example, the limits placed on a
+       cgroup at a higher level in the hierarchy cannot be exceeded by
+       descendant cgroups.
+   Cgroups version 1 and version 2
+       The initial release of the cgroups implementation was in Linux
+       2.6.24.  Over time, various cgroup controllers have been added to
+       allow the management of various types of resources.  However, the
+       development of these controllers was largely uncoordinated, with the
+       result that many inconsistencies arose between controllers and
+       management of the cgroup hierarchies became rather complex.  (A
+       longer description of these problems can be found in the kernel
+       source file Documentation/cgroup-v2.txt.)
+       Because of the problems with the initial cgroups implementation
+       (cgroups version 1), starting in Linux 3.10, work began on a new,
+       orthogonal implementation to remedy these problems.  Initially marked
+       experimental, and hidden behind the -o __DEVEL__sane_behavior mount
+       option, the new version (cgroups version 2) was eventually made
+       official with the release of Linux 4.5.  Differences between the two
+       versions are described in the text below.
+       Although cgroups v2 is intended as a replacement for cgroups v1, the
+       older system continues to exist (and for compatibility reasons is
+       unlikely to be removed).  Currently, cgroups v2 implements only a
+       subset of the controllers available in cgroups v1.  The two systems
+       are implemented so that both v1 controllers and v2 controllers can be
+       mounted on the same system.  Thus, for example, it is possible to use
+       those controllers that are supported under version 2, while also
+       using version 1 controllers where version 2 does not yet support
+       those controllers.  The only restriction here is that a controller
+       can't be simultaneously employed in both a cgroups v1 hierarchy and
+       in the cgroups v2 hierarchy.

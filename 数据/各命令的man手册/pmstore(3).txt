@@ -1,0 +1,18 @@
+
+       In some special cases it may be helpful to modify the current values
+       of performance metrics, e.g. to reset a counter to zero, or to modify
+       a ``metric'' which is a control variable for some agent collecting
+       performance metrics.
+       The routine pmStore is a lightweight inverse of pmFetch(3).
+       The caller must build the pmResult data structure (of course, this
+       could have been returned from an earlier pmFetch(3) call) and then
+       call pmStore.
+       It is an error to pass a request to pmStore in which the numval field
+       within any of the pmValueSet structure has a value less than one.
+       The current Performance Metrics Application Programming Interface
+       (PMAPI) context must be one with a host as the source of metrics, and
+       the current value of the nominated metrics will be changed, i.e.
+       pmStore cannot be used to make retrospective changes to information
+       in either the archive logs, or in the recent past for real-time
+       sources of metrics.
+       The return code from pmStore is zero for success.

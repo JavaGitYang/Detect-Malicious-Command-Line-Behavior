@@ -1,0 +1,4 @@
+
+       By default, ophelp lists the available performance counter options.
+       If you give it a symbolic event name, it will return the hardware
+       value (e.g. "ophelp DATA_MEM_REFS").

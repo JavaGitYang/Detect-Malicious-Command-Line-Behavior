@@ -1,0 +1,22 @@
+
+       dh_usrlocal is a debhelper program that can be used for building
+       packages that will provide a subdirectory in /usr/local when
+       installed.
+       It finds subdirectories of usr/local in the package build directory,
+       and removes them, replacing them with maintainer script snippets
+       (unless -n is used) to create the directories at install time, and
+       remove them when the package is removed, in a manner compliant with
+       Debian policy. These snippets are inserted into the maintainer
+       scripts by dh_installdeb. See dh_installdeb(1) for an explanation of
+       debhelper maintainer script snippets.
+       When the Rules-Requires-Root field is not (effectively) binary-
+       targets, the directories in /usr/local will have ownership root:staff
+       and the mode will be 02775.  These values have been chosen to comply
+       with the recommendations of the Debian policy for directories in
+       /usr/local.
+       When Rules-Requires-Root has an effective value of binary-targets,
+       the owners, groups and permissions will be preserved with one
+       exception.  If the directory is owned by root:root, then ownership
+       will be reset to root:staff and mode will be reset to 02775. This is
+       useful, since that is the group and mode policy recommends for
+       directories in /usr/local.

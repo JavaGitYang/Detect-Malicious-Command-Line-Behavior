@@ -1,0 +1,2 @@
+
+       This function will clear a PKCS 7 attribute list.

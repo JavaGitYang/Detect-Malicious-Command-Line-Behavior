@@ -1,0 +1,3 @@
+
+       This function will set the public parameters from the given private
+       key to the request. Only RSA keys are currently supported.

@@ -1,0 +1,11 @@
+
+       The alias utility shall create or redefine alias definitions or write
+       the values of existing alias definitions to standard output. An alias
+       definition provides a string value that shall replace a command name
+       when it is encountered; see Section 2.3.1, Alias Substitution.
+       An alias definition shall affect the current shell execution
+       environment and the execution environments of the subshells of the
+       current shell. When used as specified by this volume of POSIX.1‐2008,
+       the alias definition shall not affect the parent process of the
+       current shell nor any utility environment invoked by the shell; see
+       Section 2.12, Shell Execution Environment.

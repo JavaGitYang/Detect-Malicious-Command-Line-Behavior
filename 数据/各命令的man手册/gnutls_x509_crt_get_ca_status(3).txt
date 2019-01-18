@@ -1,0 +1,7 @@
+
+       This function will return certificates CA status, by reading the
+       basicConstraints X.509 extension (2.5.29.19). If the certificate is a
+       CA a positive value will be returned, or (0) if the certificate does
+       not have CA flag set.
+       Use gnutls_x509_crt_get_basic_constraints() if you want to read the
+       pathLenConstraint field too.

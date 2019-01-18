@@ -1,0 +1,12 @@
+
+       This function will add the given certificate to the trusted list and
+       associate it with a name. The certificate will not be be used for
+       verification with gnutls_x509_trust_list_verify_crt() but with
+       gnutls_x509_trust_list_verify_named_crt() or
+       gnutls_x509_trust_list_verify_crt2() - the latter only since GnuTLS
+       3.4.0 and if a hostname is provided.
+       In principle this function can be used to set individual "server"
+       certificates that are trusted by the user for that specific server
+       but for no other purposes.
+       The certificate must not be deinitialized during the lifetime of the
+       trusted list.

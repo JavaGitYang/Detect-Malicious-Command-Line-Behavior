@@ -1,0 +1,3 @@
+
+       The library supports the Intel Skylake X Server Integrated Memory
+       Controller (IMC) uncore PMU.

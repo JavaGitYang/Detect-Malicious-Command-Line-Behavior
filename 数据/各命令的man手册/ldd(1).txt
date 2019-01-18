@@ -1,0 +1,38 @@
+
+       ldd prints the shared objects (shared libraries) required by each
+       program or shared object specified on the command line.  An example
+       of its use and output is the following:
+         $ ldd /bin/ls
+                 linux-vdso.so.1 (0x00007ffcc3563000)
+                 libselinux.so.1 => /lib64/libselinux.so.1 (0x00007f87e5459000)
+                 libcap.so.2 => /lib64/libcap.so.2 (0x00007f87e5254000)
+                 libc.so.6 => /lib64/libc.so.6 (0x00007f87e4e92000)
+                 libpcre.so.1 => /lib64/libpcre.so.1 (0x00007f87e4c22000)
+                 libdl.so.2 => /lib64/libdl.so.2 (0x00007f87e4a1e000)
+                 /lib64/ld-linux-x86-64.so.2 (0x00005574bf12e000)
+                 libattr.so.1 => /lib64/libattr.so.1 (0x00007f87e4817000)
+                 libpthread.so.0 => /lib64/libpthread.so.0 (0x00007f87e45fa000)
+       In the usual case, ldd invokes the standard dynamic linker (see
+       ld.so(8)) with the LD_TRACE_LOADED_OBJECTS environment variable set
+       to 1.  This causes the dynamic linker to inspect the program's
+       dynamic dependencies, and find (according to the rules described in
+       ld.so(8)) and load the objects that satisfy those dependencies.  For
+       each dependency, ldd displays the location of the matching object and
+       the (hexadecimal) address at which it is loaded.  (The linux-vdso and
+       ld-linux shared dependencies are special; see vdso(7) and ld.so(8).)
+   Security
+       Be aware that in some circumstances (e.g., where the program speci‐
+       fies an ELF interpreter other than ld-linux.so), some versions of ldd
+       may attempt to obtain the dependency information by attempting to
+       directly execute the program, which may lead to the execution of
+       whatever code is defined in the program's ELF interpreter, and per‐
+       haps to execution of the program itself.  (In glibc versions before
+       2.27, the upstream ldd implementation did this for example, although
+       most distributions provided a modified version that did not.)
+       Thus, you should never employ ldd on an untrusted executable, since
+       this may result in the execution of arbitrary code.  A safer alterna‐
+       tive when dealing with untrusted executables is:
+           $ objdump -p /path/to/program | grep NEEDED
+       Note, however, that this alternative shows only the direct dependen‐
+       cies of the executable, while ldd shows the entire dependency tree of
+       the executable.

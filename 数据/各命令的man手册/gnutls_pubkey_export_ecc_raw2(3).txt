@@ -1,0 +1,5 @@
+
+       This function will export the ECC public key's parameters found in
+       the given key.  The new parameters will be allocated using
+       gnutls_malloc() and will be stored in the appropriate datum.
+       This function allows for NULL parameters since 3.4.1.

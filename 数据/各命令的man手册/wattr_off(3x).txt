@@ -1,0 +1,79 @@
+
+       These routines manipulate the current attributes of the named window,
+       which then apply to all characters that are written into the window
+       with waddch, waddstr and wprintw.  Attributes are a property of the
+       character, and move with the character through any scrolling and
+       insert/delete line/character operations.  To the extent possible,
+       they are displayed as appropriate modifications to the graphic
+       rendition of characters put on the screen.
+       These routines do not affect the attributes used when erasing
+       portions of the window.  See curs_bkgd(3X) for functions which modify
+       the attributes used for erasing and clearing.
+       Routines which do not have a WINDOW* parameter apply to stdscr.  For
+       example, attr_set is the stdscr variant of wattr_set.
+   Window attributes
+       There are two sets of functions:
+       ·   functions for manipulating the window attributes and color:
+           wattr_set and wattr_get.
+       ·   functions for manipulating only the window attributes (not
+           color): wattr_on and wattr_off.
+       The wattr_set function sets the current attributes of the given
+       window to attrs, with color specified by pair.
+       Use wattr_get to retrieve attributes for the given window.
+       Use attr_on and wattr_on to turn on window attributes, i.e., values
+       OR'd together in attr, without affecting other attributes.  Use
+       attr_off and wattr_off to turn off window attributes, again values
+       OR'd together in attr, without affecting other attributes.
+   Legacy window attributes
+       The X/Open window attribute routines which set or get, turn on or off
+       are extensions of older routines which assume that color pairs are
+       OR'd into the attribute parameter.  These newer routines use similar
+       names, because X/Open simply added an underscore (_) for the newer
+       names.
+       The int datatype used in the legacy routines is treated as if it is
+       the same size as chtype (used by addch(3X)).  It holds the common
+       video attributes (such as bold, reverse), as well as a few bits for
+       color.  Those bits correspond to the A_COLOR symbol.  The COLOR_PAIR
+       macro provides a value which can be OR'd into the attribute
+       parameter.  For example, as long as that value fits into the A_COLOR
+       mask, then these calls produce similar results:
+           attrset(A_BOLD | COLOR_PAIR(pair));
+           attr_set(A_BOLD, pair, NULL);
+       However, if the value does not fit, then the COLOR_PAIR macro uses
+       only the bits that fit.  For example, because in ncurses A_COLOR has
+       eight (8) bits, then COLOR_PAIR(259) is 4 (259-255).
+       The PAIR_NUMBER macro extracts a pair number from an int (or chtype).
+       For example, the input and output values in these statements would be
+       the same:
+           int value = A_BOLD | COLOR_PAIR(input);
+           int output = PAIR_NUMBER(value);
+       The attrset routine is a legacy feature predating SVr4 curses but
+       kept in X/Open Curses for the same reason that SVr4 curses kept it:
+       compatibility.
+       The remaining attr* functions operate exactly like the corresponding
+       attr_* functions, except that they take arguments of type int rather
+       than attr_t.
+       There is no corresponding attrget function as such in X/Open Curses,
+       although ncurses provides getattrs (see curs_legacy(3X)).
+   Change character rendition
+       The routine chgat changes the attributes of a given number of
+       characters starting at the current cursor location of stdscr.  It
+       does not update the cursor and does not perform wrapping.  A
+       character count of -1 or greater than the remaining window width
+       means to change attributes all the way to the end of the current
+       line.  The wchgat function generalizes this to any window; the
+       mvwchgat function does a cursor move before acting.
+       In these functions, the color pair argument is a color-pair index (as
+       in the first argument of init_pair, see curs_color(3X)).
+   Change window color
+       The routine color_set sets the current color of the given window to
+       the foreground/background combination described by the color pair
+       parameter.
+   Standout
+       The routine standout is the same as attron(A_STANDOUT).  The routine
+       standend is the same as attrset(A_NORMAL) or attrset(0), that is, it
+       turns off all attributes.
+       X/Open does not mark these "restricted", because
+       ·   they have well established legacy use, and
+       ·   there is no ambiguity about the way the attributes might be
+           combined with a color pair.

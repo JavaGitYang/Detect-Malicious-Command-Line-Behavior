@@ -1,0 +1,18 @@
+
+       sched_setparam() sets the scheduling parameters associated with the
+       scheduling policy for the process identified by pid.  If pid is zero,
+       then the parameters of the calling process are set.  The
+       interpretation of the argument param depends on the scheduling policy
+       of the process identified by pid.  See sched(7) for a description of
+       the scheduling policies supported under Linux.
+       sched_getparam() retrieves the scheduling parameters for the process
+       identified by pid.  If pid is zero, then the parameters of the
+       calling process are retrieved.
+       sched_setparam() checks the validity of param for the scheduling
+       policy of the thread.  The value param->sched_priority must lie
+       within the range given by sched_get_priority_min(2) and
+       sched_get_priority_max(2).
+       For a discussion of the privileges and resource limits related to
+       scheduling priority and policy, see sched(7).
+       POSIX systems on which sched_setparam() and sched_getparam() are
+       available define _POSIX_PRIORITY_SCHEDULING in <unistd.h>.

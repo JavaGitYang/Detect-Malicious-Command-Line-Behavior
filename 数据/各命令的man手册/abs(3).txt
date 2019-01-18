@@ -1,0 +1,5 @@
+
+       The abs() function computes the absolute value of the integer
+       argument j.  The labs(), llabs() and imaxabs() functions compute the
+       absolute value of the argument j of the appropriate integer type for
+       the function.

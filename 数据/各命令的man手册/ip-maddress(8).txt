@@ -1,0 +1,15 @@
+
+       maddress objects are multicast addresses.
+   ip maddress show - list multicast addresses
+       dev NAME (default)
+              the device name.
+       ip maddress add - add a multicast address
+       ip maddress delete - delete a multicast address
+              These commands attach/detach a static link-layer multicast
+              address to listen on the interface.  Note that it is
+              impossible to join protocol multicast groups statically. This
+              command only manages link-layer addresses.
+              address LLADDRESS (default)
+                     the link-layer multicast address.
+              dev NAME
+                     the device to join/leave this multicast address.

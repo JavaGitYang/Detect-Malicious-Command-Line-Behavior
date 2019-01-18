@@ -1,0 +1,22 @@
+
+       Debhelper is used to help you build a Debian package. The philosophy
+       behind debhelper is to provide a collection of small, simple, and
+       easily understood tools that are used in debian/rules to automate
+       various common aspects of building a package. This means less work
+       for you, the packager.  It also, to some degree means that these
+       tools can be changed if Debian policy changes, and packages that use
+       them will require only a rebuild to comply with the new policy.
+       A typical debian/rules file that uses debhelper will call several
+       debhelper commands in sequence, or use dh(1) to automate this
+       process. Examples of rules files that use debhelper are in
+       /usr/share/doc/debhelper/examples/
+       To create a new Debian package using debhelper, you can just copy one
+       of the sample rules files and edit it by hand. Or you can try the dh-
+       make package, which contains a dh_make command that partially
+       automates the process. For a more gentle introduction, the maint-
+       guide Debian package contains a tutorial about making your first
+       package using debhelper.
+       Except where tool explicitly denotes otherwise, all of the debhelper
+       tools assumes that they run from root directory of an unpacked source
+       package.  This is so they can locate find debian/control and
+       debian/compat when needed.

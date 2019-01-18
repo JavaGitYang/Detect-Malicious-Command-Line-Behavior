@@ -1,0 +1,3 @@
+
+       auparse_first_field repositions the library's internal cursor to
+       point to the first field of the current record in the current event.

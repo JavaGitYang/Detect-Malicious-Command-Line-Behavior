@@ -1,0 +1,5 @@
+
+       sd_journal_get_usage() determines the total disk space currently used
+       by journal files (in bytes). If SD_JOURNAL_LOCAL_ONLY was passed when
+       opening the journal, this value will only reflect the size of journal
+       files of the local host, otherwise of all hosts.

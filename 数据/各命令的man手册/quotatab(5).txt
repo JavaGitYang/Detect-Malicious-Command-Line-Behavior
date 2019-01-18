@@ -1,0 +1,9 @@
+
+       The quotatab file lists human descriptions of devices for the purpose
+       of warnquota(8) notifications.
+       Each line consists of a device path name followed by a colon and a
+       description. White space, apostrophe, and double quote characters
+       surrounding the names and descriptions will be stripped. The
+       description field can encode a new-line as a pipe character.
+       Empty lines or lines starting with a hash sign or a semicolon are
+       ignored.

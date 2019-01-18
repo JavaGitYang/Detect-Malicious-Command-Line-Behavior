@@ -1,0 +1,7 @@
+
+       The pthread_detach() function shall indicate to the implementation
+       that storage for the thread thread can be reclaimed when that thread
+       terminates. If thread has not terminated, pthread_detach() shall not
+       cause it to terminate.
+       The behavior is undefined if the value specified by the thread
+       argument to pthread_detach() does not refer to a joinable thread.

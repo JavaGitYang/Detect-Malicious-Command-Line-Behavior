@@ -1,0 +1,4 @@
+
+       pcap_lookupnet() is used to determine the IPv4 network number and
+       mask associated with the network device device.  Both netp and maskp
+       are bpf_u_int32 pointers.

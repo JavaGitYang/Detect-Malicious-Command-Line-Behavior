@@ -1,0 +1,3 @@
+
+       The groupmod command modifies the definition of the specified GROUP
+       by modifying the appropriate entry in the group database.

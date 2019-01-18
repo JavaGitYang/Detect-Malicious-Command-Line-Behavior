@@ -1,0 +1,3 @@
+
+       This function will return a string that describes the given alert
+       number, or NULL.  See gnutls_alert_get().

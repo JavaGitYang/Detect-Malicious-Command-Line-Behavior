@@ -1,0 +1,11 @@
+
+       tgkill() sends the signal sig to the thread with the thread ID tid in
+       the thread group tgid.  (By contrast, kill(2) can be used to send a
+       signal only to a process (i.e., thread group) as a whole, and the
+       signal will be delivered to an arbitrary thread within that process.)
+       tkill() is an obsolete predecessor to tgkill().  It allows only the
+       target thread ID to be specified, which may result in the wrong
+       thread being signaled if a thread terminates and its thread ID is
+       recycled.  Avoid using this system call.
+       These are the raw system call interfaces, meant for internal thread
+       library use.

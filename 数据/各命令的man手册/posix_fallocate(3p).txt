@@ -1,0 +1,17 @@
+
+       The posix_fallocate() function shall ensure that any required storage
+       for regular file data starting at offset and continuing for len bytes
+       is allocated on the file system storage media. If posix_fallocate()
+       returns successfully, subsequent writes to the specified file data
+       shall not fail due to the lack of free space on the file system
+       storage media.
+       If the offset+len is beyond the current file size, then
+       posix_fallocate() shall adjust the file size to offset+len.
+       Otherwise, the file size shall not be changed.
+       It is implementation-defined whether a previous posix_fadvise() call
+       influences allocation strategy.
+       Space allocated via posix_fallocate() shall be freed by a successful
+       call to creat() or open() that truncates the size of the file. Space
+       allocated via posix_fallocate() may be freed by a successful call to
+       ftruncate() that reduces the file size to a size smaller than
+       offset+len.

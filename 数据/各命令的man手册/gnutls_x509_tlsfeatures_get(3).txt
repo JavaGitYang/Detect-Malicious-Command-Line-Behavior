@@ -1,0 +1,3 @@
+
+       This function will get a feature from the X.509 TLS features
+       extension structure.

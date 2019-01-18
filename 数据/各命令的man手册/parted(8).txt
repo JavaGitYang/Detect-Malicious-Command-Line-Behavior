@@ -1,0 +1,7 @@
+
+       parted is a program to manipulate disk partitions.  It supports
+       multiple partition table formats, including MS-DOS and GPT.  It is
+       useful for creating space for new operating systems, reorganising
+       disk usage, and copying data to new hard disks.
+       This manual page documents parted briefly.  Complete documentation is
+       distributed with the package in GNU Info format.

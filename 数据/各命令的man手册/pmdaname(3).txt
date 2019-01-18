@@ -1,0 +1,14 @@
+
+       As part of the Performance Metrics Domain Agent (PMDA) API (see
+       PMDA(3)), pmdaName is the generic callback for translating a pmid
+       into one or more dynamic metric names (nameset).
+       Because implementing dynamic performance metrics requires specific
+       PMDA support, and the facility is an optional component of a PMDA
+       (most PMDAs do not support dynamic performance metrics), pmdaName is
+       a skeleton implementation that returns PM_ERR_NAME.
+       A PMDA that supports dynamic performance metrics will provide a
+       private callback that replaces pmdaName (by assignment to
+       version.four.name of the pmdaInterface structure) and implements the
+       translation from a pmid to a set of dynamic performance metric names
+       returned via nameset.  The behaviour, return values and memory
+       allocation rules for nameset are the same as for pmNameAll(3).

@@ -1,0 +1,12 @@
+
+       usb-devices is a (bash) shell script that can be used to display
+       details of USB buses in the system and the devices connected to them.
+       The output of the script is similar to the usb/devices file available
+       either under /proc/bus (if usbfs is mounted), or under
+       /sys/kernel/debug (if debugfs is mounted there). The script is
+       primarily intended to be used if the file is not available.
+       In contrast to the usb/devices file, this script only lists active
+       interfaces (those marked with a "*" in the usb/devices file) and
+       their endpoints.
+       Be advised that there can be differences in the way information is
+       sorted, as well as in the format of the output.

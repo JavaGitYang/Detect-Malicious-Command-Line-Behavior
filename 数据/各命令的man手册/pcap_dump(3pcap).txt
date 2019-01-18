@@ -1,0 +1,6 @@
+
+       pcap_dump() outputs a packet to the ``savefile'' opened with
+       pcap_dump_open().  Note that its calling arguments are suitable for
+       use with pcap_dispatch() or pcap_loop().  If called directly, the
+       user parameter is of type pcap_dumper_t as returned by
+       pcap_dump_open().

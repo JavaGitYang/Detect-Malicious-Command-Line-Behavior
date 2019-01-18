@@ -1,0 +1,2 @@
+
+       Refer to endnetent(3p).

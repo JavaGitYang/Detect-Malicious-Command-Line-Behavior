@@ -1,0 +1,11 @@
+
+       ustat() returns information about a mounted filesystem.  dev is a
+       device number identifying a device containing a mounted filesystem.
+       ubuf is a pointer to a ustat structure that contains the following
+       members:
+           daddr_t f_tfree;      /* Total free blocks */
+           ino_t   f_tinode;     /* Number of free inodes */
+           char    f_fname[6];   /* Filsys name */
+           char    f_fpack[6];   /* Filsys pack name */
+       The last two fields, f_fname and f_fpack, are not implemented and
+       will always be filled with null bytes ('\0').

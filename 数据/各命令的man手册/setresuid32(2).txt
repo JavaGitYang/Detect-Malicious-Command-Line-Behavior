@@ -1,0 +1,18 @@
+
+       setresuid() sets the real user ID, the effective user ID, and the
+       saved set-user-ID of the calling process.
+       An unprivileged process may change its real UID, effective UID, and
+       saved set-user-ID, each to one of: the current real UID, the current
+       effective UID or the current saved set-user-ID.
+       A privileged process (on Linux, one having the CAP_SETUID capability)
+       may set its real UID, effective UID, and saved set-user-ID to
+       arbitrary values.
+       If one of the arguments equals -1, the corresponding value is not
+       changed.
+       Regardless of what changes are made to the real UID, effective UID,
+       and saved set-user-ID, the filesystem UID is always set to the same
+       value as the (possibly new) effective UID.
+       Completely analogously, setresgid() sets the real GID, effective GID,
+       and saved set-group-ID of the calling process (and always modifies
+       the filesystem GID to be the same as the effective GID), with the
+       same restrictions for unprivileged processes.

@@ -1,0 +1,6 @@
+
+     The acl_get_perm() function tests if the permission specified by the
+     argument perm (one of ACL_READ, ACL_WRITE, ACL_EXECUTE) is contained in
+     the ACL permission set pointed to by the argument permset_d.
+     Any existing descriptors that refer to permset_d continue to refer to
+     that permission set.

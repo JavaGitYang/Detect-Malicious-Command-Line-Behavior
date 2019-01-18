@@ -1,0 +1,30 @@
+
+       pmNumberStr returns the address of a 8-byte buffer that holds a null-
+       byte terminated representation of value suitable for output with
+       fixed width fields.  The pmNumberStr_r function does the same, but
+       stores the result in a user-supplied buffer buf of length buflen,
+       which should have room for at least 8 bytes.
+       The value is scaled using multipliers in powers of ``one thousand''
+       (the decimal ``kilo'') and has a bias that provides greater precision
+       for positive numbers as opposed to negative numbers.
+       The format depends on the sign and magnitude of value as follows (d
+       represents a decimal digit):
+                   ┌──────────────────────────────────┬─────────┐
+                   │           value range            │ format  │
+                   ├──────────────────────────────────┼─────────┤
+                   │        > 999995000000000         │  inf?   │
+                   │999995000000000 - 999995000000    │ ddd.ddT │
+                   │   999995000000 - 999995000       │ ddd.ddG │
+                   │      999995000 - 999995          │ ddd.ddM │
+                   │         999995 - 999.995         │ ddd.ddK │
+                   │        999.995 - 0.005           │ ddd.dd  │
+                   │          0.005 - -0.005          │   0.00  │
+                   │         -0.005 - -99.95          │ -dd.dd  │
+                   │        -99.995 - -99995          │ -dd.ddK │
+                   │         -99995 - -99995000       │ -dd.ddM │
+                   │      -99995000 - -99995000000    │ -dd.ddG │
+                   │   -99995000000 - -99995000000000 │ -dd.ddT │
+                   │       < -99995000000000          │ -inf?   │
+                   └──────────────────────────────────┴─────────┘
+       At the boundary points of the ranges, the chosen format will retain
+       the maximum number of significant digits.

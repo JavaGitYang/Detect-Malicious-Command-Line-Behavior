@@ -1,0 +1,7 @@
+
+       This function will add the given certificate authorities to the
+       trusted list. PKCS 11 URLs are also accepted, instead of files, by
+       this function. A PKCS 11 URL implies a trust database (a specially
+       marked module in p11-kit); the URL "pkcs11:" implies all trust
+       databases in the system. Only a single URL specifying trust databases
+       can be set; they cannot be stacked with multiple calls.

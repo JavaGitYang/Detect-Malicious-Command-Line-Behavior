@@ -1,0 +1,5 @@
+
+       xfs_mkfile creates one or more files. The file is padded with zeroes
+       by default.  The default size is in bytes, but it can be flagged as
+       kilobytes, blocks, megabytes, or gigabytes with the k, b, m, or g
+       suffixes, respectively.

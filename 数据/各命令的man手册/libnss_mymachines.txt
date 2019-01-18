@@ -1,0 +1,18 @@
+
+       nss-mymachines is a plug-in module for the GNU Name Service Switch
+       (NSS) functionality of the GNU C Library (glibc), providing hostname
+       resolution for the names of containers running locally that are
+       registered with systemd-machined.service(8). The container names are
+       resolved to the IP addresses of the specific container, ordered by
+       their scope. This functionality only applies to containers using
+       network namespacing.
+       The module also resolves user and group IDs used by containers to
+       user and group names indicating the container name, and back. This
+       functionality only applies to containers using user namespacing.
+       To activate the NSS module, add "mymachines" to the lines starting
+       with "hosts:", "passwd:" and "group:" in /etc/nsswitch.conf.
+       It is recommended to place "mymachines" after the "files" or "compat"
+       entry of the /etc/nsswitch.conf lines to make sure that its mappings
+       are preferred over other resolvers such as DNS, but so that
+       /etc/hosts, /etc/passwd and /etc/group based mappings take
+       precedence.

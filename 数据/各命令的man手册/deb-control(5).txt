@@ -1,0 +1,9 @@
+
+       Each Debian binary package contains the master control file, which
+       contains a number of fields.  Each field begins with a tag, such as
+       Package or Version (case insensitive), followed by a colon, and the
+       body of the field.  Fields are delimited only by field tags. In other
+       words, field text may be multiple lines in length, but the
+       installation tools will generally join lines when processing the body
+       of the field (except in the case of the Description field, see
+       below).

@@ -1,0 +1,2 @@
+
+       With no arguments, pam_selinux_check will prompt for user

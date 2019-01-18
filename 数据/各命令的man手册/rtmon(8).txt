@@ -1,0 +1,9 @@
+
+       This manual page documents briefly the rtmon command.
+       rtmon listens on netlink socket and monitors routing table changes.
+       rtmon can be started before the first network configuration command
+       is issued.  For example if you insert:
+       rtmon file /var/log/rtmon.log
+       in a startup script, you will be able to view the full history later.
+       Certainly, it is possible to start rtmon at any time. It prepends the
+       history with the state snapshot dumped at the moment of starting.

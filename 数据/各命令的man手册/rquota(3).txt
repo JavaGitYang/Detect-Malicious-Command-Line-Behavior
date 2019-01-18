@@ -1,0 +1,4 @@
+
+       The rquota() protocol inquires about quotas on remote machines.  It
+       is used in conjunction with NFS, since NFS itself does not implement
+       quotas.

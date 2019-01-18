@@ -1,0 +1,24 @@
+
+       chacl is an IRIX-compatibility command, and is maintained for those
+       users who are familiar with its use from either XFS or IRIX.  Refer
+       to the SEE ALSO section below for a description of tools which
+       conform more closely to the (withdrawn draft) POSIX 1003.1e standard
+       which describes Access Control Lists (ACLs).
+       chacl changes the ACL(s) for a file or directory.  The ACL(s)
+       specified are applied to each file in the pathname arguments.
+       Each ACL is a string which is interpreted using the acl_from_text(3)
+       routine.  These strings are made up of comma separated clauses each
+       of which is of the form, tag:name:perm.  Where tag can be:
+       "user" (or "u")
+              indicating that the entry is a user ACL entry.
+       "group" (or "g")
+              indicating that the entry is a group ACL entry.
+       "other" (or "o")
+              indicating that the entry is an other ACL entry.
+       "mask" (or "m")
+              indicating that the entry is a mask ACL entry.
+       name is a string which is the user or group name for the ACL entry.
+       A null name in a user or group ACL entry indicates the file's owner
+       or file's group.  perm is the string "rwx" where each of the entries
+       may be replaced by a "-" indicating no access of that type, e.g.
+       "r-x", "--x", "---".

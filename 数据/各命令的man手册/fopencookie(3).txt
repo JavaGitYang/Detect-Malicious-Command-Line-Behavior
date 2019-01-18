@@ -1,0 +1,91 @@
+
+       The fopencookie() function allows the programmer to create a custom
+       implementation for a standard I/O stream.  This implementation can
+       store the stream's data at a location of its own choosing; for
+       example, fopencookie() is used to implement fmemopen(3), which
+       provides a stream interface to data that is stored in a buffer in
+       memory.
+       In order to create a custom stream the programmer must:
+       *  Implement four "hook" functions that are used internally by the
+          standard I/O library when performing I/O on the stream.
+       *  Define a "cookie" data type, a structure that provides bookkeeping
+          information (e.g., where to store data) used by the aforementioned
+          hook functions.  The standard I/O package knows nothing about the
+          contents of this cookie (thus it is typed as void * when passed to
+          fopencookie()), but automatically supplies the cookie as the first
+          argument when calling the hook functions.
+       *  Call fopencookie() to open a new stream and associate the cookie
+          and hook functions with that stream.
+       The fopencookie() function serves a purpose similar to fopen(3): it
+       opens a new stream and returns a pointer to a FILE object that is
+       used to operate on that stream.
+       The cookie argument is a pointer to the caller's cookie structure
+       that is to be associated with the new stream.  This pointer is
+       supplied as the first argument when the standard I/O library invokes
+       any of the hook functions described below.
+       The mode argument serves the same purpose as for fopen(3).  The
+       following modes are supported: r, w, a, r+, w+, and a+.  See fopen(3)
+       for details.
+       The io_funcs argument is a structure that contains four fields
+       pointing to the programmer-defined hook functions that are used to
+       implement this stream.  The structure is defined as follows
+           typedef struct {
+               cookie_read_function_t  *read;
+               cookie_write_function_t *write;
+               cookie_seek_function_t  *seek;
+               cookie_close_function_t *close;
+           } cookie_io_functions_t;
+       The four fields are as follows:
+       cookie_read_function_t *read
+              This function implements read operations for the stream.  When
+              called, it receives three arguments:
+                  ssize_t read(void *cookie, char *buf, size_t size);
+              The buf and size arguments are, respectively, a buffer into
+              which input data can be placed and the size of that buffer.
+              As its function result, the read function should return the
+              number of bytes copied into buf, 0 on end of file, or -1 on
+              error.  The read function should update the stream offset
+              appropriately.
+              If *read is a null pointer, then reads from the custom stream
+              always return end of file.
+       cookie_write_function_t *write
+              This function implements write operations for the stream.
+              When called, it receives three arguments:
+                  ssize_t write(void *cookie, const char *buf, size_t size);
+              The buf and size arguments are, respectively, a buffer of data
+              to be output to the stream and the size of that buffer.  As
+              its function result, the write function should return the num‐
+              ber of bytes copied from buf, or 0 on error.  (The function
+              must not return a negative value.)  The write function should
+              update the stream offset appropriately.
+              If *write is a null pointer, then output to the stream is dis‐
+              carded.
+       cookie_seek_function_t *seek
+              This function implements seek operations on the stream.  When
+              called, it receives three arguments:
+                  int seek(void *cookie, off64_t *offset, int whence);
+              The *offset argument specifies the new file offset depending
+              on which of the following three values is supplied in whence:
+              SEEK_SET  The stream offset should be set *offset bytes from
+                        the start of the stream.
+              SEEK_CUR  *offset should be added to the current stream off‐
+                        set.
+              SEEK_END  The stream offset should be set to the size of the
+                        stream plus *offset.
+              Before returning, the seek function should update *offset to
+              indicate the new stream offset.
+              As its function result, the seek function should return 0 on
+              success, and -1 on error.
+              If *seek is a null pointer, then it is not possible to perform
+              seek operations on the stream.
+       cookie_close_function_t *close
+              This function closes the stream.  The hook function can do
+              things such as freeing buffers allocated for the stream.  When
+              called, it receives one argument:
+                  int close(void *cookie);
+              The cookie argument is the cookie that the programmer supplied
+              when calling fopencookie().
+              As its function result, the close function should return 0 on
+              success, and EOF on error.
+              If *close is NULL, then no special action is performed when
+              the stream is closed.

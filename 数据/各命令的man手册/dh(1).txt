@@ -1,0 +1,5 @@
+
+       dh runs a sequence of debhelper commands. The supported sequences
+       correspond to the targets of a debian/rules file: build-arch, build-
+       indep, build, clean, install-indep, install-arch, install, binary-
+       arch, binary-indep, and binary.

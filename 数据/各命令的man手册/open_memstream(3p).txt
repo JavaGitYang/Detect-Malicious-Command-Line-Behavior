@@ -1,0 +1,29 @@
+
+       The open_memstream() and open_wmemstream() functions shall create an
+       I/O stream associated with a dynamically allocated memory buffer. The
+       stream shall be opened for writing and shall be seekable.
+       The stream associated with a call to open_memstream() shall be byte-
+       oriented.
+       The stream associated with a call to open_wmemstream() shall be wide-
+       oriented.
+       The stream shall maintain a current position in the allocated buffer
+       and a current buffer length. The position shall be initially set to
+       zero (the start of the buffer). Each write to the stream shall start
+       at the current position and move this position by the number of
+       successfully written bytes for open_memstream() or the number of
+       successfully written wide characters for open_wmemstream().  The
+       length shall be initially set to zero. If a write moves the position
+       to a value larger than the current length, the current length shall
+       be set to this position. In this case a null character for
+       open_memstream() or a null wide character for open_wmemstream() shall
+       be appended to the current buffer. For both functions the terminating
+       null is not included in the calculation of the buffer length.
+       After a successful fflush() or fclose(), the pointer referenced by
+       bufp shall contain the address of the buffer, and the variable
+       pointed to by sizep shall contain the smaller of the current buffer
+       length and the number of bytes for open_memstream(), or the number of
+       wide characters for open_wmemstream(), between the beginning of the
+       buffer and the current file position indicator.
+       After a successful fflush() the pointer referenced by bufp and the
+       variable referenced by sizep remain valid only until the next write
+       operation on the stream or a call to fclose().

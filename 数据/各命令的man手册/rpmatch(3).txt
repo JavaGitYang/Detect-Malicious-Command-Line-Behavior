@@ -1,0 +1,11 @@
+
+       rpmatch() handles a user response to yes or no questions, with
+       support for internationalization.
+       response should be a null-terminated string containing a user-
+       supplied response, perhaps obtained with fgets(3) or getline(3).
+       The user's language preference is taken into account per the
+       environment variables LANG, LC_MESSAGES, and LC_ALL, if the program
+       has called setlocale(3) to effect their changes.
+       Regardless of the locale, responses matching ^[Yy] are always
+       accepted as affirmative, and those matching ^[Nn] are always accepted
+       as negative.

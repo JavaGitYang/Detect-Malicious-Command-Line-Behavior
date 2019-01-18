@@ -1,0 +1,4 @@
+
+       This manual page documents briefly the partprobe command.
+       partprobe is a program that informs the operating system kernel of
+       partition table changes.

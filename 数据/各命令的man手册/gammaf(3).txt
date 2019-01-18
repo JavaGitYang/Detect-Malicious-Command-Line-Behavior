@@ -1,0 +1,10 @@
+
+       These functions are deprecated: instead, use either the tgamma(3) or
+       the lgamma(3) functions, as appropriate.
+       For the definition of the Gamma function, see tgamma(3).
+   *BSD version
+       The libm in 4.4BSD and some versions of FreeBSD had a gamma()
+       function that computes the Gamma function, as one would expect.
+   glibc version
+       Glibc has a gamma() function that is equivalent to lgamma(3) and
+       computes the natural logarithm of the Gamma function.

@@ -1,0 +1,11 @@
+
+       A strippable file is defined as a relocatable, object, or executable
+       file.  On XSI-conformant systems, a strippable file can also be an
+       archive of object or relocatable files.
+       The strip utility shall remove from strippable files named by the
+       file operands any information the implementor deems unnecessary for
+       execution of those files. The nature of that information is
+       unspecified. The effect of strip on object and executable files shall
+       be similar to the use of the −s option to c99 or fort77.  The effect
+       of strip on an archive of object files shall be similar to the use of
+       the −s option to c99 or fort77 for each object file in the archive.

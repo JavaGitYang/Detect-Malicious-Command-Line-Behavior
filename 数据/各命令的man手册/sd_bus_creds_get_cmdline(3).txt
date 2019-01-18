@@ -1,0 +1,104 @@
+
+       These functions return credential information from an sd_bus_creds
+       object. Credential objects may be created with
+       sd_bus_creds_new_from_pid(3), in which case they describe the
+       credentials of the process identified by the specified PID, with
+       sd_bus_get_name_creds(3), in which case they describe the credentials
+       of a bus peer identified by the specified bus name, with
+       sd_bus_get_owner_creds(3), in which case they describe the
+       credentials of the creator of a bus, or with
+       sd_bus_message_get_creds(3), in which case they describe the
+       credentials of the sender of the message.
+       Not all credential fields are part of every "sd_bus_creds" object.
+       Use sd_bus_creds_get_mask(3) to determine the mask of fields
+       available.
+       sd_bus_creds_get_pid() will retrieve the PID (process identifier).
+       Similarly, sd_bus_creds_get_ppid() will retrieve the parent PID. Note
+       that PID 1 has no parent process, in which case -ENXIO is returned.
+       sd_bus_creds_get_tid() will retrieve the TID (thread identifier).
+       sd_bus_creds_get_uid() will retrieve the numeric UID (user
+       identifier). Similarly, sd_bus_creds_get_euid() returns the effective
+       UID, sd_bus_creds_get_suid() the saved UID and
+       sd_bus_creds_get_fsuid() the file system UID.
+       sd_bus_creds_get_gid() will retrieve the numeric GID (group
+       identifier). Similarly, sd_bus_creds_get_egid() returns the effective
+       GID, sd_bus_creds_get_sgid() the saved GID and
+       sd_bus_creds_get_fsgid() the file system GID.
+       sd_bus_creds_get_supplementary_gids() will retrieve the supplementary
+       GIDs list.
+       sd_bus_creds_get_comm() will retrieve the comm field (truncated name
+       of the executable, as stored in /proc/pid/comm).
+       sd_bus_creds_get_tid_comm() will retrieve the comm field of the
+       thread (as stored in /proc/pid/task/tid/comm).
+       sd_bus_creds_get_exe() will retrieve the path to the program
+       executable (as stored in the /proc/pid/exe link, but with the "
+       (deleted)" suffix removed). Note that kernel threads do not have an
+       executable path, in which case -ENXIO is returned.
+       sd_bus_creds_get_cmdline() will retrieve an array of command line
+       arguments (as stored in /proc/pid/cmdline). Note that kernel threads
+       do not have a command line, in which case -ENXIO is returned.
+       sd_bus_creds_get_cgroup() will retrieve the control group path. See
+       cgroups.txt[1].
+       sd_bus_creds_get_unit() will retrieve the systemd unit name (in the
+       system instance of systemd) that the process is a part of. See
+       systemd.unit(5). For processes that are not part of a unit, returns
+       -ENXIO.
+       sd_bus_creds_get_user_unit() will retrieve the systemd unit name (in
+       the user instance of systemd) that the process is a part of. See
+       systemd.unit(5). For processes that are not part of a user unit,
+       returns -ENXIO.
+       sd_bus_creds_get_slice() will retrieve the systemd slice (a unit in
+       the system instance of systemd) that the process is a part of. See
+       systemd.slice(5). Similarly, sd_bus_creds_get_user_slice() retrieves
+       the systemd slice of the process, in the user instance of systemd.
+       sd_bus_creds_get_session() will retrieve the identifier of the login
+       session that the process is a part of. See systemd-logind.service(8).
+       For processes that are not part of a session, returns -ENXIO.
+       sd_bus_creds_get_owner_uid() will retrieve the numeric UID (user
+       identifier) of the user who owns the login session that the process
+       is a part of. See systemd-logind.service(8). For processes that are
+       not part of a session, returns -ENXIO.
+       sd_bus_creds_has_effective_cap() will check whether the capability
+       specified by capability was set in the effective capabilities mask. A
+       positive return value means that it was set, zero means that it was
+       not set, and a negative return value indicates an error. See
+       capabilities(7) and the AmbientCapabilities= and
+       CapabilityBoundingSet= settings in systemd.exec(5).
+       sd_bus_creds_has_permitted_cap() is similar to
+       sd_bus_creds_has_effective_cap(), but will check the permitted
+       capabilities mask.
+       sd_bus_creds_has_inheritable_cap() is similar to
+       sd_bus_creds_has_effective_cap(), but will check the inheritable
+       capabilities mask.
+       sd_bus_creds_has_bounding_cap() is similar to
+       sd_bus_creds_has_effective_cap(), but will check the bounding
+       capabilities mask.
+       sd_bus_creds_get_selinux_context() will retrieve the SELinux security
+       context (label) of the process.
+       sd_bus_creds_get_audit_session_id() will retrieve the audit session
+       identifier of the process. Returns -ENXIO for processes that are not
+       part of an audit session.
+       sd_bus_creds_get_audit_login_uid() will retrieve the audit user login
+       identifier (the identifier of the user who is "responsible" for the
+       session). Returns -ENXIO for processes that are not part of an audit
+       session.
+       sd_bus_creds_get_tty() will retrieve the controlling TTY, without the
+       prefixing "/dev/". Returns -ENXIO for processes that have no
+       controlling TTY.
+       sd_bus_creds_get_unique_name() will retrieve the D-Bus unique name.
+       See The D-Bus specification[2].
+       sd_bus_creds_get_well_known_names() will retrieve the set of D-Bus
+       well-known names. See The D-Bus specification[2].
+       sd_bus_creds_get_description() will retrieve a descriptive name of
+       the bus connection of the peer. This name is useful to discern
+       multiple bus connections by the same peer, and may be altered by the
+       peer with the sd_bus_set_description(3) call.
+       All functions that take a const char** parameter will store the
+       answer there as an address of a NUL-terminated string. It will be
+       valid as long as c remains valid, and should not be freed or modified
+       by the caller.
+       All functions that take a char*** parameter will store the answer
+       there as an address of an array of strings. Each individual string is
+       NUL-terminated, and the array is NULL-terminated as a whole. It will
+       be valid as long as c remains valid, and should not be freed or
+       modified by the caller.

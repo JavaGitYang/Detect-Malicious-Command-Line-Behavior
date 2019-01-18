@@ -1,0 +1,4 @@
+
+       This function will replace the pair of prime and generator for use in
+       the Diffie-Hellman key exchange.  The new parameters should be stored
+       in the appropriate gnutls_datum.

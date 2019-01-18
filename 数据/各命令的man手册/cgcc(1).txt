@@ -1,0 +1,9 @@
+
+       cgcc provides a wrapper around a C compiler (cc by default) which
+       also invokes the Sparse static analysis tool.
+       cgcc accepts all Sparse command-line options, such as warning
+       options, and passes all other options through to the compiler.
+       By providing the same interface as the C compiler, cgcc allows
+       projects to run Sparse as part of their build without modifying their
+       build system, by using cgcc as the compiler.  For many projects,
+       setting CC=cgcc on the make command-line will work.

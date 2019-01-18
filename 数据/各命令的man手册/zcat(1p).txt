@@ -1,0 +1,4 @@
+
+       The zcat utility shall write to standard output the uncompressed form
+       of files that have been compressed using the compress utility. It is
+       the equivalent of uncompress −c.  Input files are not affected.

@@ -1,0 +1,27 @@
+
+       The pam_setcred function is used to establish, maintain and delete
+       the credentials of a user. It should be called to set the credentials
+       after a user has been authenticated and before a session is opened
+       for the user (with pam_open_session(3)). The credentials should be
+       deleted after the session has been closed (with
+       pam_close_session(3)).
+       A credential is something that the user possesses. It is some
+       property, such as a Kerberos ticket, or a supplementary group
+       membership that make up the uniqueness of a given user. On a Linux
+       system the user's UID and GID's are credentials too. However, it has
+       been decided that these properties (along with the default
+       supplementary groups of which the user is a member) are credentials
+       that should be set directly by the application and not by PAM. Such
+       credentials should be established, by the application, prior to a
+       call to this function. For example, initgroups(2) (or equivalent)
+       should have been performed.
+       Valid flags, any one of which, may be logically OR'd with PAM_SILENT,
+       are:
+       PAM_ESTABLISH_CRED
+           Initialize the credentials for the user.
+       PAM_DELETE_CRED
+           Delete the user's credentials.
+       PAM_REINITIALIZE_CRED
+           Fully reinitialize the user's credentials.
+       PAM_REFRESH_CRED
+           Extend the lifetime of the existing credentials.

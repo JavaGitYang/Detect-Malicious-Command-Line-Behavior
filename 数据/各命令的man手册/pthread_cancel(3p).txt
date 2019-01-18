@@ -1,0 +1,11 @@
+
+       The pthread_cancel() function shall request that thread be canceled.
+       The target thread's cancelability state and type determines when the
+       cancellation takes effect. When the cancellation is acted on, the
+       cancellation cleanup handlers for thread shall be called. When the
+       last cancellation cleanup handler returns, the thread-specific data
+       destructor functions shall be called for thread.  When the last
+       destructor function returns, thread shall be terminated.
+       The cancellation processing in the target thread shall run
+       asynchronously with respect to the calling thread returning from
+       pthread_cancel().

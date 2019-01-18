@@ -1,0 +1,3 @@
+
+       This function is to be called by an extension handler to instruct
+       gnutls to send supplemental data during the handshake process.

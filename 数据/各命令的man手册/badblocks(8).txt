@@ -1,0 +1,16 @@
+
+       badblocks is used to search for bad blocks on a device (usually a
+       disk partition).  device is the special file corresponding to the
+       device (e.g /dev/hdc1).  last_block is the last block to be checked;
+       if it is not specified, the last block on the device is used as a
+       default.  first_block is an optional parameter specifying the
+       starting block number for the test, which allows the testing to start
+       in the middle of the disk.  If it is not specified the first block on
+       the disk is used as a default.
+       Important note: If the output of badblocks is going to be fed to the
+       e2fsck or mke2fs programs, it is important that the block size is
+       properly specified, since the block numbers which are generated are
+       very dependent on the block size in use by the filesystem.  For this
+       reason, it is strongly recommended that users not run badblocks
+       directly, but rather use the -c option of the e2fsck and mke2fs
+       programs.

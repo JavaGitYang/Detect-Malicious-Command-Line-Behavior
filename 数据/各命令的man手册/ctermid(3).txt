@@ -1,0 +1,6 @@
+
+       ctermid() returns a string which is the pathname for the current
+       controlling terminal for this process.  If s is NULL, a static buffer
+       is used, otherwise s points to a buffer used to hold the terminal
+       pathname.  The symbolic constant L_ctermid is the maximum number of
+       characters in the returned pathname.

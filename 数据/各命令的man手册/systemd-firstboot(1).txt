@@ -1,0 +1,24 @@
+
+       systemd-firstboot initializes the most basic system settings
+       interactively on the first boot, or optionally non-interactively when
+       a system image is created. The service is started if
+       ConditionFirstBoot=yes is satisfied. This essentially means that /etc
+       is empty, see systemd.unit(5) for details.
+       The following settings may be set up:
+       ·   The system locale, more specifically the two locale variables
+           LANG= and LC_MESSAGES
+       ·   The system time zone
+       ·   The system host name
+       ·   The machine ID of the system
+       ·   The root user's password
+       Each of the fields may either be queried interactively by users, set
+       non-interactively on the tool's command line, or be copied from a
+       host system that is used to set up the system image.
+       If a setting is already initialized, it will not be overwritten and
+       the user will not be prompted for the setting.
+       Note that this tool operates directly on the file system and does not
+       involve any running system services, unlike localectl(1),
+       timedatectl(1) or hostnamectl(1). This allows systemd-firstboot to
+       operate on mounted but not booted disk images and in early boot. It
+       is not recommended to use systemd-firstboot on the running system
+       while it is up.

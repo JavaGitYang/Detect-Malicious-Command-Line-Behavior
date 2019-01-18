@@ -1,0 +1,11 @@
+
+       bindresvport() is used to bind the socket referred to by the file
+       descriptor sockfd to a privileged anonymous IP port, that is, a port
+       number arbitrarily selected from the range 512 to 1023.
+       If the bind(2) performed by bindresvport() is successful, and sin is
+       not NULL, then sin->sin_port returns the port number actually
+       allocated.
+       sin can be NULL, in which case sin->sin_family is implicitly taken to
+       be AF_INET.  However, in this case, bindresvport() has no way to
+       return the port number actually allocated.  (This information can
+       later be obtained using getsockname(2).)

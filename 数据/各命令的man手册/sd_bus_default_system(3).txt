@@ -1,0 +1,51 @@
+
+       sd_bus_default() acquires a bus connection object to the user bus
+       when invoked in user context, or to the system bus otherwise. The
+       connection object is associated with the calling thread. Each time
+       the function is invoked from the same thread, the same object is
+       returned, but its reference count is increased by one, as long as at
+       least one reference is kept. When the last reference to the
+       connection is dropped (using the sd_bus_unref(3) call), the
+       connection is terminated. Note that the connection is not
+       automatically terminated when the associated thread ends. It is
+       important to drop the last reference to the bus connection explicitly
+       before the thread ends, as otherwise, the connection will leak. Also,
+       queued but unread or unwritten messages keep the bus referenced, see
+       below.
+       sd_bus_default_user() returns a user bus connection object associated
+       with the calling thread.  sd_bus_default_system() is similar, but
+       connects to the system bus. Note that sd_bus_default() is identical
+       to these two calls, depending on the execution context.
+       sd_bus_open() creates a new, independent bus connection to the user
+       bus when invoked in user context, or the system bus otherwise.
+       sd_bus_open_user() is similar, but connects only to the user bus.
+       sd_bus_open_system() does the same, but connects to the system bus.
+       In contrast to sd_bus_default(), sd_bus_default_user(), and
+       sd_bus_default_system(), these calls return new, independent
+       connection objects that are not associated with the invoking thread
+       and are not shared between multiple invocations. It is recommended to
+       share connections per thread to efficiently make use the available
+       resources. Thus, it is recommended to use sd_bus_default(),
+       sd_bus_default_user() and sd_bus_default_system() to connect to the
+       user or system buses.
+       If the $DBUS_SESSION_BUS_ADDRESS environment variable is set (cf.
+       environ(7)), it will be used as the address of the user bus. This
+       variable can contain multiple addresses separated by ";". If this
+       variable is not set, a suitable default for the default user D-Bus
+       instance will be used.
+       If the $DBUS_SYSTEM_BUS_ADDRESS environment variable is set, it will
+       be used as the address of the system bus. This variable uses the same
+       syntax as $DBUS_SESSION_BUS_ADDRESS. If this variable is not set, a
+       suitable default for the default system D-Bus instance will be used.
+       sd_bus_open_system_remote() connects to the system bus on the
+       specified host using ssh(1).  host consists of an optional user name
+       followed by the "@" symbol, and the hostname.
+       sd_bus_open_system_machine() connects to the system bus in the
+       specified machine, where machine is the name of a local container.
+       See machinectl(1) for more information about the "machine" concept.
+       Note that connections into local containers are only available to
+       privileged processes at this time.
+       These calls allocate a bus connection object and initiate the
+       connection to a well-known bus of some form. An alternative to using
+       these high-level calls is to create an unconnected bus object with
+       sd_bus_new(3) and to connect it with sd_bus_start(3).

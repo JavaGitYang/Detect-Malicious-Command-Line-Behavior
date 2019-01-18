@@ -1,0 +1,8 @@
+
+       The uniq utility shall read an input file comparing adjacent lines,
+       and write one copy of each input line on the output. The second and
+       succeeding copies of repeated adjacent input lines shall not be
+       written.  The trailing <newline> of each line in the input shall be
+       ignored when doing comparisons.
+       Repeated lines in the input shall not be detected if they are not
+       adjacent.

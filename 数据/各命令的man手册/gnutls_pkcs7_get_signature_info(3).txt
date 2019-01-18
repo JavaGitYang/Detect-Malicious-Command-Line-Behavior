@@ -1,0 +1,4 @@
+
+       This function will return information about the signature identified
+       by idx in the provided PKCS 7 structure. The information should be
+       deinitialized using gnutls_pkcs7_signature_info_deinit().

@@ -1,0 +1,61 @@
+
+       The cpuset filesystem is a pseudo-filesystem interface to the kernel
+       cpuset mechanism, which is used to control the processor placement
+       and memory placement of processes.  It is commonly mounted at
+       /dev/cpuset.
+       On systems with kernels compiled with built in support for cpusets,
+       all processes are attached to a cpuset, and cpusets are always
+       present.  If a system supports cpusets, then it will have the entry
+       nodev cpuset in the file /proc/filesystems.  By mounting the cpuset
+       filesystem (see the EXAMPLE section below), the administrator can
+       configure the cpusets on a system to control the processor and memory
+       placement of processes on that system.  By default, if the cpuset
+       configuration on a system is not modified or if the cpuset filesystem
+       is not even mounted, then the cpuset mechanism, though present, has
+       no effect on the system's behavior.
+       A cpuset defines a list of CPUs and memory nodes.
+       The CPUs of a system include all the logical processing units on
+       which a process can execute, including, if present, multiple
+       processor cores within a package and Hyper-Threads within a processor
+       core.  Memory nodes include all distinct banks of main memory; small
+       and SMP systems typically have just one memory node that contains all
+       the system's main memory, while NUMA (non-uniform memory access)
+       systems have multiple memory nodes.
+       Cpusets are represented as directories in a hierarchical pseudo-
+       filesystem, where the top directory in the hierarchy (/dev/cpuset)
+       represents the entire system (all online CPUs and memory nodes) and
+       any cpuset that is the child (descendant) of another parent cpuset
+       contains a subset of that parent's CPUs and memory nodes.  The
+       directories and files representing cpusets have normal filesystem
+       permissions.
+       Every process in the system belongs to exactly one cpuset.  A process
+       is confined to run only on the CPUs in the cpuset it belongs to, and
+       to allocate memory only on the memory nodes in that cpuset.  When a
+       process fork(2)s, the child process is placed in the same cpuset as
+       its parent.  With sufficient privilege, a process may be moved from
+       one cpuset to another and the allowed CPUs and memory nodes of an
+       existing cpuset may be changed.
+       When the system begins booting, a single cpuset is defined that
+       includes all CPUs and memory nodes on the system, and all processes
+       are in that cpuset.  During the boot process, or later during normal
+       system operation, other cpusets may be created, as subdirectories of
+       this top cpuset, under the control of the system administrator, and
+       processes may be placed in these other cpusets.
+       Cpusets are integrated with the sched_setaffinity(2) scheduling
+       affinity mechanism and the mbind(2) and set_mempolicy(2) memory-
+       placement mechanisms in the kernel.  Neither of these mechanisms let
+       a process make use of a CPU or memory node that is not allowed by
+       that process's cpuset.  If changes to a process's cpuset placement
+       conflict with these other mechanisms, then cpuset placement is
+       enforced even if it means overriding these other mechanisms.  The
+       kernel accomplishes this overriding by silently restricting the CPUs
+       and memory nodes requested by these other mechanisms to those allowed
+       by the invoking process's cpuset.  This can result in these other
+       calls returning an error, if for example, such a call ends up
+       requesting an empty set of CPUs or memory nodes, after that request
+       is restricted to the invoking process's cpuset.
+       Typically, a cpuset is used to manage the CPU and memory-node
+       confinement for a set of cooperating processes such as a batch
+       scheduler job, and these other mechanisms are used to manage the
+       placement of individual processes or memory regions within that set
+       or job.

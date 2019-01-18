@@ -1,0 +1,17 @@
+
+       The LTTng-UST tracef() API allows you to trace your application with
+       the help of a simple printf(3)-like macro. The fmt argument is passed
+       directly to the fmt parameter of vasprintf(3), as well as the
+       optional parameters following fmt.
+       To use tracef(), include <lttng/tracef.h> where you need it, and link
+       your application with liblttng-ust. See the EXAMPLE section below for
+       a complete usage example.
+       Once your application is instrumented with tracef() calls and ready
+       to run, use lttng-enable-event(1) to enable the lttng_ust_tracef:*
+       event.
+       The tracef() events contain a single field, named msg, which is the
+       formatted string output.
+       If you need to attach a specific log level to a tracef() call, use
+       tracelog(3) instead.
+       See also the LIMITATIONS section below for important limitations to
+       consider when using tracef().

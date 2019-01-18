@@ -1,0 +1,30 @@
+
+       pam_systemd registers user sessions with the systemd login manager
+       systemd-logind.service(8), and hence the systemd control group
+       hierarchy.
+       On login, this module — in conjunction with systemd-logind.service —
+       ensures the following:
+        1. If it does not exist yet, the user runtime directory
+           /run/user/$UID is either created or mounted as new "tmpfs" file
+           system with quota applied, and its ownership changed to the user
+           that is logging in.
+        2. The $XDG_SESSION_ID environment variable is initialized. If
+           auditing is available and pam_loginuid.so was run before this
+           module (which is highly recommended), the variable is initialized
+           from the auditing session id (/proc/self/sessionid). Otherwise,
+           an independent session counter is used.
+        3. A new systemd scope unit is created for the session. If this is
+           the first concurrent session of the user, an implicit per-user
+           slice unit below user.slice is automatically created and the
+           scope placed into it. An instance of the system service
+           user@.service, which runs the systemd user manager instance, is
+           started.
+       On logout, this module ensures the following:
+        1. If enabled in logind.conf(5) (KillUserProcesses=), all processes
+           of the session are terminated. If the last concurrent session of
+           a user ends, the user's systemd instance will be terminated too,
+           and so will the user's slice unit.
+        2. If the last concurrent session of a user ends, the user runtime
+           directory /run/user/$UID and all its contents are removed, too.
+       If the system was not booted up with systemd as init system, this
+       module does nothing and immediately returns PAM_SUCCESS.

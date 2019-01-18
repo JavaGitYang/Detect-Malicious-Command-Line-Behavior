@@ -1,0 +1,62 @@
+
+       The gethostbyname*(), gethostbyaddr*(), herror(), and hstrerror()
+       functions are obsolete.  Applications should use getaddrinfo(3),
+       getnameinfo(3), and gai_strerror(3) instead.
+       The gethostbyname() function returns a structure of type hostent for
+       the given host name.  Here name is either a hostname or an IPv4
+       address in standard dot notation (as for inet_addr(3)).  If name is
+       an IPv4 address, no lookup is performed and gethostbyname() simply
+       copies name into the h_name field and its struct in_addr equivalent
+       into the h_addr_list[0] field of the returned hostent structure.  If
+       name doesn't end in a dot and the environment variable HOSTALIASES is
+       set, the alias file pointed to by HOSTALIASES will first be searched
+       for name (see hostname(7) for the file format).  The current domain
+       and its parents are searched unless name ends in a dot.
+       The gethostbyaddr() function returns a structure of type hostent for
+       the given host address addr of length len and address type type.
+       Valid address types are AF_INET and AF_INET6.  The host address
+       argument is a pointer to a struct of a type depending on the address
+       type, for example a struct in_addr * (probably obtained via a call to
+       inet_addr(3)) for address type AF_INET.
+       The sethostent() function specifies, if stayopen is true (1), that a
+       connected TCP socket should be used for the name server queries and
+       that the connection should remain open during successive queries.
+       Otherwise, name server queries will use UDP datagrams.
+       The endhostent() function ends the use of a TCP connection for name
+       server queries.
+       The (obsolete) herror() function prints the error message associated
+       with the current value of h_errno on stderr.
+       The (obsolete) hstrerror() function takes an error number (typically
+       h_errno) and returns the corresponding message string.
+       The domain name queries carried out by gethostbyname() and
+       gethostbyaddr() rely on the Name Service Switch (nsswitch.conf(5))
+       configured sources or a local name server (named(8)).  The default
+       action is to query the Name Service Switch (nsswitch.conf(5))
+       configured sources, failing that, a local name server (named(8)).
+   Historical
+       The nsswitch.conf(5) file is the modern way of controlling the order
+       of host lookups.
+       In glibc 2.4 and earlier, the order keyword was used to control the
+       order of host lookups as defined in /etc/host.conf (host.conf(5)).
+       The hostent structure is defined in <netdb.h> as follows:
+           struct hostent {
+               char  *h_name;            /* official name of host */
+               char **h_aliases;         /* alias list */
+               int    h_addrtype;        /* host address type */
+               int    h_length;          /* length of address */
+               char **h_addr_list;       /* list of addresses */
+           }
+           #define h_addr h_addr_list[0] /* for backward compatibility */
+       The members of the hostent structure are:
+       h_name The official name of the host.
+       h_aliases
+              An array of alternative names for the host, terminated by a
+              null pointer.
+       h_addrtype
+              The type of address; always AF_INET or AF_INET6 at present.
+       h_length
+              The length of the address in bytes.
+       h_addr_list
+              An array of pointers to network addresses for the host (in
+              network byte order), terminated by a null pointer.
+       h_addr The first address in h_addr_list for backward compatibility.

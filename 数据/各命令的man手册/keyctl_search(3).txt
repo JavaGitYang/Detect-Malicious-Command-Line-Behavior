@@ -1,0 +1,31 @@
+
+       keyctl_search() recursively searches the keyring for a key of the
+       specified type and description.
+       If found, the key will be attached to the destination keyring (if
+       given), and its serial number will be returned.
+       The source keyring must grant search permission to the caller, and
+       for a key to be found, it must also grant search permission to the
+       caller.  Child keyrings will be only be recursively searched if they
+       grant search permission to the caller as well.
+       If the destination keyring is zero, no attempt will be made to forge
+       a link to the key, and just the serial number will be returned.
+       If the destination keyring is given, then the link may only be formed
+       if the found key grants the caller link permission and the
+       destination keyring grants the caller write permission.
+       If the search is successful, and if the destination keyring already
+       contains a link to a key that matches the specified type and
+       description, then that link will be replaced by a link to the found
+       key.
+       The source keyring and destination keyring serial numbers may be
+       those of valid keyrings to which the caller has appropriate
+       permission, or they may be special keyring IDs:
+       KEY_SPEC_THREAD_KEYRING
+              This specifies the caller's thread-specific keyring.
+       KEY_SPEC_PROCESS_KEYRING
+              This specifies the caller's process-specific keyring.
+       KEY_SPEC_SESSION_KEYRING
+              This specifies the caller's session-specific keyring.
+       KEY_SPEC_USER_KEYRING
+              This specifies the caller's UID-specific keyring.
+       KEY_SPEC_USER_SESSION_KEYRING
+              This specifies the caller's UID-session keyring.

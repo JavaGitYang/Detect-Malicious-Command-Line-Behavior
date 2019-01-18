@@ -1,0 +1,175 @@
+
+       If no options or arguments are specified, set shall write the names
+       and values of all shell variables in the collation sequence of the
+       current locale. Each name shall start on a separate line, using the
+       format:
+           "%s=%s\n", <name>, <value>
+       The value string shall be written with appropriate quoting; see the
+       description of shell quoting in Section 2.2, Quoting.  The output
+       shall be suitable for reinput to the shell, setting or resetting, as
+       far as possible, the variables that are currently set; read-only
+       variables cannot be reset.
+       When options are specified, they shall set or unset attributes of the
+       shell, as described below. When arguments are specified, they cause
+       positional parameters to be set or unset, as described below. Setting
+       or unsetting attributes and positional parameters are not necessarily
+       related actions, but they can be combined in a single invocation of
+       set.
+       The set special built-in shall support the Base Definitions volume of
+       POSIX.1‐2008, Section 12.2, Utility Syntax Guidelines except that
+       options can be specified with either a leading <hyphen> (meaning
+       enable the option) or <plus-sign> (meaning disable it) unless
+       otherwise specified.
+       Implementations shall support the options in the following list in
+       both their <hyphen> and <plus-sign> forms. These options can also be
+       specified as options to sh.
+       −a    When this option is on, the export attribute shall be set for
+             each variable to which an assignment is performed; see the Base
+             Definitions volume of POSIX.1‐2008, Section 4.22, Variable
+             Assignment.  If the assignment precedes a utility name in a
+             command, the export attribute shall not persist in the current
+             execution environment after the utility completes, with the
+             exception that preceding one of the special built-in utilities
+             causes the export attribute to persist after the built-in has
+             completed. If the assignment does not precede a utility name in
+             the command, or if the assignment is a result of the operation
+             of the getopts or read utilities, the export attribute shall
+             persist until the variable is unset.
+       −b    This option shall be supported if the implementation supports
+             the User Portability Utilities option. It shall cause the shell
+             to notify the user asynchronously of background job
+             completions. The following message is written to standard
+             error:
+                 "[%d]%c %s%s\n", <job-number>, <current>, <status>, <job-name>
+             where the fields shall be as follows:
+             <current>   The character '+' identifies the job that would be
+                         used as a default for the fg or bg utilities; this
+                         job can also be specified using the job_id "%+" or
+                         "%%".  The character '−' identifies the job that
+                         would become the default if the current default job
+                         were to exit; this job can also be specified using
+                         the job_id "%−".  For other jobs, this field is a
+                         <space>.  At most one job can be identified with
+                         '+' and at most one job can be identified with '−'.
+                         If there is any suspended job, then the current job
+                         shall be a suspended job. If there are at least two
+                         suspended jobs, then the previous job also shall be
+                         a suspended job.
+             <job-number>
+                         A number that can be used to identify the process
+                         group to the wait, fg, bg, and kill utilities.
+                         Using these utilities, the job can be identified by
+                         prefixing the job number with '%'.
+             <status>    Unspecified.
+             <job-name>  Unspecified.
+             When the shell notifies the user a job has been completed, it
+             may remove the job's process ID from the list of those known in
+             the current shell execution environment; see Section 2.9.3.1,
+             Examples.  Asynchronous notification shall not be enabled by
+             default.
+       −C    (Uppercase C.) Prevent existing files from being overwritten by
+             the shell's '>' redirection operator (see Section 2.7.2,
+             Redirecting Output); the ">|" redirection operator shall
+             override this noclobber option for an individual file.
+       −e    When this option is on, when any command fails (for any of the
+             reasons listed in Section 2.8.1, Consequences of Shell Errors
+             or by returning an exit status greater than zero), the shell
+             immediately shall exit with the following exceptions:
+              1. The failure of any individual command in a multi-command
+                 pipeline shall not cause the shell to exit. Only the
+                 failure of the pipeline itself shall be considered.
+              2. The −e setting shall be ignored when executing the compound
+                 list following the while, until, if, or elif reserved word,
+                 a pipeline beginning with the !  reserved word, or any
+                 command of an AND-OR list other than the last.
+              3. If the exit status of a compound command other than a
+                 subshell command was the result of a failure while −e was
+                 being ignored, then −e shall not apply to this command.
+             This requirement applies to the shell environment and each
+             subshell environment separately. For example, in:
+                 set -e; (false; echo one) | cat; echo two
+             the false command causes the subshell to exit without executing
+             echo one; however, echo two is executed because the exit status
+             of the pipeline (false; echo one) | cat is zero.
+       −f    The shell shall disable pathname expansion.
+       −h    Locate and remember utilities invoked by functions as those
+             functions are defined (the utilities are normally located when
+             the function is executed).
+       −m    This option shall be supported if the implementation supports
+             the User Portability Utilities option. All jobs shall be run in
+             their own process groups. Immediately before the shell issues a
+             prompt after completion of the background job, a message
+             reporting the exit status of the background job shall be
+             written to standard error. If a foreground job stops, the shell
+             shall write a message to standard error to that effect,
+             formatted as described by the jobs utility. In addition, if a
+             job changes status other than exiting (for example, if it stops
+             for input or output or is stopped by a SIGSTOP signal), the
+             shell shall write a similar message immediately prior to
+             writing the next prompt. This option is enabled by default for
+             interactive shells.
+       −n    The shell shall read commands but does not execute them; this
+             can be used to check for shell script syntax errors. An
+             interactive shell may ignore this option.
+       −o    Write the current settings of the options to standard output in
+             an unspecified format.
+       +o    Write the current option settings to standard output in a
+             format that is suitable for reinput to the shell as commands
+             that achieve the same options settings.
+       −o option
+             This option is supported if the system supports the User
+             Portability Utilities option. It shall set various options,
+             many of which shall be equivalent to the single option letters.
+             The following values of option shall be supported:
+             allexport Equivalent to −a.
+             errexit   Equivalent to −e.
+             ignoreeof Prevent an interactive shell from exiting on end-of-
+                       file. This setting prevents accidental logouts when
+                       <control>‐D is entered. A user shall explicitly exit
+                       to leave the interactive shell.
+             monitor   Equivalent to −m.  This option is supported if the
+                       system supports the User Portability Utilities
+                       option.
+             noclobber Equivalent to −C (uppercase C).
+             noglob    Equivalent to −f.
+             noexec    Equivalent to −n.
+             nolog     Prevent the entry of function definitions into the
+                       command history; see Command History List.
+             notify    Equivalent to −b.
+             nounset   Equivalent to −u.
+             verbose   Equivalent to −v.
+             vi        Allow shell command line editing using the built-in
+                       vi editor. Enabling vi mode shall disable any other
+                       command line editing mode provided as an
+                       implementation extension.
+                       It need not be possible to set vi mode on for certain
+                       block-mode terminals.
+             xtrace    Equivalent to −x.
+       −u    When the shell tries to expand an unset parameter other than
+             the '@' and '*' special parameters, it shall write a message to
+             standard error and shall not execute the command containing the
+             expansion, but for the purposes of setting the '?'  special
+             parameter and the exit status of the shell the command shall be
+             treated as having been executed and returned an exit status of
+             between 1 and 125 inclusive. A non-interactive shell shall
+             immediately exit. An interactive shell shall not exit.
+       −v    The shell shall write its input to standard error as it is
+             read.
+       −x    The shell shall write to standard error a trace for each
+             command after it expands the command and before it executes it.
+             It is unspecified whether the command that turns tracing off is
+             traced.
+       The default for all these options shall be off (unset) unless stated
+       otherwise in the description of the option or unless the shell was
+       invoked with them on; see sh.
+       The remaining arguments shall be assigned in order to the positional
+       parameters. The special parameter '#' shall be set to reflect the
+       number of positional parameters. All positional parameters shall be
+       unset before any new values are assigned.
+       If the first argument is '−', the results are unspecified.
+       The special argument "−−" immediately following the set command name
+       can be used to delimit the arguments if the first argument begins
+       with '+' or '−', or to prevent inadvertent listing of all shell
+       variables when there are no arguments. The command set −− without
+       argument shall unset all positional parameters and set the special
+       parameter '#' to zero.

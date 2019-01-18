@@ -1,0 +1,2 @@
+
+       This function returns the task's session id attribute.

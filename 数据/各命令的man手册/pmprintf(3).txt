@@ -1,0 +1,12 @@
+
+       The combination of pmprintf and pmflush produces output in either an
+       xconfirm(1) window, on the standard error stream, or to a file in a
+       manner similar to fprintf(3).  The fmt argument is used to control
+       the conversion, formatting, and printing of the variable length args
+       list.  The output technique is controlled via an environment
+       variable.
+       pmprintf appends the formatted message string to an internal buffer
+       shared by the two routines, without actually producing any output.
+       pmflush causes the internal buffer to be either displayed in a
+       window, printed on standard error, or flushed to a file and the
+       internal buffer to be cleared.

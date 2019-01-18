@@ -1,0 +1,24 @@
+
+       pmrep is a customizable performance metrics reporting tool.  Any
+       available performance metric, live or archived, system and/or
+       application, can be selected for reporting using one of the available
+       output alternatives together with applicable formatting options.
+       The metrics of interest are named in the metricspec argument(s) on
+       the pmrep command line.  These metricspecs define individual metrics
+       or pre-defined performance metricsets to be read from the
+       configuration file described below.  For command line argument
+       details see pmrep(1).
+       The pmrep.conf configuration file allows setting default runtime
+       values and defining any number of custom metricsets for pmrep.  A
+       metricset is a user-defined set of arbitrary performance metrics.
+       This allows the user to create specifically crafted metricsets
+       particularly relevant for their application or environment.  Instead
+       of being dependent on what existing tools provide or collecting the
+       needed data with several disjoint utilities the user can create and
+       modify custom metricsets by editing pmrep.conf.  See below for the
+       metricset specification.
+       Options via environment values (see pmGetOptions(3)) override the
+       corresponding built-in default values (if any).  Configuration file
+       options override the corresponding environment variables (if any).
+       Command line options override the corresponding configuration file
+       options (if any).

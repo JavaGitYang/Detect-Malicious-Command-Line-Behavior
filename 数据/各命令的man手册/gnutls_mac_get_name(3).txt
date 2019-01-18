@@ -1,0 +1,2 @@
+
+       Convert a gnutls_mac_algorithm_t value to a string.

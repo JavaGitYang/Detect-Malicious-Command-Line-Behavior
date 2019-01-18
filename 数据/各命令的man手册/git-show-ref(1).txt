@@ -1,0 +1,11 @@
+
+       Displays references available in a local repository along with the
+       associated commit IDs. Results can be filtered using a pattern and
+       tags can be dereferenced into object IDs. Additionally, it can be
+       used to test whether a particular ref exists.
+       By default, shows the tags, heads, and remote refs.
+       The --exclude-existing form is a filter that does the inverse. It
+       reads refs from stdin, one ref per line, and shows those that don’t
+       exist in the local repository.
+       Use of this utility is encouraged in favor of directly accessing
+       files under the .git directory.

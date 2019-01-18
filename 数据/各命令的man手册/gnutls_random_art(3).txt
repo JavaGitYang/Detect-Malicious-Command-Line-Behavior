@@ -1,0 +1,4 @@
+
+       This function will convert a given fingerprint to an "artistic"
+       image. The returned image is allocated using gnutls_malloc(), is
+       null-terminated but art->size will not account the terminating null.

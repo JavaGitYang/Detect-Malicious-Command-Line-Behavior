@@ -1,0 +1,22 @@
+
+       cap_get_file() and cap_get_fd() allocate a capability state in
+       working storage and set it to represent the capability state of the
+       pathname pointed to by path_p or the file open on descriptor fd.
+       These functions return a pointer to the newly created capability
+       state.  The effects of reading the capability state from any file
+       other than a regular file is undefined.  The caller should free any
+       releasable memory, when the capability state in working storage is no
+       longer required, by calling cap_free() with the used cap_t as an
+       argument.
+       cap_set_file() and cap_set_fd() set the values for all capability
+       flags for all capabilities for the pathname pointed to by path_p or
+       the file open on descriptor fd, with the capability state identified
+       by cap_p.  The new capability state of the file is completely
+       determined by the contents of cap_p.  A NULL value for cap_p is used
+       to indicate that capabilities for the file should be deleted.  For
+       these functions to succeed, the calling process must have the
+       effective capability, CAP_SETFCAP, enabled and either the effective
+       user ID of the process must match the file owner or the calling
+       process must have the CAP_FOWNER flag in its effective capability
+       set.  The effects of writing the capability state to any file type
+       other than a regular file are undefined.

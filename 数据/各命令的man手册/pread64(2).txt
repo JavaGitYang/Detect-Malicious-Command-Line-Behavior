@@ -1,0 +1,8 @@
+
+       pread() reads up to count bytes from file descriptor fd at offset
+       offset (from the start of the file) into the buffer starting at buf.
+       The file offset is not changed.
+       pwrite() writes up to count bytes from the buffer starting at buf to
+       the file descriptor fd at offset offset.  The file offset is not
+       changed.
+       The file referenced by fd must be capable of seeking.

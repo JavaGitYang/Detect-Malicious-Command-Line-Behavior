@@ -1,0 +1,6 @@
+
+       As part of the Performance Co-Pilot Log Import API (see
+       LOGIMPORT(3)), pmiSetTimezone sets the source timezone in the current
+       context to be value.
+       In the absence of a call to pmiSetTimezone the source timezone
+       defaults to the timezone of the localhost.

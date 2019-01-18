@@ -1,0 +1,51 @@
+
+       For an overview of namespaces, see namespaces(7).
+       Mount namespaces provide isolation of the list of mount points seen
+       by the processes in each namespace instance.  Thus, the processes in
+       each of the mount namespace instances will see distinct single-
+       directory hierarchies.
+       The views provided by the /proc/[pid]/mounts, /proc/[pid]/mountinfo,
+       and /proc/[pid]/mountstats files (all described in proc(5))
+       correspond to the mount namespace in which the process with the PID
+       [pid] resides.  (All of the processes that reside in the same mount
+       namespace will see the same view in these files.)
+       When a process creates a new mount namespace using clone(2) or
+       unshare(2) with the CLONE_NEWNS flag, the mount point list for the
+       new namespace is a copy of the caller's mount point list.  Subsequent
+       modifications to the mount point list (mount(2) and umount(2)) in
+       either mount namespace will not (by default) affect the mount point
+       list seen in the other namespace (but see the following discussion of
+       shared subtrees).
+   Restrictions on mount namespaces
+       Note the following points with respect to mount namespaces:
+       *  A mount namespace has an owner user namespace.  A mount namespace
+          whose owner user namespace is different from the owner user
+          namespace of its parent mount namespace is considered a less
+          privileged mount namespace.
+       *  When creating a less privileged mount namespace, shared mounts are
+          reduced to slave mounts.  (Shared and slave mounts are discussed
+          below.)  This ensures that mappings performed in less privileged
+          mount namespaces will not propagate to more privileged mount
+          namespaces.
+       *  Mounts that come as a single unit from more privileged mount are
+          locked together and may not be separated in a less privileged
+          mount namespace.  (The unshare(2) CLONE_NEWNS operation brings
+          across all of the mounts from the original mount namespace as a
+          single unit, and recursive mounts that propagate between mount
+          namespaces propagate as a single unit.)
+       *  The mount(2) flags MS_RDONLY, MS_NOSUID, MS_NOEXEC, and the
+          "atime" flags (MS_NOATIME, MS_NODIRATIME, MS_RELATIME) settings
+          become locked when propagated from a more privileged to a less
+          privileged mount namespace, and may not be changed in the less
+          privileged mount namespace.
+       *  A file or directory that is a mount point in one namespace that is
+          not a mount point in another namespace, may be renamed, unlinked,
+          or removed (rmdir(2)) in the mount namespace in which it is not a
+          mount point (subject to the usual permission checks).
+          Previously, attempting to unlink, rename, or remove a file or
+          directory that was a mount point in another mount namespace would
+          result in the error EBUSY.  That behavior had technical problems
+          of enforcement (e.g., for NFS) and permitted denial-of-service
+          attacks against more privileged users.  (i.e., preventing
+          individual files from being updated by bind mounting on top of
+          them).

@@ -1,0 +1,11 @@
+
+       The canonicalize_file_name() function returns a null-terminated
+       string containing the canonicalized absolute pathname corresponding
+       to path.  In the returned string, symbolic links are resolved, as are
+       .  and ..  pathname components.  Consecutive slash (/) characters are
+       replaced by a single slash.
+       The returned string is dynamically allocated by
+       canonicalize_file_name() and the caller should deallocate it with
+       free(3) when it is no longer required.
+       The call canonicalize_file_name(path) is equivalent to the call:
+           realpath(path, NULL);

@@ -1,0 +1,21 @@
+
+   quotaon
+       quotaon announces to the system that disk quotas should be enabled on
+       one or more filesystems. The filesystem quota files must be present
+       in the root directory of the specified filesystem and be named either
+       aquota.user (for version 2 user quota), quota.user (for version 1
+       user quota), aquota.group (for version 2 group quota), or quota.group
+       (for version 1 group quota).
+       XFS filesystems are a special case - XFS considers quota information
+       as filesystem metadata and uses journaling to provide a higher level
+       guarantee of consistency.  There are two components to the XFS disk
+       quota system: accounting and limit enforcement.  XFS filesystems
+       require that quota accounting be turned on at mount time.  It is
+       possible to enable and disable limit enforcement on an XFS filesystem
+       after quota accounting is already turned on.  The default is to turn
+       on both accounting and enforcement.
+       The XFS quota implementation does not maintain quota information in
+       user-visible files, but rather stores this information internally.
+   quotaoff
+       quotaoff announces to the system that the specified filesystems
+       should have any disk quotas turned off.

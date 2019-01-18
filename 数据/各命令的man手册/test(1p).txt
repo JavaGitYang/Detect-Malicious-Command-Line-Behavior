@@ -1,0 +1,8 @@
+
+       The test utility shall evaluate the expression and indicate the
+       result of the evaluation by its exit status. An exit status of zero
+       indicates that the expression evaluated as true and an exit status of
+       1 indicates that the expression evaluated as false.
+       In the second form of the utility, which uses "[]" rather than test,
+       the application shall ensure that the square brackets are separate
+       arguments.

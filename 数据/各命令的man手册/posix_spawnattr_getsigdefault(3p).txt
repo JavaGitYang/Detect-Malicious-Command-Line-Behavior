@@ -1,0 +1,12 @@
+
+       The posix_spawnattr_getsigdefault() function shall obtain the value
+       of the spawn-sigdefault attribute from the attributes object
+       referenced by attr.
+       The posix_spawnattr_setsigdefault() function shall set the spawn-
+       sigdefault attribute in an initialized attributes object referenced
+       by attr.
+       The spawn-sigdefault attribute represents the set of signals to be
+       forced to default signal handling in the new process image (if
+       POSIX_SPAWN_SETSIGDEF is set in the spawn-flags attribute) by a spawn
+       operation. The default value of this attribute shall be an empty
+       signal set.

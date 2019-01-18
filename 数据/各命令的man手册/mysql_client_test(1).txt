@@ -1,0 +1,59 @@
+
+       The mysql_client_test program is used for testing aspects of the
+       MariaDB client API that cannot be tested using mysqltest and its test
+       language.  mysql_client_test_embedded is similar but used for testing
+       the embedded server. Both programs are run as part of the test suite.
+       The source code for the programs can be found in in
+       tests/mysql_client_test.c in a source distribution. The program
+       serves as a good source of examples illustrating how to use various
+       features of the client API.
+       mysql_client_test is used in a test by the same name in the main
+       tests suite of mysql-test-run.pl but may also be run directly. Unlike
+       the other programs listed here, it does not read an external
+       description of what tests to run. Instead, all tests are coded into
+       the program, which is written to cover all aspects of the C language
+       API.
+       mysql_client_test supports the following options:
+       ·   --help, -?
+           Display a help message and exit.
+       ·   --basedir=dir_name, -b dir_name
+           The base directory for the tests.
+       ·   --count=count, -t count
+           The number of times to execute the tests.
+       ·   --database=db_name, -D db_name
+           The database to use.
+       ·   --debug[=debug_options], -#[debug_options]
+           Write a debugging log if MariaDB is built with debugging support.
+           The default debug_options value is
+           ´d:t:o,/tmp/mysql_client_test.trace´.
+       ·   --getopt-ll-test=option, -g option
+           Option to use for testing bugs in the getopt library.
+       ·   --host=host_name, -h host_name
+           Connect to the MariaDB server on the given host.
+       ·   --password[=password], -p[password]
+           The password to use when connecting to the server. If you use the
+           short option form (-p), you cannot have a space between the
+           option and the password. If you omit the password value following
+           the --password or -p option on the command line, you are prompted
+           for one.
+       ·   --port=port_num, -P port_num
+           The TCP/IP port number to use for the connection.
+       ·   --server-arg=arg, -A arg
+           Argument to send to the embedded server.
+       ·   --show-tests, -T
+           Show all test names.
+       ·   --silent, -s
+           Be more silent.
+       ·   --socket=path, -S path
+           The socket file to use when connecting to localhost (which is the
+           default host).
+       ·   --testcase, -c
+           The option is used when called from mysql-test-run.pl, so that
+           mysql_client_test may optionally behave in a different way than
+           if called manually, for example by skipping some tests.
+           Currently, there is no difference in behavior but the option is
+           included in order to make this possible.
+       ·   --user=user_name, -u user_name
+           The MariaDB user name to use when connecting to the server.
+       ·   -v dir_name, --vardir=dir_name
+           The data directory for tests. The default is mysql-test/var.

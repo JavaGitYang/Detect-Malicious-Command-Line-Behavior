@@ -1,0 +1,3 @@
+
+       This function will return the URL for each token available in system.
+       The url has to be released using gnutls_free()

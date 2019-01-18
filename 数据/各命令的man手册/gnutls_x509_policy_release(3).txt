@@ -1,0 +1,4 @@
+
+       This function will deinitialize all memory associated with the
+       provided
+        policy . The policy is allocated using gnutls_x509_crt_get_policy().

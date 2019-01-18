@@ -1,0 +1,42 @@
+
+       sd_is_fifo() may be called to check whether the specified file
+       descriptor refers to a FIFO or pipe. If the path parameter is not
+       NULL, it is checked whether the FIFO is bound to the specified file
+       system path.
+       sd_is_socket() may be called to check whether the specified file
+       descriptor refers to a socket. If the family parameter is not
+       AF_UNSPEC, it is checked whether the socket is of the specified
+       family (AF_UNIX, AF_INET, ...). If the type parameter is not 0, it is
+       checked whether the socket is of the specified type (SOCK_STREAM,
+       SOCK_DGRAM, ...). If the listening parameter is positive, it is
+       checked whether the socket is in accepting mode, i.e.  listen() has
+       been called for it. If listening is 0, it is checked whether the
+       socket is not in this mode. If the parameter is negative, no such
+       check is made. The listening parameter should only be used for stream
+       sockets and should be set to a negative value otherwise.
+       sd_is_socket_inet() is similar to sd_is_socket(), but optionally
+       checks the IPv4 or IPv6 port number the socket is bound to, unless
+       port is zero. For this call family must be passed as either
+       AF_UNSPEC, AF_INET, or AF_INET6.
+       sd_is_socket_sockaddr() is similar to sd_is_socket_inet(), but checks
+       if the socket is bound to the address specified by addr. The family
+       specified by addr must be either AF_INET or AF_INET6 and addr_len
+       must be large enough for that family. If addr specifies a non-zero
+       port, it is also checked if the socket is bound to this port. In
+       addition, for IPv6, if addr specifies non-zero sin6_flowinfo or
+       sin6_scope_id, it is checked if the socket has the same values.
+       sd_is_socket_unix() is similar to sd_is_socket() but optionally
+       checks the AF_UNIX path the socket is bound to, unless the path
+       parameter is NULL. For normal file system AF_UNIX sockets, set the
+       length parameter to 0. For Linux abstract namespace sockets, set the
+       length to the size of the address, including the initial 0 byte, and
+       set the path to the initial 0 byte of the socket address.
+       sd_is_mq() may be called to check whether the specified file
+       descriptor refers to a POSIX message queue. If the path parameter is
+       not NULL, it is checked whether the message queue is bound to the
+       specified name.
+       sd_is_special() may be called to check whether the specified file
+       descriptor refers to a special file. If the path parameter is not
+       NULL, it is checked whether the file descriptor is bound to the
+       specified file name. Special files in this context are character
+       device nodes and files in /proc or /sys.

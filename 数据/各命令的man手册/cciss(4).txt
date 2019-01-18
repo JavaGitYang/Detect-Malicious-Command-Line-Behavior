@@ -1,0 +1,57 @@
+
+       Note: This obsolete driver was removed from the kernel in version
+       4.14, as it is superseded by the hpsa(4) driver in newer kernels.
+       cciss is a block driver for older HP Smart Array RAID controllers.
+   Options
+       cciss_allow_hpsa=1: This option prevents the cciss driver from
+       attempting to drive any controllers that the hpsa(4) driver is
+       capable of controlling, which is to say, the cciss driver is
+       restricted by this option to the following controllers:
+           Smart Array 5300
+           Smart Array 5i
+           Smart Array 532
+           Smart Array 5312
+           Smart Array 641
+           Smart Array 642
+           Smart Array 6400
+           Smart Array 6400 EM
+           Smart Array 6i
+           Smart Array P600
+           Smart Array P400i
+           Smart Array E200i
+           Smart Array E200
+           Smart Array E200i
+           Smart Array E200i
+           Smart Array E200i
+           Smart Array E500
+   Supported hardware
+       The cciss driver supports the following Smart Array boards:
+           Smart Array 5300
+           Smart Array 5i
+           Smart Array 532
+           Smart Array 5312
+           Smart Array 641
+           Smart Array 642
+           Smart Array 6400
+           Smart Array 6400 U320 Expansion Module
+           Smart Array 6i
+           Smart Array P600
+           Smart Array P800
+           Smart Array E400
+           Smart Array P400i
+           Smart Array E200
+           Smart Array E200i
+           Smart Array E500
+           Smart Array P700m
+           Smart Array P212
+           Smart Array P410
+           Smart Array P410i
+           Smart Array P411
+           Smart Array P812
+           Smart Array P712m
+           Smart Array P711m
+   Configuration details
+       To configure HP Smart Array controllers, use the HP Array
+       Configuration Utility (either hpacuxe(8) or hpacucli(8)) or the
+       Offline ROM-based Configuration Utility (ORCA) run from the Smart
+       Array's option ROM at boot time.

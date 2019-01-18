@@ -1,0 +1,20 @@
+
+       The asa utility shall write its input files to standard output,
+       mapping carriage-control characters from the text files to line-
+       printer control sequences in an implementation-defined manner.
+       The first character of every line shall be removed from the input,
+       and the following actions are performed.
+       If the character removed is:
+       <space>   The rest of the line is output without change.
+       0         A <newline> is output, then the rest of the input line.
+       1         One or more implementation-defined characters that causes
+                 an advance to the next page shall be output, followed by
+                 the rest of the input line.
+       +         The <newline> of the previous line shall be replaced with
+                 one or more implementation-defined characters that causes
+                 printing to return to column position 1, followed by the
+                 rest of the input line. If the '+' is the first character
+                 in the input, it shall be equivalent to <space>.
+       The action of the asa utility is unspecified upon encountering any
+       character other than those listed above as the first character in a
+       line.

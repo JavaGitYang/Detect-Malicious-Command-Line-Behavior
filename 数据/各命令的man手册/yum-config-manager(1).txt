@@ -1,0 +1,12 @@
+
+       yum-config-manager is a program that can manage main yum
+       configuration options, toggle which repositories are enabled or
+       disabled, and add new repositories.
+       Unless --add-repo is used, the program will output the current
+       configuration of the selected sections, and optionally save it back
+       to the corresponding files.
+       By default, if no positional arguments are specified, the program
+       will select the [main] section and each enabled repository.  You can
+       override this by specifying your own list of sections as arguments
+       (these may also include disabled repositories).  A section can either
+       be main or a repoid.

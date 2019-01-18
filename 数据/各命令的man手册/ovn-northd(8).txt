@@ -1,0 +1,7 @@
+
+       ovn-northd is a centralized daemon responsible for translating the
+       high-level OVN configuration into logical configuration consumable by
+       daemons such as ovn-controller. It translates the logical network
+       configuration in terms of conventional network concepts, taken from
+       the OVN Northbound Database (see ovn-nb(5)), into logical datapath
+       flows in the OVN Southbound Database (see ovn-sb(5)) below it.

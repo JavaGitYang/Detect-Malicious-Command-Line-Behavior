@@ -1,0 +1,5 @@
+
+       The function data_ahead tests whether there is off-screen data ahead
+       in the given form.  It returns TRUE (1) or FALSE (0).
+       The function data_behind tests whether there is off-screen data
+       behind in the given form.  It returns TRUE (1) or FALSE (0).

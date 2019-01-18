@@ -1,0 +1,10 @@
+
+       This function uses the mc5p or mc4 and mc5 capabilities, if they are
+       present, to ship given data to a printer attached to the terminal.
+       Note that the mcprint code has no way to do flow control with the
+       printer or to know how much buffering it has.  Your application is
+       responsible for keeping the rate of writes to the printer below its
+       continuous throughput rate (typically about half of its nominal cps
+       rating).  Dot-matrix printers and 6-page-per-minute lasers can
+       typically handle 80cps, so a good conservative rule of thumb is to
+       sleep for a second after shipping each 80-character line.

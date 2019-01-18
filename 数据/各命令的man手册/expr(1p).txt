@@ -1,0 +1,3 @@
+
+       The expr utility shall evaluate an expression and write the result to
+       standard output.

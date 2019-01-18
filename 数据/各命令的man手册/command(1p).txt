@@ -1,0 +1,13 @@
+
+       The command utility shall cause the shell to treat the arguments as a
+       simple command, suppressing the shell function lookup that is
+       described in Section 2.9.1.1, Command Search and Execution, item 1b.
+       If the command_name is the same as the name of one of the special
+       built-in utilities, the special properties in the enumerated list at
+       the beginning of Section 2.14, Special Built-In Utilities shall not
+       occur. In every other respect, if command_name is not the name of a
+       function, the effect of command (with no options) shall be the same
+       as omitting command.
+       When the −v or −V option is used, the command utility shall provide
+       information concerning how a command name is interpreted by the
+       shell.

@@ -1,0 +1,27 @@
+
+       pmMergeLabels takes multiple (nsets) performance metric label sets
+       and merges them into a single result buffer of length bytes.  Both
+       the input sets and the result buffer are name:value pairs in the
+       "JSONB" format described on pmLookupLabels(3).
+       The pmMergeLabelSets interface serves the same purpose, but allows
+       for indexed sets of labels to be merged.  The format of the
+       pmLabelSet data structure is described in detail in
+       pmLookupLabels(3).
+       Although names may repeat across the provided label sets, duplicate
+       names are not allowed in the final buffer.  Any label names occuring
+       in more than one of the input label sets are reduced to one using the
+       rules described in the "PRECEDENCE" section of pmLookupLabels.  The
+       position of each element in the sets array is significant in terms of
+       the precedence rules - earlier positions are taken to be of lower
+       precedence to later positions.
+       Values must be primitive JSON entities (e.g. numbers, strings), one-
+       dimensional arrays or maps (i.e. simple associative arrays).
+       In addition to using indexed label sets the pmMergeLabelSets
+       interface provides an optional filter callback function.  If non-
+       NULL, this function will be called for each label that would be added
+       to the output buffer, allowing finer-grained control over the final
+       merged set.  This mechanism can be used to filter individual labels
+       based on their name, value, and/or flags.  If the filter function
+       returns zero (false), then the given label is filtered from the
+       resulting set.  Any non-zero return value indicates that the label
+       should be included in the buffer.

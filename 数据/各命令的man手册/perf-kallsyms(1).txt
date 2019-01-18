@@ -1,0 +1,5 @@
+
+       This command searches the running kernel kallsyms file for the given
+       symbol(s) and prints information about it, including the DSO, the
+       kallsyms begin/end addresses and the addresses in the ELF kallsyms
+       symbol table (for symbols in modules).

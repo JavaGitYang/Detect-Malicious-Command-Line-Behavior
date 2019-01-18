@@ -1,0 +1,13 @@
+
+       ltrace is a program that simply runs the specified command until it
+       exits.  It intercepts and records the dynamic library calls which are
+       called by the executed process and the signals which are received by
+       that process.  It can also intercept and print the system calls
+       executed by the program.
+       Its use is very similar to strace(1).
+       ltrace shows parameters of invoked functions and system calls.  To
+       determine what arguments each function has, it needs external
+       declaration of function prototypes.  Those are stored in files called
+       prototype libraries--see ltrace.conf(5) for details on the syntax of
+       these files.  See the section PROTOTYPE LIBRARY DISCOVERY to learn
+       how ltrace finds prototype libraries.

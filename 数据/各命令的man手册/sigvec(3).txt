@@ -1,0 +1,63 @@
+
+       These functions are provided in glibc as a compatibility interface
+       for programs that make use of the historical BSD signal API.  This
+       API is obsolete: new applications should use the POSIX signal API
+       (sigaction(2), sigprocmask(2), etc.).
+       The sigvec() function sets and/or gets the disposition of the signal
+       sig (like the POSIX sigaction(2)).  If vec is not NULL, it points to
+       a sigvec structure that defines the new disposition for sig.  If ovec
+       is not NULL, it points to a sigvec structure that is used to return
+       the previous disposition of sig.  To obtain the current disposition
+       of sig without changing it, specify NULL for vec, and a non-null
+       pointer for ovec.
+       The dispositions for SIGKILL and SIGSTOP cannot be changed.
+       The sigvec structure has the following form:
+           struct sigvec {
+               void (*sv_handler)(int); /* Signal disposition */
+               int    sv_mask;          /* Signals to be blocked in handler */
+               int    sv_flags;         /* Flags */
+           };
+       The sv_handler field specifies the disposition of the signal, and is
+       either: the address of a signal handler function; SIG_DFL, meaning
+       the default disposition applies for the signal; or SIG_IGN, meaning
+       that the signal is ignored.
+       If sv_handler specifies the address of a signal handler, then sv_mask
+       specifies a mask of signals that are to be blocked while the handler
+       is executing.  In addition, the signal for which the handler is
+       invoked is also blocked.  Attempts to block SIGKILL or SIGSTOP are
+       silently ignored.
+       If sv_handler specifies the address of a signal handler, then the
+       sv_flags field specifies flags controlling what happens when the han‐
+       dler is called.  This field may contain zero or more of the following
+       flags:
+       SV_INTERRUPT
+              If the signal handler interrupts a blocking system call, then
+              upon return from the handler the system call s not be
+              restarted: instead it fails with the error EINTR.  If this
+              flag is not specified, then system calls are restarted by
+              default.
+       SV_RESETHAND
+              Reset the disposition of the signal to the default before
+              calling the signal handler.  If this flag is not specified,
+              then the handler remains established until explicitly removed
+              by a later call to sigvec() or until the process performs an
+              execve(2).
+       SV_ONSTACK
+              Handle the signal on the alternate signal stack (historically
+              established under BSD using the obsolete sigstack() function;
+              the POSIX replacement is sigaltstack(2)).
+       The sigmask() macro constructs and returns a "signal mask" for
+       signum.  For example, we can initialize the vec.sv_mask field given
+       to sigvec() using code such as the following:
+           vec.sv_mask = sigmask(SIGQUIT) | sigmask(SIGABRT);
+                       /* Block SIGQUIT and SIGABRT during
+                          handler execution */
+       The sigblock() function adds the signals in mask to the process's
+       signal mask (like POSIX sigprocmask(SIG_BLOCK)), and returns the
+       process's previous signal mask.  Attempts to block SIGKILL or SIGSTOP
+       are silently ignored.
+       The sigsetmask() function sets the process's signal mask to the value
+       given in mask (like POSIX sigprocmask(SIG_SETMASK)), and returns the
+       process's previous signal mask.
+       The siggetmask() function returns the process's current signal mask.
+       This call is equivalent to sigblock(0).

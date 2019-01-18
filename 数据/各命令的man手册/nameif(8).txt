@@ -1,0 +1,10 @@
+
+       nameif renames network interfaces based on mac addresses. When no
+       arguments are given /etc/mactab is read. Each line  of it contains an
+       interface name and a Ethernet MAC address. Comments are allowed
+       starting with #.  Otherwise the interfaces specified on the command
+       line are processed.  nameif looks for the interface with the given
+       MAC address and renames it to the name given.
+       When the -s argument is given all error messages go to the syslog.
+       When the -c argument is given with a file name that file is read
+       instead of /etc/mactab.

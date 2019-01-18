@@ -1,0 +1,13 @@
+
+       The securetty_types file contains a list of types associated to
+       secure tty type that are defined in the policy for use by SELinux-
+       aware applications.
+       selinux_securetty_types_path(3) will return the active policy path to
+       this file. The default securetty types file is:
+              /etc/selinux/{SELINUXTYPE}/contexts/securetty_types
+       Where {SELINUXTYPE} is the entry from the selinux configuration file
+       config (see selinux_config(5)).
+       selinux_check_securetty_context(3) reads this file to determine if a
+       context is for a secure tty defined in the active policy.
+       SELinux-aware applications such as newrole(1) use this information to
+       check the status of a tty.

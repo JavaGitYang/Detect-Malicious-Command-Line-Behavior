@@ -1,0 +1,3 @@
+
+       prtstat prints the statistics of the specified process.  This
+       information comes from the /proc/PID/stat file.

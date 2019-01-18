@@ -1,0 +1,46 @@
+
+   Standard description
+       (From POSIX.1) The vfork() function has the same effect as fork(2),
+       except that the behavior is undefined if the process created by
+       vfork() either modifies any data other than a variable of type pid_t
+       used to store the return value from vfork(), or returns from the
+       function in which vfork() was called, or calls any other function
+       before successfully calling _exit(2) or one of the exec(3) family of
+       functions.
+   Linux description
+       vfork(), just like fork(2), creates a child process of the calling
+       process.  For details and return value and errors, see fork(2).
+       vfork() is a special case of clone(2).  It is used to create new
+       processes without copying the page tables of the parent process.  It
+       may be useful in performance-sensitive applications where a child is
+       created which then immediately issues an execve(2).
+       vfork() differs from fork(2) in that the calling thread is suspended
+       until the child terminates (either normally, by calling _exit(2), or
+       abnormally, after delivery of a fatal signal), or it makes a call to
+       execve(2).  Until that point, the child shares all memory with its
+       parent, including the stack.  The child must not return from the
+       current function or call exit(3) (which would have the effect of
+       calling exit handlers established by the parent process and flushing
+       the parent's stdio(3) buffers), but may call _exit(2).
+       As with fork(2), the child process created by vfork() inherits copies
+       of various of the caller's process attributes (e.g., file
+       descriptors, signal dispositions, and current working directory); the
+       vfork() call differs only in the treatment of the virtual address
+       space, as described above.
+       Signals sent to the parent arrive after the child releases the
+       parent's memory (i.e., after the child terminates or calls
+       execve(2)).
+   Historic description
+       Under Linux, fork(2) is implemented using copy-on-write pages, so the
+       only penalty incurred by fork(2) is the time and memory required to
+       duplicate the parent's page tables, and to create a unique task
+       structure for the child.  However, in the bad old days a fork(2)
+       would require making a complete copy of the caller's data space,
+       often needlessly, since usually immediately afterward an exec(3) is
+       done.  Thus, for greater efficiency, BSD introduced the vfork()
+       system call, which did not fully copy the address space of the parent
+       process, but borrowed the parent's memory and thread of control until
+       a call to execve(2) or an exit occurred.  The parent process was
+       suspended while the child was using its resources.  The use of
+       vfork() was tricky: for example, not modifying data in the parent
+       process depended on knowing which variables were held in a register.

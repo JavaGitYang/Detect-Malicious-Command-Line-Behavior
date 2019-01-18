@@ -1,0 +1,60 @@
+
+       For many symbolic probing operations, systemtap needs DWARF debuginfo
+       for the relevant binaries.  This often includes resolving
+       function/statement probes, or $context variables in related handlers.
+       DWARF debuginfo is created by the compiler when using CFLAGS -g, and
+       may be found in the original binaries built during compilation, or
+       may have been split into separate files.  The
+       SYSTEMTAP_DEBUGINFO_PATH environment variable affects where systemtap
+       looks for these files.
+       If your operating system came from a distributor, check with them if
+       debuginfo packages or variants are available.  If your distributor
+       does not have debuginfo-equipped binaries at all, you may need to
+       rebuild it.
+       Systemtap uses the elfutils library to process ELF/DWARF files.  The
+       version of elfutils used by systemtap is the number after the slash
+       in the -V output:
+              % stap -V
+              Systemtap translator/driver (version 2.3/0.156, rpm 2.3-1.fc19)
+              Copyright (C) 2005-2014 Red Hat, Inc. and others
+              [...]
+       This indicates systemtap version 2.3 with elfutils version 0.156.
+       kernel debuginfo
+              For scripts that target the kernel, systemtap may search for
+              the vmlinux file created during its original build.  This is
+              distinct from the boot-loader's compressed/stripped vmlinuz
+              file, and much larger.  If you have a hand-built kernel, make
+              sure it was built with the CONFIG_DEBUG_INFO=y option.  Some
+              Linux distributions may include several kernel variants, in‐
+              cluding a confusingly named kernel-debug (an alternative ker‐
+              nel, with its own kernel-debug-debuginfo package), which is
+              not the same thing as the kernel-debuginfo (DWARF data for the
+              base kernel).  The stap-prep program can help install the
+              right set.
+       process debuginfo
+              For scripts that target user-space, systemtap may search for
+              debuginfo.  If you have hand-built binaries, use CFLAGS=-g -O2
+              to compile them.
+       minidebuginfo
+              On some systems, binaries may be compiled with a subset of de‐
+              buginfo useful for function tracing and backtraces.  This
+              'Minidebuginfo' is a xz compressed section labeled .gnu_debug‐
+              data.  Support for minidebuginfo relies on elfutils version
+              0.156 or later.
+       compressed debuginfo
+              On some systems, debuginfo may be available, but compressed
+              into .zdebug_* sections.  Support for compressed debuginfo re‐
+              lies on elfutils version 0.153 or later.
+       unnecessary debuginfo
+              In some cases, a script may be altered to avoid requiring de‐
+              buginfo.  For example, as script that uses probe syscall.*
+              probes could try instead probe nd_syscall.*  (for non-DWARF
+              syscall): these work similarly, and use more intricate (frag‐
+              ile) tapset functions to extract system call arguments.  An‐
+              other option is use of compiled-in instrumentation such as
+              kernel tracepoints or user-space <sys/sdt.h> markers in li‐
+              braries or executables, which do not require debuginfo.  If
+              debuginfo was required for resolving a complicated
+              $var->foo->bar expression, it may be possible to use
+              @cast(var,"foo","foo.h")->foo->bar to synthesize debuginfo for
+              that type from a header file.

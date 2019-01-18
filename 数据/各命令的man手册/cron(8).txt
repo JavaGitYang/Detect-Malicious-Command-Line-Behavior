@@ -1,0 +1,63 @@
+
+       Cron is started from /etc/rc.d/init.d or /etc/init.d when classical
+       sysvinit scripts are used. In case systemd is enabled, then unit file
+       is installed into /lib/systemd/system/crond.service and daemon is
+       started by systemctl start crond.service command. It returns
+       immediately, thus, there is no need to need to start it with the '&'
+       parameter.
+       Cron searches /var/spool/cron for crontab files which are named after
+       accounts in /etc/passwd; The found crontabs are loaded into the
+       memory.  Cron also searches for /etc/anacrontab and any files in the
+       /etc/cron.d directory, which have a different format (see
+       crontab(5)).  Cron examines all stored crontabs and checks each job
+       to see if it needs to be run in the current minute.  When executing
+       commands, any output is mailed to the owner of the crontab (or to the
+       user specified in the MAILTO environment variable in the crontab, if
+       such exists).  Any job output can also be sent to syslog by using the
+       -s option.
+       There are two ways how changes in crontables are checked.  The first
+       method is checking the modtime of a file.  The second method is using
+       the inotify support.  Using of inotify is logged in the /var/log/cron
+       log after the daemon is started.  The inotify support checks for
+       changes in all crontables and accesses the hard disk only when a
+       change is detected.
+       When using the modtime option, Cron checks its crontables' modtimes
+       every minute to check for any changes and reloads the crontables
+       which have changed.  There is no need to restart Cron after some of
+       the crontables were modified.  The modtime option is also used when
+       inotify can not be initialized.
+       Cron checks these files and directories:
+       /etc/crontab
+              system crontab.  Nowadays the file is empty by default.
+              Originally it was usually used to run daily, weekly, monthly
+              jobs.  By default these jobs are now run through anacron which
+              reads /etc/anacrontab configuration file.  See anacrontab(5)
+              for more details.
+       /etc/cron.d/
+              directory that contains system cronjobs stored for different
+              users.
+       /var/spool/cron
+              directory that contains user crontables created by the crontab
+              command.
+       Note that the crontab(1) command updates the modtime of the spool
+       directory whenever it changes a crontab.
+   Daylight Saving Time and other time changes
+       Local time changes of less than three hours, such as those caused by
+       the Daylight Saving Time changes, are handled in a special way.  This
+       only applies to jobs that run at a specific time and jobs that run
+       with a granularity greater than one hour.  Jobs that run more
+       frequently are scheduled normally.
+       If time was adjusted one hour forward, those jobs that would have run
+       in the interval that has been skipped will be run immediately.
+       Conversely, if time was adjusted backward, running the same job twice
+       is avoided.
+       Time changes of more than 3 hours are considered to be corrections to
+       the clock or the timezone, and the new time is used immediately.
+       It is possible to use different time zones for crontables.  See
+       crontab(5) for more information.
+   PAM Access Control
+       Cron supports access control with PAM if the system has PAM
+       installed.  For more information, see pam(8).  A PAM configuration
+       file for crond is installed in /etc/pam.d/crond.  The daemon loads
+       the PAM environment from the pam_env module.  This can be overridden
+       by defining specific settings in the appropriate crontab file.

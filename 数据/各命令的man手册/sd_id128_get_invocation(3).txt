@@ -1,0 +1,41 @@
+
+       sd_id128_get_machine() returns the machine ID of the executing host.
+       This reads and parses the machine-id(5) file. This function caches
+       the machine ID internally to make retrieving the machine ID a cheap
+       operation. This ID may be used wherever a unique identifier for the
+       local system is needed. However, it is recommended to use this ID
+       as-is only in trusted environments. In untrusted environments it is
+       recommended to derive an application specific ID from this machine
+       ID, in an irreversable (cryptographically secure) way. To make this
+       easy sd_id128_get_machine_app_specific() is provided, see below.
+       sd_id128_get_machine_app_specific() is similar to
+       sd_id128_get_machine(), but retrieves a machine ID that is specific
+       to the application that is identified by the indicated application
+       ID. It is recommended to use this function instead of
+       sd_id128_get_machine() when passing an ID to untrusted environments,
+       in order to make sure that the original machine ID may not be
+       determined externally. The application-specific ID should be
+       generated via a tool like journalctl --new-id128, and may be compiled
+       into the application. This function will return the same
+       application-specific ID for each combination of machine ID and
+       application ID. Internally, this function calculates HMAC-SHA256 of
+       the application ID, keyed by the machine ID.
+       sd_id128_get_boot() returns the boot ID of the executing kernel. This
+       reads and parses the /proc/sys/kernel/random/boot_id file exposed by
+       the kernel. It is randomly generated early at boot and is unique for
+       every running kernel instance. See random(4) for more information.
+       This function also internally caches the returned ID to make this
+       call a cheap operation.
+       sd_id128_get_invocation() returns the invocation ID of the currently
+       executed service. In its current implementation, this reads and
+       parses the $INVOCATION_ID environment variable that the service
+       manager sets when activating a service, see systemd.exec(5) for
+       details. The ID is cached internally. In future a different mechanism
+       to determine the invocation ID may be added.
+       Note that sd_id128_get_machine_app_specific(), sd_id128_get_boot()
+       and sd_id128_get_invocation() always return UUID v4 compatible IDs.
+       sd_id128_get_machine() will also return a UUID v4-compatible ID on
+       new installations but might not on older. It is possible to convert
+       the machine ID into a UUID v4-compatible one. For more information,
+       see machine-id(5).
+       For more information about the "sd_id128_t" type see sd-id128(3).

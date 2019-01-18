@@ -1,0 +1,41 @@
+
+       Like nanosleep(2), clock_nanosleep() allows the calling thread to
+       sleep for an interval specified with nanosecond precision.  It
+       differs in allowing the caller to select the clock against which the
+       sleep interval is to be measured, and in allowing the sleep interval
+       to be specified as either an absolute or a relative value.
+       The time values passed to and returned by this call are specified
+       using timespec structures, defined as follows:
+           struct timespec {
+               time_t tv_sec;        /* seconds */
+               long   tv_nsec;       /* nanoseconds [0 .. 999999999] */
+           };
+       The clock_id argument specifies the clock against which the sleep
+       interval is to be measured.  This argument can have one of the fol‐
+       lowing values:
+       CLOCK_REALTIME   A settable system-wide real-time clock.
+       CLOCK_MONOTONIC  A nonsettable, monotonically increasing clock that
+                        measures time since some unspecified point in the
+                        past that does not change after system startup.
+       CLOCK_PROCESS_CPUTIME_ID
+                        A settable per-process clock that measures CPU time
+                        consumed by all threads in the process.
+       See clock_getres(2) for further details on these clocks.  In addi‐
+       tion, the CPU clock IDs returned by clock_getcpuclockid(3) and
+       pthread_getcpuclockid(3) can also be passed in clock_id.
+       If flags is 0, then the value specified in request is interpreted as
+       an interval relative to the current value of the clock specified by
+       clock_id.
+       If flags is TIMER_ABSTIME, then request is interpreted as an absolute
+       time as measured by the clock, clock_id.  If request is less than or
+       equal to the current value of the clock, then clock_nanosleep()
+       returns immediately without suspending the calling thread.
+       clock_nanosleep() suspends the execution of the calling thread until
+       either at least the time specified by request has elapsed, or a sig‐
+       nal is delivered that causes a signal handler to be called or that
+       terminates the process.
+       If the call is interrupted by a signal handler, clock_nanosleep()
+       fails with the error EINTR.  In addition, if remain is not NULL, and
+       flags was not TIMER_ABSTIME, it returns the remaining unslept time in
+       remain.  This value can then be used to call clock_nanosleep() again
+       and complete a (relative) sleep.

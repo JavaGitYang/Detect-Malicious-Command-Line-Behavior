@@ -1,0 +1,16 @@
+
+       The lp utility shall copy the input files to an output destination in
+       an unspecified manner. The default output destination should be to a
+       hardcopy device, such as a printer or microfilm recorder, that
+       produces non-volatile, human-readable documents. If such a device is
+       not available to the application, or if the system provides no such
+       device, the lp utility shall exit with a non-zero exit status.
+       The actual writing to the output device may occur some time after the
+       lp utility successfully exits. During the portion of the writing that
+       corresponds to each input file, the implementation shall guarantee
+       exclusive access to the device.
+       The lp utility shall associate a unique request ID with each request.
+       Normally, a banner page is produced to separate and identify each
+       print job. This page may be suppressed by implementation-defined
+       conditions, such as an operator command or one of the −o option
+       values.

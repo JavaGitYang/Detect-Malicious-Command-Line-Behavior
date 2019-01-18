@@ -1,0 +1,18 @@
+
+       The batch utility shall read commands from standard input and
+       schedule them for execution in a batch queue. It shall be the
+       equivalent of the command:
+           at −q b −m now
+       where queue b is a special at queue, specifically for batch jobs.
+       Batch jobs shall be submitted to the batch queue with no time
+       constraints and shall be run by the system using algorithms, based on
+       unspecified factors, that may vary with each invocation of batch.
+       Users shall be permitted to use batch if their name appears in the
+       file at.allow which is located in an implementation-defined
+       directory.  If that file does not exist, the file at.deny, which is
+       located in an implementation-defined directory, shall be checked to
+       determine whether the user shall be denied access to batch.  If
+       neither file exists, only a process with appropriate privileges shall
+       be allowed to submit a job. If only at.deny exists and is empty,
+       global usage shall be permitted. The at.allow and at.deny files shall
+       consist of one user name per line.

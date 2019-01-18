@@ -1,0 +1,27 @@
+
+       lastcomm prints out information about previously executed commands.
+       If no arguments are specified, lastcomm will print info about all of
+       the commands in acct (the record file).  If called with one or more
+       of command-name, user-name, or terminal-name, only records containing
+       those items will be displayed.  For example, to find out which users
+       used command `a.out' and which users were logged into `tty0', type:
+                                lastcomm a.out tty0
+       This will print any entry for which `a.out' or `tty0' matches in any
+       of the record's fields (command, name, or terminal).  If you want to
+       find only items that match *all* of the arguments on the command
+       line, you must use the '-strict-match' option.  For example, to list
+       all of the executions of command a.out by user root on terminal tty0,
+       type:
+          lastcomm --strict-match --command a.out --user root --tty tty0
+       The order of the arguments is not important.
+       For each entry the following information is printed:
+          + command name of the process
+          + flags, as recorded by the system accounting routines:
+               S -- command executed by super-user
+               F -- command executed after a fork but without a following
+       exec
+               C -- command run in PDP-11 compatibility mode (VAX only)
+               D -- command terminated with the generation of a core file
+               X -- command was terminated with the signal SIGTERM
+          + the name of the user who ran the process
+          + time the process started

@@ -1,0 +1,5 @@
+
+       The perf ftrace command is a simple wrapper of kernel’s ftrace
+       functionality. It only supports single thread tracing currently and
+       just reads trace_pipe in text and then write it to stdout.
+       The following options apply to perf ftrace.

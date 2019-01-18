@@ -1,0 +1,32 @@
+
+       Several command line options can be passed to the program using
+       profile files. Firejail chooses the profile file as follows:
+       1. If a profile file is provided by the user with --profile option,
+       the profile file is loaded.  Example:
+              $ firejail --profile=/home/netblue/icecat.profile icecat
+              Reading profile /home/netblue/icecat.profile
+              [...]
+       2. If a profile file with the same name as the application is present
+       in ~/.config/firejail directory or in /etc/firejail, the profile is
+       loaded. ~/.config/firejail takes precedence over /etc/firejail.
+       Example:
+              $ firejail icecat
+              Command name #icecat#
+              Found icecat profile in /home/netblue/.config/firejail
+              directory
+              Reading profile /home/netblue/.config/firejail/icecat.profile
+              [...]
+       3. Use a default.profile file if the sandbox is started by a regular
+       user, or a server.profile file if the sandbox is started by root.
+       Firejail looks for these files in ~/.config/firejail directory,
+       followed by /etc/firejail directory.  To disable default profile
+       loading, use --noprofile command option. Example:
+              $ firejail
+              Reading profile /etc/firejail/default.profile
+              Parent pid 8553, child pid 8554
+              Child process initialized
+              [...]
+              $ firejail --noprofile
+              Parent pid 8553, child pid 8554
+              Child process initialized
+              [...]

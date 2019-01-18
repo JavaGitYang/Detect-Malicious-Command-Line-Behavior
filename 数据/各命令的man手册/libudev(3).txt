@@ -1,0 +1,27 @@
+
+       libudev.h provides APIs to introspect and enumerate devices on the
+       local system.
+       All functions require a libudev context to operate. This context can
+       be create via udev_new(3). It is used to track library state and link
+       objects together. No global state is used by libudev, everything is
+       always linked to a udev context. Furthermore, multiple different udev
+       contexts can be used in parallel by multiple threads. However, a
+       single context must not be accessed by multiple threads in parallel.
+       The caller is responsible for providing suitable locking if they
+       intend to use it from multiple threads.
+       To introspect a local device on a system, a udev device object can be
+       created via udev_device_new_from_syspath(3) and friends. The device
+       object allows one to query current state, read and write attributes
+       and lookup properties of the device in question.
+       To enumerate local devices on the system, an enumeration object can
+       be created via udev_enumerate_new(3).
+       To monitor the local system for hotplugged or unplugged devices, a
+       monitor can be created via udev_monitor_new_from_netlink(3).
+       Whenever libudev returns a list of objects, the udev_list_entry(3)
+       API should be used to iterate, access and modify those lists.
+       Furthermore, libudev also exports legacy APIs that should not be used
+       by new software (and as such are not documented as part of this
+       manual). This includes the hardware database known as udev_hwdb
+       (please use the new sd-hwdb(3) API instead) and the udev_queue object
+       to query the udev daemon (which should not be used by new software at
+       all).

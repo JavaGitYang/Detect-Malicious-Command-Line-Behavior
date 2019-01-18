@@ -1,0 +1,20 @@
+
+       systemd supports three general power-saving modes:
+       suspend
+           a low-power state where execution of the OS is paused, and
+           complete power loss might result in lost data, and which is fast
+           to enter and exit. This corresponds to suspend, standby, or
+           freeze states as understood by the kernel.
+       hibernate
+           a low-power state where execution of the OS is paused, and
+           complete power loss does not result in lost data, and which might
+           be slow to enter and exit. This corresponds to the hibernation as
+           understood by the kernel.
+       hybrid-sleep
+           a low-power state where execution of the OS is paused, which
+           might be slow to enter, and on complete power loss does not
+           result in lost data but might be slower to exit in that case.
+           This mode is called suspend-to-both by the kernel.
+       Settings in these files determine what strings will be written to
+       /sys/power/disk and /sys/power/state by systemd-sleep(8) when
+       systemd(1) attempts to suspend or hibernate the machine.

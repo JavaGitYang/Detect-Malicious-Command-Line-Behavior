@@ -1,0 +1,24 @@
+
+       pmjson is used to manipulate JSON (JavaScript Object Notation)
+       formatted text used in the Performance Co-Pilot (PCP toolkit).  It
+       can produce minimal and human readable output formats when it is
+       supplied with valid JSON input.
+       The available command line options are as follows:
+       -i|--in FILE
+            JSON formatted input FILE - path to a file from which input
+            should be read.  If this option is omitted, then pmjson will
+            read from the standard input stream.
+       -o|--out FILE
+            Formatted output is written to the named FILE.  If this option
+            is omitted, then pmjson will write to the standard output
+            stream.
+       -m|--minimal
+            Produce JSON output with all superflous whitespace removed from
+            the resulting JSON string.
+       -p|--pretty
+            Produce JSON output in a human-readable format.
+       -q|--quiet
+            Verify the input as valid JSON only, no output is produced.
+       -y|--yaml
+            Produce YAML-like output, a human-readable format with less
+            syntactic sugar than JSON.

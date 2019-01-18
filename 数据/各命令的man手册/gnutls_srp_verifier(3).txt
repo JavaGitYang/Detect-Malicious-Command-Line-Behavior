@@ -1,0 +1,7 @@
+
+       This function will create an SRP verifier, as specified in RFC2945.
+       The  prime and  generator should be one of the static parameters
+       defined in gnutls/gnutls.h or may be generated.
+       The verifier will be allocated with @gnutls_malloc() and will be
+       stored in
+        res using binary format.

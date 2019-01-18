@@ -1,0 +1,10 @@
+
+       This program searches the $GIT_OBJECT_DIRECTORY for all objects that
+       currently exist in a pack file as well as the independent object
+       directories.
+       All such extra objects are removed.
+       A pack is a collection of objects, individually compressed, with
+       delta compression applied, stored in a single file, with an
+       associated index file.
+       Packs are used to reduce the load on mirror systems, backup engines,
+       disk storage, etc.

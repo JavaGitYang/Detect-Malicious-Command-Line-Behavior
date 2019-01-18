@@ -1,0 +1,11 @@
+
+       The sem_unlink() function shall remove the semaphore named by the
+       string name.  If the semaphore named by name is currently referenced
+       by other processes, then sem_unlink() shall have no effect on the
+       state of the semaphore. If one or more processes have the semaphore
+       open when sem_unlink() is called, destruction of the semaphore is
+       postponed until all references to the semaphore have been destroyed
+       by calls to sem_close(), _exit(), or exec.  Calls to sem_open() to
+       recreate or reconnect to the semaphore refer to a new semaphore after
+       sem_unlink() is called. The sem_unlink() call shall not block until
+       all references have been destroyed; it shall return immediately.

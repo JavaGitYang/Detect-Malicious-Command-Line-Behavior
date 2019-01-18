@@ -1,0 +1,3 @@
+
+       This function will import a PKCS 11 private key to a
+       gnutls_private_key_t type.

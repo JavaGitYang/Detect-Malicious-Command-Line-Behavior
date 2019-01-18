@@ -1,0 +1,5 @@
+
+       The pthread_kill() function shall request that a signal be delivered
+       to the specified thread.
+       As in kill(), if sig is zero, error checking shall be performed but
+       no signal shall actually be sent.

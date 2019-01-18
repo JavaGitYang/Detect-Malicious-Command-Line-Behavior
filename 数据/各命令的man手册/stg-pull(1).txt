@@ -1,0 +1,9 @@
+
+       Pull the latest changes from the given remote repository (defaulting
+       to branch.<name>.remote, or origin if not set). This command works by
+       popping all the patches from the stack, pulling the changes in the
+       parent repository, setting the base of the stack to the latest parent
+       HEAD and pushing the patches back (unless --nopush is specified). The
+       push operation can fail if there are conflicts. They need to be
+       resolved and the patch pushed again.
+       Check the git fetch documentation for the <repository> format.

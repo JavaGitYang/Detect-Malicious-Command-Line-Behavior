@@ -1,0 +1,11 @@
+
+       nice() adds inc to the nice value for the calling thread.  (A higher
+       nice value means a low priority.)
+       The range of the nice value is +19 (low priority) to -20 (high
+       priority).  Attempts to set a nice value outside the range are
+       clamped to the range.
+       Traditionally, only a privileged process could lower the nice value
+       (i.e., set a higher priority).  However, since Linux 2.6.12, an
+       unprivileged process can decrease the nice value of a target process
+       that has a suitable RLIMIT_NICE soft limit; see getrlimit(2) for
+       details.

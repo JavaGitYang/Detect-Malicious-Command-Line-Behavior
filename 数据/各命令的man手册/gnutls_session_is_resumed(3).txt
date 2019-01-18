@@ -1,0 +1,2 @@
+
+       Check whether session is resumed or not.

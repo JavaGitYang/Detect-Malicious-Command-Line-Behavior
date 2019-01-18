@@ -1,0 +1,23 @@
+
+       For Performance Co-Pilot (PCP) applications, contexts of type
+       PM_CONTEXT_LOCAL are used by clients that wish to fetch metrics
+       directly from one or more PMDAs on the local host without involving
+       pmcd(1).
+       pmSpecLocalPMDA provides a convenience wrapper to be used by
+       applications that wish to use a command line argument (usually with
+       -K) to control the DSO PMDAs that are available for a
+       PM_CONTEXT_LOCAL context.
+       The spec argument specifies actions for one or more DSO PMDAs using
+       up to four fields separated by commas (``,''), namely:
+       -  an opcode with one of the values add (add a new entry), del
+          (delete an existing entry) or clear (clear all entries from the
+          table).
+       -  the PMDA's domain number
+       -  the path to the PMDA DSO (may be absolute or relative to the
+          $PCP_VAR_DIR/pmdas directory and the DSO suffix is optional), and
+       -  the name of the PMDA's initialization routine.
+       All fields are required to add a new entry.  To delete an entry the
+       opcode is required plus either or both of the domain number and path
+       fields.  To clear all entries, only the opcode is required.
+       If spec is parsed successfully, then the DSO table is updated with
+       the extracted fields.

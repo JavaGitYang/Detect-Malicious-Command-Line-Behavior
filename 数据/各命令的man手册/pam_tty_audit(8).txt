@@ -1,0 +1,3 @@
+
+       The pam_tty_audit PAM module is used to enable or disable TTY
+       auditing. By default, the kernel does not audit input on any TTY.

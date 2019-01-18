@@ -1,0 +1,16 @@
+
+       Provided the current Performance Metrics Application Programming
+       Interface (PMAPI) context is associated with a set of archive logs,
+       pmLookupInDomArchive will scan the union of all the instance domain
+       metadata for the instance domain indom, locate the first instance
+       with the external identification given by name, and return the
+       internal instance identifier.
+       This routine is a specialized version of the more general PMAPI
+       routine pmLookupInDom.
+       Only the leading non-space characters of name will be used to
+       identify the instance.
+       The value for the instance domain indom is typically extracted from a
+       pmDesc structure, following a call to pmLookupDesc(3) for a
+       particular performance metric.
+       pmLookupInDomArchive will return a positive instance identifier on
+       success.

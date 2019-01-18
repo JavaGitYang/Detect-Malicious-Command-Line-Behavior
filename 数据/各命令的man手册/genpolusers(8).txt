@@ -1,0 +1,4 @@
+
+       Given an existing binary policy file in-policy, generate a new binary
+       policy out-policy with an updated user configuration based on any
+       system.users and local.users files in the specified usersdir.

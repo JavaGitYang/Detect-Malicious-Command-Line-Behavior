@@ -1,0 +1,4 @@
+
+       This function will encode the provided r and s values, into a
+       Dss-Sig-Value structure, used for DSA and ECDSA signatures.
+       The output value should be deallocated using gnutls_free().

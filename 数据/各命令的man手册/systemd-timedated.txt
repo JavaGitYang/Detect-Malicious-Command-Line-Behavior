@@ -1,0 +1,8 @@
+
+       systemd-timedated is a system service that may be used as a mechanism
+       to change the system clock and timezone, as well as to enable/disable
+       NTP time synchronization.  systemd-timedated is automatically
+       activated on request and terminates itself when it is unused.
+       The tool timedatectl(1) is a command line client to this service.
+       See the developer documentation[1] for information about the APIs
+       systemd-timedated provides.

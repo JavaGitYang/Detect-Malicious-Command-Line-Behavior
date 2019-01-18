@@ -1,0 +1,23 @@
+
+       The localedef program reads the indicated charmap and input files,
+       compiles them to a binary form quickly usable by the locale functions
+       in the C library (setlocale(3), localeconv(3), etc.), and places the
+       output in outputpath.
+       The outputpath argument is interpreted as follows:
+       *  If outputpath contains a slash character ('/'), it is interpreted
+          as the name of the directory where the output definitions are to
+          be stored.  In this case, there is a separate output file for each
+          locale category (LC_TIME, LC_NUMERIC, and so on).
+       *  If the --no-archive option is used, outputpath is the name of a
+          subdirectory in /usr/lib/locale where per-category compiled files
+          are placed.
+       *  Otherwise, outputpath is the name of a locale and the compiled
+          locale data is added to the archive file /usr/lib/locale/locale-
+          archive.  A locale archive is a memory-mapped file which contains
+          all the system-provided locales; it is used by all localized
+          programs when the environment variable LOCPATH is not set.
+       In any case, localedef aborts if the directory in which it tries to
+       write locale files has not already been created.
+       If no charmapfile is given, the value ANSI_X3.4-1968 (for ASCII) is
+       used by default.  If no inputfile is given, or if it is given as a
+       dash (-), localedef reads from standard input.

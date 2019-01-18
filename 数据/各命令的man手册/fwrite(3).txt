@@ -1,0 +1,8 @@
+
+       The function fread() reads nmemb items of data, each size bytes long,
+       from the stream pointed to by stream, storing them at the location
+       given by ptr.
+       The function fwrite() writes nmemb items of data, each size bytes
+       long, to the stream pointed to by stream, obtaining them from the
+       location given by ptr.
+       For nonlocking counterparts, see unlocked_stdio(3).

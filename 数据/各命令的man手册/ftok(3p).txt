@@ -1,0 +1,16 @@
+
+       The ftok() function shall return a key based on path and id that is
+       usable in subsequent calls to msgget(), semget(), and shmget().  The
+       application shall ensure that the path argument is the pathname of an
+       existing file that the process is able to stat(), with the exception
+       that if stat() would fail with [EOVERFLOW] due to file size, ftok()
+       shall still succeed.
+       The ftok() function shall return the same key value for all paths
+       that name the same file, when called with the same id value, and
+       should return different key values when called with different id
+       values or with paths that name different files existing on the same
+       file system at the same time. It is unspecified whether ftok() shall
+       return the same key value when called again after the file named by
+       path is removed and recreated with the same name.
+       Only the low-order 8-bits of id are significant. The behavior of
+       ftok() is unspecified if these bits are 0.

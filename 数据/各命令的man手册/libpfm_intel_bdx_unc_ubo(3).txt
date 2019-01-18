@@ -1,0 +1,4 @@
+
+       The library supports the Intel Broadwell server system configuration
+       unit (U-Box) uncore PMU.  This PMU model only exists on various
+       Broadwell server models (79, 86).

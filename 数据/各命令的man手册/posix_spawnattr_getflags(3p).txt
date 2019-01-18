@@ -1,0 +1,17 @@
+
+       The posix_spawnattr_getflags() function shall obtain the value of the
+       spawn-flags attribute from the attributes object referenced by attr.
+       The posix_spawnattr_setflags() function shall set the spawn-flags
+       attribute in an initialized attributes object referenced by attr.
+       The spawn-flags attribute is used to indicate which process
+       attributes are to be changed in the new process image when invoking
+       posix_spawn() or posix_spawnp().  It is the bitwise-inclusive OR of
+       zero or more of the following flags:
+       POSIX_SPAWN_RESETIDS
+       POSIX_SPAWN_SETPGROUP
+       POSIX_SPAWN_SETSIGDEF
+       POSIX_SPAWN_SETSIGMASK
+       POSIX_SPAWN_SETSCHEDPARAM
+       POSIX_SPAWN_SETSCHEDULER
+       These flags are defined in <spawn.h>.  The default value of this
+       attribute shall be as if no flags were set.

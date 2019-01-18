@@ -1,0 +1,10 @@
+
+       The seusers file contains a list GNU/Linux user to SELinux user
+       mapping for use by SELinux-aware login applications such as PAM(8).
+       selinux_usersconf_path(3) will return the active policy path to this
+       file. The default SELinux users mapping file is located at:
+              /etc/selinux/{SELINUXTYPE}/seusers
+       Where {SELINUXTYPE} is the entry from the selinux configuration file
+       config (see selinux_config(5)).
+       getseuserbyname(3) reads this file to map a GNU/Linux user or group
+       to an SELinux user.

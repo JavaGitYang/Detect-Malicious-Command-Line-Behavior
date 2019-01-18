@@ -1,0 +1,59 @@
+
+       dlltool reads its inputs, which can come from the -d and -b options
+       as well as object files specified on the command line.  It then
+       processes these inputs and if the -e option has been specified it
+       creates a exports file.  If the -l option has been specified it
+       creates a library file and if the -z option has been specified it
+       creates a def file.  Any or all of the -e, -l and -z options can be
+       present in one invocation of dlltool.
+       When creating a DLL, along with the source for the DLL, it is
+       necessary to have three other files.  dlltool can help with the
+       creation of these files.
+       The first file is a .def file which specifies which functions are
+       exported from the DLL, which functions the DLL imports, and so on.
+       This is a text file and can be created by hand, or dlltool can be
+       used to create it using the -z option.  In this case dlltool will
+       scan the object files specified on its command line looking for those
+       functions which have been specially marked as being exported and put
+       entries for them in the .def file it creates.
+       In order to mark a function as being exported from a DLL, it needs to
+       have an -export:<name_of_function> entry in the .drectve section of
+       the object file.  This can be done in C by using the asm() operator:
+                 asm (".section .drectve");
+                 asm (".ascii \"-export:my_func\"");
+                 int my_func (void) { ... }
+       The second file needed for DLL creation is an exports file.  This
+       file is linked with the object files that make up the body of the DLL
+       and it handles the interface between the DLL and the outside world.
+       This is a binary file and it can be created by giving the -e option
+       to dlltool when it is creating or reading in a .def file.
+       The third file needed for DLL creation is the library file that
+       programs will link with in order to access the functions in the DLL
+       (an `import library').  This file can be created by giving the -l
+       option to dlltool when it is creating or reading in a .def file.
+       If the -y option is specified, dlltool generates a delay-import
+       library that can be used instead of the normal import library to
+       allow a program to link to the dll only as soon as an imported
+       function is called for the first time. The resulting executable will
+       need to be linked to the static delayimp library containing
+       __delayLoadHelper2(), which in turn will import LoadLibraryA and
+       GetProcAddress from kernel32.
+       dlltool builds the library file by hand, but it builds the exports
+       file by creating temporary files containing assembler statements and
+       then assembling these.  The -S command line option can be used to
+       specify the path to the assembler that dlltool will use, and the -f
+       option can be used to pass specific flags to that assembler.  The -n
+       can be used to prevent dlltool from deleting these temporary
+       assembler files when it is done, and if -n is specified twice then
+       this will prevent dlltool from deleting the temporary object files it
+       used to build the library.
+       Here is an example of creating a DLL from a source file dll.c and
+       also creating a program (from an object file called program.o) that
+       uses that DLL:
+                 gcc -c dll.c
+                 dlltool -e exports.o -l dll.lib dll.o
+                 gcc dll.o exports.o -o dll.dll
+                 gcc program.o dll.lib -o program
+       dlltool may also be used to query an existing import library to
+       determine the name of the DLL to which it is associated.  See the
+       description of the -I or --identify option.

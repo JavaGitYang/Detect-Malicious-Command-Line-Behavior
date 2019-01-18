@@ -1,0 +1,34 @@
+
+       Blocks in a standard lvm(8) Logical Volume (LV) are allocated when
+       the LV is created, but blocks in a thin provisioned LV are allocated
+       as they are written.  Because of this, a thin provisioned LV is given
+       a virtual size, and can then be much larger than physically available
+       storage.  The amount of physical storage provided for thin
+       provisioned LVs can be increased later as the need arises.
+       Blocks in a standard LV are allocated (during creation) from the
+       Volume Group (VG), but blocks in a thin LV are allocated (during use)
+       from a special "thin pool LV".  The thin pool LV contains blocks of
+       physical storage, and blocks in thin LVs just reference blocks in the
+       thin pool LV.
+       A thin pool LV must be created before thin LVs can be created within
+       it.  A thin pool LV is created by combining two standard LVs: a large
+       data LV that will hold blocks for thin LVs, and a metadata LV that
+       will hold metadata.  The metadata tracks which data blocks belong to
+       each thin LV.
+       Snapshots of thin LVs are efficient because the data blocks common to
+       a thin LV and any of its snapshots are shared.  Snapshots may be
+       taken of thin LVs or of other thin snapshots.  Blocks common to
+       recursive snapshots are also shared in the thin pool.  There is no
+       limit to or degradation from sequences of snapshots.
+       As thin LVs or snapshot LVs are written to, they consume data blocks
+       in the thin pool.  As free data blocks in the pool decrease, more
+       free blocks may need to be supplied.  This is done by extending the
+       thin pool data LV with additional physical space from the VG.
+       Removing thin LVs or snapshots from the thin pool can also free
+       blocks in the thin pool.  However, removing LVs is not always an
+       effective way of freeing space in a thin pool because the amount is
+       limited to the number of blocks not shared with other LVs in the
+       pool.
+       Incremental block allocation from thin pools can cause thin LVs to
+       become fragmented.  Standard LVs generally avoid this problem by
+       allocating all the blocks at once during creation.

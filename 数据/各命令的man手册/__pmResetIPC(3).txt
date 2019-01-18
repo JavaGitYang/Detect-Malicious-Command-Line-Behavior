@@ -1,0 +1,38 @@
+
+       IPC channels throughout the distributed PCP framework are affected by
+       the PCP 2.0 (and later) PDU changes.  These functions are the
+       interface to the libpcp IPC connection management global data.  This
+       data consists of a hash table of __pmIPC structures (indexed by file
+       descriptor) and a cached, most-recently-used file descriptor.
+       Newly created IPC channels must be registered with the hash table
+       using __pmAddIPC, such that the PDU sending and decoding routines can
+       determine whether they need to perform any PDU version translations
+       or not, for backward compatibility with previous the PCP 1.x IPC
+       protocol.
+       __pmLookupIPC and __pmFdLookupIPC both provide handles to the __pmIPC
+       structure associated with the given file descriptor, as previously
+       established by a call to __pmAddIPC.  The difference between the two
+       is that one allows an explicit file descriptor lookup, and the other
+       uses the cached, most-recently-used file descriptor.  So
+       __pmLookupIPC actually calls __pmFdLookupIPC using this cached file
+       descriptor as the argument.  The justification for having both is
+       that in some places it is not possible to use __pmFdLookupIPC (which
+       is preferred), since at that particular level of the PMAPI a file
+       descriptor is not available (see the __pmDecodeError code for an
+       example).
+       The __pmOverrideLastFd is an escape mechanism for use in those
+       situations where the last PDU fetch did not go through the usual
+       channels (ie. __pmGetPDU), so as to ensure that the cached file
+       descriptor is the correct file descriptor for the PDU which is
+       currently being processed.  This will typically be used for archive
+       PDU processing or where version information is not available for a
+       given file descriptor (eg. immediately prior to a PDU version
+       exchange).
+       __pmPrintIPC is a useful debugging routine for displaying a table
+       mapping all currently registered file descriptors to their associated
+       PDU version numbers.  Unused entries in this table should display the
+       value zero in the version column.
+       __pmResetIPC resets the version information associated with the given
+       file descriptor to some known (invalid) number.  Subsequent lookups
+       on this file descriptor will return an UNKNOWN_VERSION embedded
+       within the __pmIPC structure.

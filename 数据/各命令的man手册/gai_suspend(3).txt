@@ -1,0 +1,76 @@
+
+       The getaddrinfo_a() function performs the same task as
+       getaddrinfo(3), but allows multiple name look-ups to be performed
+       asynchronously, with optional notification on completion of look-up
+       operations.
+       The mode argument has one of the following values:
+       GAI_WAIT
+              Perform the look-ups synchronously.  The call blocks until the
+              look-ups have completed.
+       GAI_NOWAIT
+              Perform the look-ups asynchronously.  The call returns
+              immediately, and the requests are resolved in the background.
+              See the discussion of the sevp argument below.
+       The array list specifies the look-up requests to process.  The nitems
+       argument specifies the number of elements in list.  The requested
+       look-up operations are started in parallel.  NULL elements in list
+       are ignored.  Each request is described by a gaicb structure, defined
+       as follows:
+           struct gaicb {
+               const char            *ar_name;
+               const char            *ar_service;
+               const struct addrinfo *ar_request;
+               struct addrinfo       *ar_result;
+           };
+       The elements of this structure correspond to the arguments of
+       getaddrinfo(3).  Thus, ar_name corresponds to the node argument and
+       ar_service to the service argument, identifying an Internet host and
+       a service.  The ar_request element corresponds to the hints argument,
+       specifying the criteria for selecting the returned socket address
+       structures.  Finally, ar_result corresponds to the res argument; you
+       do not need to initialize this element, it will be automatically set
+       when the request is resolved.  The addrinfo structure referenced by
+       the last two elements is described in getaddrinfo(3).
+       When mode is specified as GAI_NOWAIT, notifications about resolved
+       requests can be obtained by employing the sigevent structure pointed
+       to by the sevp argument.  For the definition and general details of
+       this structure, see sigevent(7).  The sevp->sigev_notify field can
+       have the following values:
+       SIGEV_NONE
+              Don't provide any notification.
+       SIGEV_SIGNAL
+              When a look-up completes, generate the signal sigev_signo for
+              the process.  See sigevent(7) for general details.  The
+              si_code field of the siginfo_t structure will be set to
+              SI_ASYNCNL.
+       SIGEV_THREAD
+              When a look-up completes, invoke sigev_notify_function as if
+              it were the start function of a new thread.  See sigevent(7)
+              for details.
+       For SIGEV_SIGNAL and SIGEV_THREAD, it may be useful to point
+       sevp->sigev_value.sival_ptr to list.
+       The gai_suspend() function suspends execution of the calling thread,
+       waiting for the completion of one or more requests in the array list.
+       The nitems argument specifies the size of the array list.  The call
+       blocks until one of the following occurs:
+       *  One or more of the operations in list completes.
+       *  The call is interrupted by a signal that is caught.
+       *  The time interval specified in timeout elapses.  This argument
+          specifies a timeout in seconds plus nanoseconds (see nanosleep(2)
+          for details of the timespec structure).  If timeout is NULL, then
+          the call blocks indefinitely (until one of the events above
+          occurs).
+       No explicit indication of which request was completed is given; you
+       must determine which request(s) have completed by iterating with
+       gai_error() over the list of requests.
+       The gai_error() function returns the status of the request req:
+       either EAI_INPROGRESS if the request was not completed yet, 0 if it
+       was handled successfully, or an error code if the request could not
+       be resolved.
+       The gai_cancel() function cancels the request req.  If the request
+       has been canceled successfully, the error status of the request will
+       be set to EAI_CANCELED and normal asynchronous notification will be
+       performed.  The request cannot be canceled if it is currently being
+       processed; in that case, it will be handled as if gai_cancel() has
+       never been called.  If req is NULL, an attempt is made to cancel all
+       outstanding requests that the process has made.

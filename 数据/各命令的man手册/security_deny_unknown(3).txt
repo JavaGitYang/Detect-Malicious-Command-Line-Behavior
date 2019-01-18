@@ -1,0 +1,15 @@
+
+       security_getenforce() returns 0 if SELinux is running in permissive
+       mode, 1 if it is running in enforcing mode, and -1 on error.
+       security_setenforce() sets SELinux to enforcing mode if the value 1
+       is passed in, and sets it to permissive mode if 0 is passed in.  On
+       success 0 is returned, on error -1 is returned.
+       security_deny_unknown() returns 0 if SELinux treats policy queries on
+       undefined object classes or permissions as being allowed, 1 if such
+       queries are denied, and -1 on error.
+       security_get_checkreqprot() can be used to determine whether SELinux
+       is configured to check the protection requested by the application or
+       the actual protection that will be applied by the kernel (including
+       the effects of READ_IMPLIES_EXEC) on mmap and mprotect calls.  It
+       returns 0 if SELinux checks the actual protection, 1 if it checks the
+       requested protection, and -1 on error.

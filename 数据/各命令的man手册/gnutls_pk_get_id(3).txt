@@ -1,0 +1,4 @@
+
+       Convert a string to a gnutls_pk_algorithm_t value.  The names are
+       compared in a case insensitive way.  For example,
+       gnutls_pk_get_id("RSA") will return GNUTLS_PK_RSA.

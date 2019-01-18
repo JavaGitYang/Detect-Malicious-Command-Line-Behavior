@@ -1,0 +1,17 @@
+
+       The pthread_setcancelstate() function shall atomically both set the
+       calling thread's cancelability state to the indicated state and
+       return the previous cancelability state at the location referenced by
+       oldstate.  Legal values for state are PTHREAD_CANCEL_ENABLE and
+       PTHREAD_CANCEL_DISABLE.
+       The pthread_setcanceltype() function shall atomically both set the
+       calling thread's cancelability type to the indicated type and return
+       the previous cancelability type at the location referenced by
+       oldtype.  Legal values for type are PTHREAD_CANCEL_DEFERRED and
+       PTHREAD_CANCEL_ASYNCHRONOUS.
+       The cancelability state and type of any newly created threads,
+       including the thread in which main() was first invoked, shall be
+       PTHREAD_CANCEL_ENABLE and PTHREAD_CANCEL_DEFERRED respectively.
+       The pthread_testcancel() function shall create a cancellation point
+       in the calling thread. The pthread_testcancel() function shall have
+       no effect if cancelability is disabled.

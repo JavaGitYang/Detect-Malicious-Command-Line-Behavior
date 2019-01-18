@@ -1,0 +1,4 @@
+
+       This function will set (associate) the user given pointer  ptr to the
+       session structure.  This pointer can be accessed with
+       gnutls_session_get_ptr().

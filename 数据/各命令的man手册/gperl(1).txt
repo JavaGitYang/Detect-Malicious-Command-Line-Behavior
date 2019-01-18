@@ -1,0 +1,5 @@
+
+       This is a preprocessor for groff(1).  It allows the use of perl(7)
+       code in groff(7) files.  The result of a Perl part can be stored in
+       groff strings or numerical registers based on the arguments at a
+       final line of a Perl part.

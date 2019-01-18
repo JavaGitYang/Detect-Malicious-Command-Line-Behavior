@@ -1,0 +1,17 @@
+
+       This function sets a certificate/private key pair in the
+       gnutls_certificate_credentials_t type. This function may be called
+       more than once, in case multiple keys/certificates exist for the
+       server.
+       Note that the keyUsage (2.5.29.15) PKIX extension in X.509
+       certificates is supported. This means that certificates intended for
+       signing cannot be used for ciphersuites that require encryption.
+       If the certificate and the private key are given in PEM encoding then
+       the strings that hold their values must be null terminated.
+       The  key may be NULL if you are using a sign callback, see
+       gnutls_sign_callback_set().
+       Note that, this function by default returns zero on success and a
+       negative value on error.  Since 3.5.6, when the flag
+       GNUTLS_CERTIFICATE_API_V2 is set using gnutls_certificate_set_flags()
+       it returns an index (greater or equal to zero). That index can be
+       used to other functions to refer to the added key-pair.

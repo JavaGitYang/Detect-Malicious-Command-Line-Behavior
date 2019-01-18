@@ -1,0 +1,12 @@
+
+       dh_compress is a debhelper program that is responsible for
+       compressing the files in package build directories, and makes sure
+       that any symlinks that pointed to the files before they were
+       compressed are updated to point to the new files.
+       By default, dh_compress compresses files that Debian policy mandates
+       should be compressed, namely all files in usr/share/info,
+       usr/share/man, files in usr/share/doc that are larger than 4k in
+       size, (except the copyright file, .html and other web files, image
+       files, and files that appear to be already compressed based on their
+       extensions), and all changelog files. Plus PCF fonts underneath
+       usr/share/fonts/X11/

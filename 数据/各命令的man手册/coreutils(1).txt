@@ -1,0 +1,7 @@
+
+       Execute the PROGRAM_NAME built-in program with the given PARAMETERS.
+       --help display this help and exit
+       --version
+              output version information and exit
+       Use: 'coreutils --coreutils-prog=PROGRAM_NAME --help' for individual
+       program help.

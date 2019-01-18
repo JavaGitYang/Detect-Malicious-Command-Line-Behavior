@@ -1,0 +1,41 @@
+
+       These primitives manipulate sets of trace event types. They operate
+       on data objects addressable by the application, not on the current
+       trace event filter of any trace stream.
+       The posix_trace_eventset_add() and posix_trace_eventset_del()
+       functions, respectively, shall add or delete the individual trace
+       event type specified by the value of the argument event_id to or from
+       the trace event type set pointed to by the argument set.  Adding a
+       trace event type already in the set or deleting a trace event type
+       not in the set shall not be considered an error.
+       The posix_trace_eventset_empty() function shall initialize the trace
+       event type set pointed to by the set argument such that all trace
+       event types defined, both system and user, shall be excluded from the
+       set.
+       The posix_trace_eventset_fill() function shall initialize the trace
+       event type set pointed to by the argument set, such that the set of
+       trace event types defined by the argument what shall be included in
+       the set. The value of the argument what shall consist of one of the
+       following values, as defined in the <trace.h> header:
+       POSIX_TRACE_WOPID_EVENTS
+             All the process-independent implementation-defined system trace
+             event types are included in the set.
+       POSIX_TRACE_SYSTEM_EVENTS
+             All the implementation-defined system trace event types are
+             included in the set, as are those defined in POSIX.1‐2008.
+       POSIX_TRACE_ALL_EVENTS
+             All trace event types defined, both system and user, are
+             included in the set.
+       Applications shall call either posix_trace_eventset_empty() or
+       posix_trace_eventset_fill() at least once for each object of type
+       trace_event_set_t prior to any other use of that object. If such an
+       object is not initialized in this way, but is nonetheless supplied as
+       an argument to any of the posix_trace_eventset_add(),
+       posix_trace_eventset_del(), or posix_trace_eventset_ismember()
+       functions, the results are undefined.
+       The posix_trace_eventset_ismember() function shall test whether the
+       trace event type specified by the value of the argument event_id is a
+       member of the set pointed to by the argument set.  The value returned
+       in the object pointed to by ismember argument is zero if the trace
+       event type identifier is not a member of the set and a value
+       different from zero if it is a member of the set.

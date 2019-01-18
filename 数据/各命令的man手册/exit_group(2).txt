@@ -1,0 +1,4 @@
+
+       This system call is equivalent to _exit(2) except that it terminates
+       not only the calling thread, but all threads in the calling process's
+       thread group.

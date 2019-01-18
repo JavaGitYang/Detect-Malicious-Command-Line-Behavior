@@ -1,0 +1,45 @@
+
+       The pthread_rwlock_rdlock() function shall apply a read lock to the
+       read-write lock referenced by rwlock.  The calling thread acquires
+       the read lock if a writer does not hold the lock and there are no
+       writers blocked on the lock.
+       If the Thread Execution Scheduling option is supported, and the
+       threads involved in the lock are executing with the scheduling
+       policies SCHED_FIFO or SCHED_RR, the calling thread shall not acquire
+       the lock if a writer holds the lock or if writers of higher or equal
+       priority are blocked on the lock; otherwise, the calling thread shall
+       acquire the lock.
+       If the Thread Execution Scheduling option is supported, and the
+       threads involved in the lock are executing with the SCHED_SPORADIC
+       scheduling policy, the calling thread shall not acquire the lock if a
+       writer holds the lock or if writers of higher or equal priority are
+       blocked on the lock; otherwise, the calling thread shall acquire the
+       lock.
+       If the Thread Execution Scheduling option is not supported, it is
+       implementation-defined whether the calling thread acquires the lock
+       when a writer does not hold the lock and there are writers blocked on
+       the lock. If a writer holds the lock, the calling thread shall not
+       acquire the read lock. If the read lock is not acquired, the calling
+       thread shall block until it can acquire the lock. The calling thread
+       may deadlock if at the time the call is made it holds a write lock.
+       A thread may hold multiple concurrent read locks on rwlock (that is,
+       successfully call the pthread_rwlock_rdlock() function n times). If
+       so, the application shall ensure that the thread performs matching
+       unlocks (that is, it calls the pthread_rwlock_unlock() function n
+       times).
+       The maximum number of simultaneous read locks that an implementation
+       guarantees can be applied to a read-write lock shall be
+       implementation-defined. The pthread_rwlock_rdlock() function may fail
+       if this maximum would be exceeded.
+       The pthread_rwlock_tryrdlock() function shall apply a read lock as in
+       the pthread_rwlock_rdlock() function, with the exception that the
+       function shall fail if the equivalent pthread_rwlock_rdlock() call
+       would have blocked the calling thread. In no case shall the
+       pthread_rwlock_tryrdlock() function ever block; it always either
+       acquires the lock or fails and returns immediately.
+       Results are undefined if any of these functions are called with an
+       uninitialized read-write lock.
+       If a signal is delivered to a thread waiting for a read-write lock
+       for reading, upon return from the signal handler the thread resumes
+       waiting for the read-write lock for reading as if it was not
+       interrupted.

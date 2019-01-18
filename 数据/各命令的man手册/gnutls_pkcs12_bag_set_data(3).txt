@@ -1,0 +1,3 @@
+
+       This function will insert the given data of the given type into the
+       bag.

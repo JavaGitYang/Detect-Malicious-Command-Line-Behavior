@@ -1,0 +1,21 @@
+
+       The pam_end function terminates the PAM transaction and is the last
+       function an application should call in the PAM context. Upon return
+       the handle pamh is no longer valid and all memory associated with it
+       will be invalid.
+       The pam_status argument should be set to the value returned to the
+       application by the last PAM library call.
+       The value taken by pam_status is used as an argument to the module
+       specific callback function, cleanup() (See pam_set_data(3) and
+       pam_get_data(3)). In this way the module can be given notification of
+       the pass/fail nature of the tear-down process, and perform any last
+       minute tasks that are appropriate to the module before it is
+       unlinked. This argument can be logically OR'd with PAM_DATA_SILENT to
+       indicate to indicate that the module should not treat the call too
+       seriously. It is generally used to indicate that the current closing
+       of the library is in a fork(2)ed process, and that the parent will
+       take care of cleaning up things that exist outside of the current
+       process space (files etc.).
+       This function free's all memory for items associated with the
+       pam_set_item(3) and pam_get_item(3) functions. Pointers associated
+       with such objects are not valid anymore after pam_end was called.

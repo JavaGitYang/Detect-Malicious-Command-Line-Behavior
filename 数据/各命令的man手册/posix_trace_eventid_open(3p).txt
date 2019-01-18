@@ -1,0 +1,2 @@
+
+       Refer to posix_trace_event(3p).

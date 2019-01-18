@@ -1,0 +1,56 @@
+
+       PAM is a system of libraries that handle the authentication tasks of
+       applications (services) on the system. The library provides a stable
+       general interface (Application Programming Interface - API) that
+       privilege granting programs (such as login(1) and su(1)) defer to to
+       perform standard authentication tasks.
+   Initialization and Cleanup
+       The pam_start(3) function creates the PAM context and initiates the
+       PAM transaction. It is the first of the PAM functions that needs to
+       be called by an application. The transaction state is contained
+       entirely within the structure identified by this handle, so it is
+       possible to have multiple transactions in parallel. But it is not
+       possible to use the same handle for different transactions, a new one
+       is needed for every new context.
+       The pam_end(3) function terminates the PAM transaction and is the
+       last function an application should call in the PAM context. Upon
+       return the handle pamh is no longer valid and all memory associated
+       with it will be invalid. It can be called at any time to terminate a
+       PAM transaction.
+   Authentication
+       The pam_authenticate(3) function is used to authenticate the user.
+       The user is required to provide an authentication token depending
+       upon the authentication service, usually this is a password, but
+       could also be a finger print.
+       The pam_setcred(3) function manages the user's credentials.
+   Account Management
+       The pam_acct_mgmt(3) function is used to determine if the user's
+       account is valid. It checks for authentication token and account
+       expiration and verifies access restrictions. It is typically called
+       after the user has been authenticated.
+   Password Management
+       The pam_chauthtok(3) function is used to change the authentication
+       token for a given user on request or because the token has expired.
+   Session Management
+       The pam_open_session(3) function sets up a user session for a
+       previously successful authenticated user. The session should later be
+       terminated with a call to pam_close_session(3).
+   Conversation
+       The PAM library uses an application-defined callback to allow a
+       direct communication between a loaded module and the application.
+       This callback is specified by the struct pam_conv passed to
+       pam_start(3) at the start of the transaction. See pam_conv(3) for
+       details.
+   Data Objects
+       The pam_set_item(3) and pam_get_item(3) functions allows applications
+       and PAM service modules to set and retrieve PAM informations.
+       The pam_get_user(3) function is the preferred method to obtain the
+       username.
+       The pam_set_data(3) and pam_get_data(3) functions allows PAM service
+       modules to set and retrieve free-form data from one invocation to
+       another.
+   Environment and Error Management
+       The pam_putenv(3), pam_getenv(3) and pam_getenvlist(3) functions are
+       for maintaining a set of private environment variables.
+       The pam_strerror(3) function returns a pointer to a string describing
+       the given PAM error code.

@@ -1,0 +1,12 @@
+
+       The resolveip utility resolves host names to IP addresses and vice
+       versa.
+       Invoke resolveip like this:
+           shell> resolveip [options] {host_name|ip-addr} ...
+       resolveip supports the following options.
+       ·   --help, --info, -?, -I
+           Display a help message and exit.
+       ·   --silent, -s
+           Silent mode. Produce less output.
+       ·   --version, -V
+           Display version information and exit.

@@ -1,0 +1,64 @@
+
+       The sem_open() function shall establish a connection between a named
+       semaphore and a process. Following a call to sem_open() with
+       semaphore name name, the process may reference the semaphore
+       associated with name using the address returned from the call. This
+       semaphore may be used in subsequent calls to sem_wait(),
+       sem_timedwait(), sem_trywait(), sem_post(), and sem_close().  The
+       semaphore remains usable by this process until the semaphore is
+       closed by a successful call to sem_close(), _exit(), or one of the
+       exec functions.
+       The oflag argument controls whether the semaphore is created or
+       merely accessed by the call to sem_open().  The following flag bits
+       may be set in oflag:
+       O_CREAT   This flag is used to create a semaphore if it does not
+                 already exist.  If O_CREAT is set and the semaphore already
+                 exists, then O_CREAT has no effect, except as noted under
+                 O_EXCL. Otherwise, sem_open() creates a named semaphore.
+                 The O_CREAT flag requires a third and a fourth argument:
+                 mode, which is of type mode_t, and value, which is of type
+                 unsigned.  The semaphore is created with an initial value
+                 of value.  Valid initial values for semaphores are less
+                 than or equal to {SEM_VALUE_MAX}.
+                 The user ID of the semaphore shall be set to the effective
+                 user ID of the process. The group ID of the semaphore shall
+                 be set to the effective group ID of the process; however,
+                 if the name argument is visible in the file system, the
+                 group ID may be set to the group ID of the containing
+                 directory. The permission bits of the semaphore are set to
+                 the value of the mode argument except those set in the file
+                 mode creation mask of the process. When bits in mode other
+                 than the file permission bits are specified, the effect is
+                 unspecified.
+                 After the semaphore named name has been created by
+                 sem_open() with the O_CREAT flag, other processes can
+                 connect to the semaphore by calling sem_open() with the
+                 same value of name.
+       O_EXCL    If O_EXCL and O_CREAT are set, sem_open() fails if the
+                 semaphore name exists. The check for the existence of the
+                 semaphore and the creation of the semaphore if it does not
+                 exist are atomic with respect to other processes executing
+                 sem_open() with O_EXCL and O_CREAT set. If O_EXCL is set
+                 and O_CREAT is not set, the effect is undefined.
+                 If flags other than O_CREAT and O_EXCL are specified in the
+                 oflag parameter, the effect is unspecified.
+       The name argument points to a string naming a semaphore object. It is
+       unspecified whether the name appears in the file system and is
+       visible to functions that take pathnames as arguments. The name
+       argument conforms to the construction rules for a pathname, except
+       that the interpretation of <slash> characters other than the leading
+       <slash> character in name is implementation-defined, and that the
+       length limits for the name argument are implementation-defined and
+       need not be the same as the pathname limits {PATH_MAX} and
+       {NAME_MAX}.  If name begins with the <slash> character, then
+       processes calling sem_open() with the same value of name shall refer
+       to the same semaphore object, as long as that name has not been
+       removed. If name does not begin with the <slash> character, the
+       effect is implementation-defined.
+       If a process makes multiple successful calls to sem_open() with the
+       same value for name, the same semaphore address shall be returned for
+       each such successful call, provided that there have been no calls to
+       sem_unlink() for this semaphore, and at least one previous successful
+       sem_open() call for this semaphore has not been matched with a
+       sem_close() call.
+       References to copies of the semaphore produce undefined results.

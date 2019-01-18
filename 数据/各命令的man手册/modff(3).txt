@@ -1,0 +1,4 @@
+
+       These functions break the argument x into an integral part and a
+       fractional part, each of which has the same sign as x.  The integral
+       part is stored in the location pointed to by iptr.

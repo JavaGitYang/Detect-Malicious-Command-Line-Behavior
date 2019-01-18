@@ -1,0 +1,5 @@
+
+       togglesebool flips the current value of a list of booleans. If the
+       value is currently a 1, then it will be changed to a 0 and vice
+       versa. Only the "in memory" values are changed; the boot-time
+       settings are unaffected.

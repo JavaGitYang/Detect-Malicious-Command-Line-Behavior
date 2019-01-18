@@ -1,0 +1,74 @@
+
+       For Performance Metric Domain Agents (PMDA(3)) using the binary PDU
+       protocols to communicate with pmcd(1), the routine pmdaMain provides
+       a generic implementation of the PDU-driven main loop.
+       dispatch describes how to process each incoming PDU. It is a vector
+       of function pointers, one per request PDU type, as used in the DSO
+       interface for a PMDA, namely:
+       /*
+        * Interface Definitions for PMDA Methods
+        */
+       typedef struct {
+           int domain;         /* set/return performance metrics domain id here */
+           struct {
+               unsigned int    pmda_interface: 8; /* PMDA DSO interface version */
+               unsigned int    pmapi_version : 8; /* PMAPI version */
+               unsigned int    flags : 16;        /* optional feature flags */
+           } comm;             /* set/return communication and version info */
+           int status;         /* return initialization status here */
+           union {
+               struct {                              /* PMDA_INTERFACE_2 or _3 */
+                   pmdaExt *ext;
+                   int (*profile)(pmProfile *, pmdaExt *);
+                   int (*fetch)(int, pmID *, pmResult **, pmdaExt *);
+                   int (*desc)(pmID, pmDesc *, pmdaExt *);
+                   int (*instance)(pmInDom, int, char *, pmInResult **, pmdaExt *);
+                   int (*text)(int, int, char **, pmdaExt *);
+                   int (*store)(pmResult *, pmdaExt *);
+               } two, three;
+               struct {                              /* PMDA_INTERFACE_4 or _5 */
+                   pmdaExt *ext;
+                   int     (*profile)(pmProfile *, pmdaExt *);
+                   int     (*fetch)(int, pmID *, pmResult **, pmdaExt *);
+                   int     (*desc)(pmID, pmDesc *, pmdaExt *);
+                   int     (*instance)(pmInDom, int, char *, pmInResult **, pmdaExt *);
+                   int     (*text)(int, int, char **, pmdaExt *);
+                   int     (*store)(pmResult *, pmdaExt *);
+                   int     (*pmid)(char *, pmID *, pmdaExt *);
+                   int     (*name)(pmID, char ***, pmdaExt *);
+                   int     (*children)(char *, int, char ***, int **, pmdaExt *);
+               } four, five;
+               struct {                              /* PMDA_INTERFACE_6 */
+                   pmdaExt *ext;
+                   int     (*profile)(pmProfile *, pmdaExt *);
+                   int     (*fetch)(int, pmID *, pmResult **, pmdaExt *);
+                   int     (*desc)(pmID, pmDesc *, pmdaExt *);
+                   int     (*instance)(pmInDom, int, char *, pmInResult **, pmdaExt *);
+                   int     (*text)(int, int, char **, pmdaExt *);
+                   int     (*store)(pmResult *, pmdaExt *);
+                   int     (*pmid)(char *, pmID *, pmdaExt *);
+                   int     (*name)(pmID, char ***, pmdaExt *);
+                   int     (*children)(char *, int, char ***, int **, pmdaExt *);
+                   int     (*attribute)(int, int, const char *, int, pmdaExt *);
+               } six;
+           } version;
+       } pmdaInterface;
+       This structure has been extended to incorporate the multiple
+       interface versions that have evolved over time.  For pmdaMain,
+       dispatch->domain and dispatch->status are ignored.  The
+       comm.pmda_interface field is used to determine the interface used by
+       the PMDA.  Setting this field to PMDA_INTERFACE_2 or PMDA_INTERFACE_3
+       will force pmdaMain to use the callbacks in the version.two or
+       version.three structure.  A setting of PMDA_INTERFACE_4 or
+       PMDA_INTERFACE_5 will force pmdaMain to use the callbacks in the
+       version.four or version.five structure, and similarly a
+       PMDA_INTERFACE_6 setting forces pmdaMain to use the callbacks in the
+       version.six structure.  Any other value will result in an error and
+       termination of pmdaMain.
+       Note that the use of dispatch as the interface between the pmcd(1)
+       and the methods of the PMDA allows each PMDA to be implemented as
+       though it were a DSO, with pmdaMain providing a convenient wrapper
+       that may be used to convert from the DSO interface to the binary PDU
+       (daemon PMDA) interface.
+       pmdaMain executes as a continuous loop, returning only when an end of
+       file is encountered on the PDU input file descriptor.

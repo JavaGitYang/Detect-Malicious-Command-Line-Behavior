@@ -1,0 +1,15 @@
+
+       This manual page documents the GNU version of find.  GNU find
+       searches the directory tree rooted at each given starting-point by
+       evaluating the given expression from left to right, according to the
+       rules of precedence (see section OPERATORS), until the outcome is
+       known (the left hand side is false for and operations, true for or),
+       at which point find moves on to the next file name.  If no starting-
+       point is specified, `.' is assumed.
+       If you are using find in an environment where security is important
+       (for example if you are using it to search directories that are
+       writable by other users), you should read the `Security
+       Considerations' chapter of the findutils documentation, which is
+       called Finding Files and comes with findutils.  That document also
+       includes a lot more detail and discussion than this manual page, so
+       you may find it a more useful source of information.

@@ -1,0 +1,39 @@
+
+       Nping is an open-source tool for network packet generation, response
+       analysis and response time measurement. Nping allows users to
+       generate network packets of a wide range of protocols, letting them
+       tune virtually any field of the protocol headers. While Nping can be
+       used as a simple ping utility to detect active hosts, it can also be
+       used as a raw packet generator for network stack stress tests, ARP
+       poisoning, Denial of Service attacks, route tracing, and other
+       purposes.
+       Additionally, Nping offers a special mode of operation called the
+       "Echo Mode", that lets users see how the generated probes change in
+       transit, revealing the differences between the transmitted packets
+       and the packets received at the other end. See section "Echo Mode"
+       for details.
+       The output from Nping is a list of the packets that are being sent
+       and received. The level of detail depends on the options used.
+       A typical Nping execution is shown in Example 1. The only Nping
+       arguments used in this example are -c, to specify the number of times
+       to target each host, --tcp to specify TCP Probe Mode, -p 80,433 to
+       specify the target ports; and then the two target hostnames.
+       Example 1. A representative Nping execution
+           # nping -c 1 --tcp -p 80,433 scanme.nmap.org google.com
+           Starting Nping ( https://nmap.org/nping )
+           SENT (0.0120s) TCP 96.16.226.135:50091 > 64.13.134.52:80 S ttl=64 id=52072 iplen=40  seq=1077657388 win=1480
+           RCVD (0.1810s) TCP 64.13.134.52:80 > 96.16.226.135:50091 SA ttl=53 id=0 iplen=44  seq=4158134847 win=5840 <mss 1460>
+           SENT (1.0140s) TCP 96.16.226.135:50091 > 74.125.45.100:80 S ttl=64 id=13932 iplen=40  seq=1077657388 win=1480
+           RCVD (1.1370s) TCP 74.125.45.100:80 > 96.16.226.135:50091 SA ttl=52 id=52913 iplen=44  seq=2650443864 win=5720 <mss 1430>
+           SENT (2.0140s) TCP 96.16.226.135:50091 > 64.13.134.52:433 S ttl=64 id=8373 iplen=40  seq=1077657388 win=1480
+           SENT (3.0140s) TCP 96.16.226.135:50091 > 74.125.45.100:433 S ttl=64 id=23624 iplen=40  seq=1077657388 win=1480
+           Statistics for host scanme.nmap.org (64.13.134.52):
+            |  Probes Sent: 2 | Rcvd: 1 | Lost: 1  (50.00%)
+            |_ Max rtt: 169.720ms | Min rtt: 169.720ms | Avg rtt: 169.720ms
+           Statistics for host google.com (74.125.45.100):
+            |  Probes Sent: 2 | Rcvd: 1 | Lost: 1  (50.00%)
+            |_ Max rtt: 122.686ms | Min rtt: 122.686ms | Avg rtt: 122.686ms
+           Raw packets sent: 4 (160B) | Rcvd: 2 (92B) | Lost: 2 (50.00%)
+           Tx time: 3.00296s | Tx bytes/s: 53.28 | Tx pkts/s: 1.33
+           Rx time: 3.00296s | Rx bytes/s: 30.64 | Rx pkts/s: 0.67
+           Nping done: 2 IP addresses pinged in 4.01 seconds

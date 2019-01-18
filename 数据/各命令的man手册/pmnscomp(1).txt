@@ -1,0 +1,32 @@
+
+       pmnscomp compiles a Performance Metrics Name Space (PMNS) in ASCII
+       format into a more efficient binary representation.
+       pmLoadNameSpace(3) is able to load this binary representation
+       significantly faster than the equivalent ASCII representation.
+       If outfile already exists pmnscomp will exit without overwriting it.
+       By convention, the name of the compiled namespace is that of the root
+       file of the ASCII namespace, with .bin appended.  For example, the
+       root of the default PMNS is a file named root and the compiled
+       version of the entire namespace is root.bin.
+       The options are;
+       -d   By default the PMNS to be compiled is expected to contain at
+            most one name for each unique Performance Metric Identifier
+            (PMID).  The -d option relaxes this restriction and allows the
+            compilation of a PMNS in which multiple names may be associated
+            with a single PMID.  Duplicate names are useful when a
+            particular metric may be logically associated with more than one
+            group of related metrics, or when it is desired to create
+            abbreviated aliases to name a set of frequently used metrics.
+       -f   Force overwriting of an existing outfile if it already exists.
+       -n   Normally pmnscomp operates on the default PMNS, however if the
+            -n option is specified an alternative namespace is loaded from
+            the file namespace.
+       -v   By default, pmnscomp writes a version 2 compiled namespace.  If
+            version is 1 then pmnscomp will write a version 1 namespace
+            which is similar to version 2, without the extra integrity
+            afforded by checksums.  Note that PCP version 2.0 or later can
+            handle both versions 1 and 2 of the binary PMNS format.
+       The default input PMNS is found in the file $PCP_VAR_DIR/pmns/root
+       unless the environment variable PMNS_DEFAULT is set, in which case
+       the value is assumed to be the pathname to the file containing the
+       default input PMNS.

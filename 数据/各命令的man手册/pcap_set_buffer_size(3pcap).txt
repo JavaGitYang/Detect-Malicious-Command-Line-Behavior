@@ -1,0 +1,4 @@
+
+       pcap_set_buffer_size() sets the buffer size that will be used on a
+       capture handle when the handle is activated to buffer_size, which is
+       in units of bytes.

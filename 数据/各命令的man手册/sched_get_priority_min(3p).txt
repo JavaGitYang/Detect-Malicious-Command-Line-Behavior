@@ -1,0 +1,6 @@
+
+       The sched_get_priority_max() and sched_get_priority_min() functions
+       shall return the appropriate maximum or minimum, respectively, for
+       the scheduling policy specified by policy.
+       The value of policy shall be one of the scheduling policy values
+       defined in <sched.h>.

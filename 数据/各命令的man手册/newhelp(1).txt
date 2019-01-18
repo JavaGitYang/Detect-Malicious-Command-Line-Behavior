@@ -1,0 +1,40 @@
+
+       newhelp generates the Performance Co-Pilot help text files used by
+       Performance Metric Domain Agents (PMDAs).
+       Normally newhelp operates on the default Performance Metrics Name
+       Space (PMNS), however if the -n option is specified an alternative
+       namespace is loaded from the file pmnsfile.
+       When there is only one input file, the base name of the new database
+       is derived from the name of the input file, otherwise the -o flag
+       must be given to explicitly name the database.  If no input files are
+       supplied, newhelp reads from the standard input stream, in which case
+       the -o flag must be given.
+       If the output file name is determined to be foo, newhelp will create
+       foo.dir and foo.pag.
+       Although historically there have been multiple help text file
+       formats, the only format currently supported using the -v option is
+       version 2, and this is the default if no -v flag is provided.
+       The -V flag causes verbose messages to be printed while newhelp is
+       parsing its input.
+       The first line of each entry in a help source file consists of an
+       ``@'' character beginning the line followed by a space and then the
+       performance metric name and a one line description of the metric.
+       Following lines (up to the next line beginning with ``@'' or end of
+       file) may contain a verbose help description.  E.g.
+            #
+            # This is an example of newhelp's input syntax
+            #
+            @ kernel.all.cpu.idle CPU idle time
+            A cumulative count of the number of milliseconds
+            of CPU idle time, summed over all processors.
+       Three-part numeric metric identifiers (PMIDs) may be used in place of
+       metric names, e.g. 60.0.23 rather than kernel.all.cpu.idle in the
+       example above.  Other than for dynamic metrics (where the existence
+       of a metric is known to a PMDA, but not visible in the PMNS and hence
+       has no name that could be known to newhelp) use of this syntactic
+       variant is not encouraged.
+       Lines beginning with ``#'' are ignored, as are blank lines in the
+       file before the first ``@''.  The verbose help text is optional.
+       As a special case, a ``metric'' name of the form NNN.MM (for numeric
+       NNN and MM) is interpreted as an instance domain identification, and
+       the text describes the instance domain.

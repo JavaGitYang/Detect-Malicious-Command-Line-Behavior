@@ -1,0 +1,4 @@
+
+       This function will get a PKCS 7 attribute from the provided list.
+       The OID is a constant string, but data will be allocated and must be
+       deinitialized by the caller.

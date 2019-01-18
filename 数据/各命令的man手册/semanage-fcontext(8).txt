@@ -1,0 +1,6 @@
+
+       semanage is used to configure certain elements of SELinux policy
+       without requiring modification to or recompilation from policy
+       sources.  semanage fcontext is used to  manage the default file
+       system labeling on an SELinux system.  This command maps file paths
+       using regular expressions to SELinux labels.

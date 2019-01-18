@@ -1,0 +1,48 @@
+
+       sd_event_add_child() adds a new child process state change event
+       source to an event loop. The event loop object is specified in the
+       event parameter, the event source object is returned in the source
+       parameter. The pid parameter specifies the PID of the process to
+       watch. The handler must reference a function to call when the process
+       changes state. The handler function will be passed the userdata
+       pointer, which may be chosen freely by the caller. The handler also
+       receives a pointer to a siginfo_t structure containing information
+       about the child process event. The options parameter determines which
+       state changes will be watched for. It must contain an OR-ed mask of
+       WEXITED (watch for the child process terminating), WSTOPPED (watch
+       for the child process being stopped by a signal), and WCONTINUED
+       (watch for the child process being resumed by a signal). See
+       waitid(2) for further information.
+       Only a single handler may be installed for a specific child process.
+       The handler is enabled for a single event (SD_EVENT_ONESHOT), but
+       this may be changed with sd_event_source_set_enabled(3). If the
+       handler function returns a negative error code, it will be disabled
+       after the invocation, even if the SD_EVENT_ON mode was requested
+       before.
+       To destroy an event source object use sd_event_source_unref(3), but
+       note that the event source is only removed from the event loop when
+       all references to the event source are dropped. To make sure an event
+       source does not fire anymore, even when there's still a reference to
+       it kept, consider setting the event source to SD_EVENT_OFF with
+       sd_event_source_set_enabled(3).
+       If the second parameter of sd_event_add_child() is passed as NULL no
+       reference to the event source object is returned. In this case the
+       event source is considered "floating", and will be destroyed
+       implicitly when the event loop itself is destroyed.
+       Note that the handler function is invoked at a time where the child
+       process is not reaped yet (and thus still is exposed as a zombie
+       process by the kernel). However, the child will be reaped
+       automatically after the function returns. Child processes for which
+       no child process state change event sources are installed will not be
+       reaped by the event loop implementation.
+       If both a child process state change event source and a SIGCHLD
+       signal event source is installed in the same event loop, the
+       configured event source priorities decide which event source is
+       dispatched first. If the signal handler is processed first, it should
+       leave the child processes for which child process state change event
+       sources are installed unreaped.
+       sd_event_source_get_child_pid() retrieves the configured PID of a
+       child process state change event source created previously with
+       sd_event_add_child(). It takes the event source object as the source
+       parameter and a pointer to a pid_t variable to return the process ID
+       in.

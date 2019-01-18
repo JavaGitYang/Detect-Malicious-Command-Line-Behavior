@@ -1,0 +1,4 @@
+
+       The PSK identity hint may give the client help in deciding which
+       username to use.  This should only be called in case of PSK
+       authentication and in case of a client.

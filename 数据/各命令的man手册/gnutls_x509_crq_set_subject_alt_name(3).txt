@@ -1,0 +1,3 @@
+
+       This function will set the subject alternative name certificate
+       extension.  It can set the following types:

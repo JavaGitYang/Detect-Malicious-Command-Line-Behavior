@@ -1,0 +1,5 @@
+
+       The wcscasecmp() function is the wide-character equivalent of the
+       strcasecmp(3) function.  It compares the wide-character string
+       pointed to by s1 and the wide-character string pointed to by s2,
+       ignoring case differences (towupper(3), towlower(3)).

@@ -1,0 +1,11 @@
+
+       dh_auto_test is a debhelper program that tries to automatically run a
+       package's test suite. It does so by running the appropriate command
+       for the build system it detects the package uses. For example, if
+       there's a Makefile and it contains a test or check target, then this
+       is done by running make (or MAKE, if the environment variable is
+       set). If the test suite fails, the command will exit nonzero. If
+       there's no test suite, it will exit zero without doing anything.
+       This is intended to work for about 90% of packages with a test suite.
+       If it doesn't work, you're encouraged to skip using dh_auto_test at
+       all, and just run the test suite manually.

@@ -1,0 +1,2 @@
+
+       Convert a dane_match_type_t value to a string.

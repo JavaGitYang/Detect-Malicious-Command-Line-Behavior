@@ -1,0 +1,40 @@
+
+       The sched_setscheduler() system call sets both the scheduling policy
+       and parameters for the thread whose ID is specified in pid.  If pid
+       equals zero, the scheduling policy and parameters of the calling
+       thread will be set.
+       The scheduling parameters are specified in the param argument, which
+       is a pointer to a structure of the following form:
+           struct sched_param {
+               ...
+               int sched_priority;
+               ...
+           };
+       In the current implementation, the structure contains only one field,
+       sched_priority.  The interpretation of param depends on the selected
+       policy.
+       Currently, Linux supports the following "normal" (i.e., non-real-
+       time) scheduling policies as values that may be specified in policy:
+       SCHED_OTHER   the standard round-robin time-sharing policy;
+       SCHED_BATCH   for "batch" style execution of processes; and
+       SCHED_IDLE    for running very low priority background jobs.
+       For each of the above policies, param->sched_priority must be 0.
+       Various "real-time" policies are also supported, for special time-
+       critical applications that need precise control over the way in which
+       runnable threads are selected for execution.  For the rules governing
+       when a process may use these policies, see sched(7).  The real-time
+       policies that may be specified in policy are:
+       SCHED_FIFO    a first-in, first-out policy; and
+       SCHED_RR      a round-robin policy.
+       For each of the above policies, param->sched_priority specifies a
+       scheduling priority for the thread.  This is a number in the range
+       returned by calling sched_get_priority_min(2) and
+       sched_get_priority_max(2) with the specified policy.  On Linux, these
+       system calls return, respectively, 1 and 99.
+       Since Linux 2.6.32, the SCHED_RESET_ON_FORK flag can be ORed in pol‐
+       icy when calling sched_setscheduler().  As a result of including this
+       flag, children created by fork(2) do not inherit privileged schedul‐
+       ing policies.  See sched(7) for details.
+       sched_getscheduler() returns the current scheduling policy of the
+       thread identified by pid.  If pid equals zero, the policy of the
+       calling thread will be retrieved.

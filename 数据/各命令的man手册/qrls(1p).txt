@@ -1,0 +1,20 @@
+
+       A batch job might have one or more holds, which prevent the batch job
+       from executing. A batch job from which all the holds have been
+       removed becomes eligible for execution and is said to have been
+       released. A batch job hold is removed by sending a request to the
+       batch server that manages the batch job. The qrls utility is a user-
+       accessible client of batch services that requests holds be removed
+       from one or more batch jobs.
+       The qrls utility shall remove one or more holds from those batch jobs
+       for which a batch job_identifier is presented to the utility.
+       The qrls utility shall remove holds from batch jobs in the order in
+       which their batch job_identifiers are presented to the utility.
+       If the qrls utility fails to process a batch job_identifier
+       successfully, the utility shall proceed to process the remaining
+       batch job_identifiers, if any.
+       The qrls utility shall remove holds on each batch job by sending a
+       Release Job Request to the batch server that manages the batch job.
+       The qrls utility shall not exit until the holds have been removed
+       from the batch job corresponding to each successfully processed batch
+       job_identifier.

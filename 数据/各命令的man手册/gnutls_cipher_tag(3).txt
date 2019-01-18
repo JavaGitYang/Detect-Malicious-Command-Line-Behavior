@@ -1,0 +1,3 @@
+
+       This function operates on authenticated encryption with associated
+       data (AEAD) ciphers and will return the output tag.

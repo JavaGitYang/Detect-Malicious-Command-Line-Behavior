@@ -1,0 +1,11 @@
+
+       This function will convert the given PEM encoded certificate list to
+       the native gnutls_x509_crt_t format. The output will be stored in
+       certs .  They will be automatically initialized.
+       The flag GNUTLS_X509_CRT_LIST_IMPORT_FAIL_IF_EXCEED will cause import
+       to fail if the certificates in the provided buffer are more than the
+       available structures. The GNUTLS_X509_CRT_LIST_FAIL_IF_UNSORTED flag
+       will cause the function to fail if the provided list is not sorted
+       from subject to issuer.
+       If the Certificate is PEM encoded it should have a header of "X509
+       CERTIFICATE", or "CERTIFICATE".

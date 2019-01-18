@@ -1,0 +1,7 @@
+
+       This function will sign the given data using a signature algorithm
+       supported by the private key. Signature algorithms are always used
+       together with a hash functions.  Different hash functions may be used
+       for the RSA algorithm, but only the SHA family for the DSA keys.
+       You may use gnutls_pubkey_get_preferred_hash_algorithm() to determine
+       the hash algorithm.

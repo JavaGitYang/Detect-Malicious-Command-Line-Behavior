@@ -1,0 +1,7 @@
+
+     The acl_dup() function returns a pointer to a copy of the ACL pointed
+     to by acl.
+     This function may cause memory to be allocated.  The caller should free
+     any releasable memory, when the new ACL is no longer required, by call‐
+     ing acl_free(3) with the (void*)acl_t returned by acl_dup() as an argu‐
+     ment.

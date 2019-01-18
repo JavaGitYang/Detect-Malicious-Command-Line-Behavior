@@ -1,0 +1,85 @@
+
+       The posix_trace_attr_getinherited() and
+       posix_trace_attr_setinherited() functions, respectively, shall get
+       and set the inheritance policy stored in the inheritance attribute
+       for traced processes across the fork() and spawn() operations. The
+       inheritance attribute of the attributes object pointed to by the attr
+       argument shall be set to one of the following values defined by
+       manifest constants in the <trace.h> header:
+       POSIX_TRACE_CLOSE_FOR_CHILD
+             After a fork() or spawn() operation, the child shall not be
+             traced, and tracing of the parent shall continue.
+       POSIX_TRACE_INHERITED
+             After a fork() or spawn() operation, if the parent is being
+             traced, its child shall be concurrently traced using the same
+             trace stream.
+       The default value for the inheritance attribute is
+       POSIX_TRACE_CLOSE_FOR_CHILD.
+       The posix_trace_attr_getlogfullpolicy() and
+       posix_trace_attr_setlogfullpolicy() functions, respectively, shall
+       get and set the trace log full policy stored in the log-full-policy
+       attribute of the attributes object pointed to by the attr argument.
+       The log-full-policy attribute shall be set to one of the following
+       values defined by manifest constants in the <trace.h> header:
+       POSIX_TRACE_LOOP
+             The trace log shall loop until the associated trace stream is
+             stopped.  This policy means that when the trace log gets full,
+             the file system shall reuse the resources allocated to the
+             oldest trace events that were recorded. In this way, the trace
+             log will always contain the most recent trace events flushed.
+       POSIX_TRACE_UNTIL_FULL
+             The trace stream shall be flushed to the trace log until the
+             trace log is full. This condition can be deduced from the
+             posix_log_full_status member status (see the
+             posix_trace_status_info structure defined in <trace.h>).  The
+             last recorded trace event shall be the POSIX_TRACE_STOP trace
+             event.
+       POSIX_TRACE_APPEND
+             The associated trace stream shall be flushed to the trace log
+             without log size limitation. If the application specifies
+             POSIX_TRACE_APPEND, the implementation shall ignore the log-
+             max-size attribute.
+       The default value for the log-full-policy attribute is
+       POSIX_TRACE_LOOP.
+       The posix_trace_attr_getstreamfullpolicy() and
+       posix_trace_attr_setstreamfullpolicy() functions, respectively, shall
+       get and set the trace stream full policy stored in the stream-full-
+       policy attribute of the attributes object pointed to by the attr
+       argument.
+       The stream-full-policy attribute shall be set to one of the following
+       values defined by manifest constants in the <trace.h> header:
+       POSIX_TRACE_LOOP
+             The trace stream shall loop until explicitly stopped by the
+             posix_trace_stop() function. This policy means that when the
+             trace stream is full, the trace system shall reuse the
+             resources allocated to the oldest trace events recorded. In
+             this way, the trace stream will always contain the most recent
+             trace events recorded.
+       POSIX_TRACE_UNTIL_FULL
+             The trace stream will run until the trace stream resources are
+             exhausted. Then the trace stream will stop. This condition can
+             be deduced from posix_stream_status and
+             posix_stream_full_status (see the posix_trace_status_info
+             structure defined in <trace.h>).  When this trace stream is
+             read, a POSIX_TRACE_STOP trace event shall be reported after
+             reporting the last recorded trace event.  The trace system
+             shall reuse the resources allocated to any trace events already
+             reported—see the posix_trace_getnext_event(),
+             posix_trace_trygetnext_event(), and
+             posix_trace_timedgetnext_event() functions—or already flushed
+             for an active trace stream with log if the Trace Log option is
+             supported; see the posix_trace_flush() function. The trace
+             system shall restart the trace stream when it is empty and may
+             restart it sooner. A POSIX_TRACE_START trace event shall be
+             reported before reporting the next recorded trace event.
+       POSIX_TRACE_FLUSH
+             If the Trace Log option is supported, this policy is identical
+             to the POSIX_TRACE_UNTIL_FULL trace stream full policy except
+             that the trace stream shall be flushed regularly as if
+             posix_trace_flush() had been explicitly called. Defining this
+             policy for an active trace stream without log shall be invalid.
+       The default value for the stream-full-policy attribute shall be
+       POSIX_TRACE_LOOP for an active trace stream without log.
+       If the Trace Log option is supported, the default value for the
+       stream-full-policy attribute shall be POSIX_TRACE_FLUSH for an active
+       trace stream with log.

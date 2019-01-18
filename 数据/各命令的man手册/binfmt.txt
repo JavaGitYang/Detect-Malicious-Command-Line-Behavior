@@ -1,0 +1,4 @@
+
+       At boot, systemd-binfmt.service(8) reads configuration files from the
+       above directories to register in the kernel additional binary formats
+       for executables.

@@ -1,0 +1,6 @@
+
+       This function will pretty print public key information, suitable for
+       display to a human.
+       Only GNUTLS_CRT_PRINT_FULL and GNUTLS_CRT_PRINT_FULL_NUMBERS are
+       implemented.
+       The output  out needs to be deallocated using gnutls_free().

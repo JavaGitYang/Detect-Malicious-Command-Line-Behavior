@@ -1,0 +1,6 @@
+
+       The sed utility is a stream editor that shall read one or more text
+       files, make editing changes according to a script of editing
+       commands, and write the results to standard output. The script shall
+       be obtained from either the script operand string or a combination of
+       the option-arguments from the −e script and −f script_file options.

@@ -1,0 +1,6 @@
+
+       semodule_package is the tool used to create a SELinux policy module
+       package from a binary policy module and optionally other data such as
+       file contexts.  semodule_package packages binary policy modules
+       created by checkmodule.  The policy package created by
+       semodule_package can then be installed via semodule.

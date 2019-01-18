@@ -1,0 +1,27 @@
+
+       sd_journal_seek_head() seeks to the beginning of the journal, i.e.
+       the oldest available entry.
+       Similarly, sd_journal_seek_tail() may be used to seek to the end of
+       the journal, i.e. the most recent available entry.
+       sd_journal_seek_monotonic_usec() seeks to the entry with the
+       specified monotonic timestamp, i.e.  CLOCK_MONOTONIC. Since monotonic
+       time restarts on every reboot a boot ID needs to be specified as
+       well.
+       sd_journal_seek_realtime_usec() seeks to the entry with the specified
+       realtime (wallclock) timestamp, i.e.  CLOCK_REALTIME. Note that the
+       realtime clock is not necessarily monotonic. If a realtime timestamp
+       is ambiguous, it is not defined which position is sought to.
+       sd_journal_seek_cursor() seeks to the entry located at the specified
+       cursor string. For details on cursors, see sd_journal_get_cursor(3).
+       If no entry matching the specified cursor is found the call will seek
+       to the next closest entry (in terms of time) instead. To verify
+       whether the newly selected entry actually matches the cursor, use
+       sd_journal_test_cursor(3).
+       Note that these calls do not actually make any entry the new current
+       entry, this needs to be done in a separate step with a subsequent
+       sd_journal_next(3) invocation (or a similar call). Only then, entry
+       data may be retrieved via sd_journal_get_data(3). If no entry exists
+       that matches exactly the specified seek address, the next closest is
+       sought to. If sd_journal_next(3) is used, the closest following entry
+       will be sought to, if sd_journal_previous(3) is used the closest
+       preceding entry is sought to.

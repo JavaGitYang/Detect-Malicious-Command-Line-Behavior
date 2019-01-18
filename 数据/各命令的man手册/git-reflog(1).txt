@@ -1,0 +1,35 @@
+
+       The command takes various subcommands, and different options
+       depending on the subcommand:
+           git reflog [show] [log-options] [<ref>]
+           git reflog expire [--expire=<time>] [--expire-unreachable=<time>]
+                   [--rewrite] [--updateref] [--stale-fix]
+                   [--dry-run | -n] [--verbose] [--all | <refs>...]
+           git reflog delete [--rewrite] [--updateref]
+                   [--dry-run | -n] [--verbose] ref@{specifier}...
+           git reflog exists <ref>
+       Reference logs, or "reflogs", record when the tips of branches and
+       other references were updated in the local repository. Reflogs are
+       useful in various Git commands, to specify the old value of a
+       reference. For example, HEAD@{2} means "where HEAD used to be two
+       moves ago", master@{one.week.ago} means "where master used to point
+       to one week ago in this local repository", and so on. See
+       gitrevisions(7) for more details.
+       This command manages the information recorded in the reflogs.
+       The "show" subcommand (which is also the default, in the absence of
+       any subcommands) shows the log of the reference provided in the
+       command-line (or HEAD, by default). The reflog covers all recent
+       actions, and in addition the HEAD reflog records branch switching.
+       git reflog show is an alias for git log -g --abbrev-commit
+       --pretty=oneline; see git-log(1) for more information.
+       The "expire" subcommand prunes older reflog entries. Entries older
+       than expire time, or entries older than expire-unreachable time and
+       not reachable from the current tip, are removed from the reflog. This
+       is typically not used directly by end users — instead, see git-gc(1).
+       The "delete" subcommand deletes single entries from the reflog. Its
+       argument must be an exact entry (e.g. "git reflog delete
+       master@{2}"). This subcommand is also typically not used directly by
+       end users.
+       The "exists" subcommand checks whether a ref has a reflog. It exits
+       with zero status if the reflog exists, and non-zero status if it does
+       not.

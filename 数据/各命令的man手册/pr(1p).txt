@@ -1,0 +1,14 @@
+
+       The pr utility is a printing and pagination filter. If multiple input
+       files are specified, each shall be read, formatted, and written to
+       standard output. By default, the input shall be separated into
+       66-line pages, each with:
+        *  A 5-line header that includes the page number, date, time, and
+           the pathname of the file
+        *  A 5-line trailer consisting of blank lines
+       If standard output is associated with a terminal, diagnostic messages
+       shall be deferred until the pr utility has completed processing.
+       When options specifying multi-column output are specified, output
+       text columns shall be of equal width; input lines that do not fit
+       into a text column shall be truncated. By default, text columns shall
+       be separated with at least one <blank>.

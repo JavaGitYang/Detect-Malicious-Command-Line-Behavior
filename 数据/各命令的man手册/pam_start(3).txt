@@ -1,0 +1,26 @@
+
+       The pam_start function creates the PAM context and initiates the PAM
+       transaction. It is the first of the PAM functions that needs to be
+       called by an application. The transaction state is contained entirely
+       within the structure identified by this handle, so it is possible to
+       have multiple transactions in parallel. But it is not possible to use
+       the same handle for different transactions, a new one is needed for
+       every new context.
+       The service_name argument specifies the name of the service to apply
+       and will be stored as PAM_SERVICE item in the new context. The policy
+       for the service will be read from the file /etc/pam.d/service_name
+       or, if that file does not exist, from /etc/pam.conf.
+       The user argument can specify the name of the target user and will be
+       stored as PAM_USER item. If the argument is NULL, the module has to
+       ask for this item if necessary.
+       The pam_conversation argument points to a struct pam_conv describing
+       the conversation function to use. An application must provide this
+       for direct communication between a loaded module and the application.
+       Following a successful return (PAM_SUCCESS) the contents of pamh is a
+       handle that contains the PAM context for successive calls to the PAM
+       functions. In an error case is the content of pamh undefined.
+       The pam_handle_t is a blind structure and the application should not
+       attempt to probe it directly for information. Instead the PAM library
+       provides the functions pam_set_item(3) and pam_get_item(3). The PAM
+       handle cannot be used for mulitiple authentications at the same time
+       as long as pam_end was not called on it before.

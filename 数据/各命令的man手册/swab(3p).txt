@@ -1,0 +1,7 @@
+
+       The swab() function shall copy nbytes bytes, which are pointed to by
+       src, to the object pointed to by dest, exchanging adjacent bytes. The
+       nbytes argument should be even. If nbytes is odd, swab() copies and
+       exchanges nbytes−1 bytes and the disposition of the last byte is
+       unspecified. If copying takes place between objects that overlap, the
+       behavior is undefined.  If nbytes is negative, swab() does nothing.

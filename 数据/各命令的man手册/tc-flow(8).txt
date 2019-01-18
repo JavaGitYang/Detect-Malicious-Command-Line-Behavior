@@ -1,0 +1,4 @@
+
+       The flow classifier is meant to extend the SFQ hashing capabilities
+       without hard-coding new hash functions. It also allows deterministic
+       mappings of keys to classes.

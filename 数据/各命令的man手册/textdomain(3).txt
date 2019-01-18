@@ -1,0 +1,14 @@
+
+       The textdomain function sets or retrieves the current message domain.
+       A message domain is a set of translatable msgid messages. Usually,
+       every software package has its own message domain. The domain name is
+       used to determine the message catalog where a translation is looked
+       up; it must be a non-empty string.
+       The current message domain is used by the gettext, ngettext
+       functions, and by the dgettext, dcgettext, dngettext and dcngettext
+       functions when called with a NULL domainname argument.
+       If domainname is not NULL, the current message domain is set to
+       domainname. The string the function stores internally is a copy of
+       the domainname argument.
+       If domainname is NULL, the function returns the current message
+       domain.

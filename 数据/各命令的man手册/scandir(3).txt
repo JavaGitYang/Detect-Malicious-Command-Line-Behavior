@@ -1,0 +1,23 @@
+
+       The scandir() function scans the directory dirp, calling filter() on
+       each directory entry.  Entries for which filter() returns nonzero are
+       stored in strings allocated via malloc(3), sorted using qsort(3) with
+       the comparison function compar(), and collected in array namelist
+       which is allocated via malloc(3).  If filter is NULL, all entries are
+       selected.
+       The alphasort() and versionsort() functions can be used as the
+       comparison function compar().  The former sorts directory entries
+       using strcoll(3), the latter using strverscmp(3) on the strings
+       (*a)->d_name and (*b)->d_name.
+   scandirat()
+       The scandirat() function operates in exactly the same way as
+       scandir(), except for the differences described here.
+       If the pathname given in dirp is relative, then it is interpreted
+       relative to the directory referred to by the file descriptor dirfd
+       (rather than relative to the current working directory of the calling
+       process, as is done by scandir() for a relative pathname).
+       If dirp is relative and dirfd is the special value AT_FDCWD, then
+       dirp is interpreted relative to the current working directory of the
+       calling process (like scandir()).
+       If dirp is absolute, then dirfd is ignored.
+       See openat(2) for an explanation of the need for scandirat().

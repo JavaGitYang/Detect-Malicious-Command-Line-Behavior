@@ -1,0 +1,8 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The putc() function shall be equivalent to fputc(), except that if it
+       is implemented as a macro it may evaluate stream more than once, so
+       the argument should never be an expression with side-effects.

@@ -1,0 +1,2 @@
+
+       This function will unregister the private key from the TPM chip.

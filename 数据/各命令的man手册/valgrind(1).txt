@@ -1,0 +1,13 @@
+
+       Valgrind is a flexible program for debugging and profiling Linux
+       executables. It consists of a core, which provides a synthetic CPU in
+       software, and a series of debugging and profiling tools. The
+       architecture is modular, so that new tools can be created easily and
+       without disturbing the existing structure.
+       Some of the options described below work with all Valgrind tools, and
+       some only work with a few or one. The section MEMCHECK OPTIONS and
+       those below it describe tool-specific options.
+       This manual page covers only basic usage and options. For more
+       comprehensive information, please see the HTML documentation on your
+       system: $INSTALL/share/doc/valgrind/html/index.html, or online:
+       http://www.valgrind.org/docs/manual/index.html.

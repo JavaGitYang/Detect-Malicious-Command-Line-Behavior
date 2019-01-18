@@ -1,0 +1,8 @@
+
+       This function sets the filename of an OCSP response, that will be
+       sent to the client if requests an OCSP certificate status for the
+       certificate chain specified by  idx .
+       This is a convenience function which may be inefficient on busy
+       servers since the file is opened on every access. Use
+       gnutls_certificate_set_ocsp_status_request_function2() to fine-tune
+       file accesses.

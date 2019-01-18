@@ -1,0 +1,5 @@
+
+       This function will import the provided public key in a
+       SubjectPublicKeyInfo X.509 structure to a native gnutls_pubkey_t
+       type. The output will be stored in  key . If the public key is PEM
+       encoded it should have a header of "PUBLIC KEY".

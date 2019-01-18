@@ -1,0 +1,3 @@
+
+       security_policyvers() returns the version of the policy (a positive
+       integer) on success, or -1 on error.

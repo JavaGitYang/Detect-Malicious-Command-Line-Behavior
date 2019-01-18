@@ -1,0 +1,4 @@
+
+       dh_ucf is a debhelper program that is responsible for generating the
+       postinst and postrm commands that register files with ucf(1) and
+       ucfr(1).

@@ -1,0 +1,5 @@
+
+       The lttng disable-rotation command unsets an automatic rotation
+       schedule for the current tracing session, or for the tracing session
+       named SESSION if provided, previously set with the
+       lttng-enable-rotation(1) command.

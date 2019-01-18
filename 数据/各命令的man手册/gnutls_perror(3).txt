@@ -1,0 +1,3 @@
+
+       This function is like perror(). The only difference is that it
+       accepts an error number returned by a gnutls function.

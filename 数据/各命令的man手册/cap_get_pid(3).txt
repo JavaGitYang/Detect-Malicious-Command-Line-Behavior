@@ -1,0 +1,26 @@
+
+       cap_get_proc() allocates a capability state in working storage, sets
+       its state to that of the calling process, and returns a pointer to
+       this newly created capability state.  The caller should free any
+       releasable memory, when the capability state in working storage is no
+       longer required, by calling cap_free() with the cap_t as an argument.
+       cap_set_proc() sets the values for all capability flags for all
+       capabilities to the capability state identified by cap_p.  The new
+       capability state of the process will be completely determined by the
+       contents of cap_p upon successful return from this function.  If any
+       flag in cap_p is set for any capability not currently permitted for
+       the calling process, the function will fail, and the capability state
+       of the process will remain unchanged.
+       cap_get_pid() returns cap_t, see cap_init(3), with the process
+       capabilities of the process indicated by pid.  This information can
+       also be obtained from the /proc/<pid>/status file.
+       cap_get_bound() with a cap as an argument returns the current value
+       of this bounding set capability flag in effect for the current
+       process. This operation is unpriveged. Note, a macro function
+       CAP_IS_SUPPORTED(cap_value_t cap) is provided that evaluates to true
+       (1) if the system supports the specified capability, cap.  If the
+       system does not support the capability, this function returns 0. This
+       macro works by testing for an error condition with cap_get_bound().
+       cap_drop_bound() can be used to lower the specified bounding set
+       capability, cap, To complete successfully, the prevailing effective
+       capability set must have a raised CAP_SETPCAP.

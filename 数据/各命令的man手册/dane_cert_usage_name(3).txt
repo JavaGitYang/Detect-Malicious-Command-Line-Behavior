@@ -1,0 +1,2 @@
+
+       Convert a dane_cert_usage_t value to a string.

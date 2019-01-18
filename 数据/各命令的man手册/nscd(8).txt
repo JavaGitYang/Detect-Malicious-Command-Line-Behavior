@@ -1,0 +1,13 @@
+
+       nscd is a daemon that provides a cache for the most common name
+       service requests.  The default configuration file, /etc/nscd.conf,
+       determines the behavior of the cache daemon.  See nscd.conf(5).
+       nscd provides caching for accesses of the passwd(5), group(5),
+       hosts(5) services(5) and netgroup databases through standard libc
+       interfaces, such as getpwnam(3), getpwuid(3), getgrnam(3),
+       getgrgid(3), gethostbyname(3), and others.
+       There are two caches for each database: a positive one for items
+       found, and a negative one for items not found.  Each cache has a
+       separate TTL (time-to-live) period for its data.  Note that the
+       shadow file is specifically not cached.  getspnam(3) calls remain
+       uncached as a result.

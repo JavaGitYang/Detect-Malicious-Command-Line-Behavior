@@ -1,0 +1,61 @@
+
+       These functions are deprecated (and unavailable in glibc).  Use
+       getaddrinfo(3) and getnameinfo(3) instead.
+       The getipnodebyname() and getipnodebyaddr() functions return the
+       names and addresses of a network host.  These functions return a
+       pointer to the following structure:
+           struct hostent {
+               char  *h_name;
+               char **h_aliases;
+               int    h_addrtype;
+               int    h_length;
+               char **h_addr_list;
+           };
+       These functions replace the gethostbyname(3) and gethostbyaddr(3)
+       functions, which could access only the IPv4 network address family.
+       The getipnodebyname() and getipnodebyaddr() functions can access mul‐
+       tiple network address families.
+       Unlike the gethostby functions, these functions return pointers to
+       dynamically allocated memory.  The freehostent() function is used to
+       release the dynamically allocated memory after the caller no longer
+       needs the hostent structure.
+   getipnodebyname() arguments
+       The getipnodebyname() function looks up network addresses for the
+       host specified by the name argument.  The af argument specifies one
+       of the following values:
+       AF_INET
+              The name argument points to a dotted-quad IPv4 address or a
+              name of an IPv4 network host.
+       AF_INET6
+              The name argument points to a hexadecimal IPv6 address or a
+              name of an IPv6 network host.
+       The flags argument specifies additional options.  More than one
+       option can be specified by bitwise OR-ing them together.  flags
+       should be set to 0 if no options are desired.
+       AI_V4MAPPED
+              This flag is used with AF_INET6 to request a query for IPv4
+              addresses instead of IPv6 addresses; the IPv4 addresses will
+              be mapped to IPv6 addresses.
+       AI_ALL This flag is used with AI_V4MAPPED to request a query for both
+              IPv4 and IPv6 addresses.  Any IPv4 address found will be
+              mapped to an IPv6 address.
+       AI_ADDRCONFIG
+              This flag is used with AF_INET6 to further request that
+              queries for IPv6 addresses should not be made unless the sys‐
+              tem has at least one IPv6 address assigned to a network inter‐
+              face, and that queries for IPv4 addresses should not be made
+              unless the system has at least one IPv4 address assigned to a
+              network interface.  This flag may be used by itself or with
+              the AI_V4MAPPED flag.
+       AI_DEFAULT
+              This flag is equivalent to (AI_ADDRCONFIG | AI_V4MAPPED).
+   getipnodebyaddr() arguments
+       The getipnodebyaddr() function looks up the name of the host whose
+       network address is specified by the addr argument.  The af argument
+       specifies one of the following values:
+       AF_INET
+              The addr argument points to a struct in_addr and len must be
+              set to sizeof(struct in_addr).
+       AF_INET6
+              The addr argument points to a struct in6_addr and len must be
+              set to sizeof(struct in6_addr).

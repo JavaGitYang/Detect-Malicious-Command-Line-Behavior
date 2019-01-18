@@ -1,0 +1,11 @@
+
+       The getgrouplist() function scans the group database (see group(5))
+       to obtain the list of groups that user belongs to.  Up to *ngroups of
+       these groups are returned in the array groups.
+       If it was not among the groups defined for user in the group
+       database, then group is included in the list of groups returned by
+       getgrouplist(); typically this argument is specified as the group ID
+       from the password record for user.
+       The ngroups argument is a value-result argument: on return it always
+       contains the number of groups found for user, including group; this
+       value may be greater than the number of groups stored in groups.

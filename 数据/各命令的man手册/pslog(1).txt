@@ -1,0 +1,2 @@
+
+       The pslog command reports the current working logs of a process.

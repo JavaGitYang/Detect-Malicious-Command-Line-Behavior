@@ -1,0 +1,3 @@
+
+       The trace-cmd(1) options command will examine all the trace-cmd
+       plugins that are used by trace-cmd report(1) and list them.

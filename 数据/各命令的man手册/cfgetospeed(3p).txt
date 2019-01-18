@@ -1,0 +1,5 @@
+
+       The cfgetospeed() function shall extract the output baud rate from
+       the termios structure to which the termios_p argument points.
+       This function shall return exactly the value in the termios data
+       structure, without interpretation.

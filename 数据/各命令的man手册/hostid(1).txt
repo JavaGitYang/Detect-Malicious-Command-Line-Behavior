@@ -1,0 +1,5 @@
+
+       Print the numeric identifier (in hexadecimal) for the current host.
+       --help display this help and exit
+       --version
+              output version information and exit

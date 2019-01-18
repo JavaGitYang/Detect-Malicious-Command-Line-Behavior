@@ -1,0 +1,9 @@
+
+       Sets the function that will be used to retrieve data from the resumed
+       sessions database.  This function must return a gnutls_datum_t
+       containing the data on success, or a gnutls_datum_t containing null
+       and 0 on failure.
+       The datum's data must be allocated using the function
+       gnutls_malloc().
+       The first argument to  retr_func will be null unless
+       gnutls_db_set_ptr() has been called.

@@ -1,0 +1,32 @@
+
+       The script reads a configuration file that may contain so-called
+       guards, file names, and comments, and writes those file names that
+       satisfy all guards to standard output. The script takes a list of
+       symbols as its arguments. Each line in the configuration file is
+       processed separately. Lines may start with a number of guards. The
+       following guards are defined:
+           +xxx Include the file(s) on this line if the symbol xxx is
+           defined.
+           -xxx Exclude the file(s) on this line if the symbol xxx is
+           defined.
+           +!xxx Include the file(s) on this line if the symbol xxx is not
+           defined.
+           -!xxx Exclude the file(s) on this line if the symbol xxx is not
+           defined.
+           - Exclude this file. Used to avoid spurious --check messages.
+       The guards are processed left to right. The last guard that matches
+       determines if the file is included. If no guard is specified, the
+       --default setting determines if the file is included.
+       If no configuration file is specified, the script reads from standard
+       input.
+       The --check option is used to compare the specification file against
+       the file system. If files are referenced in the specification that do
+       not exist, or if files are not enlisted in the specification file
+       warnings are printed. The --path option can be used to specify which
+       directory or directories to scan.  Multiple directories are separated
+       by a colon (":") character. The --prefix option specifies the
+       location of the files. Alternatively, the --path=@<file> syntax can
+       be used to specify a file from which the file names will be read.
+       Use --list to list all files independent of any rules. Use
+       --invert-match to list only the excluded patches. Use --with-guards
+       to also include all inclusion and exclusion rules.

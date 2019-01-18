@@ -1,0 +1,5 @@
+
+       This function will import the public key from the provided TPM key
+       structure.
+       With respect to passwords the same as in
+       gnutls_pubkey_import_tpm_url() apply.

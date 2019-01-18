@@ -1,0 +1,5 @@
+
+       This program dumps the given revisions in a form suitable to be piped
+       into git fast-import.
+       You can use it as a human-readable bundle replacement (see
+       git-bundle(1)), or as a kind of an interactive git filter-branch.

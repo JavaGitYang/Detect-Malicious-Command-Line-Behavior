@@ -1,0 +1,14 @@
+
+       The exec utility shall open, close, and/or copy file descriptors as
+       specified by any redirections as part of the command.
+       If exec is specified without command or arguments, and any file
+       descriptors with numbers greater than 2 are opened with associated
+       redirection statements, it is unspecified whether those file
+       descriptors remain open when the shell invokes another utility.
+       Scripts concerned that child shells could misuse open file
+       descriptors can always close them explicitly, as shown in one of the
+       following examples.
+       If exec is specified with command, it shall replace the shell with
+       command without creating a new process. If arguments are specified,
+       they shall be arguments to command.  Redirection affects the current
+       shell execution environment.

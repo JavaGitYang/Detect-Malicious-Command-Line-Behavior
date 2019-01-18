@@ -1,0 +1,5 @@
+
+       updwtmp() appends the utmp structure ut to the wtmp file.
+       logwtmp() constructs a utmp structure using line, name, host, current
+       time and current process ID.  Then it calls updwtmp() to append the
+       structure to the wtmp file.

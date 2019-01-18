@@ -1,0 +1,12 @@
+
+       The pthread_mutexattr_init() function initializes the mutex
+       attributes object pointed to by attr with default values for all
+       attributes defined by the implementation.
+       The results of initializing an already initialized mutex attributes
+       object are undefined.
+       The pthread_mutexattr_destroy() function destroys a mutex attribute
+       object (making it uninitialized).  Once a mutex attributes object has
+       been destroyed, it can be reinitialized with
+       pthread_mutexattr_init().
+       The results of destroying an uninitialized mutex attributes object
+       are undefined.

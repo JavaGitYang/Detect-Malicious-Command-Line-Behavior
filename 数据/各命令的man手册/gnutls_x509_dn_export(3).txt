@@ -1,0 +1,7 @@
+
+       This function will export the DN to DER or PEM format.
+       If the buffer provided is not long enough to hold the output, then *
+       output_data_size is updated and GNUTLS_E_SHORT_MEMORY_BUFFER will be
+       returned.
+       If the structure is PEM encoded, it will have a header of "BEGIN
+       NAME".

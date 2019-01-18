@@ -1,0 +1,630 @@
+
+       The ncurses library routines give the user a terminal-independent
+       method of updating character screens with reasonable optimization.
+       This implementation is “new curses” (ncurses) and is the approved
+       replacement for 4.4BSD classic curses, which has been discontinued.
+       This describes ncurses version @NCURSES_MAJOR@.@NCURSES_MINOR@ (patch
+       @NCURSES_PATCH@).
+       The ncurses library emulates the curses library of System V Release 4
+       UNIX, and XPG4 (X/Open Portability Guide) curses (also known as XSI
+       curses).  XSI stands for X/Open System Interfaces Extension.  The
+       ncurses library is freely redistributable in source form.
+       Differences from the SVr4 curses are summarized under the EXTENSIONS
+       and PORTABILITY sections below and described in detail in the
+       respective EXTENSIONS, PORTABILITY and BUGS sections of individual
+       man pages.
+       The ncurses library also provides many useful extensions, i.e.,
+       features which cannot be implemented by a simple add-on library but
+       which require access to the internals of the library.
+       A program using these routines must be linked with the -lncurses
+       option, or (if it has been generated) with the debugging library
+       -lncurses_g.  (Your system integrator may also have installed these
+       libraries under the names -lcurses and -lcurses_g.)  The ncurses_g
+       library generates trace logs (in a file called 'trace' in the current
+       directory) that describe curses actions.  See also the section on
+       ALTERNATE CONFIGURATIONS.
+       The ncurses package supports: overall screen, window and pad
+       manipulation; output to windows and pads; reading terminal input;
+       control over terminal and curses input and output options;
+       environment query routines; color manipulation; use of soft label
+       keys; terminfo capabilities; and access to low-level terminal-
+       manipulation routines.
+   Initialization
+       The library uses the locale which the calling program has
+       initialized.  That is normally done with setlocale:
+           setlocale(LC_ALL, "");
+       If the locale is not initialized, the library assumes that characters
+       are printable as in ISO-8859-1, to work with certain legacy programs.
+       You should initialize the locale and not rely on specific details of
+       the library when the locale has not been setup.
+       The function initscr or newterm must be called to initialize the
+       library before any of the other routines that deal with windows and
+       screens are used.  The routine endwin(3X) must be called before
+       exiting.
+       To get character-at-a-time input without echoing (most interactive,
+       screen oriented programs want this), the following sequence should be
+       used:
+           initscr(); cbreak(); noecho();
+       Most programs would additionally use the sequence:
+           nonl();
+           intrflush(stdscr, FALSE);
+           keypad(stdscr, TRUE);
+       Before a curses program is run, the tab stops of the terminal should
+       be set and its initialization strings, if defined, must be output.
+       This can be done by executing the @TPUT@ init command after the shell
+       environment variable TERM has been exported.  @TSET@(1) is usually
+       responsible for doing this.  [See terminfo(5) for further details.]
+   Datatypes
+       The ncurses library permits manipulation of data structures, called
+       windows, which can be thought of as two-dimensional arrays of
+       characters representing all or part of a CRT screen.  A default
+       window called stdscr, which is the size of the terminal screen, is
+       supplied.  Others may be created with newwin.
+       Note that curses does not handle overlapping windows, that's done by
+       the panel(3X) library.  This means that you can either use stdscr or
+       divide the screen into tiled windows and not using stdscr at all.
+       Mixing the two will result in unpredictable, and undesired, effects.
+       Windows are referred to by variables declared as WINDOW *.  These
+       data structures are manipulated with routines described here and
+       elsewhere in the ncurses manual pages.  Among those, the most basic
+       routines are move and addch.  More general versions of these routines
+       are included with names beginning with w, allowing the user to
+       specify a window.  The routines not beginning with w affect stdscr.
+       After using routines to manipulate a window, refresh(3X) is called,
+       telling curses to make the user's CRT screen look like stdscr.  The
+       characters in a window are actually of type chtype, (character and
+       attribute data) so that other information about the character may
+       also be stored with each character.
+       Special windows called pads may also be manipulated.  These are
+       windows which are not constrained to the size of the screen and whose
+       contents need not be completely displayed.  See curs_pad(3X) for more
+       information.
+       In addition to drawing characters on the screen, video attributes and
+       colors may be supported, causing the characters to show up in such
+       modes as underlined, in reverse video, or in color on terminals that
+       support such display enhancements.  Line drawing characters may be
+       specified to be output.  On input, curses is also able to translate
+       arrow and function keys that transmit escape sequences into single
+       values.  The video attributes, line drawing characters, and input
+       values use names, defined in <curses.h>, such as A_REVERSE,
+       ACS_HLINE, and KEY_LEFT.
+   Environment variables
+       If the environment variables LINES and COLUMNS are set, or if the
+       program is executing in a window environment, line and column
+       information in the environment will override information read by
+       terminfo.  This would affect a program running in an AT&T 630 layer,
+       for example, where the size of a screen is changeable (see
+       ENVIRONMENT).
+       If the environment variable TERMINFO is defined, any program using
+       curses checks for a local terminal definition before checking in the
+       standard place.  For example, if TERM is set to att4424, then the
+       compiled terminal definition is found in
+           @TERMINFO@/a/att4424.
+       (The a is copied from the first letter of att4424 to avoid creation
+       of huge directories.)  However, if TERMINFO is set to $HOME/myterms,
+       curses first checks
+           $HOME/myterms/a/att4424,
+       and if that fails, it then checks
+           @TERMINFO@/a/att4424.
+       This is useful for developing experimental definitions or when write
+       permission in @TERMINFO@ is not available.
+       The integer variables LINES and COLS are defined in <curses.h> and
+       will be filled in by initscr with the size of the screen.  The
+       constants TRUE and FALSE have the values 1 and 0, respectively.
+       The curses routines also define the WINDOW * variable curscr which is
+       used for certain low-level operations like clearing and redrawing a
+       screen containing garbage.  The curscr can be used in only a few
+       routines.
+   Routine and Argument Names
+       Many curses routines have two or more versions.  The routines
+       prefixed with w require a window argument.  The routines prefixed
+       with p require a pad argument.  Those without a prefix generally use
+       stdscr.
+       The routines prefixed with mv require a y and x coordinate to move to
+       before performing the appropriate action.  The mv routines imply a
+       call to move before the call to the other routine.  The coordinate y
+       always refers to the row (of the window), and x always refers to the
+       column.  The upper left-hand corner is always (0,0), not (1,1).
+       The routines prefixed with mvw take both a window argument and x and
+       y coordinates.  The window argument is always specified before the
+       coordinates.
+       In each case, win is the window affected, and pad is the pad
+       affected; win and pad are always pointers to type WINDOW.
+       Option setting routines require a Boolean flag bf with the value TRUE
+       or FALSE; bf is always of type bool.  Most of the data types used in
+       the library routines, such as WINDOW, SCREEN, bool, and chtype are
+       defined in <curses.h>.  Types used for the terminfo routines such as
+       TERMINAL are defined in <term.h>.
+       This manual page describes functions which may appear in any
+       configuration of the library.  There are two common configurations of
+       the library:
+          ncurses
+               the "normal" library, which handles 8-bit characters.  The
+               normal (8-bit) library stores characters combined with
+               attributes in chtype data.
+               Attributes alone (no corresponding character) may be stored
+               in chtype or the equivalent attr_t data.  In either case, the
+               data is stored in something like an integer.
+               Each cell (row and column) in a WINDOW is stored as a chtype.
+          ncursesw
+               the so-called "wide" library, which handles multibyte
+               characters (see the section on ALTERNATE CONFIGURATIONS).
+               The "wide" library includes all of the calls from the
+               "normal" library.  It adds about one third more calls using
+               data types which store multibyte characters:
+               cchar_t
+                    corresponds to chtype.  However it is a structure,
+                    because more data is stored than can fit into an
+                    integer.  The characters are large enough to require a
+                    full integer value - and there may be more than one
+                    character per cell.  The video attributes and color are
+                    stored in separate fields of the structure.
+                    Each cell (row and column) in a WINDOW is stored as a
+                    cchar_t.
+               wchar_t
+                    stores a "wide" character.  Like chtype, this may be an
+                    integer.
+               wint_t
+                    stores a wchar_t or WEOF - not the same, though both may
+                    have the same size.
+               The "wide" library provides new functions which are analogous
+               to functions in the "normal" library.  There is a naming
+               convention which relates many of the normal/wide variants: a
+               "_w" is inserted into the name.  For example, waddch becomes
+               wadd_wch.
+   Routine Name Index
+       The following table lists each curses routine and the name of the
+       manual page on which it is described.  Routines flagged with “*” are
+       ncurses-specific, not described by XPG4 or present in SVr4.
+                   curses Routine Name      Manual Page Name
+                   ─────────────────────────────────────────────
+                   COLOR_PAIR               curs_color(3X)
+                   PAIR_NUMBER              curs_attr(3X)
+                   _nc_free_and_exit        curs_memleaks(3X)*
+                   _nc_freeall              curs_memleaks(3X)*
+                   _nc_tracebits            curs_trace(3X)*
+                   _traceattr               curs_trace(3X)*
+                   _traceattr2              curs_trace(3X)*
+                   _tracechar               curs_trace(3X)*
+                   _tracechtype             curs_trace(3X)*
+                   _tracechtype2            curs_trace(3X)*
+                   _tracedump               curs_trace(3X)*
+                   _tracef                  curs_trace(3X)*
+                   _tracemouse              curs_trace(3X)*
+                   add_wch                  curs_add_wch(3X)
+                   add_wchnstr              curs_add_wchstr(3X)
+                   add_wchstr               curs_add_wchstr(3X)
+                   addch                    curs_addch(3X)
+                   addchnstr                curs_addchstr(3X)
+                   addchstr                 curs_addchstr(3X)
+                   addnstr                  curs_addstr(3X)
+                   addnwstr                 curs_addwstr(3X)
+                   addstr                   curs_addstr(3X)
+                   addwstr                  curs_addwstr(3X)
+                   alloc_pair               new_pair(3X)*
+                   assume_default_colors    default_colors(3X)*
+                   attr_get                 curs_attr(3X)
+                   attr_off                 curs_attr(3X)
+                   attr_on                  curs_attr(3X)
+                   attr_set                 curs_attr(3X)
+                   attroff                  curs_attr(3X)
+                   attron                   curs_attr(3X)
+                   attrset                  curs_attr(3X)
+                   baudrate                 curs_termattrs(3X)
+                   beep                     curs_beep(3X)
+                   bkgd                     curs_bkgd(3X)
+                   bkgdset                  curs_bkgd(3X)
+                   bkgrnd                   curs_bkgrnd(3X)
+                   bkgrndset                curs_bkgrnd(3X)
+                   border                   curs_border(3X)
+                   border_set               curs_border_set(3X)
+                   box                      curs_border(3X)
+                   box_set                  curs_border_set(3X)
+                   can_change_color         curs_color(3X)
+                   cbreak                   curs_inopts(3X)
+                   chgat                    curs_attr(3X)
+                   clear                    curs_clear(3X)
+                   clearok                  curs_outopts(3X)
+                   clrtobot                 curs_clear(3X)
+                   clrtoeol                 curs_clear(3X)
+                   color_content            curs_color(3X)
+                   color_set                curs_attr(3X)
+                   copywin                  curs_overlay(3X)
+                   curs_set                 curs_kernel(3X)
+                   curses_version           curs_extend(3X)*
+                   def_prog_mode            curs_kernel(3X)
+                   def_shell_mode           curs_kernel(3X)
+                   define_key               define_key(3X)*
+                   del_curterm              curs_terminfo(3X)
+                   delay_output             curs_util(3X)
+                   delch                    curs_delch(3X)
+                   deleteln                 curs_deleteln(3X)
+                   delscreen                curs_initscr(3X)
+                   delwin                   curs_window(3X)
+                   derwin                   curs_window(3X)
+                   doupdate                 curs_refresh(3X)
+                   dupwin                   curs_window(3X)
+                   echo                     curs_inopts(3X)
+                   echo_wchar               curs_add_wch(3X)
+                   echochar                 curs_addch(3X)
+                   endwin                   curs_initscr(3X)
+                   erase                    curs_clear(3X)
+                   erasechar                curs_termattrs(3X)
+                   erasewchar               curs_termattrs(3X)
+                   extended_color_content   curs_color(3X)*
+                   extended_pair_content    curs_color(3X)*
+                   extended_slk_color       curs_slk(3X)*
+                   filter                   curs_util(3X)
+                   find_pair                new_pair(3X)*
+                   flash                    curs_beep(3X)
+                   flushinp                 curs_util(3X)
+                   free_pair                new_pair(3X)*
+                   get_wch                  curs_get_wch(3X)
+                   get_wstr                 curs_get_wstr(3X)
+                   getattrs                 curs_attr(3X)
+                   getbegx                  curs_legacy(3X)*
+                   getbegy                  curs_legacy(3X)*
+                   getbegyx                 curs_getyx(3X)
+                   getbkgd                  curs_bkgd(3X)
+                   getbkgrnd                curs_bkgrnd(3X)
+                   getcchar                 curs_getcchar(3X)
+                   getch                    curs_getch(3X)
+                   getcurx                  curs_legacy(3X)*
+                   getcury                  curs_legacy(3X)*
+                   getmaxx                  curs_legacy(3X)*
+                   getmaxy                  curs_legacy(3X)*
+                   getmaxyx                 curs_getyx(3X)
+                   getmouse                 curs_mouse(3X)*
+                   getn_wstr                curs_get_wstr(3X)
+                   getnstr                  curs_getstr(3X)
+                   getparx                  curs_legacy(3X)*
+                   getpary                  curs_legacy(3X)*
+                   getparyx                 curs_getyx(3X)
+                   getstr                   curs_getstr(3X)
+                   getsyx                   curs_kernel(3X)
+                   getwin                   curs_util(3X)
+                   getyx                    curs_getyx(3X)
+                   halfdelay                curs_inopts(3X)
+                   has_colors               curs_color(3X)
+                   has_ic                   curs_termattrs(3X)
+                   has_il                   curs_termattrs(3X)
+                   has_key                  curs_getch(3X)*
+                   hline                    curs_border(3X)
+                   hline_set                curs_border_set(3X)
+                   idcok                    curs_outopts(3X)
+                   idlok                    curs_outopts(3X)
+                   immedok                  curs_outopts(3X)
+                   in_wch                   curs_in_wch(3X)
+                   in_wchnstr               curs_in_wchstr(3X)
+                   in_wchstr                curs_in_wchstr(3X)
+                   inch                     curs_inch(3X)
+                   inchnstr                 curs_inchstr(3X)
+                   inchstr                  curs_inchstr(3X)
+                   init_color               curs_color(3X)
+                   init_extended_color      curs_color(3X)*
+                   init_extended_pair       curs_color(3X)*
+                   init_pair                curs_color(3X)
+                   initscr                  curs_initscr(3X)
+                   innstr                   curs_instr(3X)
+                   innwstr                  curs_inwstr(3X)
+                   ins_nwstr                curs_ins_wstr(3X)
+                   ins_wch                  curs_ins_wch(3X)
+                   ins_wstr                 curs_ins_wstr(3X)
+                   insch                    curs_insch(3X)
+                   insdelln                 curs_deleteln(3X)
+                   insertln                 curs_deleteln(3X)
+                   insnstr                  curs_insstr(3X)
+                   insstr                   curs_insstr(3X)
+                   instr                    curs_instr(3X)
+                   intrflush                curs_inopts(3X)
+                   inwstr                   curs_inwstr(3X)
+                   is_cleared               curs_opaque(3X)*
+                   is_idcok                 curs_opaque(3X)*
+                   is_idlok                 curs_opaque(3X)*
+                   is_immedok               curs_opaque(3X)*
+                   is_keypad                curs_opaque(3X)*
+                   is_leaveok               curs_opaque(3X)*
+                   is_linetouched           curs_touch(3X)
+                   is_nodelay               curs_opaque(3X)*
+                   is_notimeout             curs_opaque(3X)*
+                   is_pad                   curs_opaque(3X)*
+                   is_scrollok              curs_opaque(3X)*
+                   is_subwin                curs_opaque(3X)*
+                   is_syncok                curs_opaque(3X)*
+                   is_term_resized          resizeterm(3X)*
+                   is_wintouched            curs_touch(3X)
+                   isendwin                 curs_initscr(3X)
+                   key_defined              key_defined(3X)*
+                   key_name                 curs_util(3X)
+                   keybound                 keybound(3X)*
+                   keyname                  curs_util(3X)
+                   keyok                    keyok(3X)*
+                   keypad                   curs_inopts(3X)
+                   killchar                 curs_termattrs(3X)
+                   killwchar                curs_termattrs(3X)
+                   leaveok                  curs_outopts(3X)
+                   longname                 curs_termattrs(3X)
+                   mcprint                  curs_print(3X)*
+                   meta                     curs_inopts(3X)
+                   mouse_trafo              curs_mouse(3X)*
+                   mouseinterval            curs_mouse(3X)*
+                   mousemask                curs_mouse(3X)*
+                   move                     curs_move(3X)
+                   mvadd_wch                curs_add_wch(3X)
+                   mvadd_wchnstr            curs_add_wchstr(3X)
+                   mvadd_wchstr             curs_add_wchstr(3X)
+                   mvaddch                  curs_addch(3X)
+                   mvaddchnstr              curs_addchstr(3X)
+                   mvaddchstr               curs_addchstr(3X)
+                   mvaddnstr                curs_addstr(3X)
+                   mvaddnwstr               curs_addwstr(3X)
+                   mvaddstr                 curs_addstr(3X)
+                   mvaddwstr                curs_addwstr(3X)
+                   mvchgat                  curs_attr(3X)
+                   mvcur                    curs_terminfo(3X)
+                   mvdelch                  curs_delch(3X)
+                   mvderwin                 curs_window(3X)
+                   mvget_wch                curs_get_wch(3X)
+                   mvget_wstr               curs_get_wstr(3X)
+                   mvgetch                  curs_getch(3X)
+                   mvgetn_wstr              curs_get_wstr(3X)
+                   mvgetnstr                curs_getstr(3X)
+                   mvgetstr                 curs_getstr(3X)
+                   mvhline                  curs_border(3X)
+                   mvhline_set              curs_border_set(3X)
+                   mvin_wch                 curs_in_wch(3X)
+                   mvin_wchnstr             curs_in_wchstr(3X)
+                   mvin_wchstr              curs_in_wchstr(3X)
+                   mvinch                   curs_inch(3X)
+                   mvinchnstr               curs_inchstr(3X)
+                   mvinchstr                curs_inchstr(3X)
+                   mvinnstr                 curs_instr(3X)
+                   mvinnwstr                curs_inwstr(3X)
+                   mvins_nwstr              curs_ins_wstr(3X)
+                   mvins_wch                curs_ins_wch(3X)
+                   mvins_wstr               curs_ins_wstr(3X)
+                   mvinsch                  curs_insch(3X)
+                   mvinsnstr                curs_insstr(3X)
+                   mvinsstr                 curs_insstr(3X)
+                   mvinstr                  curs_instr(3X)
+                   mvinwstr                 curs_inwstr(3X)
+                   mvprintw                 curs_printw(3X)
+                   mvscanw                  curs_scanw(3X)
+                   mvvline                  curs_border(3X)
+                   mvvline_set              curs_border_set(3X)
+                   mvwadd_wch               curs_add_wch(3X)
+                   mvwadd_wchnstr           curs_add_wchstr(3X)
+                   mvwadd_wchstr            curs_add_wchstr(3X)
+                   mvwaddch                 curs_addch(3X)
+                   mvwaddchnstr             curs_addchstr(3X)
+                   mvwaddchstr              curs_addchstr(3X)
+                   mvwaddnstr               curs_addstr(3X)
+                   mvwaddnwstr              curs_addwstr(3X)
+                   mvwaddstr                curs_addstr(3X)
+                   mvwaddwstr               curs_addwstr(3X)
+                   mvwchgat                 curs_attr(3X)
+                   mvwdelch                 curs_delch(3X)
+                   mvwget_wch               curs_get_wch(3X)
+                   mvwget_wstr              curs_get_wstr(3X)
+                   mvwgetch                 curs_getch(3X)
+                   mvwgetn_wstr             curs_get_wstr(3X)
+                   mvwgetnstr               curs_getstr(3X)
+                   mvwgetstr                curs_getstr(3X)
+                   mvwhline                 curs_border(3X)
+                   mvwhline_set             curs_border_set(3X)
+                   mvwin                    curs_window(3X)
+                   mvwin_wch                curs_in_wch(3X)
+                   mvwin_wchnstr            curs_in_wchstr(3X)
+                   mvwin_wchstr             curs_in_wchstr(3X)
+                   mvwinch                  curs_inch(3X)
+                   mvwinchnstr              curs_inchstr(3X)
+                   mvwinchstr               curs_inchstr(3X)
+                   mvwinnstr                curs_instr(3X)
+                   mvwinnwstr               curs_inwstr(3X)
+                   mvwins_nwstr             curs_ins_wstr(3X)
+                   mvwins_wch               curs_ins_wch(3X)
+                   mvwins_wstr              curs_ins_wstr(3X)
+                   mvwinsch                 curs_insch(3X)
+                   mvwinsnstr               curs_insstr(3X)
+                   mvwinsstr                curs_insstr(3X)
+                   mvwinstr                 curs_instr(3X)
+                   mvwinwstr                curs_inwstr(3X)
+                   mvwprintw                curs_printw(3X)
+                   mvwscanw                 curs_scanw(3X)
+                   mvwvline                 curs_border(3X)
+                   mvwvline_set             curs_border_set(3X)
+                   napms                    curs_kernel(3X)
+                   newpad                   curs_pad(3X)
+                   newterm                  curs_initscr(3X)
+                   newwin                   curs_window(3X)
+                   nl                       curs_outopts(3X)
+                   nocbreak                 curs_inopts(3X)
+                   nodelay                  curs_inopts(3X)
+                   noecho                   curs_inopts(3X)
+                   nofilter                 curs_util(3X)*
+                   nonl                     curs_outopts(3X)
+                   noqiflush                curs_inopts(3X)
+                   noraw                    curs_inopts(3X)
+                   notimeout                curs_inopts(3X)
+                   overlay                  curs_overlay(3X)
+                   overwrite                curs_overlay(3X)
+                   pair_content             curs_color(3X)
+                   pechochar                curs_pad(3X)
+                   pnoutrefresh             curs_pad(3X)
+                   prefresh                 curs_pad(3X)
+                   printw                   curs_printw(3X)
+                   putp                     curs_terminfo(3X)
+                   putwin                   curs_util(3X)
+                   qiflush                  curs_inopts(3X)
+                   raw                      curs_inopts(3X)
+                   redrawwin                curs_refresh(3X)
+                   refresh                  curs_refresh(3X)
+                   reset_prog_mode          curs_kernel(3X)
+                   reset_shell_mode         curs_kernel(3X)
+                   resetty                  curs_kernel(3X)
+                   resize_term              resizeterm(3X)*
+                   resizeterm               resizeterm(3X)*
+                   restartterm              curs_terminfo(3X)
+                   ripoffline               curs_kernel(3X)
+                   savetty                  curs_kernel(3X)
+                   scanw                    curs_scanw(3X)
+                   scr_dump                 curs_scr_dump(3X)
+                   scr_init                 curs_scr_dump(3X)
+                   scr_restore              curs_scr_dump(3X)
+                   scr_set                  curs_scr_dump(3X)
+                   scrl                     curs_scroll(3X)
+                   scroll                   curs_scroll(3X)
+                   scrollok                 curs_outopts(3X)
+                   set_curterm              curs_terminfo(3X)
+                   set_term                 curs_initscr(3X)
+                   setcchar                 curs_getcchar(3X)
+                   setscrreg                curs_outopts(3X)
+                   setsyx                   curs_kernel(3X)
+                   setterm                  curs_terminfo(3X)
+                   setupterm                curs_terminfo(3X)
+                   slk_attr                 curs_slk(3X)*
+                   slk_attr_off             curs_slk(3X)
+                   slk_attr_on              curs_slk(3X)
+                   slk_attr_set             curs_slk(3X)
+                   slk_attroff              curs_slk(3X)
+                   slk_attron               curs_slk(3X)
+                   slk_attrset              curs_slk(3X)
+                   slk_clear                curs_slk(3X)
+                   slk_color                curs_slk(3X)
+                   slk_init                 curs_slk(3X)
+                   slk_label                curs_slk(3X)
+                   slk_noutrefresh          curs_slk(3X)
+                   slk_refresh              curs_slk(3X)
+                   slk_restore              curs_slk(3X)
+                   slk_set                  curs_slk(3X)
+                   slk_touch                curs_slk(3X)
+                   standend                 curs_attr(3X)
+                   standout                 curs_attr(3X)
+                   start_color              curs_color(3X)
+                   subpad                   curs_pad(3X)
+                   subwin                   curs_window(3X)
+                   syncok                   curs_window(3X)
+                   term_attrs               curs_termattrs(3X)
+                   termattrs                curs_termattrs(3X)
+                   termname                 curs_termattrs(3X)
+                   tgetent                  curs_termcap(3X)
+                   tgetflag                 curs_termcap(3X)
+                   tgetnum                  curs_termcap(3X)
+                   tgetstr                  curs_termcap(3X)
+                   tgoto                    curs_termcap(3X)
+                   tigetflag                curs_terminfo(3X)
+                   tigetnum                 curs_terminfo(3X)
+                   tigetstr                 curs_terminfo(3X)
+                   timeout                  curs_inopts(3X)
+                   tiparm                   curs_terminfo(3X)*
+                   touchline                curs_touch(3X)
+                   touchwin                 curs_touch(3X)
+                   tparm                    curs_terminfo(3X)
+                   tputs                    curs_termcap(3X)
+                   tputs                    curs_terminfo(3X)
+                   trace                    curs_trace(3X)*
+                   typeahead                curs_inopts(3X)
+                   unctrl                   curs_util(3X)
+                   unget_wch                curs_get_wch(3X)
+                   ungetch                  curs_getch(3X)
+                   ungetmouse               curs_mouse(3X)*
+                   untouchwin               curs_touch(3X)
+                   use_default_colors       default_colors(3X)*
+                   use_env                  curs_util(3X)
+                   use_extended_names       curs_extend(3X)*
+                   use_legacy_coding        legacy_coding(3X)*
+                   use_tioctl               curs_util(3X)
+                   vid_attr                 curs_terminfo(3X)
+                   vid_puts                 curs_terminfo(3X)
+                   vidattr                  curs_terminfo(3X)
+                   vidputs                  curs_terminfo(3X)
+                   vline                    curs_border(3X)
+                   vline_set                curs_border_set(3X)
+                   vw_printw                curs_printw(3X)
+                   vw_scanw                 curs_scanw(3X)
+                   vwprintw                 curs_printw(3X)
+                   vwscanw                  curs_scanw(3X)
+                   wadd_wch                 curs_add_wch(3X)
+                   wadd_wchnstr             curs_add_wchstr(3X)
+                   wadd_wchstr              curs_add_wchstr(3X)
+                   waddch                   curs_addch(3X)
+                   waddchnstr               curs_addchstr(3X)
+                   waddchstr                curs_addchstr(3X)
+                   waddnstr                 curs_addstr(3X)
+                   waddnwstr                curs_addwstr(3X)
+                   waddstr                  curs_addstr(3X)
+                   waddwstr                 curs_addwstr(3X)
+                   wattr_get                curs_attr(3X)
+                   wattr_off                curs_attr(3X)
+                   wattr_on                 curs_attr(3X)
+                   wattr_set                curs_attr(3X)
+                   wattroff                 curs_attr(3X)
+                   wattron                  curs_attr(3X)
+                   wattrset                 curs_attr(3X)
+                   wbkgd                    curs_bkgd(3X)
+                   wbkgdset                 curs_bkgd(3X)
+                   wbkgrnd                  curs_bkgrnd(3X)
+                   wbkgrndset               curs_bkgrnd(3X)
+                   wborder                  curs_border(3X)
+                   wborder_set              curs_border_set(3X)
+                   wchgat                   curs_attr(3X)
+                   wclear                   curs_clear(3X)
+                   wclrtobot                curs_clear(3X)
+                   wclrtoeol                curs_clear(3X)
+                   wcolor_set               curs_attr(3X)
+                   wcursyncup               curs_window(3X)
+                   wdelch                   curs_delch(3X)
+                   wdeleteln                curs_deleteln(3X)
+                   wecho_wchar              curs_add_wch(3X)
+                   wechochar                curs_addch(3X)
+                   wenclose                 curs_mouse(3X)*
+                   werase                   curs_clear(3X)
+                   wget_wch                 curs_get_wch(3X)
+                   wget_wstr                curs_get_wstr(3X)
+                   wgetbkgrnd               curs_bkgrnd(3X)
+                   wgetch                   curs_getch(3X)
+                   wgetdelay                curs_opaque(3X)*
+                   wgetn_wstr               curs_get_wstr(3X)
+                   wgetnstr                 curs_getstr(3X)
+                   wgetparent               curs_opaque(3X)*
+                   wgetscrreg               curs_opaque(3X)*
+                   wgetstr                  curs_getstr(3X)
+                   whline                   curs_border(3X)
+                   whline_set               curs_border_set(3X)
+                   win_wch                  curs_in_wch(3X)
+                   win_wchnstr              curs_in_wchstr(3X)
+                   win_wchstr               curs_in_wchstr(3X)
+                   winch                    curs_inch(3X)
+                   winchnstr                curs_inchstr(3X)
+                   winchstr                 curs_inchstr(3X)
+                   winnstr                  curs_instr(3X)
+                   winnwstr                 curs_inwstr(3X)
+                   wins_nwstr               curs_ins_wstr(3X)
+                   wins_wch                 curs_ins_wch(3X)
+                   wins_wstr                curs_ins_wstr(3X)
+                   winsch                   curs_insch(3X)
+                   winsdelln                curs_deleteln(3X)
+                   winsertln                curs_deleteln(3X)
+                   winsnstr                 curs_insstr(3X)
+                   winsstr                  curs_insstr(3X)
+                   winstr                   curs_instr(3X)
+                   winwstr                  curs_inwstr(3X)
+                   wmouse_trafo             curs_mouse(3X)*
+                   wmove                    curs_move(3X)
+                   wnoutrefresh             curs_refresh(3X)
+                   wprintw                  curs_printw(3X)
+                   wredrawln                curs_refresh(3X)
+                   wrefresh                 curs_refresh(3X)
+                   wresize                  wresize(3X)*
+                   wscanw                   curs_scanw(3X)
+                   wscrl                    curs_scroll(3X)
+                   wsetscrreg               curs_outopts(3X)
+                   wstandend                curs_attr(3X)
+                   wstandout                curs_attr(3X)
+                   wsyncdown                curs_window(3X)
+                   wsyncup                  curs_window(3X)
+                   wtimeout                 curs_inopts(3X)
+                   wtouchln                 curs_touch(3X)
+                   wunctrl                  curs_util(3X)
+                   wvline                   curs_border(3X)
+                   wvline_set               curs_border_set(3X)

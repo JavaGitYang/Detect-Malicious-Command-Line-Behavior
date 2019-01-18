@@ -1,0 +1,17 @@
+
+       The <dlfcn.h> header shall define at least the following symbolic
+       constants for use in the construction of a dlopen() mode argument:
+       RTLD_LAZY     Relocations are performed at an implementation-defined
+                     time.
+       RTLD_NOW      Relocations are performed when the object is loaded.
+       RTLD_GLOBAL   All symbols are available for relocation processing of
+                     other modules.
+       RTLD_LOCAL    All symbols are not made available for relocation
+                     processing by other modules.
+       The following shall be declared as functions and may also be defined
+       as macros. Function prototypes shall be provided.
+           int    dlclose(void *);
+           char  *dlerror(void);
+           void  *dlopen(const char *, int);
+           void  *dlsym(void *restrict, const char *restrict);
+       The following sections are informative.

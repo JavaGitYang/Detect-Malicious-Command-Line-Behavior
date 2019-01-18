@@ -1,0 +1,10 @@
+
+       pam_lastlog is a PAM module to display a line of information about
+       the last login of the user. In addition, the module maintains the
+       /var/log/lastlog file.
+       Some applications may perform this function themselves. In such
+       cases, this module is not necessary.
+       If the module is called in the auth or account phase, the accounts
+       that were not used recently enough will be disallowed to log in. The
+       check is not performed for the root account so the root is never
+       locked out.

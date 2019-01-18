@@ -1,0 +1,13 @@
+
+       sd_bus_message_get_cookie() returns the transaction cookie of a
+       message. The cookie uniquely identifies a message within each bus
+       peer, but is not globally unique. It is assigned when a message is
+       sent.
+       sd_bus_message_get_reply_cookie() returns the transaction cookie of
+       the message the specified message is a response to. When a reply
+       message is generated for a method call message, its cookie is copied
+       over into this field. Note that while every message that is
+       transferred is identified by a cookie, only response messages carry a
+       reply cookie field.
+       Both functions take a message object as first parameter and a place
+       to store the 64-bit cookie in.

@@ -1,0 +1,5 @@
+
+       pam_nologin is a PAM module that prevents users from logging into the
+       system when /var/run/nologin or /etc/nologin exists. The contents of
+       the file are displayed to the user. The pam_nologin module has no
+       effect on the root user's ability to log in.

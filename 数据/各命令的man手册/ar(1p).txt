@@ -1,0 +1,30 @@
+
+       The ar utility is part of the Software Development Utilities option.
+       The ar utility can be used to create and maintain groups of files
+       combined into an archive. Once an archive has been created, new files
+       can be added, and existing files in an archive can be extracted,
+       deleted, or replaced. When an archive consists entirely of valid
+       object files, the implementation shall format the archive so that it
+       is usable as a library for link editing (see c99 and fort77).  When
+       some of the archived files are not valid object files, the
+       suitability of the archive for library use is undefined.  If an
+       archive consists entirely of printable files, the entire archive
+       shall be printable.
+       When ar creates an archive, it creates administrative information
+       indicating whether a symbol table is present in the archive. When
+       there is at least one object file that ar recognizes as such in the
+       archive, an archive symbol table shall be created in the archive and
+       maintained by ar; it is used by the link editor to search the
+       archive. Whenever the ar utility is used to create or update the
+       contents of such an archive, the symbol table shall be rebuilt. The
+       −s option shall force the symbol table to be rebuilt.
+       All file operands can be pathnames. However, files within archives
+       shall be named by a filename, which is the last component of the
+       pathname used when the file was entered into the archive. The
+       comparison of file operands to the names of files in archives shall
+       be performed by comparing the last component of the operand to the
+       name of the file in the archive.
+       It is unspecified whether multiple files in the archive may be
+       identically named. In the case of such files, however, each file and
+       posname operand shall match only the first file in the archive having
+       a name that is the same as the last component of the operand.

@@ -1,0 +1,8 @@
+
+       udev_new() allocates a new udev context object and returns a pointer
+       to it. This object is opaque and must not be accessed by the caller
+       via different means than functions provided by libudev. Initially,
+       the reference count of the context is 1. You can acquire further
+       references, and drop gained references via udev_ref() and
+       udev_unref(). Once the reference count hits 0, the context object is
+       destroyed and freed.

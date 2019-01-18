@@ -1,0 +1,14 @@
+
+       The use_legacy_coding function is an extension to the curses library.
+       It allows the caller to change the result of unctrl, and suppress
+       related checks within the library that would normally cause
+       nonprinting characters to be rendered in visible form.  This affects
+       only 8-bit characters.
+       The level parameter controls the result:
+              0    the library functions normally, rendering nonprinting
+                   characters as described in unctrl.
+              1    the library ignores isprintf for codes in the range
+                   160-255.
+              2    the library ignores isprintf for codes in the range
+                   128-255.  It also modifies the output of unctrl, showing
+                   codes in the range 128-159 as is.

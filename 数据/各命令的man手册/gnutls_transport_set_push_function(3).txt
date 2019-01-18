@@ -1,0 +1,9 @@
+
+       This is the function where you set a push function for gnutls to use
+       in order to send data.  If you are going to use berkeley style
+       sockets, you do not need to use this function since the default
+       send(2) will probably be ok.  Otherwise you should specify this
+       function for gnutls to be able to send data.  The callback should
+       return a positive number indicating the bytes sent, and -1 on error.
+        push_func is of the form, ssize_t
+       (*gnutls_push_func)(gnutls_transport_ptr_t, const void*, size_t);

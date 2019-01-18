@@ -1,0 +1,5 @@
+
+       minizip is a simple tool which allows the creation of compressed file
+       archives in the ZIP format used by the MS-DOS utility PKZIP.  It was
+       written as a demonstration of the zlib(3) library and therefore lack
+       many of the features of the zip(1) program.

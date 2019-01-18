@@ -1,0 +1,4 @@
+
+       This function will initialize a SubjectPublicKeyInfo structure used
+       in PKIX. The structure is used to set additional parameters in the
+       public key information field of a certificate.

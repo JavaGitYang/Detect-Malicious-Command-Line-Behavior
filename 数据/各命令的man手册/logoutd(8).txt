@@ -1,0 +1,7 @@
+
+       logoutd enforces the login time and port restrictions specified in
+       /etc/porttime.  logoutd should be started from /etc/rc. The
+       /var/run/utmp file is scanned periodically and each user name is
+       checked to see if the named user is permitted on the named port at
+       the current time. Any login session which is violating the
+       restrictions in /etc/porttime is terminated.

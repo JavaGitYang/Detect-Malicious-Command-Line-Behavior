@@ -1,0 +1,12 @@
+
+       __pmConvertTime accepts a tm structure that has been filled in by
+       __pmParseCtime(3) and a reference time point origin, and fills in the
+       given rslt structure with the time the user meant when he specified a
+       partial ctime or positive or negative time interval.
+       Typically, the argument origin is the start time for a set of  PCP
+       archive logs, unless the user specified a negative interval offset,
+       in which case it is the end time of the log.
+       __pmConvertTime returns 0 if successful.  It returns -1 and writes an
+       error message to stderr, if an error is detected.
+       Use pmNewZone(3), pmNewContextZone(3) or pmUseZone(3) to establish a
+       new current timezone that will effect __pmConvertTime.

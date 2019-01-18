@@ -1,0 +1,20 @@
+
+     The acl_set_file() function associates an access ACL with a file or
+     directory, or associates a default ACL with a directory. The pathname
+     for the file or directory is pointed to by the argument path_p.
+     The effective user ID of the process must match the owner of the file
+     or directory or the process must have the CAP_FOWNER capability for the
+     request to succeed.
+     The value of the argument type is used to indicate whether the access
+     ACL or the default ACL associated with path_p is being set. If the type
+     parameter is ACL_TYPE_ACCESS, the access ACL of path_p shall be set. If
+     the type parameter is ACL_TYPE_DEFAULT, the default ACL of path_p shall
+     be set. If the argument type specifies a type of ACL that cannot be
+     associated with path_p, then the function fails.
+     The acl parameter must reference a valid ACL according to the rules
+     described on the acl_valid(3) manual page if the type parameter is
+     ACL_TYPE_ACCESS, and must either reference a valid ACL or an ACL with
+     zero ACL entries if the type parameter is ACL_TYPE_DEFAULT. If the acl
+     parameter references an empty ACL, then the acl_set_file() function
+     removes any default ACL associated with the directory referred to by
+     the path_p parameter.

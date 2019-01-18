@@ -1,0 +1,6 @@
+
+       auparse_goto_record_num will move the internal library cursors to
+       point to a specific physical record number. Records within the same
+       event are numbered starting from 0. This is generally not needed but
+       there are some cases where one may want precise control over the
+       exact record being looked at.

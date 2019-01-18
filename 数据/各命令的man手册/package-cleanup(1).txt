@@ -1,0 +1,3 @@
+
+       package-cleanup is a program for cleaning up the locally-installed
+       RPMs.

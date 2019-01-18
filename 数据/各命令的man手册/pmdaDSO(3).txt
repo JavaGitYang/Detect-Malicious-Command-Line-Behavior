@@ -1,0 +1,17 @@
+
+       pmdaDSO initializes the pmdaInterface structure to use the interface
+       extensions, assuming the PMDA(3) is to be run as a DSO.  The
+       pmdaInterface structure is initialized with:
+       name           The name of the agent.
+       helptext       The default path to the help text (see pmdaText(3)).
+                      If no help text is installed, or you are not using
+                      pmdaText(3), then this should be set to NULL,
+                      otherwise helptext will be copied, so the storage
+                      associated with helptext may be released after the
+                      call to pmdaDSO.
+       The callbacks are initialized to pmdaProfile(3), pmdaFetch(3),
+       pmdaDesc(3), pmdaText(3), pmdaInstance(3) and pmdaStore(3).
+       The interface structure also contains the domain of the PMDA(3),
+       which is defined in the pmcd(1) configuration file. The domain is
+       used to initialize the metric and instance descriptors (see
+       pmdaInit(3)).

@@ -1,0 +1,57 @@
+
+       trafgen is a fast, zero-copy network traffic generator for debugging,
+       performance evaluation, and fuzz-testing. trafgen utilizes the
+       packet(7) socket interface of Linux which postpones complete control
+       over packet data and packet headers into the user space. It has a
+       powerful packet configuration language, which is rather low-level and
+       not limited to particular protocols.  Thus, trafgen can be used for
+       many purposes. Its only limitation is that it cannot mimic full
+       streams resp. sessions. However, it is very useful for various kinds
+       of load testing in order to analyze and subsequently improve systems
+       behaviour under DoS attack scenarios, for instance.
+       trafgen is Linux specific, meaning there is no support for other
+       operating systems, same as netsniff-ng(8), thus we can keep the code
+       footprint quite minimal and to the point. trafgen makes use of
+       packet(7) socket's TX_RING interface of the Linux kernel, which is a
+       mmap(2)'ed ring buffer shared between user and kernel space.
+       By default, trafgen starts as many processes as available CPUs, pins
+       each of them to their respective CPU and sets up the ring buffer each
+       in their own process space after having compiled a list of packets to
+       transmit. Thus, this is likely the fastest one can get out of the box
+       in terms of transmission performance from user space, without having
+       to load unsupported or non-mainline third-party kernel modules. On
+       Gigabit Ethernet, trafgen has a comparable performance to pktgen, the
+       built-in Linux kernel traffic generator, except that trafgen is more
+       flexible in terms of packet configuration possibilities. On
+       10-Gigabit-per-second Ethernet, trafgen might be slower than pktgen
+       due to the user/kernel space overhead but still has a fairly high
+       performance for out of the box kernels.
+       trafgen has the potential to do fuzz testing, meaning a packet
+       configuration can be built with random numbers on all or certain
+       packet offsets that are freshly generated each time a packet is sent
+       out. With a built-in IPv4 ping, trafgen can send out an ICMP probe
+       after each packet injection to the remote host in order to test if it
+       is still responsive/alive. Assuming there is no answer from the
+       remote host after a certain threshold of probes, the machine is
+       considered dead and the last sent packet is printed together with the
+       random seed that was used by trafgen. You might not really get lucky
+       fuzz-testing the Linux kernel, but presumably there are buggy closed-
+       source embedded systems or network driver's firmware files that are
+       prone to bugs, where trafgen could help in finding them.
+       trafgen's configuration language is quite powerful, also due to the
+       fact, that it supports C preprocessor macros. A stddef.h is being
+       shipped with trafgen for this purpose, so that well known defines
+       from Linux kernel or network programming can be reused. After a
+       configuration file has passed the C preprocessor stage, it is
+       processed by the trafgen packet compiler. The language itself
+       supports a couple of features that are useful when assembling
+       packets, such as built-in runtime checksum support for IP, UDP and
+       TCP. Also it has an expression evaluator where arithmetic (basic
+       operations, bit operations, bit shifting, ...) on constant
+       expressions is being reduced to a single constant on compile time.
+       Other features are ''fill'' macros, where a packet can be filled with
+       n bytes by a constant, a compile-time random number or run-time
+       random number (as mentioned with fuzz testing). Also, netsniff-ng(8)
+       is able to convert a pcap file into a trafgen configuration file,
+       thus such a configuration can then be further tweaked for a given
+       scenario.

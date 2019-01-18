@@ -1,0 +1,14 @@
+
+       Within the Performance Co-Pilot (PCP) run-time libraries the name of
+       a running application is maintained to be used in error and
+       diagnostic messages.
+       The default application name is pcp.
+       pmSetProgname may be used to set the application name to program
+       after stripping any leading components that begin with the filesystem
+       path name separator (``/'' for Unix-like systems).
+       It is the callers responsibility to ensure the memory pointed to by
+       program remains available for the life of the application.
+       Typically, the value passed as program for a C program would be
+       argv[0].  If program is NULL, the default application name is
+       restored.
+       pmGetProgname may be used to return the current application name.

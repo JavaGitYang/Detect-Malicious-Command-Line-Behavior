@@ -1,0 +1,16 @@
+
+       roff2text transforms roff code into text mode.  Print the result to
+       standard output.
+       There are more of these programs for generating other formats of roff
+       input.
+       roff2dvi(1)
+              is for dvi mode.
+       roff2html(1)
+              generates HTML output.
+       roff2pdf(1)
+              outputs pdf mode.
+       roff2ps(1)
+              prints PostScript format to standard output.
+       roff2x(1)
+              prints the output in the groff device X that is suitable for
+              programs like gxditview(1) or xditview(1).

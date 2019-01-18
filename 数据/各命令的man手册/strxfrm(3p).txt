@@ -1,0 +1,24 @@
+
+       For strxfrm(): The functionality described on this reference page is
+       aligned with the ISO C standard. Any conflict between the
+       requirements described here and the ISO C standard is unintentional.
+       This volume of POSIX.1‐2008 defers to the ISO C standard.
+       The strxfrm() and strxfrm_l() functions shall transform the string
+       pointed to by s2 and place the resulting string into the array
+       pointed to by s1.  The transformation is such that if strcmp() is
+       applied to two transformed strings, it shall return a value greater
+       than, equal to, or less than 0, corresponding to the result of
+       strcoll() or strcoll_l(), respectively, applied to the same two
+       original strings with the same locale.  No more than n bytes are
+       placed into the resulting array pointed to by s1, including the
+       terminating NUL character. If n is 0, s1 is permitted to be a null
+       pointer. If copying takes place between objects that overlap, the
+       behavior is undefined.
+       The strxfrm() and strxfrm_l() functions shall not change the setting
+       of errno if successful.
+       Since no return value is reserved to indicate an error, an
+       application wishing to check for error situations should set errno to
+       0, then call strxfrm() or strxfrm_l(), then check errno.
+       The behavior is undefined if the locale argument to strxfrm_l() is
+       the special locale object LC_GLOBAL_LOCALE or is not a valid locale
+       object handle.

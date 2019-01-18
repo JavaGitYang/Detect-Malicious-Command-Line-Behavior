@@ -1,0 +1,19 @@
+
+       The stty utility shall set or report on terminal I/O characteristics
+       for the device that is its standard input. Without options or
+       operands specified, it shall report the settings of certain
+       characteristics, usually those that differ from implementation-
+       defined defaults.  Otherwise, it shall modify the terminal state
+       according to the specified operands. Detailed information about the
+       modes listed in the first five groups below are described in the Base
+       Definitions volume of POSIX.1‐2008, Chapter 11, General Terminal
+       Interface.  Operands in the Combination Modes group (see Combination
+       Modes) are implemented using operands in the previous groups. Some
+       combinations of operands are mutually-exclusive on some terminal
+       types; the results of using such combinations are unspecified.
+       Typical implementations of this utility require a communications line
+       configured to use the termios interface defined in the System
+       Interfaces volume of POSIX.1‐2008. On systems where none of these
+       lines are available, and on lines not currently configured to support
+       the termios interface, some of the operands need not affect terminal
+       characteristics.

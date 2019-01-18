@@ -1,0 +1,6 @@
+
+       The primary purpose of this slapd(8) backend is to map a naming
+       context defined in a database running in the same slapd(8) instance
+       into a virtual naming context, with attributeType and objectClass
+       manipulation, if required.  It requires the slapo-rwm(5) overlay.
+       This backend and the above mentioned overlay are experimental.

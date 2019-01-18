@@ -1,0 +1,39 @@
+
+       The Babeltrace sink.ctf.fs component class, provided by the
+       babeltrace-plugin-ctf(7) plugin, once instantiated, writes the events
+       it receives to one or more CTF (see <http://diamon.org/ctf/>) traces
+       on the file system.
+       A sink.ctf.fs component does not merge traces, in that it writes the
+       notifications of different input traces to different output traces.
+       This component guarantees that the output traces are semantically
+       equivalent to the input traces. This means that a given output CTF
+       trace contains:
+       ·   The original trace environment.
+       ·   The original clock classes.
+       ·   The original event class names, log levels, and other static
+           attributes, except for the numeric IDs.
+       ·   The original field values, except for:
+           ·   Timestamp fields, but the equivalent clock value remains the
+               same.
+           ·   Numeric ID fields.
+       The component does not guarantee to keep:
+       ·   The original field type attributes (for example, the sizes of the
+           integer field types).
+       ·   The original stream class and event class numeric IDs.
+   Output path
+       The path of a CTF trace is the directory which directly contains the
+       metadata and data stream files as children.
+       The rules to determine the path of a generated CTF trace are:
+       ·   If the single-trace parameter is true, use the value of the path
+           parameter.
+           Otherwise:
+           ·   If the input trace has a name, use
+               OUTPUTPATH/TRACENAME[SUFFIX], where OUTPUTPATH is the value
+               of the path parameter, TRACENAME is the input trace’s name,
+               and SUFFIX is an optional numeric suffix if
+               OUTPUTPATH/TRACENAME already exists.
+               Note that the name of a trace that a source.ctf.fs component
+               creates includes its hostname and its relative path while
+               making sure to avoid conflicts.
+               Otherwise, use OUTPUTPATH/trace[SUFFIX], where OUTPUTPATH and
+               SUFFIX are defined above.

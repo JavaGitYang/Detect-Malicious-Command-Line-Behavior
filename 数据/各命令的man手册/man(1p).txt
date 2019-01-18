@@ -1,0 +1,11 @@
+
+       The man utility shall write information about each of the name
+       operands. If name is the name of a standard utility, man at a minimum
+       shall write a message describing the syntax used by the standard
+       utility, its options, and operands. If more information is available,
+       the man utility shall provide it in an implementation-defined manner.
+       An implementation may provide information for values of name other
+       than the standard utilities. Standard utilities that are listed as
+       optional and that are not supported by the implementation either
+       shall cause a brief message indicating that fact to be displayed or
+       shall cause a full display of information as described previously.

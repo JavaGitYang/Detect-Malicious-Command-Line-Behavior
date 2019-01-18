@@ -1,0 +1,6 @@
+
+       This function will return the DER encoded certificate of the server
+       or any other certificate on its certificate chain (based on  idx2 ).
+       The returned data should be treated as constant and only accessible
+       during the lifetime of  sc . The  idx1 matches the value
+       gnutls_certificate_set_x509_key() and friends functions.

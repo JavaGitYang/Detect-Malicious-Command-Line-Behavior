@@ -1,0 +1,9 @@
+
+       pcap_list_tstamp_types() is used to get a list of the supported time
+       stamp types of the interface associated with the pcap descriptor.
+       pcap_list_tstamp_types() allocates an array to hold the list and sets
+       *tstamp_typesp to point to the array.  See pcap-tstamp(7) for a list
+       of all the time stamp types.
+       The caller is responsible for freeing the array with
+       pcap_free_tstamp_types(), which frees the list pointed to by
+       tstamp_types.

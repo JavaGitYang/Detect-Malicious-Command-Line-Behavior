@@ -1,0 +1,29 @@
+
+       auparse_add_callback adds a callback function to the parse state
+       which is invoked to notify the application of parsing events. This is
+       part of the event feed API.
+       The signature of the callback is:
+       void
+       auparse_callback(auparse_state_t *au, auparse_cb_event_t cb_event_type,
+                        void *user_data);
+       When the callback is invoked it is passed:
+       au
+               a pointer to the parse_state
+       cb_event_type
+              enumerated value indicating the reason why the callback was
+              invoked
+       user_data
+              pointer to user supplied private data. May be NULL.
+       user_destroy_func
+              pointer to function called when user_data is destroyed. May be
+              NULL.  The signature is:
+              void destroy(void *user_data);
+              The destroy() function should be prepared to accept user_data
+              possibly being NULL.
+       The cb_event_type argument indicates why the callback was invoked.
+       It's possible values are:
+       AUPARSE_CB_EVENT_READY
+              A complete event has been parsed and is ready to be examined.
+              This is logically equivalent to the parse state immediately
+              following auparse_next_event()
+       See auparse_feed(3) for a complete code example.

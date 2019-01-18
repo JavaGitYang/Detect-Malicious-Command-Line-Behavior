@@ -1,0 +1,5 @@
+
+       This function will decrypt the given data using the algorithm
+       specified by the context. This function must be provided the whole
+       data to be decrypted, including the tag, and will fail if the tag
+       verification fails.

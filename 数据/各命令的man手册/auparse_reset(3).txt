@@ -1,0 +1,3 @@
+
+       auparse_reset resets all internal cursors to the beginning. It closes
+       files, descriptors, and frees memory buffers.

@@ -1,0 +1,4 @@
+
+       sem_unlink() removes the named semaphore referred to by name.  The
+       semaphore name is removed immediately.  The semaphore is destroyed
+       once all other processes that have the semaphore open close it.

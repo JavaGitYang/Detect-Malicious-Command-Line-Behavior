@@ -1,0 +1,31 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       If command is a null pointer, the system() function shall determine
+       whether the host environment has a command processor. If command is
+       not a null pointer, the system() function shall pass the string
+       pointed to by command to that command processor to be executed in an
+       implementation-defined manner; this might then cause the program
+       calling system() to behave in a non-conforming manner or to
+       terminate.
+       The system() function shall behave as if a child process were created
+       using fork(), and the child process invoked the sh utility using
+       execl() as follows:
+           execl(<shell path>, "sh", "-c", command, (char *)0);
+       where <shell path> is an unspecified pathname for the sh utility. It
+       is unspecified whether the handlers registered with pthread_atfork()
+       are called as part of the creation of the child process.
+       The system() function shall ignore the SIGINT and SIGQUIT signals,
+       and shall block the SIGCHLD signal, while waiting for the command to
+       terminate. If this might cause the application to miss a signal that
+       would have killed it, then the application should examine the return
+       value from system() and take whatever action is appropriate to the
+       application if the command terminated due to receipt of a signal.
+       The system() function shall not affect the termination status of any
+       child of the calling processes other than the process or processes it
+       itself creates.
+       The system() function shall not return until the child process has
+       terminated.
+       The system() function need not be thread-safe.

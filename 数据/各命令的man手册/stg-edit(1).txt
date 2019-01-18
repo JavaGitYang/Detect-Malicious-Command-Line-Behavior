@@ -1,0 +1,24 @@
+
+       Edit the description and author information of the given patch (or
+       the current patch if no patch name was given). With --diff, also edit
+       the diff.
+       The editor is invoked with the following contents:
+           From: A U Thor <author@example.com>
+           Date: creation date
+           Patch description
+       If --diff was specified, the diff appears at the bottom, after a
+       separator:
+           ---
+           Diff text
+       Command-line options can be used to modify specific information
+       without invoking the editor. (With the --edit option, the editor is
+       invoked even if such command-line options are given.)
+       If the patch diff is edited but does not apply, no changes are made
+       to the patch at all. The edited patch is saved to a file which you
+       can feed to "stg edit --file", once you have made sure it does apply.
+       With --set-tree you set the git tree of the patch to the specified
+       TREE-ISH without changing the tree of any other patches. When used on
+       the top patch, the index and work tree will be updated to match the
+       tree. This low-level option is primarily meant to be used by tools
+       built on top of StGit, such as the Emacs mode. See also the
+       --set-tree flag of stg push.

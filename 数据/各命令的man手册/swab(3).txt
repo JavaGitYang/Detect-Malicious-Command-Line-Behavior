@@ -1,0 +1,8 @@
+
+       The swab() function copies n bytes from the array pointed to by from
+       to the array pointed to by to, exchanging adjacent even and odd
+       bytes.  This function is used to exchange data between machines that
+       have different low/high byte ordering.
+       This function does nothing when n is negative.  When n is positive
+       and odd, it handles n-1 bytes as above, and does something
+       unspecified with the last byte.  (In other words, n should be even.)

@@ -1,0 +1,7 @@
+
+       pmdadbping is a database response time measurement PMDA.
+       pmdadbping runs dbprobe(1), and exports the performance measurements
+       it makes available as PCP metrics.
+       dbprobe(1) should be configured to use the type of DBI appropriate
+       for the local database, which includes: RDBMS flavour, user/password,
+       delay between "ping" requests, and the SQL statement to use.

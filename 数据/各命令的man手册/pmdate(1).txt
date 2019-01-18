@@ -1,0 +1,17 @@
+
+       pmdate displays the current date and/or time, with an optional
+       offset.
+       An offset is specified with a leading sign (``+'' or ``-''), followed
+       by an integer value, followed by one of the following ``scale''
+       specifiers;
+       S      seconds
+       M      minutes
+       H      hours
+       d      days
+       m      months
+       y      years
+       The output format follows the same rules as for date(1) and
+       strftime(3).
+       For example, the following will display the date a week ago as
+       DDMMYYYY;
+               pmdate -7d %d%m%Y

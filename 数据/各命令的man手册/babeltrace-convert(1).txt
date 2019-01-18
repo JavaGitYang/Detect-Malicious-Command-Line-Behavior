@@ -1,0 +1,267 @@
+
+       The convert command creates a trace conversion graph and runs it.
+       See babeltrace-intro(7) to learn more about the Babeltrace project
+       and its core concepts.
+           Note
+           convert is the default babeltrace(1) command: you usually don’t
+           need to specify its name. The following commands are equivalent
+           if the ... part does not start with another babeltrace(1)
+           command’s name, like run or list-plugins:
+               $ babeltrace convert ...
+               $ babeltrace ...
+           If you need to make sure that you are executing the convert
+           command, use babeltrace convert explicitly.
+       A conversion graph is a specialized trace processing graph focused on
+       the conversion of one or more traces to another format, possibly
+       filtering their events and other notifications in the process. A
+       conversion graph is a linear chain of components after the source
+       streams are merged:
+           +----------+
+           | source 1 |-.
+           +----------+ |
+                        |  +-------+
+           +----------+ '->|       |    +---------+    +------------+
+           | source 2 |--->| muxer |--->| trimmer |--->| debug-info |-.
+           +----------+ .->|       |    +---------+    +------------+ |
+                        |  +-------+                                  |
+           +----------+ |    .----------------------------------------'
+           |   ...    |-'    |  +---------------+    +------+
+           +----------+      '->| other filters |--->| sink |
+                                +---------------+    +------+
+       Note that the trimmer, debugging information, and other filters are
+       optional. See Create implicit components to learn how to enable them.
+       If you need another processing graph layout, use the more flexible
+       babeltrace-run(1) command.
+       Like with the babeltrace-run(1) command, you can create components
+       explicitly with the --component option (see Create explicit
+       components). You can also use one of the many specific convert
+       command options and arguments to create implicit components from
+       known component classes (see Create implicit components). For
+       example, you can specify a single path argument to print the merged
+       events of a CTF trace on the console:
+           $ babeltrace /path/to/trace
+       This is the equivalent of creating and connecting together:
+       ·   A src.ctf.fs component with its path initialization parameter set
+           to /path/to/trace.
+       ·   A filter.utils.muxer component.
+       ·   A sink.text.pretty component.
+       This creates the following conversion graph:
+           +------------+    +--------------------+    +------------------+
+           | src.ctf.fs |    | filter.utils.muxer |    | sink.text.pretty |
+           |  [ctf-fs]  |    |       [muxer]      |    |     [pretty]     |
+           |            |    |                    |    |                  |
+           |    stream0 @--->@                out @--->@ in               |
+           |    stream1 @--->@                    |    +------------------+
+           |    stream2 @--->@                    |
+           |    stream3 @--->@                    |
+           +------------+    +--------------------+
+       It is equivalent to the following command:
+           $ babeltrace run --component=ctf-fs:src.ctf.fs \
+                            --key=path --value=/path/to/trace \
+                            --component=pretty:sink.text.pretty \
+                            --component=muxer:filter.utils.muxer \
+                            --connect=ctf-fs:muxer --connect=muxer:pretty
+       You can use the --run-args option to make the convert command print
+       its equivalent babeltrace-run(1) arguments instead of creating and
+       running the conversion graph. The printed arguments are escaped for
+       shells, which means you can use them as is on the command line and
+       possibly add more options to the run command:
+           $ babeltrace run $(babeltrace --run-args /path/to/trace) ...
+       The --run-args-0 option is like the --run-args option, but the
+       printed arguments are NOT escaped and they are separated by a null
+       character instead of a space. This is useful if the resulting
+       arguments are not the direct input of a shell, for example if passed
+       to xargs -0.
+       See EXAMPLES for usage examples.
+   Create explicit components
+       To explicitly create a component, use the --component option. This
+       option specifies:
+       ·   Optional: The name of the component instance. You can also use
+           the --name option for this.
+       ·   The type of the component class to instantiate: source, filter,
+           or sink.
+       ·   The name of the plugin in which to find the component class to
+           instantiate.
+       ·   The name of the component class to instantiate.
+       You can use the --component option multiple times to create multiple
+       components. You can instantiate the same component class multiple
+       times as different component instances.
+       Immediately following a --component option on the command line, the
+       created component is known as the current component (until the next
+       --component option).
+       The following, optional command-line options apply to the current
+       component:
+       --name=NAME
+           Set the name of the current component to NAME.
+       --params=PARAMS
+           Add PARAMS to the initialization parameters of the current
+           component. If PARAMS contains a key which exists in the current
+           component’s initialization parameters, this parameter is
+           replaced.
+           See Parameters format for the format of PARAMS.
+       --path=PATH
+           Set the path initialization parameter of the current component to
+           PATH (replace the parameter if it exists).
+           You can use this option instead of manually specifying
+           path="PATH" in a --params option to use your shell’s tilde
+           expansion (~). Tilde expansion requires the tilde to be the first
+           character of the argument, which is not possible with
+           path="PATH".
+       --url=URL
+           Set the url initialization parameter of the current component to
+           URL (replace the parameter if it exists).
+       See EXAMPLES for usage examples.
+   Create implicit components
+       An implicit component is a component which is created and added to
+       the conversion graph without an explicit instantiation through the
+       --component option. An implicit component is easier to create than an
+       explicit component: this is why the convert command exists, as you
+       can also create and run a conversion graph with the generic
+       babeltrace-run(1) command.
+       There are many ways to create implicit components with the convert
+       command:
+       ·   To create one or more implicit src.ctf.fs components (CTF trace
+           read from the file system), use one or more positional arguments
+           to specify the paths to the CTF traces to read, and do NOT
+           specify the --input-format=lttng-live option.
+           Example:
+               $ babeltrace /path/to/trace /path/to/other/trace
+           The --clock-offset and --clock-offset-ns options apply to all the
+           implicit src.ctf.fs components. For example:
+               $ babeltrace --clock-offset=3 trace1 trace2
+           With the command line above, two implicit src.ctf.fs components
+           have their clock-class-offset-s initialization parameter set to
+           3, but they have different path parameters (trace1 and trace2).
+           You cannot create implicit src.ctf.fs components and an implicit
+           src.ctf.lttng-live component.
+       ·   To create an implicit src.ctf.lttng-live component (LTTng live
+           (see <http://lttng.org/docs/#doc-lttng-live>) input), specify the
+           --input-format=lttng-live option and the LTTng relay daemon’s URL
+           with the positional argument.
+           Example:
+               $ babeltrace --input-format=lttng-live \
+                            net://localhost/host/abeille/my-session
+           You cannot create an implicit src.ctf.lttng-live component and
+           implicit src.ctf.fs components.
+       ·   To create an implicit filter.utils.trimmer component (trace
+           trimmer), specify the --begin, --end, or --timerange option.
+           Examples:
+               $ babeltrace /path/to/trace --begin=22:14:38 --end=22:15:07
+               $ babeltrace /path/to/trace --timerange=22:14:38,22:15:07
+               $ babeltrace /path/to/trace --end=12:31:04.882928015
+       ·   To create an implicit filter.lttng-utils.debug-info (add
+           debugging information to compatible LTTng events), specify any of
+           the --debug-info, --debug-info-dir, --debug-info-full-path, or
+           --debug-info-target-prefix options.
+           Examples:
+               $ babeltrace --debug-info /path/to/trace
+               $ babeltrace /path/to/trace \
+                            --debug-info-target-prefix=/tmp/tgt-root
+               $ babeltrace /path/to/trace --debug-info-full-path
+       ·   To create an implicit sink.text.pretty component (pretty-printing
+           text output to the console or to a file), do any of:
+           ·   Specify no other sink components, explicit or implicit. The
+               sink.text.pretty implicit component is the default implicit
+               sink component. If any other explicit or implicit component
+               exists, the default sink.text.pretty sink component is not
+               automatically created.
+           ·   Specify any of the --clock-cycles, --clock-date, --clock-gmt,
+               --clock-seconds, --color, --fields, --names, or --no-delta
+               options. You can also specify the --output option without
+               using the --output-format=ctf option (in which case --output
+               applies to the implicit sink.ctf.fs component).
+           ·   Specify the --output-format=text option.
+           Examples:
+               $ babeltrace /path/to/trace
+               $ babeltrace /path/to/trace --no-delta
+               $ babeltrace /path/to/trace --output-format=text
+               $ babeltrace /path/to/trace --output=/tmp/pretty-out
+       ·   To create an implicit sink.utils.dummy component (dummy output),
+           specify the --output-format=dummy option. This option disables
+           the default implicit sink.text.pretty component.
+           Example:
+               $ babeltrace /path/to/trace --output-format=dummy
+       ·   To create an implicit sink.ctf.fs component (CTF traces written
+           to the file system), specify the --output-format=ctf option. This
+           option disables the default implicit sink.text.pretty component.
+           Use the --output option to specify the output directory.
+           Example:
+               $ babeltrace /path/to/input/trace --output-format=ctf \
+                            --output=my-traces
+       You can combine multiple methods to create implicit components. For
+       example, you can trim an LTTng (CTF) trace, add debugging information
+       to it, and write it as another CTF trace:
+           $ babeltrace /path/to/input/trace --timerange=22:14:38,22:15:07 \
+                        --debug-info --output-format=ctf --output=out-dir
+       The equivalent babeltrace-run(1) command of this convert command is:
+           $ babeltrace run --component=src-ctf-fs:src.ctf.fs \
+                            --key=path --value=/path/to/input/trace \
+                            --component=sink-ctf-fs:sink.ctf.fs \
+                            --key=path --value=out-dir \
+                            --component=muxer:flt.utils.muxer \
+                            --component=trimmer:flt.utils.trimmer \
+                            --key=begin --value=22:14:38 \
+                            --key=end --value=22:15:07 \
+                            --component=dbginfo:flt.lttng-utils.debug-info \
+                            --connect=src-ctf-fs:muxer --connect=muxer:trimmer \
+                            --connect=trimmer:dbg-info \
+                            --connect=dbginfo:sink-ctf-fs
+       See EXAMPLES for more examples.
+   Parameters format
+       The format of the PARAMS option’s argument is a comma-separated list
+       of NAME=VALUE assignments:
+           NAME=VALUE[,NAME=VALUE]...
+       NAME
+           Parameter name (C identifier plus the :, ., and - characters).
+       VALUE
+           One of:
+           ·   null, nul, NULL: null value.
+           ·   true, TRUE, yes, YES: true boolean value.
+           ·   false, FALSE, no, NO: false boolean value.
+           ·   Binary (0b prefix), octal (0 prefix), decimal, or hexadecimal
+               (0x prefix) signed 64-bit integer.
+           ·   Double precision floating point number (scientific notation
+               is accepted).
+           ·   Unquoted string with no special characters, and not matching
+               any of the null and boolean value symbols above.
+           ·   Double-quoted string (accepts escape characters).
+           You may put whitespaces around the individual = (assignment) and
+           , (separator) characters.
+       Example:
+           babeltrace ... --params='many=null, fresh=yes, condition=false,
+                                    squirrel=-782329, observe=3.14,
+                                    simple=beef, needs-quotes="some string",
+                                    escape.chars-are:allowed="a \" quote"'
+           Important
+           Like in the example above, make sure to single-quote the whole
+           argument when you run this command from a shell.
+   Time option format
+       The format of the arguments of the --begin and --end options is:
+           [YYYY-MM-DD [hh:mm:]]ss[.nnnnnnnnn]
+       YYYY
+           4-digit year.
+       MM
+           2-digit month (January is 01).
+       DD
+           2-digit day.
+       hh
+           2-digit hour (24-hour format).
+       mm
+           2-digit minute.
+       ss
+           2-digit second.
+       nnnnnnnnn
+           9-digit nanosecond.
+   Plugin path
+       This command loads Babeltrace plugins to perform its operation. The
+       search path for Babeltrace plugins is, in this order:
+        1. The colon-separated list of directories in the
+           BABELTRACE_PLUGIN_PATH environment variable.
+        2. The colon-separated list of directories in the --plugin-path
+           option.
+        3. If the --omit-home-plugin-path option is absent:
+           $HOME/.local/lib/babeltrace/plugins
+        4. If the --omit-system-plugin-path option is absent:
+           /usr/local/lib/babeltrace/plugins
+       You can use the babeltrace-list-plugins(1) command to dynamically
+       list the available plugins.

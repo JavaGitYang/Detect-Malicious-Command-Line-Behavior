@@ -1,0 +1,12 @@
+
+       The library supports the Intel Sandy Bridge C-Box (coherency engine)
+       uncore PMU.  This PMU model only exists on Sandy Bridge model 45.
+       There is one C-box PMU per physical core. Therefore there are eight
+       identical C-Box PMU instances numbered frmo 0 to 7. On dual-socket
+       systems, the number refers to the C-Box PMU on the socket where the
+       program runs. For instance, if running on CPU8, then snbep_unc_cbo0
+       refers to the C-Box for physical core 0 on socket 1. Conversely, if
+       running on CPU0, then the same snbep_unc_cbo0 refers to the C-Box for
+       physical core 0 but on socket 0.
+       Each C-Box PMU implements 4 generic counters and a filter register
+       used only with certain events and umasks.

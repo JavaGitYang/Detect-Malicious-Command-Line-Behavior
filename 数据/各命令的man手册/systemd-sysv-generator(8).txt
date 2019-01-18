@@ -1,0 +1,17 @@
+
+       systemd-sysv-generator is a generator that creates wrapper .service
+       units for SysV init[1] scripts in /etc/init.d/* at boot and when
+       configuration of the system manager is reloaded. This will allow
+       systemd(1) to support them similarly to native units.
+       LSB headers[2] in SysV init scripts are interpreted, and the ordering
+       specified in the header is turned into dependencies between the
+       generated unit and other units. The LSB facilities "$remote_fs",
+       "$network", "$named", "$portmap", "$time" are supported and will be
+       turned into dependencies on specific native systemd targets. See
+       systemd.special(5) for more details.
+       SysV runlevels have corresponding systemd targets (runlevelX.target).
+       The wrapper unit that is generated will be wanted by those targets
+       which correspond to runlevels for which the script is enabled.
+       systemd does not support SysV scripts as part of early boot, so all
+       wrapper units are ordered after basic.target.
+       systemd-sysv-generator implements systemd.generator(7).

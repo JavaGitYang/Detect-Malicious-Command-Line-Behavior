@@ -1,0 +1,4 @@
+
+       This function takes the supplied list of environment pointers and
+       uploads its contents to the PAM environment. Success is indicated by
+       PAM_SUCCESS.

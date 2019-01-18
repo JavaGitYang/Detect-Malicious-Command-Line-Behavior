@@ -1,0 +1,14 @@
+
+       grops translates the output of GNU troff to PostScript.  Normally
+       grops should be invoked by using the groff command with a -Tps
+       option.  (Actually, this is the default for groff.)  If no files are
+       given, grops reads the standard input.  A filename of - also causes
+       grops to read the standard input.  PostScript output is written to
+       the standard output.  When grops is run by groff options can be
+       passed to grops using groff's -P option.
+       Note that grops doesn't produce a valid document structure
+       (conforming to the Document Structuring Convention) if called with
+       multiple file arguments.  To print such concatenated output it is
+       necessary to deactivate DSC handling in the printing program or
+       previewer.  See section FONT INSTALLATION below for a guide how to
+       install fonts for grops.

@@ -1,0 +1,20 @@
+
+   devlink port set - change devlink port attributes
+       DEV/PORT_INDEX - specifies the devlink port to operate on.
+           Format is:
+             BUS_NAME/BUS_ADDRESS/PORT_INDEX
+       type { eth | ib | auto }
+              set port type
+              eth - Ethernet
+              ib - Infiniband
+              auto - autoselect
+   devlink port split - split devlink port into more
+       DEV/PORT_INDEX - specifies the devlink port to operate on.
+       count COUNT
+              number of ports to split to.
+   devlink port unsplit - unsplit previously split devlink port
+       Could be performed on any split port of the same split group.
+       DEV/PORT_INDEX - specifies the devlink port to operate on.
+   devlink port show - display devlink port attributes
+       DEV/PORT_INDEX - specifies the devlink port to show.  If this
+       argument is omitted all ports are listed.

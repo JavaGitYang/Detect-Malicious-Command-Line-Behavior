@@ -1,0 +1,18 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       These functions shall compute the exponent of x, which is the
+       integral part of logr |x|, as a signed floating-point value, for non-
+       zero x, where r is the radix of the machine's floating-point
+       arithmetic, which is the value of FLT_RADIX defined in the <float.h>
+       header.
+       If x is subnormal it is treated as though it were normalized; thus
+       for finite positive x:
+           1 <= x * FLT_RADIX−logb(x) < FLT_RADIX
+       An application wishing to check for error situations should set errno
+       to zero and call feclearexcept(FE_ALL_EXCEPT) before calling these
+       functions. On return, if errno is non-zero or fetestexcept(FE_INVALID
+       | FE_DIVBYZERO | FE_OVERFLOW | FE_UNDERFLOW) is non-zero, an error
+       has occurred.

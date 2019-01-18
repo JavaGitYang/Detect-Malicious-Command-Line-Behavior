@@ -1,0 +1,4 @@
+
+       inotifywatch listens for filesystem events using Linux's inotify(7)
+       interface, then outputs a summary count of the events received on
+       each file or directory.

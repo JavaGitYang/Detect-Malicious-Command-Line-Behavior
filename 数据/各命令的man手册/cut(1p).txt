@@ -1,0 +1,5 @@
+
+       The cut utility shall cut out bytes (−b option), characters (−c
+       option), or character-delimited fields (−f option) from each line in
+       one or more files, concatenate them, and write them to standard
+       output.

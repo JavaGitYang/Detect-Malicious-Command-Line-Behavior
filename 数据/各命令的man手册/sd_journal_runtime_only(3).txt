@@ -1,0 +1,66 @@
+
+       sd_journal_open() opens the log journal for reading. It will find all
+       journal files automatically and interleave them automatically when
+       reading. As first argument it takes a pointer to a sd_journal
+       pointer, which, on success, will contain a journal context object.
+       The second argument is a flags field, which may consist of the
+       following flags ORed together: SD_JOURNAL_LOCAL_ONLY makes sure only
+       journal files generated on the local machine will be opened.
+       SD_JOURNAL_RUNTIME_ONLY makes sure only volatile journal files will
+       be opened, excluding those which are stored on persistent storage.
+       SD_JOURNAL_SYSTEM will cause journal files of system services and the
+       kernel (in opposition to user session processes) to be opened.
+       SD_JOURNAL_CURRENT_USER will cause journal files of the current user
+       to be opened. If neither SD_JOURNAL_SYSTEM nor
+       SD_JOURNAL_CURRENT_USER are specified, all journal file types will be
+       opened.
+       sd_journal_open_directory() is similar to sd_journal_open() but takes
+       an absolute directory path as argument. All journal files in this
+       directory will be opened and interleaved automatically. This call
+       also takes a flags argument. The flags parameters accepted by this
+       call are SD_JOURNAL_OS_ROOT, SD_JOURNAL_SYSTEM, and
+       SD_JOURNAL_CURRENT_USER. If SD_JOURNAL_OS_ROOT is specified, journal
+       files are searched for below the usual /var/log/journal and
+       /run/log/journal relative to the specified path, instead of directly
+       beneath it. The other two flags limit which files are opened, the
+       same as for sd_journal_open().
+       sd_journal_open_directory_fd() is similar to
+       sd_journal_open_directory(), but takes a file descriptor referencing
+       a directory in the file system instead of an absolute file system
+       path.
+       sd_journal_open_files() is similar to sd_journal_open() but takes a
+       NULL-terminated list of file paths to open. All files will be opened
+       and interleaved automatically. This call also takes a flags argument,
+       but it must be passed as 0 as no flags are currently understood for
+       this call. Please note that in the case of a live journal, this
+       function is only useful for debugging, because individual journal
+       files can be rotated at any moment, and the opening of specific files
+       is inherently racy.
+       sd_journal_open_files_fd() is similar to sd_journal_open_files() but
+       takes an array of open file descriptors that must reference journal
+       files, instead of an array of file system paths. Pass the array of
+       file descriptors as second argument, and the number of array entries
+       in the third. The flags parameter must be passed as 0.
+       sd_journal objects cannot be used in the child after a fork.
+       Functions which take a journal object as an argument
+       (sd_journal_next() and others) will return -ECHILD after a fork.
+       sd_journal_close() will close the journal context allocated with
+       sd_journal_open() or sd_journal_open_directory() and free its
+       resources.
+       When opening the journal only journal files accessible to the calling
+       user will be opened. If journal files are not accessible to the
+       caller, this will be silently ignored.
+       See sd_journal_next(3) for an example of how to iterate through the
+       journal after opening it with sd_journal_open().
+       A journal context object returned by sd_journal_open() references a
+       specific journal entry as current entry, similar to a file seek index
+       in a classic file system file, but without absolute positions. It may
+       be altered with sd_journal_next(3) and sd_journal_seek_head(3) and
+       related calls. The current entry position may be exported in cursor
+       strings, as accessible via sd_journal_get_cursor(3). Cursor strings
+       may be used to globally identify a specific journal entry in a stable
+       way and then later to seek to it (or if the specific entry is not
+       available locally, to its closest entry in time)
+       sd_journal_seek_cursor(3).
+       Notification of journal changes is available via sd_journal_get_fd()
+       and related calls.

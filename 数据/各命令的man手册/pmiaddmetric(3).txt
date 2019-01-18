@@ -1,0 +1,33 @@
+
+       As part of the Performance Co-Pilot Log Import API (see
+       LOGIMPORT(3)), pmiAddMetric is used to define a new metric.  The
+       metric's name must follow the naming conventions described in
+       PCPIntro(1) and should be unique for each LOGIMPORT context.
+       The other arguments are in effect the fields of a pmDesc structure.
+       Refer to pmLookupDesc(3) for a complete description of the values and
+       semantics of the components of this structure, and hence the valid
+       argument values for pmiAddMetrics.
+       The internal identifier for the metric may be given using the pmid
+       argument and must be unique for each LOGIMPORT context.  The value
+       for pmid which would typically be constructed using the pmID_build
+       macro, e.g. pmID_build(PMI_DOMAIN, 0, 3) for the fourth metric in
+       first ``cluster'' of metrics in the Performance Metrics Domain
+       PMI_DOMAIN (which is the default for all meta data created by the
+       LOGIMPORT library).  Alternatively, pmid may be PM_IN_NULL and
+       pmiAddMetric will assign a unique pmid (although this means the pmid
+       remains opaque and the application must use pmiPutValue(3) or
+       pmiPutValueHandle(3) and cannot use pmiPutResult(3) to add data
+       values to the PCP archive).
+       type defines the data type of the metric and must be one of the
+       PM_TYPE_...  values defined in <pcp/import.h>.
+       The instance domain for the metric is defined by indom and may be
+       PM_INDOM_NULL for a metric with a singular value, else the value for
+       indom would normally be constructed using the pmInDom_build macro,
+       e.g. pmInDom_build(LOGIMPORT,0) for the first instance domain in the
+       Performance Metrics Domain LOGIMPORT (which is the default for all
+       meta data created by the LOGIMPORT library).  Multiple metrics can
+       share the same instance domain if they have values for a similar (or
+       more usually, identical) set of instances.
+       The semantics of the metric (counter, instantaneous value, etc.) is
+       specified by the sem argument which would normally be the result of a
+       call to the convenience constructor method pmiUnits(3).

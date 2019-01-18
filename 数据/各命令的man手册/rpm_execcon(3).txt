@@ -1,0 +1,32 @@
+
+       getexeccon() retrieves the context used for executing a new process.
+       This returned context should be freed with freecon(3) if non-NULL.
+       getexeccon() sets *context to NULL if no exec context has been
+       explicitly set by the program (i.e. using the default policy
+       behavior).
+       setexeccon() sets the context used for the next execve(2) call.  NULL
+       can be passed to setexeccon() to reset to the default policy
+       behavior.  The exec context is automatically reset after the next
+       execve(2), so a program doesn't need to explicitly sanitize it upon
+       startup.
+       setexeccon() can be applied prior to library functions that
+       internally perform an execve(2), e.g.  execl*(3), execv*(3),
+       popen(3), in order to set an exec context for that operation.
+       getexeccon_raw() and setexeccon_raw() behave identically to their
+       non-raw counterparts but do not perform context translation.
+       Note: Signal handlers that perform an execve(2) must take care to
+       save, reset, and restore the exec context to avoid unexpected
+       behavior.
+       setexecfilecon() sets the context used for the next execve(2) call,
+       based on the policy for the filename, and falling back to a new
+       context with a fallback_type in case there is no transition.
+       rpm_execcon() is deprecated; please use setexecfilecon() in
+       conjunction with execve(2) in all new code. This function runs a
+       helper for rpm in an appropriate security context.  The verified
+       parameter should contain the return code from the signature
+       verification (0 == ok, 1 == notfound, 2 == verifyfail, 3 ==
+       nottrusted, 4 == nokey), although this information is not yet used by
+       the function.  The function determines the proper security context
+       for the helper based on policy, sets the exec context accordingly,
+       and then executes the specified filename with the provided argument
+       and environment arrays.

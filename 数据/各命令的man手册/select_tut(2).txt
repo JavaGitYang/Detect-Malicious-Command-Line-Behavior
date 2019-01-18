@@ -1,0 +1,203 @@
+
+       select() (or pselect()) is used to efficiently monitor multiple file
+       descriptors, to see if any of them is, or becomes, "ready"; that is,
+       to see whether I/O becomes possible, or an "exceptional condition"
+       has occurred on any of the file descriptors.
+       Its principal arguments are three "sets" of file descriptors:
+       readfds, writefds, and exceptfds.  Each set is declared as type
+       fd_set, and its contents can be manipulated with the macros FD_CLR(),
+       FD_ISSET(), FD_SET(), and FD_ZERO().  A newly declared set should
+       first be cleared using FD_ZERO().  select() modifies the contents of
+       the sets according to the rules described below; after calling
+       select() you can test if a file descriptor is still present in a set
+       with the FD_ISSET() macro.  FD_ISSET() returns nonzero if a specified
+       file descriptor is present in a set and zero if it is not.  FD_CLR()
+       removes a file descriptor from a set.
+   Arguments
+       readfds
+              This set is watched to see if data is available for reading
+              from any of its file descriptors.  After select() has
+              returned, readfds will be cleared of all file descriptors
+              except for those that are immediately available for reading.
+       writefds
+              This set is watched to see if there is space to write data to
+              any of its file descriptors.  After select() has returned,
+              writefds will be cleared of all file descriptors except for
+              those that are immediately available for writing.
+       exceptfds
+              This set is watched for "exceptional conditions".  In
+              practice, only one such exceptional condition is common: the
+              availability of out-of-band (OOB) data for reading from a TCP
+              socket.  See recv(2), send(2), and tcp(7) for more details
+              about OOB data.  (One other less common case where select(2)
+              indicates an exceptional condition occurs with pseudoterminals
+              in packet mode; see ioctl_tty(2).)  After select() has
+              returned, exceptfds will be cleared of all file descriptors
+              except for those for which an exceptional condition has
+              occurred.
+       nfds   This is an integer one more than the maximum of any file
+              descriptor in any of the sets.  In other words, while adding
+              file descriptors to each of the sets, you must calculate the
+              maximum integer value of all of them, then increment this
+              value by one, and then pass this as nfds.
+       utimeout
+              This is the longest time select() may wait before returning,
+              even if nothing interesting happened.  If this value is passed
+              as NULL, then select() blocks indefinitely waiting for a file
+              descriptor to become ready.  utimeout can be set to zero
+              seconds, which causes select() to return immediately, with
+              information about the readiness of file descriptors at the
+              time of the call.  The structure struct timeval is defined as:
+                  struct timeval {
+                      time_t tv_sec;    /* seconds */
+                      long tv_usec;     /* microseconds */
+                  };
+       ntimeout
+              This argument for pselect() has the same meaning as utimeout,
+              but struct timespec has nanosecond precision as follows:
+                  struct timespec {
+                      long tv_sec;    /* seconds */
+                      long tv_nsec;   /* nanoseconds */
+                  };
+       sigmask
+              This argument holds a set of signals that the kernel should
+              unblock (i.e., remove from the signal mask of the calling
+              thread), while the caller is blocked inside the pselect() call
+              (see sigaddset(3) and sigprocmask(2)).  It may be NULL, in
+              which case the call does not modify the signal mask on entry
+              and exit to the function.  In this case, pselect() will then
+              behave just like select().
+   Combining signal and data events
+       pselect() is useful if you are waiting for a signal as well as for
+       file descriptor(s) to become ready for I/O.  Programs that receive
+       signals normally use the signal handler only to raise a global flag.
+       The global flag will indicate that the event must be processed in the
+       main loop of the program.  A signal will cause the select() (or pse‐
+       lect()) call to return with errno set to EINTR.  This behavior is
+       essential so that signals can be processed in the main loop of the
+       program, otherwise select() would block indefinitely.  Now, somewhere
+       in the main loop will be a conditional to check the global flag.  So
+       we must ask: what if a signal arrives after the conditional, but
+       before the select() call?  The answer is that select() would block
+       indefinitely, even though an event is actually pending.  This race
+       condition is solved by the pselect() call.  This call can be used to
+       set the signal mask to a set of signals that are to be received only
+       within the pselect() call.  For instance, let us say that the event
+       in question was the exit of a child process.  Before the start of the
+       main loop, we would block SIGCHLD using sigprocmask(2).  Our pse‐
+       lect() call would enable SIGCHLD by using an empty signal mask.  Our
+       program would look like:
+       static volatile sig_atomic_t got_SIGCHLD = 0;
+       static void
+       child_sig_handler(int sig)
+       {
+           got_SIGCHLD = 1;
+       }
+       int
+       main(int argc, char *argv[])
+       {
+           sigset_t sigmask, empty_mask;
+           struct sigaction sa;
+           fd_set readfds, writefds, exceptfds;
+           int r;
+           sigemptyset(&sigmask);
+           sigaddset(&sigmask, SIGCHLD);
+           if (sigprocmask(SIG_BLOCK, &sigmask, NULL) == -1) {
+               perror("sigprocmask");
+               exit(EXIT_FAILURE);
+           }
+           sa.sa_flags = 0;
+           sa.sa_handler = child_sig_handler;
+           sigemptyset(&sa.sa_mask);
+           if (sigaction(SIGCHLD, &sa, NULL) == -1) {
+               perror("sigaction");
+               exit(EXIT_FAILURE);
+           }
+           sigemptyset(&empty_mask);
+           for (;;) {          /* main loop */
+               /* Initialize readfds, writefds, and exceptfds
+                  before the pselect() call. (Code omitted.) */
+               r = pselect(nfds, &readfds, &writefds, &exceptfds,
+                           NULL, &empty_mask);
+               if (r == -1 && errno != EINTR) {
+                   /* Handle error */
+               }
+               if (got_SIGCHLD) {
+                   got_SIGCHLD = 0;
+                   /* Handle signalled event here; e.g., wait() for all
+                      terminated children. (Code omitted.) */
+               }
+               /* main body of program */
+           }
+       }
+   Practical
+       So what is the point of select()?  Can't I just read and write to my
+       file descriptors whenever I want?  The point of select() is that it
+       watches multiple descriptors at the same time and properly puts the
+       process to sleep if there is no activity.  UNIX programmers often
+       find themselves in a position where they have to handle I/O from more
+       than one file descriptor where the data flow may be intermittent.  If
+       you were to merely create a sequence of read(2) and write(2) calls,
+       you would find that one of your calls may block waiting for data
+       from/to a file descriptor, while another file descriptor is unused
+       though ready for I/O.  select() efficiently copes with this situa‐
+       tion.
+   Select law
+       Many people who try to use select() come across behavior that is dif‐
+       ficult to understand and produces nonportable or borderline results.
+       For instance, the above program is carefully written not to block at
+       any point, even though it does not set its file descriptors to non‐
+       blocking mode.  It is easy to introduce subtle errors that will
+       remove the advantage of using select(), so here is a list of essen‐
+       tials to watch for when using select().
+       1.  You should always try to use select() without a timeout.  Your
+           program should have nothing to do if there is no data available.
+           Code that depends on timeouts is not usually portable and is dif‐
+           ficult to debug.
+       2.  The value nfds must be properly calculated for efficiency as
+           explained above.
+       3.  No file descriptor must be added to any set if you do not intend
+           to check its result after the select() call, and respond appro‐
+           priately.  See next rule.
+       4.  After select() returns, all file descriptors in all sets should
+           be checked to see if they are ready.
+       5.  The functions read(2), recv(2), write(2), and send(2) do not nec‐
+           essarily read/write the full amount of data that you have
+           requested.  If they do read/write the full amount, it's because
+           you have a low traffic load and a fast stream.  This is not
+           always going to be the case.  You should cope with the case of
+           your functions managing to send or receive only a single byte.
+       6.  Never read/write only in single bytes at a time unless you are
+           really sure that you have a small amount of data to process.  It
+           is extremely inefficient not to read/write as much data as you
+           can buffer each time.  The buffers in the example below are 1024
+           bytes although they could easily be made larger.
+       7.  Calls to read(2), recv(2), write(2), send(2), and select() can
+           fail with the error EINTR, and calls to read(2), recv(2)
+           write(2), and send(2) can fail with errno set to EAGAIN (EWOULD‐
+           BLOCK).  These results must be properly managed (not done prop‐
+           erly above).  If your program is not going to receive any sig‐
+           nals, then it is unlikely you will get EINTR.  If your program
+           does not set nonblocking I/O, you will not get EAGAIN.
+       8.  Never call read(2), recv(2), write(2), or send(2) with a buffer
+           length of zero.
+       9.  If the functions read(2), recv(2), write(2), and send(2) fail
+           with errors other than those listed in 7., or one of the input
+           functions returns 0, indicating end of file, then you should not
+           pass that file descriptor to select() again.  In the example
+           below, I close the file descriptor immediately, and then set it
+           to -1 to prevent it being included in a set.
+       10. The timeout value must be initialized with each new call to
+           select(), since some operating systems modify the structure.
+           pselect() however does not modify its timeout structure.
+       11. Since select() modifies its file descriptor sets, if the call is
+           being used in a loop, then the sets must be reinitialized before
+           each call.
+   Usleep emulation
+       On systems that do not have a usleep(3) function, you can call
+       select() with a finite timeout and no file descriptors as follows:
+           struct timeval tv;
+           tv.tv_sec = 0;
+           tv.tv_usec = 200000;  /* 0.2 seconds */
+           select(0, NULL, NULL, NULL, &tv);
+       This is guaranteed to work only on UNIX systems, however.

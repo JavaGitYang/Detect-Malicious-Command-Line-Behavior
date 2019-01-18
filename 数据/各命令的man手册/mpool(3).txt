@@ -1,0 +1,52 @@
+
+       Note well: This page documents interfaces provided in glibc up until
+       version 2.1.  Since version 2.2, glibc no longer provides these
+       interfaces.  Probably, you are looking for the APIs provided by the
+       libdb library instead.
+       Mpool is the library interface intended to provide page oriented
+       buffer management of files.  The buffers may be shared between
+       processes.
+       The function mpool_open() initializes a memory pool.  The key
+       argument is the byte string used to negotiate between multiple
+       processes wishing to share buffers.  If the file buffers are mapped
+       in shared memory, all processes using the same key will share the
+       buffers.  If key is NULL, the buffers are mapped into private memory.
+       The fd argument is a file descriptor for the underlying file, which
+       must be seekable.  If key is non-NULL and matches a file already
+       being mapped, the fd argument is ignored.
+       The pagesize argument is the size, in bytes, of the pages into which
+       the file is broken up.  The maxcache argument is the maximum number
+       of pages from the underlying file to cache at any one time.  This
+       value is not relative to the number of processes which share a file's
+       buffers, but will be the largest value specified by any of the
+       processes sharing the file.
+       The mpool_filter() function is intended to make transparent input and
+       output processing of the pages possible.  If the pgin function is
+       specified, it is called each time a buffer is read into the memory
+       pool from the backing file.  If the pgout function is specified, it
+       is called each time a buffer is written into the backing file.  Both
+       functions are called with the pgcookie pointer, the page number and a
+       pointer to the page to being read or written.
+       The function mpool_new() takes an MPOOL pointer and an address as
+       arguments.  If a new page can be allocated, a pointer to the page is
+       returned and the page number is stored into the pgnoaddr address.
+       Otherwise, NULL is returned and errno is set.
+       The function mpool_get() takes an MPOOL pointer and a page number as
+       arguments.  If the page exists, a pointer to the page is returned.
+       Otherwise, NULL is returned and errno is set.  The flags argument is
+       not currently used.
+       The function mpool_put() unpins the page referenced by pgaddr.
+       pgaddr must be an address previously returned by mpool_get() or
+       mpool_new().  The flag value is specified by ORing any of the
+       following values:
+       MPOOL_DIRTY
+              The page has been modified and needs to be written to the
+              backing file.
+       mpool_put() returns 0 on success and -1 if an error occurs.
+       The function mpool_sync() writes all modified pages associated with
+       the MPOOL pointer to the backing file.  mpool_sync() returns 0 on
+       success and -1 if an error occurs.
+       The mpool_close() function free's up any allocated memory associated
+       with the memory pool cookie.  Modified pages are not written to the
+       backing file.  mpool_close() returns 0 on success and -1 if an error
+       occurs.

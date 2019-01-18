@@ -1,0 +1,4 @@
+
+       The auditctl program is used to configure kernel options related to
+       auditing, to see status of the configuration, and to load
+       discretionary audit rules.

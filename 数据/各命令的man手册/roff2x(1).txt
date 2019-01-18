@@ -1,0 +1,16 @@
+
+       roff2x transforms roff code into X mode corresponding to the groff
+       devices X*; this mode is suitable for gxditview(1).  Print the result
+       to standard output.
+       There are more of these programs for generating other formats of roff
+       input.
+       roff2dvi(1)
+              is for dvi mode.
+       roff2html(1)
+              generates HTML output.
+       roff2pdf(1)
+              outputs pdf mode.
+       roff2ps(1)
+              prints PostScript format to standard output.
+       roff2text(1)
+              generates text output in the groff device latin1.

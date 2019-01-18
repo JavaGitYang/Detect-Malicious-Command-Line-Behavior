@@ -1,0 +1,27 @@
+
+       The posix_madvise() function allows an application to advise the
+       system about its expected patterns of usage of memory in the address
+       range starting at addr and continuing for len bytes.  The system is
+       free to use this advice in order to improve the performance of memory
+       accesses (or to ignore the advice altogether), but calling
+       posix_madvise() shall not affect the semantics of access to memory in
+       the specified range.
+       The advice argument is one of the following:
+       POSIX_MADV_NORMAL
+              The application has no special advice regarding its memory
+              usage patterns for the specified address range.  This is the
+              default behavior.
+       POSIX_MADV_SEQUENTIAL
+              The application expects to access the specified address range
+              sequentially, running from lower addresses to higher
+              addresses.  Hence, pages in this region can be aggressively
+              read ahead, and may be freed soon after they are accessed.
+       POSIX_MADV_RANDOM
+              The application expects to access the specified address range
+              randomly.  Thus, read ahead may be less useful than normally.
+       POSIX_MADV_WILLNEED
+              The application expects to access the specified address range
+              in the near future.  Thus, read ahead may be beneficial.
+       POSIX_MADV_DONTNEED
+              The application expects that it will not access the specified
+              address range in the near future.

@@ -1,0 +1,11 @@
+
+       ldapcompare is a shell-accessible interface to the
+       ldap_compare_ext(3) library call.
+       ldapcompare opens a connection to an LDAP server, binds, and performs
+       a compare using specified parameters.   The DN should be a
+       distinguished name in the directory.  Attr should be a known
+       attribute.  If followed by one colon, the assertion value should be
+       provided as a string.  If followed by two colons, the base64 encoding
+       of the value is provided.  The result code of the compare is provided
+       as the exit code and, unless ran with -z, the program prints TRUE,
+       FALSE, or UNDEFINED on standard output.

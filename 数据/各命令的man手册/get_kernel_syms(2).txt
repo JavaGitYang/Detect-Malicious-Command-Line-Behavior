@@ -1,0 +1,14 @@
+
+       Note: This system call is present only in kernels before Linux 2.6.
+       If table is NULL, get_kernel_syms() returns the number of symbols
+       available for query.  Otherwise, it fills in a table of structures:
+           struct kernel_sym {
+               unsigned long value;
+               char          name[60];
+           };
+       The symbols are interspersed with magic symbols of the form #module-
+       name with the kernel having an empty name.  The value associated with
+       a symbol of this form is the address at which the module is loaded.
+       The symbols exported from each module follow their magic module tag
+       and the modules are returned in the reverse of the order in which
+       they were loaded.

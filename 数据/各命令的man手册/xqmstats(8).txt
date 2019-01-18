@@ -1,0 +1,11 @@
+
+       xqmstat queries the kernel for the XFS Quota Manager dquot
+       statistics.  It displays:
+           ·      Reclaims
+           ·      Missed reclaims
+           ·      Dquot dups
+           ·      Cache misses
+           ·      Cache hits
+           ·      Dquot wants
+           ·      Shake reclaims
+           ·      Inact reclaims

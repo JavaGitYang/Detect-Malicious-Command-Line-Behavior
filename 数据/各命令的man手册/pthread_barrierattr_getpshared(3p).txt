@@ -1,0 +1,23 @@
+
+       The pthread_barrierattr_getpshared() function shall obtain the value
+       of the process-shared attribute from the attributes object referenced
+       by attr.  The pthread_barrierattr_setpshared() function shall set the
+       process-shared attribute in an initialized attributes object
+       referenced by attr.
+       The process-shared attribute is set to PTHREAD_PROCESS_SHARED to
+       permit a barrier to be operated upon by any thread that has access to
+       the memory where the barrier is allocated. If the process-shared
+       attribute is PTHREAD_PROCESS_PRIVATE, the barrier shall only be
+       operated upon by threads created within the same process as the
+       thread that initialized the barrier; if threads of different
+       processes attempt to operate on such a barrier, the behavior is
+       undefined. The default value of the attribute shall be
+       PTHREAD_PROCESS_PRIVATE. Both constants PTHREAD_PROCESS_SHARED and
+       PTHREAD_PROCESS_PRIVATE are defined in <pthread.h>.
+       Additional attributes, their default values, and the names of the
+       associated functions to get and set those attribute values are
+       implementation-defined.
+       The behavior is undefined if the value specified by the attr argument
+       to pthread_barrierattr_getpshared() or
+       pthread_barrierattr_setpshared() does not refer to an initialized
+       barrier attributes object.

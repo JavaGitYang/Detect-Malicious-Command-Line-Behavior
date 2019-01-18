@@ -1,0 +1,11 @@
+
+       The positional parameters shall be shifted. Positional parameter 1
+       shall be assigned the value of parameter (1+n), parameter 2 shall be
+       assigned the value of parameter (2+n), and so on. The parameters
+       represented by the numbers "$#" down to "$#−n+1" shall be unset, and
+       the parameter '#' is updated to reflect the new number of positional
+       parameters.
+       The value n shall be an unsigned decimal integer less than or equal
+       to the value of the special parameter '#'.  If n is not given, it
+       shall be assumed to be 1. If n is 0, the positional and special
+       parameters are not changed.

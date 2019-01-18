@@ -1,0 +1,3 @@
+
+       This function will return the time this Certificate was or will be
+       activated.

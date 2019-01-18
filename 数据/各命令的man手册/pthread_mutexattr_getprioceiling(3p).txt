@@ -1,0 +1,21 @@
+
+       The pthread_mutexattr_getprioceiling() and
+       pthread_mutexattr_setprioceiling() functions, respectively, shall get
+       and set the priority ceiling attribute of a mutex attributes object
+       pointed to by attr which was previously created by the function
+       pthread_mutexattr_init().
+       The prioceiling attribute contains the priority ceiling of
+       initialized mutexes. The values of prioceiling are within the maximum
+       range of priorities defined by SCHED_FIFO.
+       The prioceiling attribute defines the priority ceiling of initialized
+       mutexes, which is the minimum priority level at which the critical
+       section guarded by the mutex is executed. In order to avoid priority
+       inversion, the priority ceiling of the mutex shall be set to a
+       priority higher than or equal to the highest priority of all the
+       threads that may lock that mutex. The values of prioceiling are
+       within the maximum range of priorities defined under the SCHED_FIFO
+       scheduling policy.
+       The behavior is undefined if the value specified by the attr argument
+       to pthread_mutexattr_getprioceiling() or
+       pthread_mutexattr_setprioceiling() does not refer to an initialized
+       mutex attributes object.

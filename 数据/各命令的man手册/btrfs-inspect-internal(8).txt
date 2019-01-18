@@ -1,0 +1,5 @@
+
+       This command group provides an interface to query internal
+       information. The functionality ranges from a simple UI to an ioctl or
+       a more complex query that assembles the result from several internal
+       structures. The latter usually requires calls to privileged ioctls.

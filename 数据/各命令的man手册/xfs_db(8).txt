@@ -1,0 +1,5 @@
+
+       xfs_db is used to examine an XFS filesystem. Under rare circumstances
+       it can also be used to modify an XFS filesystem, but that task is
+       normally left to xfs_repair(8) or to scripts such as xfs_admin(8)
+       that run xfs_db.

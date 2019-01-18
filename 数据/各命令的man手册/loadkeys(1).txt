@@ -1,0 +1,5 @@
+
+       The program loadkeys reads the file or files specified by
+       filename....  Its main purpose is to load the kernel keymap for the
+       console.  You can specify console device by the -C (or --console )
+       option.

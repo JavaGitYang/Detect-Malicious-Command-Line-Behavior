@@ -1,0 +1,48 @@
+
+       The waitid() function shall suspend the calling thread until one
+       child of the process containing the calling thread changes state. It
+       records the current state of a child in the structure pointed to by
+       infop.  The fields of the structure pointed to by infop are filled in
+       as described for the SIGCHLD signal in <signal.h>.  If a child
+       process changed state prior to the call to waitid(), waitid() shall
+       return immediately. If more than one thread is suspended in wait(),
+       waitid(), or waitpid() waiting for termination of the same process,
+       exactly one thread shall return the process status at the time of the
+       target process termination.
+       The idtype and id arguments are used to specify which children
+       waitid() waits for.
+       If idtype is P_PID, waitid() shall wait for the child with a process
+       ID equal to (pid_t)id.
+       If idtype is P_PGID, waitid() shall wait for any child with a process
+       group ID equal to (pid_t)id.
+       If idtype is P_ALL, waitid() shall wait for any children and id is
+       ignored.
+       The options argument is used to specify which state changes waitid()
+       shall wait for. It is formed by OR'ing together the following flags:
+       WCONTINUED  Status shall be returned for any continued child process
+                   whose status either has not been reported since it
+                   continued from a job control stop or has been reported
+                   only by calls to waitid() with the WNOWAIT flag set.
+       WEXITED     Wait for processes that have exited.
+       WNOHANG     Do not hang if no status is available; return
+                   immediately.
+       WNOWAIT     Keep the process whose status is returned in infop in a
+                   waitable state. This shall not affect the state of the
+                   process; the process may be waited for again after this
+                   call completes.
+       WSTOPPED    Status shall be returned for any child that has stopped
+                   upon receipt of a signal, and whose status either has not
+                   been reported since it stopped or has been reported only
+                   by calls to waitid() with the WNOWAIT flag set.
+       Applications shall specify at least one of the flags WEXITED,
+       WSTOPPED, or WCONTINUED to be OR'ed in with the options argument.
+       The application shall ensure that the infop argument points to a
+       siginfo_t structure. If waitid() returns because a child process was
+       found that satisfied the conditions indicated by the arguments idtype
+       and options, then the structure pointed to by infop shall be filled
+       in by the system with the status of the process; the si_signo member
+       shall be set equal to SIGCHLD.  If waitid() returns because WNOHANG
+       was specified and status is not available for any process specified
+       by idtype and id, then the si_signo and si_pid members of the
+       structure pointed to by infop shall be set to zero and the values of
+       other members of the structure are unspecified.

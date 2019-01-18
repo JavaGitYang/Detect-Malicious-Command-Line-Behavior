@@ -1,0 +1,16 @@
+
+       This manual page describes the setfiles program.
+       This program is primarily used to initialize the security context
+       fields (extended attributes) on one or more filesystems (or parts of
+       them).  Usually it is initially run as part of the SELinux
+       installation process (a step commonly known as labeling).
+       It can also be run at any other time to correct inconsistent labels,
+       to add support for newly-installed policy or, by using the -n option,
+       to passively check whether the file contexts are all set as specified
+       by the active policy (default behavior) or by some other policy (see
+       the -c option).
+       If a file object does not have a context, setfiles will write the
+       default context to the file object's extended attributes. If a file
+       object has a context, setfiles will only modify the type portion of
+       the security context.  The -F option will force a replacement of the
+       entire context.

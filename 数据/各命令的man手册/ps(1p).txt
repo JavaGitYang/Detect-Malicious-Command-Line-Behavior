@@ -1,0 +1,7 @@
+
+       The ps utility shall write information about processes, subject to
+       having appropriate privileges to obtain information about those
+       processes.
+       By default, ps shall select all processes with the same effective
+       user ID as the current user and the same controlling terminal as the
+       invoker.

@@ -1,0 +1,16 @@
+
+       The trace-cmd(1) restore command will restore a crashed
+       trace-cmd-record(1) file. If for some reason a trace-cmd record
+       fails, it will leave a the per-cpu data files and not create the
+       final trace.dat file. The trace-cmd restore will append the files to
+       create a working trace.dat file that can be read with
+       trace-cmd-report(1).
+       When trace-cmd record runs, it spawns off a process per CPU and
+       writes to a per cpu file usually called trace.dat.cpuX, where X
+       represents the CPU number that it is tracing. If the -o option was
+       used in the trace-cmd record, then the CPU data files will have that
+       name instead of the trace.dat name. If a unexpected crash occurs
+       before the tracing is finished, then the per CPU files will still
+       exist but there will not be any trace.dat file to read from.
+       trace-cmd restore will allow you to create a trace.dat file with the
+       existing data files.

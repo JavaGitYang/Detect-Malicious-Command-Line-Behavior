@@ -1,0 +1,4 @@
+
+       This function will find the issuer with the given name and subject
+       key ID, and return a copy of the issuer, which must be freed using
+       gnutls_x509_crt_deinit().

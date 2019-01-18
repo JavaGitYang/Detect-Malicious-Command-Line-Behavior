@@ -1,0 +1,10 @@
+
+       sd_event_get_fd() returns the file descriptor that an event loop
+       object returned by the sd_event_new(3) function uses to wait for
+       events. This file descriptor may itself be polled for POLLIN/EPOLLIN
+       events. This makes it possible to embed an sd-event(3) event loop
+       into another, possibly foreign, event loop.
+       The returned file descriptor refers to an epoll(7) object. It is
+       recommended not to alter it by invoking epoll_ctl(2) on it, in order
+       to avoid interference with the event loop's inner logic and
+       assumptions.

@@ -1,0 +1,7 @@
+
+       Import one or more patches from a different branch or a commit object
+       into the current series. By default, the name of the imported patch
+       is used as the name of the current patch. It can be overridden with
+       the --name option. A commit object can be reverted with the --revert
+       option. The log and author information are those of the commit
+       object.

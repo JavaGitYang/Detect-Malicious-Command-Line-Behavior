@@ -1,0 +1,5 @@
+
+       Usually you would want to use git push, which is a higher-level
+       wrapper of this command, instead. See git-push(1).
+       Invokes git-receive-pack on a possibly remote repository, and updates
+       it from the current repository, sending named refs.

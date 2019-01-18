@@ -1,0 +1,11 @@
+
+       ocount is an OProfile tool that can be used to count native hardware
+       events occurring in either a given application, a set of processes or
+       threads, a subset of active system processors, or the entire system.
+       The data collected during a counting session is displayed to stdout
+       by default or, optionally, to a file.
+       When counting multiple events, the kernel may not be able to count
+       all events simultaneously and, thus, may need to multiplex the
+       counting of the events.  If this happens, the "Percent time enabled"
+       column in the ocount output will be less than 100, but counts are
+       scaled up to a 100% estimated value.

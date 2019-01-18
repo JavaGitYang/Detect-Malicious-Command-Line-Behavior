@@ -1,0 +1,4 @@
+
+       The wcsrchr() function is the wide-character equivalent of the
+       strrchr(3) function.  It searches the last occurrence of wc in the
+       wide-character string pointed to by wcs.

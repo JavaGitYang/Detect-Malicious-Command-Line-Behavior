@@ -1,0 +1,20 @@
+
+       The lttng save command saves the configurations of one or more
+       tracing sessions to files.
+       The lttng save command is used in conjunction with the lttng-load(1)
+       command to save and restore the complete configurations of tracing
+       sessions. This includes the enabled channels and event rules, the
+       context added to channels, the tracing activity, and more. lttng save
+       does not save tracing data, only the tracing session parameters.
+       If SESSION is omitted, all the existing tracing session
+       configurations are saved (equivalent to using the --all option).
+       Otherwise, SESSION is the name of an existing tracing session. lttng
+       list outputs all the existing tracing sessions (see lttng-list(1)).
+       The default output directory path is $LTTNG_HOME/.lttng/sessions
+       ($LTTNG_HOME defaults to $HOME). Each tracing session configuration
+       file is named SESSION.lttng, where SESSION is the original tracing
+       session name. The default output directory path can be overridden
+       with the --output-path option.
+       By default, existing tracing session configuration files are not
+       overwritten when saving; the command fails. The --force option can be
+       used to allow this.

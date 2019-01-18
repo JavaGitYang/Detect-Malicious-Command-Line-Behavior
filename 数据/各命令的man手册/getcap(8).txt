@@ -1,0 +1,2 @@
+
+       getcap displays the name and capabilities of each specified

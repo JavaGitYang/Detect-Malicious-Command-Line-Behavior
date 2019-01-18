@@ -1,0 +1,5 @@
+
+       These functions calculate the complex square root of z, with a branch
+       cut along the negative real axis.  (That means that csqrt(-1+eps*I)
+       will be close to I while csqrt(-1-eps*I) will be close to -I, if eps
+       is a small positive real number.)

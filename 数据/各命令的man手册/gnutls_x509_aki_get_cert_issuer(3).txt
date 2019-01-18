@@ -1,0 +1,5 @@
+
+       This function will return a specific authorityCertIssuer name as
+       stored in the  aki type, as well as the authorityCertSerialNumber.
+       All the returned values should be treated as constant, and may be set
+       to NULL when are not required.

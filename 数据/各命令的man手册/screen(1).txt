@@ -1,0 +1,63 @@
+
+       Screen is a full-screen window manager that multiplexes a physical
+       terminal between several processes (typically interactive shells).
+       Each virtual terminal provides the functions of a DEC VT100 terminal
+       and, in addition, several control functions from the ISO 6429 (ECMA
+       48, ANSI X3.64) and ISO 2022 standards (e.g. insert/delete line and
+       support for multiple character sets).  There is a scrollback history
+       buffer for each virtual terminal and a copy-and-paste mechanism that
+       allows moving text regions between windows.
+       When screen is called, it creates a single window with a shell in it
+       (or the specified command) and then gets out of your way so that you
+       can use the program as you normally would.  Then, at any time, you
+       can create new (full-screen) windows with other programs in them
+       (including more shells), kill existing windows, view a list of
+       windows, turn output logging on and off, copy-and-paste text between
+       windows, view the scrollback history, switch between windows in
+       whatever manner you wish, etc. All windows run their programs
+       completely independent of each other. Programs continue to run when
+       their window is currently not visible and even when the whole screen
+       session is detached from the user's terminal.  When a program
+       terminates, screen (per default) kills the window that contained it.
+       If this window was in the foreground, the display switches to the
+       previous window; if none are left, screen exits. Shells usually
+       distinguish between running as login-shell or sub-shell.  Screen runs
+       them as sub-shells, unless told otherwise (See "shell" .screenrc
+       command).
+       Everything you type is sent to the program running in the current
+       window.  The only exception to this is the one keystroke that is used
+       to initiate a command to the window manager.  By default, each
+       command begins with a control-a (abbreviated C-a from now on), and is
+       followed by one other keystroke.  The command character and all the
+       key bindings can be fully customized to be anything you like, though
+       they are always two characters in length.
+       Screen does not understand the prefix "C-" to mean control, although
+       this notation is used in this manual for readability.  Please use the
+       caret notation ("^A" instead of "C-a") as arguments to e.g. the
+       escape command or the -e option.  Screen will also print out control
+       characters in caret notation.
+       The standard way to create a new window is to type "C-a c".  This
+       creates a new window running a shell and switches to that window
+       immediately, regardless of the state of the process running in the
+       current window.  Similarly, you can create a new window with a custom
+       command in it by first binding the command to a keystroke (in your
+       .screenrc file or at the "C-a :" command line) and then using it just
+       like the "C-a c" command.  In addition, new windows can be created by
+       running a command like:
+              screen emacs prog.c
+       from a shell prompt within a previously created window.  This will
+       not run another copy of screen, but will instead supply the command
+       name and its arguments to the window manager (specified in the $STY
+       environment variable) who will use it to create the new window.  The
+       above example would start the emacs editor (editing prog.c) and
+       switch to its window. - Note that you cannot transport environment
+       variables from the invoking shell to the application (emacs in this
+       case), because it is forked from the parent screen process, not from
+       the invoking shell.
+       If "/etc/utmp" is writable by screen, an appropriate record will be
+       written to this file for each window, and removed when the window is
+       terminated.  This is useful for working with "talk", "script",
+       "shutdown", "rsend", "sccs" and other similar programs that use the
+       utmp file to determine who you are. As long as screen is active on
+       your terminal, the terminal's own record is removed from the utmp
+       file. See also "C-a L".

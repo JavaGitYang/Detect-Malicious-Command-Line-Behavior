@@ -1,0 +1,14 @@
+
+       sd_bus_process() drives the connection between the message bus and
+       the client. That is, it handles connecting, authentication, and
+       message processing. It should be called in a loop until no further
+       progress can be made or an error occurs.
+       Once no further progress can be made, sd_bus_wait(3) should be
+       called. Alternatively the user can wait for incoming data on the file
+       descriptor returned by sd_bus_get_fd(3).
+       sd_bus_process processes at most one incoming message per call. If
+       the parameter r is not NULL and the call processed a message, *r is
+       set to this message. The caller owns a reference to this message and
+       should call sd_bus_message_unref(3) when the message is no longer
+       needed. If r is not NULL, progress was made, but no message was
+       processed, *r is set to NULL.

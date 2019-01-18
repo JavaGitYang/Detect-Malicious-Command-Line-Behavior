@@ -1,0 +1,6 @@
+
+       This is a helper function to generate the keying material for SRTP.
+       It requires the space of the key material to be pre-allocated (should
+       be at least 2x the maximum key size and salt size). The  client_key ,
+       client_salt ,  server_key and  server_salt are convenience datums
+       that point inside the key material. They may be NULL.

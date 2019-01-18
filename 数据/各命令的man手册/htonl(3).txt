@@ -1,0 +1,12 @@
+
+       The htonl() function converts the unsigned integer hostlong from host
+       byte order to network byte order.
+       The htons() function converts the unsigned short integer hostshort
+       from host byte order to network byte order.
+       The ntohl() function converts the unsigned integer netlong from
+       network byte order to host byte order.
+       The ntohs() function converts the unsigned short integer netshort
+       from network byte order to host byte order.
+       On the i386 the host byte order is Least Significant Byte first,
+       whereas the network byte order, as used on the Internet, is Most
+       Significant Byte first.

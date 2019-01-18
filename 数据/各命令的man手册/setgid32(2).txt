@@ -1,0 +1,10 @@
+
+       setgid() sets the effective group ID of the calling process.  If the
+       calling process is privileged (more precisely: has the CAP_SETGID
+       capability in its user namespace), the real GID and saved set-group-
+       ID are also set.
+       Under Linux, setgid() is implemented like the POSIX version with the
+       _POSIX_SAVED_IDS feature.  This allows a set-group-ID program that is
+       not set-user-ID-root to drop all of its group privileges, do some un-
+       privileged work, and then reengage the original effective group ID in
+       a secure manner.

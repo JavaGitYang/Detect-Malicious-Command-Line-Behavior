@@ -1,0 +1,11 @@
+
+       These functions return a representation (determined by tagp) of a
+       quiet NaN.  If the implementation does not support quiet NaNs, these
+       functions return zero.
+       The call nan("char-sequence") is equivalent to:
+           strtod("NAN(char-sequence)", NULL);
+       Similarly, calls to nanf() and nanl() are equivalent to analogous
+       calls to strtof(3) and strtold(3).
+       The argument tagp is used in an unspecified manner.  On IEEE 754 sys‐
+       tems, there are many representations of NaN, and tagp selects one.
+       On other systems it may do nothing.

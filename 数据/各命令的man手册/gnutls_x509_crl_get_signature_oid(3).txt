@@ -1,0 +1,5 @@
+
+       This function will return the OID of the signature algorithm that has
+       been used to sign this CRL. This is function is useful in the case
+       gnutls_x509_crl_get_signature_algorithm() returned
+       GNUTLS_SIGN_UNKNOWN.

@@ -1,0 +1,4 @@
+
+       This function will set the CRL's number extension. This is to be used
+       as a unique and monotonic number assigned to the CRL by the
+       authority.

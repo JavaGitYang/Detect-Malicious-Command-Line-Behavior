@@ -1,0 +1,60 @@
+
+       The VSOCK address family facilitates communication between virtual
+       machines and the host they are running on.  This address family is
+       used by guest agents and hypervisor services that need a
+       communications channel that is independent of virtual machine network
+       configuration.
+       Valid socket types are SOCK_STREAM and SOCK_DGRAM.  SOCK_STREAM
+       provides connection-oriented byte streams with guaranteed, in-order
+       delivery.  SOCK_DGRAM provides a connectionless datagram packet
+       service with best-effort delivery and best-effort ordering.
+       Availability of these socket types is dependent on the underlying
+       hypervisor.
+       A new socket is created with
+           socket(AF_VSOCK, socket_type, 0);
+       When a process wants to establish a connection, it calls connect(2)
+       with a given destination socket address.  The socket is automatically
+       bound to a free port if unbound.
+       A process can listen for incoming connections by first binding to a
+       socket address using bind(2) and then calling listen(2).
+       Data is transmitted using the send(2) or write(2) families of system
+       calls and data is received using the recv(2) or read(2) families of
+       system calls.
+   Address format
+       A socket address is defined as a combination of a 32-bit Context
+       Identifier (CID) and a 32-bit port number.  The CID identifies the
+       source or destination, which is either a virtual machine or the host.
+       The port number differentiates between multiple services running on a
+       single machine.
+           struct sockaddr_vm {
+               sa_family_t    svm_family;     /* Address family: AF_VSOCK */
+               unsigned short svm_reserved1;
+               unsigned int   svm_port;       /* Port # in host byte order */
+               unsigned int   svm_cid;        /* Address in host byte order */
+           };
+       svm_family is always set to AF_VSOCK.  svm_reserved1 is always set to
+       0.  svm_port contains the port number in host byte order.  The port
+       numbers below 1024 are called privileged ports.  Only a process with
+       the CAP_NET_BIND_SERVICE capability may bind(2) to these port num‐
+       bers.
+       There are several special addresses: VMADDR_CID_ANY (-1U) means any
+       address for binding; VMADDR_CID_HYPERVISOR (0) is reserved for ser‐
+       vices built into the hypervisor; VMADDR_CID_RESERVED (1) must not be
+       used; VMADDR_CID_HOST (2) is the well-known address of the host.
+       The special constant VMADDR_PORT_ANY (-1U) means any port number for
+       binding.
+   Live migration
+       Sockets are affected by live migration of virtual machines.  Con‐
+       nected SOCK_STREAM sockets become disconnected when the virtual
+       machine migrates to a new host.  Applications must reconnect when
+       this happens.
+       The local CID may change across live migration if the old CID is not
+       available on the new host.  Bound sockets are automatically updated
+       to the new CID.
+   Ioctls
+       IOCTL_VM_SOCKETS_GET_LOCAL_CID
+              Get the CID of the local machine.  The argument is a pointer
+              to an unsigned int.
+                  ioctl(socket, IOCTL_VM_SOCKETS_GET_LOCAL_CID, &cid);
+              Consider using VMADDR_CID_ANY when binding instead of getting
+              the local CID with IOCTL_VM_SOCKETS_GET_LOCAL_CID.

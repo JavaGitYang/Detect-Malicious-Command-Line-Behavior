@@ -1,0 +1,5 @@
+
+       dumpe2fs prints the super block and blocks group information for the
+       filesystem present on device.
+       Note: When used with a mounted filesystem, the printed information
+       may be old or inconsistent.

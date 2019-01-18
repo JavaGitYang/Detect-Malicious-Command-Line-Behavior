@@ -1,0 +1,3 @@
+
+       The library supports the Intel Skylake X server system configuration
+       unit M2M uncore PMU.

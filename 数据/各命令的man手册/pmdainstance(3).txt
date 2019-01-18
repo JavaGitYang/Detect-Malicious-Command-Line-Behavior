@@ -1,0 +1,20 @@
+
+       pmdaInstance uses the standard PMDA(3) data structures to return
+       information concerning the instance domain indom.
+       The result structure is constructed by pmdaInstance and will contain
+       one or more instance names and/or identifiers as specified by the
+       inst and name arguments.
+       If inst has the value PM_IN_NULL and name is a null string, result
+       will contain all the instances names and identifiers in the instance
+       domain.
+       If inst is PM_IN_NULL but name is the name of an instance in the
+       instance domain indom, then result will contain the instance
+       identifier for instance name.  Note that if name contains no spaces,
+       partial matching up to the first space in the instance name is
+       performed, i.e.  ``1'' will match instance name ``1 minute''.  If
+       name contains an embedded space, then no partial matching is
+       performed and name should match one of the instance names exactly.
+       If name is a null string but inst is an instance identifier in the
+       instance domain indom, then result will contain the name for instance
+       inst.  The result structure is allocated with malloc(3) and should be
+       released by the caller with free(3).

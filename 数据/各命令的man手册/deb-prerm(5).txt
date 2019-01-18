@@ -1,0 +1,17 @@
+
+       A package can perform several pre-removal actions via maintainer
+       scripts, by including an executable prerm file in its control archive
+       (i.e. DEBIAN/prerm during package creation).
+       The script can be called in the following ways:
+       prerm remove
+              Before the package is removed.
+       old-prerm upgrade new-version
+              Before an upgrade.
+       new-prerm failed-upgrade old-version new-version
+              If the above upgrade fails.
+       prerm deconfigure in-favour new-package new-version
+           [ removing old-package old-version ]
+              Before package is deconfigured while dependency is replaced
+              due to conflict.
+       prerm remove in-favour new-package new-version
+              Before the package is replaced due to conflict.

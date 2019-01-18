@@ -1,0 +1,3 @@
+
+       The bcopy() function copies n bytes from src to dest.  The result is
+       correct, even when both areas overlap.

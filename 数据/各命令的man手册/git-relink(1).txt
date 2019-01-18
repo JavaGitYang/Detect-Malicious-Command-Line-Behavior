@@ -1,0 +1,5 @@
+
+       This will scan 1 or more object repositories and look for objects in
+       common with a master repository. Objects not already hardlinked to
+       the master repository will be replaced with a hardlink to the master
+       repository.

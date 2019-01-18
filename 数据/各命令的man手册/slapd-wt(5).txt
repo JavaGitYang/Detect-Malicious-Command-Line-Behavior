@@ -1,0 +1,7 @@
+
+       The wt backend to slapd(8) uses WiredTiger database library to store
+       data.
+       The wt backend is experimental module that have potential high write
+       performance and high concurrency performance.  This backend have not
+       some basic feature yet. Please backup data using slapcat before
+       update the module.

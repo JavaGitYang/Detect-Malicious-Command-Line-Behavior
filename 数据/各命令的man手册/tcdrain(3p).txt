@@ -1,0 +1,10 @@
+
+       The tcdrain() function shall block until all output written to the
+       object referred to by fildes is transmitted. The fildes argument is
+       an open file descriptor associated with a terminal.
+       Any attempts to use tcdrain() from a process which is a member of a
+       background process group on a fildes associated with its controlling
+       terminal, shall cause the process group to be sent a SIGTTOU signal.
+       If the calling thread is blocking SIGTTOU signals or the process is
+       ignoring SIGTTOU signals, the process shall be allowed to perform the
+       operation, and no signal is sent.

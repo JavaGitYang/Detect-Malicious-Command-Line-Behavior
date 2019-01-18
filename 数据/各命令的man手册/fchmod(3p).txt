@@ -1,0 +1,13 @@
+
+       The fchmod() function shall be equivalent to chmod() except that the
+       file whose permissions are changed is specified by the file
+       descriptor fildes.
+       If fildes references a shared memory object, the fchmod() function
+       need only affect the S_IRUSR, S_IWUSR, S_IRGRP, S_IWGRP, S_IROTH, and
+       S_IWOTH file permission bits.
+       If fildes references a typed memory object, the behavior of fchmod()
+       is unspecified.
+       If fildes refers to a socket, the behavior of fchmod() is
+       unspecified.
+       If fildes refers to a STREAM (which is fattach()-ed into the file
+       system name space) the call returns successfully, doing nothing.

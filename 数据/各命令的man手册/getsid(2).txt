@@ -1,0 +1,4 @@
+
+       getsid(0) returns the session ID of the calling process.  getsid()
+       returns the session ID of the process with process ID pid.  If pid is
+       0, getsid() returns the session ID of the calling process.

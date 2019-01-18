@@ -1,0 +1,29 @@
+
+       The pthread_barrier_destroy() function shall destroy the barrier
+       referenced by barrier and release any resources used by the barrier.
+       The effect of subsequent use of the barrier is undefined until the
+       barrier is reinitialized by another call to pthread_barrier_init().
+       An implementation may use this function to set barrier to an invalid
+       value. The results are undefined if pthread_barrier_destroy() is
+       called when any thread is blocked on the barrier, or if this function
+       is called with an uninitialized barrier.
+       The pthread_barrier_init() function shall allocate any resources
+       required to use the barrier referenced by barrier and shall
+       initialize the barrier with attributes referenced by attr.  If attr
+       is NULL, the default barrier attributes shall be used; the effect is
+       the same as passing the address of a default barrier attributes
+       object. The results are undefined if pthread_barrier_init() is called
+       when any thread is blocked on the barrier (that is, has not returned
+       from the pthread_barrier_wait() call). The results are undefined if a
+       barrier is used without first being initialized. The results are
+       undefined if pthread_barrier_init() is called specifying an already
+       initialized barrier.
+       The count argument specifies the number of threads that must call
+       pthread_barrier_wait() before any of them successfully return from
+       the call. The value specified by count must be greater than zero.
+       If the pthread_barrier_init() function fails, the barrier shall not
+       be initialized and the contents of barrier are undefined.
+       Only the object referenced by barrier may be used for performing
+       synchronization. The result of referring to copies of that object in
+       calls to pthread_barrier_destroy() or pthread_barrier_wait() is
+       undefined.

@@ -1,0 +1,19 @@
+
+       babeltrace is an open-source trace converter and processor. The tool
+       can convert from one trace format to another, possibly with one or
+       more filters in the conversion path, and perform other operations
+       depending on the command CMD.
+       See babeltrace-intro(7) to learn more about the Babeltrace project
+       and its core concepts.
+       Most of the babeltrace commands load Babeltrace plugins to perform
+       their operation. The search path for Babeltrace plugins is, in this
+       order:
+        1. The colon-separated list of directories in the
+           BABELTRACE_PLUGIN_PATH environment variable.
+        2. The colon-separated list of directories in the specific command’s
+           --plugin-path option.
+        3. $HOME/.local/lib/babeltrace/plugins
+        4. /usr/local/lib/babeltrace/plugins
+       You can use the babeltrace-list-plugins(1) command to dynamically
+       list the available plugins and what they offer. See PLUGINS for a
+       list of plugins shipped with Babeltrace.

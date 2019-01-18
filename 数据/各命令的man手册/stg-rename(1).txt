@@ -1,0 +1,3 @@
+
+       Rename <oldpatch> into <newpatch> in a series. If <oldpatch> is not
+       given, the top-most patch will be renamed.

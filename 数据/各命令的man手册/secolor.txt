@@ -1,0 +1,8 @@
+
+       This optional file controls the color to be associated to the context
+       components associated to the raw context passed by
+       selinux_raw_context_to_color(3), when context related information is
+       to be displayed in color by an SELinux-aware application.
+       selinux_raw_context_to_color(3) obtains this color information from
+       the active policy secolor.conf file as returned by
+       selinux_colors_path(3).

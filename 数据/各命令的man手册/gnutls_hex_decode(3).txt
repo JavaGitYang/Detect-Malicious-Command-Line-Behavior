@@ -1,0 +1,5 @@
+
+       This function will decode the given encoded data, using the hex
+       encoding used by PSK password files.
+       Initially  result_size must hold the maximum size available in
+        result , and on return it will contain the number of bytes written.

@@ -1,0 +1,2 @@
+
+       Convert a gnutls_cipher_algorithm_t type to a string.

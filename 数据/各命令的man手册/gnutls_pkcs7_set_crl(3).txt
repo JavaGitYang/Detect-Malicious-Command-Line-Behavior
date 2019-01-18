@@ -1,0 +1,2 @@
+
+       This function will add a parsed CRL to the PKCS7 or RFC2630 crl set.

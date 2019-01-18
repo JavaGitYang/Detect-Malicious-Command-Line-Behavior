@@ -1,0 +1,23 @@
+
+       To send a message to a batch job is to request that a server write a
+       message string into one or more output files of the batch job. A
+       message is sent to a batch job by a request to the batch server that
+       manages the batch job. The qmsg utility is a user-accessible batch
+       client that requests the sending of messages to one or more batch
+       jobs.
+       The qmsg utility shall write messages into the files of batch jobs by
+       sending a Job Message Request to the batch server that manages the
+       batch job. The qmsg utility shall not directly write the message into
+       the files of the batch job.
+       The qmsg utility shall send a Job Message Request for those batch
+       jobs, and only those batch jobs, for which a batch job_identifier is
+       presented to the utility.
+       The qmsg utility shall send Job Message Requests for batch jobs in
+       the order in which their batch job_identifiers are presented to the
+       utility.
+       If the qmsg utility fails to process any batch job_identifier
+       successfully, the utility shall proceed to process the remaining
+       batch job_identifiers, if any.
+       The qmsg utility shall not exit before a Job Message Request has been
+       sent to the server that manages the batch job that corresponds to
+       each successfully processed batch job_identifier.

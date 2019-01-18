@@ -1,0 +1,8 @@
+
+     The acl_set_permset() function sets the permission set of the ACL entry
+     indicated by the argument entry_d to the permissions contained in the
+     argument permset_d.
+     Any ACL entry descriptors that refer to the entry containing the per‐
+     mission set referred to by permset_d shall continue to refer to those
+     entries. Any ACL entry descriptors that refer to the entry referred to
+     by entry_d shall continue to refer to that entry.

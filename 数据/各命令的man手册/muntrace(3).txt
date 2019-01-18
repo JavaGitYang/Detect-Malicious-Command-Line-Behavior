@@ -1,0 +1,19 @@
+
+       The mtrace() function installs hook functions for the memory-
+       allocation functions (malloc(3), realloc(3) memalign(3), free(3)).
+       These hook functions record tracing information about memory
+       allocation and deallocation.  The tracing information can be used to
+       discover memory leaks and attempts to free nonallocated memory in a
+       program.
+       The muntrace() function disables the hook functions installed by
+       mtrace(), so that tracing information is no longer recorded for the
+       memory-allocation functions.  If no hook functions were successfully
+       installed by mtrace(), muntrace() does nothing.
+       When mtrace() is called, it checks the value of the environment
+       variable MALLOC_TRACE, which should contain the pathname of a file in
+       which the tracing information is to be recorded.  If the pathname is
+       successfully opened, it is truncated to zero length.
+       If MALLOC_TRACE is not set, or the pathname it specifies is invalid
+       or not writable, then no hook functions are installed, and mtrace()
+       has no effect.  In set-user-ID and set-group-ID programs,
+       MALLOC_TRACE is ignored, and mtrace() has no effect.

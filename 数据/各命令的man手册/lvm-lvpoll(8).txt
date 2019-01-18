@@ -1,0 +1,5 @@
+
+       lvm lvpoll is an internal command used by lvmpolld(8) to monitor and
+       complete lvconvert(8) and pvmove(8) operations. lvpoll itself does
+       not initiate these operations and should not normally need to be run
+       directly.

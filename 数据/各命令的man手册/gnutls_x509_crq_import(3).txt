@@ -1,0 +1,6 @@
+
+       This function will convert the given DER or PEM encoded certificate
+       request to a gnutls_x509_crq_t type.  The output will be stored in
+       crq .
+       If the Certificate is PEM encoded it should have a header of "NEW
+       CERTIFICATE REQUEST".

@@ -1,0 +1,17 @@
+
+       The lttng disable-event command disables one or more event rules
+       previously enabled by the lttng-enable-event(1) command.
+       Event rules are always assigned to a channel when they are created.
+       If the --channel option is omitted, the default channel named
+       channel0 is used.
+       If the --session option is omitted, the chosen channel is picked from
+       the current tracing session.
+       If the --all-events option is used, all the existing event rules of
+       the chosen domain are disabled. Otherwise, at least one event rule to
+       disable named EVENT must be specified.
+       With the --kernel option, the event source type can be specified
+       using one of the --tracepoint, --probe, --function, or --syscall
+       options. See lttng-enable-event(1) for more details about event
+       source types.
+       Events can be disabled while tracing is active (use lttng-start(1) to
+       make a tracing session active).

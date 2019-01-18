@@ -1,0 +1,9 @@
+
+       This function will return the data embedded in the signature of the
+       PKCS7 structure. If no data are available then
+       GNUTLS_E_REQUESTED_DATA_NOT_AVAILABLE will be returned.
+       The returned data must be de-allocated using gnutls_free().
+       Note, that this function returns the exact same data that are
+       authenticated. If the GNUTLS_PKCS7_EDATA_GET_RAW flag is provided,
+       the returned data will be including the wrapping tag/value as they
+       are encoded in the structure.

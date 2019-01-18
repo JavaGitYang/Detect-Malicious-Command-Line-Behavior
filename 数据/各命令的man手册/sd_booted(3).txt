@@ -1,0 +1,3 @@
+
+       sd_booted() checks whether the system was booted up using the systemd
+       init system.

@@ -1,0 +1,10 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The isfinite() macro shall determine whether its argument has a
+       finite value (zero, subnormal, or normal, and not infinite or NaN).
+       First, an argument represented in a format wider than its semantic
+       type is converted to its semantic type. Then determination is based
+       on the type of the argument.

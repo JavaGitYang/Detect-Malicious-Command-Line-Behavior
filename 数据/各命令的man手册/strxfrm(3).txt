@@ -1,0 +1,8 @@
+
+       The strxfrm() function transforms the src string into a form such
+       that the result of strcmp(3) on two strings that have been
+       transformed with strxfrm() is the same as the result of strcoll(3) on
+       the two strings before their transformation.  The first n bytes of
+       the transformed string are placed in dest.  The transformation is
+       based on the program's current locale for category LC_COLLATE.  (See
+       setlocale(3)).

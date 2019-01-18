@@ -1,0 +1,20 @@
+
+       These routine have been deprecated and may be removed in a future
+       Performance Co-Pilot (PCP) release.  Please refer to pmSetDebug(3)
+       and pmClearDebug(3) for replacement functionality.
+       __pmParseDebug parses spec assuming it to be a comma separated list
+       of PCP debug flags.
+       Each flag may be specified as an integer or the trailing portion of
+       the symbolic name of the corresponding flag as reported by pmdbg(1).
+       Symbolic names are stripped of the ``DBG_TRACE_'' prefix and may
+       appear in either case.
+       As a special case, the values ``-1'' and ``ALL'' are treated as
+       synonyms for turning on all bits except the sign bit in the result,
+       i.e. INT_MAX from <limits.h>.
+       For example the debug option fetch is defined in the output from
+       pmdbg(3) with the -L option and may be specified in spec as 2, FETCH
+       or fetch.
+       __pmSetDebugBits may be used to set the bit-fields directly using the
+       encoding in value.  The effect is additive, so consecutive calls to
+       __pmSetDebugBits will set the conjunction of the bits in the value
+       arguments.  To clear the bit-fields, see pmClearDebug(3).

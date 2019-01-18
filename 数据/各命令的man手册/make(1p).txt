@@ -1,0 +1,27 @@
+
+       The make utility shall update files that are derived from other
+       files. A typical case is one where object files are derived from the
+       corresponding source files. The make utility examines time
+       relationships and shall update those derived files (called targets)
+       that have modified times earlier than the modified times of the files
+       (called prerequisites) from which they are derived.  A description
+       file (makefile) contains a description of the relationships between
+       files, and the commands that need to be executed to update the
+       targets to reflect changes in their prerequisites. Each
+       specification, or rule, shall consist of a target, optional
+       prerequisites, and optional commands to be executed when a
+       prerequisite is newer than the target. There are two types of rule:
+        1. Inference rules, which have one target name with at least one
+           <period> ('.')  and no <slash> ('/')
+        2. Target rules, which can have more than one target name
+       In addition, make shall have a collection of built-in macros and
+       inference rules that infer prerequisite relationships to simplify
+       maintenance of programs.
+       To receive exactly the behavior described in this section, the user
+       shall ensure that a portable makefile shall:
+        *  Include the special target .POSIX
+        *  Omit any special target reserved for implementations (a leading
+           period followed by uppercase letters) that has not been specified
+           by this section
+       The behavior of make is unspecified if either or both of these
+       conditions are not met.

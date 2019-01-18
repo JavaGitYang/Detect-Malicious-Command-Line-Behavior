@@ -1,0 +1,5 @@
+
+       pam_rootok is a PAM module that authenticates the user if their UID
+       is 0. Applications that are created setuid-root generally retain the
+       UID of the user but run with the authority of an enhanced
+       effective-UID. It is the real UID that is checked.

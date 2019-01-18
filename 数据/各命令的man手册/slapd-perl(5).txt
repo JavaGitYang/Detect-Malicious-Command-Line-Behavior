@@ -1,0 +1,75 @@
+
+       The Perl backend to slapd(8) works by embedding a perl(1) interpreter
+       into slapd(8).  Any perl database section of the configuration file
+       slapd.conf(5) must then specify what Perl module to use.  Slapd then
+       creates a new Perl object that handles all the requests for that
+       particular instance of the backend.
+       You will need to create a method for each one of the following
+       actions:
+         * new        # creates a new object,
+         * search     # performs the ldap search,
+         * compare    # does a compare,
+         * modify     # modifies an entry,
+         * add        # adds an entry to backend,
+         * modrdn     # modifies an entry's rdn,
+         * delete     # deletes an ldap entry,
+         * config     # module-specific config directives,
+         * init       # called after backend is initialized.
+       Unless otherwise specified, the methods return the result code which
+       will be returned to the client.  Unimplemented actions can just
+       return unwillingToPerform (53).
+       new    This method is called when the configuration file encounters a
+              perlmod line.  The module in that line is then effectively
+              `use'd into the perl interpreter, then the new method is
+              called to create a new object.  Note that multiple instances
+              of that object may be instantiated, as with any perl object.
+              The new method receives the class name as argument.
+       search This method is called when a search request comes from a
+              client.  It arguments are as follows:
+                * object reference
+                * base DN
+                * scope
+                * alias dereferencing policy
+                * size limit
+                * time limit
+                * filter string
+                * attributes only flag (1 for yes)
+                * list of attributes to return (may be empty)
+       Return value: (resultcode, ldif-entry, ldif-entry, ...)
+       compare
+              This method is called when a compare request comes from a
+              client.  Its arguments are as follows.
+                * object reference
+                * dn
+                * attribute assertion string
+       modify This method is called when a modify request comes from a
+              client.  Its arguments are as follows.
+                * object reference
+                * dn
+                * a list formatted as follows
+                  ({ "ADD" | "DELETE" | "REPLACE" },
+                   attributetype, value...)...
+       add    This method is called when a add request comes from a client.
+              Its arguments are as follows.
+                * object reference
+                * entry in string format
+       modrdn This method is called when a modrdn request comes from a
+              client.  Its arguments are as follows.
+                * object reference
+                * dn
+                * new rdn
+                * delete old dn flag (1 means yes)
+       delete This method is called when a delete request comes from a
+              client.  Its arguments are as follows.
+                * object reference
+                * dn
+       config This method is called once for each perlModuleConfig line in
+              the slapd.conf(5) configuration file.  Its arguments are as
+              follows.
+                * object reference
+                * array of arguments on line
+       Return value: nonzero if this is not a valid option.
+       init   This method is called after backend is initialized.  Its
+              argument is as follows.
+                * object reference
+       Return value: nonzero if initialization failed.

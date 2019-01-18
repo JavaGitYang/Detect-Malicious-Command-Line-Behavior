@@ -1,0 +1,25 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The fclose() function shall cause the stream pointed to by stream to
+       be flushed and the associated file to be closed. Any unwritten
+       buffered data for the stream shall be written to the file; any unread
+       buffered data shall be discarded. Whether or not the call succeeds,
+       the stream shall be disassociated from the file and any buffer set by
+       the setbuf() or setvbuf() function shall be disassociated from the
+       stream. If the associated buffer was automatically allocated, it
+       shall be deallocated.
+       If the file is not already at EOF, and the file is one capable of
+       seeking, the file offset of the underlying open file description
+       shall be set to the file position of the stream if the stream is the
+       active handle to the underlying file description.
+       The fclose() function shall mark for update the last data
+       modification and last file status change timestamps of the underlying
+       file, if the stream was writable, and if buffered data remains that
+       has not yet been written to the file. The fclose() function shall
+       perform the equivalent of a close() on the file descriptor that is
+       associated with the stream pointed to by stream.
+       After the call to fclose(), any use of stream results in undefined
+       behavior.

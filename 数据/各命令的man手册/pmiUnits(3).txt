@@ -1,0 +1,9 @@
+
+       As part of the Performance Co-Pilot Log Import API (see
+       LOGIMPORT(3)), these routines provide convenience methods (especially
+       for script use) for constructing pmID, pmInDom and pmUnits structures
+       respectively, to be used in subsequent calls to pmiAddMetric(3) and
+       pmiAddInstance(3).
+       Refer to pmLookupDesc(3) for a complete description of the values and
+       semantics of the components of a pmUnits structure, and hence the
+       valid argument values for pmiUnits.

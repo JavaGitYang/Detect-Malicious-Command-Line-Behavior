@@ -1,0 +1,20 @@
+
+       Hooks are programs you can place in a hooks directory to trigger
+       actions at certain points in git’s execution. Hooks that don’t have
+       the executable bit set are ignored.
+       By default the hooks directory is $GIT_DIR/hooks, but that can be
+       changed via the core.hooksPath configuration variable (see
+       git-config(1)).
+       Before Git invokes a hook, it changes its working directory to either
+       $GIT_DIR in a bare repository or the root of the working tree in a
+       non-bare repository. An exception are hooks triggered during a push
+       (pre-receive, update, post-receive, post-update, push-to-checkout)
+       which are always executed in $GIT_DIR.
+       Hooks can get their arguments via the environment, command-line
+       arguments, and stdin. See the documentation for each hook below for
+       details.
+       git init may copy hooks to the new repository, depending on its
+       configuration. See the "TEMPLATE DIRECTORY" section in git-init(1)
+       for details. When the rest of this document refers to "default hooks"
+       it’s talking about the default template shipped with Git.
+       The currently supported hooks are described below.

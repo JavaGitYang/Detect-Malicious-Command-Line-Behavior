@@ -1,0 +1,25 @@
+
+       This manual page documents the GNU version of xargs.  xargs reads
+       items from the standard input, delimited by blanks (which can be
+       protected with double or single quotes or a backslash) or newlines,
+       and executes the command (default is /bin/echo) one or more times
+       with any initial-arguments followed by items read from standard
+       input.  Blank lines on the standard input are ignored.
+       The command line for command is built up until it reaches a system-
+       defined limit (unless the -n and -L options are used).  The specified
+       command will be invoked as many times as necessary to use up the list
+       of input items.  In general, there will be many fewer invocations of
+       command than there were items in the input.  This will normally have
+       significant performance benefits.  Some commands can usefully be
+       executed in parallel too; see the -P option.
+       Because Unix filenames can contain blanks and newlines, this default
+       behaviour is often problematic; filenames containing blanks and/or
+       newlines are incorrectly processed by xargs.  In these situations it
+       is better to use the -0 option, which prevents such problems.   When
+       using this option you will need to ensure that the program which
+       produces the input for xargs also uses a null character as a
+       separator.  If that program is GNU find for example, the -print0
+       option does this for you.
+       If any invocation of the command exits with a status of 255, xargs
+       will stop immediately without reading any further input.  An error
+       message is issued on stderr when this happens.

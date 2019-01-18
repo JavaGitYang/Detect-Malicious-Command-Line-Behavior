@@ -1,0 +1,18 @@
+
+       ausearch_add_item adds an expression to the current audit search
+       expression.  The search conditions can then be used to scan logs,
+       files, or buffers for something of interest.  The expression
+       parameter contains an expression, as specified in
+       ausearch-expression(5).
+       The how parameter determines how this search expression will affect
+       the existing search expression, if one is already defined.  The
+       possible values are:
+              AUSEARCH_RULE_CLEAR
+                     Clear the current search expression, if any, and use
+                     only this search expression.
+              AUSEARCH_RULE_OR
+                     If a search expression E is already configured, replace
+                     it by (E || this_search_expression).
+              AUSEARCH_RULE_AND
+                     If a search expression E is already configured, replace
+                     it by (E && this_search_expression).

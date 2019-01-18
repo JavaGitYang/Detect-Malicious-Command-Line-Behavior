@@ -1,0 +1,82 @@
+
+       pmproxy acts as a protocol proxy for pmcd(1), allowing Performance
+       Co-Pilot (PCP) monitoring clients to connect to one or more pmcd(1)
+       instances via pmproxy.
+       Normally pmproxy is deployed in a firewall domain, or on a ``head''
+       node of a cluster where the IP (Internet Protocol) address of the
+       hosts where pmcd(1) is running may be unknown to the PCP monitoring
+       clients, although the IP address of the host where pmproxy is running
+       is known to these clients.  Similarly, the clients may have network
+       connectivity only to the host where pmproxy is running, while there
+       is network connectivity from that host to the hosts of interest where
+       pmcd(1) is running.
+       The behaviour of the PCP monitoring clients is controlled by either
+       the PMPROXY_HOST environment variable or through the extended
+       hostname specification (see PCPIntro(1) for details).  If neither of
+       these mechanisms is used, clients will make their connections
+       directly to pmcd(1).  If the proxy hostname syntax is used or
+       PMPROXY_HOST is set, then this should be the hostname or IP address
+       of the system where pmproxy is running, and the clients will connect
+       to pmcd(1) indirectly through the protocol proxy services of pmproxy.
+       The options to pmproxy are as follows.
+       -A     Disable service advertisement.  By default, pmproxy will
+              advertise its presence on the network using any available
+              mechanisms (such as Avahi/DNS-SD), assisting remote monitoring
+              tools with finding it.  These mechanisms are disabled with
+              this option.
+       -C dirname
+              Specify the path to the Network Security Services certificate
+              database, for (optional) secure connections.  The default is
+              /etc/pki/nssdb.  Refer also to the -P option.  If it does not
+              already exist, this database can be created using the certutil
+              utility.  This process and other certificate database
+              maintenance information is provided in the PCPIntro(1) manual
+              page and the online PCP tutorials.
+       -f     By default pmproxy is started as a daemon.  The -f option
+              indicates that it should run in the foreground.  This is most
+              useful when trying to diagnose problems with establishing
+              connections.
+       -i ipaddress
+              This option is usually only used on hosts with more than one
+              network interface (very common for firewall and ``head'' node
+              hosts where pmproxy is most likely to be deployed).  If no -i
+              options are specified pmproxy accepts PCP client connections
+              on  any of its host's IP addresses.  The -i option is used to
+              specify explicitly an IP address that PCP client connections
+              should be accepted on.  ipaddress should be in the standard
+              dotted form (e.g. 100.23.45.6).  The -i option may be used
+              multiple times to define a list of IP addresses.  When one or
+              more -i options is specified, attempted connections made on
+              any other IP addresses will be refused.
+       -l logfile
+              By default a log file named pmproxy.log is written in the
+              current directory.  The -l option causes the log file to be
+              written to logfile instead of the default.  If the log file
+              cannot be created or is not writable, output is written to the
+              standard error instead.
+       -L bytes
+              PDUs received by pmproxy from PCP monitoring clients are
+              restricted to a maximum size of 65536 bytes by default to
+              defend against Denial of Service attacks.  The -L option may
+              be used to change the maximum incoming PDU size.
+       -M certname
+              By default, pmproxy will try to use a certificate called PCP
+              Collector certificate in its server role. The -M option allows
+              this to be changed.
+       -P passfile
+              Specify the path to a file containing the Network Security
+              Services certificate database password for (optional) secure
+              connections, and for databases that are password protected.
+              Refer also to the -C option.  When using this option, great
+              care should be exercised to ensure appropriate ownership
+              ("pcp" user, typically) and permissions on this file (0400, so
+              as to be unreadable by any user other than the user running
+              the pmproxy process).
+       -U username
+              Assume the identity of username before starting to accept
+              incoming packets from PCP monitoring clients.
+       -x file
+              Before the pmproxy logfile can be opened, pmproxy may
+              encounter a fatal error which prevents it from starting.  By
+              default, the output describing this error is sent to /dev/tty
+              but it may redirected to file.

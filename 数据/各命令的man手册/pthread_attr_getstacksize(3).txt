@@ -1,0 +1,10 @@
+
+       The pthread_attr_setstacksize() function sets the stack size
+       attribute of the thread attributes object referred to by attr to the
+       value specified in stacksize.
+       The stack size attribute determines the minimum size (in bytes) that
+       will be allocated for threads created using the thread attributes
+       object attr.
+       The pthread_attr_getstacksize() function returns the stack size
+       attribute of the thread attributes object referred to by attr in the
+       buffer pointed to by stacksize.

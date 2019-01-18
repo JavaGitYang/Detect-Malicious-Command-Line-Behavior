@@ -1,0 +1,11 @@
+
+       A QmcMetric object is a container for a single metric and all its
+       values.
+       The QmcMetricValue structure is used to hold the instance index,
+       values and errors of each instance.  In the case of a singular
+       metric, a single QmcMetricValue object is used.
+       A QmcMetric object consists of a list of QmcMetricValue objects,
+       indexes to the descriptors in the metric's QmcGroup and QmcContext
+       and flags to indicate if the instances are explicit or implicit, and
+       if only active metrics are required after QmcMetric::updateIndom is
+       called.

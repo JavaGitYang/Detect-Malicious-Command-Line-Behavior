@@ -1,0 +1,9 @@
+
+       The mesg utility shall control whether other users are allowed to
+       send messages via write, talk, or other utilities to a terminal
+       device. The terminal device affected shall be determined by searching
+       for the first terminal in the sequence of devices associated with
+       standard input, standard output, and standard error, respectively.
+       With no arguments, mesg shall report the current state without
+       changing it. Processes with appropriate privileges may be able to
+       send messages to the terminal independent of the current state.

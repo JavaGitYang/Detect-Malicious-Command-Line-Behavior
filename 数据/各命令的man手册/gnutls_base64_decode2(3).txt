@@ -1,0 +1,4 @@
+
+       This function will decode the given base64 encoded data. The decoded
+       data will be allocated, and stored into result.
+       You should use gnutls_free() to free the returned data.

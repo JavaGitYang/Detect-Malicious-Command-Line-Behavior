@@ -1,0 +1,5 @@
+
+       pmdads389 is a Performance Metrics Domain Agent (PMDA) which extracts
+       live performance data from a running 389 Directory Server instance.
+       See the Red Hat Directory Server Administration Guide for description
+       for each metric.

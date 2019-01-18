@@ -1,0 +1,15 @@
+
+       pmOpenLog reassigns the standard I/O stream oldstream to be
+       associated with the file logname.  If it already exists, logname will
+       be removed and recreated if possible (to ensure correct ownership and
+       permissions from the caller to pmOpenLog).
+       On return, the function value is the new standard I/O stream.  In the
+       event of an error, this will be oldstream unchanged and status will
+       be 0.
+       For success, status is 1, a standard preamble is written to logname
+            Log for progname on hostname started date and time
+       and an atexit(3) handler is installed to write the postscript message
+       to logname
+            Log finished date and time
+       when the processes exits.
+       progname is only used to annotate messages.

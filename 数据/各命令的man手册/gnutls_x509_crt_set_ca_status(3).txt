@@ -1,0 +1,4 @@
+
+       This function will set the basicConstraints certificate extension.
+       Use gnutls_x509_crt_set_basic_constraints() if you want to control
+       the pathLenConstraint field too.

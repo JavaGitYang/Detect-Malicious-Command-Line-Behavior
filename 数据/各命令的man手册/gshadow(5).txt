@@ -1,0 +1,32 @@
+
+       /etc/gshadow contains the shadowed information for group accounts.
+       This file must not be readable by regular users if password security
+       is to be maintained.
+       Each line of this file contains the following colon-separated fields:
+       group name
+           It must be a valid group name, which exist on the system.
+       encrypted password
+           Refer to crypt(3) for details on how this string is interpreted.
+           If the password field contains some string that is not a valid
+           result of crypt(3), for instance ! or *, users will not be able
+           to use a unix password to access the group (but group members do
+           not need the password).
+           The password is used when a user who is not a member of the group
+           wants to gain the permissions of this group (see newgrp(1)).
+           This field may be empty, in which case only the group members can
+           gain the group permissions.
+           A password field which starts with an exclamation mark means that
+           the password is locked. The remaining characters on the line
+           represent the password field before the password was locked.
+           This password supersedes any password specified in /etc/group.
+       administrators
+           It must be a comma-separated list of user names.
+           Administrators can change the password or the members of the
+           group.
+           Administrators also have the same permissions as the members (see
+           below).
+       members
+           It must be a comma-separated list of user names.
+           Members can access the group without being prompted for a
+           password.
+           You should use the same list of users as in /etc/group.

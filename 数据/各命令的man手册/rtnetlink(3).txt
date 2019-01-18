@@ -1,0 +1,18 @@
+
+       All rtnetlink(7) messages consist of a netlink(7) message header and
+       appended attributes.  The attributes should be manipulated only using
+       the macros provided here.
+       RTA_OK(rta, attrlen) returns true if rta points to a valid routing
+       attribute; attrlen is the running length of the attribute buffer.
+       When not true then you must assume there are no more attributes in
+       the message, even if attrlen is nonzero.
+       RTA_DATA(rta) returns a pointer to the start of this attribute's
+       data.
+       RTA_PAYLOAD(rta) returns the length of this attribute's data.
+       RTA_NEXT(rta, attrlen) gets the next attribute after rta.  Calling
+       this macro will update attrlen.  You should use RTA_OK to check the
+       validity of the returned pointer.
+       RTA_LENGTH(len) returns the length which is required for len bytes of
+       data plus the header.
+       RTA_SPACE(len) returns the amount of space which will be needed in a
+       message with len bytes of data.

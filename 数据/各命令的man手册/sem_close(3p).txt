@@ -1,0 +1,15 @@
+
+       The sem_close() function shall indicate that the calling process is
+       finished using the named semaphore indicated by sem.  The effects of
+       calling sem_close() for an unnamed semaphore (one created by
+       sem_init()) are undefined. The sem_close() function shall deallocate
+       (that is, make available for reuse by a subsequent sem_open() by this
+       process) any system resources allocated by the system for use by this
+       process for this semaphore. The effect of subsequent use of the
+       semaphore indicated by sem by this process is undefined. If the
+       semaphore has not been removed with a successful call to
+       sem_unlink(), then sem_close() has no effect on the state of the
+       semaphore. If the sem_unlink() function has been successfully invoked
+       for name after the most recent call to sem_open() with O_CREAT for
+       this semaphore, then when all processes that have opened the
+       semaphore close it, the semaphore is no longer accessible.

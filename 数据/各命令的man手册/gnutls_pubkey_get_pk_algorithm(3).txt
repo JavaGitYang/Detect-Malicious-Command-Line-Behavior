@@ -1,0 +1,4 @@
+
+       This function will return the public key algorithm of a public key
+       and if possible will return a number of bits that indicates the
+       security parameter of the key.

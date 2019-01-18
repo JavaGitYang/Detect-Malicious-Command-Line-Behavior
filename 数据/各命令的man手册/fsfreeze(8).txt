@@ -1,0 +1,15 @@
+
+       fsfreeze suspends or resumes access to a filesystem.
+       fsfreeze halts any new access to the filesystem and creates a stable
+       image on disk.  fsfreeze is intended to be used with hardware RAID
+       devices that support the creation of snapshots.
+       fsfreeze is unnecessary for device-mapper devices.  The device-mapper
+       (and LVM) automatically freezes a filesystem on the device when a
+       snapshot creation is requested.  For more details see the dmsetup(8)
+       man page.
+       The mountpoint argument is the pathname of the directory where the
+       filesystem is mounted.  The filesystem must be mounted to be frozen
+       (see mount(8)).
+       Note that access-time updates are also suspended if the filesystem is
+       mounted with the traditional atime behavior (mount option
+       strictatime, for more details see mount(8)).

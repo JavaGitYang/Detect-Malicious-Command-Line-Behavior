@@ -1,0 +1,23 @@
+
+       __pmParseTime is designed to encapsulate the interpretation of a time
+       point specification in command line switches for use by the PCP
+       client tools.
+       This function expects to be called with the time point specification
+       as string.  If the tool is running against PCP archive(s), you also
+       need to supply the start time of the first (only) archive as
+       logStart, and the end of the last (only) archive as logEnd.  See
+       pmGetArchiveLabel(3) and pmGetArchiveEnd(3) for how to obtain values
+       for these parameters.  If the tool is running against a live feed of
+       performance data, logStart should be the current time (but could be
+       aligned on the next second for example), while logEnd should have its
+       tv_sec component set to INT_MAX.
+       The rslt structure must be allocated before calling __pmParseTime.
+       You also need to set the current PCP reporting time zone to correctly
+       reflect the -z and -Z command line parameters before calling
+       __pmParseTime.  See pmUseZone(3) and friends for information on how
+       this is done.
+       If the conversion is successful, __pmParseTime returns 0, and fills
+       in rslt with the time value defined by the input parameters.  If the
+       argument strings could not be parsed, it returns -1 and a dynamically
+       allocated error message string in errMsg.  Be sure to free(3) this
+       error message string.

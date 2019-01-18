@@ -1,0 +1,4 @@
+
+       The wcschr() function is the wide-character equivalent of the
+       strchr(3) function.  It searches the first occurrence of wc in the
+       wide-character string pointed to by wcs.

@@ -1,0 +1,5 @@
+
+       This function will verify the received message for a valid cookie. If
+       a valid cookie is returned then it should be associated with the
+       session using gnutls_dtls_prestate_set();
+       This function must be called after gnutls_dtls_cookie_send().

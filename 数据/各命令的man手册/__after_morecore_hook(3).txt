@@ -1,0 +1,19 @@
+
+       The GNU C library lets you modify the behavior of malloc(3),
+       realloc(3), and free(3) by specifying appropriate hook functions.
+       You can use these hooks to help you debug programs that use dynamic
+       memory allocation, for example.
+       The variable __malloc_initialize_hook points at a function that is
+       called once when the malloc implementation is initialized.  This is a
+       weak variable, so it can be overridden in the application with a
+       definition like the following:
+           void (*__malloc_initialize_hook)(void) = my_init_hook;
+       Now the function my_init_hook() can do the initialization of all
+       hooks.
+       The four functions pointed to by __malloc_hook, __realloc_hook,
+       __memalign_hook, __free_hook have a prototype like the functions
+       malloc(3), realloc(3), memalign(3), free(3), respectively, except
+       that they have a final argument caller that gives the address of the
+       caller of malloc(3), etc.
+       The variable __after_morecore_hook points at a function that is
+       called each time after sbrk(2) was asked for more memory.

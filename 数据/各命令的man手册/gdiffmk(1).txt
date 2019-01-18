@@ -1,0 +1,10 @@
+
+       gdiffmk compares two groff(1), nroff(1), or troff(1) documents, file1
+       and file2, and creates an output which is file2 with added “margin
+       character” (.mc) commands that indicate the differences.
+       If the output filename is present, the output is written there.  If
+       it is - or absent the output is written to the standard output.
+       If the file1 or file2 argument is - the standard input is read for
+       that input.  Clearly both cannot be -.
+       Note that the output is not necessarily compatible with all macro
+       packages and all preprocessors.  See the BUGS section below.

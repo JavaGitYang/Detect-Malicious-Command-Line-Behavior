@@ -1,0 +1,4 @@
+
+       selinux_getpolicytype() Reads the contents of the /etc/selinux/config
+       file to determine the SELinux policy used on the system, and sets
+       policytype accordingly. Free policytype with free(3).

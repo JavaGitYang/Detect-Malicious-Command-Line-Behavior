@@ -1,0 +1,3 @@
+
+       This is a preprocessor for groff(1).  It allows use of the Chinese
+       European-like language Pinyin into groff(7) files.

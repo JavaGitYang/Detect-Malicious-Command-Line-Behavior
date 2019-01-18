@@ -1,0 +1,6 @@
+
+       The gettimeofday() function shall obtain the current time, expressed
+       as seconds and microseconds since the Epoch, and store it in the
+       timeval structure pointed to by tp.  The resolution of the system
+       clock is unspecified.
+       If tzp is not a null pointer, the behavior is unspecified.

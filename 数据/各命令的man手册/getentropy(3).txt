@@ -1,0 +1,6 @@
+
+       The getentropy() function writes length bytes of high-quality random
+       data to the buffer starting at the location pointed to by buffer.
+       The maximum permitted value for the length argument is 256.
+       A successful call to getentropy() always provides the requested
+       number of bytes of entropy.

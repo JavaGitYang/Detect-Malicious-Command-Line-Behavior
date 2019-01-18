@@ -1,0 +1,325 @@
+
+       Some functionality specific to the XFS filesystem is accessible to
+       applications through platform-specific system call interfaces.  These
+       operations can be divided into two sections - operations that operate
+       on individual files, and operations that operate on the filesystem
+       itself. Care should be taken when issuing xfsctl() calls to ensure
+       the target path and file descriptor (both must be supplied) do indeed
+       represent a file from an XFS filesystem.  The statfs(2) and
+       fstatfs(2) system calls can be used to determine whether or not an
+       arbitrary path or file descriptor belong to an XFS filesystem.  These
+       are not portable however, so the routines platform_test_xfs_fd() and
+       platform_test_xfs_path() provide a platform-independent mechanism.
+   File Operations
+       In order to effect an operation on an individual file, the pathname
+       and descriptor arguments passed to xfsctl identifies the file being
+       operated on.  The final argument described below refers to the final
+       argument of xfsctl.  All of the data structures and macros mentioned
+       below are defined in the <xfs/xfs_fs.h> header file.
+       XFS_IOC_ALLOCSP
+       XFS_IOC_ALLOCSP64
+       XFS_IOC_FREESP
+       XFS_IOC_FREESP64
+              Alter storage space associated with a section of the ordinary
+              file specified.  The section is specified by a variable of
+              type xfs_flock64_t, pointed to by the final argument.  The
+              data type xfs_flock64_t contains the following members:
+              l_whence is 0, 1, or 2 to indicate that the relative offset
+              l_start will be measured from the start of the file, the
+              current position, or the end of the file, respectively (i.e.,
+              l_start is the offset from the position specified in
+              l_whence).  If the offset specified is before the current end
+              of file, any data previously written into this section is no
+              longer accessible.  If the offset specified is beyond the
+              current end of file, the file is grown and filled with zeroes.
+              The l_len field is currently ignored, and should be set to
+              zero.
+              XFS_IOC_ALLOCSP, XFS_IOC_ALLOCSP64, XFS_IOC_FREESP and
+              XFS_IOC_FREESP64 operations are all identical.
+       XFS_IOC_FSSETDM
+              Set the di_dmevmask and di_dmstate fields in an XFS on-disk
+              inode.  The only legitimate values for these fields are those
+              previously returned in the bs_dmevmask and bs_dmstate fields
+              of the bulkstat structure.  The data referred to by the final
+              argument is a struct fsdmidata.  This structure's members are
+              fsd_dmevmask and fsd_dmstate.  The di_dmevmask field is set to
+              the value in fsd_dmevmask.  The di_dmstate field is set to the
+              value in fsd_dmstate.  This command is restricted to root or
+              to processes with device management capabilities.  Its sole
+              purpose is to allow backup and restore programs to restore the
+              aforementioned critical on-disk inode fields.
+       XFS_IOC_DIOINFO
+              Get information required to perform direct I/O on the
+              specified file descriptor.  Direct I/O is performed directly
+              to and from a user's data buffer.  Since the kernel's buffer
+              cache is no longer between the two, the user's data buffer
+              must conform to the same type of constraints as required for
+              accessing a raw disk partition.  The final argument points to
+              a variable of type struct dioattr, which contains the
+              following members: d_mem is the memory alignment requirement
+              of the user's data buffer.  d_miniosz specifies block size,
+              minimum I/O request size, and I/O alignment.  The size of all
+              I/O requests must be a multiple of this amount and the value
+              of the seek pointer at the time of the I/O request must also
+              be an integer multiple of this amount.  d_maxiosz is the
+              maximum I/O request size which can be performed on the file
+              descriptor.  If an I/O request does not meet these
+              constraints, the read(2) or write(2) will fail with EINVAL.
+              All I/O requests are kept consistent with any data brought
+              into the cache with an access through a non-direct I/O file
+              descriptor.
+       XFS_IOC_FSGETXATTR
+              Get additional attributes associated with files in XFS file
+              systems.  The final argument points to a variable of type
+              struct fsxattr, whose fields include: fsx_xflags (extended
+              flag bits), fsx_extsize (nominal extent size in file system
+              blocks), fsx_nextents (number of data extents in the file).  A
+              fsx_extsize value returned indicates that a preferred extent
+              size was previously set on the file, a fsx_extsize of zero
+              indicates that the defaults for that filesystem will be used.
+              A fsx_cowextsize value returned indicates that a preferred
+              copy on write extent size was previously set on the file,
+              whereas a fsx_cowextsize of zero indicates that the defaults
+              for that filesystem will be used.  The current default for
+              fsx_cowextsize is 128 blocks.  Currently the meaningful bits
+              for the fsx_xflags field are:
+              Bit 0 (0x1) - XFS_XFLAG_REALTIME
+                        The file is a realtime file.
+              Bit 1 (0x2) - XFS_XFLAG_PREALLOC
+                        The file has preallocated space.
+              Bit 3 (0x8) - XFS_XFLAG_IMMUTABLE
+                        The file is immutable - it cannot be modified,
+                        deleted or renamed, no link can be created to this
+                        file and no data can be written to the file.  Only
+                        the superuser or a process possessing the
+                        CAP_LINUX_IMMUTABLE capability can set or clear this
+                        flag.
+              Bit 4 (0x10) - XFS_XFLAG_APPEND
+                        The file is append-only - it can only be open in
+                        append mode for writing.  Only the superuser or a
+                        process possessing the CAP_LINUX_IMMUTABLE
+                        capability can set or clear this flag.
+              Bit 5 (0x20) - XFS_XFLAG_SYNC
+                        All writes to the file are synchronous.
+              Bit 6 (0x40) - XFS_XFLAG_NOATIME
+                        When the file is accessed, its atime record is not
+                        modified.
+              Bit 7 (0x80) - XFS_XFLAG_NODUMP
+                        The file should be skipped by backup utilities.
+              Bit 8 (0x100) - XFS_XFLAG_RTINHERIT
+                        Realtime inheritance bit - new files created in the
+                        directory will be automatically realtime, and new
+                        directories created in the directory will inherit
+                        the inheritance bit.
+              Bit 9 (0x200) - XFS_XFLAG_PROJINHERIT
+                        Project inheritance bit - new files and directories
+                        created in the directory will inherit the parents
+                        project ID.  New directories also inherit the
+                        project inheritance bit.
+              Bit 10 (0x400) - XFS_XFLAG_NOSYMLINKS
+                        Can only be set on a directory and disallows
+                        creation of symbolic links in that directory.
+              Bit 11 (0x800) - XFS_XFLAG_EXTSIZE
+                        Extent size bit - if a basic extent size value is
+                        set on the file then the allocator will allocate in
+                        multiples of the set size for this file (see
+                        XFS_IOC_FSSETXATTR below).
+              Bit 12 (0x1000) - XFS_XFLAG_EXTSZINHERIT
+                        Extent size inheritance bit - new files and
+                        directories created in the directory will inherit
+                        the parents basic extent size value (see
+                        XFS_IOC_FSSETXATTR below).  Can only be set on a
+                        directory.
+              Bit 13 (0x2000) - XFS_XFLAG_NODEFRAG
+                        No defragment file bit - the file should be skipped
+                        during a defragmentation operation. When applied to
+                        a directory, new files and directories created will
+                        inherit the no-defrag bit.
+              Bit 14 (0x4000) - XFS_XFLAG_FILESTREAM
+                        Filestream allocator bit - allows a directory to
+                        reserve an allocation group for exclusive use by
+                        files created within that directory. Files being
+                        written in other directories will not use the same
+                        allocation group and so files within different
+                        directories will not interleave extents on disk. The
+                        reservation is only active while files are being
+                        created and written into the directory.
+              Bit 15 (0x8000) - XFS_XFLAG_DAX
+                        If the filesystem lives on directly accessible
+                        persistent memory, reads and writes to this file
+                        will go straight to the persistent memory, bypassing
+                        the page cache.  A file cannot be reflinked and have
+                        the XFS_XFLAG_DAX set at the same time.  That is to
+                        say that DAX files cannot share blocks.
+              Bit 16 (0x10000) - XFS_XFLAG_COWEXTSIZE
+                        Copy on Write Extent size bit - if a CoW extent size
+                        value is set on the file, the allocator will
+                        allocate extents for staging a copy on write
+                        operation in multiples of the set size for this file
+                        (see XFS_IOC_FSSETXATTR below).  If the CoW extent
+                        size is set on a directory, then new file and
+                        directories created in the directory will inherit
+                        the parent's CoW extent size value.
+              Bit 31 (0x80000000) - XFS_XFLAG_HASATTR
+                        The file has extended attributes associated with it.
+       XFS_IOC_FSGETXATTRA
+              Identical to XFS_IOC_FSGETXATTR except that the fsx_nextents
+              field contains the number of attribute extents in the file.
+       XFS_IOC_FSSETXATTR
+              Set additional attributes associated with files in XFS file
+              systems.  The final argument points to a variable of type
+              struct fsxattr, but only the following fields are used in this
+              call: fsx_xflags, fsx_extsize, fsx_cowextsize, and fsx_projid.
+              The fsx_xflags realtime file bit and the file's extent size
+              may be changed only when the file is empty, except in the case
+              of a directory where the extent size can be set at any time
+              (this value is only used for regular file allocations, so
+              should only be set on a directory in conjunction with the
+              XFS_XFLAG_EXTSZINHERIT flag).  The copy on write extent size,
+              fsx_cowextsize, can be set at any time.
+       XFS_IOC_GETBMAP
+              Get the block map for a segment of a file in an XFS file
+              system.  The final argument points to an arry of variables of
+              type struct getbmap.  All sizes and offsets in the structure
+              are in units of 512 bytes.  The structure fields include:
+              bmv_offset (file offset of segment), bmv_block (starting block
+              of segment), bmv_length (length of segment), bmv_count (number
+              of array entries, including the first), and bmv_entries
+              (number of entries filled in).  The first structure in the
+              array is a header, and the remaining structures in the array
+              contain block map information on return.  The header controls
+              iterative calls to the XFS_IOC_GETBMAP command.  The caller
+              fills in the bmv_offset and bmv_length fields of the header to
+              indicate the area of interest in the file, and fills in the
+              bmv_count field to indicate the length of the array.  If the
+              bmv_length value is set to -1 then the length of the
+              interesting area is the rest of the file.  On return from a
+              call, the header is updated so that the command can be reused
+              to obtain more information, without re-initializing the
+              structures.  Also on return, the bmv_entries field of the
+              header is set to the number of array entries actually filled
+              in.  The non-header structures will be filled in with
+              bmv_offset, bmv_block, and bmv_length.  If a region of the
+              file has no blocks (is a hole in the file) then the bmv_block
+              field is set to -1.
+       XFS_IOC_GETBMAPA
+              Identical to XFS_IOC_GETBMAP except that information about the
+              attribute fork of the file is returned.
+       XFS_IOC_RESVSP
+       XFS_IOC_RESVSP64
+              This command is used to allocate space to a file.  A range of
+              bytes is specified using a pointer to a variable of type
+              xfs_flock64_t in the final argument.  The blocks are
+              allocated, but not zeroed, and the file size does not change.
+              If the XFS filesystem is configured to flag unwritten file
+              extents, performance will be negatively affected when writing
+              to preallocated space, since extra filesystem transactions are
+              required to convert extent flags on the range of the file
+              written.  If xfs_info(8) reports unwritten=1, then the
+              filesystem was made to flag unwritten extents.
+       XFS_IOC_UNRESVSP
+       XFS_IOC_UNRESVSP64
+              This command is used to free space from a file.  A range of
+              bytes is specified using a pointer to a variable of type
+              xfs_flock64_t in the final argument.  Partial filesystem
+              blocks are zeroed, and whole filesystem blocks are removed
+              from the file.  The file size does not change.
+       XFS_IOC_ZERO_RANGE
+              This command is used to convert a range of a file to zeros
+              without issuing data IO.  A range of bytes is specified using
+              a pointer to a variable of type xfs_flock64_t in the final
+              argument.  Blocks are preallocated for regions that span holes
+              in the file, and the entire range is converted to unwritten
+              extents.  This operation is a fast method of overwriting any
+              from the range specified with zeros without removing any
+              blocks or having to write zeros to disk.  Any subsequent read
+              in the given range will return zeros until new data is
+              written.  This functionality requires filesystems to support
+              unwritten extents.  If xfs_info(8) reports unwritten=1, then
+              the filesystem was made to flag unwritten extents.
+       XFS_IOC_PATH_TO_HANDLE
+       XFS_IOC_PATH_TO_FSHANDLE
+       XFS_IOC_FD_TO_HANDLE
+       XFS_IOC_OPEN_BY_HANDLE
+       XFS_IOC_READLINK_BY_HANDLE
+       XFS_IOC_ATTR_LIST_BY_HANDLE
+       XFS_IOC_ATTR_MULTI_BY_HANDLE
+       XFS_IOC_FSSETDM_BY_HANDLE
+              These are all interfaces that are used to implement various
+              libhandle functions (see open_by_handle(3)).  They are all
+              subject to change and should not be called directly by
+              applications.
+   Filesystem Operations
+       In order to effect one of the following operations, the pathname and
+       descriptor arguments passed to xfsctl() can be any open file in the
+       XFS filesystem in question.
+       XFS_IOC_FSINUMBERS
+              This interface is used to extract a list of valid inode
+              numbers from an XFS filesystem.  It is intended to be called
+              iteratively, to obtain the entire set of inodes.  The
+              information is passed in and out via a structure of type
+              xfs_fsop_bulkreq_t pointed to by the final argument.  lastip
+              is a pointer to a variable containing the last inode number
+              returned, initially it should be zero.  icount is the size of
+              the array of structures specified by ubuffer.  ubuffer is the
+              address of an array of structures, of type xfs_inogrp_t.  This
+              structure has the following elements: xi_startino (starting
+              inode number), xi_alloccount (count of bits set in
+              xi_allocmask), and xi_allocmask (mask of allocated inodes in
+              this group).  The bitmask is 64 bits long, and the least
+              significant bit corresponds to inode xi_startino.  Each bit is
+              set if the corresponding inode is in use.  ocount is a pointer
+              to a count of returned values, filled in by the call.  An
+              output ocount value of zero means that the inode table has
+              been exhausted.
+       XFS_IOC_FSBULKSTAT
+              This interface is used to extract inode information (stat
+              information) "in bulk" from a filesystem.  It is intended to
+              be called iteratively, to obtain information about the entire
+              set of inodes in a filesystem.  The information is passed in
+              and out via a structure of type xfs_fsop_bulkreq_t pointed to
+              by the final argument.  lastip is a pointer to a variable
+              containing the last inode number returned, initially it should
+              be zero.  icount indicates the size of the array of structures
+              specified by ubuffer.  ubuffer is the address of an array of
+              structures of type xfs_bstat_t.  Many of the elements in the
+              structure are the same as for the stat structure.  The
+              structure has the following elements: bs_ino (inode number),
+              bs_mode (type and mode), bs_nlink (number of links), bs_uid
+              (user id), bs_gid (group id), bs_rdev (device value),
+              bs_blksize (block size of the filesystem), bs_size (file size
+              in bytes), bs_atime (access time), bs_mtime (modify time),
+              bs_ctime (inode change time), bs_blocks (number of blocks used
+              by the file), bs_xflags (extended flags), bs_extsize (extent
+              size), bs_extents (number of extents), bs_gen (generation
+              count), bs_projid_lo (project id - low word), bs_projid_hi
+              (project id - high word, used when projid32bit feature is
+              enabled), bs_dmevmask (DMIG event mask), bs_dmstate (DMIG
+              state information), and bs_aextents (attribute extent count).
+              ocount is a pointer to a count of returned values, filled in
+              by the call.  An output ocount value of zero means that the
+              inode table has been exhausted.
+       XFS_IOC_FSBULKSTAT_SINGLE
+              This interface is a variant of the XFS_IOC_FSBULKSTAT
+              interface, used to obtain information about a single inode.
+              for an open file in the filesystem of interest.  The same
+              structure is used to pass information in and out of the
+              kernel, except no output count parameter is used (should be
+              initialized to zero).  An error is returned if the inode
+              number is invalid.
+       XFS_IOC_THAW
+       XFS_IOC_FREEZE
+       XFS_IOC_GET_RESBLKS
+       XFS_IOC_SET_RESBLKS
+       XFS_IOC_FSGROWFSDATA
+       XFS_IOC_FSGROWFSLOG
+       XFS_IOC_FSGROWFSRT
+       XFS_IOC_FSCOUNTS
+              These interfaces are used to implement various filesystem
+              internal operations on XFS filesystems.  For
+              XFS_IOC_FSGEOMETRY (get filesystem mkfs time information), the
+              output structure is of type xfs_fsop_geom_t.  For
+              XFS_FS_COUNTS (get filesystem dynamic global information), the
+              output structure is of type xfs_fsop_counts_t.  The remainder
+              of these operations will not be described further as they are
+              not of general use to applications.

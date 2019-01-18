@@ -1,0 +1,19 @@
+
+       lspci is a utility for displaying information about PCI buses in the
+       system and devices connected to them.
+       By default, it shows a brief list of devices. Use the options
+       described below to request either a more verbose output or output
+       intended for parsing by other programs.
+       If you are going to report bugs in PCI device drivers or in lspci
+       itself, please include output of "lspci -vvx" or even better "lspci
+       -vvxxx" (however, see below for possible caveats).
+       Some parts of the output, especially in the highly verbose modes, are
+       probably intelligible only to experienced PCI hackers. For exact
+       definitions of the fields, please consult either the PCI
+       specifications or the header.h and /usr/include/linux/pci.h include
+       files.
+       Access to some parts of the PCI configuration space is restricted to
+       root on many operating systems, so the features of lspci available to
+       normal users are limited. However, lspci tries its best to display as
+       much as available and mark all other information with <access denied>
+       text.

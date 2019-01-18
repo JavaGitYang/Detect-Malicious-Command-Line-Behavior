@@ -1,0 +1,5 @@
+
+     The acl_copy_entry() function copies the contents of the ACL entry
+     indicated by the src_d descriptor to the existing ACL entry indicated
+     by the dest_d descriptor. The src_d and dest_d descriptors may refer to
+     entries in different ACLs.

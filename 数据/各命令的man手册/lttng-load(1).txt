@@ -1,0 +1,34 @@
+
+       The lttng load command loads the configurations of one or more
+       tracing sessions from files.
+       The lttng load command is used in conjunction with the lttng-save(1)
+       command to save and restore the complete configurations of tracing
+       sessions. This includes the enabled channels and event rules, the
+       context added to channels, the tracing activity, and more.
+       Once one or more tracing session configurations are loaded, they
+       appear exactly as they were saved from the user’s point of view.
+       The following directories are searched, non-recursively, in this
+       order for configuration files:
+        1. $LTTNG_HOME/.lttng/sessions ($LTTNG_HOME defaults to $HOME)
+        2. /usr/local/etc/lttng/sessions
+       The input path can be overridden with the --input-path option. When
+       this option is specified, the default directories are NOT searched
+       for configuration files. When it’s not specified, both default
+       directories are searched for configuration files.
+       If the input path is a directory, then:
+       ·   If SESSION is specified, the tracing session configuration named
+           SESSION is searched for in all the files of this directory and
+           loaded if found.
+       ·   If SESSION is not specified, the --all option is implicit: all
+           the tracing session configurations found in all the files in this
+           directory are loaded.
+       If the input path is a file, then:
+       ·   If SESSION is specified, the tracing session configuration named
+           SESSION is searched for in this file and loaded if found.
+       ·   If SESSION is not specified, the --all option is implicit: all
+           the tracing session configurations found in this file are loaded.
+       Aspects of the loaded configurations can be overridden at load time
+       using the --override-url and --override-name options.
+       By default, existing tracing sessions are not overwritten when
+       loading: the command fails. The --force option can be used to allow
+       this.

@@ -1,0 +1,15 @@
+
+       This function will allow you to get the name indication (if any), a
+       client has sent.  The name indication may be any of the enumeration
+       gnutls_server_name_type_t.
+       If  type is GNUTLS_NAME_DNS, then this function is to be used by
+       servers that support virtual hosting, and the data will be a null
+       terminated IDNA ACE string (prior to GnuTLS 3.4.0 it was a UTF-8
+       string).
+       If  data has not enough size to hold the server name
+       GNUTLS_E_SHORT_MEMORY_BUFFER is returned, and  data_length will hold
+       the required size.
+        indx is used to retrieve more than one server names (if sent by the
+       client).  The first server name has an index of 0, the second 1 and
+       so on.  If no name with the given index exists
+       GNUTLS_E_REQUESTED_DATA_NOT_AVAILABLE is returned.

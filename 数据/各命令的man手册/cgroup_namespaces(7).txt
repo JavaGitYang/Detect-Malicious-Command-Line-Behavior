@@ -1,0 +1,71 @@
+
+       For an overview of namespaces, see namespaces(7).
+       Cgroup namespaces virtualize the view of a process's cgroups (see
+       cgroups(7)) as seen via /proc/[pid]/cgroup and /proc/[pid]/mountinfo.
+       Each cgroup namespace has its own set of cgroup root directories.
+       These root directories are the base points for the relative locations
+       displayed in the corresponding records in the /proc/[pid]/cgroup
+       file.  When a process creates a new cgroup namespace using clone(2)
+       or unshare(2) with the CLONE_NEWCGROUP flag, it enters a new cgroup
+       namespace in which its current cgroups directories become the cgroup
+       root directories of the new namespace.  (This applies both for the
+       cgroups version 1 hierarchies and the cgroups version 2 unified
+       hierarchy.)
+       When viewing /proc/[pid]/cgroup, the pathname shown in the third
+       field of each record will be relative to the reading process's root
+       directory for the corresponding cgroup hierarchy.  If the cgroup
+       directory of the target process lies outside the root directory of
+       the reading process's cgroup namespace, then the pathname will show
+       ../ entries for each ancestor level in the cgroup hierarchy.
+       The following shell session demonstrates the effect of creating a new
+       cgroup namespace.  First, (as superuser) we create a child cgroup in
+       the freezer hierarchy, and put the shell into that cgroup:
+           # mkdir -p /sys/fs/cgroup/freezer/sub
+           # echo $$                      # Show PID of this shell
+           30655
+           # sh -c 'echo 30655 > /sys/fs/cgroup/freezer/sub/cgroup.procs'
+           # cat /proc/self/cgroup | grep freezer
+           7:freezer:/sub
+       Next, we use unshare(1) to create a process running a new shell in
+       new cgroup and mount namespaces:
+           # unshare -Cm bash
+       We then inspect the /proc/[pid]/cgroup files of, respectively, the
+       new shell process started by the unshare(1) command, a process that
+       is in the original cgroup namespace (init, with PID 1), and a process
+       in a sibling cgroup (sub2):
+           $ cat /proc/self/cgroup | grep freezer
+           7:freezer:/
+           $ cat /proc/1/cgroup | grep freezer
+           7:freezer:/..
+           $ cat /proc/20124/cgroup | grep freezer
+           7:freezer:/../sub2
+       From the output of the first command, we see that the freezer cgroup
+       membership of the new shell (which is in the same cgroup as the ini‐
+       tial shell) is shown defined relative to the freezer cgroup root
+       directory that was established when the new cgroup namespace was cre‐
+       ated.  (In absolute terms, the new shell is in the /sub freezer
+       cgroup, and the root directory of the freezer cgroup hierarchy in the
+       new cgroup namespace is also /sub.  Thus, the new shell's cgroup mem‐
+       bership is displayed as '/'.)
+       However, when we look in /proc/self/mountinfo we see the following
+       anomaly:
+           # cat /proc/self/mountinfo | grep freezer
+           155 145 0:32 /.. /sys/fs/cgroup/freezer ...
+       The fourth field of this line (/..)  should show the directory in the
+       cgroup filesystem which forms the root of this mount.  Since by the
+       definition of cgroup namespaces, the process's current freezer cgroup
+       directory became its root freezer cgroup directory, we should see '/'
+       in this field.  The problem here is that we are seeing a mount entry
+       for the cgroup filesystem corresponding to our initial shell
+       process's cgroup namespace (whose cgroup filesystem is indeed rooted
+       in the parent directory of sub).  We need to remount the freezer
+       cgroup filesystem inside this cgroup namespace, after which we see
+       the expected results:
+           # mount --make-rslave /     # Don't propagate mount events
+                                       # to other namespaces
+           # umount /sys/fs/cgroup/freezer
+           # mount -t cgroup -o freezer freezer /sys/fs/cgroup/freezer
+           # cat /proc/self/mountinfo | grep freezer
+           155 145 0:32 / /sys/fs/cgroup/freezer rw,relatime ...
+       Use of cgroup namespaces requires a kernel that is configured with
+       the CONFIG_CGROUPS option.

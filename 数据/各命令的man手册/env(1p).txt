@@ -1,0 +1,8 @@
+
+       The env utility shall obtain the current environment, modify it
+       according to its arguments, then invoke the utility named by the
+       utility operand with the modified environment.
+       Optional arguments shall be passed to utility.
+       If no utility operand is specified, the resulting environment shall
+       be written to the standard output, with one name=value pair per line.
+       If the first argument is '−', the results are unspecified.

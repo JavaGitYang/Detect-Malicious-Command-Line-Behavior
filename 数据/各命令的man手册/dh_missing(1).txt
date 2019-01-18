@@ -1,0 +1,13 @@
+
+       dh_missing compares the list of installed files with the files in the
+       source directory. If any of the files (and symlinks) in the source
+       directory were not installed to somewhere, it will warn on stderr
+       about that (--list-missing) or fail (--fail-missing).  Please note
+       that without either of these options, dh_missing will silently do
+       nothing.
+       This may be useful if you have a large package and want to make sure
+       that you don't miss installing newly added files in new upstream
+       releases.
+       Remember to test different kinds of builds (dpkg-buildpackage
+       -A/-B/...) as you may experience varying results when only a subset
+       of the packages are built.

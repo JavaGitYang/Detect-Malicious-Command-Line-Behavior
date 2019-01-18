@@ -1,0 +1,67 @@
+
+       pcregrep searches files for character patterns, in the same way as
+       other grep commands do, but it uses the PCRE regular expression
+       library to support patterns that are compatible with the regular
+       expressions of Perl 5. See pcresyntax(3) for a quick-reference
+       summary of pattern syntax, or pcrepattern(3) for a full description
+       of the syntax and semantics of the regular expressions that PCRE
+       supports.
+       Patterns, whether supplied on the command line or in a separate file,
+       are given without delimiters. For example:
+         pcregrep Thursday /etc/motd
+       If you attempt to use delimiters (for example, by surrounding a
+       pattern with slashes, as is common in Perl scripts), they are
+       interpreted as part of the pattern. Quotes can of course be used to
+       delimit patterns on the command line because they are interpreted by
+       the shell, and indeed quotes are required if a pattern contains white
+       space or shell metacharacters.
+       The first argument that follows any option settings is treated as the
+       single pattern to be matched when neither -e nor -f is present.
+       Conversely, when one or both of these options are used to specify
+       patterns, all arguments are treated as path names. At least one of
+       -e, -f, or an argument pattern must be provided.
+       If no files are specified, pcregrep reads the standard input. The
+       standard input can also be referenced by a name consisting of a
+       single hyphen.  For example:
+         pcregrep some-pattern /file1 - /file3
+       By default, each line that matches a pattern is copied to the
+       standard output, and if there is more than one file, the file name is
+       output at the start of each line, followed by a colon. However, there
+       are options that can change how pcregrep behaves. In particular, the
+       -M option makes it possible to search for patterns that span line
+       boundaries. What defines a line boundary is controlled by the -N
+       (--newline) option.
+       The amount of memory used for buffering files that are being scanned
+       is controlled by a parameter that can be set by the --buffer-size
+       option.  The default value for this parameter is specified when
+       pcregrep is built, with the default default being 20K. A block of
+       memory three times this size is used (to allow for buffering "before"
+       and "after" lines). An error occurs if a line overflows the buffer.
+       Patterns can be no longer than 8K or BUFSIZ bytes, whichever is the
+       greater.  BUFSIZ is defined in <stdio.h>. When there is more than one
+       pattern (specified by the use of -e and/or -f), each pattern is
+       applied to each line in the order in which they are defined, except
+       that all the -e patterns are tried before the -f patterns.
+       By default, as soon as one pattern matches a line, no further
+       patterns are considered. However, if --colour (or --color) is used to
+       colour the matching substrings, or if --only-matching, --file-
+       offsets, or --line-offsets is used to output only the part of the
+       line that matched (either shown literally, or as an offset), scanning
+       resumes immediately following the match, so that further matches on
+       the same line can be found. If there are multiple patterns, they are
+       all tried on the remainder of the line, but patterns that follow the
+       one that matched are not tried on the earlier part of the line.
+       This behaviour means that the order in which multiple patterns are
+       specified can affect the output when one of the above options is
+       used. This is no longer the same behaviour as GNU grep, which now
+       manages to display earlier matches for later patterns (as long as
+       there is no overlap).
+       Patterns that can match an empty string are accepted, but empty
+       string matches are never recognized. An example is the pattern
+       "(super)?(man)?", in which all components are optional. This pattern
+       finds all occurrences of both "super" and "man"; the output differs
+       from matching with "super|man" when only the matching substrings are
+       being shown.
+       If the LC_ALL or LC_CTYPE environment variable is set, pcregrep uses
+       the value to set a locale when calling the PCRE library.  The
+       --locale option can be used to override this.

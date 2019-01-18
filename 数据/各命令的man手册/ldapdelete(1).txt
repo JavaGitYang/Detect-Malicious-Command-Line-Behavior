@@ -1,0 +1,9 @@
+
+       ldapdelete is a shell-accessible interface to the ldap_delete_ext(3)
+       library call.
+       ldapdelete opens a connection to an LDAP server, binds, and deletes
+       one or more entries.  If one or more DN arguments are provided,
+       entries with those Distinguished Names are deleted.  Each DN should
+       be provided using the LDAPv3 string representation as defined in RFC
+       4514.  If no DN arguments are provided, a list of DNs is read from
+       standard input (or from file if the -f flag is used).

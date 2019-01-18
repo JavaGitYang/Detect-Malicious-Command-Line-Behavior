@@ -1,0 +1,20 @@
+
+       This program replays a typescript, using timing information to ensure
+       that output happens in the same rhythm as it originally appeared when
+       the script was recorded.
+       The replay simply displays the information again; the programs that
+       were run when the typescript was being recorded are not run again.
+       Since the same information is simply being displayed, scriptreplay is
+       only guaranteed to work properly if run on the same type of terminal
+       the typescript was recorded on.  Otherwise, any escape characters in
+       the typescript may be interpreted differently by the terminal to
+       which scriptreplay is sending its output.
+       The timing information is what script(1) outputs to standard error if
+       it is run with the -t parameter.
+       By default, the typescript to display is assumed to be named
+       typescript, but other filenames may be specified, as the second
+       parameter or with option -s.
+       If the third parameter is specified, it is used as a speed-up
+       multiplier.  For example, a speed-up of 2 makes scriptreplay go twice
+       as fast, and a speed-up of 0.1 makes it go ten times slower than the
+       original session.

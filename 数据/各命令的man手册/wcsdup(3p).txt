@@ -1,0 +1,8 @@
+
+       The wcsdup() function is the wide-character equivalent of the
+       strdup() function.
+       The wcsdup() function shall return a pointer to a new wide-character
+       string, allocated as if by a call to malloc(), which is the duplicate
+       of the wide-character string string.  The returned pointer can be
+       passed to free().  A null pointer is returned if the new wide-
+       character string cannot be created.

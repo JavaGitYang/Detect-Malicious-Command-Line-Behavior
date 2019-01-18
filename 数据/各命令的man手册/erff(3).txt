@@ -1,0 +1,3 @@
+
+       These functions return the error function of x, defined as
+           erf(x) = 2/sqrt(pi)* integral from 0 to x of exp(-t*t) dt

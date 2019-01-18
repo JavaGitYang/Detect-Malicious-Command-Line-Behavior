@@ -1,0 +1,7 @@
+
+       security_disable() disables the SELinux kernel code, unregisters
+       selinuxfs from /proc/filesystems, and then unmounts /sys/fs/selinux.
+       This function can only be called at runtime and prior to the initial
+       policy load. After the initial policy load, the SELinux kernel code
+       cannot be disabled, but only placed in "permissive" mode by using
+       security_setenforce(3).

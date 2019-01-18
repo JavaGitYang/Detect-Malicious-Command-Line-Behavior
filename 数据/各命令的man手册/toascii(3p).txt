@@ -1,0 +1,3 @@
+
+       The toascii() function shall convert its argument into a 7-bit ASCII
+       character.

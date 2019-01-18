@@ -1,0 +1,9 @@
+
+       This function will generate a private key in the TPM chip. The
+       private key will be generated within the chip and will be exported in
+       a wrapped with TPM's master key form. Furthermore the wrapped key can
+       be protected with the provided  password .
+       Note that bits in TPM is quantized value. If the input value is not
+       one of the allowed values, then it will be quantized to one of 512,
+       1024, 2048, 4096, 8192 and 16384.
+       Allowed flags are:

@@ -1,0 +1,57 @@
+
+       The slk* functions manipulate the set of soft function-key labels
+       that exist on many terminals.  For those terminals that do not have
+       soft labels, curses takes over the bottom line of stdscr, reducing
+       the size of stdscr and the variable LINES.  curses standardizes on
+       eight labels of up to eight characters each.  In addition to this,
+       the ncurses implementation supports a mode where it simulates 12
+       labels of up to five characters each.  This is useful for PC-like
+       enduser devices.  ncurses simulates this mode by taking over up to
+       two lines at the bottom of the screen; it does not try to use any
+       hardware support for this mode.
+   Initialization
+       The slk_init routine must be called before initscr or newterm is
+       called.  If initscr eventually uses a line from stdscr to emulate the
+       soft labels, then fmt determines how the labels are arranged on the
+       screen:
+          0  indicates a 3-2-3 arrangement of the labels.
+          1  indicates a 4-4 arrangement
+          2  indicates the PC-like 4-4-4 mode.
+          3  is again the PC-like 4-4-4 mode, but in addition an index line
+             is generated, helping the user to identify the key numbers
+             easily.
+   Labels
+       The slk_set routine (and the slk_wset routine for the wide-character
+       library) has three parameters:
+          labnum
+               is the label number, from 1 to 8 (12 for fmt in slk_init is 2
+               or 3);
+          label
+               is be the string to put on the label, up to eight (five for
+               fmt in slk_init is 2 or 3) characters in length.  A null
+               string or a null pointer sets up a blank label.
+          fmt  is either 0, 1, or 2, indicating whether the label is to be
+               left-justified, centered, or right-justified, respectively,
+               within the label.
+       The slk_label routine returns the current label for label number
+       labnum, with leading and trailing blanks stripped.
+   Screen updates
+       The slk_refresh and slk_noutrefresh routines correspond to the
+       wrefresh and wnoutrefresh routines.
+       The slk_clear routine clears the soft labels from the screen.
+       The slk_restore routine restores the soft labels to the screen after
+       a slk_clear has been performed.
+       The slk_touch routine forces all the soft labels to be output the
+       next time a slk_noutrefresh is performed.
+   Video attributes
+       The slk_attron, slk_attrset, slk_attroff and slk_attr routines
+       correspond to attron, attrset, attroff and attr_get.  They have an
+       effect only if soft labels are simulated on the bottom line of the
+       screen.  The default highlight for soft keys is A_STANDOUT (as in
+       System V curses, which does not document this fact).
+   Colors
+       The slk_color routine corresponds to color_set.  It has an effect
+       only if soft labels are simulated on the bottom line of the screen.
+       Because slk_color accepts only short (signed 16-bit integer) values,
+       this implementation provides extended_slk_color which accepts an
+       integer value, e.g., 32-bits.

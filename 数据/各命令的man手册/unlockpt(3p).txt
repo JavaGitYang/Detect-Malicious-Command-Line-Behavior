@@ -1,0 +1,5 @@
+
+       The unlockpt() function shall unlock the slave pseudo-terminal device
+       associated with the master to which fildes refers.
+       Conforming applications shall ensure that they call unlockpt() before
+       opening the slave side of a pseudo-terminal device.

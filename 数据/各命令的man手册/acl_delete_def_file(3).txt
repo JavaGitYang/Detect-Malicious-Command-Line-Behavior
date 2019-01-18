@@ -1,0 +1,9 @@
+
+     The acl_delete_def_file() function deletes a default ACL from the
+     directory whose pathname is pointed to by the argument path_p.
+     The effective user ID of the process must match the owner of the file
+     or directory or the process must have the CAP_FOWNER capability for the
+     request to succeed.
+     If the argument path_p is not a directory, then the function fails. It
+     is no error if the directory whose pathname is pointed to by the argu‐
+     ment path_p does not have a default ACL.

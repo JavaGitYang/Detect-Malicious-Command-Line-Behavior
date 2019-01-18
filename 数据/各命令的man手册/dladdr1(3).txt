@@ -1,0 +1,86 @@
+
+       The function dladdr() determines whether the address specified in
+       addr is located in one of the shared objects loaded by the calling
+       application.  If it is, then dladdr() returns information about the
+       shared object and symbol that overlaps addr.  This information is
+       returned in a Dl_info structure:
+           typedef struct {
+               const char *dli_fname;  /* Pathname of shared object that
+                                          contains address */
+               void       *dli_fbase;  /* Base address at which shared
+                                          object is loaded */
+               const char *dli_sname;  /* Name of symbol whose definition
+                                          overlaps addr */
+               void       *dli_saddr;  /* Exact address of symbol named
+                                          in dli_sname */
+           } Dl_info;
+       If no symbol matching addr could be found, then dli_sname and
+       dli_saddr are set to NULL.
+       The function dladdr1() is like dladdr(), but returns additional
+       information via the argument extra_info.  The information returned
+       depends on the value specified in flags, which can have one of the
+       following values:
+       RTLD_DL_LINKMAP
+              Obtain a pointer to the link map for the matched file.  The
+              extra_info argument points to a pointer to a link_map struc‐
+              ture (i.e., struct link_map **), defined in <link.h> as:
+                  struct link_map {
+                      ElfW(Addr) l_addr;  /* Difference between the
+                                             address in the ELF file and
+                                             the address in memory */
+                      char      *l_name;  /* Absolute pathname where
+                                             object was found */
+                      ElfW(Dyn) *l_ld;    /* Dynamic section of the
+                                             shared object */
+                      struct link_map *l_next, *l_prev;
+                                          /* Chain of loaded objects */
+                      /* Plus additional fields private to the
+                         implementation */
+                  };
+       RTLD_DL_SYMENT
+              Obtain a pointer to the ELF symbol table entry of the matching
+              symbol.  The extra_info argument is a pointer to a symbol
+              pointer: const ElfW(Sym) **.  The ElfW() macro definition
+              turns its argument into the name of an ELF data type suitable
+              for the hardware architecture.  For example, on a 64-bit plat‐
+              form, ElfW(Sym) yields the data type name Elf64_Sym, which is
+              defined in <elf.h> as:
+                  typedef struct  {
+                      Elf64_Word    st_name;     /* Symbol name */
+                      unsigned char st_info;     /* Symbol type and binding */
+                      unsigned char st_other;    /* Symbol visibility */
+                      Elf64_Section st_shndx;    /* Section index */
+                      Elf64_Addr    st_value;    /* Symbol value */
+                      Elf64_Xword   st_size;     /* Symbol size */
+                  } Elf64_Sym;
+              The st_name field is an index into the string table.
+              The st_info field encodes the symbol's type and binding.  The
+              type can be extracted using the macro ELF64_ST_TYPE(st_info)
+              (or ELF32_ST_TYPE() on 32-bit platforms), which yields one of
+              the following values:
+                  Value           Description
+                  STT_NOTYPE      Symbol type is unspecified
+                  STT_OBJECT      Symbol is a data object
+                  STT_FUNC        Symbol is a code object
+                  STT_SECTION     Symbol associated with a section
+                  STT_FILE        Symbol's name is file name
+                  STT_COMMON      Symbol is a common data object
+                  STT_TLS         Symbol is thread-local data object
+                  STT_GNU_IFUNC   Symbol is indirect code object
+              The symbol binding can be extracted from the st_info field
+              using the macro ELF64_ST_BIND(st_info) (or ELF32_ST_BIND() on
+              32-bit platforms), which yields one of the following values:
+                  Value            Description
+                  STB_LOCAL        Local symbol
+                  STB_GLOBAL       Global symbol
+                  STB_WEAK         Weak symbol
+                  STB_GNU_UNIQUE   Unique symbol
+              The st_other field contains the symbol's visibility, which can
+              be extracted using the macro ELF64_ST_VISIBILITY(st_info) (or
+              ELF32_ST_VISIBILITY() on 32-bit platforms), which yields one
+              of the following values:
+                  Value           Description
+                  STV_DEFAULT     Default symbol visibility rules
+                  STV_INTERNAL    Processor-specific hidden class
+                  STV_HIDDEN      Symbol unavailable in other modules
+                  STV_PROTECTED   Not preemptible, not exported

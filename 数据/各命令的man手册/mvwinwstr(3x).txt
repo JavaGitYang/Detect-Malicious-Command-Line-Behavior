@@ -1,0 +1,10 @@
+
+       These routines return a string of wchar_t wide characters in wstr,
+       extracted starting at the current cursor position in the named
+       window.
+       The four functions with n as the last argument return a leading
+       substring at most n characters long (exclusive of the trailing NUL).
+       Transfer stops at the end of the current line, or when n characters
+       have been stored at the location referenced by wstr.
+       If the size n is not large enough to store a complete complex
+       character, an error is generated.

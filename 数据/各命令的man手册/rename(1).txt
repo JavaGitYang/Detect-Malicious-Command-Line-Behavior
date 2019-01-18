@@ -1,0 +1,3 @@
+
+       rename will rename the specified files by replacing the first
+       occurrence of expression in their name by replacement.

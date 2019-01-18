@@ -1,0 +1,3 @@
+
+       Converts a textual object identifier to a gnutls_sign_algorithm_t
+       value.

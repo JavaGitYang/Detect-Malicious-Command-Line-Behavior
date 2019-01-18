@@ -1,0 +1,5 @@
+
+       This function will decode the given encoded data.  If the header
+       given is non NULL this function will search for "-----BEGIN header"
+       and decode only this part.  Otherwise it will decode the first PEM
+       packet found.

@@ -1,0 +1,6 @@
+
+       This function sets a trust list in the
+       gnutls_certificate_credentials_t type.
+       Note that the  tlist will become part of the credentials structure
+       and must not be deallocated. It will be automatically deallocated
+       when the  res structure is deinitialized.

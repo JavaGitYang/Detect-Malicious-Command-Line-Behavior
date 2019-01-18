@@ -1,0 +1,47 @@
+
+       The GNU ar program creates, modifies, and extracts from archives.  An
+       archive is a single file holding a collection of other files in a
+       structure that makes it possible to retrieve the original individual
+       files (called members of the archive).
+       The original files' contents, mode (permissions), timestamp, owner,
+       and group are preserved in the archive, and can be restored on
+       extraction.
+       GNU ar can maintain archives whose members have names of any length;
+       however, depending on how ar is configured on your system, a limit on
+       member-name length may be imposed for compatibility with archive
+       formats maintained with other tools.  If it exists, the limit is
+       often 15 characters (typical of formats related to a.out) or 16
+       characters (typical of formats related to coff).
+       ar is considered a binary utility because archives of this sort are
+       most often used as libraries holding commonly needed subroutines.
+       ar creates an index to the symbols defined in relocatable object
+       modules in the archive when you specify the modifier s.  Once
+       created, this index is updated in the archive whenever ar makes a
+       change to its contents (save for the q update operation).  An archive
+       with such an index speeds up linking to the library, and allows
+       routines in the library to call each other without regard to their
+       placement in the archive.
+       You may use nm -s or nm --print-armap to list this index table.  If
+       an archive lacks the table, another form of ar called ranlib can be
+       used to add just the table.
+       GNU ar can optionally create a thin archive, which contains a symbol
+       index and references to the original copies of the member files of
+       the archive.  This is useful for building libraries for use within a
+       local build tree, where the relocatable objects are expected to
+       remain available, and copying the contents of each object would only
+       waste time and space.
+       An archive can either be thin or it can be normal.  It cannot be both
+       at the same time.  Once an archive is created its format cannot be
+       changed without first deleting it and then creating a new archive in
+       its place.
+       Thin archives are also flattened, so that adding one thin archive to
+       another thin archive does not nest it, as would happen with a normal
+       archive.  Instead the elements of the first archive are added
+       individually to the second archive.
+       The paths to the elements of the archive are stored relative to the
+       archive itself.
+       GNU ar is designed to be compatible with two different facilities.
+       You can control its activity using command-line options, like the
+       different varieties of ar on Unix systems; or, if you specify the
+       single command-line option -M, you can control it with a script
+       supplied via standard input, like the MRI "librarian" program.

@@ -1,0 +1,17 @@
+
+       pmpost will append the text message to the end of the Performance Co-
+       Pilot (PCP) notice board file ($PCP_LOG_DIR/NOTICES) in an atomic
+       manner that guards against corruption of the notice board file by
+       concurrent invocations of pmpost.
+       The PCP notice board is intended to be a persistent store and
+       clearing house for important messages relating to the operation of
+       the PCP and the notification of performance alerts from pmie(1) when
+       other notification options are either unavailable or unsuitable.
+       Before being written, messages are prefixed by the current time, and
+       when the current day is different to the last time the notice board
+       file was written, pmpost will prepend the message with the full date.
+       If the notice board file does not exist, pmpost will create it.
+       pmpost would usually run from long-running PCP daemons executing
+       under the (typically unprivileged) $PCP_USER and $PCP_GROUP accounts.
+       The file should be owned by root, and group writable by the
+       $PCP_GROUP group.

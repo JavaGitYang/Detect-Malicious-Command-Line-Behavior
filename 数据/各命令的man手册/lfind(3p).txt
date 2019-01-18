@@ -1,0 +1,2 @@
+
+       Refer to lsearch(3p).

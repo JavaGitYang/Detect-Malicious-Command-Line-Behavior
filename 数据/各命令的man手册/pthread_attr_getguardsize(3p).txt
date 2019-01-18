@@ -1,0 +1,36 @@
+
+       The pthread_attr_getguardsize() function shall get the guardsize
+       attribute in the attr object. This attribute shall be returned in the
+       guardsize parameter.
+       The pthread_attr_setguardsize() function shall set the guardsize
+       attribute in the attr object. The new value of this attribute shall
+       be obtained from the guardsize parameter. If guardsize is zero, a
+       guard area shall not be provided for threads created with attr.  If
+       guardsize is greater than zero, a guard area of at least size
+       guardsize bytes shall be provided for each thread created with attr.
+       The guardsize attribute controls the size of the guard area for the
+       created thread's stack. The guardsize attribute provides protection
+       against overflow of the stack pointer. If a thread's stack is created
+       with guard protection, the implementation allocates extra memory at
+       the overflow end of the stack as a buffer against stack overflow of
+       the stack pointer. If an application overflows into this buffer an
+       error shall result (possibly in a SIGSEGV signal being delivered to
+       the thread).
+       A conforming implementation may round up the value contained in
+       guardsize to a multiple of the configurable system variable
+       {PAGESIZE} (see <sys/mman.h>).  If an implementation rounds up the
+       value of guardsize to a multiple of {PAGESIZE}, a call to
+       pthread_attr_getguardsize() specifying attr shall store in the
+       guardsize parameter the guard size specified by the previous
+       pthread_attr_setguardsize() function call.
+       The default value of the guardsize attribute is implementation-
+       defined.
+       If the stackaddr attribute has been set (that is, the caller is
+       allocating and managing its own thread stacks), the guardsize
+       attribute shall be ignored and no protection shall be provided by the
+       implementation. It is the responsibility of the application to manage
+       stack overflow along with stack allocation and management in this
+       case.
+       The behavior is undefined if the value specified by the attr argument
+       to pthread_attr_getguardsize() or pthread_attr_setguardsize() does
+       not refer to an initialized thread attributes object.

@@ -1,0 +1,7 @@
+
+     The acl_get_permset() function returns in permset_p a descriptor to the
+     permission set in the ACL entry indicated by entry_d.  Subsequent oper‐
+     ations using the returned permission set descriptor operate on the per‐
+     mission set within the ACL entry.
+     Any ACL entry descriptors that refer to the entry referred to by
+     entry_d shall continue to refer to those entries.

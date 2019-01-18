@@ -1,0 +1,50 @@
+
+       netsniff-ng is a fast, minimal tool to analyze network packets,
+       capture pcap files, replay pcap files, and redirect traffic between
+       interfaces with the help of zero-copy packet(7) sockets. netsniff-ng
+       uses both Linux specific RX_RING and TX_RING interfaces to perform
+       zero-copy. This is to avoid copy and system call overhead between
+       kernel and user address space. When we started working on netsniff-
+       ng, the pcap(3) library did not use this zero-copy facility.
+       netsniff-ng is Linux specific, meaning there is no support for other
+       operating systems. Therefore we can keep the code footprint quite
+       minimal and to the point. Linux packet(7) sockets and its RX_RING and
+       TX_RING interfaces bypass the normal packet processing path through
+       the networking stack.  This is the fastest capturing or transmission
+       performance one can get from user space out of the box, without
+       having to load unsupported or non-mainline third-party kernel
+       modules. We explicitly refuse to build netsniff-ng on top of
+       ntop/PF_RING. Not because we do not like it (we do find it
+       interesting), but because of the fact that it is not part of the
+       mainline kernel. Therefore, the ntop project has to maintain and sync
+       out-of-tree drivers to adapt them to their DNA. Eventually, we went
+       for untainted Linux kernel, since its code has a higher rate of
+       review, maintenance, security and bug fixes.
+       netsniff-ng also supports early packet filtering in the kernel. It
+       has support for low-level and high-level packet filters that are
+       translated into Berkeley Packet Filter instructions.
+       netsniff-ng can capture pcap files in several different pcap formats
+       that are interoperable with other tools. It has different pcap I/O
+       methods supported (scatter-gather, mmap(2), read(2), and write(2))
+       for efficient to-disc capturing.  netsniff-ng is also able to rotate
+       pcap files based on data size or time intervals, thus, making it a
+       useful backend tool for subsequent traffic analysis.
+       netsniff-ng itself also supports analysis, replaying, and dumping of
+       raw 802.11 frames. For online or offline analysis, netsniff-ng has a
+       built-in packet dissector for the current 802.3 (Ethernet), 802.11*
+       (WLAN), ARP, MPLS, 802.1Q (VLAN), 802.1QinQ, LLDP, IPv4, IPv6,
+       ICMPv4, ICMPv6, IGMP, TCP and UDP, including GeoIP location analysis.
+       Since netsniff-ng does not establish any state or perform reassembly
+       during packet dissection, its memory footprint is quite low, thus,
+       making netsniff-ng quite efficient for offline analysis of large pcap
+       files as well.
+       Note that netsniff-ng is currently not multithreaded. However, this
+       does not prevent you from starting multiple netsniff-ng instances
+       that are pinned to different, non-overlapping CPUs and f.e. have
+       different BPF filters attached.  Likely that at some point in time
+       your harddisc might become a bottleneck assuming you do not rotate
+       such pcaps in ram (and from there periodically scheduled move to
+       slower medias). You can then use mergecap(1) to transform all pcaps
+       into a single large pcap. Thus, netsniff-ng then works multithreaded
+       eventually.
+       netsniff-ng can also be used to debug netlink traffic.

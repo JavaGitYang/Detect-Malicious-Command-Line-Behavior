@@ -1,0 +1,75 @@
+
+       A collection of one or more Performance Co-Pilot (PCP) archive logs
+       may be combined with a control file to produce a PCP archive folio.
+       Archive folios are created using either mkaf(1) or the interactive
+       ``record mode'' services of PCP clients like pmchart(1).
+       pmafm provides a number of services that may be used to process
+       folios.  In particular, it provides support for execution of PCP
+       tools using one or more of the component archive logs within an
+       archive folio.
+       The target folio is identified by the folio control file folioname.
+       The syntax for a folio control file is described in mkaf(1).
+       If present, the command and arguments following folioname are
+       interpreted and executed as a single command, otherwise commands are
+       read from standard input.
+       The following commands are supported.
+       archives
+              Subsequent commands apply to all archives in the folio.
+       archives N[,...]
+              Archives within a folio are numbered 1, 2, etc.  Subsequent
+              commands are restricted to apply only to the designated
+              archives.
+       archives name[,...]
+              Archives within a folio have unique names.  Subsequent
+              commands are restricted to apply only to the designated
+              archives.
+       check  Validate the presence and format of each file in the folio and
+              the component archives.
+       help
+              A brief reminder of the command syntax.  ?  is a synonym for
+              help.
+       hosts
+              Subsequent commands apply to all archives in the folio.
+       hosts hostname[,...]
+              Subsequent commands are restricted to apply only to those
+              archives that match the designated hostnames.
+       list [verbose]
+              Display the contents of the folio.  By default the control
+              header and the ordinal number, hostname and archive base name
+              for each archive in the folio.  The verbose option causes
+              pmafm to dump the label record from each archive using
+              pmdumplog -l.
+              The first named archive in the folio is assumed to be
+              associated with the default host for any tool that tries to
+              replay multiple archives from the folio.
+       quit
+              Exit pmafm.
+       remove
+              Echo on standard output the sh(1) commands required to remove
+              all of the physical files associated with this archive folio.
+       repeat tool [arg ...]
+              Execute the known PCP tool once per selected archive.  For
+              example, the command
+                   repeat pmval -t60 kernel.all.load
+              would run pmval(1) once per archive, with an appropriate -a
+              argument.
+       replay
+              Some archive folios are created by tools (e.g. pmchart(1))
+              that provide sufficient information to allow all of the
+              information in all of the archives of a folio to be replayed.
+       [run] tool [arg ...]
+              Execute the known PCP tool on the selected archives.  Some PCP
+              tools are able to process multiple concurrent archives, and in
+              this case the tool is run once with the list of all selected
+              archives passed via a -a argument.  Otherwise, this command is
+              synonymous with repeat.
+       selections
+              Display those archives that would be selected for processing
+              with a repeat, replay or run command.
+       The restrictions via any hosts and archives commands are conjuncted.
+       These restrictions serve to limit the specific archives processed in
+       the subsequent repeat, replay, run and selections commands.  By
+       default, all archives are selected.
+       Keywords in commands may be abbreviated provided no ambiguity is
+       introduced, e.g.  help, hel and he are synonymous, but h is
+       ambiguous.

@@ -1,0 +1,88 @@
+
+       eventfd() creates an "eventfd object" that can be used as an event
+       wait/notify mechanism by user-space applications, and by the kernel
+       to notify user-space applications of events.  The object contains an
+       unsigned 64-bit integer (uint64_t) counter that is maintained by the
+       kernel.  This counter is initialized with the value specified in the
+       argument initval.
+       The following values may be bitwise ORed in flags to change the
+       behavior of eventfd():
+       EFD_CLOEXEC (since Linux 2.6.27)
+              Set the close-on-exec (FD_CLOEXEC) flag on the new file
+              descriptor.  See the description of the O_CLOEXEC flag in
+              open(2) for reasons why this may be useful.
+       EFD_NONBLOCK (since Linux 2.6.27)
+              Set the O_NONBLOCK file status flag on the new open file
+              description.  Using this flag saves extra calls to fcntl(2) to
+              achieve the same result.
+       EFD_SEMAPHORE (since Linux 2.6.30)
+              Provide semaphore-like semantics for reads from the new file
+              descriptor.  See below.
+       In Linux up to version 2.6.26, the flags argument is unused, and must
+       be specified as zero.
+       As its return value, eventfd() returns a new file descriptor that can
+       be used to refer to the eventfd object.  The following operations can
+       be performed on the file descriptor:
+       read(2)
+              Each successful read(2) returns an 8-byte integer.  A read(2)
+              fails with the error EINVAL if the size of the supplied buffer
+              is less than 8 bytes.
+              The value returned by read(2) is in host byte order—that is,
+              the native byte order for integers on the host machine.
+              The semantics of read(2) depend on whether the eventfd counter
+              currently has a nonzero value and whether the EFD_SEMAPHORE
+              flag was specified when creating the eventfd file descriptor:
+              *  If EFD_SEMAPHORE was not specified and the eventfd counter
+                 has a nonzero value, then a read(2) returns 8 bytes
+                 containing that value, and the counter's value is reset to
+                 zero.
+              *  If EFD_SEMAPHORE was specified and the eventfd counter has
+                 a nonzero value, then a read(2) returns 8 bytes containing
+                 the value 1, and the counter's value is decremented by 1.
+              *  If the eventfd counter is zero at the time of the call to
+                 read(2), then the call either blocks until the counter
+                 becomes nonzero (at which time, the read(2) proceeds as
+                 described above) or fails with the error EAGAIN if the file
+                 descriptor has been made nonblocking.
+       write(2)
+              A write(2) call adds the 8-byte integer value supplied in its
+              buffer to the counter.  The maximum value that may be stored
+              in the counter is the largest unsigned 64-bit value minus 1
+              (i.e., 0xfffffffffffffffe).  If the addition would cause the
+              counter's value to exceed the maximum, then the write(2)
+              either blocks until a read(2) is performed on the file
+              descriptor, or fails with the error EAGAIN if the file
+              descriptor has been made nonblocking.
+              A write(2) fails with the error EINVAL if the size of the
+              supplied buffer is less than 8 bytes, or if an attempt is made
+              to write the value 0xffffffffffffffff.
+       poll(2), select(2) (and similar)
+              The returned file descriptor supports poll(2) (and analogously
+              epoll(7)) and select(2), as follows:
+              *  The file descriptor is readable (the select(2) readfds
+                 argument; the poll(2) POLLIN flag) if the counter has a
+                 value greater than 0.
+              *  The file descriptor is writable (the select(2) writefds
+                 argument; the poll(2) POLLOUT flag) if it is possible to
+                 write a value of at least "1" without blocking.
+              *  If an overflow of the counter value was detected, then
+                 select(2) indicates the file descriptor as being both
+                 readable and writable, and poll(2) returns a POLLERR event.
+                 As noted above, write(2) can never overflow the counter.
+                 However an overflow can occur if 2^64 eventfd "signal
+                 posts" were performed by the KAIO subsystem (theoretically
+                 possible, but practically unlikely).  If an overflow has
+                 occurred, then read(2) will return that maximum uint64_t
+                 value (i.e., 0xffffffffffffffff).
+              The eventfd file descriptor also supports the other file-
+              descriptor multiplexing APIs: pselect(2) and ppoll(2).
+       close(2)
+              When the file descriptor is no longer required it should be
+              closed.  When all file descriptors associated with the same
+              eventfd object have been closed, the resources for object are
+              freed by the kernel.
+       A copy of the file descriptor created by eventfd() is inherited by
+       the child produced by fork(2).  The duplicate file descriptor is
+       associated with the same eventfd object.  File descriptors created by
+       eventfd() are preserved across execve(2), unless the close-on-exec
+       flag has been set.

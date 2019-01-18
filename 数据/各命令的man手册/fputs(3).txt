@@ -1,0 +1,12 @@
+
+       fputc() writes the character c, cast to an unsigned char, to stream.
+       fputs() writes the string s to stream, without its terminating null
+       byte ('\0').
+       putc() is equivalent to fputc() except that it may be implemented as
+       a macro which evaluates stream more than once.
+       putchar(c) is equivalent to putc(c, stdout).
+       puts() writes the string s and a trailing newline to stdout.
+       Calls to the functions described here can be mixed with each other
+       and with calls to other output functions from the stdio library for
+       the same output stream.
+       For nonlocking counterparts, see unlocked_stdio(3).

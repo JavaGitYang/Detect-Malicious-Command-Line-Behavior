@@ -1,0 +1,4 @@
+
+       pmdarsyslog is a Performance Metrics Domain Agent (PMDA) which
+       exports metric values from the rsyslogd(8) server.  Further details
+       about rsyslog can be found at http://www.rsyslog.com/.

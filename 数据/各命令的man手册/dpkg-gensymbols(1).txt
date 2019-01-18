@@ -1,0 +1,26 @@
+
+       dpkg-gensymbols scans a temporary build tree (debian/tmp by default)
+       looking for libraries and generates a symbols file describing them.
+       This file, if non-empty, is then installed in the DEBIAN subdirectory
+       of the build tree so that it ends up included in the control
+       information of the package.
+       When generating those files, it uses as input some symbols files
+       provided by the maintainer. It looks for the following files (and
+       uses the first that is found):
+       ·   debian/package.symbols.arch
+       ·   debian/symbols.arch
+       ·   debian/package.symbols
+       ·   debian/symbols
+       The main interest of those files is to provide the minimal version
+       associated to each symbol provided by the libraries. Usually it
+       corresponds to the first version of that package that provided the
+       symbol, but it can be manually incremented by the maintainer if the
+       ABI of the symbol is extended without breaking backwards
+       compatibility. It's the responsibility of the maintainer to keep
+       those files up-to-date and accurate, but dpkg-gensymbols helps with
+       that.
+       When the generated symbols files differ from the maintainer supplied
+       one, dpkg-gensymbols will print a diff between the two versions.
+       Furthermore if the difference is too significant, it will even fail
+       (you can customize how much difference you can tolerate, see the -c
+       option).

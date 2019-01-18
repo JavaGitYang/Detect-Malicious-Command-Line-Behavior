@@ -1,0 +1,12 @@
+
+       This manual page describes the GNU version of pic, which is part of
+       the groff document formatting system.  pic compiles descriptions of
+       pictures embedded within troff or TeX input files into commands that
+       are understood by TeX or troff.  Each picture starts with a line
+       beginning with .PS and ends with a line beginning with .PE.  Anything
+       outside of .PS and .PE is passed through without change.
+       It is the user's responsibility to provide appropriate definitions of
+       the PS and PE macros.  When the macro package being used does not
+       supply such definitions (for example, old versions of -ms),
+       appropriate definitions can be obtained with -mpic: These will center
+       each picture.

@@ -1,0 +1,32 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The <stddef.h> header shall define the following macros:
+       NULL      Null pointer constant.  The macro shall expand to an
+                 integer constant expression with the value 0 cast to type
+                 void *.
+       offsetof(type, member-designator)
+                 Integer constant expression of type size_t, the value of
+                 which is the offset in bytes to the structure member
+                 (member-designator), from the beginning of its structure
+                 (type).
+       The <stddef.h> header shall define the following types:
+       ptrdiff_t Signed integer type of the result of subtracting two
+                 pointers.
+       wchar_t   Integer type whose range of values can represent distinct
+                 codes for all members of the largest extended character set
+                 specified among the supported locales; the null character
+                 shall have the code value zero. Each member of the basic
+                 character set shall have a code value equal to its value
+                 when used as the lone character in an integer character
+                 constant if an implementation does not define
+                 __STDC_MB_MIGHT_NEQ_WC__.
+       size_t    Unsigned integer type of the result of the sizeof operator.
+       The implementation shall support one or more programming environments
+       in which the widths of ptrdiff_t, size_t, and wchar_t are no greater
+       than the width of type long.  The names of these programming
+       environments can be obtained using the confstr() function or the
+       getconf utility.
+       The following sections are informative.

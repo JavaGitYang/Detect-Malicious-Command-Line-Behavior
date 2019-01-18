@@ -1,0 +1,46 @@
+
+       The msgsnd() function operates on XSI message queues (see the Base
+       Definitions volume of POSIX.1‐2008, Section 3.225, Message Queue).
+       It is unspecified whether this function interoperates with the
+       realtime interprocess communication facilities defined in Section
+       2.8, Realtime.
+       The msgsnd() function shall send a message to the queue associated
+       with the message queue identifier specified by msqid.
+       The application shall ensure that the argument msgp points to a user-
+       defined buffer that contains first a field of type long specifying
+       the type of the message, and then a data portion that holds the data
+       bytes of the message. The structure below is an example of what this
+       user-defined buffer might look like:
+           struct mymsg {
+               long   mtype;       /* Message type. */
+               char   mtext[1];    /* Message text. */
+           }
+       The structure member mtype is a non-zero positive type long that can
+       be used by the receiving process for message selection.
+       The structure member mtext is any text of length msgsz bytes. The
+       argument msgsz can range from 0 to a system-imposed maximum.
+       The argument msgflg specifies the action to be taken if one or more
+       of the following is true:
+        *  The number of bytes already on the queue is equal to msg_qbytes;
+           see <sys/msg.h>.
+        *  The total number of messages on all queues system-wide is equal
+           to the system-imposed limit.
+       These actions are as follows:
+        *  If (msgflg & IPC_NOWAIT) is non-zero, the message shall not be
+           sent and the calling thread shall return immediately.
+        *  If (msgflg & IPC_NOWAIT) is 0, the calling thread shall suspend
+           execution until one of the following occurs:
+           --  The condition responsible for the suspension no longer
+               exists, in which case the message is sent.
+           --  The message queue identifier msqid is removed from the
+               system; when this occurs, errno shall be set to [EIDRM] and
+               −1 shall be returned.
+           --  The calling thread receives a signal that is to be caught; in
+               this case the message is not sent and the calling thread
+               resumes execution in the manner prescribed in sigaction(3p).
+       Upon successful completion, the following actions are taken with
+       respect to the data structure associated with msqid; see <sys/msg.h>:
+        *  msg_qnum shall be incremented by 1.
+        *  msg_lspid shall be set to the process ID of the calling process.
+        *  msg_stime shall be set to the current time, as described in
+           Section 2.7.1, IPC General Description.

@@ -1,0 +1,10 @@
+
+       Change/Remove the security category for each file or user.
+       Use +/- to add/remove categories from a file or user.
+       Note: When removing a category you must specify '--' on the command
+       line before using the -Category syntax.  This tells the command that
+       you have finished entering options and are now specifying a category
+       name instead.
+       -d     delete the category from each FILE/USER.
+       -L     list available categories.
+       -l     Tells chcat to operate on users instead of files.

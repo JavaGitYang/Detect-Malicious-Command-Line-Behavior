@@ -1,0 +1,6 @@
+
+       lxc-unshare can be used to run a task in a cloned set of namespaces.
+       This command is mainly provided for testing purposes.  Despite its
+       name, it always uses clone rather than unshare to create the new task
+       with fresh namespaces. Apart from testing kernel regressions this
+       should make no difference.

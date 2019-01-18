@@ -1,0 +1,10 @@
+
+       For use in error and diagnostic messages, pmEventFlagsStr returns a
+       `human readable' version of the value flags, assuming this to be the
+       er_flags field of a pmEventRecord or pmEventHighResRecord.  The
+       pmEventFlagsStr_r function does the same, but stores the result in a
+       user-supplied buffer buf of length buflen, which should have room for
+       at least 64 bytes.
+       The string value result from pmEventFlagsStr is held in a single
+       static buffer, so the returned value is only valid until the next
+       call to pmEventFlagsStr.

@@ -1,0 +1,26 @@
+
+       getsubopt() parses the list of comma-separated suboptions provided in
+       optionp.  (Such a suboption list is typically produced when getopt(3)
+       is used to parse a command line; see for example the -o option of
+       mount(8).)  Each suboption may include an associated value, which is
+       separated from the suboption name by an equal sign.  The following is
+       an example of the kind of string that might be passed in optionp:
+           ro,name=xyz
+       The tokens argument is a pointer to a NULL-terminated array of point‐
+       ers to the tokens that getsubopt() will look for in optionp.  The
+       tokens should be distinct, null-terminated strings containing at
+       least one character, with no embedded equal signs or commas.
+       Each call to getsubopt() returns information about the next unpro‐
+       cessed suboption in optionp.  The first equal sign in a suboption (if
+       any) is interpreted as a separator between the name and the value of
+       that suboption.  The value extends to the next comma, or (for the
+       last suboption) to the end of the string.  If the name of the subop‐
+       tion matches a known name from tokens, and a value string was found,
+       getsubopt() sets *valuep to the address of that string.  The first
+       comma in optionp is overwritten with a null byte, so *valuep is pre‐
+       cisely the "value string" for that suboption.
+       If the suboption is recognized, but no value string was found, *val‐
+       uep is set to NULL.
+       When getsubopt() returns, optionp points to the next suboption, or to
+       the null byte ('\0') at the end of the string if the last suboption
+       was just processed.

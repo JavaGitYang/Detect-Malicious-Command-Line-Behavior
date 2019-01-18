@@ -1,0 +1,5 @@
+
+       pthread_yield() causes the calling thread to relinquish the CPU.  The
+       thread is placed at the end of the run queue for its static priority
+       and another thread is scheduled to run.  For further details, see
+       sched_yield(2)

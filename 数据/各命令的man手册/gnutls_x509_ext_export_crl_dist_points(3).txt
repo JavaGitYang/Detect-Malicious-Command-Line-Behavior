@@ -1,0 +1,4 @@
+
+       This function will convert the provided policies, to a certificate
+       policy DER encoded extension (2.5.29.31).
+       The  ext data will be allocated using gnutls_malloc().

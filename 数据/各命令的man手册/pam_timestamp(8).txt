@@ -1,0 +1,9 @@
+
+       In a nutshell, pam_timestamp caches successful authentication
+       attempts, and allows you to use a recent successful attempt as the
+       basis for authentication. This is similar mechanism which is used in
+       sudo.
+       When an application opens a session using pam_timestamp, a timestamp
+       file is created in the timestampdir directory for the user. When an
+       application attempts to authenticate the user, a pam_timestamp will
+       treat a sufficiently recent timestamp file as grounds for succeeding.

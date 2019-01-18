@@ -1,0 +1,7 @@
+
+       This function will import the given private key to the abstract
+       gnutls_privkey_t type.
+       The gnutls_x509_privkey_t object must not be deallocated during the
+       lifetime of this structure.
+        flags might be zero or one of GNUTLS_PRIVKEY_IMPORT_AUTO_RELEASE and
+       GNUTLS_PRIVKEY_IMPORT_COPY.

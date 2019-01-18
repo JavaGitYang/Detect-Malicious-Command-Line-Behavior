@@ -1,0 +1,44 @@
+
+       If pcretest is given two filename arguments, it reads from the first
+       and writes to the second. If it is given only one filename argument,
+       it reads from that file and writes to stdout. Otherwise, it reads
+       from stdin and writes to stdout, and prompts for each line of input,
+       using "re>" to prompt for regular expressions, and "data>" to prompt
+       for data lines.
+       When pcretest is built, a configuration option can specify that it
+       should be linked with the libreadline library. When this is done, if
+       the input is from a terminal, it is read using the readline()
+       function. This provides line-editing and history facilities. The
+       output from the -help option states whether or not readline() will be
+       used.
+       The program handles any number of sets of input on a single input
+       file. Each set starts with a regular expression, and continues with
+       any number of data lines to be matched against that pattern.
+       Each data line is matched separately and independently. If you want
+       to do multi-line matches, you have to use the \n escape sequence (or
+       \r or \r\n, etc., depending on the newline setting) in a single line
+       of input to encode the newline sequences. There is no limit on the
+       length of data lines; the input buffer is automatically extended if
+       it is too small.
+       An empty line signals the end of the data lines, at which point a new
+       regular expression is read. The regular expressions are given
+       enclosed in any non-alphanumeric delimiters other than backslash, for
+       example:
+         /(a|bc)x+yz/
+       White space before the initial delimiter is ignored. A regular
+       expression may be continued over several input lines, in which case
+       the newline characters are included within it. It is possible to
+       include the delimiter within the pattern by escaping it, for example
+         /abc\/def/
+       If you do so, the escape and the delimiter form part of the pattern,
+       but since delimiters are always non-alphanumeric, this does not
+       affect its interpretation.  If the terminating delimiter is
+       immediately followed by a backslash, for example,
+         /abc/\
+       then a backslash is added to the end of the pattern. This is done to
+       provide a way of testing the error condition that arises if a pattern
+       finishes with a backslash, because
+         /abc\/
+       is interpreted as the first line of a pattern that starts with
+       "abc/", causing pcretest to read the next line as a continuation of
+       the regular expression.

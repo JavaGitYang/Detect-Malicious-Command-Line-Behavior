@@ -1,0 +1,10 @@
+
+       aureport is a tool that produces summary reports of the audit system
+       logs. The aureport utility can also take input from stdin as long as
+       the input is the raw log data. The reports have a column label at the
+       top to help with interpretation of the various fields. Except for the
+       main summary report, all reports have the audit event number. You can
+       subsequently lookup the full event with ausearch -a event number. You
+       may need to specify start & stop times if you get multiple hits. The
+       reports produced by aureport can be used as building blocks for more
+       complicated analysis.

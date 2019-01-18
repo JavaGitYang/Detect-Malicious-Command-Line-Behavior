@@ -1,0 +1,21 @@
+
+       hostnamectl may be used to query and change the system hostname and
+       related settings.
+       This tool distinguishes three different hostnames: the high-level
+       "pretty" hostname which might include all kinds of special characters
+       (e.g. "Lennart's Laptop"), the static hostname which is used to
+       initialize the kernel hostname at boot (e.g. "lennarts-laptop"), and
+       the transient hostname which is a fallback value received from
+       network configuration. If a static hostname is set, and is valid
+       (something other than localhost), then the transient hostname is not
+       used.
+       Note that the pretty hostname has little restrictions on the
+       characters and length used, while the static and transient hostnames
+       are limited to the usually accepted characters of Internet domain
+       names, and 64 characters at maximum (the latter being a Linux
+       limitation).
+       The static hostname is stored in /etc/hostname, see hostname(5) for
+       more information. The pretty hostname, chassis type, and icon name
+       are stored in /etc/machine-info, see machine-info(5).
+       Use systemd-firstboot(1) to initialize the system host name for
+       mounted (but not booted) system images.

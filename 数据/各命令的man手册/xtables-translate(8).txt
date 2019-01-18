@@ -1,0 +1,8 @@
+
+       There is a set of tools to help the system administrator translate a
+       given ruleset from iptables(8) and ip6tables(8) to nftables(8).
+       The available commands are:
+       · iptables-translate
+       · iptables-restore-translate
+       · ip6tables-translate
+       · ip6tables-restore-translate

@@ -1,0 +1,7 @@
+
+       The quotagrpadmins file lists administrators of user groups who will
+       receive a warning if warnquota --group command finds a group
+       exceeding its disk usage limits.
+       Each line consists of a group name followed by a colon and a user
+       name. White space characters surrounding the names are allowed. Empty
+       lines or lines starting with a hash sign or a semicolon are ignored.

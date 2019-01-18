@@ -1,0 +1,6 @@
+
+       This function will return the requested extension OID in the
+       certificate.  The extension OID will be stored as a string in the
+       provided buffer.
+       The  oid returned will be null terminated, although  oid_size will
+       not account for the trailing null.

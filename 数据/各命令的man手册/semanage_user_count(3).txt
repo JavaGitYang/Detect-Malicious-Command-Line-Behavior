@@ -1,0 +1,11 @@
+
+       Behavior:
+              The count function will return the number of all objects in
+              the selected location.
+       Parameters:
+              The handle is used to track persistent state across semanage
+              calls, and for error reporting. The number of objects will be
+              stored at the location poined by response.
+       Requirements:
+              This function requires an semanage connection to be
+              established (see semanage_connect(3) )

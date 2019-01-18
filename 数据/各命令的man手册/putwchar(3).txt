@@ -1,0 +1,7 @@
+
+       The putwchar() function is the wide-character equivalent of the
+       putchar(3) function.  It writes the wide character wc to stdout.  If
+       ferror(stdout) becomes true, it returns WEOF.  If a wide character
+       conversion error occurs, it sets errno to EILSEQ and returns WEOF.
+       Otherwise, it returns wc.
+       For a nonlocking counterpart, see unlocked_stdio(3).

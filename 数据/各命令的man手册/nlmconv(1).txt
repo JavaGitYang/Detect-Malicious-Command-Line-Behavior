@@ -1,0 +1,13 @@
+
+       nlmconv converts the relocatable i386 object file infile into the
+       NetWare Loadable Module outfile, optionally reading headerfile for
+       NLM header information.  For instructions on writing the NLM command
+       file language used in header files, see the linkers section, NLMLINK
+       in particular, of the NLM Development and Tools Overview, which is
+       part of the NLM Software Developer's Kit ("NLM SDK"), available from
+       Novell, Inc.  nlmconv uses the GNU Binary File Descriptor library to
+       read infile;
+       nlmconv can perform a link step.  In other words, you can list more
+       than one object file for input if you list them in the definitions
+       file (rather than simply specifying one input file on the command
+       line).  In this case, nlmconv calls the linker for you.

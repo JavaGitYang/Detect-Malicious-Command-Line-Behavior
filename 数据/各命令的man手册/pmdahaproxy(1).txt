@@ -1,0 +1,8 @@
+
+       pmdahaproxy is a Performance Metrics Domain Agent (PMDA) which
+       extracts live performance data from HAProxy statistics socket or URL.
+       By default the HAProxy stats socket is used to retrieve the metric
+       but if the optional URL option is set (see below), then the HAProxy
+       URL is used instead.
+       See the HAProxy documentation for detailed description of each
+       metric.

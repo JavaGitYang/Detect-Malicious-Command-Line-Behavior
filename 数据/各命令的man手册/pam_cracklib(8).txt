@@ -1,0 +1,52 @@
+
+       This module can be plugged into the password stack of a given
+       application to provide some plug-in strength-checking for passwords.
+       The action of this module is to prompt the user for a password and
+       check its strength against a system dictionary and a set of rules for
+       identifying poor choices.
+       The first action is to prompt for a single password, check its
+       strength and then, if it is considered strong, prompt for the
+       password a second time (to verify that it was typed correctly on the
+       first occasion). All being well, the password is passed on to
+       subsequent modules to be installed as the new authentication token.
+       The strength checks works in the following manner: at first the
+       Cracklib routine is called to check if the password is part of a
+       dictionary; if this is not the case an additional set of strength
+       checks is done. These checks are:
+       Palindrome
+           Is the new password a palindrome?
+       Case Change Only
+           Is the new password the the old one with only a change of case?
+       Similar
+           Is the new password too much like the old one? This is primarily
+           controlled by one argument, difok which is a number of character
+           changes (inserts, removals, or replacements) between the old and
+           new password that are enough to accept the new password. This
+           defaults to 5 changes.
+       Simple
+           Is the new password too small? This is controlled by 6 arguments
+           minlen, maxclassrepeat, dcredit, ucredit, lcredit, and ocredit.
+           See the section on the arguments for the details of how these
+           work and there defaults.
+       Rotated
+           Is the new password a rotated version of the old password?
+       Same consecutive characters
+           Optional check for same consecutive characters.
+       Too long monotonic character sequence
+           Optional check for too long monotonic character sequence.
+       Contains user name
+           Optional check whether the password contains the user's name in
+           some form.
+       This module with no arguments will work well for standard unix
+       password encryption. With md5 encryption, passwords can be longer
+       than 8 characters and the default settings for this module can make
+       it hard for the user to choose a satisfactory new password. Notably,
+       the requirement that the new password contain no more than 1/2 of the
+       characters in the old password becomes a non-trivial constraint. For
+       example, an old password of the form "the quick brown fox jumped over
+       the lazy dogs" would be difficult to change... In addition, the
+       default action is to allow passwords as small as 5 characters in
+       length. For a md5 systems it can be a good idea to increase the
+       required minimum size of a password. One can then allow more credit
+       for different kinds of characters but accept that the new password
+       may share most of these characters with the old password.

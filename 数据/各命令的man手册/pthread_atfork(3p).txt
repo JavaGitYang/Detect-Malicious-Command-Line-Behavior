@@ -1,0 +1,14 @@
+
+       The pthread_atfork() function shall declare fork handlers to be
+       called before and after fork(), in the context of the thread that
+       called fork().  The prepare fork handler shall be called before
+       fork() processing commences. The parent fork handle shall be called
+       after fork() processing completes in the parent process. The child
+       fork handler shall be called after fork() processing completes in the
+       child process. If no handling is desired at one or more of these
+       three points, the corresponding fork handler address(es) may be set
+       to NULL.
+       The order of calls to pthread_atfork() is significant. The parent and
+       child fork handlers shall be called in the order in which they were
+       established by calls to pthread_atfork().  The prepare fork handlers
+       shall be called in the opposite order.

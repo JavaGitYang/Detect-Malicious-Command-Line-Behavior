@@ -1,0 +1,17 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The tmpnam() function shall generate a string that is a valid
+       pathname that does not name an existing file. The function is
+       potentially capable of generating {TMP_MAX} different strings, but
+       any or all of them may already be in use by existing files and thus
+       not be suitable return values.
+       The tmpnam() function generates a different string each time it is
+       called from the same process, up to {TMP_MAX} times. If it is called
+       more than {TMP_MAX} times, the behavior is implementation-defined.
+       The implementation shall behave as if no function defined in this
+       volume of POSIX.1‐2008, except tempnam(), calls tmpnam().
+       The tmpnam() function need not be thread-safe if called with a NULL
+       parameter.

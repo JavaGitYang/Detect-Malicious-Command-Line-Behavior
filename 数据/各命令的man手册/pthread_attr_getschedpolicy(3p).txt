@@ -1,0 +1,12 @@
+
+       The pthread_attr_getschedpolicy() and pthread_attr_setschedpolicy()
+       functions, respectively, shall get and set the schedpolicy attribute
+       in the attr argument.
+       The supported values of policy shall include SCHED_FIFO, SCHED_RR,
+       and SCHED_OTHER, which are defined in the <sched.h> header. When
+       threads executing with the scheduling policy SCHED_FIFO, SCHED_RR, or
+       SCHED_SPORADIC are waiting on a mutex, they shall acquire the mutex
+       in priority order when the mutex is unlocked.
+       The behavior is undefined if the value specified by the attr argument
+       to pthread_attr_getschedpolicy() or pthread_attr_setschedpolicy()
+       does not refer to an initialized thread attributes object.

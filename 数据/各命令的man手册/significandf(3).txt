@@ -1,0 +1,6 @@
+
+       These functions return the mantissa of x scaled to the range [1,2).
+       They are equivalent to
+           scalb(x, (double) -ilogb(x))
+       This function exists mainly for use in certain standardized tests for
+       IEEE 754 conformance.

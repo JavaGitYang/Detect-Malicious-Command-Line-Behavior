@@ -1,0 +1,4 @@
+
+       This function will pretty print a certificate request, suitable for
+       display to a human.
+       The output  out needs to be deallocated using gnutls_free().

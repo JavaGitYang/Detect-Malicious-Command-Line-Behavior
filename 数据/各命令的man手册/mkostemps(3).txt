@@ -1,0 +1,26 @@
+
+       The mkstemp() function generates a unique temporary filename from
+       template, creates and opens the file, and returns an open file
+       descriptor for the file.
+       The last six characters of template must be "XXXXXX" and these are
+       replaced with a string that makes the filename unique.  Since it will
+       be modified, template must not be a string constant, but should be
+       declared as a character array.
+       The file is created with permissions 0600, that is, read plus write
+       for owner only.  The returned file descriptor provides both read and
+       write access to the file.  The file is opened with the open(2) O_EXCL
+       flag, guaranteeing that the caller is the process that creates the
+       file.
+       The mkostemp() function is like mkstemp(), with the difference that
+       the following bits—with the same meaning as for open(2)—may be
+       specified in flags: O_APPEND, O_CLOEXEC, and O_SYNC.  Note that when
+       creating the file, mkostemp() includes the values O_RDWR, O_CREAT,
+       and O_EXCL in the flags argument given to open(2); including these
+       values in the flags argument given to mkostemp() is unnecessary, and
+       produces errors on some systems.
+       The mkstemps() function is like mkstemp(), except that the string in
+       template contains a suffix of suffixlen characters.  Thus, template
+       is of the form prefixXXXXXXsuffix, and the string XXXXXX is modified
+       as for mkstemp().
+       The mkostemps() function is to mkstemps() as mkostemp() is to
+       mkstemp().

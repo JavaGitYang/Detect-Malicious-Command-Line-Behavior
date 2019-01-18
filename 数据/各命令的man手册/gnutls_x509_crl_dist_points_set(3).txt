@@ -1,0 +1,3 @@
+
+       This function will store the specified CRL distribution point value
+       the  cdp type.

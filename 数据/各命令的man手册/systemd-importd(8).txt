@@ -1,0 +1,9 @@
+
+       systemd-importd is a system service that allows importing, exporting
+       and downloading of system images suitable for running as VM or
+       containers. It is a companion service for
+       systemd-machined.service(8), and provides the implementation for
+       machinectl(1)'s pull-raw, pull-tar, import-raw, import-tar,
+       export-raw, and export-tar commands.
+       See the importd D-Bus API Documentation[1] for information about the
+       APIs systemd-importd provides.

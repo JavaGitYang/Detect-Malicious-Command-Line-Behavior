@@ -1,0 +1,5 @@
+
+       addpart tells the Linux kernel about the existence of the specified
+       partition.  The command is a simple wrapper around the "add
+       partition" ioctl.
+       This command doesn't manipulate partitions on a block device.

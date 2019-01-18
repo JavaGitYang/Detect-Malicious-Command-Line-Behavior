@@ -1,0 +1,18 @@
+
+       last looks through the file wtmp (which records all logins/logouts)
+       and prints information about connect times of users. Records are
+       printed from most recent to least recent.  Records can be specified
+       by tty and username.  tty names can be abbreviated:
+                                      last 0
+       is equivalent to
+                                    last tty0.
+       Multiple arguments can be specified:
+                                 last root console
+       will print all of the entries for the user root and all entries
+       logged in on the console tty.
+       The special users reboot and shutdown log in when the system reboots
+       or (surprise) shuts down.
+                                    last reboot
+       will produce a record of reboot times.
+       If last is interrupted by a quit signal, it prints out how far its
+       search in the wtmp file had reached and then quits.

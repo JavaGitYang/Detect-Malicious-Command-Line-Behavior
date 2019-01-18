@@ -1,0 +1,170 @@
+
+       The mysqlimport client provides a command-line interface to the LOAD
+       DATA INFILE SQL statement. Most options to mysqlimport correspond
+       directly to clauses of LOAD DATA INFILE syntax.
+       Invoke mysqlimport like this:
+           shell> mysqlimport [options] db_name textfile1 [textfile2 ...]
+       For each text file named on the command line, mysqlimport strips any
+       extension from the file name and uses the result to determine the
+       name of the table into which to import the file´s contents. For
+       example, files named patient.txt, patient.text, and patient all would
+       be imported into a table named patient.
+       mysqldump supports the following options, which can be specified on
+       the command line or in the [mysqldump] and [client] option file
+       groups.  mysqldump also supports the options for processing option
+       files.
+       ·   --help, -?
+           Display a help message and exit.
+       ·   --character-sets-dir=path
+           The directory where character sets are installed.
+       ·   --columns=column_list, -c column_list
+           This option takes a comma-separated list of column names as its
+           value. The order of the column names indicates how to match data
+           file columns with table columns.
+       ·   --compress, -C
+           Compress all information sent between the client and the server
+           if both support compression.
+       ·   --debug[=debug_options], -# [debug_options]
+           Write a debugging log. A typical debug_options string is
+           ´d:t:o,file_name´. The default is ´d:t:o´.
+       ·   --debug-check
+           Print some debugging information when the program exits.
+       ·   --debug-info
+           Print debugging information and memory and CPU usage statistics
+           when the program exits.
+       ·   --default-auth=plugin_name
+           Default authentication client-side plugin to use.
+       ·   --default-character-set=charset_name
+           Use charset_name as the default character set.
+       ·   --defaults-extra-file=filename
+           Set filename as the file to read default options from after the
+           global defaults files has been read.  Must be given as first
+           option.
+       ·   --defaults-file=filename
+           Set filename as the file to read default options from, override
+           global defaults files.  Must be given as first option.
+       ·   --delete, -d
+           Empty the table before importing the text file.
+       ·   --fields-terminated-by=..., --fields-enclosed-by=...,
+           --fields-optionally-enclosed-by=..., --fields-escaped-by=...
+           These options have the same meaning as the corresponding clauses
+           for LOAD DATA INFILE.
+       ·   --force, -f
+           Ignore errors. For example, if a table for a text file does not
+           exist, continue processing any remaining files. Without --force,
+           mysqlimport exits if a table does not exist.
+       ·   --host=host_name, -h host_name
+           Import data to the MariaDB server on the given host. The default
+           host is localhost.
+       ·   --ignore, -i
+           See the description for the --replace option.
+       ·   --ignore-lines=N
+           Ignore the first N lines of the data file.
+       ·   --lines-terminated-by=...
+           This option has the same meaning as the corresponding clause for
+           LOAD DATA INFILE. For example, to import Windows files that have
+           lines terminated with carriage return/linefeed pairs, use
+           --lines-terminated-by="\r\n". (You might have to double the
+           backslashes, depending on the escaping conventions of your
+           command interpreter.).
+       ·   --local, -L
+           Read input files locally from the client host.
+       ·   --lock-tables, -l
+           Lock all tables for writing before processing any text files.
+           This ensures that all tables are synchronized on the server.
+       ·   --low-priority
+           Use LOW_PRIORITY when loading the table. This affects only
+           storage engines that use only table-level locking (such as
+           MyISAM, MEMORY, and MERGE).
+       ·   --no-defaults
+           Do not read default options from any option file. This must be
+           given as the first argument.
+       ·   --password[=password], -p[password]
+           The password to use when connecting to the server. If you use the
+           short option form (-p), you cannot have a space between the
+           option and the password. If you omit the password value following
+           the --password or -p option on the command line, mysqlimport
+           prompts for one.
+           Specifying a password on the command line should be considered
+           insecure. You can use an option file to avoid giving the password
+           on the command line.
+       ·   --pipe, -W
+           On Windows, connect to the server via a named pipe. This option
+           applies only if the server supports named-pipe connections.
+       ·   --plugin-dir=name
+            Directory for client-side plugins.
+       ·   --port=port_num, -P port_num
+           The TCP/IP port number to use for the connection.
+       ·   --protocol={TCP|SOCKET|PIPE|MEMORY}
+           The connection protocol to use for connecting to the server. It
+           is useful when the other connection parameters normally would
+           cause a protocol to be used other than the one you want.
+       ·   --print-defaults
+           Print the program argument list and exit.  This must be given as
+           the first argument.
+       ·   --replace, -r
+           The --replace and --ignore options control handling of input rows
+           that duplicate existing rows on unique key values. If you specify
+           --replace, new rows replace existing rows that have the same
+           unique key value. If you specify --ignore, input rows that
+           duplicate an existing row on a unique key value are skipped. If
+           you do not specify either option, an error occurs when a
+           duplicate key value is found, and the rest of the text file is
+           ignored.
+       ·   --silent, -s
+           Silent mode. Produce output only when errors occur.
+       ·   --socket=path, -S path
+           For connections to localhost, the Unix socket file to use, or, on
+           Windows, the name of the named pipe to use.
+       ·   --ssl
+           Enable SSL for connection (automatically enabled with other
+           flags). Disable with --skip-ssl.
+       ·   --ssl-ca=name
+           CA file in PEM format (check OpenSSL docs, implies --ssl).
+       ·   --ssl-capath=name
+           CA directory (check OpenSSL docs, implies --ssl).
+       ·   --ssl-cert=name
+           X509 cert in PEM format (check OpenSSL docs, implies --ssl).
+       ·   --ssl-cipher=name
+           SSL cipher to use (check OpenSSL docs, implies --ssl).
+       ·   --ssl-key=name
+           X509 key in PEM format (check OpenSSL docs, implies --ssl).
+       ·   --ssl-crl=name
+           Certificate revocation list (check OpenSSL docs, implies --ssl).
+       ·   --ssl-crlpath=name
+           Certificate revocation list path (check OpenSSL docs, implies
+           --ssl).
+       ·   --ssl-verify-server-cert
+           Verify server's "Common Name" in its cert against hostname used
+           when connecting. This option is disabled by default.
+       ·   --user=user_name, -u user_name
+           The MariaDB user name to use when connecting to the server.
+       ·   --use-threads=N
+           Load files in parallel using N threads.
+       ·   --verbose, -v
+           Verbose mode. Print more information about what the program does.
+       ·   --version, -V
+           Display version information and exit.
+       Here is a sample session that demonstrates use of mysqlimport:
+           shell> mysql -e ´CREATE TABLE imptest(id INT, n VARCHAR(30))´ test
+           shell> ed
+           a
+           100     Max Sydow
+           101     Count Dracula
+           .
+           w imptest.txt
+           32
+           q
+           shell> od -c imptest.txt
+           0000000   1   0   0  \t   M   a   x       S   y   d   o   w  \n   1   0
+           0000020   1  \t   C   o   u   n   t       D   r   a   c   u   l   a  \n
+           0000040
+           shell> mysqlimport --local test imptest.txt
+           test.imptest: Records: 2  Deleted: 0  Skipped: 0  Warnings: 0
+           shell> mysql -e ´SELECT * FROM imptest´ test
+           +------+---------------+
+           | id   | n             |
+           +------+---------------+
+           |  100 | Max Sydow     |
+           |  101 | Count Dracula |
+           +------+---------------+

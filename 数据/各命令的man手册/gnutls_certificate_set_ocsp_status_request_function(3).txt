@@ -1,0 +1,17 @@
+
+       This function is to be used by server to register a callback to
+       handle OCSP status requests from the client.  The callback will be
+       invoked if the client supplied a status-request OCSP extension.  The
+       callback function prototype is:
+       typedef int (*gnutls_status_request_ocsp_func) (gnutls_session_t
+       session, void *ptr, gnutls_datum_t *ocsp_response);
+       The callback will be invoked if the client requests an OCSP
+       certificate status.  The callback may return
+       GNUTLS_E_NO_CERTIFICATE_STATUS, if there is no recent OCSP response.
+       If the callback returns GNUTLS_E_SUCCESS, it is expected to have the
+       ocsp_response field set with a valid (DER-encoded) OCSP response. The
+       response must be a value allocated using gnutls_malloc(), and will be
+       deinitialized by the caller.
+       It is possible to set a specific callback for each provided
+       certificate using
+       gnutls_certificate_set_ocsp_status_request_function2().

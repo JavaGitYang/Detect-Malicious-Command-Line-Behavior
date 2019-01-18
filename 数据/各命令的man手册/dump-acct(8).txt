@@ -1,0 +1,6 @@
+
+       The dump-acct command transforms the output file from the accton
+       format to the human-readable format: one record per line.  Each
+       record consists of severald fields which are separated by character
+       "|" (the meaning of concreate field depends on the version of kernel
+       package - with which the accton file was created).

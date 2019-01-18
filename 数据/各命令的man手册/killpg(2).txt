@@ -1,0 +1,8 @@
+
+       killpg() sends the signal sig to the process group pgrp.  See
+       signal(7) for a list of signals.
+       If pgrp is 0, killpg() sends the signal to the calling process's
+       process group.  (POSIX says: if pgrp is less than or equal to 1, the
+       behavior is undefined.)
+       For the permissions required to send a signal to another process, see
+       kill(2).

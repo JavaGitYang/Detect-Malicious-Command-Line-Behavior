@@ -1,0 +1,4 @@
+
+       dpkg-genchanges reads information from an unpacked and built Debian
+       source tree and from the files it has generated and generates a
+       Debian upload control file (.changes file).

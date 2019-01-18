@@ -1,0 +1,60 @@
+
+       The futimens() and utimensat() functions shall set the access and
+       modification times of a file to the values of the times argument. The
+       futimens() function changes the times of the file associated with the
+       file descriptor fd.  The utimensat() function changes the times of
+       the file pointed to by the path argument, relative to the directory
+       associated with the file descriptor fd.  Both functions allow time
+       specifications accurate to the nanosecond.
+       For futimens() and utimensat(), the times argument is an array of two
+       timespec structures. The first array member represents the date and
+       time of last access, and the second member represents the date and
+       time of last modification. The times in the timespec structure are
+       measured in seconds and nanoseconds since the Epoch. The file's
+       relevant timestamp shall be set to the greatest value supported by
+       the file system that is not greater than the specified time.
+       If the tv_nsec field of a timespec structure has the special value
+       UTIME_NOW, the file's relevant timestamp shall be set to the greatest
+       value supported by the file system that is not greater than the
+       current time. If the tv_nsec field has the special value UTIME_OMIT,
+       the file's relevant timestamp shall not be changed. In either case,
+       the tv_sec field shall be ignored.
+       If the times argument is a null pointer, both the access and
+       modification timestamps shall be set to the greatest value supported
+       by the file system that is not greater than the current time. If
+       utimensat() is passed a relative path in the path argument, the file
+       to be used shall be relative to the directory associated with the
+       file descriptor fd instead of the current working directory. If the
+       file descriptor was opened without O_SEARCH, the function shall check
+       whether directory searches are permitted using the current
+       permissions of the directory underlying the file descriptor. If the
+       file descriptor was opened with O_SEARCH, the function shall not
+       perform the check.
+       If utimensat() is passed the special value AT_FDCWD in the fd
+       parameter, the current working directory shall be used.
+       Only a process with the effective user ID equal to the user ID of the
+       file, or with write access to the file, or with appropriate
+       privileges may use futimens() or utimensat() with a null pointer as
+       the times argument or with both tv_nsec fields set to the special
+       value UTIME_NOW. Only a process with the effective user ID equal to
+       the user ID of the file or with appropriate privileges may use
+       futimens() or utimensat() with a non-null times argument that does
+       not have both tv_nsec fields set to UTIME_NOW and does not have both
+       tv_nsec fields set to UTIME_OMIT. If both tv_nsec fields are set to
+       UTIME_OMIT, no ownership or permissions check shall be performed for
+       the file, but other error conditions may still be detected (including
+       [EACCES] errors related to the path prefix).
+       Values for the flag argument of utimensat() are constructed by a
+       bitwise-inclusive OR of flags from the following list, defined in
+       <fcntl.h>:
+       AT_SYMLINK_NOFOLLOW
+             If path names a symbolic link, then the access and modification
+             times of the symbolic link are changed.
+       Upon completion, futimens() and utimensat() shall mark the last file
+       status change timestamp for update.
+       The utimes() function shall be equivalent to the utimensat() function
+       with the special value AT_FDCWD as the fd argument and the flag
+       argument set to zero, except that the times argument is a timeval
+       structure rather than a timespec structure, and accuracy is only to
+       the microsecond, not nanosecond, and rounding towards the nearest
+       second may occur.

@@ -1,0 +1,6 @@
+
+       quotasync flushes file system usage and limits from kernel memory to
+       quota files stored in the file system. By default only the user
+       quotas are synchronized.
+       This tool can be useful if you want to display accurate quotas by
+       tools that parse quota files, like repquota(8).

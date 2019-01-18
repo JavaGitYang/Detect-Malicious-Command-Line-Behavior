@@ -1,0 +1,8 @@
+
+       The blkdeactivate utility deactivates block devices. For mounted
+       block devices, it attempts to unmount it automatically before trying
+       to deactivate. The utility currently supports device-mapper devices
+       (DM), including LVM volumes and software RAID MD devices. LVM volumes
+       are handled directly using the lvm(8) command, the rest of device-
+       mapper based devices are handled using the dmsetup(8) command.  MD
+       devices are handled using the mdadm(8) command.

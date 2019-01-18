@@ -1,0 +1,17 @@
+
+       The insque() and remque() functions manipulate doubly-linked lists.
+       Each element in the list is a structure of which the first two
+       elements are a forward and a backward pointer.  The linked list may
+       be linear (i.e., NULL forward pointer at the end of the list and NULL
+       backward pointer at the start of the list) or circular.
+       The insque() function inserts the element pointed to by elem
+       immediately after the element pointed to by prev.
+       If the list is linear, then the call insque(elem, NULL) can be used
+       to insert the initial list element, and the call sets the forward and
+       backward pointers of elem to NULL.
+       If the list is circular, the caller should ensure that the forward
+       and backward pointers of the first element are initialized to point
+       to that element, and the prev argument of the insque() call should
+       also point to the element.
+       The remque() function removes the element pointed to by elem from the
+       doubly-linked list.

@@ -1,0 +1,36 @@
+
+       umount() and umount2() remove the attachment of the (topmost)
+       filesystem mounted on target.
+       Appropriate privilege (Linux: the CAP_SYS_ADMIN capability) is
+       required to unmount filesystems.
+       Linux 2.1.116 added the umount2() system call, which, like umount(),
+       unmounts a target, but allows additional flags controlling the
+       behavior of the operation:
+       MNT_FORCE (since Linux 2.1.116)
+              Ask the filesystem to abort pending requests before attempting
+              the unmount.  This may allow the unmount to complete without
+              waiting for an inaccessible server, but could cause data loss.
+              If, after aborting requests, some processes still have active
+              references to the filesystem, the unmount will still fail.  As
+              at Linux 4.12, MNT_FORCE is supported only on the following
+              filesystems: 9p (since Linux 2.6.16), ceph (since Linux
+              2.6.34), cifs (since Linux 2.6.12), fuse (since Linux 2.6.16),
+              lustre (since Linux 3.11), and NFS (since Linux 2.1.116).
+       MNT_DETACH (since Linux 2.4.11)
+              Perform a lazy unmount: make the mount point unavailable for
+              new accesses, immediately disconnect the filesystem and all
+              filesystems mounted below it from each other and from the
+              mount table, and actually perform the unmount when the mount
+              point ceases to be busy.
+       MNT_EXPIRE (since Linux 2.6.8)
+              Mark the mount point as expired.  If a mount point is not
+              currently in use, then an initial call to umount2() with this
+              flag fails with the error EAGAIN, but marks the mount point as
+              expired.  The mount point remains expired as long as it isn't
+              accessed by any process.  A second umount2() call specifying
+              MNT_EXPIRE unmounts an expired mount point.  This flag cannot
+              be specified with either MNT_FORCE or MNT_DETACH.
+       UMOUNT_NOFOLLOW (since Linux 2.6.34)
+              Don't dereference target if it is a symbolic link.  This flag
+              allows security problems to be avoided in set-user-ID-root
+              programs that allow unprivileged users to unmount filesystems.

@@ -1,0 +1,7 @@
+
+       The wcsspn() function is the wide-character equivalent of the
+       strspn(3) function.  It determines the length of the longest initial
+       segment of wcs which consists entirely of wide-characters listed in
+       accept.  In other words, it searches for the first occurrence in the
+       wide-character string wcs of a wide-character not contained in the
+       wide-character string accept.

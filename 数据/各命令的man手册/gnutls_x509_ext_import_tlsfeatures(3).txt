@@ -1,0 +1,8 @@
+
+       This function will export the features in the provided DER-encoded
+       TLS Features PKIX extension, to a gnutls_x509_tlsfeatures_t type.  f
+       must be initialized.
+       When the  flags is set to GNUTLS_EXT_FLAG_APPEND, then if the
+       features structure is empty this function will behave identically as
+       if the flag was not set. Otherwise if there are elements in the
+       features structure then they will be merged with.

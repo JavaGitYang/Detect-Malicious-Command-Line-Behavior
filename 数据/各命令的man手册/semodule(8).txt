@@ -1,0 +1,8 @@
+
+       semodule is the tool used to manage SELinux policy modules, including
+       installing, upgrading, listing and removing modules.  semodule may
+       also be used to force a rebuild of policy from the module store
+       and/or to force a reload of policy without performing any other
+       transaction.  semodule acts on module packages created by
+       semodule_package.  Conventionally, these files have a .pp suffix
+       (policy package), although this is not mandated in any way.

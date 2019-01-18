@@ -1,0 +1,7 @@
+
+       If job control is enabled (see the description of set −m), the fg
+       utility shall move a background job from the current environment (see
+       Section 2.12, Shell Execution Environment) into the foreground.
+       Using fg to place a job into the foreground shall remove its process
+       ID from the list of those ``known in the current shell execution
+       environment''; see Section 2.9.3.1, Examples.

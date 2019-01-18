@@ -1,0 +1,4 @@
+
+       selabel_partial_match() performs a partial match operation on the
+       handle hnd, returning TRUE or FALSE.  The key parameter is a file
+       path to check for a direct or partial match.

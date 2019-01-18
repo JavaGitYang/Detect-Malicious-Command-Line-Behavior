@@ -1,0 +1,26 @@
+
+       The at utility shall read commands from standard input and group them
+       together as an at-job, to be executed at a later time.
+       The at-job shall be executed in a separate invocation of the shell,
+       running in a separate process group with no controlling terminal,
+       except that the environment variables, current working directory,
+       file creation mask, and other implementation-defined execution-time
+       attributes in effect when the at utility is executed shall be
+       retained and used when the at-job is executed.
+       When the at-job is submitted, the at_job_id and scheduled time shall
+       be written to standard error. The at_job_id is an identifier that
+       shall be a string consisting solely of alphanumeric characters and
+       the <period> character. The at_job_id shall be assigned by the system
+       when the job is scheduled such that it uniquely identifies a
+       particular job.
+       User notification and the processing of the job's standard output and
+       standard error are described under the −m option.
+       Users shall be permitted to use at if their name appears in the file
+       at.allow which is located in an implementation-defined directory.  If
+       that file does not exist, the file at.deny, which is located in an
+       implementation-defined directory, shall be checked to determine
+       whether the user shall be denied access to at.  If neither file
+       exists, only a process with appropriate privileges shall be allowed
+       to submit a job. If only at.deny exists and is empty, global usage
+       shall be permitted. The at.allow and at.deny files shall consist of
+       one user name per line.

@@ -1,0 +1,22 @@
+
+       The filesystem checker is used to verify structural integrity of a
+       filesystem and attempt to repair it if requested. It is recommended
+       to unmount the filesystem prior to running the check, but it is
+       possible to start checking a mounted filesystem (see --force).
+       By default, btrfs check will not modify the device but you can
+       reaffirm that by the option --readonly.
+       btrfsck is an alias of btrfs check command and is now deprecated.
+           Warning
+           Do not use --repair unless you are advised to do so by a
+           developer or an experienced user, and then only after having
+           accepted that no fsck successfully repair all types of filesystem
+           corruption. Eg. some other software or hardware bugs can fatally
+           damage a volume.
+       The structural integrity check verifies if internal filesystem
+       objects or data structures satisfy the constraints, point to the
+       right objects or are correctly connected together.
+       There are several cross checks that can detect wrong reference counts
+       of shared extents, backreferences, missing extents of inodes,
+       directory and inode connectivity etc.
+       The amount of memory required can be high, depending on the size of
+       the filesystem, similarly the run time.

@@ -1,0 +1,32 @@
+
+       These functions convert a floating-point value, fp, into a string of
+       characters, str, with a configurable format string.  At most n
+       characters are stored into str.
+       The terminating null character ('\0') is written if and only if n is
+       sufficiently large, otherwise the written string is truncated at n
+       characters.
+       The strfromd(), strfromf(), and strfroml() functions are equivalent
+       to
+           snprintf(str, n, format, fp);
+       except for the format string.
+   Format of the format string
+       The format string must start with the character '%'.  This is fol‐
+       lowed by an optional precision which starts with the period character
+       (.), followed by an optional decimal integer.  If no integer is spec‐
+       ified after the period character, a precision of zero is used.
+       Finally, the format string should have one of the conversion speci‐
+       fiers a, A, e, E, f, F, g, or G.
+       The conversion specifier is applied based on the floating-point type
+       indicated by the function suffix.  Therefore, unlike snprintf(), the
+       format string does not have a length modifier character.  See
+       snprintf(3) for a detailed description of these conversion speci‐
+       fiers.
+       The implementation conforms to the C99 standard on conversion of NaN
+       and infinity values:
+              If fp is a NaN, +NaN, or -NaN, and f (or a, e, g) is the con‐
+              version specifier, the conversion is to "nan", "nan", or
+              "-nan", respectively.  If F (or A, E, G) is the conversion
+              specifier, the conversion is to "NAN" or "-NAN".
+              Likewise if fp is infinity, it is converted to [-]inf or
+              [-]INF.
+       A malformed format string results in undefined behavior.

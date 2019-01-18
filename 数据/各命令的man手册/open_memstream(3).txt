@@ -1,0 +1,24 @@
+
+       The open_memstream() function opens a stream for writing to a memory
+       buffer.  The function dynamically allocates the buffer, and the
+       buffer automatically grows as needed.  Initially, the buffer has a
+       size of zero.  After closing the stream, the caller should free(3)
+       this buffer.
+       The locations pointed to by ptr and sizeloc are used to report,
+       respectively, the current location and the size of the buffer.  The
+       locations referred to by these pointers are updated each time the
+       stream is flushed (fflush(3)) and when the stream is closed
+       (fclose(3)).  These values remain valid only as long as the caller
+       performs no further output on the stream.  If further output is
+       performed, then the stream must again be flushed before trying to
+       access these values.
+       A null byte is maintained at the end of the buffer.  This byte is not
+       included in the size value stored at sizeloc.
+       The stream maintains the notion of a current position, which is
+       initially zero (the start of the buffer).  Each write operation
+       implicitly adjusts the buffer position.  The stream's buffer position
+       can be explicitly changed with fseek(3) or fseeko(3).  Moving the
+       buffer position past the end of the data already written fills the
+       intervening space with null characters.
+       The open_wmemstream() is similar to open_memstream(), but operates on
+       wide characters instead of bytes.

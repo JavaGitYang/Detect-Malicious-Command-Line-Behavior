@@ -1,0 +1,6 @@
+
+       The if_indextoname() function shall map an interface index to its
+       corresponding name.
+       When this function is called, ifname shall point to a buffer of at
+       least {IF_NAMESIZE} bytes. The function shall place in this buffer
+       the name of the interface with index ifindex.

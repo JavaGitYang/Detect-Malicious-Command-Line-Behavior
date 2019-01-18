@@ -1,0 +1,9 @@
+
+       pcap_set_timeout() sets the packet buffer timeout that will be used
+       on a capture handle when the handle is activated to to_ms, which is
+       in units of milliseconds.  (See pcap(3PCAP) for an explanation of the
+       packet buffer timeout.)
+       The behavior, if the timeout isn't specified, is undefined, as is the
+       behavior if the timeout is set to zero or to a negative value.  We
+       recommend always setting the timeout to a non-zero value unless
+       immediate mode is set, in which case the timeout has no effect.

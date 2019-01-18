@@ -1,0 +1,17 @@
+
+       A batch job is deleted by sending a request to the batch server that
+       manages the batch job. A batch job that has been deleted is no longer
+       subject to management by batch services.
+       The qdel utility is a user-accessible client of batch services that
+       requests the deletion of one or more batch jobs.
+       The qdel utility shall request a batch server to delete those batch
+       jobs for which a batch job_identifier is presented to the utility.
+       The qdel utility shall delete batch jobs in the order in which their
+       batch job_identifiers are presented to the utility.
+       If the qdel utility fails to process any batch job_identifier
+       successfully, the utility shall proceed to process the remaining
+       batch job_identifiers, if any.
+       The qdel utility shall delete each batch job by sending a Delete Job
+       Request to the batch server that manages the batch job.
+       The qdel utility shall not exit until the batch job corresponding to
+       each successfully processed batch job_identifier has been deleted.

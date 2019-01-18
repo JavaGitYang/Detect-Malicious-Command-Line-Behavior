@@ -1,0 +1,25 @@
+
+       The listen() function shall mark a connection-mode socket, specified
+       by the socket argument, as accepting connections.
+       The backlog argument provides a hint to the implementation which the
+       implementation shall use to limit the number of outstanding
+       connections in the socket's listen queue. Implementations may impose
+       a limit on backlog and silently reduce the specified value. Normally,
+       a larger backlog argument value shall result in a larger or equal
+       length of the listen queue. Implementations shall support values of
+       backlog up to SOMAXCONN, defined in <sys/socket.h>.
+       The implementation may include incomplete connections in its listen
+       queue. The limits on the number of incomplete connections and
+       completed connections queued may be different.
+       The implementation may have an upper limit on the length of the
+       listen queue—either global or per accepting socket. If backlog
+       exceeds this limit, the length of the listen queue is set to the
+       limit.
+       If listen() is called with a backlog argument value that is less than
+       0, the function behaves as if it had been called with a backlog
+       argument value of 0.
+       A backlog argument of 0 may allow the socket to accept connections,
+       in which case the length of the listen queue may be set to an
+       implementation-defined minimum value.
+       The socket in use may require the process to have appropriate
+       privileges to use the listen() function.

@@ -1,0 +1,4 @@
+
+       sepolicy is a tools set that will query the installed SELinux policy
+       and generate useful reports, man pages, or even new policy modules.
+       See the argument specific man pages for options and descriptions.

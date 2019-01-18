@@ -1,0 +1,3 @@
+
+       getenforce reports whether SELinux is enforcing, permissive, or
+       disabled.

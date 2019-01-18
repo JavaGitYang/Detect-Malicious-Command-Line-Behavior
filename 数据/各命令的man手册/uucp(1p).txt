@@ -1,0 +1,21 @@
+
+       The uucp utility shall copy files named by the source-file argument
+       to the destination-file argument. The files named can be on local or
+       remote systems.
+       The uucp utility cannot guarantee support for all character encodings
+       in all circumstances. For example, transmission data may be
+       restricted to 7 bits by the underlying network, 8-bit data and
+       filenames need not be portable to non-internationalized systems, and
+       so on. Under these circumstances, it is recommended that only
+       characters defined in the ISO/IEC 646:1991 standard International
+       Reference Version (equivalent to ASCII) 7-bit range of characters be
+       used, and that only characters defined in the portable filename
+       character set be used for naming files. The protocol for transfer of
+       files is unspecified by POSIX.1‐2008.
+       Typical implementations of this utility require a communications line
+       configured to use the Base Definitions volume of POSIX.1‐2008,
+       Chapter 11, General Terminal Interface, but other communications
+       means may be used. On systems where there are no available
+       communications means (either temporarily or permanently), this
+       utility shall write an error message describing the problem and exit
+       with a non-zero exit status.

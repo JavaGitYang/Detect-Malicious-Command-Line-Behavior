@@ -1,0 +1,15 @@
+
+       This convenience function finds, for a compiled pattern, the first
+       and last entries for a given name in the table that translates
+       capturing parenthesis names into numbers. When names are required to
+       be unique (PCRE_DUPNAMES is not set), it is usually easier to use
+       pcre[16|32]_get_stringnumber() instead.
+         code    Compiled regular expression
+         name    Name whose entries required
+         first   Where to return a pointer to the first entry
+         last    Where to return a pointer to the last entry
+       The yield of the function is the length of each entry, or
+       PCRE_ERROR_NOSUBSTRING if none are found.
+       There is a complete description of the PCRE native API, including the
+       format of the table entries, in the pcreapi page, and a description
+       of the POSIX API in the pcreposix page.

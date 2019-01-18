@@ -1,0 +1,3 @@
+
+       The getuid() function shall return the real user ID of the calling
+       process.

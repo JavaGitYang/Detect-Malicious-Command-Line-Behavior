@@ -1,0 +1,33 @@
+
+       These functions shall retrieve information about network services.
+       This information is considered to be stored in a database that can be
+       accessed sequentially or randomly. The implementation of this
+       database is unspecified.
+       The setservent() function shall open a connection to the database,
+       and set the next entry to the first entry. If the stayopen argument
+       is non-zero, the net database shall not be closed after each call to
+       the getservent() function (either directly, or indirectly through one
+       of the other getserv*() functions), and the implementation may
+       maintain an open file descriptor for the database.
+       The getservent() function shall read the next entry of the database,
+       opening and closing a connection to the database as necessary.
+       The getservbyname() function shall search the database from the
+       beginning and find the first entry for which the service name
+       specified by name matches the s_name member and the protocol name
+       specified by proto matches the s_proto member, opening and closing a
+       connection to the database as necessary.  If proto is a null pointer,
+       any value of the s_proto member shall be matched.
+       The getservbyport() function shall search the database from the
+       beginning and find the first entry for which the port specified by
+       port matches the s_port member and the protocol name specified by
+       proto matches the s_proto member, opening and closing a connection to
+       the database as necessary.  If proto is a null pointer, any value of
+       the s_proto member shall be matched. The port argument shall be a
+       value obtained by converting a uint16_t in network byte order to int.
+       The getservbyname(), getservbyport(), and getservent() functions
+       shall each return a pointer to a servent structure, the members of
+       which shall contain the fields of an entry in the network services
+       database.
+       The endservent() function shall close the database, releasing any
+       open file descriptor.
+       These functions need not be thread-safe.

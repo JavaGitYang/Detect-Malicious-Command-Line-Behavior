@@ -1,0 +1,22 @@
+
+       The nohup utility shall invoke the utility named by the utility
+       operand with arguments supplied as the argument operands. At the time
+       the named utility is invoked, the SIGHUP signal shall be set to be
+       ignored.
+       If standard input is associated with a terminal, the nohup utility
+       may redirect standard input from an unspecified file.
+       If the standard output is a terminal, all output written by the named
+       utility to its standard output shall be appended to the end of the
+       file nohup.out in the current directory. If nohup.out cannot be
+       created or opened for appending, the output shall be appended to the
+       end of the file nohup.out in the directory specified by the HOME
+       environment variable. If neither file can be created or opened for
+       appending, utility shall not be invoked. If a file is created, the
+       file's permission bits shall be set to S_IRUSR | S_IWUSR.
+       If standard error is a terminal and standard output is open but is
+       not a terminal, all output written by the named utility to its
+       standard error shall be redirected to the same open file description
+       as the standard output. If standard error is a terminal and standard
+       output either is a terminal or is closed, the same output shall
+       instead be appended to the end of the nohup.out file as described
+       above.

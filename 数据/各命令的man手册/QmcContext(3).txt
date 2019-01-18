@@ -1,0 +1,5 @@
+
+       A QmcContext object is a container for a single PMAPI(3) context.
+       The object maintains a list of all the metric descriptors (QmcDesc),
+       instance domains (QmcIndom) and metrics (QmcMetric) using the context
+       to minimize the duplication of these objects.

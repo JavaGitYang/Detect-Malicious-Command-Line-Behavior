@@ -1,0 +1,18 @@
+
+       lsns lists information about all the currently accessible namespaces
+       or about the given namespace.  The namespace identifier is an inode
+       number.
+       The default output is subject to change.  So whenever possible, you
+       should avoid using default outputs in your scripts.  Always
+       explicitly define expected columns by using the --output option
+       together with a columns list in environments where a stable output is
+       required.
+       NSFS column, printed when net is specified for --type option, is
+       special; it uses multi-line cells.  Use the option --nowrap is for
+       switching to "," separated single-line representation.
+       Note that lsns reads information directly from the /proc filesystem
+       and for non-root users it may return incomplete information.  The
+       current /proc filesystem may be unshared and affected by a PID
+       namespace (see unshare --mount-proc for more details).  lsns is not
+       able to see persistent namespaces without processes where the
+       namespace instance is held by a bind mount to /proc/pid/ns/type.

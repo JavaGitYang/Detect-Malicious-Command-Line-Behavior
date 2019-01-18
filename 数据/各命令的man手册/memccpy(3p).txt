@@ -1,0 +1,6 @@
+
+       The memccpy() function shall copy bytes from memory area s2 into s1,
+       stopping after the first occurrence of byte c (converted to an
+       unsigned char) is copied, or after n bytes are copied, whichever
+       comes first. If copying takes place between objects that overlap, the
+       behavior is undefined.

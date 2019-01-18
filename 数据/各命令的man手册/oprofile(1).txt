@@ -1,0 +1,9 @@
+
+       OProfile is a profiling system for systems running Linux 2.6.31 and
+       greater. OProfile makes use of the hardware performance counters
+       provided on Intel, AMD, and other processors.  OProfile can profile a
+       selected program or process or the whole system.  OProfile can also
+       be used to collect cumulative event counts at the application,
+       process, or system level.
+       For a gentle guide to using OProfile, please read the HTML
+       documentation listed in SEE ALSO.

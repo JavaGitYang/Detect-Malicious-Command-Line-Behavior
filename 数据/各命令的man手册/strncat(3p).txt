@@ -1,0 +1,12 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The strncat() function shall append not more than n bytes (a NUL
+       character and bytes that follow it are not appended) from the array
+       pointed to by s2 to the end of the string pointed to by s1.  The
+       initial byte of s2 overwrites the NUL character at the end of s1.  A
+       terminating NUL character is always appended to the result. If
+       copying takes place between objects that overlap, the behavior is
+       undefined.

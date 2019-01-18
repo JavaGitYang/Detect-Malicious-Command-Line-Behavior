@@ -1,0 +1,9 @@
+
+     The acl_delete_entry() function removes the ACL entry indicated by the
+     entry_d descriptor from the ACL pointed to by acl.  Any existing ACL
+     entry descriptors that refer to entries in acl other than that referred
+     to by entry_d continue to refer to the same entries. The argument
+     entry_d and any other ACL entry descriptors that refer to the same ACL
+     entry are undefined after this function completes. Any existing ACL
+     pointers that refer to the ACL referred to by acl continue to refer to
+     the ACL.

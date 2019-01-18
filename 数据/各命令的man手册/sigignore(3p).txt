@@ -1,0 +1,34 @@
+
+       Use of any of these functions is unspecified in a multi-threaded
+       process.
+       The sighold(), sigignore(), sigpause(), sigrelse(), and sigset()
+       functions provide simplified signal management.
+       The sigset() function shall modify signal dispositions. The sig
+       argument specifies the signal, which may be any signal except SIGKILL
+       and SIGSTOP. The disp argument specifies the signal's disposition,
+       which may be SIG_DFL, SIG_IGN, or the address of a signal handler. If
+       sigset() is used, and disp is the address of a signal handler, the
+       system shall add sig to the signal mask of the calling process before
+       executing the signal handler; when the signal handler returns, the
+       system shall restore the signal mask of the calling process to its
+       state prior to the delivery of the signal. In addition, if sigset()
+       is used, and disp is equal to SIG_HOLD, sig shall be added to the
+       signal mask of the calling process and sig's disposition shall remain
+       unchanged. If sigset() is used, and disp is not equal to SIG_HOLD,
+       sig shall be removed from the signal mask of the calling process.
+       The sighold() function shall add sig to the signal mask of the
+       calling process.
+       The sigrelse() function shall remove sig from the signal mask of the
+       calling process.
+       The sigignore() function shall set the disposition of sig to SIG_IGN.
+       The sigpause() function shall remove sig from the signal mask of the
+       calling process and suspend the calling process until a signal is
+       received. The sigpause() function shall restore the signal mask of
+       the process to its original state before returning.
+       If the action for the SIGCHLD signal is set to SIG_IGN, child
+       processes of the calling processes shall not be transformed into
+       zombie processes when they terminate. If the calling process
+       subsequently waits for its children, and the process has no unwaited-
+       for children that were transformed into zombie processes, it shall
+       block until all of its children terminate, and wait(), waitid(), and
+       waitpid() shall fail and set errno to [ECHILD].

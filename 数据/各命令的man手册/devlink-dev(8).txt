@@ -1,0 +1,26 @@
+
+   devlink dev show - display devlink device attributes
+       DEV - specifies the devlink device to show.  If this argument is
+       omitted all devices are listed.
+           Format is:
+             BUS_NAME/BUS_ADDRESS
+   devlink dev eswitch show - display devlink device eswitch attributes
+   devlink dev eswitch set - sets devlink device eswitch attributes
+       mode { legacy | switchdev }
+              Set eswitch mode
+              legacy - Legacy SRIOV
+              switchdev - SRIOV switchdev offloads
+       inline-mode { none | link | network | transport }
+              Some HWs need the VF driver to put part of the packet headers
+              on the TX descriptor so the e-switch can do proper matching
+              and steering.
+              none - None
+              link - L2 mode
+              network - L3 mode
+              transport - L4 mode
+       encap { disable | enable }
+              Set eswitch encapsulation support
+              disable - Disable encapsulation support
+              enable - Enable encapsulation support
+   devlink dev reload - perform hot reload of the driver.
+       DEV - Specifies the devlink device to reload.

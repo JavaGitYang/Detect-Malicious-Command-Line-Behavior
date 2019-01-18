@@ -1,0 +1,6 @@
+
+       inotify_rm_watch() removes the watch associated with the watch
+       descriptor wd from the inotify instance associated with the file
+       descriptor fd.
+       Removing a watch causes an IN_IGNORED event to be generated for this
+       watch descriptor.  (See inotify(7).)

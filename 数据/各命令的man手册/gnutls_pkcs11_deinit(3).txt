@@ -1,0 +1,4 @@
+
+       This function will deinitialize the PKCS 11 subsystem in gnutls.
+       This function is only needed if you need to deinitialize the
+       subsystem without calling gnutls_global_deinit().

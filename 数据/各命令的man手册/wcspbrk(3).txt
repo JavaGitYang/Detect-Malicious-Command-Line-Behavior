@@ -1,0 +1,5 @@
+
+       The wcspbrk() function is the wide-character equivalent of the
+       strpbrk(3) function.  It searches for the first occurrence in the
+       wide-character string pointed to by wcs of any of the characters in
+       the wide-character string pointed to by accept.

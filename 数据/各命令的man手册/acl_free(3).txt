@@ -1,0 +1,5 @@
+
+     The acl_free() function frees any releasable memory currently allocated
+     by to the ACL data object identified by obj_p.  The argument obj_p may
+     identify an ACL, an ACL entry qualifier, or a pointer to a string allo‐
+     cated by the acl_to_text() function.

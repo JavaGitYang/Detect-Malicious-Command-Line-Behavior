@@ -1,0 +1,4 @@
+
+       This function checks if there are unread data in the gnutls buffers.
+       If the return value is non-zero the next call to gnutls_record_recv()
+       is guaranteed not to block.

@@ -1,0 +1,24 @@
+
+       The iswupper() function is the wide-character equivalent of the
+       isupper(3) function.  It tests whether wc is a wide character
+       belonging to the wide-character class "upper".
+       The wide-character class "upper" is a subclass of the wide-character
+       class "alpha", and therefore also a subclass of the wide-character
+       class "alnum", of the wide-character class "graph" and of the wide-
+       character class "print".
+       Being a subclass of the wide-character class "print", the wide-
+       character class "upper" is disjoint from the wide-character class
+       "cntrl".
+       Being a subclass of the wide-character class "graph", the wide-
+       character class "upper" is disjoint from the wide-character class
+       "space" and its subclass "blank".
+       Being a subclass of the wide-character class "alnum", the wide-
+       character class "upper" is disjoint from the wide-character class
+       "punct".
+       Being a subclass of the wide-character class "alpha", the wide-
+       character class "upper" is disjoint from the wide-character class
+       "digit".
+       The wide-character class "upper" contains at least those characters
+       wc which are equal to towupper(wc) and different from towlower(wc).
+       The wide-character class "upper" always contains at least the letters
+       'A' to 'Z'.

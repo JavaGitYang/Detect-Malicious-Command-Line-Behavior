@@ -1,0 +1,220 @@
+
+       Derived metrics provide a way of extending the Performance Metrics
+       Name Space (PMNS) with new metrics defined at the PCP client-side
+       using expressions over the existing performance metrics.
+       Typical uses would be to aggregate a number of similar metrics to
+       provide a higher-level summary metric or to support the ``delta V
+       over delta V'' class of metrics that are not possible in the base
+       data semantics of PCP.  An example of the latter class would be the
+       average I/O size, defined as
+                delta(disk.dev.total_bytes) / delta(disk.dev.total)
+       where both of the disk.dev metrics are counters, and what is required
+       is to to sample both metrics, compute the difference between the
+       current and previous values and then calculate the ratio of these
+       differences.
+       The arguments to pmRegisterDerived are the name of the new derived
+       metric and expr is an expression defining how the values of name
+       should be computed.
+       pmRegisterDerivedMetric is the exact functional equivalent to
+       pmRegisterDerived except that it provides a simplified model of error
+       handling, where a formatted message is returned via the errmsg
+       parameter.
+       Syntactic checking is performed at the time pmRegisterDerived is
+       called, but semantic checking is deferred until each new PMAPI
+       context is created with pmNewContext(3) or re-established with
+       pmReconnectContext(3), at which time the PMNS and metadata is
+       available to allow semantic checking and the metadata of the derived
+       metrics to be determined.  This means pmRegisterDerived does not
+       apply retrospectively to any open PMAPI contexts, nor to any PMAPI
+       contexts already open at the time pmRegisterDerived is called, so the
+       normal use would be to make all calls to pmRegisterDerived (possibly
+       via pmLoadDerivedConfig(3)) or pmRegisterDerivedMetric and then call
+       pmNewContext(3).
+       name should follow the syntactic rules for the names of performance
+       metrics, namely one or more components separated with a dot (``.''),
+       and each component must begin with an alphabetic followed by zero or
+       more characters drawn from the alphabetics, numerics and underscore
+       (``_'').  For more details, refer to PCPIntro(1) and pmns(5).
+       name must be unique across all derived metrics and should not match
+       the name of any regular metric in the PMNS.  It is acceptable for
+       name to share some part of its prefix with an existing subtree of the
+       PMNS, e.g. the average I/O size metric above could be named
+       disk.dev.avgsz which would place it amongst the other disk.dev
+       metrics in the PMNS.  Alternatively, derived metrics could populate
+       their own subtree of the PMNS, e.g. the average I/O size metric above
+       could be named my.summary.disk.avgsz.
+       The expression expr follows these syntactic rules:
+       * Terminal elements are either names of existing metrics or numeric
+         constants.  Recursive definitions are not allowed, so only the
+         names of regular metrics (not other derived metrics) may be used.
+         Numeric constants are either integers constrained to the precision
+         of 32-bit unsigned integers or double precision floating point
+         numbers.
+       * The usual binary arithmetic operators are supported, namely
+         addition (``+''), subtraction (``-''), multiplication (``*'') and
+         division (``/'') with the normal precedence rules where
+         multiplication and division have higher precedence than addition
+         and subtraction, so a+b*c is evaluated as a+(b*c).
+       * Unary negation may be used, e.g.  -3*some.metric.
+       * C-style relational operators are supported, namely ``<'', ``<='',
+         ``=='', ``>='', ``>'' and ``!=''.  Relational expresssions return a
+         value as a 32-bit unsigned number being 0 for false and 1 for true.
+         The expected operator precedence rules apply, so arithmetic
+         operators have higher precedence than relational operators, and a-
+         b>c+d is evaluated as (a-b)>(c+d).  All the relational operators
+         have equal precedence, so the (slightly odd) expression involving
+         consecutive relational operators a>b!=c is evaluated as (a>b)!=c.
+       * C-style boolean operators are supported, namely and (``&&'') and or
+         (``||'').  Boolean expresssions return a value as a 32-bit unsigned
+         number being 0 for false and 1 for true.  The expected operator
+         precedence rules apply, so relational operators have higher
+         precedence than boolean operators, and a>b*c&&d<=e+f is evaluated
+         as (a>(b*c))&&(d<=(e+f)).  Both the boolean operators have equal
+         precedence, so the expression involving consecutive boolean
+         operators a>=b||b>c&&d!=e||f>g is evaluated as
+         (((a>=b)||(b>c))&&(d!=e))||(f>g).
+       * Additionally, the ``!'' operator may be used to negate a boolean or
+         relational expression, returning a value as a 32-bit unsigned
+         number being 0 for false and 1 for true.  The expected operator
+         precedence rules apply, so boolean (and relational) operators have
+         higher precedence than boolean negation, and !a>b||c<d is evaluated
+         as !((a>b)||(c<d)), while !a<b+c is evaluated as !(a<(b+c)).
+       * C-style ternary conditional expressions are supported. In general
+         terms the expression check ? foo : bar is evaluated as foo (the
+         ``true'' operand) if check (the ``guard'') is true, else the
+         expression evaluates to bar (the ``false'' operand).  Some special
+         semantic rules apply to the ``guard'' expression and the other two
+         operand expressions:
+         (a) Each expression may involve a singular value or a set of values
+             (when the expression involves one or more metrics with an
+             instance domain).
+         (b) All expressions with a set of values must be defined over the
+             same instance domain.
+         (c) Both operand expressions must have the same metadata, so the
+             same metric type, semantics and units (dimension and scale).
+         (d) The ``guard'' expression must have an aritmetic or relational
+             or boolean value, so that it can be evaluated as 0 for false,
+             else true.
+         (e) If the ``guard'' expression has a singular value and one or
+             more of the other operand expressions involves an instance
+             domain, the ``guard'' applies to all instances.
+         (f) If the ``guard'' expression has a set of values and one or more
+             of the other operand expressions involves an instance domain,
+             the ``guard'' is evaluated once for each instance (there must
+             be one instance domain as per rule (b) above).
+         (g) If one of the operand expressions has a singular value and the
+             other has a set of values, and the singular value is selected
+             based on the evaluation of the ``guard'', then the result is a
+             set of values (all the same) with instance enumeration being
+             taken from the other operand expression. For example in the
+             expression: foo ? scalar : set, if foo is true, then the result
+             is a set of values (all having the same value, scalar) over the
+             instance domain of set.
+       * Numeric constants can also be specified using the mkconst()
+         constructor which takes a number of arguments: the first is a
+         numeric constant (either integer or floating point), then follow
+         one or more parameters of the form tag=value or tag= where the
+         allowed values of tag and value are as follows:
+             ┌──────────┬───────────────────────────────────────────────┐
+             │   tag    │                     value                     │
+             ├──────────┼───────────────────────────────────────────────┤
+             │type      │ one of the numeric metric types from          │
+             │          │ <pcp/pmapi.h>, stripped of the PM_TYPE_       │
+             │          │ prefix, so 32, U32, 64, U64, FLOAT or DOUBLE. │
+             ├──────────┼───────────────────────────────────────────────┤
+             │semantics │ one of the semantic types from <pcp/pmapi.h>, │
+             │          │ stripped of the PM_SEM_ prefix, so COUNTER,   │
+             │          │ INSTANT or DISCRETE.                          │
+             ├──────────┼───────────────────────────────────────────────┤
+             │units     │ a specification of dimension and scale        │
+             │          │ (together forming the units), in the syntax   │
+             │          │ accepted by pmParseUnitsStr(3).               │
+             └──────────┴───────────────────────────────────────────────┘
+         The value may optionally be enclosed in double quotes, and may
+         appear in any mix of upper and/or lower case.  The tag must be in
+         lower case as shown in the table above.
+         This is most useful when the expression semantics require matching
+         type and/or semantics and/or units for operands, e.g.
+         idle = mem.util.free > mkconst(10485760, units=Kbyte)
+         avg_io_size = delta(disk.dev.total) == 0 ? \
+             -mkconst(1.0, semantics=instant, units="kbyte / count") : \
+             delta(disk.dev.total_bytes) / delta(disk.dev.total)
+       * Expressions may be rescaled using the rescale function that takes
+         two arguments.  The first is an arithmetic expression to be
+         rescaled, and the second is the desired units after rescaling that
+         is a string value in the syntax accepted by pmParseUnitsStr(3).
+         For example:
+         rescale(network.interface.total.bytes, "Mbytes/hour")
+         The expression and the desired units must both have the same
+         dimension, e.g Space=1, Time=-1 and Count=0 in the example above.
+       * The following unary functions operate on a single performance
+         metric and return one or more values.  For all functions (except
+         count(), defined() and instant()), the type of the operand metric
+         must be arithmetic (integer of various sizes and signedness, float
+         or double).
+            ┌───────────┬───────────────────────────────────────────────┐
+            │ Function  │                     Value                     │
+            ├───────────┼───────────────────────────────────────────────┤
+            │avg(x)     │ A singular instance being the average value   │
+            │           │ across all instances for the metric x.        │
+            ├───────────┼───────────────────────────────────────────────┤
+            │count(x)   │ A singular instance being the count of the    │
+            │           │ number of instances for the metric x.  As a   │
+            │           │ special case, if fetching the metric x        │
+            │           │ returns an error, then count(x) will be 0.    │
+            ├───────────┼───────────────────────────────────────────────┤
+            │defined(x) │ A boolean value that is true (``1'') if the   │
+            │           │ metric x is defined in the PMNS, else false   │
+            │           │ (``0'').  The function is evaluated when a    │
+            │           │ new PMAPI context is created with             │
+            │           │ pmNewContext(3) or re-established with        │
+            │           │ pmReconnectContext(3).  So any subsequent     │
+            │           │ changes to the PMNS after the PMAPI context   │
+            │           │ has been established will not change the      │
+            │           │ value of this function in the expression      │
+            │           │ evaluation.                                   │
+            ├───────────┼───────────────────────────────────────────────┤
+            │delta(x)   │ Returns the difference in values for the      │
+            │           │ metric x between one call to pmFetch(3) and   │
+            │           │ the next. There is one value in the result    │
+            │           │ for each instance that appears in both the    │
+            │           │ current and the previous sample.              │
+            ├───────────┼───────────────────────────────────────────────┤
+            │rate(x)    │ Returns the difference in values for the      │
+            │           │ metric x between one call to pmFetch(3) and   │
+            │           │ the next divided by the elapsed time between  │
+            │           │ the calls to pmFetch(3).  The semantics of    │
+            │           │ the derived metric are based on the semantics │
+            │           │ of the operand (x) with the dimension in the  │
+            │           │ time domain decreased by one and scaling if   │
+            │           │ required in the time utilization case where   │
+            │           │ the operand is in units of time, and the      │
+            │           │ derived metric is unitless.  This mimics the  │
+            │           │ rate conversion applied to counter metrics by │
+            │           │ tools such as pmval(1), pmie(1) and           │
+            │           │ pmchart(1).  There is one value in the result │
+            │           │ for each instance that appears in both the    │
+            │           │ current and the previous sample.              │
+            ├───────────┼───────────────────────────────────────────────┤
+            │instant(x) │ Returns the current value of the metric x,    │
+            │           │ even it has the semantics of a counter, i.e.  │
+            │           │ PM_SEM_COUNTER.  The semantics of the derived │
+            │           │ metric are based on the semantics of the      │
+            │           │ operand (x); if x has semantics               │
+            │           │ PM_SEM_COUNTER, the semantics of instant(x)   │
+            │           │ is PM_SEM_INSTANT, otherwise the semantics of │
+            │           │ the derived metric is the same as the         │
+            │           │ semantics of the metric x.                    │
+            ├───────────┼───────────────────────────────────────────────┤
+            │max(x)     │ A singular instance being the maximum value   │
+            │           │ across all instances for the metric x.        │
+            ├───────────┼───────────────────────────────────────────────┤
+            │min(x)     │ A singular instance being the minimum value   │
+            │           │ across all instances for the metric x.        │
+            ├───────────┼───────────────────────────────────────────────┤
+            │sum(x)     │ A singular instance being the sum of the      │
+            │           │ values across all instances for the metric x. │
+            └───────────┴───────────────────────────────────────────────┘
+       * Parenthesis may be used for explicit grouping.
+       * Lines beginning with ``#'' are treated as comments and ignored.
+       * White space is ignored.

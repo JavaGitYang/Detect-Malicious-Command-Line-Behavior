@@ -1,0 +1,3 @@
+
+       Extract given channel binding data of the  cbtype (e.g.,
+       GNUTLS_CB_TLS_UNIQUE) type.

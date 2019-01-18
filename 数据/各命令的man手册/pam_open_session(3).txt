@@ -1,0 +1,11 @@
+
+       The pam_open_session function sets up a user session for a previously
+       successful authenticated user. The session should later be terminated
+       with a call to pam_close_session(3).
+       It should be noted that the effective uid, geteuid(2). of the
+       application should be of sufficient privilege to perform such tasks
+       as creating or mounting the user's home directory for example.
+       The flags argument is the binary or of zero or more of the following
+       values:
+       PAM_SILENT
+           Do not emit any messages.

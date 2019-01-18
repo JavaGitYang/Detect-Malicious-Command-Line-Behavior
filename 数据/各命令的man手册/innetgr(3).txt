@@ -1,0 +1,20 @@
+
+       The netgroup is a SunOS invention.  A netgroup database is a list of
+       string triples (hostname, username, domainname) or other netgroup
+       names.  Any of the elements in a triple can be empty, which means
+       that anything matches.  The functions described here allow access to
+       the netgroup databases.  The file /etc/nsswitch.conf defines what
+       database is searched.
+       The setnetgrent() call defines the netgroup that will be searched by
+       subsequent getnetgrent() calls.  The getnetgrent() function retrieves
+       the next netgroup entry, and returns pointers in host, user, domain.
+       A null pointer means that the corresponding entry matches any string.
+       The pointers are valid only as long as there is no call to other
+       netgroup-related functions.  To avoid this problem you can use the
+       GNU function getnetgrent_r() that stores the strings in the supplied
+       buffer.  To free all allocated buffers use endnetgrent().
+       In most cases you want to check only if the triplet (hostname,
+       username, domainname) is a member of a netgroup.  The function
+       innetgr() can be used for this without calling the above three
+       functions.  Again, a null pointer is a wildcard and matches any
+       string.  The function is thread-safe.

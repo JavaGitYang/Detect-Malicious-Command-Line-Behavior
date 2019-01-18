@@ -1,0 +1,18 @@
+
+       kernel-install is used to install and remove kernel and initramfs
+       images to and from /boot.
+       kernel-install will execute the files located in the directory
+       /usr/lib/kernel/install.d/ and the local administration directory
+       /etc/kernel/install.d/. All files are collectively sorted and
+       executed in lexical order, regardless of the directory in which they
+       live. However, files with identical filenames replace each other.
+       Files in /etc/kernel/install.d/ take precedence over files with the
+       same name in /usr/lib/kernel/install.d/. This can be used to override
+       a system-supplied executables with a local file if needed; a symbolic
+       link in /etc/kernel/install.d/ with the same name as an executable in
+       /usr/lib/kernel/install.d/, pointing to /dev/null, disables the
+       executable entirely. Executables must have the extension ".install";
+       other extensions are ignored.
+       An executable should return 0 on success. It may also return 77 to
+       cause the whole operation to terminate (executables later in lexical
+       order will be skipped).

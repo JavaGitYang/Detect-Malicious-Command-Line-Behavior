@@ -1,0 +1,116 @@
+
+       GNU tar is an archiving program designed to store multiple files in a
+       single file (an archive), and to manipulate such archives.  The
+       archive can be either a regular file or a device (e.g. a tape drive,
+       hence the name of the program, which stands for tape archiver), which
+       can be located either on the local or on a remote machine.
+   Option styles
+       Options to GNU tar can be given in three different styles.  In
+       traditional style, the first argument is a cluster of option letters
+       and all subsequent arguments supply arguments to those options that
+       require them.  The arguments are read in the same order as the option
+       letters.  Any command line words that remain after all options has
+       been processed are treated as non-optional arguments: file or archive
+       member names.
+       For example, the c option requires creating the archive, the v option
+       requests the verbose operation, and the f option takes an argument
+       that sets the name of the archive to operate upon.  The following
+       command, written in the traditional style, instructs tar to store all
+       files from the directory /etc into the archive file etc.tar verbosely
+       listing the files being archived:
+       tar cfv a.tar /etc
+       In UNIX or short-option style, each option letter is prefixed with a
+       single dash, as in other command line utilities.  If an option takes
+       argument, the argument follows it, either as a separate command line
+       word, or immediately following the option.  However, if the option
+       takes an optional argument, the argument must follow the option let‐
+       ter without any intervening whitespace, as in -g/tmp/snar.db.
+       Any number of options not taking arguments can be clustered together
+       after a single dash, e.g. -vkp.  Options that take arguments (whether
+       mandatory or optional), can appear at the end of such a cluster, e.g.
+       -vkpf a.tar.
+       The example command above written in the short-option style could
+       look like:
+       tar -cvf a.tar /etc
+       or
+       tar -c -v -f a.tar /etc
+       In GNU or long-option style, each option begins with two dashes and
+       has a meaningful name, consisting of lower-case letters and dashes.
+       When used, the long option can be abbreviated to its initial letters,
+       provided that this does not create ambiguity.  Arguments to long
+       options are supplied either as a separate command line word, immedi‐
+       ately following the option, or separated from the option by an equals
+       sign with no intervening whitespace.  Optional arguments must always
+       use the latter method.
+       Here are several ways of writing the example command in this style:
+       tar --create --file a.tar --verbose /etc
+       or (abbreviating some options):
+       tar --cre --file=a.tar --verb /etc
+       The options in all three styles can be intermixed, although doing so
+       with old options is not encouraged.
+   Operation mode
+       The options listed in the table below tell GNU tar what operation it
+       is to perform.  Exactly one of them must be given.  Meaning of non-
+       optional arguments depends on the operation mode requested.
+       -A, --catenate, --concatenate
+              Append archive to the end of another archive.  The arguments
+              are treated as the names of archives to append.  All archives
+              must be of the same format as the archive they are appended
+              to, otherwise the resulting archive might be unusable with
+              non-GNU implementations of tar.  Notice also that when more
+              than one archive is given, the members from archives other
+              than the first one will be accessible in the resulting archive
+              only if using the -i (--ignore-zeros) option.
+              Compressed archives cannot be concatenated.
+       -c, --create
+              Create a new archive.  Arguments supply the names of the files
+              to be archived.  Directories are archived recursively, unless
+              the --no-recursion option is given.
+       -d, --diff, --compare
+              Find differences between archive and file system.  The argu‐
+              ments are optional and specify archive members to compare.  If
+              not given, the current working directory is assumed.
+       --delete
+              Delete from the archive.  The arguments supply names of the
+              archive members to be removed.  At least one argument must be
+              given.
+              This option does not operate on compressed archives.  There is
+              no short option equivalent.
+       -r, --append
+              Append files to the end of an archive.  Arguments have the
+              same meaning as for -c (--create).
+       -t, --list
+              List the contents of an archive.  Arguments are optional.
+              When given, they specify the names of the members to list.
+       --test-label
+              Test the archive volume label and exit.  When used without
+              arguments, it prints the volume label (if any) and exits with
+              status 0.  When one or more command line arguments are given.
+              tar compares the volume label with each argument.  It exits
+              with code 0 if a match is found, and with code 1 otherwise.
+              No output is displayed, unless used together with the -v
+              (--verbose) option.
+              There is no short option equivalent for this option.
+       -u, --update
+              Append files which are newer than the corresponding copy in
+              the archive.  Arguments have the same meaning as with -c and
+              -r options.  Notice, that newer files don't replace their old
+              archive copies, but instead are appended to the end of ar‐
+              chive.  The resulting archive can thus contain several members
+              of the same name, corresponding to various versions of the
+              same file.
+       -x, --extract, --get
+              Extract files from an archive.  Arguments are optional.  When
+              given, they specify names of the archive members to be
+              extracted.
+       --show-defaults
+              Show built-in defaults for various tar options and exit.  No
+              arguments are allowed.
+       -?, --help
+              Display a short option summary and exit.  No arguments
+              allowed.
+       --usage
+              Display a list of available options and exit.  No arguments
+              allowed.
+       --version
+              Print program version and copyright information and exit.

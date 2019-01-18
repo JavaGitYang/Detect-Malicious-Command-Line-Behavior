@@ -1,0 +1,8 @@
+
+       These functions compute the remainder of dividing x by y.  The return
+       value is x-n*y, where n is the value x / y, rounded to the nearest
+       integer.  If the absolute value of x-n*y is 0.5, n is chosen to be
+       even.
+       These functions are unaffected by the current rounding mode (see
+       fenv(3)).
+       The drem() function does precisely the same thing.

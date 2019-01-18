@@ -1,0 +1,4 @@
+
+       The wmemset() function is the wide-character equivalent of the
+       memset(3) function.  It fills the array of n wide-characters starting
+       at wcs with n copies of the wide character wc.

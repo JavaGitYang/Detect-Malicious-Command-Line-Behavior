@@ -1,0 +1,29 @@
+
+       pmdajbd2 is a Performance Metrics Domain Agent (PMDA) which extracts
+       performance metrics from the Journal Block Device subsystem (version
+       2) in the Linux kernel.  These metrics are exported by the kernel in
+       procfs files, one file per block device.  The JBD2 subsystem is used
+       by several filesystems including ext3, ext4 and ocfs2.
+       The jbd2 PMDA exports metrics that measure detailed journal
+       transaction information, such as time spent waiting and locked,
+       request rates, blocks used and so on.
+       A brief description of the pmdajbd2 command line options follows
+       (these are only relevant when running the PMDA as a daemon, and not
+       as a shared library):
+       -d   It is absolutely crucial that the performance metrics domain
+            number specified here is unique and consistent.  That is, domain
+            should be different for every PMDA on the one host, and the same
+            domain number should be used for the same PMDA on all hosts.
+       -l   Location of the log file.  By default, when running as a daemon
+            a log file named jbd2.log is written in the current directory of
+            when pmdajbd2 is started, i.e.  $PCP_LOG_DIR/pmcd.  If the log
+            file cannot be created or is not writable, output is written to
+            the standard error instead.  When running in shared library
+            mode, and diagnostic information will be written into the pmcd
+            log file, namely $PCP_LOG_DIR/pmcd/pmcd.log.
+       -j   Allows an alternate path to the jbd2 statistics files to be
+            specified.  The default path is /proc/fs/jbd2.
+       -U   User account under which to run the agent.  The default is the
+            unprivileged "pcp" account in current versions of PCP, but in
+            older versions the superuser account ("root") was used by
+            default.

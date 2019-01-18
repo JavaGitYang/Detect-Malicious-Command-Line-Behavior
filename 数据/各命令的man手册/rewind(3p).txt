@@ -1,0 +1,13 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The call:
+           rewind(stream)
+       shall be equivalent to:
+           (void) fseek(stream, 0L, SEEK_SET)
+       except that rewind() shall also clear the error indicator.
+       Since rewind() does not return a value, an application wishing to
+       detect errors should clear errno, then call rewind(), and if errno is
+       non-zero, assume an error has occurred.

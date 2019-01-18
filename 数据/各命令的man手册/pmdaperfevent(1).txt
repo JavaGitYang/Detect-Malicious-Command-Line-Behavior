@@ -1,0 +1,45 @@
+
+       pmdaperfevent is a Performance Metrics Domain Agent (PMDA) that
+       configures and reads the hardware performance counters using the
+       Linux kernel perf_event API.
+       The perfevent PMDA exports metrics for hardware performance counters
+       that are configurable from the Linux kernel perf_event API.  The PMDA
+       uses the libpfm4 library to access the hardware performance counters
+       so any counters that are supported in libpfm4 should be available.
+       Also included is the ability to read the Intel RAPL counters via
+       direct MSR access.  The PMDA supports automatically loading different
+       counters for each hardware architecture.  A single configuration file
+       is used to specify the desired counters for each hardware performance
+       monitoring unit (PMU).  The configuration file allows different
+       counters to be programmed on different CPUs and supports round-robin
+       assignment of uncore counters needed for some AMD chips.
+       The PMDA also counts for events exposed in the kernel via
+       /sys/bus/event_source/devices directory. The PMU device name and the
+       event name must be mentioned in the configuration file. Otherwise,
+       the metric won't be available to monitor through this PMDA.
+       The PMDA configures the counters to count events in both user and
+       kernel mode.  This means that the hardware counters are unavailable
+       to use by normal unprivileged user applications when they are in use
+       by the PMDA.  The PMDA provides a mechanism to temporarily disable
+       the system-wide counters in order to allow normal users to be able to
+       use the counters if they wish.  See perfalloc(1) for details.
+       Note that pmdaperfevent is affected by the value of the
+       kernel.perf_event_paranoid setting, which can be adjusted by
+       sysctl(8).
+       A brief description of the pmdaperfevent command line options
+       follows:
+       -d   It is absolutely crucial that the performance metrics domain
+            number specified here is unique and consistent.  That is, domain
+            should be different for every PMDA on the one host, and the same
+            domain number should be used for the same PMDA on all hosts.
+       -l   Location of the log file.  By default, a log file named
+            perfevent.log is written in the current directory of pmcd(1)
+            when pmdaperfevent is started, i.e.  $PCP_LOG_DIR/pmcd.  If the
+            log file cannot be created or is not writable, output is written
+            to the standard error instead.
+       -U   User account under which to run the agent.  The default is the
+            privileged "root" account.
+       -i   listen on given port number for connection from pmcd(1)
+       -p   communicate with pmcd(1) via stdin/stdout
+       -u   expect pmcd(1) to connect on given unix domain socket
+       -6   expect pmcd(1) to connect on given ipv6 port (number or name)

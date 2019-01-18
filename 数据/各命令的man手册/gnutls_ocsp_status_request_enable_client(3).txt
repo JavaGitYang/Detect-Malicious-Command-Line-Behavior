@@ -1,0 +1,8 @@
+
+       This function is to be used by clients to request OCSP response from
+       the server, using the "status_request" TLS extension.  Only OCSP
+       status type is supported.
+       Previous versions of GnuTLS supported setting  responder_id and
+        extensions fields, but due to the difficult semantics of the
+       parameter usage, and other issues, this support was removed since
+       3.6.0 and these parameters must be set to NULL.

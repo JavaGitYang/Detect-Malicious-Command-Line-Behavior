@@ -1,0 +1,3 @@
+
+       This function will copy a private key from source to destination key.
+       Destination has to be initialized.

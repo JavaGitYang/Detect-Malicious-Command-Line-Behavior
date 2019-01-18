@@ -1,0 +1,4 @@
+
+       Returns the type of credentials that were used for server
+       authentication.  The returned information is to be used to
+       distinguish the function used to access authentication data.

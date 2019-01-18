@@ -1,0 +1,60 @@
+
+       This driver is obsolete: it was removed from the kernel in version
+       2.6.35.
+       wavelan is the low-level device driver for the NCR / AT&T / Lucent
+       WaveLAN ISA and Digital (DEC) RoamAbout DS wireless ethernet adapter.
+       This driver is available as a module or might be compiled in the
+       kernel.  This driver supports multiple cards in both forms (up to 4)
+       and allocates the next available ethernet device (eth0..eth#) for
+       each card found, unless a device name is explicitly specified (see
+       below).  This device name will be reported in the kernel log file
+       with the MAC address, NWID and frequency used by the card.
+   Parameters
+       This section apply to the module form (parameters passed on the
+       insmod(8) command line).  If the driver is included in the kernel,
+       use the ether=IRQ,IO,NAME syntax on the kernel command line.
+       io     Specify the list of base address where to search for wavelan
+              cards (setting by dip switch on the card).  If you don't
+              specify any io address, the driver will scan 0x390 and 0x3E0
+              addresses, which might conflict with other hardware...
+       irq    Set the list of irq that each wavelan card should use (the
+              value is saved in permanent storage for future use).
+       name   Set the list of name to be used for each wavelan cards device
+              (name used by ifconfig(8)).
+   Wireless extensions
+       Use iwconfig(8) to manipulate wireless extensions.
+   NWID (or domain)
+       Set the network ID [0 to FFFF] or disable it [off].  As the NWID is
+       stored in the card Permanent Storage Area, it will be reuse at any
+       further invocation of the driver.
+   Frequency & channels
+       For the 2.4 GHz 2.00 Hardware, you are able to set the frequency by
+       specifying one of the 10 defined channels (2.412, 2.422, 2.425,
+       2.4305, 2.432, 2.442, 2.452, 2.460, 2.462 or 2.484) or directly by
+       its value.  The frequency is changed immediately and permanently.
+       Frequency availability depends on the regulations...
+   Statistics spy
+       Set a list of MAC addresses in the driver (up to 8) and get the last
+       quality of link for each of those (see iwspy(8)).
+   /proc/net/wireless
+       status is the status reported by the modem.  Link quality reports the
+       quality of the modulation on the air (direct sequence spread
+       spectrum) [max = 16].  Level and Noise refer to the signal level and
+       noise level [max = 64].  The crypt discarded packet and misc
+       discarded packet counters are not implemented.
+   Private ioctl
+       You may use iwpriv(8) to manipulate private ioctls.
+   Quality and level threshold
+       Enable you the define the quality and level threshold used by the
+       modem (packet below that level are discarded).
+   Histogram
+       This functionality makes it possible to set a number of signal level
+       intervals and to count the number of packets received in each of
+       those defined intervals.  This distribution might be used to
+       calculate the mean value and standard deviation of the signal level.
+   Specific notes
+       This driver fails to detect some non-NCR/AT&T/Lucent Wavelan cards.
+       If this happens for you, you must look in the source code on how to
+       add your card to the detection routine.
+       Some of the mentioned features are optional.  You may enable to
+       disable them by changing flags in the driver header and recompile.

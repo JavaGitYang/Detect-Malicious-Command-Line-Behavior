@@ -1,0 +1,4 @@
+
+       valgrind-listener accepts (multiple) connections from valgrind
+       processes that use the --log-socket option on the specified port and
+       copies the commentary it is sent to stdout.

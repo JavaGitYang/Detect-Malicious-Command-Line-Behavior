@@ -1,0 +1,2 @@
+
+       Validates the gpg signature created by git tag.

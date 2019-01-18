@@ -1,0 +1,3 @@
+
+       The getgid() function shall return the real group ID of the calling
+       process.

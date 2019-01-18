@@ -1,0 +1,37 @@
+
+       In some (rare) cases it is helpful to prune the Performance Metrics
+       Name Space (PMNS) to match the available metrics.
+       The default PMNS that is accessible to a Performance Metrics
+       Application Programming Interface (PMAPI) client is provided by the
+       current PMAPI context:
+       ·  for a PMAPI context of type PM_CONTEXT_HOST the PMNS is provided
+          by pmcd(1) on the associated host and no pruning is required
+       ·  for a PMAPI context of type PM_CONTEXT_ARCHIVE the PMNS is stored
+          within the associated Performance Co-Pilot (PCP) archive log and
+          no pruning is required
+       ·  for a PMAPI context of type PM_CONTEXT_LOCAL at the first PMAPI
+          call requiring access to the PMNS it is loaded from the default
+          local location $PCP_VAR_DIR/pmns/root (or $PMNS_DEFAULT) and no
+          pruning is required.
+       If the default PMNS is in effect then calling pmTrimNameSpace is a
+       no-op and returns zero with no change to the PMNS.
+       PMAPI clients also have the option of over-riding the default PMNS by
+       loading a local PMNS from a file (see pmns(5) for the format) by
+       calling pmLoadASCIINameSpace(3) or pmLoadNameSpace(3) and this is
+       when some PMNS pruning may be useful.
+       If a local PMNS is in effect when pmTrimNameSpace is called then the
+       first action is to restore the PMNS to the state as of the completion
+       of the last pmLoadASCIINameSpace(3) or pmLoadNameSpace(3), so that
+       the effects of consecutive calls to pmTrimNameSpace are not additive.
+       The subsequent actions of pmTrimNameSpace depend on the type of the
+       current PMAPI context.
+       ·  For a context of type PM_CONTEXT_ARCHIVE the local PMNS is trimmed
+          to exclude metrics for which no description can be found in the
+          PCP archive log.  The PMNS is further trimmed to remove empty
+          subtrees that do not contain any performance metric.  Since PCP
+          archives usually contain some subset of all metrics named in a
+          PMNS, pmTrimNameSpace effectively prunes the application's PMNS to
+          contain only the names of the metrics in the archive.
+       ·  For a context of type PM_CONTEXT_HOST or PM_CONTEXT_LOCAL no
+          further action is required.
+       On success, pmTrimNameSpace returns zero.

@@ -1,0 +1,22 @@
+
+       The gitweb CGI script for viewing Git repositories over the web uses
+       a perl script fragment as its configuration file. You can set
+       variables using "our $variable = value"; text from a "#" character
+       until the end of a line is ignored. See perlsyn(1) for details.
+       An example:
+           # gitweb configuration file for http://git.example.org
+           #
+           our $projectroot = "/srv/git"; # FHS recommendation
+           our $site_name = 'Example.org >> Repos';
+       The configuration file is used to override the default settings that
+       were built into gitweb at the time the gitweb.cgi script was
+       generated.
+       While one could just alter the configuration settings in the gitweb
+       CGI itself, those changes would be lost upon upgrade. Configuration
+       settings might also be placed into a file in the same directory as
+       the CGI script with the default name gitweb_config.perl — allowing
+       one to have multiple gitweb instances with different configurations
+       by the use of symlinks.
+       Note that some configuration can be controlled on per-repository
+       rather than gitweb-wide basis: see "Per-repository gitweb
+       configuration" subsection on gitweb(1) manpage.

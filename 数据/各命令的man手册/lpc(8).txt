@@ -1,0 +1,15 @@
+
+       lpc provides limited control over printer and class queues provided
+       by CUPS. It can also be used to query the state of queues.
+       If no command is specified on the command-line, lpc displays a prompt
+       and accepts commands from the standard input.
+   COMMANDS
+       The lpc program accepts a subset of commands accepted by the Berkeley
+       lpc program of the same name:
+       exit Exits the command interpreter.
+       help [command]
+       ? [command]
+            Displays a short help message.
+       quit Exits the command interpreter.
+       status [queue]
+            Displays the status of one or more printer or class queues.

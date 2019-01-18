@@ -1,0 +1,35 @@
+
+       Event records are encoded as a packed array of records within a
+       pmResult using a container metric with a value of type PM_TYPE_EVENT
+       , and a pmHighResResult when using a metric of type
+       PM_TYPE_HIGHRES_EVENT.
+       pmUnpackEventRecords and pmUnpackHighResEventRecords may be used to
+       unpack event records from a metric value identified by vsp and idx.
+       If the metric has a singular value, idx should be 0, else the ordinal
+       instance value identified by idx will be unpacked, i.e.
+       vsp->vlist[idx].  The unpacked records are turned into either
+       pmResult or pmHighResResult structures, one per event record and one
+       metric per event parameter, and rap is returned as a pointer to an
+       array (NULL pointer terminated) of pointers to the result structures.
+       The only difference between the two result types is the timestamp
+       scale; the pmHighResResult allows for nanosecond precision, whereas
+       pmResult allows for microsecond resolution.
+       Some control information from the packed event records is unpacked
+       into additional ``anonymous'' metrics as follows:
+       1.  If the event record has a non-zero flags value, then the
+           corresponding pmResult/pmHighResResult will have the flags value
+           encoded with the additional metric event.flags that is inserted
+           ahead of all other event parameters.
+       2.  If the event record flag is set to PM_EVENT_FLAG_MISSED, then the
+           corresponding pmResult/pmHighResResult will have one metric
+           event.missed with a value that equals the number of event records
+           ``missed'' because either the PMDA could not keep up, or the
+           PMAPI client did not collect the event records fast enough.
+       pmUnpackEventRecords returns the number of pmResult structures as the
+       return value, which is >= 0 for success.  Similarly,
+       pmUnpackHighResEventRecords returns the number of pmHighResResult
+       structures as the return value, which is >= 0 for success.
+       rap and the associated pmResult structures may be freed using the
+       convenience function pmFreeEventResult(3).
+       Similarly, the hrap and the associated pmHighResResult structures may
+       be freed using the convenience function pmFreeHighResEventResult.

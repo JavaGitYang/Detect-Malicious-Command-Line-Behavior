@@ -1,0 +1,15 @@
+
+       bno_plot is a visualization tool for the block layer IO tracing tool
+       called blktrace(8).  As noted in its documentation, blktrace is a
+       block layer IO tracing mechanism which provides detailed information
+       about request queue operations up to user space.
+       bno_plot utilizes gnuplot to generate a 3D plot of the block number
+       output from btt.  If no <files> are specified, it will utilize all
+       files generated after btt was run with -B blknos (meaning: all files
+       of the form blknos*[rw].dat).
+       The -K option forces bno_plot to put the keys below the graph.  If it
+       is not specified, all keys for input files are put in the upper right
+       corner of the graph. If the number of devices exceed 10, then
+       bno_plot will automatically push the keys under the graph.
+       To use this utility, the gnuplot package needs to be installed.
+       To exit the plotter, enter 'quit' or ^D at the 'gnuplot> ' prompt.

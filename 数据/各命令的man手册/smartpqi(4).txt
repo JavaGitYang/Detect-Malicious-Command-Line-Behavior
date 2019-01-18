@@ -1,0 +1,43 @@
+
+       smartpqi is a SCSI driver for Microsemi Smart Family controllers.
+   Supported ioctl() operations
+       For compatibility with applications written for the cciss(4) and
+       hpsa(4) drivers, many, but not all of the ioctl(2) operations
+       supported by the hpsa driver are also supported by the smartpqi
+       driver.  The data structures used by these operations are described
+       in the Linux kernel source file include/linux/cciss_ioctl.h.
+       CCISS_DEREGDISK, CCISS_REGNEWDISK, CCISS_REGNEWD
+              These operations all do exactly the same thing, which is to
+              cause the driver to re-scan for new devices.  This does
+              exactly the same thing as writing to the smartpqi-specific
+              host rescan attribute.
+       CCISS_GETPCIINFO
+              This operation Returns the PCI domain, bus, device and
+              function and "board ID" (PCI subsystem ID).
+       CCISS_GETDRIVVER
+              This operation returns the driver version in four bytes,
+              encoded as:
+                  (major_version << 28) | (minor_version << 24) |
+                          (release << 16) | revision
+       CCISS_PASSTHRU
+              Allows BMIC and CISS commands to be passed through to the con‐
+              troller.
+   Boot options
+       disable_device_id_wildcards={0|1}
+              Disables support for device ID wildcards.  The default value
+              is 0.
+       disable_heartbeat={0|1}
+              Disables support for the controller's heartbeat check.  This
+              parameter is used for debugging purposes.  The default value
+              is 0, leaving the controller's heartbeat check active.
+       disable_ctrl_shutdown={0|1}
+              Disables support for shutting down the controller in the event
+              of a controller lockup.  The default value is 0.
+       lockup_action={none|reboot|panic}
+              Specifies the action the driver takes when a controller lockup
+              is detected.  The default action is none.
+              parameter   action
+              ─────────────────────────────────────────────
+              none        take controller offline only
+              reboot      reboot the system
+              panic       panic the system

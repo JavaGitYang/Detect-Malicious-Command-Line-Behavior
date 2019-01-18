@@ -1,0 +1,5 @@
+
+       This function will encrypt the given data using the algorithm
+       specified by the context. For block ciphers the  ptext_len must be a
+       multiple of the block size. For the supported ciphers the encrypted
+       data length will equal the plaintext size.

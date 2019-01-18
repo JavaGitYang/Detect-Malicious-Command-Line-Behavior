@@ -1,0 +1,35 @@
+
+       The pthread_cancel() function sends a cancellation request to the
+       thread thread.  Whether and when the target thread reacts to the
+       cancellation request depends on two attributes that are under the
+       control of that thread: its cancelability state and type.
+       A thread's cancelability state, determined by
+       pthread_setcancelstate(3), can be enabled (the default for new
+       threads) or disabled.  If a thread has disabled cancellation, then a
+       cancellation request remains queued until the thread enables
+       cancellation.  If a thread has enabled cancellation, then its
+       cancelability type determines when cancellation occurs.
+       A thread's cancellation type, determined by pthread_setcanceltype(3),
+       may be either asynchronous or deferred (the default for new threads).
+       Asynchronous cancelability means that the thread can be canceled at
+       any time (usually immediately, but the system does not guarantee
+       this).  Deferred cancelability means that cancellation will be
+       delayed until the thread next calls a function that is a cancellation
+       point.  A list of functions that are or may be cancellation points is
+       provided in pthreads(7).
+       When a cancellation requested is acted on, the following steps occur
+       for thread (in this order):
+       1. Cancellation clean-up handlers are popped (in the reverse of the
+          order in which they were pushed) and called.  (See
+          pthread_cleanup_push(3).)
+       2. Thread-specific data destructors are called, in an unspecified
+          order.  (See pthread_key_create(3).)
+       3. The thread is terminated.  (See pthread_exit(3).)
+       The above steps happen asynchronously with respect to the
+       pthread_cancel() call; the return status of pthread_cancel() merely
+       informs the caller whether the cancellation request was successfully
+       queued.
+       After a canceled thread has terminated, a join with that thread using
+       pthread_join(3) obtains PTHREAD_CANCELED as the thread's exit status.
+       (Joining with a thread is the only way to know that cancellation has
+       completed.)

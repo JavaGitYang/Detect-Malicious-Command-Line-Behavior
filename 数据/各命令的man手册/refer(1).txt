@@ -1,0 +1,39 @@
+
+       This file documents the GNU version of refer, which is part of the
+       groff document formatting system.  refer copies the contents of
+       filename... to the standard output, except that lines between .[ and
+       .] are interpreted as citations, and lines between .R1 and .R2 are
+       interpreted as commands about how citations are to be processed.
+       Each citation specifies a reference.  The citation can specify a
+       reference that is contained in a bibliographic database by giving a
+       set of keywords that only that reference contains.  Alternatively it
+       can specify a reference by supplying a database record in the
+       citation.  A combination of these alternatives is also possible.
+       For each citation, refer can produce a mark in the text.  This mark
+       consists of some label which can be separated from the text and from
+       other labels in various ways.  For each reference it also outputs
+       groff commands that can be used by a macro package to produce a
+       formatted reference for each citation.  The output of refer must
+       therefore be processed using a suitable macro package.  The -ms and
+       -me macros are both suitable.  The commands to format a citation's
+       reference can be output immediately after the citation, or the
+       references may be accumulated, and the commands output at some later
+       point.  If the references are accumulated, then multiple citations of
+       the same reference will produce a single formatted reference.
+       The interpretation of lines between .R1 and .R2 as commands is a new
+       feature of GNU refer.  Documents making use of this feature can still
+       be processed by Unix refer just by adding the lines
+              .de R1
+              .ig R2
+              ..
+       to the beginning of the document.  This will cause troff to ignore
+       everything between .R1 and .R2.  The effect of some commands can also
+       be achieved by options.  These options are supported mainly for
+       compatibility with Unix refer.  It is usually more convenient to use
+       commands.
+       refer generates .lf lines so that filenames and line numbers in
+       messages produced by commands that read refer output will be correct;
+       it also interprets lines beginning with .lf so that filenames and
+       line numbers in the messages and .lf lines that it produces will be
+       accurate even if the input has been preprocessed by a command such as
+       soelim(1).

@@ -1,0 +1,5 @@
+
+       __setfpucw() transfers control_word to the registers of the FPU
+       (floating-point unit) on the i386 architecture.  This was used to
+       control floating-point precision, rounding and floating-point
+       exceptions.

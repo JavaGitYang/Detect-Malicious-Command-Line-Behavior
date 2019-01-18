@@ -1,0 +1,7 @@
+
+       This function will return the alternative names, contained in the
+       given certificate. It is the same as
+       gnutls_x509_crt_get_subject_alt_name() except for the fact that it
+       will return the type of the alternative name in  san_type even if the
+       function fails for some reason (i.e.  the buffer provided is not
+       enough).

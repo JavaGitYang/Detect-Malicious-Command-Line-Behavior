@@ -1,0 +1,19 @@
+
+       pcp2json is a customizable performance metrics exporter tool from PCP
+       to JSON.  Any available performance metric, live or archived, system
+       and/or application, can be selected for exporting using either
+       command line arguments or a configuration file.
+       pcp2json is a close relative of pmrep(1).  Please refer to pmrep(1)
+       for the metricspec description accepted on pcp2json command line and
+       pmrep.conf(5) for description of the pcp2json.conf configuration file
+       overall syntax, this page describes pcp2json specific options and
+       configuration file differences with pmrep.conf(5).  pmrep(1) also
+       lists some usage examples of which most are applicable with pcp2json
+       as well.
+       Only the command line options listed on this page are supported,
+       other options recognized by pmrep(1) are not supported.
+       Options via environment values (see pmGetOptions(3)) override the
+       corresponding built-in default values (if any).  Configuration file
+       options override the corresponding environment variables (if any).
+       Command line options override the corresponding configuration file
+       options (if any).

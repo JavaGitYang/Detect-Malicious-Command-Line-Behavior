@@ -1,0 +1,11 @@
+
+       The iswspace() function is the wide-character equivalent of the
+       isspace(3) function.  It tests whether wc is a wide character
+       belonging to the wide-character class "space".
+       The wide-character class "space" is disjoint from the wide-character
+       class "graph" and therefore also disjoint from its subclasses
+       "alnum", "alpha", "upper", "lower", "digit", "xdigit", "punct".
+       The wide-character class "space" contains the wide-character class
+       "blank".
+       The wide-character class "space" always contains at least the space
+       character and the control characters '\f', '\n', '\r', '\t', '\v'.

@@ -1,0 +1,32 @@
+
+       The Performance Co-Pilot Log Import (LOGIMPORT) API is a library (and
+       Perl wrapper) that supports the creation of PCP archives from
+       external sources of performance data, either in the form of
+       historical logs and spreadsheets or from real-time sources that are
+       not integrated as a Performance Metrics Domain Agent (PMDA) under the
+       control of pmcd(1).
+       The typical usage for LOGIMPORT would involve:
+       ·  An initial call to pmiStart(3).
+       ·  Optional calls to pmiSetHostname(3) and/or pmiSetTimezone(3) to
+          set the hostname and timezone for the source of the performance
+          data.
+       ·  One or more calls to pmiAddMetric(3) to define performance
+          metrics.
+       ·  One or more calls to pmiAddInstance(3) to define instances
+          associated with the metrics.
+       ·  Optional calls to pmiGetHandle(3) to defined convenience handles
+          for metric-instance pairs.
+       ·  A main loop in which performance data is injested and for each
+          sample time interval, the PCP archive record is constructed by
+          calls to pmiPutValue(3) and/or pmiPutValueHandle(3), followed by a
+          call to pmiWrite(3) to flush all data and any associated new
+          metadata to the PCP archive.  Alternatively, pmiPutResult(3) could
+          be used to package and process all the data for one sample time
+          interval.
+       ·  Once the input source of data has been consumed, calling pmiEnd(3)
+          to complete the PCP archive creation and close all open files.
+       If new metrics and/or instances are discovered during the data
+       injestion, these can be added by subsequent calls to pmiAddMetric(3)
+       and/or pmiAddInstance(3), provided all the metrics and instances have
+       been defined before a call to pmiGetHandle(3), pmiPutValue(3)or
+       pmiPutResult(3) that references those metrics and instances.

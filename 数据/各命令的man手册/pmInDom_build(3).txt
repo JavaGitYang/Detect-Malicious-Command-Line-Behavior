@@ -1,0 +1,9 @@
+
+       Within the Performance Co-Pilot (PCP) each instance domain is
+       assigned a unique Instance Domain Identifier (pmInDom).  Internally a
+       pmInDom is constructed from 2 fields: the domain number (of the
+       associated Performance Metrics Domain Agent, or PMDA) and the serial
+       number (assigned by the PMDA).
+       pmInDom_build constructs a pmInDom from domain and serial.
+       pmInDom_domain and pmInDom_serial return the respective fields from
+       indom.

@@ -1,0 +1,6 @@
+
+       These functions project a point in the plane onto the surface of a
+       Riemann Sphere, the one-point compactification of the complex plane.
+       Each finite point z projects to z itself.  Every complex infinite
+       value is projected to a single infinite value, namely to positive
+       infinity on the real axis.

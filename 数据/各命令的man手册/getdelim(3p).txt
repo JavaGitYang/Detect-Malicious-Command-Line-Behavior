@@ -1,0 +1,25 @@
+
+       The getdelim() function shall read from stream until it encounters a
+       character matching the delimiter character. The delimiter argument is
+       an int, the value of which the application shall ensure is a
+       character representable as an unsigned char of equal value that
+       terminates the read process. If the delimiter argument has any other
+       value, the behavior is undefined.
+       The application shall ensure that *lineptr is a valid argument that
+       could be passed to the free() function. If *n is non-zero, the
+       application shall ensure that *lineptr either points to an object of
+       size at least *n bytes, or is a null pointer.
+       The size of the object pointed to by *lineptr shall be increased to
+       fit the incoming line, if it isn't already large enough, including
+       room for the delimiter and a terminating NUL. The characters read,
+       including any delimiter, shall be stored in the string pointed to by
+       the lineptr argument, and a terminating NUL added when the delimiter
+       or end of file is encountered.
+       The getline() function shall be equivalent to the getdelim() function
+       with the delimiter character equal to the <newline> character.
+       The getdelim() and getline() functions may mark the last data access
+       timestamp of the file associated with stream for update. The last
+       data access timestamp shall be marked for update by the first
+       successful execution of fgetc(), fgets(), fread(), fscanf(), getc(),
+       getchar(), getdelim(), getline(), gets(), or scanf() using stream
+       that returns data not supplied by a prior call to ungetc().

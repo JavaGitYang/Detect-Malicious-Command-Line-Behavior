@@ -1,0 +1,5 @@
+
+       The ovs-ctl program starts, stops, and checks the status of Open
+       vSwitch daemons.  It is not meant to be invoked directly by system
+       administrators but to be called internally by system startup scripts.
+       Each of ovs-ctl's commands is described separately below.

@@ -1,0 +1,4 @@
+
+       auparse_feed_age_events should be called to see if any events are
+       complete based on the current clock time. Any newly complete events
+       will be passed to the callback function.

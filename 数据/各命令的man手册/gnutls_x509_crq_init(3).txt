@@ -1,0 +1,2 @@
+
+       This function will initialize a PKCS10 certificate request structure.

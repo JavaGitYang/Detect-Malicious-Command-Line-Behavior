@@ -1,0 +1,9 @@
+
+       The ualarm() function causes the signal SIGALRM to be sent to the
+       invoking process after (not less than) usecs microseconds.  The delay
+       may be lengthened slightly by any system activity or by the time
+       spent processing the call or by the granularity of system timers.
+       Unless caught or ignored, the SIGALRM signal will terminate the
+       process.
+       If the interval argument is nonzero, further SIGALRM signals will be
+       sent every interval microseconds after the first.

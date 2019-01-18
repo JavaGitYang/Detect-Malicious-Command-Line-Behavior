@@ -1,0 +1,4 @@
+
+       Every menu and every menu item has a field that can be used to hold
+       application-specific data (that is, the menu-driver code leaves it
+       alone).  These functions get and set the menu user pointer field.

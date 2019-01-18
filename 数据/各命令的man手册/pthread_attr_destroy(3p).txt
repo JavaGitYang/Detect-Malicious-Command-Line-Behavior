@@ -1,0 +1,19 @@
+
+       The pthread_attr_destroy() function shall destroy a thread attributes
+       object. An implementation may cause pthread_attr_destroy() to set
+       attr to an implementation-defined invalid value. A destroyed attr
+       attributes object can be reinitialized using pthread_attr_init(); the
+       results of otherwise referencing the object after it has been
+       destroyed are undefined.
+       The pthread_attr_init() function shall initialize a thread attributes
+       object attr with the default value for all of the individual
+       attributes used by a given implementation.
+       The resulting attributes object (possibly modified by setting
+       individual attribute values) when used by pthread_create() defines
+       the attributes of the thread created. A single attributes object can
+       be used in multiple simultaneous calls to pthread_create().  Results
+       are undefined if pthread_attr_init() is called specifying an already
+       initialized attr attributes object.
+       The behavior is undefined if the value specified by the attr argument
+       to pthread_attr_destroy() does not refer to an initialized thread
+       attributes object.

@@ -1,0 +1,9 @@
+
+       This function sends a ping to the peer. If the  flags is set to
+       GNUTLS_HEARTBEAT_WAIT then it waits for a reply from the peer.
+       Note that it is highly recommended to use this function with the flag
+       GNUTLS_HEARTBEAT_WAIT, or you need to handle retransmissions and
+       timeouts manually.
+       The total TLS data transmitted as part of the ping message are given
+       by the following formula: MAX(16,  data_size
+       )+gnutls_record_overhead_size()+3.

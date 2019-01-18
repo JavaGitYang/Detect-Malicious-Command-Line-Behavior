@@ -1,0 +1,3 @@
+
+       Hide a range of unapplied patches so that they are no longer shown in
+       the plain series command output.

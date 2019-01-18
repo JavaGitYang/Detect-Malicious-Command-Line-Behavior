@@ -1,0 +1,38 @@
+
+       lxc-copy creates and optionally starts (ephemeral or non-ephemeral)
+       copies of existing containers.
+       lxc-copy creates copies of existing containers. Copies can be
+       complete clones of the original container. In this case the whole
+       root filesystem of the container is simply copied to the new
+       container. Or they can be snapshots, i.e. small copy-on-write copies
+       of the original container. In this case the specified backing storage
+       for the copy must support snapshots. This currently includes btrfs,
+       lvm (lvm devices do not support snapshots of snapshots.), overlay,
+       and zfs.
+       The copy's backing storage will be of the same type as the original
+       container. overlay snapshots of directory backed containers are
+       exempted from this rule.
+       When the -e flag is specified an ephemeral snapshot of the original
+       container is created and started. Ephemeral containers will have
+       lxc.ephemeral = 1 set in their config file and will be destroyed on
+       shutdown. When -e is used in combination with -D a non-ephemeral
+       snapshot of the original container is created and started.  Ephemeral
+       containers can also be placed on a tmpfs with -t flag. NOTE: If an
+       ephemeral container that is placed on a tmpfs is rebooted all changes
+       made to it will currently be lost!
+       When -e is specified and no newname is given via -N a random name for
+       the snapshot will be chosen.
+       Containers created and started with -e can have custom mounts. These
+       are specified with the -m flag. Currently two types of mounts are
+       supported: bind, and overlay. Mount types are specified as suboptions
+       to the -m flag and can be specified multiple times separated by
+       commas. overlay mounts are currently specified in the format -m
+       overlay=/src:/dest. When no destination dest is specified dest will
+       be identical to src. Read-only bind mounts are specified -m
+       bind=/src:/dest:ro and read-write bind mounts -m bind=/src:/dest:rw.
+       Read-write bind mounts are the default and rw can be missing when a
+       read-write mount is wanted. When dest is missing dest will be
+       identical to src. An example for multiple mounts would be -m
+       bind=/src1:/dest1:ro,bind=/src2:ro,overlay=/src3:/dest3.
+       The mounts, their options, and formats supported via the -m flag are
+       subject to change.

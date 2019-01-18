@@ -1,0 +1,11 @@
+
+       Register a custom URL. This will affect the following functions:
+       gnutls_url_is_supported(), gnutls_privkey_import_url(),
+       gnutls_pubkey_import_url, gnutls_x509_crt_import_url() and all
+       functions that depend on them, e.g.,
+       gnutls_certificate_set_x509_key_file2().
+       The provided structure and callback functions must be valid
+       throughout the lifetime of the process. The registration of an
+       existing URL type will fail with GNUTLS_E_INVALID_REQUEST. Since
+       GnuTLS 3.5.0 this function can be used to override the builtin URLs.
+       This function is not thread safe.

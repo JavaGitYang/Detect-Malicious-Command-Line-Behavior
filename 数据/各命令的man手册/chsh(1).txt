@@ -1,0 +1,6 @@
+
+       chsh is used to change your login shell.  If a shell is not given on
+       the command line, chsh prompts for one.
+       chsh supports non-local entries (kerberos, LDAP, etc.) if linked with
+       libuser, otherwise use ypchsh, lchsh or any other implementation for
+       non-local entries.

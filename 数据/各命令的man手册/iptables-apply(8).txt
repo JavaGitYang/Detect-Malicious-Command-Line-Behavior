@@ -1,0 +1,9 @@
+
+       iptables-apply will try to apply a new ruleset (as output by
+       iptables-save/read by iptables-restore) to iptables, then prompt the
+       user whether the changes are okay. If the new ruleset cut the
+       existing connection, the user will not be able to answer
+       affirmatively. In this case, the script rolls back to the previous
+       ruleset after the timeout expired. The timeout can be set with -t.
+       When called as ip6tables-apply, the script will use
+       ip6tables-save/-restore instead.

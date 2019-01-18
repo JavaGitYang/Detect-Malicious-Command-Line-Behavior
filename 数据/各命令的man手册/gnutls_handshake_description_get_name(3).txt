@@ -1,0 +1,2 @@
+
+       Convert a gnutls_handshake_description_t value to a string.

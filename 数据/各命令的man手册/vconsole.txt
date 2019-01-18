@@ -1,0 +1,21 @@
+
+       The /etc/vconsole.conf file configures the virtual console, i.e.
+       keyboard mapping and console font. It is applied at boot by udev
+       using 90-vconsole.rules file. You can safely mask this file if you
+       want to avoid this kind of initialization.
+       The basic file format of the vconsole.conf is a newline-separated
+       list of environment-like shell-compatible variable assignments. It is
+       possible to source the configuration from shell scripts, however,
+       beyond mere variable assignments no shell features are supported,
+       allowing applications to read the file without implementing a shell
+       compatible execution engine.
+       Note that the kernel command line options vconsole.keymap=,
+       vconsole.keymap_toggle=, vconsole.font=, vconsole.font_map=,
+       vconsole.font_unimap= may be used to override the console settings at
+       boot.
+       Depending on the operating system other configuration files might be
+       checked for configuration of the virtual console as well, however
+       only as fallback.
+       /etc/vconsole.conf is usually created and updated using
+       systemd-localed.service(8).  localectl(1) may be used to instruct
+       systemd-localed.service to query or update configuration.

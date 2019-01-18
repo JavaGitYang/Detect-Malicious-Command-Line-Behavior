@@ -1,0 +1,6 @@
+
+       These functions return an array of complex characters in wchstr,
+       starting at the current cursor position in the named window.
+       Attributes (rendition) are stored with the characters.
+       The in_wchnstr, mvin_wchnstr, mvwin_wchnstr and win_wchnstr fill the
+       array with at most n cchar_t elements.

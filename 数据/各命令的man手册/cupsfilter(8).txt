@@ -1,0 +1,5 @@
+
+       cupsfilter is a front-end to the CUPS filter subsystem which allows
+       you to convert a file to a specific format, just as if you had
+       printed the file through CUPS. By default, cupsfilter generates a PDF
+       file. The converted file is sent to the standard output.

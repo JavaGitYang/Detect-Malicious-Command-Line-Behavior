@@ -1,0 +1,4 @@
+
+       This command defines dynamic tracepoint events, by symbol and
+       registers without debuginfo, or by C expressions (C line numbers, C
+       function names, and C local variables) with debuginfo.

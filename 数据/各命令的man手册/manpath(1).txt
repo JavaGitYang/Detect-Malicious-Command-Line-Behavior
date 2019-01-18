@@ -1,0 +1,7 @@
+
+       If $MANPATH is set, manpath will simply display its contents and
+       issue a warning.  If not, manpath will determine a suitable manual
+       page hierarchy search path and display the results.
+       The colon-delimited path is determined using information gained from
+       the man-db configuration file - (/usr/local/etc/man_db.conf) and the
+       user's environment.

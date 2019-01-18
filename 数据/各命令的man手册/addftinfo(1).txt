@@ -1,0 +1,11 @@
+
+       addftinfo reads a troff font file and adds some additional font-
+       metric information that is used by the groff system.  The font file
+       with the information added is written on the standard output.  The
+       information added is guessed using some parametric information about
+       the font and assumptions about the traditional troff names for
+       characters.  The main information added is the heights and depths of
+       characters.  The res and unitwidth arguments should be the same as
+       the corresponding parameters in the DESC file; font is the name of
+       the file describing the font; if font ends with I the font will be
+       assumed to be italic.

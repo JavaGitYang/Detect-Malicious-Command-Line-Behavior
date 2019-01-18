@@ -1,0 +1,85 @@
+
+       The menu library provides terminal-independent facilities for
+       composing menu systems on character-cell terminals.  The library
+       includes: item routines, which create and modify menu items; and menu
+       routines, which group items into menus, display menus on the screen,
+       and handle interaction with the user.
+       The menu library uses the curses libraries, and a curses
+       initialization routine such as initscr must be called before using
+       any of these functions.  To use the menu library, link with the
+       options -lmenu -lcurses.
+   Current Default Values for Item Attributes
+       The menu library maintains a default value for item attributes.  You
+       can get or set this default by calling the appropriate get_ or set_
+       routine with a NULL item pointer.  Changing this default with a set_
+       function affects future item creations, but does not change the
+       rendering of items already created.
+   Routine Name Index
+       The following table lists each menu routine and the name of the
+       manual page on which it is described.
+       curses Routine Name    Manual Page Name
+       ────────────────────────────────────────────
+       current_item           mitem_current(3X)
+       free_item              mitem_new(3X)
+       free_menu              menu_new(3X)
+       item_count             menu_items(3X)
+       item_description       mitem_name(3X)
+       item_index             mitem_current(3X)
+       item_init              menu_hook(3X)
+       item_name              mitem_name(3X)
+       item_opts              mitem_opts(3X)
+       item_opts_off          mitem_opts(3X)
+       item_opts_on           mitem_opts(3X)
+       item_term              menu_hook(3X)
+       item_userptr           mitem_userptr(3X)
+       item_value             mitem_value(3X)
+       item_visible           mitem_visible(3X)
+       menu_back              menu_attributes(3X)
+       menu_driver            menu_driver(3X)
+       menu_fore              menu_attributes(3X)
+       menu_format            menu_format(3X)
+       menu_grey              menu_attributes(3X)
+       menu_init              menu_hook(3X)
+       menu_items             menu_items(3X)
+       menu_mark              menu_mark(3X)
+       menu_opts              menu_opts(3X)
+       menu_opts_off          menu_opts(3X)
+       menu_opts_on           menu_opts(3X)
+       menu_pad               menu_attributes(3X)
+       menu_pattern           menu_pattern(3X)
+       menu_request_by_name   menu_requestname(3X)
+       menu_request_name      menu_requestname(3X)
+       menu_spacing           menu_spacing(3X)
+       menu_sub               menu_win(3X)
+       menu_term              menu_hook(3X)
+       menu_userptr           menu_userptr(3X)
+       menu_win               menu_win(3X)
+       new_item               mitem_new(3X)
+       new_menu               menu_new(3X)
+       pos_menu_cursor        menu_cursor(3X)
+       post_menu              menu_post(3X)
+       scale_menu             menu_win(3X)
+       set_current_item       mitem_current(3X)
+       set_item_init          menu_hook(3X)
+       set_item_opts          mitem_opts(3X)
+       set_item_term          menu_hook(3X)
+       set_item_userptr       mitem_userptr(3X)
+       set_item_value         mitem_value(3X)
+       set_menu_back          menu_attributes(3X)
+       set_menu_fore          menu_attributes(3X)
+       set_menu_format        menu_format(3X)
+       set_menu_grey          menu_attributes(3X)
+       set_menu_init          menu_hook(3X)
+       set_menu_items         menu_items(3X)
+       set_menu_mark          menu_mark(3X)
+       set_menu_opts          mitem_opts(3X)
+       set_menu_pad           menu_attributes(3X)
+       set_menu_pattern       menu_pattern(3X)
+       set_menu_spacing       menu_spacing(3X)
+       set_menu_sub           menu_win(3X)
+       set_menu_term          menu_hook(3X)
+       set_menu_userptr       menu_userptr(3X)
+       set_menu_win           menu_win(3X)
+       set_top_row            mitem_current(3X)
+       top_row                mitem_current(3X)
+       unpost_menu            menu_post(3X)

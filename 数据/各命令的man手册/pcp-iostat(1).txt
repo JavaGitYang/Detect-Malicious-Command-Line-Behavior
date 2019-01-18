@@ -1,0 +1,98 @@
+
+       pcp-iostat reports I/O statistics for scsi devices (by default) or
+       device-mapper devices (if the -x dm option is specified).  By default
+       pcp-iostat reports live data for the local host but can also report
+       for a remote host (-h) or from a previously captured PCP archive
+       (-a).
+       The -S, -T, -O and -A options may be used to define a time window to
+       restrict the samples retrieved, set an initial origin within the time
+       window, or specify a ``natural'' alignment of the sample times; refer
+       to PCPIntro(1) for a complete description of these options.
+       The other options which control the source, timing and layout of the
+       information reported by pcp-iostat are as follows:
+       -a   Performance metric values are retrieved from the Performance Co-
+            Pilot (PCP) archive log files identified by the argument
+            archive, which is a comma-separated list of names, each of which
+            may be the base name of an archive or the name of a directory
+            containing one or more archives. See also -u.
+       -G   Specifies that statistics for device names matching the regular
+            expression specified with the -R regex option should be
+            aggregated according to method.  Note this is aggregation based
+            on matching device names (not temporal aggregation).  When -G is
+            used, the device name column is reported as method(regex), e.g.
+            if -G sum -R 'sd(a|b)$' is specified, the device column will be
+            sum(sd(a|b)$) and summed statistics for sda and sdb will be
+            reported in the remaining columns.  If -G is specified but -R is
+            not specified, then the default regex is .*, i.e. matching all
+            device names.  If method is sum then the statistics are summed.
+            This includes the %util column, which may therefore exceed 100%
+            if more than one device name matches.  If method is avg then the
+            statistics are summed and then averaged by dividing by the
+            number of matching device names.  If method is min or max, the
+            minimum or maximum statistics for matching devices are reported,
+            respectfully.
+       -h   Current performance metric values are retrieved from the
+            nominated host machine.
+       -s   The argument samples defines the number of samples to be
+            retrieved and reported.  If samples is 0 or -s is not specified,
+            pcp-iostat will sample and report continuously (in real time
+            mode) or until the end of the set of PCP archives (in archive
+            mode).
+       -t   The default update interval may be set to something other than
+            the default 1 second.  The interval argument follows the syntax
+            described in PCPIntro(1), and in the simplest form may be an
+            unsigned integer (the implied units in this case are seconds).
+            The -t option is particularly useful when replaying large sets
+            of archives (-a option) that span several hours or even days.
+            In this case specifying a large interval (e.g. 1h for 1 hour)
+            will reduce the volume of data reported and the i/o statistics
+            will be averaged (interpolated) over the reporting interval
+            (unless the -u option is specified, see below).
+       -R   This restricts the report to device names matching regex.  The
+            regex pattern is searched as a perl style regular expression,
+            and will match any portion of a device name.  e.g. '^sd[a-zA-
+            Z]+' will match all device names starting with 'sd' followed by
+            one or more alphabetic characters.  e.g. '^sd(a|b)$' will only
+            match 'sda' and 'sdb'.  e.g. 'sda$' will match 'sda' but not
+            'sdab'.  See also the -G option for aggregation options.
+       -P   This indicates the number of decimals to print. The default
+            precision N may be set to something other than the default 2
+            decimals.  Note that the avgrq-sz and avgqu-sz fields are always
+            reported with N+1 decimals of precision.  These fields typically
+            have values less than 1.0.
+       -u   When replaying a set of archives, by default values are reported
+            according to the selected sample interval (-t option), not
+            according to the actual record intervals in the set of archives.
+            To this effect PCP interpolates the values to be reported based
+            on the records in the set of archives, and is particularly
+            useful when the -t option is used to replay a set of archives
+            with a longer sampling interval than the underlying interval the
+            set of archives was originally recorded with.  With the -u
+            option, uninterpolated reporting is enabled - every value is
+            reported according to the native recording interval in the set
+            of archives.  When the -u option is specified, the -t option
+            makes no sense and is incompatible because the replay interval
+            is always the same as the recording interval in the set of
+            archive.  In addition, -u only makes sense when replaying a set
+            of archives, see -a above, and so if -u is specified then -a
+            must also be specified.
+       -Z   By default, pcp-iostat reports the time of day according to the
+            local timezone on the system where pcp-iostat is run.  The -Z
+            option changes the timezone to timezone in the format of the
+            environment variable TZ as described in environ(7).
+       -z   Change the reporting timezone to the local timezone at the host
+            that is the source of the performance metrics, as identified via
+            either the -h or -a options.  When replaying a PCP archive that
+            was captured in a foreign timezone, the -z option would almost
+            always be used (the default reporting timezone is the local
+            timezone, which may not be the same as the timezone of the PCP
+            archive).
+       -x   Specifies a comma separated list of one or more extended
+            reporting options as follows:
+            dm - report statistics for device-mapper logical devices instead
+            of scsi devices,
+            t - prefix every line in the report with a timestamp in ctime(3)
+            format,
+            h - omit the heading, which is otherwise reported every 24
+            samples,
+            noidle - Do not display statistics for idle devices.

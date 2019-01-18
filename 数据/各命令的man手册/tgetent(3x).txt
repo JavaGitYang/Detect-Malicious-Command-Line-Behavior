@@ -1,0 +1,69 @@
+
+       These routines are included as a conversion aid for programs that use
+       the termcap library.  Their parameters are the same and the routines
+       are emulated using the terminfo database.  Thus, they can only be
+       used to query the capabilities of entries for which a terminfo entry
+       has been compiled.
+   INITIALIZATION
+       The tgetent routine loads the entry for name.  It returns:
+          1  on success,
+          0  if there is no such entry (or that it is a generic type, having
+             too little information for curses applications to run), and
+          -1 if the terminfo database could not be found.
+       This differs from the termcap library in two ways:
+          ·   The emulation ignores the buffer pointer bp.  The termcap
+              library would store a copy of the terminal description in the
+              area referenced by this pointer.  However, ncurses stores its
+              terminal descriptions in compiled binary form, which is not
+              the same thing.
+          ·   There is a difference in return codes.  The termcap library
+              does not check if the terminal description is marked with the
+              generic capability, or if the terminal description has cursor-
+              addressing.
+   CAPABILITY VALUES
+       The tgetflag routine gets the boolean entry for id, or zero if it is
+       not available.
+       The tgetnum routine gets the numeric entry for id, or -1 if it is not
+       available.
+       The tgetstr routine returns the string entry for id, or zero if it is
+       not available.  Use tputs to output the returned string.  The area
+       parameter is used as follows:
+          ·   It is assumed to be the address of a pointer to a buffer
+              managed by the calling application.
+          ·   However, ncurses checks to ensure that area is not NULL, and
+              also that the resulting buffer pointer is not NULL.  If either
+              check fails, the area parameter is ignored.
+          ·   If the checks succeed, ncurses also copies the return value to
+              the buffer pointed to by area, and the area value will be
+              updated to point past the null ending this value.
+          ·   The return value itself is an address in the terminal
+              description which is loaded into memory.
+       Only the first two characters of the id parameter of tgetflag,
+       tgetnum and tgetstr are compared in lookups.
+   FORMATTING CAPABILITIES
+       The tgoto routine expands the given capability using the parameters.
+       ·   Because the capability may have padding characters, the output of
+           tgoto should be passed to tputs rather than some other output
+           function such as printf.
+       ·   While tgoto is assumed to be used for the two-parameter cursor
+           positioning capability, termcap applications also use it for
+           single-parameter capabilities.
+           Doing this shows a quirk in tgoto: most hardware terminals use
+           cursor addressing with row first, but the original developers of
+           the termcap interface chose to put the column parameter first.
+           The tgoto function swaps the order of parameters.  It does this
+           also for calls requiring only a single parameter.  In that case,
+           the first parameter is merely a placeholder.
+       ·   Normally the ncurses library is compiled with terminfo support.
+           In that case, tgoto uses tparm(3X) (a more capable formatter).
+           However, tparm is not a termcap feature, and portable termcap
+           applications should not rely upon its availability.
+       The tputs routine is described on the curs_terminfo(3X) manual page.
+       It can retrieve capabilities by either termcap or terminfo name.
+   GLOBAL VARIABLES
+       The variables PC, UP and BC are set by tgetent to the terminfo
+       entry's data for pad_char, cursor_up and backspace_if_not_bs,
+       respectively.  UP is not used by ncurses.  PC is used in the
+       tdelay_output function.  BC is used in the tgoto emulation.  The
+       variable ospeed is set by ncurses in a system-specific coding to
+       reflect the terminal speed.

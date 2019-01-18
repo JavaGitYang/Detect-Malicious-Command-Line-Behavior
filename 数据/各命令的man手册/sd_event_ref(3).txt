@@ -1,0 +1,55 @@
+
+       sd_event_new() allocates a new event loop object. The event loop
+       object is returned in the event parameter. After use, drop the
+       returned reference with sd_event_unref(). When the last reference is
+       dropped, the object is freed.
+       sd_event_default() acquires a reference to the default event loop
+       object of the calling thread, possibly allocating a new object if no
+       default event loop object has been allocated yet for the thread.
+       After use, drop the returned reference with sd_event_unref(). When
+       the last reference is dropped, the event loop is freed. If this
+       function is called while the object returned from a previous call
+       from the same thread is still referenced, the same object is returned
+       again, but the reference is increased by one. It is recommended to
+       use this call instead of sd_event_new() in order to share event loop
+       objects between various components that are dispatched in the same
+       thread. All threads have exactly either zero or one default event
+       loop objects associated, but never more.
+       After allocating an event loop object, add event sources to it with
+       sd_event_add_io(3), sd_event_add_time(3), sd_event_add_signal(3),
+       sd_event_add_child(3) or sd_event_add_defer(3), and then execute the
+       event loop using sd_event_run(3).
+       sd_event_ref() increases the reference count of the specified event
+       loop object by one.
+       sd_event_unref() decreases the reference count of the specified event
+       loop object by one. If the count hits zero, the object is freed. Note
+       that it is freed regardless of whether it is the default event loop
+       object for a thread or not. This means that allocating an event loop
+       with sd_event_default(), then releasing it, and then acquiring a new
+       one with sd_event_default() will result in two distinct objects. Note
+       that, in order to free an event loop object, all remaining event
+       sources of the event loop also need to be freed as each keeps a
+       reference to it.
+       sd_event_unrefp() is similar to sd_event_unref() but takes a pointer
+       to a pointer to an sd_event object. This call is useful in
+       conjunction with GCC's and LLVM's Clean-up Variable Attribute[1].
+       Note that this function is defined as inline function. Use a
+       declaration like the following, in order to allocate an event loop
+       object that is freed automatically as the code block is left:
+           {
+                   __attribute__((cleanup(sd_event_unrefp)) sd_event *event = NULL;
+                   int r;
+                   ...
+                   r = sd_event_default(&event);
+                   if (r < 0)
+                           fprintf(stderr, "Failed to allocate event loop: %s\n", strerror(-r));
+                   ...
+           }
+       sd_event_ref(), sd_event_unref() and sd_event_unrefp() execute no
+       operation if the passed in event loop object is NULL.
+       sd_event_get_tid() retrieves the thread identifier ("TID") of the
+       thread the specified event loop object is associated with. This call
+       is only supported for event loops allocated with sd_event_default(),
+       and returns the identifier for the thread the event loop is the
+       default event loop of. See gettid(2) for more information on thread
+       identifiers.

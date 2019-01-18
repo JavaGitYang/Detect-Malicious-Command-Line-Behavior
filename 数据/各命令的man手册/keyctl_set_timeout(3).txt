@@ -1,0 +1,8 @@
+
+       keyctl_set_timeout() sets the expiration timer on a key to timeout
+       seconds into the future.  Setting timeout to zero cancels the
+       expiration, assuming the key hasn't already expired.
+       When the key expires, further attempts to access it will be met with
+       error EKEYEXPIRED.
+       The caller must have setattr permission on a key to be able change
+       its permissions mask.

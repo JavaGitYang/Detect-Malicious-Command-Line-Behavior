@@ -1,0 +1,3 @@
+
+       The getkeycodes command prints the kernel scancode-to-keycode mapping
+       table.

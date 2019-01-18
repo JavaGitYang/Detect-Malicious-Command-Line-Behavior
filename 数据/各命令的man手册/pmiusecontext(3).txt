@@ -1,0 +1,7 @@
+
+       As part of the Performance Co-Pilot Log Import API (see
+       LOGIMPORT(3)), pmiUseContext may be used by applications wishing to
+       generate more than one PCP archive concurrently.
+       The context argument is a value returned from a previous call to
+       pmStart(3) and on successful return from pmiUseContext, the current
+       context will have been changed to the one identified by context.

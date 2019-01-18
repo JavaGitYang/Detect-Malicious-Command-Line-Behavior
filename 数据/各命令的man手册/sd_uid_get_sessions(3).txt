@@ -1,0 +1,43 @@
+
+       sd_uid_get_state() may be used to determine the login state of a
+       specific Unix user identifier. The following states are currently
+       known: "offline" (user not logged in at all), "lingering" (user not
+       logged in, but some user services running), "online" (user logged in,
+       but not active, i.e. has no session in the foreground), "active"
+       (user logged in, and has at least one active session, i.e. one
+       session in the foreground), "closing" (user not logged in, and not
+       lingering, but some processes are still around). In the future
+       additional states might be defined, client code should be written to
+       be robust in regards to additional state strings being returned. The
+       returned string needs to be freed with the libc free(3) call after
+       use.
+       sd_uid_is_on_seat() may be used to determine whether a specific user
+       is logged in or active on a specific seat. Accepts a Unix user
+       identifier and a seat identifier string as parameters. The
+       require_active parameter is a boolean value. If non-zero (true), this
+       function will test if the user is active (i.e. has a session that is
+       in the foreground and accepting user input) on the specified seat,
+       otherwise (false) only if the user is logged in (and possibly
+       inactive) on the specified seat.
+       sd_uid_get_sessions() may be used to determine the current sessions
+       of the specified user. Accepts a Unix user identifier as parameter.
+       The require_active parameter controls whether the returned list shall
+       consist of only those sessions where the user is currently active (>
+       0), where the user is currently online but possibly inactive (= 0),
+       or logged in at all but possibly closing the session (< 0). The call
+       returns a NULL terminated string array of session identifiers in
+       sessions which needs to be freed by the caller with the libc free(3)
+       call after use, including all the strings referenced. If the string
+       array parameter is passed as NULL, the array will not be filled in,
+       but the return code still indicates the number of current sessions.
+       Note that instead of an empty array NULL may be returned and should
+       be considered equivalent to an empty array.
+       Similarly, sd_uid_get_seats() may be used to determine the list of
+       seats on which the user currently has sessions. Similar semantics
+       apply, however note that the user may have multiple sessions on the
+       same seat as well as sessions with no attached seat and hence the
+       number of entries in the returned array may differ from the one
+       returned by sd_uid_get_sessions().
+       sd_uid_get_display() returns the name of the "primary" session of a
+       user. If the user has graphical sessions, it will be the oldest
+       graphical session. Otherwise, it will be the oldest open session.

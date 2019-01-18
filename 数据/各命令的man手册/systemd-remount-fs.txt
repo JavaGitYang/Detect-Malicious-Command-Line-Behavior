@@ -1,0 +1,14 @@
+
+       systemd-remount-fs.service is an early boot service that applies
+       mount options listed in fstab(5) to the root file system, the /usr
+       file system, and the kernel API file systems. This is required so
+       that the mount options of these file systems — which are pre-mounted
+       by the kernel, the initial RAM disk, container environments or system
+       manager code — are updated to those listed in /etc/fstab. This
+       service ignores normal file systems and only changes the root file
+       system (i.e.  /), /usr and the virtual kernel API file systems such
+       as /proc, /sys or /dev. This service executes no operation if
+       /etc/fstab does not exist or lists no entries for the mentioned file
+       systems.
+       For a longer discussion of kernel API file systems see API File
+       Systems[1].

@@ -1,0 +1,4 @@
+
+       This function will return a value of the gnutls_sign_algorithm_t
+       enumeration that is the signature algorithm that has been used to
+       sign the OCSP response.

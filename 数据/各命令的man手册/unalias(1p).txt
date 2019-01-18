@@ -1,0 +1,5 @@
+
+       The unalias utility shall remove the definition for each alias name
+       specified. See Section 2.3.1, Alias Substitution.  The aliases shall
+       be removed from the current shell execution environment; see Section
+       2.12, Shell Execution Environment.

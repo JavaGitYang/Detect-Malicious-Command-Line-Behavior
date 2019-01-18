@@ -1,0 +1,81 @@
+
+       The semctl() function operates on XSI semaphores (see the Base
+       Definitions volume of POSIX.1‐2008, Section 4.16, Semaphore).  It is
+       unspecified whether this function interoperates with the realtime
+       interprocess communication facilities defined in Section 2.8,
+       Realtime.
+       The semctl() function provides a variety of semaphore control
+       operations as specified by cmd.  The fourth argument is optional and
+       depends upon the operation requested. If required, it is of type
+       union semun, which the application shall explicitly declare:
+           union semun {
+               int val;
+               struct semid_ds *buf;
+               unsigned short  *array;
+           } arg;
+       The following semaphore control operations as specified by cmd are
+       executed with respect to the semaphore specified by semid and semnum.
+       The level of permission required for each operation is shown with
+       each command; see Section 2.7, XSI Interprocess Communication.  The
+       symbolic names for the values of cmd are defined in the <sys/sem.h>
+       header:
+       GETVAL      Return the value of semval; see <sys/sem.h>.  Requires
+                   read permission.
+       SETVAL      Set the value of semval to arg.val, where arg is the
+                   value of the fourth argument to semctl().  When this
+                   command is successfully executed, the semadj value
+                   corresponding to the specified semaphore in all processes
+                   is cleared. Also, the sem_ctime timestamp shall be set to
+                   the current time, as described in Section 2.7.1, IPC
+                   General Description.  Requires alter permission; see
+                   Section 2.7, XSI Interprocess Communication.
+       GETPID      Return the value of sempid.  Requires read permission.
+       GETNCNT     Return the value of semncnt.  Requires read permission.
+       GETZCNT     Return the value of semzcnt.  Requires read permission.
+       The following values of cmd operate on each semval in the set of
+       semaphores:
+       GETALL      Return the value of semval for each semaphore in the
+                   semaphore set and place into the array pointed to by
+                   arg.array, where arg is the fourth argument to semctl().
+                   Requires read permission.
+       SETALL      Set the value of semval for each semaphore in the
+                   semaphore set according to the array pointed to by
+                   arg.array, where arg is the fourth argument to semctl().
+                   When this command is successfully executed, the semadj
+                   values corresponding to each specified semaphore in all
+                   processes are cleared. Also, the sem_ctime timestamp
+                   shall be set to the current time, as described in Section
+                   2.7.1, IPC General Description.  Requires alter
+                   permission.
+       The following values of cmd are also available:
+       IPC_STAT    Place the current value of each member of the semid_ds
+                   data structure associated with semid into the structure
+                   pointed to by arg.buf, where arg is the fourth argument
+                   to semctl().  The contents of this structure are defined
+                   in <sys/sem.h>.  Requires read permission.
+       IPC_SET     Set the value of the following members of the semid_ds
+                   data structure associated with semid to the corresponding
+                   value found in the structure pointed to by arg.buf, where
+                   arg is the fourth argument to semctl():
+                       sem_perm.uid
+                       sem_perm.gid
+                       sem_perm.mode
+                   The mode bits specified in Section 2.7.1, IPC General
+                   Description are copied into the corresponding bits of the
+                   sem_perm.mode associated with semid.  The stored values
+                   of any other bits are unspecified. The sem_ctime
+                   timestamp shall be set to the current time, as described
+                   in Section 2.7.1, IPC General Description.
+                   This command can only be executed by a process that has
+                   an effective user ID equal to either that of a process
+                   with appropriate privileges or to the value of
+                   sem_perm.cuid or sem_perm.uid in the semid_ds data
+                   structure associated with semid.
+       IPC_RMID    Remove the semaphore identifier specified by semid from
+                   the system and destroy the set of semaphores and semid_ds
+                   data structure associated with it. This command can only
+                   be executed by a process that has an effective user ID
+                   equal to either that of a process with appropriate
+                   privileges or to the value of sem_perm.cuid or
+                   sem_perm.uid in the semid_ds data structure associated
+                   with semid.

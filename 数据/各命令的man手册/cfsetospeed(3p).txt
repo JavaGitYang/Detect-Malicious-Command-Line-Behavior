@@ -1,0 +1,8 @@
+
+       The cfsetospeed() function shall set the output baud rate stored in
+       the structure pointed to by termios_p to speed.
+       There shall be no effect on the baud rates set in the hardware until
+       a subsequent successful call to tcsetattr() with the same termios
+       structure. Similarly, errors resulting from attempts to set baud
+       rates not supported by the terminal device need not be detected until
+       the tcsetattr() function is called.

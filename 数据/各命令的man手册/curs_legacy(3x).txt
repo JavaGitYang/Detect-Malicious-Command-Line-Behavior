@@ -1,0 +1,21 @@
+
+       These legacy functions are simpler to use than the X/Open Curses
+       functions:
+       ·   The getattrs function returns the same attribute data as
+           wattr_get.
+           However, getattrs returns an integer (actually a chtype), while
+           wattr_get returns the current color pair in a separate parameter.
+           In the wide-character library configuration, color pairs may not
+           fit into a chtype, so wattr_get is the only way to obtain the
+           color information.
+           Because getattrs returns the attributes in a single parameter, it
+           would not be possible for an application to distinguish that from
+           ERR (a -1).  If the window parameter is null, getattrs returns
+           A_NORMAL (zero).
+       ·   The getbegy and getbegx functions return the same data as
+           getbegyx.
+       ·   The getcury and getcurx functions return the same data as getyx.
+       ·   The getmaxy and getmaxx functions return the same data as
+           getmaxyx.
+       ·   The getpary and getparx functions return the same data as
+           getparyx.

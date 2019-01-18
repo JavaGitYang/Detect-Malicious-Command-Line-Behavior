@@ -1,0 +1,4 @@
+
+       These functions calculate the complex hyperbolic sine of z.
+       The complex hyperbolic sine function is defined as:
+           csinh(z) = (exp(z)-exp(-z))/2

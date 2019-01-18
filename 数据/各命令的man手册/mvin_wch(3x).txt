@@ -1,0 +1,4 @@
+
+       These functions extract the complex character and rendition from the
+       current position in the named window into the cchar_t object
+       referenced by wcval.

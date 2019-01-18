@@ -1,0 +1,12 @@
+
+       For the instance domain indom, in the current Performance Metrics
+       Application Programming Interface (PMAPI) context, locate the
+       instance with the internal instance identifier given by inst, and
+       return the full external instance identification via name.
+       The value for the instance domain indom is typically extracted from a
+       pmDesc structure, following a call to pmLookupDesc(3) for a
+       particular performance metric.
+       The space for the value of name will have been allocated in
+       pmNameInDom with malloc(3), and it is the responsibility of the
+       caller to free(3) the space when it is no longer required.
+       pmNameInDom returns zero on success.

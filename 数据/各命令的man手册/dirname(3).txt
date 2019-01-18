@@ -1,0 +1,31 @@
+
+       Warning: there are two different functions basename() - see below.
+       The functions dirname() and basename() break a null-terminated
+       pathname string into directory and filename components.  In the usual
+       case, dirname() returns the string up to, but not including, the
+       final '/', and basename() returns the component following the final
+       '/'.  Trailing '/' characters are not counted as part of the
+       pathname.
+       If path does not contain a slash, dirname() returns the string "."
+       while basename() returns a copy of path.  If path is the string "/",
+       then both dirname() and basename() return the string "/".  If path is
+       a null pointer or points to an empty string, then both dirname() and
+       basename() return the string ".".
+       Concatenating the string returned by dirname(), a "/", and the string
+       returned by basename() yields a complete pathname.
+       Both dirname() and basename() may modify the contents of path, so it
+       may be desirable to pass a copy when calling one of these functions.
+       These functions may return pointers to statically allocated memory
+       which may be overwritten by subsequent calls.  Alternatively, they
+       may return a pointer to some part of path, so that the string
+       referred to by path should not be modified or freed until the pointer
+       returned by the function is no longer required.
+       The following list of examples (taken from SUSv2) shows the strings
+       returned by dirname() and basename() for different paths:
+              path       dirname   basename
+              /usr/lib   /usr      lib
+              /usr/      /         usr
+              usr        .         usr
+              /          /         /
+              .          .         .
+              ..         .         ..

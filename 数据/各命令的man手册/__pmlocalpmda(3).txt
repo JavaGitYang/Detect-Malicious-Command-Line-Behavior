@@ -1,0 +1,40 @@
+
+       PCP contexts of type PM_CONTEXT_LOCAL are used by clients that wish
+       to fetch metrics directly from one or more PMDAs on the local host
+       without involving pmcd(1).  A PMDA that is to be used in this way
+       must have been built as a Dynamic Shared Object (DSO).
+       Historically the table of PMDAs available for use with
+       PM_CONTEXT_LOCAL was hardcoded to the following:
+       * The PMDA (or PMDAs) that export the operating system performance
+         data and data about process activity.
+       * The mmv PMDA.
+       * The sample PMDA provided $PCP_LITE_SAMPLE or $PMDA_LOCAL_SAMPLE is
+         set in the environment - used mostly for QA and testing.
+       The initial table of PMDAs available for use with PM_CONTEXT_LOCAL is
+       now generated dynamically from all those PMDAs that have been
+       installed as DSOs on the local host.  The one exception is the
+       ``pmcd'' PMDA which only operates correctly in the address space of a
+       running pmcd(1) process and so is not available to an application
+       using a PM_CONTEXT_LOCAL context.
+       __pmLocalPMDA provides a number of services to amend the table of
+       PMDAs available for use with PM_CONTEXT_LOCAL.
+       The op argument specifies the what should be done and takes one of
+       the following values and actions:
+       PM_LOCAL_ADD    Append an entry to the table for the PMDA with a
+                       Performance Metrics Domain (PMD) of domain, the path
+                       to the DSO PMDA is given by path and the PMDA's
+                       initialization routine is init.
+       PM_LOCAL_DEL    Removes all entries in the table where the domain
+                       matches, or the path matches.  Setting the arguments
+                       domain to -1 or path to NULL to force matching on the
+                       other argument.  The init argument is ignored.
+       PM_LOCAL_CLEAR  Remove all entries from the table.  All the other
+                       arguments are ignored in this case.
+       The domain, name and init arguments have similar syntax and semantics
+       to the associated fields in the pmcd(1) configuration file.  The one
+       difference is the path argument which is used by __pmLocalPMDA to
+       find a likely looking DSO by searching in this order:
+       $PCP_PMDAS_DIR/path, path, $PCP_PMDAS_DIR/path.dso-suffix and finally
+       path.dso-suffix (dso-suffix is the local platform specific default
+       file name suffix for a DSO, e.g.  so for Linux, dylib for Mac OS X,
+       dll for Windows, etc.).

@@ -1,0 +1,10 @@
+
+       The tail utility shall copy its input file to the standard output
+       beginning at a designated place.
+       Copying shall begin at the point in the file indicated by the −c
+       number or −n number options. The option-argument number shall be
+       counted in units of lines or bytes, according to the options −n and
+       −c.  Both line and byte counts start from 1.
+       Tails relative to the end of the file may be saved in an internal
+       buffer, and thus may be limited in length. Such a buffer, if any,
+       shall be no smaller than {LINE_MAX}*10 bytes.

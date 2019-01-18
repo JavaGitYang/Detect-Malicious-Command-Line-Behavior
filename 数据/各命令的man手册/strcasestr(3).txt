@@ -1,0 +1,6 @@
+
+       The strstr() function finds the first occurrence of the substring
+       needle in the string haystack.  The terminating null bytes ('\0') are
+       not compared.
+       The strcasestr() function is like strstr(), but ignores the case of
+       both arguments.

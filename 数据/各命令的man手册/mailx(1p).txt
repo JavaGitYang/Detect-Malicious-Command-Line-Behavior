@@ -1,0 +1,38 @@
+
+       The mailx utility provides a message sending and receiving facility.
+       It has two major modes, selected by the options used: Send Mode and
+       Receive Mode.
+       On systems that do not support the User Portability Utilities option,
+       an application using mailx shall have the ability to send messages in
+       an unspecified manner (Send Mode). Unless the first character of one
+       or more lines is <tilde> ('~'), all characters in the input message
+       shall appear in the delivered message, but additional characters may
+       be inserted in the message before it is retrieved.
+       On systems supporting the User Portability Utilities option, mail-
+       receiving capabilities and other interactive features, Receive Mode,
+       described below, also shall be enabled.
+   Send Mode
+       Send Mode can be used by applications or users to send messages from
+       the text in standard input.
+   Receive Mode
+       Receive Mode is more oriented towards interactive users. Mail can be
+       read and sent in this interactive mode.
+       When reading mail, mailx provides commands to facilitate saving,
+       deleting, and responding to messages. When sending mail, mailx allows
+       editing, reviewing, and other modification of the message as it is
+       entered.
+       Incoming mail shall be stored in one or more unspecified locations
+       for each user, collectively called the system mailbox for that user.
+       When mailx is invoked in Receive Mode, the system mailbox shall be
+       the default place to find new mail. As messages are read, they shall
+       be marked to be moved to a secondary file for storage, unless
+       specific action is taken. This secondary file is called the mbox and
+       is normally located in the directory referred to by the HOME
+       environment variable (see MBOX in the ENVIRONMENT VARIABLES section
+       for a description of this file).  Messages shall remain in this file
+       until explicitly removed. When the −f option is used to read mail
+       messages from secondary files, messages shall be retained in those
+       files unless specifically removed. All three of these locations—
+       system mailbox, mbox, and secondary file—are referred to in this
+       section as simply ``mailboxes'', unless more specific identification
+       is required.

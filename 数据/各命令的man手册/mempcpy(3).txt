@@ -1,0 +1,9 @@
+
+       The mempcpy() function is nearly identical to the memcpy(3) function.
+       It copies n bytes from the object beginning at src into the object
+       pointed to by dest.  But instead of returning the value of dest it
+       returns a pointer to the byte following the last written byte.
+       This function is useful in situations where a number of objects shall
+       be copied to consecutive memory positions.
+       The wmempcpy() function is identical but takes wchar_t type arguments
+       and copies n wide characters.

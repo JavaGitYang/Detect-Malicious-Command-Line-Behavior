@@ -1,0 +1,16 @@
+
+       Note: avoid using these functions; use mkstemp(3) or tmpfile(3)
+       instead.
+       The tmpnam() function returns a pointer to a string that is a valid
+       filename, and such that a file with this name did not exist at some
+       point in time, so that naive programmers may think it a suitable name
+       for a temporary file.  If the argument s is NULL, this name is
+       generated in an internal static buffer and may be overwritten by the
+       next call to tmpnam().  If s is not NULL, the name is copied to the
+       character array (of length at least L_tmpnam) pointed to by s and the
+       value s is returned in case of success.
+       The created pathname has a directory prefix P_tmpdir.  (Both L_tmpnam
+       and P_tmpdir are defined in <stdio.h>, just like the TMP_MAX
+       mentioned below.)
+       The tmpnam_r() function performs the same task as tmpnam(), but
+       returns NULL (to indicate an error) if s is NULL.

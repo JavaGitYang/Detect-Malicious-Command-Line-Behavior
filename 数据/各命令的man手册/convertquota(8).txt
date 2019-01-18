@@ -1,0 +1,10 @@
+
+       convertquota converts old quota files quota.user and quota.group to
+       files aquota.user and aquota.group in new format currently used by
+       2.4.0-ac? and newer or by SuSE or Red Hat Linux 2.4 kernels on
+       filesystem.
+       New file format allows using quotas for 32-bit uids / gids, setting
+       quotas for root, accounting used space in bytes (and so allowing use
+       of quotas in ReiserFS) and it is also architecture independent. This
+       format introduces Radix Tree (a simple form of tree structure) to
+       quota file.

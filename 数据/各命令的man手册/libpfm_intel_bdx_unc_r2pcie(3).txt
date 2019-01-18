@@ -1,0 +1,3 @@
+
+       The library supports the Intel Broadwell server R2 PCIe uncore PMU.
+       This PMU model only exists on Broadwell server models (79, 86).

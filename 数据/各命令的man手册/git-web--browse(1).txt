@@ -1,0 +1,24 @@
+
+       This script tries, as much as possible, to display the URLs and FILEs
+       that are passed as arguments, as HTML pages in new tabs on an already
+       opened web browser.
+       The following browsers (or commands) are currently supported:
+       ·   firefox (this is the default under X Window when not using KDE)
+       ·   iceweasel
+       ·   seamonkey
+       ·   iceape
+       ·   chromium (also supported as chromium-browser)
+       ·   google-chrome (also supported as chrome)
+       ·   konqueror (this is the default under KDE, see Note about
+           konqueror below)
+       ·   opera
+       ·   w3m (this is the default outside graphical environments)
+       ·   elinks
+       ·   links
+       ·   lynx
+       ·   dillo
+       ·   open (this is the default under Mac OS X GUI)
+       ·   start (this is the default under MinGW)
+       ·   cygstart (this is the default under Cygwin)
+       ·   xdg-open
+       Custom commands may also be specified.

@@ -1,0 +1,4 @@
+
+       This function will return the X.509v3 certificate's subject key
+       identifier.  This is obtained by the X.509 Subject Key identifier
+       extension field (2.5.29.14).

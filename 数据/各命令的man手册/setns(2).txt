@@ -1,0 +1,63 @@
+
+       Given a file descriptor referring to a namespace, reassociate the
+       calling thread with that namespace.
+       The fd argument is a file descriptor referring to one of the
+       namespace entries in a /proc/[pid]/ns/ directory; see namespaces(7)
+       for further information on /proc/[pid]/ns/.  The calling thread will
+       be reassociated with the corresponding namespace, subject to any
+       constraints imposed by the nstype argument.
+       The nstype argument specifies which type of namespace the calling
+       thread may be reassociated with.  This argument can have one of the
+       following values:
+       0      Allow any type of namespace to be joined.
+       CLONE_NEWCGROUP (since Linux 4.6)
+              fd must refer to a cgroup namespace.
+       CLONE_NEWIPC (since Linux 3.0)
+              fd must refer to an IPC namespace.
+       CLONE_NEWNET (since Linux 3.0)
+              fd must refer to a network namespace.
+       CLONE_NEWNS (since Linux 3.8)
+              fd must refer to a mount namespace.
+       CLONE_NEWPID (since Linux 3.8)
+              fd must refer to a descendant PID namespace.
+       CLONE_NEWUSER (since Linux 3.8)
+              fd must refer to a user namespace.
+       CLONE_NEWUTS (since Linux 3.0)
+              fd must refer to a UTS namespace.
+       Specifying nstype as 0 suffices if the caller knows (or does not
+       care) what type of namespace is referred to by fd.  Specifying a
+       nonzero value for nstype is useful if the caller does not know what
+       type of namespace is referred to by fd and wants to ensure that the
+       namespace is of a particular type.  (The caller might not know the
+       type of the namespace referred to by fd if the file descriptor was
+       opened by another process and, for example, passed to the caller via
+       a UNIX domain socket.)
+       If fd refers to a PID namespaces, the semantics are somewhat
+       different from other namespace types: reassociating the calling
+       thread with a PID namespace changes only the PID namespace that
+       subsequently created child processes of the caller will be placed in;
+       it does not change the PID namespace of the caller itself.
+       Reassociating with a PID namespace is allowed only if the PID
+       namespace specified by fd is a descendant (child, grandchild, etc.)
+       of the PID namespace of the caller.  For further details on PID
+       namespaces, see pid_namespaces(7).
+       A process reassociating itself with a user namespace must have the
+       CAP_SYS_ADMIN capability in the target user namespace.  Upon
+       successfully joining a user namespace, a process is granted all
+       capabilities in that namespace, regardless of its user and group IDs.
+       A multithreaded process may not change user namespace with setns().
+       It is not permitted to use setns() to reenter the caller's current
+       user namespace.  This prevents a caller that has dropped capabilities
+       from regaining those capabilities via a call to setns().  For
+       security reasons, a process can't join a new user namespace if it is
+       sharing filesystem-related attributes (the attributes whose sharing
+       is controlled by the clone(2) CLONE_FS flag) with another process.
+       For further details on user namespaces, see user_namespaces(7).
+       A process may not be reassociated with a new mount namespace if it is
+       multithreaded.  Changing the mount namespace requires that the caller
+       possess both CAP_SYS_CHROOT and CAP_SYS_ADMIN capabilities in its own
+       user namespace and CAP_SYS_ADMIN in the target mount namespace.  See
+       user_namespaces(7) for details on the interaction of user namespaces
+       and mount namespaces.
+       Using setns() to change the caller's cgroup namespace does not change
+       the caller's cgroup memberships.

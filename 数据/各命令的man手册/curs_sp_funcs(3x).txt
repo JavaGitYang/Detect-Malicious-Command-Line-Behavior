@@ -1,0 +1,28 @@
+
+       This implementation can be configured to provide a set of functions
+       which improve the ability to manage multiple screens.  This feature
+       can be added to any of the configurations supported by ncurses; it
+       adds new entrypoints without changing the meaning of any of the
+       existing ones.
+   IMPROVED FUNCTIONS
+       Most of the functions are new versions of existing functions.  A
+       parameter is added at the front of the parameter list.  It is a
+       SCREEN pointer.
+       The existing functions all use the current screen, which is a static
+       variable.  The extended functions use the specified screen, thereby
+       reducing the number of variables which must be modified to update
+       multiple screens.
+   NEW FUNCTIONS
+       Here are the new functions:
+       ceiling_panel
+            this returns a pointer to the topmost panel in the given screen.
+       ground_panel
+            this returns a pointer to the lowest panel in the given screen.
+       new_prescr
+            when creating a new screen, the library uses static variables
+            which have been preset, e.g., by use_env(3X), filter(3X), etc.
+            With the screen-pointer extension, there are situations where it
+            must create a current screen before the unextended library does.
+            The new_prescr function is used internally to handle these
+            cases.  It is also provided as an entrypoint to allow
+            applications to customize the library initialization.

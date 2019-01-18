@@ -1,0 +1,9 @@
+
+       The _llseek() system call repositions the offset of the open file
+       description associated with the file descriptor fd to
+       (offset_high<<32) | offset_low bytes relative to the beginning of the
+       file, the current file offset, or the end of the file, depending on
+       whether whence is SEEK_SET, SEEK_CUR, or SEEK_END, respectively.  It
+       returns the resulting file position in the argument result.
+       This system call exists on various 32-bit platforms to support
+       seeking to large file offsets.

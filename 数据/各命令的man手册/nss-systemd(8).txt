@@ -1,0 +1,15 @@
+
+       nss-systemd is a plug-in module for the GNU Name Service Switch (NSS)
+       functionality of the GNU C Library (glibc), providing UNIX user and
+       group name resolution for dynamic users and groups allocated through
+       the DynamicUser= option in systemd unit files. See systemd.exec(5)
+       for details on this option.
+       This module also ensures that the root and nobody users and groups
+       (i.e. the users/groups with the UIDs/GIDs 0 and 65534) remain
+       resolvable at all times, even if they aren't listed in /etc/passwd or
+       /etc/group, or if these files are missing.
+       To activate the NSS module, add "systemd" to the lines starting with
+       "passwd:" and "group:" in /etc/nsswitch.conf.
+       It is recommended to place "systemd" after the "files" or "compat"
+       entry of the /etc/nsswitch.conf lines so that /etc/passwd and
+       /etc/group based mappings take precedence.

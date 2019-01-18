@@ -1,0 +1,6 @@
+
+       sd_event_source_get_event() may be used to retrieve the event loop
+       object the event source object specified as source is associated
+       with. The event loop object is specified when creating an event
+       source object with calls such as sd_event_add_io(3) or
+       sd_event_add_time(3).

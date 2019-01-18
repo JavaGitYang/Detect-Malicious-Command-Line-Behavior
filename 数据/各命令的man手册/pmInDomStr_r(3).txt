@@ -1,0 +1,16 @@
+
+       For use in error and diagnostic messages, pmInDomStr return a 'human
+       readable' version of the specified instance domain identifier.  The
+       pmInDomStr_r function does the same, but stores the result in a user-
+       supplied buffer buf of length buflen, which should have room for at
+       least 20 bytes.
+       The value for the instance domain indom is typically extracted from a
+       pmDesc structure, following a call to pmLookupDesc(3) for a
+       particular performance metric.
+       Internally, an instance domain identifier is encoded with two fields:
+       domain and serial.
+       pmInDomStr returns a string with each of the fields appearing as
+       decimal numbers, separated by periods.
+       The string value returned by pmInDomStr is held in a single static
+       buffer, so the returned value is only valid until the next call to
+       pmInDomStr.

@@ -1,0 +1,2 @@
+
+       This function will initialize an X.509 certificate structure.

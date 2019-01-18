@@ -1,0 +1,5 @@
+
+       The rsyncd.conf file is the runtime configuration file for rsync when
+       run as an rsync daemon.
+       The rsyncd.conf file controls authentication, access, logging and
+       available modules.

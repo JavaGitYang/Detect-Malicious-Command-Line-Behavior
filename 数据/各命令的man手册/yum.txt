@@ -1,0 +1,5 @@
+
+       Yum uses a configuration file at /etc/yum/yum.conf.
+       Additional configuration files are also read from the directories set
+       by the reposdir option (default is `/etc/yum/repos.d').  See the
+       reposdir option below for further details.

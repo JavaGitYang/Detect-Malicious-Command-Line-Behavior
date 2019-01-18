@@ -1,0 +1,35 @@
+
+       The semget() system call returns the System V semaphore set
+       identifier associated with the argument key.  It may be used either
+       to obtain the identifier of a previously created semaphore set (when
+       semflg is zero and key does not have the value IPC_PRIVATE), or to
+       create a new set.
+       A new set of nsems semaphores is created if key has the value
+       IPC_PRIVATE or if no existing semaphore set is associated with key
+       and IPC_CREAT is specified in semflg.
+       If semflg specifies both IPC_CREAT and IPC_EXCL and a semaphore set
+       already exists for key, then semget() fails with errno set to EEXIST.
+       (This is analogous to the effect of the combination O_CREAT | O_EXCL
+       for open(2).)
+       Upon creation, the least significant 9 bits of the argument semflg
+       define the permissions (for owner, group and others) for the
+       semaphore set.  These bits have the same format, and the same
+       meaning, as the mode argument of open(2) (though the execute
+       permissions are not meaningful for semaphores, and write permissions
+       mean permission to alter semaphore values).
+       When creating a new semaphore set, semget() initializes the set's
+       associated data structure, semid_ds (see semctl(2)), as follows:
+              sem_perm.cuid and sem_perm.uid are set to the effective user
+              ID of the calling process.
+              sem_perm.cgid and sem_perm.gid are set to the effective group
+              ID of the calling process.
+              The least significant 9 bits of sem_perm.mode are set to the
+              least significant 9 bits of semflg.
+              sem_nsems is set to the value of nsems.
+              sem_otime is set to 0.
+              sem_ctime is set to the current time.
+       The argument nsems can be 0 (a don't care) when a semaphore set is
+       not being created.  Otherwise, nsems must be greater than 0 and less
+       than or equal to the maximum number of semaphores per semaphore set
+       (SEMMSL).
+       If the semaphore set already exists, the permissions are verified.

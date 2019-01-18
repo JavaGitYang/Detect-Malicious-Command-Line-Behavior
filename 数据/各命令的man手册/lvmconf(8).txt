@@ -1,0 +1,5 @@
+
+       lvmconf is a script that modifies the locking configuration in an lvm
+       configuration file. See lvm.conf(5). In addition to that, it can also
+       set Systemd or SysV services according to changes in the lvm
+       configuration if needed.

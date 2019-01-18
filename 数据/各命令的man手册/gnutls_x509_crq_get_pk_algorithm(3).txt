@@ -1,0 +1,6 @@
+
+       This function will return the public key algorithm of a PKCS10
+       certificate request.
+       If bits is non-NULL, it should have enough size to hold the
+       parameters size in bits.  For RSA the bits returned is the modulus.
+       For DSA the bits returned are of the public exponent.

@@ -1,0 +1,15 @@
+
+       The function set_menu_fore sets the foreground attribute of menu.
+       This is the highlight used for selected menu items.  menu_fore
+       returns the foreground attribute.  The default is A_REVERSE.
+       The function set_menu_back sets the background attribute of menu.
+       This is the highlight used for selectable (but not currently
+       selected) menu items.  The function menu_back returns the background
+       attribute.  The default is A_NORMAL.
+       The function set_menu_grey sets the grey attribute of menu. This is
+       the highlight used for un-selectable menu items in menus that permit
+       more than one selection.  The function menu_grey returns the grey
+       attribute.  The default is A_UNDERLINE.
+       The function set_menu_pad sets the character used to fill the space
+       between the name and description parts of a menu item.  menu_pad
+       returns the given menu's pad character.  The default is a blank.

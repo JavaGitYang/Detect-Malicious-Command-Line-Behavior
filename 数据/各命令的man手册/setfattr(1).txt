@@ -1,0 +1,3 @@
+
+       The setfattr command associates a new value with an extended
+       attribute name for each specified file.

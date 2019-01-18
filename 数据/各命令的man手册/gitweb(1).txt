@@ -1,0 +1,18 @@
+
+       Gitweb provides a web interface to Git repositories. Its features
+       include:
+       ·   Viewing multiple Git repositories with common root.
+       ·   Browsing every revision of the repository.
+       ·   Viewing the contents of files in the repository at any revision.
+       ·   Viewing the revision log of branches, history of files and
+           directories, see what was changed when, by who.
+       ·   Viewing the blame/annotation details of any file (if enabled).
+       ·   Generating RSS and Atom feeds of commits, for any branch. The
+           feeds are auto-discoverable in modern web browsers.
+       ·   Viewing everything that was changed in a revision, and step
+           through revisions one at a time, viewing the history of the
+           repository.
+       ·   Finding commits which commit messages matches given search term.
+       See http://git.kernel.org/?p=git/git.git;a=tree;f=gitweb or
+       http://repo.or.cz/w/git.git/tree/HEAD:/gitweb/ for gitweb source
+       code, browsed using gitweb itself.

@@ -1,0 +1,16 @@
+
+       The mq_setattr() function shall set attributes associated with the
+       open message queue description referenced by the message queue
+       descriptor specified by mqdes.
+       The message queue attributes corresponding to the following members
+       defined in the mq_attr structure shall be set to the specified values
+       upon successful completion of mq_setattr():
+       mq_flags    The value of this member is the bitwise-logical OR of
+                   zero or more of O_NONBLOCK and any implementation-defined
+                   flags.
+       The values of the mq_maxmsg, mq_msgsize, and mq_curmsgs members of
+       the mq_attr structure shall be ignored by mq_setattr().
+       If omqstat is non-NULL, the mq_setattr() function shall store, in the
+       location referenced by omqstat, the previous message queue attributes
+       and the current queue status.  These values shall be the same as
+       would be returned by a call to mq_getattr() at that point.

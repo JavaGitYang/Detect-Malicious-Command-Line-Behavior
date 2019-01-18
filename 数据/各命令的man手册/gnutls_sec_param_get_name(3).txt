@@ -1,0 +1,2 @@
+
+       Convert a gnutls_sec_param_t value to a string.

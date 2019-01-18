@@ -1,0 +1,4 @@
+
+       This function will set an the extension, by the specified OID, in the
+       certificate request.  The extension data should be binary data DER
+       encoded.

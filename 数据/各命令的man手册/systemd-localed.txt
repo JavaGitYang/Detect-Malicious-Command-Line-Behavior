@@ -1,0 +1,8 @@
+
+       systemd-localed is a system service that may be used as mechanism to
+       change the system locale settings, as well as the console key mapping
+       and default X11 key mapping.  systemd-localed is automatically
+       activated on request and terminates itself when it is unused.
+       The tool localectl(1) is a command line client to this service.
+       See the developer documentation[1] for information about the APIs
+       systemd-localed provides.

@@ -1,0 +1,21 @@
+
+       The detachstate attribute controls whether the thread is created in a
+       detached state.  If the thread is created detached, then use of the
+       ID of the newly created thread by the pthread_detach() or
+       pthread_join() function is an error.
+       The pthread_attr_getdetachstate() and pthread_attr_setdetachstate()
+       functions, respectively, shall get and set the detachstate attribute
+       in the attr object.
+       For pthread_attr_getdetachstate(), detachstate shall be set to either
+       PTHREAD_CREATE_DETACHED or PTHREAD_CREATE_JOINABLE.
+       For pthread_attr_setdetachstate(), the application shall set
+       detachstate to either PTHREAD_CREATE_DETACHED or
+       PTHREAD_CREATE_JOINABLE.
+       A value of PTHREAD_CREATE_DETACHED shall cause all threads created
+       with attr to be in the detached state, whereas using a value of
+       PTHREAD_CREATE_JOINABLE shall cause all threads created with attr to
+       be in the joinable state. The default value of the detachstate
+       attribute shall be PTHREAD_CREATE_JOINABLE.
+       The behavior is undefined if the value specified by the attr argument
+       to pthread_attr_getdetachstate() or pthread_attr_setdetachstate()
+       does not refer to an initialized thread attributes object.

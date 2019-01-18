@@ -1,0 +1,8 @@
+
+       The fdatasync() function shall force all currently queued I/O
+       operations associated with the file indicated by file descriptor
+       fildes to the synchronized I/O completion state.
+       The functionality shall be equivalent to fsync() with the symbol
+       _POSIX_SYNCHRONIZED_IO defined, with the exception that all I/O
+       operations shall be completed as defined for synchronized I/O data
+       integrity completion.

@@ -1,0 +1,3 @@
+
+       This function will import a PKCS 11 certificate to a
+       gnutls_x509_crt_t structure.

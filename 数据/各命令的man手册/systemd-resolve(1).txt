@@ -1,0 +1,43 @@
+
+       systemd-resolve may be used to resolve domain names, IPv4 and IPv6
+       addresses, DNS resource records and services with the
+       systemd-resolved.service(8) resolver service. By default, the
+       specified list of parameters will be resolved as hostnames,
+       retrieving their IPv4 and IPv6 addresses. If the parameters specified
+       are formatted as IPv4 or IPv6 operation the reverse operation is
+       done, and a hostname is retrieved for the specified addresses.
+       The program's output contains information about the protocol used for
+       the look-up and on which network interface the data was discovered.
+       It also contains information on whether the information could be
+       authenticated. All data for which local DNSSEC validation succeeds is
+       considered authenticated. Moreover all data originating from local,
+       trusted sources is also reported authenticated, including resolution
+       of the local host name, the "localhost" host name or all data from
+       /etc/hosts.
+       The --type= switch may be used to specify a DNS resource record type
+       (A, AAAA, SOA, MX, ...) in order to request a specific DNS resource
+       record, instead of the address or reverse address lookups. The
+       special value "help" may be used to list known values.
+       The --service switch may be used to resolve SRV[1] and DNS-SD[2]
+       services (see below). In this mode, between one and three arguments
+       are required. If three parameters are passed the first is assumed to
+       be the DNS-SD service name, the second the SRV service type, and the
+       third the domain to search in. In this case a full DNS-SD style SRV
+       and TXT lookup is executed. If only two parameters are specified, the
+       first is assumed to be the SRV service type, and the second the
+       domain to look in. In this case no TXT RR is requested. Finally, if
+       only one parameter is specified, it is assumed to be a domain name,
+       that is already prefixed with an SRV type, and an SRV lookup is done
+       (no TXT).
+       The --openpgp switch may be used to query PGP keys stored as
+       OPENPGPKEY[3] resource records. When this option is specified one or
+       more e-mail address must be specified.
+       The --tlsa switch maybe be used to query TLS public keys stored as
+       TLSA[4] resource records. When this option is specified one or more
+       domain names must be specified.
+       The --statistics switch may be used to show resolver statistics,
+       including information about the number of successful and failed
+       DNSSEC validations.
+       The --reset-statistics may be used to reset various statistics
+       counters maintained the resolver, including those shown in the
+       --statistics output. This operation requires root privileges.

@@ -1,0 +1,8 @@
+
+       The break utility shall exit from the smallest enclosing for, while,
+       or until loop, if any; or from the nth enclosing loop if n is
+       specified. The value of n is an unsigned decimal integer greater than
+       or equal to 1. The default shall be equivalent to n=1.  If n is
+       greater than the number of enclosing loops, the outermost enclosing
+       loop shall be exited. Execution shall continue with the command
+       immediately following the loop.

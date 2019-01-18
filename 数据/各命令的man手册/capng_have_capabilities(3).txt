@@ -1,0 +1,8 @@
+
+       capng_have_capabilities will check the selected internal capabilities
+       sets to see what the status is. The capabilities sets must be
+       previously setup with calls to capng_get_caps_process,
+       capng_get_caps_fd, or in some other way setup. The options are
+       CAPNG_SELECT_CAPS for the traditional capabilities,
+       CAPNG_SELECT_BOUNDS for the bounding set, or CAPNG_SELECT_BOTH if
+       clearing both is desired.

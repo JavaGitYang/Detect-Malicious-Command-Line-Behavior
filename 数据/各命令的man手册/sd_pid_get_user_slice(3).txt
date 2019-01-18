@@ -1,0 +1,59 @@
+
+       sd_pid_get_session() may be used to determine the login session
+       identifier of a process identified by the specified process
+       identifier. The session identifier is a short string, suitable for
+       usage in file system paths. Note that not all processes are part of a
+       login session (e.g. system service processes, user processes that are
+       shared between multiple sessions of the same user, or kernel
+       threads). For processes not being part of a login session, this
+       function will fail with -ENODATA. The returned string needs to be
+       freed with the libc free(3) call after use.
+       sd_pid_get_unit() may be used to determine the systemd system unit
+       (i.e. system service or scope unit) identifier of a process
+       identified by the specified PID. The unit name is a short string,
+       suitable for usage in file system paths. Note that not all processes
+       are part of a system unit/service (e.g. user processes, or kernel
+       threads). For processes not being part of a systemd system unit, this
+       function will fail with -ENODATA. (More specifically, this call will
+       not work for kernel threads.) The returned string needs to be freed
+       with the libc free(3) call after use.
+       sd_pid_get_user_unit() may be used to determine the systemd user unit
+       (i.e. user service or scope unit) identifier of a process identified
+       by the specified PID. This is similar to sd_pid_get_unit(), but
+       applies to user units instead of system units.
+       sd_pid_get_owner_uid() may be used to determine the Unix UID (user
+       identifier) of the owner of the session of a process identified the
+       specified PID. Note that this function will succeed for user
+       processes which are shared between multiple login sessions of the
+       same user, whereas sd_pid_get_session() will fail. For processes not
+       being part of a login session and not being a shared process of a
+       user, this function will fail with -ENODATA.
+       sd_pid_get_machine_name() may be used to determine the name of the VM
+       or container is a member of. The machine name is a short string,
+       suitable for usage in file system paths. The returned string needs to
+       be freed with the libc free(3) call after use. For processes not part
+       of a VM or containers, this function fails with -ENODATA.
+       sd_pid_get_slice() may be used to determine the slice unit the
+       process is a member of. See systemd.slice(5) for details about
+       slices. The returned string needs to be freed with the libc free(3)
+       call after use.
+       Similarly, sd_pid_get_user_slice() returns the user slice (as managed
+       by the user's systemd instance) of a process.
+       sd_pid_get_cgroup() returns the control group path of the specified
+       process, relative to the root of the hierarchy. Returns the path
+       without trailing slash, except for processes located in the root
+       control group, where "/" is returned. To find the actual control
+       group path in the file system, the returned path needs to be prefixed
+       with /sys/fs/cgroup/ (if the unified control group setup is used), or
+       /sys/fs/cgroup/HIERARCHY/ (if the legacy multi-hierarchy control
+       group setup is used).
+       If the pid parameter of any of these functions is passed as 0, the
+       operation is executed for the calling process.
+       The sd_peer_get_session(), sd_peer_get_unit(),
+       sd_peer_get_user_unit(), sd_peer_get_owner_uid(),
+       sd_peer_get_machine_name(), sd_peer_get_slice(),
+       sd_peer_get_user_slice() and sd_peer_get_cgroup() calls operate
+       similar to their PID counterparts, but operate on a connected AF_UNIX
+       socket and retrieve information about the connected peer process.
+       Note that these fields are retrieved via /proc, and hence are not
+       suitable for authorization purposes, as they are subject to races.

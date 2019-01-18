@@ -1,0 +1,30 @@
+
+       The getgrnam() function returns a pointer to a structure containing
+       the broken-out fields of the record in the group database (e.g., the
+       local group file /etc/group, NIS, and LDAP) that matches the group
+       name name.
+       The getgrgid() function returns a pointer to a structure containing
+       the broken-out fields of the record in the group database that
+       matches the group ID gid.
+       The group structure is defined in <grp.h> as follows:
+           struct group {
+               char   *gr_name;        /* group name */
+               char   *gr_passwd;      /* group password */
+               gid_t   gr_gid;         /* group ID */
+               char  **gr_mem;         /* NULL-terminated array of pointers
+                                          to names of group members */
+           };
+       For more information about the fields of this structure, see
+       group(5).
+       The getgrnam_r() and getgrgid_r() functions obtain the same informa‐
+       tion as getgrnam() and getgrgid(), but store the retrieved group
+       structure in the space pointed to by grp.  The string fields pointed
+       to by the members of the group structure are stored in the buffer buf
+       of size buflen.  A pointer to the result (in case of success) or NULL
+       (in case no entry was found or an error occurred) is stored in
+       *result.
+       The call
+           sysconf(_SC_GETGR_R_SIZE_MAX)
+       returns either -1, without changing errno, or an initial suggested
+       size for buf.  (If this size is too small, the call fails with
+       ERANGE, in which case the caller can retry with a larger buffer.)

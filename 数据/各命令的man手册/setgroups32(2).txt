@@ -1,0 +1,17 @@
+
+       getgroups() returns the supplementary group IDs of the calling
+       process in list.  The argument size should be set to the maximum
+       number of items that can be stored in the buffer pointed to by list.
+       If the calling process is a member of more than size supplementary
+       groups, then an error results.  It is unspecified whether the
+       effective group ID of the calling process is included in the returned
+       list.  (Thus, an application should also call getegid(2) and add or
+       remove the resulting value.)
+       If size is zero, list is not modified, but the total number of
+       supplementary group IDs for the process is returned.  This allows the
+       caller to determine the size of a dynamically allocated list to be
+       used in a further call to getgroups().
+       setgroups() sets the supplementary group IDs for the calling process.
+       Appropriate privileges are required (see the description of the EPERM
+       error, below).  The size argument specifies the number of
+       supplementary group IDs in the buffer pointed to by list.

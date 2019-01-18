@@ -1,0 +1,114 @@
+
+       This series of shell scripts and associated control files may be used
+       to create a customized regime of administration and management for
+       the Performance Co-Pilot (see PCPintro(1)) inference engine, pmie(1).
+       pmie_daily is intended to be run once per day, preferably in the
+       early morning, as soon after midnight as practicable.  Its task is to
+       rotate the log files for the running pmie processes - these files may
+       grow without bound if the ``print'' action is used, or any other pmie
+       action writes to its stdout/stderr streams.  After some period, old
+       pmie log files are discarded.  This period is 14 days by default, but
+       may be changed using the -k option. Two special values are recognized
+       for the period (discard), namely 0 to keep no log files beyond the
+       current one, and forever to prevent any log files being discarded.
+       Log files can optionally be compressed after some period (compress),
+       to conserve disk space.  This is particularly useful for large
+       numbers of pmie processes under the control of pmie_check.  The -x
+       option specifies the number of days after which to compress archive
+       data files, and the -X option specifies the program to use for
+       compression - by default this is xz(1).  Use of the -Y option allows
+       a regular expression to be specified causing files in the set of
+       files matched for compression to be omitted - this allows only the
+       data file to be compressed, and also prevents the program from
+       attempting to compress it more than once.  The default regex is
+       ".(meta|index|Z|gz|bz2|zip|xz|lzma|lzo|lz4)$" - such files are
+       filtered using the -v option to egrep(1).
+       Use of the -m option causes pmie_daily to construct a summary of the
+       log files generated for all monitored hosts in the last 24 hours
+       (lines matching `` OK '' are culled), and e-mail that summary to the
+       set of space-separated addresses.
+       pmie_check may be run at any time, and is intended to check that the
+       desired set of pmie(1) processes are running, and if not to re-launch
+       any failed inference engines.  Use of the -s option provides the
+       reverse functionality, allowing the set of pmie processes to be
+       cleanly shutdown.  Use of the -C option queries the system service
+       runlevel information for pmie, and uses that to determine whether to
+       start processes.
+       Both pmie_check and pmie_daily are controlled by PCP inference engine
+       control file(s) that specify the pmie instances to be managed.  The
+       default control file is $PCP_PMIECONTROL_PATH but an alternate may be
+       specified using the -c option.  If the directory
+       $PCP_PMLOGGERCONTROL_PATH.d (or control.d from the -c option) exists,
+       then the contents of any additional control files therein will be
+       appended to the main control file (which must exist).
+       Warning: The $PCP_PMIECONTROL_PATH and $PCP_PMIECONTROL_PATH.d files
+       must not be writable by any user other than root.
+       The control file(s) should be customized according to the following
+       rules that define for the current version (1.1) of the control file
+       format.
+       1.  Lines beginning with a ``#'' are comments.
+       2.  Lines beginning with a ``$'' are assumed to be assignments to
+           environment variables in the style of sh(1), and all text
+           following the ``$'' will be eval'ed by the script reading the
+           control file, and the corresponding variable exported into the
+           environment.  This is particularly useful to set and export
+           variables into the environment of the administrative script, e.g.
+               $ PMCD_CONNECT_TIMEOUT=20
+       3.  There must be a version line in the initial control file of the
+           form:
+               $ version=1.1
+       4.  There should be one line in the control file(s) for each pmie
+           instance of the form:
+               host y|n y|n logfile args
+       5.  Fields within a line of the control file(s) are separated by one
+           or more spaces or tabs.
+       6.  The first field is the name of the host that is the default
+           source of the performance metrics for this pmie instance.
+       7.  The second field indicates if this is a primary pmie instance (y)
+           or not (n).  Since the primary inference engine must run on the
+           local host, and there may be at most one primary for a particular
+           host, this field can be y for at most one pmie instance, in which
+           case the host name must be the name of the local host.  When
+           generating pmie configuration files, the primary clause indicates
+           that pmieconf(1) should enable all rules in the primary group, in
+           addition to all other default rules.
+       8.  The third field indicates whether this pmie instance needs to be
+           started under the control of pmsocks(1) to connect to a pmcd
+           through a firewall (y or n).
+       9.  The fourth field is the name of the pmie activity log file.  A
+           useful convention is that pmie instances monitoring the local
+           host with hostname myhost are maintained in the directory
+           $PCP_LOG_DIR/pmie/myhost, while activity logs for the remote host
+           mumble are maintained in $PCP_LOG_DIR/pmie/mumble.  This is
+           consistent with the way pmlogger(1) maintains its activity logs
+           and archive files.
+       10. All other fields are interpreted as arguments to be passed to
+           pmie(1).  Most typically this would be the -c option.
+       The following sample control lines specify one pmie instance
+       monitoring the local host (wobbly), and another monitoring
+       performance metrics from the host splat.
+       wobbly  n  PCP_LOG_DIR/pmie/wobbly  -c config.default
+       splat   n  PCP_LOG_DIR/pmie/splat   -c splat/cpu.conf
+       Typical crontab(5) entries for periodic execution of pmie_daily and
+       pmie_check are given in $PCP_SYSCONF_DIR/pmie/crontab (unless
+       installed by default in /etc/cron.d already) and shown below.
+       # daily processing of pmie logs
+       08      0       *       *       *       $PCP_BINADM_DIR/pmie_daily
+       # every 30 minutes, check pmie instances are running
+       28,58   *       *       *       *       $PCP_BINADM_DIR/pmie_check
+       In order to ensure that mail is not unintentionally sent when these
+       scripts are run from cron(8) diagnostics are always sent to log
+       files.  By default, these files are $PCP_LOG_DIR/pmie/pmie_daily.log
+       and $PCP_LOG_DIR/pmie/pmie_check.log but this can be changed using
+       the -l option.  If this log file already exists when the script
+       starts, it will be renamed with a .prev suffix (overwriting any log
+       file saved earlier) before diagnostics are generated to the new log
+       file.
+       The output from the cron execution of the scripts may be extended
+       using the -V option to the scripts which will enable verbose tracing
+       of their activity.  By default the scripts generate no output unless
+       some error or warning condition is encountered.
+       The -N option enables a ``show me'' mode, where the actions are
+       echoed, but not executed, in the style of ``make -n''.  Using -N in
+       conjunction with -V maximizes the diagnostic capabilities for
+       debugging.

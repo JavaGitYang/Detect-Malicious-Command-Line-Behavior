@@ -1,0 +1,13 @@
+
+       dpkg is a tool to install, build, remove and manage Debian packages.
+       The primary and more user-friendly front-end for dpkg is aptitude(1).
+       dpkg itself is controlled entirely via command line parameters, which
+       consist of exactly one action and zero or more options. The action-
+       parameter tells dpkg what to do and options control the behavior of
+       the action in some way.
+       dpkg can also be used as a front-end to dpkg-deb(1) and
+       dpkg-query(1). The list of supported actions can be found later on in
+       the ACTIONS section. If any such action is encountered dpkg just runs
+       dpkg-deb or dpkg-query with the parameters given to it, but no
+       specific options are currently passed to them, to use any such option
+       the back-ends need to be called directly.

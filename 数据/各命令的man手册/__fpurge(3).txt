@@ -1,0 +1,8 @@
+
+       The function fpurge() clears the buffers of the given stream.  For
+       output streams this discards any unwritten output.  For input streams
+       this discards any input read from the underlying object but not yet
+       obtained via getc(3); this includes any text pushed back via
+       ungetc(3).  See also fflush(3).
+       The function __fpurge() does precisely the same, but without
+       returning a value.

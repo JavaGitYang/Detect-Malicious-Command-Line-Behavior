@@ -1,0 +1,14 @@
+
+       The fgetgrent() function returns a pointer to a structure containing
+       the group information from the file referred to by stream.  The first
+       time it is called it returns the first entry; thereafter, it returns
+       successive entries.  The file referred to by stream must have the
+       same format as /etc/group (see group(5)).
+       The group structure is defined in <grp.h> as follows:
+           struct group {
+               char   *gr_name;        /* group name */
+               char   *gr_passwd;      /* group password */
+               gid_t   gr_gid;         /* group ID */
+               char  **gr_mem;         /* NULL-terminated array of pointers
+                                          to names of group members */
+           };

@@ -1,0 +1,3 @@
+
+       auparse_feed_has_data may be called to determine if there is any
+       records that are accumulating but not yet ready to emit.

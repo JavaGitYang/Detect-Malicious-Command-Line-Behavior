@@ -1,0 +1,8 @@
+
+       This command uploads a mailbox generated with git format-patch into
+       an IMAP drafts folder. This allows patches to be sent as other email
+       is when using mail clients that cannot read mailbox files directly.
+       The command also works with any general mailbox in which emails have
+       the fields "From", "Date", and "Subject" in that order.
+       Typical usage is something like:
+       git format-patch --signoff --stdout --attach origin | git imap-send

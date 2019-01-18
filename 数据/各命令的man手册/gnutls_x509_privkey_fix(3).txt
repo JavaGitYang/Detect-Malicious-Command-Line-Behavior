@@ -1,0 +1,3 @@
+
+       This function will recalculate the secondary parameters in a key.  In
+       RSA keys, this can be the coefficient and exponent1,2.

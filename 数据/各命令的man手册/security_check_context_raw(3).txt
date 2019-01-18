@@ -1,0 +1,5 @@
+
+       security_check_context() returns 0 if SELinux is running and the
+       context is valid, otherwise it returns -1.
+       security_check_context_raw() behaves identically to
+       security_check_context() but does not perform context translation.

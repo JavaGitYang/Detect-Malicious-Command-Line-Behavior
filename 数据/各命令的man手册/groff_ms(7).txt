@@ -1,0 +1,6 @@
+
+       This manual page describes the GNU version of the ms macros, part of
+       the groff typesetting system.  The ms macros are mostly compatible
+       with the documented behavior of the 4.3 BSD Unix ms macros (see
+       Differences from troff ms below for details).  The ms macros are
+       suitable for reports, letters, books, and technical documentation.

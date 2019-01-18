@@ -1,0 +1,5 @@
+
+       This function will return the requested extension data in the
+       certificate request.  The extension data will be allocated using
+       gnutls_malloc().
+       Use gnutls_x509_crq_get_extension_info() to extract the OID.

@@ -1,0 +1,3 @@
+
+       A QmcDesc object is a container for a metric descriptor (pmDesc, see
+       PMAPI(3)) and units.

@@ -1,0 +1,18 @@
+
+       The strcasecmp() and strcasecmp_l() functions shall compare, while
+       ignoring differences in case, the string pointed to by s1 to the
+       string pointed to by s2.  The strncasecmp() and strncasecmp_l()
+       functions shall compare, while ignoring differences in case, not more
+       than n bytes from the string pointed to by s1 to the string pointed
+       to by s2.
+       The strcasecmp() and strncasecmp() functions use the current locale
+       to determine the case of the characters.
+       The strcasecmp_l() and strncasecmp_l() functions use the locale
+       represented by locale to determine the case of the characters.
+       When the LC_CTYPE category of the locale being used is from the POSIX
+       locale, these functions shall behave as if the strings had been
+       converted to lowercase and then a byte comparison performed.
+       Otherwise, the results are unspecified.
+       The behavior is undefined if the locale argument to strcasecmp_l() or
+       strncasecmp_l() is the special locale object LC_GLOBAL_LOCALE or is
+       not a valid locale object handle.

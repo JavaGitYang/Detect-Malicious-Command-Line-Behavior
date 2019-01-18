@@ -1,0 +1,12 @@
+
+       dh_installcatalogs is a debhelper program that installs and registers
+       SGML catalogs. It complies with the Debian XML/SGML policy.
+       Catalogs will be registered in a supercatalog, in
+       /etc/sgml/package.cat.
+       This command automatically adds maintainer script snippets for
+       registering and unregistering the catalogs and supercatalogs (unless
+       -n is used). These snippets are inserted into the maintainer scripts
+       and the triggers file by dh_installdeb; see dh_installdeb(1) for an
+       explanation of Debhelper maintainer script snippets.
+       A dependency on sgml-base will be added to ${misc:Depends}, so be
+       sure your package uses that variable in debian/control.

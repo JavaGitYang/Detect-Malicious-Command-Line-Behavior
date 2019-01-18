@@ -1,0 +1,22 @@
+
+       The mkdtemp() function uses the contents of template to construct a
+       unique directory name. The string provided in template shall be a
+       pathname ending with six trailing 'X's.  The mkdtemp() function shall
+       replace each 'X' with a character from the portable filename
+       character set. The characters are chosen such that the resulting name
+       does not duplicate the name of an existing file at the time of a call
+       to mkdtemp().  The unique directory name is used to attempt to create
+       the directory using mode 0700 as modified by the file creation mask.
+       The mkstemp() function shall replace the contents of the string
+       pointed to by template by a unique pathname, and return a file
+       descriptor for the file open for reading and writing. The mkstemp()
+       function shall create the file, and obtain a file descriptor for it,
+       as if by a call to:
+           open(pathname, O_RDWR|O_CREAT|O_EXCL, S_IRUSR|S_IWUSR)
+       The function thus prevents any possible race condition between
+       testing whether the file exists and opening it for use. The string in
+       template should look like a pathname with six trailing 'X's;
+       mkstemp() replaces each 'X' with a character from the portable
+       filename character set. The characters are chosen such that the
+       resulting name does not duplicate the name of an existing file at the
+       time of a call to mkstemp().

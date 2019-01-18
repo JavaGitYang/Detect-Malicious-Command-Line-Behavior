@@ -1,0 +1,9 @@
+
+       The pcp mpstat command writes to standard output activities for each
+       available processor, processor 0 being the first one. If no
+       activity/option has been selected, then the default report is the CPU
+       utilization [ -u ] report.
+       The interval parameter specifies the amount of time in seconds
+       between each report. Default is one second.  The value of count
+       parameter determines the number of samples to be displayed.  Default
+       is continous.

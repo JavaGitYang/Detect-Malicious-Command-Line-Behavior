@@ -1,0 +1,4 @@
+
+       These functions return the hyperbolic cosine of x, which is defined
+       mathematically as:
+           cosh(x) = (exp(x) + exp(-x)) / 2

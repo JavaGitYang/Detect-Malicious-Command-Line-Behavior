@@ -1,0 +1,12 @@
+
+       keyctl_read() reads the payload of a key if the key type supports it.
+       The caller must have read permission on a key to be able to read it.
+       buffer and buflen specify the buffer into which the payload data will
+       be placed.  If the buffer is too small, the full size of the payload
+       will be returned and no copy will take place.
+       keyctl_read_alloc() is similar to keyctl_read() except that it
+       allocates a buffer big enough to hold the payload data and places the
+       data in it.  If successful, a pointer to the buffer is placed in
+       *_buffer.  The caller must free the buffer.
+       keyctl_read_alloc() adds a NUL character after the data it retrieves,
+       though this is not counted in the size value it returns.

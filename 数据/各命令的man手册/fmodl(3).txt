@@ -1,0 +1,4 @@
+
+       These functions compute the floating-point remainder of dividing x by
+       y.  The return value is x - n * y, where n is the quotient of x / y,
+       rounded toward zero to an integer.

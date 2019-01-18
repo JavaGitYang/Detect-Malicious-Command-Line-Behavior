@@ -1,0 +1,2 @@
+
+       These functions return the natural logarithm of x.

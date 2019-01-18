@@ -1,0 +1,8 @@
+
+       The rwm overlay to slapd(8) performs basic DN/data rewrite and
+       objectClass/attributeType mapping.  Its usage is mostly intended to
+       provide virtual views of existing data either remotely, in
+       conjunction with the proxy backend described in slapd-ldap(5), or
+       locally, in conjunction with the relay backend described in
+       slapd-relay(5).
+       This overlay is experimental.

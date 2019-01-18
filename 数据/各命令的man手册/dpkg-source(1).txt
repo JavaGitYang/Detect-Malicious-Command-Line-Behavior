@@ -1,0 +1,5 @@
+
+       dpkg-source packs and unpacks Debian source archives.
+       None of these commands allow multiple options to be combined into
+       one, and they do not allow the value for an option to be specified in
+       a separate argument.

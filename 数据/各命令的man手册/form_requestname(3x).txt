@@ -1,0 +1,6 @@
+
+       The function form_request_name returns the printable name of a form
+       request code.
+       The function form_request_by_name searches in the name-table for a
+       request with the given name and returns its request code. Otherwise
+       E_NO_MATCH is returned.

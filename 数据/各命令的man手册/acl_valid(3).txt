@@ -1,0 +1,10 @@
+
+     The acl_valid() function checks the ACL referred to by the argument acl
+     for validity.
+     The three required entries ACL_USER_OBJ, ACL_GROUP_OBJ, and ACL_OTHER
+     must exist exactly once in the ACL. If the ACL contains any ACL_USER or
+     ACL_GROUP entries, then an ACL_MASK entry is also required. The ACL may
+     contain at most one ACL_MASK entry.
+     The user identifiers must be unique among all entries of type ACL_USER.
+     The group identifiers must be unique among all entries of type
+     ACL_GROUP.

@@ -1,0 +1,21 @@
+
+       keyctl_describe() describes the attributes of a key as a NUL-
+       terminated string.
+       The caller must have view permission on a key to be able to get a
+       description of it.
+       buffer and buflen specify the buffer into which the key description
+       will be placed.  If the buffer is too small, the full size of the
+       description will be returned, and no copy will take place.
+       keyctl_describe_alloc() is similar to keyctl_describe() except that
+       it allocates a buffer big enough to hold the description and places
+       the description in it.  If successful, A pointer to the buffer is
+       placed in *_buffer.  The caller must free the buffer.
+       The description will be a string of format:
+              “%s;%d;%d;%08x;%s”
+       where the arguments are: key type name, key UID, key GID, key
+       permissions mask and key description.
+       NOTE!  The key description will not contain any semicolons, so that
+       should be separated out by working backwards from the end of the
+       string.  This permits extra information to be inserted before it by
+       later versions of the kernel simply by inserting more semicolon-
+       terminated substrings.

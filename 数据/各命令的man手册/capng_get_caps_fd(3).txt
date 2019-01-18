@@ -1,0 +1,8 @@
+
+       This function will read the file based capabilities stored in
+       extended attributes of the file that the descriptor was opened
+       against. The bounding set is not included in file based capabilities
+       operations. Note that this function will only work if compiled on a
+       kernel that supports file based capabilities such as 2.6.26 and
+       later. If the "magic" bit is set, then all effect capability bits are
+       set. Otherwise the bits are cleared.

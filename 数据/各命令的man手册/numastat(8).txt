@@ -1,0 +1,25 @@
+
+       numastat with no command options or arguments at all, displays per-
+       node NUMA hit and miss system statistics from the kernel memory
+       allocator.  This default numastat behavior is strictly compatible
+       with the previous long-standing numastat perl script, written by Andi
+       Kleen.  The default numastat statistics shows per-node numbers (in
+       units of pages of memory) in these categories:
+       numa_hit is memory successfully allocated on this node as intended.
+       numa_miss is memory allocated on this node despite the process
+       preferring some different node. Each numa_miss has a numa_foreign on
+       another node.
+       numa_foreign is memory intended for this node, but actually allocated
+       on some different node.  Each numa_foreign has a numa_miss on another
+       node.
+       interleave_hit is interleaved memory successfully allocated on this
+       node as intended.
+       local_node is memory allocated on this node while a process was
+       running on it.
+       other_node is memory allocated on this node while a process was
+       running on some other node.
+       Any supplied options or arguments with the numastat command will
+       significantly change both the content and the format of the display.
+       Specified options will cause display units to change to megabytes of
+       memory, and will change other specific behaviors of numastat as
+       described below.

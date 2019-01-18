@@ -1,0 +1,53 @@
+
+       Unshares the indicated namespaces from the parent process and then
+       executes the specified program. If program is not given, then
+       ``${SHELL}'' is run (default: /bin/sh).
+       The namespaces can optionally be made persistent by bind mounting
+       /proc/pid/ns/type files to a filesystem path and entered with
+       nsenter(1) even after the program terminates (except PID namespaces
+       where permanently running init process is required).  Once a
+       persistent namespace is no longer needed, it can be unpersisted with
+       umount(8).  See the EXAMPLES section for more details.
+       The namespaces to be unshared are indicated via options.  Unshareable
+       namespaces are:
+       mount namespace
+              Mounting and unmounting filesystems will not affect the rest
+              of the system, except for filesystems which are explicitly
+              marked as shared (with mount --make-shared; see
+              /proc/self/mountinfo or findmnt -o+PROPAGATION for the shared
+              flags).  For further details, see mount_namespaces(7) and the
+              discussion of the CLONE_NEWNS flag in clone(2).
+              unshare since util-linux version 2.27 automatically sets
+              propagation to private in a new mount namespace to make sure
+              that the new namespace is really unshared.  It's possible to
+              disable this feature with option --propagation unchanged.
+              Note that private is the kernel default.
+       UTS namespace
+              Setting hostname or domainname will not affect the rest of the
+              system.  For further details, see namespaces(7) and the
+              discussion of the CLONE_NEWUTS flag in clone(2).
+       IPC namespace
+              The process will have an independent namespace for POSIX
+              message queues as well as System V message queues, semaphore
+              sets and shared memory segments.  For further details, see
+              namespaces(7) and the discussion of the CLONE_NEWIPC flag in
+              clone(2).
+       network namespace
+              The process will have independent IPv4 and IPv6 stacks, IP
+              routing tables, firewall rules, the /proc/net and
+              /sys/class/net directory trees, sockets, etc.  For further
+              details, see namespaces(7) and the discussion of the
+              CLONE_NEWNET flag in clone(2).
+       PID namespace
+              Children will have a distinct set of PID-to-process mappings
+              from their parent.  For further details, see pid_namespaces(7)
+              and the discussion of the CLONE_NEWPID flag in clone(2).
+       cgroup namespace
+              The process will have a virtualized view of /proc/self/cgroup,
+              and new cgroup mounts will be rooted at the namespace cgroup
+              root.  For further details, see cgroup_namespaces(7) and the
+              discussion of the CLONE_NEWCGROUP flag in clone(2).
+       user namespace
+              The process will have a distinct set of UIDs, GIDs and
+              capabilities.  For further details, see user_namespaces(7) and
+              the discussion of the CLONE_NEWUSER flag in clone(2).

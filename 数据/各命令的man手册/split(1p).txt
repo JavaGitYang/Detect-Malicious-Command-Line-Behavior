@@ -1,0 +1,21 @@
+
+       The split utility shall read an input file and write one or more
+       output files.  The default size of each output file shall be 1000
+       lines. The size of the output files can be modified by specification
+       of the −b or −l options. Each output file shall be created with a
+       unique suffix. The suffix shall consist of exactly suffix_length
+       lowercase letters from the POSIX locale. The letters of the suffix
+       shall be used as if they were a base-26 digit system, with the first
+       suffix to be created consisting of all 'a' characters, the second
+       with a 'b' replacing the last 'a', and so on, until a name of all 'z'
+       characters is created. By default, the names of the output files
+       shall be 'x', followed by a two-character suffix from the character
+       set as described above, starting with "aa", "ab", "ac", and so on,
+       and continuing until the suffix "zz", for a maximum of 676 files.
+       If the number of files required exceeds the maximum allowed by the
+       suffix length provided, such that the last allowable file would be
+       larger than the requested size, the split utility shall fail after
+       creating the last file with a valid suffix; split shall not delete
+       the files it created with valid suffixes. If the file limit is not
+       exceeded, the last file created shall contain the remainder of the
+       input file, and may be smaller than the requested size.

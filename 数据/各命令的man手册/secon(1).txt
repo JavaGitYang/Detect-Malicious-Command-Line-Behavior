@@ -1,0 +1,67 @@
+
+       See a part of a context. The context is taken from a file, pid, user
+       input or the context in which secon is originally executed.
+       -V, --version
+              shows the current version of secon
+       -h, --help
+              shows the usage information for secon
+       -P, --prompt
+              outputs data in a format suitable for a prompt
+       -C, --color
+              outputs data with the associated ANSI color codes (requires
+              -P)
+       -u, --user
+              show the user of the security context
+       -r, --role
+              show the role of the security context
+       -t, --type
+              show the type of the security context
+       -s, --sensitivity
+              show the sensitivity level of the security context
+       -c, --clearance
+              show the clearance level of the security context
+       -m, --mls-range
+              show the sensitivity level and clearance, as a range, of the
+              security context
+       -R, --raw
+              outputs  the sensitivity level and clearance in an
+              untranslated format.
+       -f, --file
+              gets the context from the specified file FILE
+       -L, --link
+              gets the context from the specified file FILE (doesn't follow
+              symlinks)
+       -p, --pid
+              gets the context from the specified process PID
+       --pid-exec
+              gets the exec context from the specified process PID
+       --pid-fs
+              gets the fscreate context from the specified process PID
+       --pid-key
+              gets the key context from the specified process PID
+       --current, --self
+              gets the context from the current process
+       --current-exec, --self-exec
+              gets the exec context from the current process
+       --current-fs, --self-fs
+              gets the fscreate context from the current process
+       --current-key, --self-key
+              gets the key context from the current process
+       --parent
+              gets the context from the parent of the current process
+       --parent-exec
+              gets the exec context from the parent of the current process
+       --parent-fs
+              gets the fscreate context from the parent of the current
+              process
+       --parent-key
+              gets the key context from the parent of the current process
+       Additional argument CONTEXT may be provided and will be used if no
+       options have been specified to make secon get its context from
+       another source.  If that argument is - then the context will be read
+       from stdin.
+       If there is no argument, secon will try reading a context from stdin,
+       if that is not a tty, otherwise secon will act as though --self had
+       been passed.
+       If none of --user, --role, --type, --level or --mls-range is passed.
+       Then all of them will be output.

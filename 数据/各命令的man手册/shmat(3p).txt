@@ -1,0 +1,22 @@
+
+       The shmat() function operates on XSI shared memory (see the Base
+       Definitions volume of POSIX.1‐2008, Section 3.342, Shared Memory
+       Object).  It is unspecified whether this function interoperates with
+       the realtime interprocess communication facilities defined in Section
+       2.8, Realtime.
+       The shmat() function attaches the shared memory segment associated
+       with the shared memory identifier specified by shmid to the address
+       space of the calling process. The segment is attached at the address
+       specified by one of the following criteria:
+        *  If shmaddr is a null pointer, the segment is attached at the
+           first available address as selected by the system.
+        *  If shmaddr is not a null pointer and (shmflg &SHM_RND) is non-
+           zero, the segment is attached at the address given by (shmaddr
+           −((uintptr_t)shmaddr %SHMLBA)). The character '%' is the C-
+           language remainder operator.
+        *  If shmaddr is not a null pointer and (shmflg &SHM_RND) is 0, the
+           segment is attached at the address given by shmaddr.
+        *  The segment is attached for reading if (shmflg &SHM_RDONLY) is
+           non-zero and the calling process has read permission; otherwise,
+           if it is 0 and the calling process has read and write permission,
+           the segment is attached for reading and writing.

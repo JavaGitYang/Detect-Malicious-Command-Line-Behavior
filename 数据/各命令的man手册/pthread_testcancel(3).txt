@@ -1,0 +1,8 @@
+
+       Calling pthread_testcancel() creates a cancellation point within the
+       calling thread, so that a thread that is otherwise executing code
+       that contains no cancellation points will respond to a cancellation
+       request.
+       If cancelability is disabled (using pthread_setcancelstate(3)), or no
+       cancellation request is pending, then a call to pthread_testcancel()
+       has no effect.

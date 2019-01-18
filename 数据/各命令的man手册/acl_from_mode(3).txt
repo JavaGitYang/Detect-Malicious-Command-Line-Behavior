@@ -1,0 +1,5 @@
+
+     The acl_from_mode() function creates a minimal ACL that contains the
+     three entries with tag types ACL_USER_OBJ, ACL_GROUP_OBJ, and
+     ACL_OTHER, with permissions corresponding to the owner, group, and
+     other permission bits of its argument mode.

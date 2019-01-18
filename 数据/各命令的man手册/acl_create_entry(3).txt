@@ -1,0 +1,16 @@
+
+     The acl_create_entry() function creates a new ACL entry in the ACL
+     pointed to by the contents of the pointer argument acl_p.  On success,
+     the function returns a descriptor for the new ACL entry via entry_p.
+     This function may cause memory to be allocated.  The caller should free
+     any releasable memory, when the new ACL is no longer required, by call‐
+     ing acl_free(3) with (void*)*acl_p as an argument.  If the ACL working
+     storage cannot be increased in the current location, then the working
+     storage for the ACL pointed to by acl_p may be relocated and the previ‐
+     ous working storage is released. A pointer to the new working storage
+     is returned via acl_p.
+     The components of the new ACL entry are initialized in the following
+     ways: the ACL tag type component contains ACL_UNDEFINED_TAG, the quali‐
+     fier component contains ACL_UNDEFINED_ID, and the set of permissions
+     has no permissions enabled. Any existing ACL entry descriptors that
+     refer to entries in the ACL continue to refer to those entries.

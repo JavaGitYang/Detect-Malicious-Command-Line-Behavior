@@ -1,0 +1,8 @@
+
+       pam_succeed_if.so is designed to succeed or fail authentication based
+       on characteristics of the account belonging to the user being
+       authenticated or values of other PAM items. One use is to select
+       whether to load other modules based on this test.
+       The module should be given one or more conditions as module
+       arguments, and authentication will succeed only if all of the
+       conditions are met.

@@ -1,0 +1,12 @@
+
+       The uncompress utility shall restore files to their original state
+       after they have been compressed using the compress utility. If no
+       files are specified, the standard input shall be uncompressed to the
+       standard output. If the invoking process has appropriate privileges,
+       the ownership, modes, access time, and modification time of the
+       original file shall be preserved.
+       This utility shall support the uncompressing of any files produced by
+       the compress utility on the same implementation. For files produced
+       by compress on other systems, uncompress supports 9 to 14-bit
+       compression (see compress(1p), −b); it is implementation-defined
+       whether values of −b greater than 14 are supported.

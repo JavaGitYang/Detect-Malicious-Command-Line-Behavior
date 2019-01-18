@@ -1,0 +1,7 @@
+
+     The acl_get_tag_type() function assigns to the value pointed to by
+     tag_type_p the tag type for the ACL entry indicated by the argument
+     entry_d.
+     The argument entry_d and any other ACL entry descriptors that refer to
+     entries in the same ACL continue to refer to those entries. The order
+     of all existing entries in the ACL remain unchanged.

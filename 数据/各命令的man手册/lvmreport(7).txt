@@ -1,0 +1,5 @@
+
+       LVM uses single reporting infrastructure that sets standard on LVM
+       command's output and it provides wide range of configuration settings
+       and command line options to customize report and filter the report's
+       output.

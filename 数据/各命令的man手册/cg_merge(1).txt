@@ -1,0 +1,3 @@
+
+       cg_merge sums together the outputs of multiple Cachegrind runs into a
+       single output file.

@@ -1,0 +1,5 @@
+
+       The function get_phys_pages() returns the total number of physical
+       pages of memory available on the system.
+       The function get_avphys_pages() returns the number of currently
+       available physical pages of memory on the system.

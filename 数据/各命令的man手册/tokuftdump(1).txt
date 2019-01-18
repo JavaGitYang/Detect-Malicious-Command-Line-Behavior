@@ -1,0 +1,32 @@
+
+       tokuftdump Investigates and diagnoses the fractal tree.
+       tokuftdump supports the following options for processing option
+       files.
+       ·   --interactive
+           Interactive.
+       ·   --support /path/to/fractal-tree/file
+           An interactive way to see what messages and/or switch between
+           FTs.
+       ·   --json /path/to/fractal-tree/file [output_json_file]
+           If the output json file is left empty, FT.json will be created
+           automatically.
+       ·   --nodata
+           Nodata.
+       ·   --dumpdata = 0|1
+           Dumpdata.
+       ·   --header
+           Header.
+       ·   --rootnode
+           Rootnode.
+       ·   --node N
+           Node.
+       ·   --fragmentation
+           Fragmentation.
+       ·   --garbage
+           Garbage.
+       ·   --tsv
+           TSV.
+       ·   --translation-table
+           Translation table.
+       ·   --summary
+           Provide summary info.

@@ -1,0 +1,6 @@
+
+       pmpause sleeps indefinitely, until interrupted by SIGKILL.
+       pmsleep sleeps for the specified interval.  The interval argument
+       follows the syntax described in PCPIntro(1) for -t, and in the
+       simplest form may be an unsigned integer or floating point constant
+       (the implied units in this case are seconds).

@@ -1,0 +1,8 @@
+
+       This function will add a signature in the provided PKCS 7 structure
+       for the provided data. Multiple signatures can be made with different
+       signers.
+       The available flags are: GNUTLS_PKCS7_EMBED_DATA,
+       GNUTLS_PKCS7_INCLUDE_TIME, GNUTLS_PKCS7_INCLUDE_CERT, and
+       GNUTLS_PKCS7_WRITE_SPKI. They are explained in the
+       gnutls_pkcs7_sign_flags definition.

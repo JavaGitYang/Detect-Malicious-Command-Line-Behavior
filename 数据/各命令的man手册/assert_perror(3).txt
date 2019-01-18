@@ -1,0 +1,8 @@
+
+       If the macro NDEBUG was defined at the moment <assert.h> was last
+       included, the macro assert_perror() generates no code, and hence does
+       nothing at all.  Otherwise, the macro assert_perror() prints an error
+       message to standard error and terminates the program by calling
+       abort(3) if errnum is nonzero.  The message contains the filename,
+       function name and line number of the macro call, and the output of
+       strerror(errnum).

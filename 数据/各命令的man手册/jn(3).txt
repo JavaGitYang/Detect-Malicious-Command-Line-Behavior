@@ -1,0 +1,7 @@
+
+       The j0() and j1() functions return Bessel functions of x of the first
+       kind of orders 0 and 1, respectively.  The jn() function returns the
+       Bessel function of x of the first kind of order n.
+       The j0f(), j1f(), and jnf(), functions are versions that take and
+       return float values.  The j0l(), j1l(), and jnl() functions are
+       versions that take and return long double values.

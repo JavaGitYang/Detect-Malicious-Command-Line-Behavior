@@ -1,0 +1,26 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       A call to setjmp() shall save the calling environment in its env
+       argument for later use by longjmp().
+       It is unspecified whether setjmp() is a macro or a function. If a
+       macro definition is suppressed in order to access an actual function,
+       or a program defines an external identifier with the name setjmp, the
+       behavior is undefined.
+       An application shall ensure that an invocation of setjmp() appears in
+       one of the following contexts only:
+        *  The entire controlling expression of a selection or iteration
+           statement
+        *  One operand of a relational or equality operator with the other
+           operand an integral constant expression, with the resulting
+           expression being the entire controlling expression of a selection
+           or iteration statement
+        *  The operand of a unary '!'  operator with the resulting
+           expression being the entire controlling expression of a selection
+           or iteration
+        *  The entire expression of an expression statement (possibly cast
+           to void)
+       If the invocation appears in any other context, the behavior is
+       undefined.

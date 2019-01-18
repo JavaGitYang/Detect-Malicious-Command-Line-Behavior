@@ -1,0 +1,23 @@
+
+       RAID6 devices in which one single component drive has errors can use
+       the double parity in order to find out which component drive.  The
+       "raid6check" tool checks, for each stripe, the double parity
+       consistency, reports mismatches and, if possible, which component
+       drive has the mismatch.  Since it works at stripe level, it can
+       report different drives with mismatches at different stripes.
+       "raid6check" requires a non-degraded RAID6 MD device as first
+       parameter, a starting stripe (usually 0) and the number of stripes to
+       be checked.  If this third parameter is also 0, it will check the
+       array up to the end.
+       "raid6check" will start printing information about the RAID6, then
+       for each stripe, it will report the parity rotation status.  In case
+       of parity mismatches, "raid6check" reports, if possible, which
+       component drive could be responsible. Otherwise it reports that it is
+       not possible to find the component drive.
+       If the given MD device is not a RAID6, "raid6check" will, of course,
+       not continue.
+       If the RAID6 MD device is degraded, "raid6check" will report an error
+       and it will not proceed further.
+       No write operations are performed on the array or the components.
+       Furthermore, the checked array can be online and in use during the
+       operation of "raid6check".

@@ -1,0 +1,5 @@
+
+       mq_close() closes the message queue descriptor mqdes.
+       If the calling process has attached a notification request (see
+       (mq_notify(3)) to this message queue via mqdes, then this request is
+       removed, and another process can now attach a notification request.

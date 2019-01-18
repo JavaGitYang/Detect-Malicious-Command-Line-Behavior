@@ -1,0 +1,11 @@
+
+       The sched_getscheduler() function shall return the scheduling policy
+       of the process specified by pid.  If the value of pid is negative,
+       the behavior of the sched_getscheduler() function is unspecified.
+       The values that can be returned by sched_getscheduler() are defined
+       in the <sched.h> header.
+       If a process specified by pid exists, and if the calling process has
+       permission, the scheduling policy shall be returned for the process
+       whose process ID is equal to pid.
+       If pid is zero, the scheduling policy shall be returned for the
+       calling process.

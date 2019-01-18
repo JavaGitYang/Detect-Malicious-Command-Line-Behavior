@@ -1,0 +1,7 @@
+
+       The GNU size utility lists the section sizes---and the total
+       size---for each of the object or archive files objfile in its
+       argument list.  By default, one line of output is generated for each
+       object file or each module in an archive.
+       objfile... are the object files to be examined.  If none are
+       specified, the file "a.out" will be used.

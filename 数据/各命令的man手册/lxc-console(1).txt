@@ -1,0 +1,15 @@
+
+       If the tty service has been configured and is available for the
+       container specified as parameter, this command will launch a console
+       allowing to log on the container.
+       The available tty are free slots taken by this command. That means if
+       the container has four ttys available and the command has been
+       launched four times each taking a different tty, the fifth command
+       will fail because no console will be available.
+       The command will connect to a tty. If the connection is lost or
+       broken, the command can be launched again and regain the tty at the
+       state it was before the disconnection.
+       A ttynum of 0 may be given to attach to the container's /dev/console
+       instead of its dev/tty<ttynum>.
+       A keyboard escape sequence may be used to disconnect from the tty and
+       quit lxc-console. The default escape sequence is <Ctrl+a q>.

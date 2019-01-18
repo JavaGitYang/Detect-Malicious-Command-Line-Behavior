@@ -1,0 +1,4 @@
+
+       This function will set attributes on the provided object.  Available
+       options for  itype are GNUTLS_PKCS11_OBJ_LABEL,
+       GNUTLS_PKCS11_OBJ_ID_HEX, and GNUTLS_PKCS11_OBJ_ID.

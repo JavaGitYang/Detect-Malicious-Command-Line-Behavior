@@ -1,0 +1,11 @@
+
+       The sort utility shall perform one of the following functions:
+        1. Sort lines of all the named files together and write the result
+           to the specified output.
+        2. Merge lines of all the named (presorted) files together and write
+           the result to the specified output.
+        3. Check that a single input file is correctly presorted.
+       Comparisons shall be based on one or more sort keys extracted from
+       each line of input (or, if no sort keys are specified, the entire
+       line up to, but not including, the terminating <newline>), and shall
+       be performed using the collating sequence of the current locale.

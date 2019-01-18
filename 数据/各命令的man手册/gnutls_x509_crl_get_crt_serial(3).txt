@@ -1,0 +1,6 @@
+
+       This function will retrieve the serial number of the specified, by
+       the index, revoked certificate.
+       Note that this function will have performance issues in large
+       sequences of revoked certificates. In that case use
+       gnutls_x509_crl_iter_crt_serial().

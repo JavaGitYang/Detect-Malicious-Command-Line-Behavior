@@ -1,0 +1,9 @@
+
+       The shmdt() function operates on XSI shared memory (see the Base
+       Definitions volume of POSIX.1‐2008, Section 3.342, Shared Memory
+       Object).  It is unspecified whether this function interoperates with
+       the realtime interprocess communication facilities defined in Section
+       2.8, Realtime.
+       The shmdt() function detaches the shared memory segment located at
+       the address specified by shmaddr from the address space of the
+       calling process.

@@ -1,0 +1,5 @@
+
+       These functions round their argument to the nearest integer value,
+       using the current rounding direction (see fesetround(3)).
+       Note that unlike the rint(3) family of functions, the return type of
+       these functions differs from that of their arguments.

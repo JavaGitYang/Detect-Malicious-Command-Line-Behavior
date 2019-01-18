@@ -1,0 +1,33 @@
+
+       The pthread_attr_setscope() function sets the contention scope
+       attribute of the thread attributes object referred to by attr to the
+       value specified in scope.  The contention scope attribute defines the
+       set of threads against which a thread competes for resources such as
+       the CPU.  POSIX.1 specifies two possible values for scope:
+       PTHREAD_SCOPE_SYSTEM
+              The thread competes for resources with all other threads in
+              all processes on the system that are in the same scheduling
+              allocation domain (a group of one or more processors).
+              PTHREAD_SCOPE_SYSTEM threads are scheduled relative to one
+              another according to their scheduling policy and priority.
+       PTHREAD_SCOPE_PROCESS
+              The thread competes for resources with all other threads in
+              the same process that were also created with the
+              PTHREAD_SCOPE_PROCESS contention scope.  PTHREAD_SCOPE_PROCESS
+              threads are scheduled relative to other threads in the process
+              according to their scheduling policy and priority.  POSIX.1
+              leaves it unspecified how these threads contend with other
+              threads in other process on the system or with other threads
+              in the same process that were created with the
+              PTHREAD_SCOPE_SYSTEM contention scope.
+       POSIX.1 requires that an implementation support at least one of these
+       contention scopes.  Linux supports PTHREAD_SCOPE_SYSTEM, but not
+       PTHREAD_SCOPE_PROCESS.
+       On systems that support multiple contention scopes, then, in order
+       for the parameter setting made by pthread_attr_setscope() to have
+       effect when calling pthread_create(3), the caller must use
+       pthread_attr_setinheritsched(3) to set the inherit-scheduler
+       attribute of the attributes object attr to PTHREAD_EXPLICIT_SCHED.
+       The pthread_attr_getscope() function returns the contention scope
+       attribute of the thread attributes object referred to by attr in the
+       buffer pointed to by scope.

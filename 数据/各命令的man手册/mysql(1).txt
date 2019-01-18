@@ -1,0 +1,27 @@
+
+       mysql is a simple SQL shell (with GNU readline capabilities). It
+       supports interactive and non-interactive use. When used
+       interactively, query results are presented in an ASCII-table format.
+       When used non-interactively (for example, as a filter), the result is
+       presented in tab-separated format. The output format can be changed
+       using command options.
+       If you have problems due to insufficient memory for large result
+       sets, use the --quick option. This forces mysql to retrieve results
+       from the server a row at a time rather than retrieving the entire
+       result set and buffering it in memory before displaying it. This is
+       done by returning the result set using the mysql_use_result() C API
+       function in the client/server library rather than
+       mysql_store_result().
+       Using mysql is very easy. Invoke it from the prompt of your command
+       interpreter as follows:
+           shell> mysql db_name
+       Or:
+           shell> mysql --user=user_name --password=your_password db_name
+       Then type an SQL statement, end it with “;”, \g, or \G and press
+       Enter.
+       Typing Control-C causes mysql to attempt to kill the current
+       statement. If this cannot be done, or Control-C is typed again before
+       the statement is killed, mysql exits.
+       You can execute SQL statements in a script file (batch file) like
+       this:
+           shell> mysql db_name < script.sql > output.tab

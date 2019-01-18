@@ -1,0 +1,4 @@
+
+       pcap_set_promisc() sets whether promiscuous mode should be set on a
+       capture handle when the handle is activated.  If promisc is non-zero,
+       promiscuous mode will be set, otherwise it will not be set.

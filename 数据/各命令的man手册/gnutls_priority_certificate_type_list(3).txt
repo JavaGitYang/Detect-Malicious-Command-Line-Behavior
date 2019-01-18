@@ -1,0 +1,2 @@
+
+       Get a list of available certificate types in the priority structure.

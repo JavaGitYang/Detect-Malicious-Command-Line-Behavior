@@ -1,0 +1,13 @@
+
+       The nextup(), nextupf(), and nextupl() functions return the next
+       representable floating-point number greater than x.
+       If x is the smallest representable negative number in the
+       corresponding type, these functions return -0.  If x is 0, the
+       returned value is the smallest representable positive number of the
+       corresponding type.
+       If x is positive infinity, the returned value is positive infinity.
+       If x is negative infinity, the returned value is the largest
+       representable finite negative number of the corresponding type.
+       If x is Nan, the returned value is NaN.
+       The value returned by nextdown(x) is -nextup(-x), and similarly for
+       the other types.

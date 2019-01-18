@@ -1,0 +1,2 @@
+
+       Get currently used compression algorithm.

@@ -1,0 +1,7 @@
+
+       For each pathname given via the command-line or from a file via
+       --stdin, check whether the file is excluded by .gitignore (or other
+       input files to the exclude mechanism) and output the path if it is
+       excluded.
+       By default, tracked files are not shown at all since they are not
+       subject to exclude rules; but see ‘--no-index’.

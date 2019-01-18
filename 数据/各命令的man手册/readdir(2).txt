@@ -1,0 +1,20 @@
+
+       This is not the function you are interested in.  Look at readdir(3)
+       for the POSIX conforming C library interface.  This page documents
+       the bare kernel system call interface, which is superseded by
+       getdents(2).
+       readdir() reads one old_linux_dirent structure from the directory
+       referred to by the file descriptor fd into the buffer pointed to by
+       dirp.  The argument count is ignored; at most one old_linux_dirent
+       structure is read.
+       The old_linux_dirent structure is declared as follows:
+           struct old_linux_dirent {
+               long  d_ino;              /* inode number */
+               off_t d_off;              /* offset to this old_linux_dirent */
+               unsigned short d_reclen;  /* length of this d_name */
+               char  d_name[NAME_MAX+1]; /* filename (null-terminated) */
+           }
+       d_ino is an inode number.  d_off is the distance from the start of
+       the directory to this old_linux_dirent.  d_reclen is the size of
+       d_name, not counting the terminating null byte ('\0').  d_name is a
+       null-terminated filename.

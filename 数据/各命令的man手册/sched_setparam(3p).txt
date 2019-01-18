@@ -1,0 +1,38 @@
+
+       The sched_setparam() function shall set the scheduling parameters of
+       the process specified by pid to the values specified by the
+       sched_param structure pointed to by param.  The value of the
+       sched_priority member in the sched_param structure shall be any
+       integer within the inclusive priority range for the current
+       scheduling policy of the process specified by pid.  Higher numerical
+       values for the priority represent higher priorities.  If the value of
+       pid is negative, the behavior of the sched_setparam() function is
+       unspecified.
+       If a process specified by pid exists, and if the calling process has
+       permission, the scheduling parameters shall be set for the process
+       whose process ID is equal to pid.
+       If pid is zero, the scheduling parameters shall be set for the
+       calling process.
+       The conditions under which one process has permission to change the
+       scheduling parameters of another process are implementation-defined.
+       Implementations may require the requesting process to have
+       appropriate privileges to set its own scheduling parameters or those
+       of another process.
+       See Scheduling Policies for a description on how this function
+       affects the scheduling of the threads within the target process.
+       If the current scheduling policy for the target process is not
+       SCHED_FIFO, SCHED_RR, or SCHED_SPORADIC, the result is
+       implementation-defined; this case includes the SCHED_OTHER policy.
+       The specified sched_ss_repl_period shall be greater than or equal to
+       the specified sched_ss_init_budget for the function to succeed; if it
+       is not, then the function shall fail.
+       The value of sched_ss_max_repl shall be within the inclusive range
+       [1,{SS_REPL_MAX}] for the function to succeed; if not, the function
+       shall fail. It is unspecified whether the sched_ss_repl_period and
+       sched_ss_init_budget values are stored as provided by this function
+       or are rounded to align with the resolution of the clock being used.
+       This function is not atomic with respect to other threads in the
+       process. Threads may continue to execute while this function call is
+       in the process of changing the scheduling policy for the underlying
+       kernel-scheduled entities used by the process contention scope
+       threads.

@@ -1,0 +1,8 @@
+
+       The finite(), finitef(), and finitel() functions return a nonzero
+       value if x is neither infinite nor a "not-a-number" (NaN) value, and
+       0 otherwise.
+       The isnan(), isnanf(), and isnanl() functions return a nonzero value
+       if x is a NaN value, and 0 otherwise.
+       The isinf(), isinff(), and isinfl() functions return 1 if x is
+       positive infinity, -1 if x is negative infinity, and 0 otherwise.

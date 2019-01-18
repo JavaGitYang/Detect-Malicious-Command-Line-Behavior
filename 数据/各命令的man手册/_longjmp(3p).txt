@@ -1,0 +1,7 @@
+
+       The _longjmp() and _setjmp() functions shall be equivalent to
+       longjmp() and setjmp(), respectively, with the additional restriction
+       that _longjmp() and _setjmp() shall not manipulate the signal mask.
+       If _longjmp() is called even though env was never initialized by a
+       call to _setjmp(), or when the last such call was in a function that
+       has since returned, the results are undefined.

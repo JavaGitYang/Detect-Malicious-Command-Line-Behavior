@@ -1,0 +1,6 @@
+
+       This function will return a series (ORed) of flags, applicable for
+       the current session.
+       This replaces individual informational functions such as
+       gnutls_safe_renegotiation_status(),
+       gnutls_session_ext_master_secret_status(), etc.

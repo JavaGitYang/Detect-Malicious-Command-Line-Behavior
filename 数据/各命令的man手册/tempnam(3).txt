@@ -1,0 +1,19 @@
+
+       Never use this function.  Use mkstemp(3) or tmpfile(3) instead.
+       The tempnam() function returns a pointer to a string that is a valid
+       filename, and such that a file with this name did not exist when
+       tempnam() checked.  The filename suffix of the pathname generated
+       will start with pfx in case pfx is a non-NULL string of at most five
+       bytes.  The directory prefix part of the pathname generated is
+       required to be "appropriate" (often that at least implies writable).
+       Attempts to find an appropriate directory go through the following
+       steps:
+       a) In case the environment variable TMPDIR exists and contains the
+          name of an appropriate directory, that is used.
+       b) Otherwise, if the dir argument is non-NULL and appropriate, it is
+          used.
+       c) Otherwise, P_tmpdir (as defined in <stdio.h>) is used when
+          appropriate.
+       d) Finally an implementation-defined directory may be used.
+       The string returned by tempnam() is allocated using malloc(3) and
+       hence should be freed by free(3).

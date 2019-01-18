@@ -1,0 +1,9 @@
+
+       The freelocale() function shall cause the resources allocated for a
+       locale object returned by a call to the newlocale() or duplocale()
+       functions to be released.
+       The behavior is undefined if the locobj argument is the special
+       locale object LC_GLOBAL_LOCALE or is not a valid locale object
+       handle.
+       Any use of a locale object that has been freed results in undefined
+       behavior.

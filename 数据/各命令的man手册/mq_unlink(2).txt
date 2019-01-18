@@ -1,0 +1,5 @@
+
+       mq_unlink() removes the specified message queue name.  The message
+       queue name is removed immediately.  The queue itself is destroyed
+       once any other processes that have the queue open close their
+       descriptors referring to the queue.

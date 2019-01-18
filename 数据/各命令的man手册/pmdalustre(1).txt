@@ -1,0 +1,4 @@
+
+       pmdalustre is a Performance Metrics Domain Agent (PMDA) which exports
+       metric values from the /proc/fs/lustre and /proc/sys/lnet trees to
+       provide information on mounted lustre filesystems.

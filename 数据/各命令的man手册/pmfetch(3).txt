@@ -1,0 +1,139 @@
+
+       Given a list of Performance Metric Identifiers (PMID)s, e.g. as
+       constructed by pmLookupName(3), via pmidlist and numpmid, fetch the
+       values for these performance metrics.
+       The call to pmFetch is executed in the context of a source of
+       metrics, instance profile and collection time, previously established
+       by calls to the appropriate context and profile functions, namely
+       some of pmNewContext(3), pmDupContext(3), pmUseContext(3),
+       pmAddProfile(3), pmDelProfile(3) and pmSetMode(3).
+       The principal result from pmFetch is returned in the argument result
+       as a tree, using the following component data structures;
+            typedef struct {
+                  unsigned int vtype : 8;        /* value type (same as pmDesc.type) */
+                  unsigned int vlen : 24;        /* bytes for vtype/vlen + vbuf */
+                  char         vbuf[1];          /* one or more values */
+            } pmValueBlock;
+            typedef struct {
+                  int      inst;                 /* instance identifier */
+                  union {
+                        pmValueBlock *pval;      /* pointer to value-block */
+                        int          lval;       /* integer value insitu */
+                  } value;
+            } pmValue;
+            typedef struct {
+                  pmID      pmid;                /* metric identifier */
+                  int       numval;              /* number of values or error code */
+                  int       valfmt;              /* value style, insitu or ptr */
+                  pmValue   vlist[1];            /* set of instances/values */
+            } pmValueSet;
+            /* Result returned by pmFetch() */
+            typedef struct {
+                  struct timeval timestamp;      /* time stamped by collector */
+                  int            numpmid;        /* number of PMIDs */
+                  pmValueSet     *vset[1];       /* set of value sets */
+            } pmResult;
+       To accommodate metrics with multiple value instances, the numval
+       field indicates how many values are returned for each requested PMID.
+       The field valfmt in the pmValueSet structure indicates if the values
+       for this metric are stored insitu in the lval field, i.e. a 32-bit
+       integer quantity (either int, unsigned int, long or unsigned long) or
+       if the values are held in associated pmValueBlock structures.  The
+       pmValueBlock structure is always used for floating point values
+       (float or double) and also accommodates arbitrary sized binary data
+       such as `string-valued' metrics and metrics with aggregated or
+       complex data types.  The maximum length of a pmValueBlock buffer is
+       PM_VAL_VLEN_MAX bytes.  If the pmValueBlock format is used, the vtype
+       field indicates the data type of the value.  This field has the same
+       interpretation as the type field in the pmDesc structure, see
+       pmLookupDesc(3).
+       Note that the insitu value may be a signed or unsigned 32 bit
+       integer, signed or unsigned 32 bit long value (on 32 bit platforms),
+       In the special cases described below, it may also be a 32 bit
+       floating point value.  If the application needs to know the type of
+       an insitu value, which is almost always the case, it is necessary to
+       fetch the descriptor for the metric and interpret the type field, as
+       described in detail in pmLookupDesc(3).  When the pmResult is
+       received from a PCP1.x pmcd, insitu values may also be 32 bit
+       floating point values (of type PM_TYPE_FLOAT).  In all cases, it is
+       good practice to use pmLookupDesc(3) to fetch the descriptor for the
+       metric and interpret the type field therein.  Note also that the
+       PMAPI(3) will automatically translate from the PCP2.0 format to the
+       PCP1.x format when a PCP1.x client requests 32 bit floating point
+       values from a PCP2.0 pmcd, but the reverse translation does not occur
+       (because the PCP2.0 pmcd cannot automatically distinguish between
+       arbitrary 32 bit floating point values and 32 bit integers).
+       If one value (i.e. associated with a particular instance) for a
+       requested metric is `unavailable' (at the requested time), then there
+       is no associated pmValue structure in the result.  If there are no
+       available values for a metric, then numval will be zero and the
+       associated pmValue[] instance will be empty (valfmt is undefined in
+       these circumstances, however pmid will be correctly set to the PMID
+       of the metric with no values).
+       As an extension of this protocol, if the Performance Metrics
+       Collection System (PMCS) is able to provide a reason why no values
+       are available for a particular metric, this is encoded as a standard
+       error code in the corresponding numval.  Since the error codes are
+       all negative, values for a requested metric are `unavailable' if
+       numval is less than, or equal to, zero.  A performance metric's value
+       may be `unavailable' for a number of reasons; the following list is
+       illustrative but not exhaustive: of the software for the associated
+       Performance Metric Domain
+       +      Collection is not currently activated in the software for the
+              associated Performance Metric Domain
+       +      The associated PMID is not known
+       +      The current system configuration does not include the
+              associated hardware component and/or the associated software
+              module, e.g. a disk is not installed, or off-line, or Oracle
+              is not installed
+       +      The metric is one for which an instance profile is required,
+              and none was provided (there are a small number of metrics in
+              this category, typically ones with very large, and/or very
+              dynamic instance domains, and/or expensive metric
+              instantiation methods).
+       +      If the current context involves fetching metrics from an
+              archive log, values may be unavailable in the region around a
+              <mark> record (see pmlogextract(1)) that indicate a temporal
+              discontinuity in the time-series of metric values.
+       In general, we may not be able to differentiate between the various
+       cases, and if differentiation is not possible, numval will simply be
+       zero.
+       The argument definition and the result specifications have been
+       constructed to ensure that for each PMID in the requested pmidlist
+       there is exactly one pmValueSet in the result, and further the PMIDs
+       appear in exactly the same sequence in both pmidlist and result.
+       This makes the number and order of entries in result completely
+       deterministic, and greatly simplifies the application programming
+       logic after the call to pmFetch.
+       The result structure returned by pmFetch is dynamically allocated
+       using a combination of malloc(3) calls and specialized allocation
+       strategies, and should be released when no longer required by calling
+       pmFreeResult(3) - under no circumstances should free(3) be called
+       directly to release this space.
+       As common error conditions are encoded in the result data structure,
+       we'd expect only cataclysmic events to cause an error value to be
+       returned.  One example would be if the metrics source context was a
+       remote host, and that host or the PMCS on that host became
+       unreachable.  Otherwise the value returned by the pmFetch function
+       will be non-negative.
+       If the current context involves fetching metrics from a Performance
+       Metrics Collector Daemon (PMCD), then the return value may be used to
+       encode out-of-band changes in the state of the PMCD and the
+       associated Performance Metrics Daemon Agents (PMDAs), as a bit-wise
+       ``or'' of the following values:
+       PMCD_RESTART_AGENT  An attempt has been made to restart at least one
+                           failed PMDA.
+       PMCD_ADD_AGENT      At least one PMDA has been started.
+       PMCD_DROP_AGENT     PMCD has noticed the termination of at least one
+                           PMDA.
+       PMCD_AGENT_CHANGE   A convenience macro for any of the three PMDA
+                           changes.
+       PMCD_LABEL_CHANGE   PMCD has been informed of changes to global
+                           (context) labels, or new metrics have appeared
+                           which have associated labels.
+       PMCD_NAMES_CHANGE   PMCD has been informed that the namespace has
+                           been modified, such that new metrics have
+                           appeared or existing metrics have been removed.
+       The default is to return zero to indicate no change in state, however
+       the pmResult returned by pmFetch has the same interpretation
+       independent of the return value being zero or greater than zero.

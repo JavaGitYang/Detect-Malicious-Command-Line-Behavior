@@ -1,0 +1,56 @@
+
+       utimensat() and futimens() update the timestamps of a file with
+       nanosecond precision.  This contrasts with the historical utime(2)
+       and utimes(2), which permit only second and microsecond precision,
+       respectively, when setting file timestamps.
+       With utimensat() the file is specified via the pathname given in
+       pathname.  With futimens() the file whose timestamps are to be
+       updated is specified via an open file descriptor, fd.
+       For both calls, the new file timestamps are specified in the array
+       times: times[0] specifies the new "last access time" (atime);
+       times[1] specifies the new "last modification time" (mtime).  Each of
+       the elements of times specifies a time as the number of seconds and
+       nanoseconds since the Epoch, 1970-01-01 00:00:00 +0000 (UTC).  This
+       information is conveyed in a structure of the following form:
+           struct timespec {
+               time_t tv_sec;        /* seconds */
+               long   tv_nsec;       /* nanoseconds */
+           };
+       Updated file timestamps are set to the greatest value supported by
+       the filesystem that is not greater than the specified time.
+       If the tv_nsec field of one of the timespec structures has the spe‐
+       cial value UTIME_NOW, then the corresponding file timestamp is set to
+       the current time.  If the tv_nsec field of one of the timespec struc‐
+       tures has the special value UTIME_OMIT, then the corresponding file
+       timestamp is left unchanged.  In both of these cases, the value of
+       the corresponding tv_sec field is ignored.
+       If times is NULL, then both timestamps are set to the current time.
+   Permissions requirements
+       To set both file timestamps to the current time (i.e., times is NULL,
+       or both tv_nsec fields specify UTIME_NOW), either:
+       1. the caller must have write access to the file;
+       2. the caller's effective user ID must match the owner of the file;
+          or
+       3. the caller must have appropriate privileges.
+       To make any change other than setting both timestamps to the current
+       time (i.e., times is not NULL, and neither tv_nsec field is UTIME_NOW
+       and neither tv_nsec field is UTIME_OMIT), either condition 2 or 3
+       above must apply.
+       If both tv_nsec fields are specified as UTIME_OMIT, then no file own‐
+       ership or permission checks are performed, and the file timestamps
+       are not modified, but other error conditions may still be detected.
+   utimensat() specifics
+       If pathname is relative, then by default it is interpreted relative
+       to the directory referred to by the open file descriptor, dirfd
+       (rather than relative to the current working directory of the calling
+       process, as is done by utimes(2) for a relative pathname).  See
+       openat(2) for an explanation of why this can be useful.
+       If pathname is relative and dirfd is the special value AT_FDCWD, then
+       pathname is interpreted relative to the current working directory of
+       the calling process (like utimes(2)).
+       If pathname is absolute, then dirfd is ignored.
+       The flags field is a bit mask that may be 0, or include the following
+       constant, defined in <fcntl.h>:
+       AT_SYMLINK_NOFOLLOW
+              If pathname specifies a symbolic link, then update the time‐
+              stamps of the link, rather than the file to which it refers.

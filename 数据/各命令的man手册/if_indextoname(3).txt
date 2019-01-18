@@ -1,0 +1,7 @@
+
+       The if_nametoindex() function returns the index of the network
+       interface corresponding to the name ifname.
+       The if_indextoname() function returns the name of the network
+       interface corresponding to the interface index ifindex.  The name is
+       placed in the buffer pointed to by ifname.  The buffer must allow for
+       the storage of at least IF_NAMESIZE bytes.

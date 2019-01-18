@@ -1,0 +1,15 @@
+
+       ip ntable controls the parameters for the neighbour tables.
+   ip ntable show - list the ip neighbour tables
+       This commands displays neighbour table parameters and statistics.
+       dev DEV
+              only list the table attached to this device.
+       name NAME
+              only lists the table with the given name.
+   ip ntable change - modify table parameter
+       This command allows modifying table parameters such as timers and
+       queue lengths.
+       name NAME
+              the name of the table to modify.
+       dev DEV
+              the name of the device to modify the table values.

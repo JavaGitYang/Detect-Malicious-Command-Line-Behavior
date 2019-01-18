@@ -1,0 +1,9 @@
+
+       lookbib prints a prompt on the standard error (unless the standard
+       input is not a terminal), reads from the standard input a line
+       containing a set of keywords, searches the bibliographic databases
+       filename... for references containing those keywords, prints any
+       references found on the standard output, and repeats this process
+       until the end of input.  For each database filename to be searched,
+       if an index filename.i created by indxbib(1) exists, then it will be
+       searched instead; each index can cover multiple databases.

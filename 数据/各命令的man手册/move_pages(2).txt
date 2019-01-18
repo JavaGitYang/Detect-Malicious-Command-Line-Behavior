@@ -1,0 +1,62 @@
+
+       move_pages() moves the specified pages of the process pid to the
+       memory nodes specified by nodes.  The result of the move is reflected
+       in status.  The flags indicate constraints on the pages to be moved.
+       pid is the ID of the process in which pages are to be moved.  If pid
+       is 0, then move_pages() moves pages of the calling process.
+       To move pages in another process requires the following privileges:
+       *  In kernels up to and including Linux 4.12: the caller must be
+          privileged (CAP_SYS_NICE) or the real or effective user ID of the
+          calling process must match the real or saved-set user ID of the
+          target process.
+       *  The older rules allowed the caller to discover various virtual
+          address choices made by the kernel that could lead to the defeat
+          of address-space-layout randomization for a process owned by the
+          same UID as the caller, the rules were changed starting with Linux
+          4.13.  Since Linux 4.13, permission is governed by a ptrace access
+          mode PTRACE_MODE_READ_REALCREDS check with respect to the target
+          process; see ptrace(2).
+       count is the number of pages to move.  It defines the size of the
+       three arrays pages, nodes, and status.
+       pages is an array of pointers to the pages that should be moved.
+       These are pointers that should be aligned to page boundaries.
+       Addresses are specified as seen by the process specified by pid.
+       nodes is an array of integers that specify the desired location for
+       each page.  Each element in the array is a node number.  nodes can
+       also be NULL, in which case move_pages() does not move any pages but
+       instead will return the node where each page currently resides, in
+       the status array.  Obtaining the status of each page may be necessary
+       to determine pages that need to be moved.
+       status is an array of integers that return the status of each page.
+       The array contains valid values only if move_pages() did not return
+       an error.
+       flags specify what types of pages to move.  MPOL_MF_MOVE means that
+       only pages that are in exclusive use by the process are to be moved.
+       MPOL_MF_MOVE_ALL means that pages shared between multiple processes
+       can also be moved.  The process must be privileged (CAP_SYS_NICE) to
+       use MPOL_MF_MOVE_ALL.
+   Page states in the status array
+       The following values can be returned in each element of the status
+       array.
+       0..MAX_NUMNODES
+              Identifies the node on which the page resides.
+       -EACCES
+              The page is mapped by multiple processes and can be moved only
+              if MPOL_MF_MOVE_ALL is specified.
+       -EBUSY The page is currently busy and cannot be moved.  Try again
+              later.  This occurs if a page is undergoing I/O or another
+              kernel subsystem is holding a reference to the page.
+       -EFAULT
+              This is a zero page or the memory area is not mapped by the
+              process.
+       -EIO   Unable to write back a page.  The page has to be written back
+              in order to move it since the page is dirty and the filesystem
+              does not provide a migration function that would allow the
+              move of dirty pages.
+       -EINVAL
+              A dirty page cannot be moved.  The filesystem does not provide
+              a migration function and has no ability to write back pages.
+       -ENOENT
+              The page is not present.
+       -ENOMEM
+              Unable to allocate memory on target node.

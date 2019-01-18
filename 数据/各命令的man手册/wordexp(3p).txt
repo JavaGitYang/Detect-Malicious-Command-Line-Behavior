@@ -1,0 +1,126 @@
+
+       The wordexp() function shall perform word expansions as described in
+       the Shell and Utilities volume of POSIX.1‐2008, Section 2.6, Word
+       Expansions, subject to quoting as described in the Shell and
+       Utilities volume of POSIX.1‐2008, Section 2.2, Quoting, and place the
+       list of expanded words into the structure pointed to by pwordexp.
+       The words argument is a pointer to a string containing one or more
+       words to be expanded. The expansions shall be the same as would be
+       performed by the command line interpreter if words were the part of a
+       command line representing the arguments to a utility. Therefore, the
+       application shall ensure that words does not contain an unquoted
+       <newline> character or any of the unquoted shell special characters
+       '|', '&', ';', '<', '>' except in the context of command substitution
+       as specified in the Shell and Utilities volume of POSIX.1‐2008,
+       Section 2.6.3, Command Substitution.  It also shall not contain
+       unquoted parentheses or braces, except in the context of command or
+       variable substitution. The application shall ensure that every member
+       of words which it expects to have expanded by wordexp() does not
+       contain an unquoted initial comment character. The application shall
+       also ensure that any words which it intends to be ignored (because
+       they begin or continue a comment) are deleted from words.  If the
+       argument words contains an unquoted comment character (<number-sign>)
+       that is the beginning of a token, wordexp() shall either treat the
+       comment character as a regular character, or interpret it as a
+       comment indicator and ignore the remainder of words.
+       The structure type wordexp_t is defined in the <wordexp.h> header and
+       includes at least the following members:
+        ┌──────────────┬──────────────┬────────────────────────────────────┐
+        │Member Type   │ Member Name  │            Description             │
+        ├──────────────┼──────────────┼────────────────────────────────────┤
+        │size_t        │we_wordc      │ Count of words matched by words.   │
+        │char **       │we_wordv      │ Pointer to list of expanded words. │
+        │size_t        │we_offs       │ Slots to reserve at the beginning  │
+        │              │              │ of pwordexp->we_wordv.             │
+        └──────────────┴──────────────┴────────────────────────────────────┘
+       The wordexp() function shall store the number of generated words into
+       pwordexp->we_wordc and a pointer to a list of pointers to words in
+       pwordexp->we_wordv. Each individual field created during field
+       splitting (see the Shell and Utilities volume of POSIX.1‐2008,
+       Section 2.6.5, Field Splitting) or pathname expansion (see the Shell
+       and Utilities volume of POSIX.1‐2008, Section 2.6.6, Pathname
+       Expansion) shall be a separate word in the pwordexp->we_wordv list.
+       The words shall be in order as described in the Shell and Utilities
+       volume of POSIX.1‐2008, Section 2.6, Word Expansions.  The first
+       pointer after the last word pointer shall be a null pointer.  The
+       expansion of special parameters described in the Shell and Utilities
+       volume of POSIX.1‐2008, Section 2.5.2, Special Parameters is
+       unspecified.
+       It is the caller's responsibility to allocate the storage pointed to
+       by pwordexp.  The wordexp() function shall allocate other space as
+       needed, including memory pointed to by pwordexp->we_wordv. The
+       wordfree() function frees any memory associated with pwordexp from a
+       previous call to wordexp().
+       The flags argument is used to control the behavior of wordexp().  The
+       value of flags is the bitwise-inclusive OR of zero or more of the
+       following constants, which are defined in <wordexp.h>:
+       WRDE_APPEND   Append words generated to the ones from a previous call
+                     to wordexp().
+       WRDE_DOOFFS   Make use of pwordexp->we_offs. If this flag is set,
+                     pwordexp->we_offs is used to specify how many null
+                     pointers to add to the beginning of pwordexp->we_wordv.
+                     In other words, pwordexp->we_wordv shall point to
+                     pwordexp->we_offs null pointers, followed by
+                     pwordexp->we_wordc word pointers, followed by a null
+                     pointer.
+       WRDE_NOCMD    If the implementation supports the utilities defined in
+                     the Shell and Utilities volume of POSIX.1‐2008, fail if
+                     command substitution, as specified in the Shell and
+                     Utilities volume of POSIX.1‐2008, Section 2.6.3,
+                     Command Substitution, is requested.
+       WRDE_REUSE    The pwordexp argument was passed to a previous
+                     successful call to wordexp(), and has not been passed
+                     to wordfree().  The result shall be the same as if the
+                     application had called wordfree() and then called
+                     wordexp() without WRDE_REUSE.
+       WRDE_SHOWERR  Do not redirect stderr to /dev/null.
+       WRDE_UNDEF    Report error on an attempt to expand an undefined shell
+                     variable.
+       The WRDE_APPEND flag can be used to append a new set of words to
+       those generated by a previous call to wordexp().  The following rules
+       apply to applications when two or more calls to wordexp() are made
+       with the same value of pwordexp and without intervening calls to
+       wordfree():
+        1. The first such call shall not set WRDE_APPEND. All subsequent
+           calls shall set it.
+        2. All of the calls shall set WRDE_DOOFFS, or all shall not set it.
+        3. After the second and each subsequent call, pwordexp->we_wordv
+           shall point to a list containing the following:
+            a. Zero or more null pointers, as specified by WRDE_DOOFFS and
+               pwordexp->we_offs
+            b. Pointers to the words that were in the pwordexp->we_wordv
+               list before the call, in the same order as before
+            c. Pointers to the new words generated by the latest call, in
+               the specified order
+        4. The count returned in pwordexp->we_wordc shall be the total
+           number of words from all of the calls.
+        5. The application can change any of the fields after a call to
+           wordexp(), but if it does it shall reset them to the original
+           value before a subsequent call, using the same pwordexp value, to
+           wordfree() or wordexp() with the WRDE_APPEND or WRDE_REUSE flag.
+       If the implementation supports the utilities defined in the Shell and
+       Utilities volume of POSIX.1‐2008, and words contains an unquoted
+       character—<newline>, '|', '&', ';', '<', '>', '(', ')', '{', '}'—in
+       an inappropriate context, wordexp() shall fail, and the number of
+       expanded words shall be 0.
+       Unless WRDE_SHOWERR is set in flags, wordexp() shall redirect stderr
+       to /dev/null for any utilities executed as a result of command
+       substitution while expanding words.  If WRDE_SHOWERR is set,
+       wordexp() may write messages to stderr if syntax errors are detected
+       while expanding words; however, it is unspecified whether any write
+       errors encountered while outputting such messages will affect the
+       stderr error indicator or the value of errno.
+       The application shall ensure that if WRDE_DOOFFS is set, then
+       pwordexp->we_offs has the same value for each wordexp() call and
+       wordfree() call using a given pwordexp.
+       The following constants are defined as error return values:
+       WRDE_BADCHAR  One of the unquoted characters—<newline>, '|', '&',
+                     ';', '<', '>', '(', ')', '{', '}'—appears in words in
+                     an inappropriate context.
+       WRDE_BADVAL   Reference to undefined shell variable when WRDE_UNDEF
+                     is set in flags.
+       WRDE_CMDSUB   Command substitution requested when WRDE_NOCMD was set
+                     in flags.
+       WRDE_NOSPACE  Attempt to allocate memory failed.
+       WRDE_SYNTAX   Shell syntax error, such as unbalanced parentheses or
+                     unterminated string.

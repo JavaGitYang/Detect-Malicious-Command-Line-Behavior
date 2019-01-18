@@ -1,0 +1,10 @@
+
+       The scroll routine scrolls the window up one line.  This involves
+       moving the lines in the window data structure.  As an optimization,
+       if the scrolling region of the window is the entire screen, the
+       physical screen may be scrolled at the same time.
+       For positive n, the scrl and wscrl routines scroll the window up n
+       lines (line i+n becomes i); otherwise scroll the window down n lines.
+       This involves moving the lines in the window character image
+       structure.  The current cursor position is not changed.
+       For these functions to work, scrolling must be enabled via scrollok.

@@ -1,0 +1,5 @@
+
+       This is the last function that a program must call to free all the
+       resources allocated by the library, e.g., memory.  The function is
+       not reentrant, caller must ensure only one thread at a time is
+       executing it.

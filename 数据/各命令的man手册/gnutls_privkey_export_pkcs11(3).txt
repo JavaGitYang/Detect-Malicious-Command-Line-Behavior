@@ -1,0 +1,4 @@
+
+       Converts the given abstract private key to a gnutls_pkcs11_privkey_t
+       type. The key must be of type GNUTLS_PRIVKEY_PKCS11. The key returned
+       in  key must be deinitialized with gnutls_pkcs11_privkey_deinit().

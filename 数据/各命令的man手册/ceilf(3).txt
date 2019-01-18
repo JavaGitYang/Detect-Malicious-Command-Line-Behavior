@@ -1,0 +1,4 @@
+
+       These functions return the smallest integral value that is not less
+       than x.
+       For example, ceil(0.5) is 1.0, and ceil(-0.5) is 0.0.

@@ -1,0 +1,12 @@
+
+       systemd-vconsole-setup is a helper used to prepare either all virtual
+       consoles, or — if the optional TTY parameter is provided — a specific
+       one. When the system is booting up it's called by systemd-udevd(8)
+       during vtconsole subsystem initialization.  Systemd(TM) also calls it
+       internally as needed via systemd-vconsole-setup.service. The helper
+       calls loadkeys(1) and setfont(8) internally.
+       You may want to use this helper whenever you change vconsole.conf to
+       refresh the settings on your consoles — either through the systemctl
+       restart / systemctl start command or directly through the executable.
+       See vconsole.conf(5) for information about the configuration files
+       and kernel command line options understood by this program.

@@ -1,0 +1,3 @@
+
+       pcap_strerror() is provided in case strerror(3) isn't available.  It
+       returns an error message string corresponding to error.

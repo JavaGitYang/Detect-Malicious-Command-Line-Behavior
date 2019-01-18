@@ -1,0 +1,2 @@
+
+       This function replies to a ping by sending a pong to the peer.

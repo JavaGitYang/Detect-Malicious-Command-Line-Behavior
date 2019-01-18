@@ -1,0 +1,21 @@
+
+       pmtime is a graphical user interface for performance monitoring
+       applications using the PCP infrastructure and requiring interactive
+       time control.
+       pmtime is not normally invoked directly by users.  Rather, it is more
+       typical for it to be started by client applications (e.g.  pmchart(1)
+       and pmval(1)).
+       There are two modes of interacting with a pmtime process - live host
+       mode, and historical archive mode.  In archive mode the window
+       presents time controls suitable for manipulating the archive
+       position, allowing full VCR control to move forwards and backwards in
+       time at configurable rates and intervals.  In live mode the pmtime
+       window contains the simpler time controls suitable for live
+       monitoring.
+       The arguments to pmtime are as follows:
+       -p   port is the port number which pmtime will use for communication
+            with its clients (monitoring applications).
+       Note that the pmtime window is only made visible when explicitly
+       requested.  Multiple client applications can be connected to a single
+       pmtime server - when the final client application exits, pmtime will
+       also exit.

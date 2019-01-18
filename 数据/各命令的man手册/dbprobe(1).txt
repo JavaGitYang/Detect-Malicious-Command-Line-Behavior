@@ -1,0 +1,6 @@
+
+       The dbprobe utility is used by pmdadbping(1) to measure response time
+       from a database.  A given query is executed on the database at the
+       requested interval (delay, which defaults to 60 seconds).  This
+       response time measure can be exported via the Performance Co-Pilot
+       framework for live and historical monitoring using pmdadbping(1).

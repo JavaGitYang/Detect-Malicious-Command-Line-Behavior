@@ -1,0 +1,47 @@
+
+       sa summarizes information about previously executed commands as
+       recorded in the acct file.  In addition, it condenses this data into
+       a summary file named savacct which contains the number of times the
+       command was called and the system resources used.  The information
+       can also be summarized on a per-user basis; sa will save this
+       information into a file named usracct.
+       If no arguments are specified, sa will print information about all of
+       the commands in the acct file.
+       If called with a file name as the last argument, sa will use that
+       file instead of the system's default acct file.
+       By default, sa will sort the output by sum of user and system time.
+       If command names have unprintable characters, or are only called
+       once, sa will sort them into a group called `***other'.  If more than
+       one sorting option is specified, the list will be sorted by the one
+       specified last on the command line.
+       The output fields are labeled as follows:
+       cpu
+               sum of system and user time in cpu minutes
+       re
+               "elapsed time" in minutes
+       k
+               cpu-time averaged core usage, in 1k units
+       avio
+               average number of I/O operations per execution
+       tio
+               total number of I/O operations
+       k*sec
+               cpu storage integral (kilo-core seconds)
+       u
+               user cpu time in cpu seconds
+       s
+               system time in cpu seconds
+       Note that these column titles do not appear in the first row of the
+       table, but after each numeric entry (as units of measurement) in
+       every row.  For example, you might see `79.29re', meaning 79.29 cpu
+       seconds of "real time".
+       An asterisk will appear after the name of commands that forked but
+       didn't call exec.
+       GNU sa takes care to implement a number of features not found in
+       other versions.  For example, most versions of sa don't pay attention
+       to flags like `--print-seconds' and `--sort-num-calls' when printing
+       out commands when combined with the `--user-summary' or `--print-
+       users' flags.  GNU sa pays attention to these flags if they are
+       applicable.  Also, MIPS' sa stores the average memory use as a short
+       rather than a double, resulting in some round-off errors.  GNU sa
+       uses double the whole way through.

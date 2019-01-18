@@ -1,0 +1,22 @@
+
+       The pthread_getattr_np() function initializes the thread attributes
+       object referred to by attr so that it contains actual attribute
+       values describing the running thread thread.
+       The returned attribute values may differ from the corresponding
+       attribute values passed in the attr object that was used to create
+       the thread using pthread_create(3).  In particular, the following
+       attributes may differ:
+       * the detach state, since a joinable thread may have detached itself
+         after creation;
+       * the stack size, which the implementation may align to a suitable
+         boundary.
+       * and the guard size, which the implementation may round upward to a
+         multiple of the page size, or ignore (i.e., treat as 0), if the
+         application is allocating its own stack.
+       Furthermore, if the stack address attribute was not set in the thread
+       attributes object used to create the thread, then the returned thread
+       attributes object will report the actual stack address that the
+       implementation selected for the thread.
+       When the thread attributes object returned by pthread_getattr_np() is
+       no longer required, it should be destroyed using
+       pthread_attr_destroy(3).

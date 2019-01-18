@@ -1,0 +1,38 @@
+
+       warnquota checks the disk quota for specified local filesystems (or
+       for each local filesystem if none specified) and mails a warning
+       message to those users who have reached their softlimit.  It is
+       typically run via cron(8).
+       -F, --format=quotaformat
+              Perform setting for specified format (ie. don't perform format
+              autodetection).  Possible format names are: vfsold Original
+              quota format with 16-bit UIDs / GIDs, vfsv0 Quota format with
+              32-bit UIDs / GIDs, 64-bit space usage, 32-bit inode usage and
+              limits, vfsv1 Quota format with 64-bit quota limits and usage,
+              xfs Quota on XFS filesystem.
+       -q, --quota-tab=quotatab
+              Use quotatab instead of /etc/quotatab as file with device
+              description strings (see quotatab(5) for syntax).
+       -c, --config=configfile
+              Use configfile instead of /etc/warnquota.conf as configuration
+              file (see warnquota.conf(5) for syntax).
+       -a, --admins-file=adminsfile
+              Use adminsfile instead of /etc/quotagrpadmins as a file with
+              administrators of the groups (see quotagrpadmins(5) for
+              syntax).
+       -u, --user
+              check whether users are not exceeding quotas (default).
+       -g, --group
+              check whether groups are not exceeding quotas. If group is
+              exceeding quota a mail is sent to the user specified in
+              /etc/quotagrpadmins.
+       -s, --human-readable[=units]
+              Try to report used space, number of used inodes and limits in
+              more appropriate units than the default ones. Units can be
+              also specified explicitely by an optional argument in format [
+              kgt ],[ kgt ] where the first character specifies space units
+              and the second character specifies inode units.
+       -i, --no-autofs
+              ignore mountpoints mounted by automounter.
+       -d, --no-details
+              do not attach quota report in email.

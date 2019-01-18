@@ -1,0 +1,5 @@
+
+       psfgettable extracts the embedded Unicode character table from a .psf
+       format console font into a human readable ASCII file of the format
+       used by psfaddtable(1).  If the font file name is a single dash (-),
+       the font is read from standard input.

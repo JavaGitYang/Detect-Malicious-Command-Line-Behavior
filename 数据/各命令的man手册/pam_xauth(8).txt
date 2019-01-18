@@ -1,0 +1,31 @@
+
+       The pam_xauth PAM module is designed to forward xauth keys (sometimes
+       referred to as "cookies") between users.
+       Without pam_xauth, when xauth is enabled and a user uses the su(1)
+       command to assume another user's privileges, that user is no longer
+       able to access the original user's X display because the new user
+       does not have the key needed to access the display. pam_xauth solves
+       the problem by forwarding the key from the user running su (the
+       source user) to the user whose identity the source user is assuming
+       (the target user) when the session is created, and destroying the key
+       when the session is torn down.
+       This means, for example, that when you run su(1) from an xterm
+       session, you will be able to run X programs without explicitly
+       dealing with the xauth(1) xauth command or ~/.Xauthority files.
+       pam_xauth will only forward keys if xauth can list a key connected to
+       the $DISPLAY environment variable.
+       Primitive access control is provided by ~/.xauth/export in the
+       invoking user's home directory and ~/.xauth/import in the target
+       user's home directory.
+       If a user has a ~/.xauth/import file, the user will only receive
+       cookies from users listed in the file. If there is no ~/.xauth/import
+       file, the user will accept cookies from any other user.
+       If a user has a .xauth/export file, the user will only forward
+       cookies to users listed in the file. If there is no ~/.xauth/export
+       file, and the invoking user is not root, the user will forward
+       cookies to any other user. If there is no ~/.xauth/export file, and
+       the invoking user is root, the user will not forward cookies to other
+       users.
+       Both the import and export files support wildcards (such as *). Both
+       the import and export files can be empty, signifying that no users
+       are allowed.

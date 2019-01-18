@@ -1,0 +1,35 @@
+
+       The /etc/machine-id file contains the unique machine ID of the local
+       system that is set during installation. The machine ID is a single
+       newline-terminated, hexadecimal, 32-character, lowercase ID. When
+       decoded from hexadecimal, this corresponds to a 16-byte/128-bit
+       value.
+       The machine ID is usually generated from a random source during
+       system installation and stays constant for all subsequent boots.
+       Optionally, for stateless systems, it is generated during runtime at
+       early boot if it is found to be empty.
+       The machine ID does not change based on local or network
+       configuration or when hardware is replaced. Due to this and its
+       greater length, it is a more useful replacement for the gethostid(3)
+       call that POSIX specifies.
+       This machine ID adheres to the same format and logic as the D-Bus
+       machine ID.
+       This ID uniquely identifies the host. It should be considered
+       "confidential", and must not be exposed in untrusted environments, in
+       particular on the network. If a stable unique identifier that is tied
+       to the machine is needed for some application, the machine ID or any
+       part of it must not be used directly. Instead the machine ID should
+       be hashed with a cryptographic, keyed hash function, using a fixed,
+       application-specific key. That way the ID will be properly unique,
+       and derived in a constant way from the machine ID but there will be
+       no way to retrieve the original machine ID from the
+       application-specific one. The sd_id128_get_machine_app_specific(3)
+       API provides an implementation of such an algorithm.
+       The systemd-machine-id-setup(1) tool may be used by installer tools
+       to initialize the machine ID at install time. Use
+       systemd-firstboot(1) to initialize it on mounted (but not booted)
+       system images.
+       The machine-id may also be set, for example when network booting, by
+       setting the systemd.machine_id= kernel command line parameter or
+       passing the option --machine-id= to systemd. A machine-id may not be
+       set to all zeros.

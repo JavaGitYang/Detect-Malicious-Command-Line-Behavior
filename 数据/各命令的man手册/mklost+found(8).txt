@@ -1,0 +1,10 @@
+
+       mklost+found is used to create a lost+found directory in the current
+       working directory on a Linux second extended file system.  There is
+       normally a lost+found directory in the root directory of each
+       filesystem.
+       mklost+found pre-allocates disk blocks to the lost+found directory so
+       that when e2fsck(8) is being run to recover a filesystem, it does not
+       need to allocate blocks in the filesystem to store a large number of
+       unlinked files.  This ensures that e2fsck will not have to allocate
+       data blocks in the filesystem during recovery.

@@ -1,0 +1,27 @@
+
+       The function set_menu_opts sets all the given menu's option bits
+       (menu option bits may be logically-OR'ed together).
+       The function menu_opts_on turns on the given option bits, and leaves
+       others alone.
+       The function menu_opts_off turns off the given option bits, and
+       leaves others alone.
+       The function menu_opts returns the menu's current option bits.
+       The following options are defined (all are on by default):
+       O_ONEVALUE
+            Only one item can be selected for this menu.
+       O_SHOWDESC
+            Display the item descriptions when the menu is posted.
+       O_ROWMAJOR
+            Display the menu in row-major order.
+       O_IGNORECASE
+            Ignore the case when pattern-matching.
+       O_SHOWMATCH
+            Move the cursor to within the item name while pattern-matching.
+       O_NONCYCLIC
+            Don't wrap around next-item and previous-item, requests to the
+            other end of the menu.
+       O_MOUSE_MENU
+            If user clicks with the mouse and it does not fall on the
+            currently active menu, push KEY_MOUSE and the MEVENT data back
+            on the queue to allow processing in another part of the calling
+            program.

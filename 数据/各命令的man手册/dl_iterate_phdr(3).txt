@@ -1,0 +1,84 @@
+
+       The dl_iterate_phdr() function allows an application to inquire at
+       run time to find out which shared objects it has loaded, and the
+       order in which they were loaded.
+       The dl_iterate_phdr() function walks through the list of an
+       application's shared objects and calls the function callback once for
+       each object, until either all shared objects have been processed or
+       callback returns a nonzero value.
+       Each call to callback receives three arguments: info, which is a
+       pointer to a structure containing information about the shared
+       object; size, which is the size of the structure pointed to by info;
+       and data, which is a copy of whatever value was passed by the calling
+       program as the second argument (also named data) in the call to
+       dl_iterate_phdr().
+       The info argument is a structure of the following type:
+           struct dl_phdr_info {
+               ElfW(Addr)        dlpi_addr;  /* Base address of object */
+               const char       *dlpi_name;  /* (Null-terminated) name of
+                                                object */
+               const ElfW(Phdr) *dlpi_phdr;  /* Pointer to array of
+                                                ELF program headers
+                                                for this object */
+               ElfW(Half)        dlpi_phnum; /* # of items in dlpi_phdr */
+               /* The following fields were added in glibc 2.4, after the first
+                  version of this structure was available.  Check the size
+                  argument passed to the dl_iterate_phdr callback to determine
+                  whether or not each later member is available.  */
+               unsigned long long int dlpi_adds;
+                               /* Incremented when a new object may
+                                  have been added */
+               unsigned long long int dlpi_subs;
+                               /* Incremented when an object may
+                                  have been removed */
+               size_t dlpi_tls_modid;
+                               /* If there is a PT_TLS segment, its module
+                                  ID as used in TLS relocations, else zero */
+               void  *dlpi_tls_data;
+                               /* The address of the calling thread's instance
+                                  of this module's PT_TLS segment, if it has
+                                  one and it has been allocated in the calling
+                                  thread, otherwise a null pointer */
+           };
+       (The ElfW() macro definition turns its argument into the name of an
+       ELF data type suitable for the hardware architecture.  For example,
+       on a 32-bit platform, ElfW(Addr) yields the data type name
+       Elf32_Addr.  Further information on these types can be found in the
+       <elf.h> and <link.h> header files.)
+       The dlpi_addr field indicates the base address of the shared object
+       (i.e., the difference between the virtual memory address of the
+       shared object and the offset of that object in the file from which it
+       was loaded).  The dlpi_name field is a null-terminated string giving
+       the pathname from which the shared object was loaded.
+       To understand the meaning of the dlpi_phdr and dlpi_phnum fields, we
+       need to be aware that an ELF shared object consists of a number of
+       segments, each of which has a corresponding program header describing
+       the segment.  The dlpi_phdr field is a pointer to an array of the
+       program headers for this shared object.  The dlpi_phnum field indi‐
+       cates the size of this array.
+       These program headers are structures of the following form:
+           typedef struct {
+               Elf32_Word  p_type;    /* Segment type */
+               Elf32_Off   p_offset;  /* Segment file offset */
+               Elf32_Addr  p_vaddr;   /* Segment virtual address */
+               Elf32_Addr  p_paddr;   /* Segment physical address */
+               Elf32_Word  p_filesz;  /* Segment size in file */
+               Elf32_Word  p_memsz;   /* Segment size in memory */
+               Elf32_Word  p_flags;   /* Segment flags */
+               Elf32_Word  p_align;   /* Segment alignment */
+           } Elf32_Phdr;
+       Note that we can calculate the location of a particular program
+       header, x, in virtual memory using the formula:
+           addr == info->dlpi_addr + info->dlpi_phdr[x].p_vaddr;
+       Possible values for p_type include the following (see <elf.h> for
+       further details):
+           #define PT_LOAD         1    /* Loadable program segment */
+           #define PT_DYNAMIC      2    /* Dynamic linking information */
+           #define PT_INTERP       3    /* Program interpreter */
+           #define PT_NOTE         4    /* Auxiliary information */
+           #define PT_SHLIB        5    /* Reserved */
+           #define PT_PHDR         6    /* Entry for header table itself */
+           #define PT_TLS          7    /* Thread-local storage segment */
+           #define PT_GNU_EH_FRAME 0x6474e550 /* GCC .eh_frame_hdr segment */
+           #define PT_GNU_STACK  0x6474e551 /* Indicates stack executability */
+           #define PT_GNU_RELRO  0x6474e552 /* Read-only after relocation */

@@ -1,0 +1,3 @@
+
+       This function will return the CRL number extension.  This is obtained
+       by the CRL Number extension field (2.5.29.20).

@@ -1,0 +1,38 @@
+
+       The localedef utility shall convert source definitions for locale
+       categories into a format usable by the functions and utilities whose
+       operational behavior is determined by the setting of the locale
+       environment variables defined in the Base Definitions volume of
+       POSIX.1‐2008, Chapter 7, Locale.  It is implementation-defined
+       whether users have the capability to create new locales, in addition
+       to those supplied by the implementation. If the symbolic constant
+       POSIX2_LOCALEDEF is defined, the system supports the creation of new
+       locales.  On XSI-conformant systems, the symbolic constant
+       POSIX2_LOCALEDEF shall be defined.
+       The utility shall read source definitions for one or more locale
+       categories belonging to the same locale from the file named in the −i
+       option (if specified) or from standard input.
+       The name operand identifies the target locale. The utility shall
+       support the creation of public, or generally accessible locales, as
+       well as private, or restricted-access locales. Implementations may
+       restrict the capability to create or modify public locales to users
+       with appropriate privileges.
+       Each category source definition shall be identified by the
+       corresponding environment variable name and terminated by an END
+       category-name statement. The following categories shall be supported.
+       In addition, the input may contain source for implementation-defined
+       categories.
+       LC_CTYPE  Defines character classification and case conversion.
+       LC_COLLATE
+                 Defines collation rules.
+       LC_MONETARY
+                 Defines the format and symbols used in formatting of
+                 monetary information.
+       LC_NUMERIC
+                 Defines the decimal delimiter, grouping, and grouping
+                 symbol for non-monetary numeric editing.
+       LC_TIME   Defines the format and content of date and time
+                 information.
+       LC_MESSAGES
+                 Defines the format and values of affirmative and negative
+                 responses.

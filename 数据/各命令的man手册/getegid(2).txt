@@ -1,0 +1,3 @@
+
+       getgid() returns the real group ID of the calling process.
+       getegid() returns the effective group ID of the calling process.

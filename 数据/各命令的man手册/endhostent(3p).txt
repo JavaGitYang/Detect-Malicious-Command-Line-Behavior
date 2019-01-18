@@ -1,0 +1,19 @@
+
+       These functions shall retrieve information about hosts. This
+       information is considered to be stored in a database that can be
+       accessed sequentially or randomly. The implementation of this
+       database is unspecified.
+       Note:     In many cases this database is implemented by the Domain
+                 Name System, as documented in RFC 1034, RFC 1035, and
+                 RFC 1886.
+       The sethostent() function shall open a connection to the database and
+       set the next entry for retrieval to the first entry in the database.
+       If the stayopen argument is non-zero, the connection shall not be
+       closed by a call to gethostent(), and the implementation may maintain
+       an open file descriptor.
+       The gethostent() function shall read the next entry in the database,
+       opening and closing a connection to the database as necessary.
+       Entries shall be returned in hostent structures.
+       The endhostent() function shall close the connection to the database,
+       releasing any open file descriptor.
+       These functions need not be thread-safe.

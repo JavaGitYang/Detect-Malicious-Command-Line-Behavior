@@ -1,0 +1,6 @@
+
+       The ffs() function returns the position of the first (least
+       significant) bit set in the word i.  The least significant bit is
+       position 1 and the most significant position is, for example, 32 or
+       64.  The functions ffsll() and ffsl() do the same but take arguments
+       of possibly different size.

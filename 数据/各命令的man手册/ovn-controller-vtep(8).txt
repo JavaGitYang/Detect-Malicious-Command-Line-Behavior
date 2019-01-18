@@ -1,0 +1,6 @@
+
+       ovn-controller-vtep is the local controller daemon in OVN, the Open
+       Virtual Network, for VTEP enabled physical switches. It connects up
+       to the OVN Southbound database (see ovn-sb(5)) over the OVSDB
+       protocol, and down to the VTEP database (see vtep(5)) over the OVSDB
+       protocol.

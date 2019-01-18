@@ -1,0 +1,72 @@
+
+       pmrep is a customizable performance metrics reporting tool.  Any
+       available performance metric, live or archived, system and/or
+       application, can be selected for reporting using one of the output
+       alternatives listed below together with applicable formatting
+       options.
+       pmrep collects the selected metric values through the facilities of
+       the Performance Co-Pilot (PCP), see PCPIntro(1).  The metrics to be
+       reported are specified on the command line, in a configuration file,
+       or both.  Metrics can be automatically converted and scaled using the
+       PCP facilities, either by default or by per-metric scaling
+       specifications.  In addition to the existing metrics, derived metrics
+       can be defined using the arithmetic expressions described in
+       pmRegisterDerived(3).
+       Unless directed to another host by the -h option, pmrep will contact
+       the Performance Metrics Collector Daemon (PMCD, see pmcd(1)) on the
+       local host.
+       The -a option causes pmrep to use the specified set of archive logs
+       rather than connecting to a PMCD.  The -a and -h options are mutually
+       exclusive.
+       The -L option causes pmrep to use a local context to collect metrics
+       from DSO PMDAs (Performance Metrics Domain Agents, ``plugins'') on
+       the local host without PMCD.  Only some metrics are available in this
+       mode.  The -a, -h, and -L options are mutually exclusive.
+       The metrics of interest are named in the metricspec argument(s).  If
+       a metricspec specifies a non-leaf node in the Performance Metrics
+       Name Space (PMNS), then pmrep will recursively descend the PMNS and
+       report on all leaf nodes (i.e., metrics) for that metricspec.  (Use
+       for example pminfo(1) to list all the leaf nodes and their
+       descriptions.)
+       A metricspec has three different forms.  First, on the command line
+       it can start with a colon (``:'') to indicate a metricset to be read
+       from a pmrep configuration file (see pmrep.conf(5)) which can then
+       consist of any number of metricspecs.  Second, a metricspec starting
+       with non-colon specifies a PMNS node as described above, optionally
+       followed by metric formatting definitions.  This so-called compact
+       form of a metricspec is defined as follows:
+     metric[,label[,instances[,unit/scale[,type[,width[,precision[,limit]]]]]]]
+       A valid PMNS node (metric) is mandatory.  It can be followed by a
+       text label used by supporting output targets (currently: stdout, see
+       below).  The optional instances definition restricts csv and stdout
+       reporting to the specified instances (so non-matching instances will
+       be filtered).  An optional unit/scale is applicable for dimension-
+       compatible, non-string metrics.  (See below for supported unit/scale
+       specifications.)  By default, cumulative counter metrics are
+       converted to rates, an optional type can be set to raw to disable
+       this rate conversion.  For supporting output targets (currently:
+       stdout) a numeric width can be used to set the width of the output
+       column for this metric.  Too-wide numeric values for output will not
+       be printed (apart from trailing decimals, numeric values will never
+       be silently truncated).  Too-wide strings will be truncated.  Then, a
+       metric-specific precision can be provided for numeric non-integer
+       output values.  Lastly, a metric-specific limit can be set for
+       filtering numeric values per limit.
+       As a special case with metrics that are counters with time units
+       (nanoseconds to hours), the unit/scale can be used to change the
+       default reporting (for example, milliseconds / second) to normalize
+       to the range zero to one by setting this to sec (see also -y and -Y).
+       The following metricspec requests the metric kernel.all.sysfork to be
+       reported under the text label forks, converting to the default rate
+       count/s in an 8 wide column.  Although the definitions in this
+       compact form are optional, they must always be provided in the order
+       specified above.
+               kernel.all.sysfork,forks,,,,8
+       The third form of a metricspec, verbose form, is described and valid
+       only in pmrep.conf(5).
+       Derived metrics are specified like PMNS leaf node metrics.
+       Options via environment values (see pmGetOptions(3)) override the
+       corresponding built-in default values (if any).  Configuration file
+       options override the corresponding environment variables (if any).
+       Command line options override the corresponding configuration file
+       options (if any).

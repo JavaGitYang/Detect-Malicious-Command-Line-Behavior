@@ -1,0 +1,8 @@
+
+       Several applications need sine and cosine of the same angle x.  These
+       functions compute both at the same time, and store the results in
+       *sin and *cos.  Using this function can be more efficient than two
+       separate calls to sin(3) and cos(3).
+       If x is a NaN, a NaN is returned in *sin and *cos.
+       If x is positive infinity or negative infinity, a domain error
+       occurs, and a NaN is returned in *sin and *cos.

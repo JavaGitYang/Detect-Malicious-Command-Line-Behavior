@@ -1,0 +1,8 @@
+
+       This file contains the default label that should be used for
+       removable devices.
+       selinux_removable_context_path(3) will return the active policy path
+       to this file. The default removable context file is:
+              /etc/selinux/{SELINUXTYPE}/contexts/removable_context
+       Where {SELINUXTYPE} is the entry from the selinux configuration file
+       config (see selinux_config(5)).

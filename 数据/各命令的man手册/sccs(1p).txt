@@ -1,0 +1,11 @@
+
+       The sccs utility is a front end to the SCCS programs. It also
+       includes the capability to run set-user-id to another user to provide
+       additional protection.
+       The sccs utility shall invoke the specified command with the
+       specified options and operands.  By default, each of the operands
+       shall be modified by prefixing it with the string "SCCS/s.".
+       The command can be the name of one of the SCCS utilities in this
+       volume of POSIX.1‐2008 (admin, delta, get, prs, rmdel, sact, unget,
+       val, or what) or one of the pseudo-utilities listed in the EXTENDED
+       DESCRIPTION section.

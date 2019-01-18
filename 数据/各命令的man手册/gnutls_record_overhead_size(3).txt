@@ -1,0 +1,4 @@
+
+       This function will return the size in bytes of the overhead due to
+       TLS (or DTLS) per record. On certain occasions (e.g., CBC ciphers)
+       the returned value is the maximum possible overhead.

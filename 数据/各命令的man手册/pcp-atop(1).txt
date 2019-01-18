@@ -1,0 +1,49 @@
+
+       The program pcp-atop is an interactive monitor to view various
+       aspects of load on a system.  It shows the occupation of the most
+       critical hardware resources (from a performance point of view) on
+       system level, i.e. cpu, memory, disk and network.
+       It also shows which processes are responsible for the indicated load
+       with respect to cpu and memory load on process level.  Disk load is
+       shown per process if "storage accounting" is active in the kernel.
+       Every interval (default: 10 seconds) information is shown about the
+       resource occupation on system level (cpu, memory, disks and network
+       layers), followed by a list of processes which have been active
+       during the last interval (note that all processes that were unchanged
+       during the last interval are not shown, unless the key 'a' has been
+       pressed or unless sorting on memory occupation is done).  If the list
+       of active processes does not entirely fit on the screen, only the top
+       of the list is shown (sorted in order of activity).
+       The intervals are repeated till the number of samples (specified as
+       command argument) is reached, or till the key 'q' is pressed in
+       interactive mode.
+       When invoked via the pcp(1) command, the PCPIntro(1) options
+       -h/--host, -a/--archive, -O/--origin, -s/--samples, -t/--interval,
+       -Z/--timezone and several other pcp options become indirectly
+       available.  The long option form of these is directly available.
+       Additionally, the --hotproc option can be used to request the per-
+       process PCP metrics be used instead of the default proc metrics from
+       pmdaproc(1).
+       When pcp-atop is started, it checks whether the standard output
+       channel is connected to a screen, or to a file/pipe. In the first
+       case it produces screen control codes (via the ncurses library) and
+       behaves interactively; in the second case it produces flat ASCII-
+       output.
+       In interactive mode, the output of pcp-atop scales dynamically to the
+       current dimensions of the screen/window.
+       If the window is resized horizontally, columns will be added or
+       removed automatically. For this purpose, every column has a
+       particular weight. The columns with the highest weights that fit
+       within the current width will be shown.
+       If the window is resized vertically, lines of the process/thread list
+       will be added or removed automatically.
+       Furthermore in interactive mode the output of pcp-atop can be
+       controlled by pressing particular keys.  However it is also possible
+       to specify such key as flag on the command line. In that case pcp-
+       atop switches to the indicated mode on beforehand; this mode can be
+       modified again interactively. Specifying such key as flag is
+       especially useful when running pcp-atop with output to a pipe or file
+       (non-interactively).  These flags are the same as the keys that can
+       be pressed in interactive mode (see section INTERACTIVE COMMANDS).
+       Additional flags are available to support storage of pcp-atop data in
+       PCP archive format (see section PCP DATA STORAGE).

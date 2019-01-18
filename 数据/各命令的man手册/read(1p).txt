@@ -1,0 +1,36 @@
+
+       The read utility shall read a single line from standard input.
+       By default, unless the −r option is specified, <backslash> shall act
+       as an escape character. An unescaped <backslash> shall preserve the
+       literal value of the following character, with the exception of a
+       <newline>.  If a <newline> follows the <backslash>, the read utility
+       shall interpret this as line continuation. The <backslash> and
+       <newline> shall be removed before splitting the input into fields.
+       All other unescaped <backslash> characters shall be removed after
+       splitting the input into fields.
+       If standard input is a terminal device and the invoking shell is
+       interactive, read shall prompt for a continuation line when it reads
+       an input line ending with a <backslash> <newline>, unless the −r
+       option is specified.
+       The terminating <newline> (if any) shall be removed from the input
+       and the results shall be split into fields as in the shell for the
+       results of parameter expansion (see Section 2.6.5, Field Splitting);
+       the first field shall be assigned to the first variable var, the
+       second field to the second variable var, and so on. If there are
+       fewer fields than there are var operands, the remaining vars shall be
+       set to empty strings. If there are fewer vars than fields, the last
+       var shall be set to a value comprising the following elements:
+        *  The field that corresponds to the last var in the normal
+           assignment sequence described above
+        *  The delimiter(s) that follow the field corresponding to the last
+           var
+        *  The remaining fields and their delimiters, with trailing IFS
+           white space ignored
+       The setting of variables specified by the var operands shall affect
+       the current shell execution environment; see Section 2.12, Shell
+       Execution Environment.  If it is called in a subshell or separate
+       utility execution environment, such as one of the following:
+           (read foo)
+           nohup read ...
+           find . −exec read ... \;
+       it shall not affect the shell variables in the caller's environment.

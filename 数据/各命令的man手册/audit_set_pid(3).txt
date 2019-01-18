@@ -1,0 +1,8 @@
+
+       audit_set_pid tells the kernel what the pid is of the audit daemon.
+       When the pid is set to 0, the kernel will log all events to syslog.
+       Otherwise it will try to send events to the netlink connection that
+       has the same pid given by this function. If for some reason the
+       process goes away, the kernel will automatically set the value to 0
+       itself. Usually this function is called by the audit daemon and not
+       an external program.

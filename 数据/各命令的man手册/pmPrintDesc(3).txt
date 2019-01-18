@@ -1,0 +1,3 @@
+
+       Display all the fields of the Performance Metrics Descriptor desc on
+       the output stream f.

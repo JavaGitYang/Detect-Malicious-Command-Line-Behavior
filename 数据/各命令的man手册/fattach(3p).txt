@@ -1,0 +1,22 @@
+
+       The fattach() function shall attach a STREAMS-based file descriptor
+       to a file, effectively associating a pathname with fildes.  The
+       application shall ensure that the fildes argument is a valid open
+       file descriptor associated with a STREAMS file. The path argument
+       points to a pathname of an existing file. The application shall have
+       appropriate privileges or be the owner of the file named by path and
+       have write permission. A successful call to fattach() shall cause all
+       pathnames that name the file named by path to name the STREAMS file
+       associated with fildes, until the STREAMS file is detached from the
+       file. A STREAMS file can be attached to more than one file and can
+       have several pathnames associated with it.
+       The attributes of the named STREAMS file shall be initialized as
+       follows: the permissions, user ID, group ID, and times are set to
+       those of the file named by path, the number of links is set to 1, and
+       the size and device identifier are set to those of the STREAMS file
+       associated with fildes.  If any attributes of the named STREAMS file
+       are subsequently changed (for example, by chmod()), neither the
+       attributes of the underlying file nor the attributes of the STREAMS
+       file to which fildes refers shall be affected.
+       File descriptors referring to the underlying file, opened prior to an
+       fattach() call, shall continue to refer to the underlying file.

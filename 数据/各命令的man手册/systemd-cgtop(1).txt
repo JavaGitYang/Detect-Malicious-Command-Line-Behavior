@@ -1,0 +1,25 @@
+
+       systemd-cgtop shows the top control groups of the local Linux control
+       group hierarchy, ordered by their CPU, memory, or disk I/O load. The
+       display is refreshed in regular intervals (by default every 1s),
+       similar in style to top(1). If a control group path is specified,
+       shows only the services of the specified control group.
+       If systemd-cgtop is not connected to a tty, no column headers are
+       printed and the default is to only run one iteration. The
+       --iterations= argument, if given, is honored. This mode is suitable
+       for scripting.
+       Resource usage is only accounted for control groups in the relevant
+       hierarchy, i.e. CPU usage is only accounted for control groups in the
+       "cpuacct" hierarchy, memory usage only for those in "memory" and disk
+       I/O usage for those in "blkio". If resource monitoring for these
+       resources is required, it is recommended to add the CPUAccounting=1,
+       MemoryAccounting=1 and BlockIOAccounting=1 settings in the unit files
+       in question. See systemd.resource-control(5) for details.
+       The CPU load value can be between 0 and 100 times the number of
+       processors the system has. For example, if the system has 8
+       processors, the CPU load value is going to be between 0% and 800%.
+       The number of processors can be found in "/proc/cpuinfo".
+       To emphasize this: unless "CPUAccounting=1", "MemoryAccounting=1" and
+       "BlockIOAccounting=1" are enabled for the services in question, no
+       resource accounting will be available for system services and the
+       data shown by systemd-cgtop will be incomplete.

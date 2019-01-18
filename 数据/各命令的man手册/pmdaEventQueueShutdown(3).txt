@@ -1,0 +1,52 @@
+
+       A Performance Metrics Domain Agent (PMDA) that exports event records
+       must effectively act an event multiplexer.  Events consumed by the
+       PMDA may have to be forwarded on to any number of monitoring tools
+       (or "client contexts").  These tools may be requesting events at
+       different sampling intervals, and are very unlikely to request an
+       event at the exact moment it arrives at the PMDA, making some form of
+       event buffering and queueing scheme a necessity.  Events must be held
+       by the PMDA until either all registered clients have been sent them,
+       or until a memory limit has been reached by the PMDA at which point
+       it must discard older events as new ones arrive.
+       The routines described here are designed to assist the PMDA developer
+       in managing both client contexts and queues of events at a high
+       level.  These fit logically above lower level primitives, such as
+       those described in pmdaEventNewArray(3), and shield the average PMDA
+       from the details of directly building event record arrays for
+       individual client contexts.
+       The PMDA registers a new queue of events using either
+       pmdaEventNewQueue or pmdaEventNewActiveQueue.  These are passed an
+       identifying name (for diagnostic purposes, and for subsequent lookup
+       by pmdaEventQueueLookup) and maxmem, an upper bound on the memory (in
+       bytes) that can be consumed by events in this queue, before beginning
+       to discard them (resulting in "missed" events for any client that has
+       not kept up).  If a queue is dynamically allocated (such that the
+       PMDA may already have clients connected) the pmdaEventNewActiveQueue
+       interface should be used, with the additional numclients parameter
+       indicating the count of active client connections.  The return is a
+       negative error code on failure, suitable for decoding by the
+       pmErrStr(3) routine.  Any non-negative value indicates success, and
+       provides a handle suitable for passing into the other API routines.
+       For each new event received by the PMDA, the pmdaEventQueueAppend
+       routine should be called, placing that event into the queue
+       identified by handle.  The event itself must be contained in the
+       passed in buffer, having bytes length.  The timestamp associated with
+       the event (time at which the event occurred) is passed in via the
+       final tv parameter.
+       In the PMDAs specific implementation of its fetch callback, when
+       values for an event metric have been requested, the
+       pmdaEventQueueRecords routine should be used.  It is passed the queue
+       handle and the avp pmAtomValue structure to fill with event records,
+       for the client making that fetch request (identified by the context
+       parameter).  Finally, the PMDA must also pass in an event decoding
+       routine, which is responsible for decoding the fields of a single
+       event into the individual event parameters of that event.  The data
+       parameter is an opaque cookie that can be used to pass situation-
+       specific information into each decoder invocation.
+       Under some situations it is useful for the PMDA to export state about
+       the queues under its control.  The accessor routines -
+       pmdaEventQueueClients, pmdaEventQueueCounter, pmdaEventQueueBytes and
+       pmdaEventQueueMemory provide a mechanism for querying a queue by its
+       handle and filling in a pmAtomValue structure that the
+       pmdaFetchCallBack method should return.

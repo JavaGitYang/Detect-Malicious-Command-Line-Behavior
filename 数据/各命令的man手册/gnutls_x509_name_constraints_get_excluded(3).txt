@@ -1,0 +1,7 @@
+
+       This function will return an intermediate type containing the name
+       constraints of the provided CA certificate. That structure can be
+       used in combination with gnutls_x509_name_constraints_check() to
+       verify whether a server's name is in accordance with the constraints.
+       The name should be treated as constant and valid for the lifetime of
+       nc .

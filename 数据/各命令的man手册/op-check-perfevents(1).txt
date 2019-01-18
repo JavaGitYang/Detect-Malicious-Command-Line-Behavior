@@ -1,0 +1,4 @@
+
+       The small helper program op-check-perfevents determines whether the
+       kernel supports the perf interface and returns a zero exit status if
+       the perf pmu support is available.

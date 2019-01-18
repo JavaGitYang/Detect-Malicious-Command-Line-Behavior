@@ -1,0 +1,7 @@
+
+       The comm utility shall read file1 and file2, which should be ordered
+       in the current collating sequence, and produce three text columns as
+       output: lines only in file1, lines only in file2, and lines in both
+       files.
+       If the lines in both files are not ordered according to the collating
+       sequence of the current locale, the results are unspecified.

@@ -1,0 +1,24 @@
+
+       The functions getgrent_r() and fgetgrent_r() are the reentrant
+       versions of getgrent(3) and fgetgrent(3).  The former reads the next
+       group entry from the stream initialized by setgrent(3).  The latter
+       reads the next group entry from stream.
+       The group structure is defined in <grp.h> as follows:
+           struct group {
+               char   *gr_name;        /* group name */
+               char   *gr_passwd;      /* group password */
+               gid_t   gr_gid;         /* group ID */
+               char  **gr_mem;         /* NULL-terminated array of pointers
+                                          to names of group members */
+           };
+       For more information about the fields of this structure, see
+       group(5).
+       The nonreentrant functions return a pointer to static storage, where
+       this static storage contains further pointers to group name, password
+       and members.  The reentrant functions described here return all of
+       that in caller-provided buffers.  First of all there is the buffer
+       gbuf that can hold a struct group.  And next the buffer buf of size
+       buflen that can hold additional strings.  The result of these func‐
+       tions, the struct group read from the stream, is stored in the pro‐
+       vided buffer *gbuf, and a pointer to this struct group is returned in
+       *gbufp.

@@ -1,0 +1,13 @@
+
+       losetup is used to associate loop devices with regular files or block
+       devices, to detach loop devices, and to query the status of a loop
+       device.  If only the loopdev argument is given, the status of the
+       corresponding loop device is shown.  If no option is given, all loop
+       devices are shown.
+       Note that the old output format (i.e., losetup -a) with comma-
+       delimited strings is deprecated in favour of the --list output
+       format.
+       It's possible to create more independent loop devices for the same
+       backing file.  This setup may be dangerous, can cause data loss,
+       corruption and overwrites.  Use --nooverlap with --find during setup
+       to avoid this problem.

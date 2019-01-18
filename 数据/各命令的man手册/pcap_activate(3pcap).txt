@@ -1,0 +1,4 @@
+
+       pcap_activate() is used to activate a packet capture handle to look
+       at packets on the network, with the options that were set on the
+       handle being in effect.

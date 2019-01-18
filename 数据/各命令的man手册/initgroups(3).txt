@@ -1,0 +1,6 @@
+
+       The initgroups() function initializes the group access list by
+       reading the group database /etc/group and using all groups of which
+       user is a member.  The additional group group is also added to the
+       list.
+       The user argument must be non-NULL.

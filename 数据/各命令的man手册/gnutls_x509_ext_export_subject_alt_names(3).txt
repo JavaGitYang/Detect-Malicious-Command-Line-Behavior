@@ -1,0 +1,4 @@
+
+       This function will convert the provided alternative names structure
+       to a DER-encoded SubjectAltName PKIX extension. The output data in
+       ext will be allocated using gnutls_malloc().

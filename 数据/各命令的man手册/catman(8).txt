@@ -1,0 +1,15 @@
+
+       catman is used to create an up to date set of pre-formatted manual
+       pages known as cat pages.  Cat pages are generally much faster to
+       display than the original manual pages, but require extra storage
+       space.  The decision to support cat pages is that of the local
+       administrator, who must provide suitable directories to contain them.
+       The options available to catman are the manual page hierarchies and
+       sections to pre-format.  The default hierarchies are those specified
+       as system hierarchies in the man-db configuration file, and the
+       default sections are either the colon-delimited contents of the
+       environment variable $MANSECT or the standard set compiled into man
+       if $MANSECT is undefined.  Supplying catman with a set of whitespace-
+       delimited section names will override both of the above.
+       catman makes use of the index database cache associated with each
+       hierarchy to determine which files need to be formatted.

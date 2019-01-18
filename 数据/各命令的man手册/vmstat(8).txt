@@ -1,0 +1,7 @@
+
+       vmstat reports information about processes, memory, paging, block IO,
+       traps, disks and cpu activity.
+       The first report produced gives averages since the last reboot.
+       Additional reports give information on a sampling period of length
+       delay.  The process and memory reports are instantaneous in either
+       case.

@@ -1,0 +1,9 @@
+
+       These system calls are obsolete.  Do not use them; use sigprocmask(2)
+       instead.
+       sgetmask() returns the signal mask of the calling process.
+       ssetmask() sets the signal mask of the calling process to the value
+       given in newmask.  The previous signal mask is returned.
+       The signal masks dealt with by these two system calls are plain bit
+       masks (unlike the sigset_t used by sigprocmask(2)); use sigmask(3) to
+       create and inspect these masks.

@@ -1,0 +1,21 @@
+
+       sd_event_exit() requests the event loop specified in the event event
+       loop object to exit. The code parameter may be any integer value and
+       is returned as-is by sd_event_loop(3) after the last event loop
+       iteration. It may also be queried using sd_event_get_exit_code(), see
+       below.
+       When exiting is requested the event loop will stop listening for and
+       dispatching regular event sources. Instead it will proceed with
+       executing only event sources registered with sd_event_add_exit(3) in
+       the order defined by their priority. After all exit event sources
+       have been dispatched the event loop is terminated.
+       If sd_event_exit() is invoked a second time while the event loop is
+       still processing exit event sources, the exit code stored in the
+       event loop object is updated, but otherwise no further operation is
+       executed.
+       sd_event_get_exit_code() may be used to query the exit code passed
+       into sd_event_exit() earlier.
+       While the full positive and negative integer ranges may be used for
+       the exit code, care should be taken not pick exit codes that conflict
+       with regular exit codes returned by sd_event_loop(), if these exit
+       codes shall be distinguishable.

@@ -1,0 +1,7 @@
+
+       This function will return the public key algorithm of an X.509
+       certificate.
+       If bits is non null, it should have enough size to hold the
+       parameters size in bits. For RSA the bits returned is the modulus.
+       For DSA the bits returned are of the public exponent.
+       Unknown/unsupported algorithms are mapped to GNUTLS_PK_UNKNOWN.

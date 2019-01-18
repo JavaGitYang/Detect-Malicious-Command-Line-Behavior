@@ -1,0 +1,3 @@
+
+       These functions calculate the inverse hyperbolic cosine of x; that is
+       the value whose hyperbolic cosine is x.

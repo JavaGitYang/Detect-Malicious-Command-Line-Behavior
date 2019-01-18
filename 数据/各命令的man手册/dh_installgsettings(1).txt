@@ -1,0 +1,5 @@
+
+       dh_installgsettings is a debhelper program that is responsible for
+       installing GSettings override files and generating appropriate
+       dependencies on the GSettings backend.
+       The dependency on the backend will be generated in ${misc:Depends}.

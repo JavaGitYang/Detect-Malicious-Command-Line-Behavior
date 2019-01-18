@@ -1,0 +1,40 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The fseek() function shall set the file-position indicator for the
+       stream pointed to by stream.  If a read or write error occurs, the
+       error indicator for the stream shall be set and fseek() fails.
+       The new position, measured in bytes from the beginning of the file,
+       shall be obtained by adding offset to the position specified by
+       whence.  The specified point is the beginning of the file for
+       SEEK_SET, the current value of the file-position indicator for
+       SEEK_CUR, or end-of-file for SEEK_END.
+       If the stream is to be used with wide-character input/output
+       functions, the application shall ensure that offset is either 0 or a
+       value returned by an earlier call to ftell() on the same stream and
+       whence is SEEK_SET.
+       A successful call to fseek() shall clear the end-of-file indicator
+       for the stream and undo any effects of ungetc() and ungetwc() on the
+       same stream. After an fseek() call, the next operation on an update
+       stream may be either input or output.
+       If the most recent operation, other than ftell(), on a given stream
+       is fflush(), the file offset in the underlying open file description
+       shall be adjusted to reflect the location specified by fseek().
+       The fseek() function shall allow the file-position indicator to be
+       set beyond the end of existing data in the file. If data is later
+       written at this point, subsequent reads of data in the gap shall
+       return bytes with the value 0 until data is actually written into the
+       gap.
+       The behavior of fseek() on devices which are incapable of seeking is
+       implementation-defined.  The value of the file offset associated with
+       such a device is undefined.
+       If the stream is writable and buffered data had not been written to
+       the underlying file, fseek() shall cause the unwritten data to be
+       written to the file and shall mark the last data modification and
+       last file status change timestamps of the file for update.
+       In a locale with state-dependent encoding, whether fseek() restores
+       the stream's shift state is implementation-defined.
+       The fseeko() function shall be equivalent to the fseek() function
+       except that the offset argument is of type off_t.

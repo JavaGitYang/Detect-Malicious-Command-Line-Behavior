@@ -1,0 +1,2 @@
+
+       Get a list of available MAC algorithms in the priority structure.

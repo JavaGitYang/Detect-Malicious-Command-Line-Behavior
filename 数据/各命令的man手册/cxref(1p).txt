@@ -1,0 +1,8 @@
+
+       The cxref utility shall analyze a collection of C-language files and
+       attempt to build a cross-reference table. Information from #define
+       lines shall be included in the symbol table. A sorted listing shall
+       be written to standard output of all symbols (auto, static, and
+       global) in each file separately, or with the −c option, in
+       combination. Each symbol shall contain an <asterisk> before the
+       declaring reference.

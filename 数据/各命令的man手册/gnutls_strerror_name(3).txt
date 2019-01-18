@@ -1,0 +1,4 @@
+
+       Return the GnuTLS error code define as a string.  For example,
+       gnutls_strerror_name (GNUTLS_E_DH_PRIME_UNACCEPTABLE) will return the
+       string "GNUTLS_E_DH_PRIME_UNACCEPTABLE".

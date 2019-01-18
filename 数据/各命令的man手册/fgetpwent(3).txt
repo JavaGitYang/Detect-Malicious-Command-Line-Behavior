@@ -1,0 +1,16 @@
+
+       The fgetpwent() function returns a pointer to a structure containing
+       the broken out fields of a line in the file stream.  The first time
+       it is called it returns the first entry; thereafter, it returns
+       successive entries.  The file referred to by stream must have the
+       same format as /etc/passwd (see passwd(5)).
+       The passwd structure is defined in <pwd.h> as follows:
+           struct passwd {
+               char   *pw_name;       /* username */
+               char   *pw_passwd;     /* user password */
+               uid_t   pw_uid;        /* user ID */
+               gid_t   pw_gid;        /* group ID */
+               char   *pw_gecos;      /* real name */
+               char   *pw_dir;        /* home directory */
+               char   *pw_shell;      /* shell program */
+           };

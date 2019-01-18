@@ -1,0 +1,7 @@
+
+       This function will export the private key to a PKCS1 structure for
+       RSA or RSA-PSS keys, and integer sequence for DSA keys. Other keys
+       types will be exported in PKCS8 form.
+       The output buffer is allocated using gnutls_malloc().
+       It is recommended to use gnutls_x509_privkey_export2_pkcs8() instead
+       of this function, when a consistent output format is required.

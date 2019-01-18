@@ -1,0 +1,103 @@
+
+       The glob() function is a pathname generator that shall implement the
+       rules defined in the Shell and Utilities volume of POSIX.1‐2008,
+       Section 2.13, Pattern Matching Notation, with optional support for
+       rule 3 in the Shell and Utilities volume of POSIX.1‐2008, Section
+       2.13.3, Patterns Used for Filename Expansion.
+       The structure type glob_t is defined in <glob.h> and includes at
+       least the following members:
+      ┌──────────────┬──────────────┬─────────────────────────────────────────┐
+      │Member Type   │ Member Name  │               Description               │
+      ├──────────────┼──────────────┼─────────────────────────────────────────┤
+      │size_t        │gl_pathc      │ Count of paths matched by pattern.      │
+      │char **       │gl_pathv      │ Pointer to a list of matched pathnames. │
+      │size_t        │gl_offs       │ Slots to reserve at the beginning of    │
+      │              │              │ gl_pathv.                               │
+      └──────────────┴──────────────┴─────────────────────────────────────────┘
+       The argument pattern is a pointer to a pathname pattern to be
+       expanded. The glob() function shall match all accessible pathnames
+       against this pattern and develop a list of all pathnames that match.
+       In order to have access to a pathname, glob() requires search
+       permission on every component of a path except the last, and read
+       permission on each directory of any filename component of pattern
+       that contains any of the following special characters: '*', '?', and
+       '['.
+       The glob() function shall store the number of matched pathnames into
+       pglob->gl_pathc and a pointer to a list of pointers to pathnames into
+       pglob->gl_pathv. The pathnames shall be in sort order as defined by
+       the current setting of the LC_COLLATE category; see the Base
+       Definitions volume of POSIX.1‐2008, Section 7.3.2, LC_COLLATE.  The
+       first pointer after the last pathname shall be a null pointer. If the
+       pattern does not match any pathnames, the returned number of matched
+       paths is set to 0, and the contents of pglob->gl_pathv are
+       implementation-defined.
+       It is the caller's responsibility to create the structure pointed to
+       by pglob.  The glob() function shall allocate other space as needed,
+       including the memory pointed to by gl_pathv.  The globfree() function
+       shall free any space associated with pglob from a previous call to
+       glob().
+       The flags argument is used to control the behavior of glob().  The
+       value of flags is a bitwise-inclusive OR of zero or more of the
+       following constants, which are defined in <glob.h>:
+       GLOB_APPEND   Append pathnames generated to the ones from a previous
+                     call to glob().
+       GLOB_DOOFFS   Make use of pglob->gl_offs. If this flag is set,
+                     pglob->gl_offs is used to specify how many null
+                     pointers to add to the beginning of pglob->gl_pathv. In
+                     other words, pglob->gl_pathv shall point to
+                     pglob->gl_offs null pointers, followed by
+                     pglob->gl_pathc pathname pointers, followed by a null
+                     pointer.
+       GLOB_ERR      Cause glob() to return when it encounters a directory
+                     that it cannot open or read.  Ordinarily, glob()
+                     continues to find matches.
+       GLOB_MARK     Each pathname that is a directory that matches pattern
+                     shall have a <slash> appended.
+       GLOB_NOCHECK  Supports rule 3 in the Shell and Utilities volume of
+                     POSIX.1‐2008, Section 2.13.3, Patterns Used for
+                     Filename Expansion.  If pattern does not match any
+                     pathname, then glob() shall return a list consisting of
+                     only pattern, and the number of matched pathnames is 1.
+       GLOB_NOESCAPE Disable backslash escaping.
+       GLOB_NOSORT   Ordinarily, glob() sorts the matching pathnames
+                     according to the current setting of the LC_COLLATE
+                     category; see the Base Definitions volume of
+                     POSIX.1‐2008, Section 7.3.2, LC_COLLATE.  When this
+                     flag is used, the order of pathnames returned is
+                     unspecified.
+       The GLOB_APPEND flag can be used to append a new set of pathnames to
+       those found in a previous call to glob().  The following rules apply
+       to applications when two or more calls to glob() are made with the
+       same value of pglob and without intervening calls to globfree():
+        1. The first such call shall not set GLOB_APPEND. All subsequent
+           calls shall set it.
+        2. All the calls shall set GLOB_DOOFFS, or all shall not set it.
+        3. After the second call, pglob->gl_pathv points to a list
+           containing the following:
+            a. Zero or more null pointers, as specified by GLOB_DOOFFS and
+               pglob->gl_offs.
+            b. Pointers to the pathnames that were in the pglob->gl_pathv
+               list before the call, in the same order as before.
+            c. Pointers to the new pathnames generated by the second call,
+               in the specified order.
+        4. The count returned in pglob->gl_pathc shall be the total number
+           of pathnames from the two calls.
+        5. The application can change any of the fields after a call to
+           glob().  If it does, the application shall reset them to the
+           original value before a subsequent call, using the same pglob
+           value, to globfree() or glob() with the GLOB_APPEND flag.
+       If, during the search, a directory is encountered that cannot be
+       opened or read and errfunc is not a null pointer, glob() calls
+       (()*errfunc ) with two arguments:
+        1. The epath argument is a pointer to the path that failed.
+        2. The eerrno argument is the value of errno from the failure, as
+           set by opendir(), readdir(), or stat().  (Other values may be
+           used to report other errors not explicitly documented for those
+           functions.)
+       If (()*errfunc ) is called and returns non-zero, or if the GLOB_ERR
+       flag is set in flags, glob() shall stop the scan and return
+       GLOB_ABORTED after setting gl_pathc and gl_pathv in pglob to reflect
+       the paths already scanned. If GLOB_ERR is not set and either errfunc
+       is a null pointer or (()*errfunc ) returns 0, the error shall be
+       ignored.
+       The glob() function shall not fail because of large files.

@@ -1,0 +1,4 @@
+
+       The cancel command cancels print jobs.  If no destination or id is
+       specified, the currently printing job on the default destination is
+       canceled.

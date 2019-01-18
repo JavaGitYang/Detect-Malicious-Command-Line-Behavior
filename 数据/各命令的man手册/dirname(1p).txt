@@ -1,0 +1,25 @@
+
+       The string operand shall be treated as a pathname, as defined in the
+       Base Definitions volume of POSIX.1‐2008, Section 3.267, Pathname.
+       The string string shall be converted to the name of the directory
+       containing the filename corresponding to the last pathname component
+       in string, performing actions equivalent to the following steps in
+       order:
+        1. If string is //, skip steps 2 to 5.
+        2. If string consists entirely of <slash> characters, string shall
+           be set to a single <slash> character. In this case, skip steps 3
+           to 8.
+        3. If there are any trailing <slash> characters in string, they
+           shall be removed.
+        4. If there are no <slash> characters remaining in string, string
+           shall be set to a single <period> character. In this case, skip
+           steps 5 to 8.
+        5. If there are any trailing non-<slash> characters in string, they
+           shall be removed.
+        6. If the remaining string is //, it is implementation-defined
+           whether steps 7 and 8 are skipped or processed.
+        7. If there are any trailing <slash> characters in string, they
+           shall be removed.
+        8. If the remaining string is empty, string shall be set to a single
+           <slash> character.
+       The resulting string shall be written to standard output.

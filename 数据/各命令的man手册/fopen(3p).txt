@@ -1,0 +1,71 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The fopen() function shall open the file whose pathname is the string
+       pointed to by pathname, and associates a stream with it.
+       The mode argument points to a string. If the string is one of the
+       following, the file shall be opened in the indicated mode. Otherwise,
+       the behavior is undefined.
+       r or rb       Open file for reading.
+       w or wb       Truncate to zero length or create file for writing.
+       a or ab       Append; open or create file for writing at end-of-file.
+       r+ or rb+ or r+b
+                     Open file for update (reading and writing).
+       w+ or wb+ or w+b
+                     Truncate to zero length or create file for update.
+       a+ or ab+ or a+b
+                     Append; open or create file for update, writing at end-
+                     of-file.
+       The character 'b' shall have no effect, but is allowed for ISO C
+       standard conformance.  Opening a file with read mode (r as the first
+       character in the mode argument) shall fail if the file does not exist
+       or cannot be read.
+       Opening a file with append mode (a as the first character in the mode
+       argument) shall cause all subsequent writes to the file to be forced
+       to the then current end-of-file, regardless of intervening calls to
+       fseek().
+       When a file is opened with update mode ('+' as the second or third
+       character in the mode argument), both input and output may be
+       performed on the associated stream. However, the application shall
+       ensure that output is not directly followed by input without an
+       intervening call to fflush() or to a file positioning function
+       (fseek(), fsetpos(), or rewind()), and input is not directly followed
+       by output without an intervening call to a file positioning function,
+       unless the input operation encounters end-of-file.
+       When opened, a stream is fully buffered if and only if it can be
+       determined not to refer to an interactive device. The error and end-
+       of-file indicators for the stream shall be cleared.
+       If mode is w, wb, a, ab, w+, wb+, w+b, a+, ab+, or a+b, and the file
+       did not previously exist, upon successful completion, fopen() shall
+       mark for update the last data access, last data modification, and
+       last file status change timestamps of the file and the last file
+       status change and last data modification timestamps of the parent
+       directory.
+       If mode is w, wb, a, ab, w+, wb+, w+b, a+, ab+, or a+b, and the file
+       did not previously exist, the fopen() function shall create a file as
+       if it called the creat() function with a value appropriate for the
+       path argument interpreted from pathname and a value of S_IRUSR |
+       S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH for the mode
+       argument.
+       If mode is w, wb, w+, wb+, or w+b, and the file did previously exist,
+       upon successful completion, fopen() shall mark for update the last
+       data modification and last file status change timestamps of the file.
+       After a successful call to the fopen() function, the orientation of
+       the stream shall be cleared, the encoding rule shall be cleared, and
+       the associated mbstate_t object shall be set to describe an initial
+       conversion state.
+       The file descriptor associated with the opened stream shall be
+       allocated and opened as if by a call to open() with the following
+       flags:
+                  ┌─────────────────┬───────────────────────────┐
+                  │  fopen() Mode   │       open() Flags        │
+                  ├─────────────────┼───────────────────────────┤
+                  │r or rb          │ O_RDONLY                  │
+                  │w or wb          │ O_WRONLY|O_CREAT|O_TRUNC  │
+                  │a or ab          │ O_WRONLY|O_CREAT|O_APPEND │
+                  │r+ or rb+ or r+b │ O_RDWR                    │
+                  │w+ or wb+ or w+b │ O_RDWR|O_CREAT|O_TRUNC    │
+                  │a+ or ab+ or a+b │ O_RDWR|O_CREAT|O_APPEND   │
+                  └─────────────────┴───────────────────────────┘

@@ -1,0 +1,14 @@
+
+   Media properties
+       priority
+              Default link priority inherited by all bearers subsequently
+              enabled on a media. For more info about link priority see
+              tipc-link(8)
+       tolerance
+              Default link tolerance inherited by all bearers subsequently
+              enabled on a media. For more info about link tolerance see
+              tipc-link(8)
+       window
+              Default link window inherited by all bearers subsequently
+              enabled on a media. For more info about link window see
+              tipc-link(8)

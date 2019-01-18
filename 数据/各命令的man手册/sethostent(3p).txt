@@ -1,0 +1,2 @@
+
+       Refer to endhostent(3p).

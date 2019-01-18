@@ -1,0 +1,5 @@
+
+       These functions return the complex conjugate value of z.  That is the
+       value obtained by changing the sign of the imaginary part.
+       One has:
+           cabs(z) = csqrt(z * conj(z))

@@ -1,0 +1,19 @@
+
+       The ex utility is a line-oriented text editor. There are two other
+       modes of the editor—open and visual—in which screen-oriented editing
+       is available. This is described more fully by the ex open and visual
+       commands and in vi(1p).
+       If an operand is '−', the results are unspecified.
+       This section uses the term edit buffer to describe the current
+       working text. No specific implementation is implied by this term. All
+       editing changes are performed on the edit buffer, and no changes to
+       it shall affect any file until an editor command writes the file.
+       Certain terminals do not have all the capabilities necessary to
+       support the complete ex definition, such as the full-screen editing
+       commands (visual mode or open mode).  When these commands cannot be
+       supported on such terminals, this condition shall not produce an
+       error message such as ``not an editor command'' or report a syntax
+       error. The implementation may either accept the commands and produce
+       results on the screen that are the result of an unsuccessful attempt
+       to meet the requirements of this volume of POSIX.1‐2008 or report an
+       error describing the terminal-related deficiency.

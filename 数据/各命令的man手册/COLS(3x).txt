@@ -1,0 +1,44 @@
+
+       This page summarizes variables provided by the curses library.  A
+       more complete description is given in the curses(3X) manual page.
+       Depending on the configuration, these may be actual variables, or
+       macros (see curs_threads(3X) and curs_opaque(3X)) which provide read-
+       only access to curses's state.  In either case, applications should
+       treat them as read-only to avoid confusing the library.
+   COLOR_PAIRS
+       After initializing curses, this variable contains the number of color
+       pairs which the terminal can support.  Usually the number of color
+       pairs will be the product COLORS*COLORS, however this is not always
+       true:
+       ·   a few terminals use HLS colors, which do not follow this rule
+       ·   terminals supporting a large number of colors are limited by the
+           number of color pairs that can be represented in a signed short
+           value.
+   COLORS
+       After initializing curses, this variable contains the number of
+       colors which the terminal can support.
+   COLS
+       After initializing curses, this variable contains the width of the
+       screen, i.e., the number of columns.
+   ESCDELAY
+       This variable holds the number of milliseconds to wait after reading
+       an escape character, to distinguish between an individual escape
+       character entered on the keyboard from escape sequences sent by
+       cursor- and function-keys (see curses(3X).
+   LINES
+       After initializing curses, this variable contains the height of the
+       screen, i.e., the number of lines.
+   TABSIZE
+       This variable holds the number of columns used by the curses library
+       when converting a tab character to spaces as it adds the tab to a
+       window (see curs_addch(3X).
+   The Current Screen
+       This implementation of curses uses a special window curscr to record
+       its updates to the terminal screen.
+   The New Screen
+       This implementation of curses uses a special window newscr to hold
+       updates to the terminal screen before applying them to curscr.
+   The Standard Screen
+       Upon initializing curses, a default window called stdscr, which is
+       the size of the terminal screen, is created.  Many curses functions
+       use this window.

@@ -1,0 +1,5 @@
+
+       The mirred action allows packet mirroring (copying) or redirecting
+       (stealing) the packet it receives. Mirroring is what is sometimes
+       referred to as Switch Port Analyzer (SPAN) and is commonly used to
+       analyze and/or debug flows.

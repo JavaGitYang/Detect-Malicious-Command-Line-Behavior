@@ -1,0 +1,4 @@
+
+       This function will verify that the given private key was generated
+       from the provided seed. If  seed is NULL then the seed stored in the
+       key 's structure will be used for verification.

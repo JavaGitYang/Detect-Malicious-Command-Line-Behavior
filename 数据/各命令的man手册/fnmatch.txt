@@ -1,0 +1,11 @@
+
+       The <fnmatch.h> header shall define the following symbolic constants:
+       FNM_NOMATCH   The string does not match the specified pattern.
+       FNM_PATHNAME  <slash> in string only matches <slash> in pattern.
+       FNM_PERIOD    Leading <period> in string must be exactly matched by
+                     <period> in pattern.
+       FNM_NOESCAPE  Disable backslash escaping.
+       The following shall be declared as a function and may also be defined
+       as a macro. A function prototype shall be provided.
+           int fnmatch(const char *, const char *, int);
+       The following sections are informative.

@@ -1,0 +1,4 @@
+
+       This command will parse unique identifier inputs from either command
+       line arguments or standard input.  The inputs are white-space
+       separated.

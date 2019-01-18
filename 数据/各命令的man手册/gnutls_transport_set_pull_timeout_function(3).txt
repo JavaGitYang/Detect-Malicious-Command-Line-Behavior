@@ -1,0 +1,24 @@
+
+       This is the function where you set a function for gnutls to know
+       whether data are ready to be received. It should wait for data a
+       given time frame in milliseconds. The callback should return 0 on
+       timeout, a positive number if data can be received, and -1 on error.
+       You'll need to override this function if select() is not suitable for
+       the provided transport calls.
+       As with select(), if the timeout value is zero the callback should
+       return zero if no data are immediately available. The special value
+       GNUTLS_INDEFINITE_TIMEOUT indicates that the callback should wait
+       indefinitely for data.
+        gnutls_pull_timeout_func is of the form, int
+       (*gnutls_pull_timeout_func)(gnutls_transport_ptr_t, unsigned int ms);
+       This callback is necessary when gnutls_handshake_set_timeout() or
+       gnutls_record_set_timeout() are set, and for calculating the DTLS
+       mode timeouts.
+       In short, this callback should be set when a custom pull function is
+       registered. The callback will not be used when the session is in TLS
+       mode with non-blocking sockets. That is, when GNUTLS_NONBLOCK is
+       specified for a TLS session in gnutls_init(). For compatibility with
+       future GnuTLS versions it is recommended to always set this function
+       when a custom pull function is registered.
+       The helper function gnutls_system_recv_timeout() is provided to
+       simplify writing callbacks.

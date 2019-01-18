@@ -1,0 +1,3 @@
+
+       vhangup() simulates a hangup on the current terminal.  This call
+       arranges for other users to have a “clean” terminal at login time.

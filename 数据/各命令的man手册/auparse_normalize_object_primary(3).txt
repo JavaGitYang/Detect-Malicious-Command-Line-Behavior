@@ -1,0 +1,12 @@
+
+       After calling the auparse_normalize function, you will probably want
+       to access the audit event data. These function provide access to the
+       results of the normalization. There are 2 kinds of function, metadata
+       and positioning.
+       The metadata functions all return a pointer to a string that
+       describes something about the event. This data does not live inside
+       the event but is kept in lookup tables inside the auparse library.
+       The positioning function are different in that they move the internal
+       cursor of auparse to the record and field that contains the
+       information you want. You then use field accessor functions to
+       retrieve the values.

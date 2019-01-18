@@ -1,0 +1,4 @@
+
+       These functions calculate the complex hyperbolic tangent of z.
+       The complex hyperbolic tangent function is defined mathematically as:
+           ctanh(z) = csinh(z) / ccosh(z)

@@ -1,0 +1,5 @@
+
+       This function will remove the given certificate authorities from the
+       trusted list, and add them into a black list when needed.  PKCS 11
+       URLs are also accepted, instead of files, by this function.
+       See also gnutls_x509_trust_list_remove_cas().

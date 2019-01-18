@@ -1,0 +1,12 @@
+
+       The file contains local user definitions in the form of policy
+       language user statements and is only found on older SELinux systems
+       as it has been deprecated and replaced by the semange(8) services.
+       This file is only read by selinux_mkload_policy(3) when SETLOCALDEFS
+       in the SELinux config file (see selinux_config(5)) is set to 1.
+       selinux_users_path(3) will return the active policy path to the
+       directory where this file is located. The default local users file
+       is:
+              /etc/selinux/{SELINUXTYPE}/contexts/users/local.users
+       Where {SELINUXTYPE} is the entry from the selinux configuration file
+       config (see selinux_config(5)).

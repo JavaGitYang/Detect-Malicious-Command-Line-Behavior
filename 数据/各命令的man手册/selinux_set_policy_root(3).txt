@@ -1,0 +1,7 @@
+
+       selinux_policy_root() reads the contents of the /etc/selinux/config
+       file to determine which policy files should be used for this machine.
+       selinux_set_policy_root() sets up all all policy paths based on the
+       alternate root
+       /etc/selinux/config file to determine which policy files should be
+       used for this machine.

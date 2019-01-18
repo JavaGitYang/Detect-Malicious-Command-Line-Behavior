@@ -1,0 +1,3 @@
+
+       Get the Diffie-Hellman public key bit size.  Can be used for both
+       anonymous and ephemeral Diffie-Hellman.

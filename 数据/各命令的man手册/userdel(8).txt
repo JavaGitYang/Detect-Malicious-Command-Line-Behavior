@@ -1,0 +1,3 @@
+
+       The userdel command modifies the system account files, deleting all
+       entries that refer to the user name LOGIN. The named user must exist.

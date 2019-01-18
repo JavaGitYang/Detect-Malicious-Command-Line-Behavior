@@ -1,0 +1,5 @@
+
+       This function returns a string describing the current session.  The
+       string is null terminated and allocated using gnutls_malloc().
+       If initial negotiation is not complete when this function is called,
+       NULL will be returned.

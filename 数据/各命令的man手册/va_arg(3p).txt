@@ -1,0 +1,2 @@
+
+       Refer to the Base Definitions volume of POSIX.1‐2008, stdarg.h(0p)

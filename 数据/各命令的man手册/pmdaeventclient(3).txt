@@ -1,0 +1,21 @@
+
+       A Performance Metrics Domain Agent (PMDA) that exports event records
+       needs to track which clients are connected to it, in order that it
+       can track which events have been sent to which clients so far.  Only
+       once an event has been sent to all monitoring tools that registered
+       an interest can the event be discarded and any memory reclaimed.
+       The PMDA(3) library provides callback routines for PMDA developers to
+       provide custom handling of client connections and disconnections.  If
+       the PMDA is making use of the event queueing mechanism provided by
+       pmdaEventNewQueue(3) and friends, client connections and
+       disconnections must be tracked via calls to pmdaEventNewClient and
+       pmdaEventEndClient respectively.  This allows the library to keep
+       track of when events can be discarded from a queue, for example, for
+       the context specified.  This parameter is passed into the
+       e_endCallBack function directly, and for other callback functions is
+       available via the e_context field of the pmdaExt structure.
+       Additionally, it can be queried at any time using pmdaGetContext(3).
+       Sometimes it is useful for the PMDA to export a metric indicating the
+       current count of attached clients - this is available using the
+       pmdaEventClients routine, which will fill in the avp pmAtomValue
+       structure on behalf of a PMDA fetch callback routine.

@@ -1,0 +1,7 @@
+
+       This function sets the Authority Information Access (AIA) extension,
+       see RFC 5280 section 4.2.2.1 for more information.
+       The type of data stored in  data is specified via  what which should
+       be gnutls_info_access_what_t values.
+       If  what is GNUTLS_IA_OCSP_URI,  data will hold the OCSP URI.  If
+       what is GNUTLS_IA_CAISSUERS_URI,  data will hold the caIssuers URI.

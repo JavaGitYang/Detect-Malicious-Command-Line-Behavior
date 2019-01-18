@@ -1,0 +1,3 @@
+
+       auparse_get_type will return the integer value for the current record
+       of the current event.

@@ -1,0 +1,13 @@
+
+       audit_set_failure sets the action that the kernel will perform when
+       the backlog limit is reached or when it encounters an error and
+       cannot proceed. Possible values are:
+       0 - AUDIT_FAIL_SILENT
+              Do nothing, report nothing, skip logging the record and
+              continue.
+       1 - AUDIT_FAIL_PRINTK [default]
+              Log the audit record using printk which will cause subsequent
+              events to get written to syslog.
+       2 - AUDIT_FAIL_PANIC
+              Call the panic function. This would be used to prevent use of
+              the machine upon loss of audit events.

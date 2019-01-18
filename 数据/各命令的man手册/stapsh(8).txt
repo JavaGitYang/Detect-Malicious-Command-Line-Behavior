@@ -1,0 +1,4 @@
+
+       The stapsh executable is used by the stap --remote functionality, as
+       a wrapper shell on the remote machines.  It is not intended to be run
+       directly by users.

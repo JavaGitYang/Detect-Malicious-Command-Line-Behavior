@@ -1,0 +1,8 @@
+
+     The acl_size() function return the size, in bytes, of the buffer
+     required to hold the exportable, contiguous, persistent form of the ACL
+     pointed to by the argument acl, when converted by acl_copy_ext().
+     Any existing ACL entry descriptors that refer to entries in acl con‐
+     tinue to refer to the same entries. Any existing ACL pointers that
+     refer to the ACL referred to by acl continue to refer to the ACL. The
+     order of ACL entries within acl remains unchanged.

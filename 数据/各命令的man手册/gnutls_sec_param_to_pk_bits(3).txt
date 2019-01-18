@@ -1,0 +1,6 @@
+
+       When generating private and public key pairs a difficult question is
+       which size of "bits" the modulus will be in RSA and the group size in
+       DSA. The easy answer is 1024, which is also wrong. This function will
+       convert a human understandable security parameter to an appropriate
+       size for the specific algorithm.

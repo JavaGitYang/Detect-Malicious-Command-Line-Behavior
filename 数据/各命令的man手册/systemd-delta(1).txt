@@ -1,0 +1,25 @@
+
+       systemd-delta may be used to identify and compare configuration files
+       that override other configuration files. Files in /etc have highest
+       priority, files in /run have the second highest priority, ..., files
+       in /usr/lib have lowest priority. Files in a directory with higher
+       priority override files with the same name in directories of lower
+       priority. In addition, certain configuration files can have ".d"
+       directories which contain "drop-in" files with configuration snippets
+       which augment the main configuration file. "Drop-in" files can be
+       overridden in the same way by placing files with the same name in a
+       directory of higher priority (except that, in case of "drop-in"
+       files, both the "drop-in" file name and the name of the containing
+       directory, which corresponds to the name of the main configuration
+       file, must match). For a fuller explanation, see systemd.unit(5).
+       The command line argument will be split into a prefix and a suffix.
+       Either is optional. The prefix must be one of the directories
+       containing configuration files (/etc, /run, /usr/lib, ...). If it is
+       given, only overriding files contained in this directory will be
+       shown. Otherwise, all overriding files will be shown. The suffix must
+       be a name of a subdirectory containing configuration files like
+       tmpfiles.d, sysctl.d or systemd/system. If it is given, only
+       configuration files in this subdirectory (across all configuration
+       paths) will be analyzed. Otherwise, all configuration files will be
+       analyzed. If the command line argument is not given at all, all
+       configuration files will be analyzed. See below for some examples.

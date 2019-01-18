@@ -1,0 +1,4 @@
+
+       fuse2fs is a FUSE file system client that supports reading and
+       writing from devices or image files containing ext2, ext3, and ext4
+       file systems.

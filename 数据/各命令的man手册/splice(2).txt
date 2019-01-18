@@ -1,0 +1,38 @@
+
+       splice() moves data between two file descriptors without copying
+       between kernel address space and user address space.  It transfers up
+       to len bytes of data from the file descriptor fd_in to the file
+       descriptor fd_out, where one of the file descriptors must refer to a
+       pipe.
+       The following semantics apply for fd_in and off_in:
+       *  If fd_in refers to a pipe, then off_in must be NULL.
+       *  If fd_in does not refer to a pipe and off_in is NULL, then bytes
+          are read from fd_in starting from the file offset, and the file
+          offset is adjusted appropriately.
+       *  If fd_in does not refer to a pipe and off_in is not NULL, then
+          off_in must point to a buffer which specifies the starting offset
+          from which bytes will be read from fd_in; in this case, the file
+          offset of fd_in is not changed.
+       Analogous statements apply for fd_out and off_out.
+       The flags argument is a bit mask that is composed by ORing together
+       zero or more of the following values:
+       SPLICE_F_MOVE
+              Attempt to move pages instead of copying.  This is only a hint
+              to the kernel: pages may still be copied if the kernel cannot
+              move the pages from the pipe, or if the pipe buffers don't
+              refer to full pages.  The initial implementation of this flag
+              was buggy: therefore starting in Linux 2.6.21 it is a no-op
+              (but is still permitted in a splice() call); in the future, a
+              correct implementation may be restored.
+       SPLICE_F_NONBLOCK
+              Do not block on I/O.  This makes the splice pipe operations
+              nonblocking, but splice() may nevertheless block because the
+              file descriptors that are spliced to/from may block (unless
+              they have the O_NONBLOCK flag set).
+       SPLICE_F_MORE
+              More data will be coming in a subsequent splice.  This is a
+              helpful hint when the fd_out refers to a socket (see also the
+              description of MSG_MORE in send(2), and the description of
+              TCP_CORK in tcp(7)).
+       SPLICE_F_GIFT
+              Unused for splice(); see vmsplice(2).

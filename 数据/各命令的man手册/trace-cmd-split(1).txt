@@ -1,0 +1,11 @@
+
+       The trace-cmd(1) split is used to break up a trace.dat into small
+       files. The start-time specifies where the new file will start at.
+       Using trace-cmd-report(1) and copying the time stamp given at a
+       particular event, can be used as input for either start-time or
+       end-time. The split will stop creating files when it reaches an event
+       after end-time. If only the end-time is needed, use 0.0 as the
+       start-time.
+       If start-time is left out, then the split will start at the beginning
+       of the file. If end-time is left out, then split will continue to the
+       end unless it meets one of the requirements specified by the options.

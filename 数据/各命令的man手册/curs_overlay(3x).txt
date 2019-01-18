@@ -1,0 +1,14 @@
+
+   overlay, overwrite
+       The overlay and overwrite routines overlay srcwin on top of dstwin.
+       scrwin and dstwin are not required to be the same size; only text
+       where the two windows overlap is copied.  The difference is that
+       overlay is non-destructive (blanks are not copied) whereas overwrite
+       is destructive.
+   copywin
+       The copywin routine provides a finer granularity of control over the
+       overlay and overwrite routines.  As in the prefresh routine, a
+       rectangle is specified in the destination window, (dminrow, dmincol)
+       and (dmaxrow, dmaxcol), and the upper-left-corner coordinates of the
+       source window, (sminrow, smincol).  If the argument overlay is true,
+       then copying is non-destructive, as in overlay.

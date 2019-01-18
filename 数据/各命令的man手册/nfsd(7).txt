@@ -1,0 +1,19 @@
+
+       The nfsd filesystem is a special filesystem which provides access to
+       the Linux NFS server.  The filesystem consists of a single directory
+       which contains a number of files.  These files are actually gateways
+       into the NFS server.  Writing to them can affect the server.  Reading
+       from them can provide information about the server.
+       This file system is only available in Linux 2.6 and later series
+       kernels (and in the later parts of the 2.5 development series leading
+       up to 2.6).  This man page does not apply to 2.4 and earlier.
+       As well as this filesystem, there are a collection of files in the
+       procfs filesystem (normally mounted at /proc) which are used to
+       control the NFS server.  This manual page describes all of these
+       files.
+       The exportfs and mountd programs (part of the nfs-utils package)
+       expect to find this filesystem mounted at /proc/fs/nfsd or
+       /proc/fs/nfs.  If it is not mounted, they will fall-back on 2.4 style
+       functionality.  This involves accessing the NFS server via a
+       systemcall.  This systemcall is scheduled to be removed after the 2.6
+       kernel series.

@@ -1,0 +1,4 @@
+
+       This function will remove the provided certificate authorities from
+       the trusted list, and add them into a black list when needed.
+       See also gnutls_x509_trust_list_remove_cas().

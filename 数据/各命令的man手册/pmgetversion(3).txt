@@ -1,0 +1,13 @@
+
+       pmGetVersion returns a binary encoding of the locally installed PCP
+       version number.
+       This may be used in conjunction with the related macros
+       PM_VERSION(a,b,c) and PM_VERSION_CURRENT that generate PCP version
+       numbers in the same format.  Refer to the example below.
+       The encoding uses one byte for each of the parts of the version
+       number of the installed PCP package, namely the major number, the
+       minor number and the revision number.  So PCP version 3.10.5 is
+       encoded as 0x30a05.
+       The string format of the installed PCP package version number as also
+       available from pmGetConfig with the argument PCP_VERSION.
+       pmGetVersion was introduced in PCP 3.10.5.

@@ -1,0 +1,21 @@
+
+       mysql_zap kills processes that match a pattern. It uses the ps
+       command and Unix signals, so it runs on Unix and Unix-like systems.
+       Invoke mysql_zap like this:
+           shell> mysql_zap [-signal] [-?Ift] pattern
+       A process matches if its output line from the ps command contains the
+       pattern. By default, mysql_zap asks for confirmation for each
+       process. Respond y to kill the process, or q to exit mysql_zap. For
+       any other response, mysql_zap does not attempt to kill the process.
+       If the -signal option is given, it specifies the name or number of
+       the signal to send to each process. Otherwise, mysql_zap tries first
+       with TERM (signal 15) and then with KILL (signal 9).
+       mysql_zap supports the following additional options:
+       ·   --help, -?, -I
+           Display a help message and exit.
+       ·   -f
+           Force mode.  mysql_zap attempts to kill each process without
+           confirmation.
+       ·   -t
+           Test mode. Display information about each process but do not kill
+           it.

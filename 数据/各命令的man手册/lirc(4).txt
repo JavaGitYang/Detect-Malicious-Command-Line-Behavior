@@ -1,0 +1,46 @@
+
+       The /dev/lirc* character devices provide a low-level bi-directional
+       interface to infra-red (IR) remotes.  When receiving data, the driver
+       works in two different modes depending on the underlying hardware.
+       Some hardware (typically TV-cards) decodes the IR signal internally
+       and just provides decoded button presses as integer values.  Drivers
+       for this kind of hardware work in LIRC_MODE_LIRCCODE mode.  Such
+       hardware usually does not support sending IR signals.  Furthermore,
+       it usually only works with a specific remote which is bundled with,
+       for example, a TV-card.
+       Other hardware provides a stream of pulse/space durations.  Such
+       drivers work in LIRC_MODE_MODE2 mode.  Sometimes, this kind of
+       hardware also supports sending IR data.  Such hardware can be used
+       with (almost) any kind of remote.
+       The LIRC_GET_REC_MODE ioctl (see below) allows probing for the mode.
+   Reading input with the LIRC_MODE_MODE2 drivers
+       In the LIRC_MODE_MODE2 mode, the data returned by read(2) provides
+       32-bit values representing a space or a pulse duration, by convention
+       typed as lirc_t.  The time of the duration (microseconds) is encoded
+       in the lower 24 bits.  The upper 8 bit reflects the type of package:
+       LIRC_MODE2_SPACE.
+           Value reflects a space duration (microseconds).
+       LIRC_MODE2_PULSE.
+           Value reflects a pulse duration (microseconds).
+       LIRC_MODE2_FREQUENCY.
+           Value reflects a frequency (Hz); see the
+           LIRC_SET_MEASURE_CARRIER_MODE ioctl.
+       LIRC_MODE2_TIMEOUT.
+           The package reflects a timeout; see the
+           LIRC_SET_REC_TIMEOUT_REPORTS ioctl.
+   Reading input with the
+       LIRC_MODE_LIRCCODE drivers
+       In the LIRC_MODE_LIRCCODE mode, the data returned by read(2) reflects
+       decoded button presses.  The length of each packet can be retrieved
+       using the LIRC_GET_LENGTH ioctl.  Reads must be done in blocks
+       matching the bit count returned by the LIRC_GET_LENGTH ioctl, rounded
+       up so it matches full bytes.
+   Sending data
+       When sending data, only the LIRC_MODE_PULSE mode is supported.  The
+       data written to the character device using write(2) is a pulse/space
+       sequence of integer values.  Pulses and spaces are only marked
+       implicitly by their position.  The data must start and end with a
+       pulse, thus it must always include an odd number of samples.  The
+       write(2) function blocks until the data has been transmitted by the
+       hardware.  If more data is provided than the hardware can send, the
+       write(2) call fails with the error EINVAL

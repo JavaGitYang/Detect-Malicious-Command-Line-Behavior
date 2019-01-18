@@ -1,0 +1,24 @@
+
+       xfs_scrub attempts to check and repair all metadata in a mounted XFS
+       filesystem.
+       WARNING!  This program is EXPERIMENTAL, which means that its behavior
+       and interface could change at any time!
+       xfs_scrub asks the kernel to scrub all metadata objects in the
+       filesystem.  Metadata records are scanned for obviously bad values
+       and then cross-referenced against other metadata.  The goal is to
+       establish a reasonable confidence about the consistency of the
+       overall filesystem by examining the consistency of individual
+       metadata records against the other metadata in the filesystem.
+       Damaged metadata can be rebuilt from other metadata if there exists
+       redundant data structures which are intact.
+       Filesystem corruption and optimization opportunities will be logged
+       to the standard error stream.  Enabling verbose mode will increase
+       the amount of status information sent to the output.
+       If the kernel scrub reports that metadata needs repairs or
+       optimizations and the user does not pass -n on the command line, this
+       program will ask the kernel to make the repairs and to perform the
+       optimizations.  See the sections about optimizations and repairs for
+       a list of optimizations and repairs known to this program.  The
+       kernel may not support repairing or optimizing the filesystem.  If
+       this is the case, the filesystem must be unmounted and xfs_repair(8)
+       run on the filesystem to fix the problems.

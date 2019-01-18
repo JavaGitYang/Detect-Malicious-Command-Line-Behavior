@@ -1,0 +1,8 @@
+
+       avc_init() is deprecated; please use avc_open(3) in conjunction with
+       selinux_set_callback(3) in all new code.
+       avc_init() initializes the userspace AVC and must be called before
+       any other AVC operation can be performed.  A non-NULL msgprefix will
+       be prepended to all audit messages produced by the userspace AVC.
+       The default is `uavc'.  The remaining arguments, if non-NULL, specify
+       callbacks to be used by the userspace AVC.

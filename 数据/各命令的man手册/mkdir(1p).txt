@@ -1,0 +1,12 @@
+
+       The mkdir utility shall create the directories specified by the
+       operands, in the order specified.
+       For each dir operand, the mkdir utility shall perform actions
+       equivalent to the mkdir() function defined in the System Interfaces
+       volume of POSIX.1‐2008, called with the following arguments:
+        1. The dir operand is used as the path argument.
+        2. The value of the bitwise-inclusive OR of S_IRWXU, S_IRWXG, and
+           S_IRWXO is used as the mode argument. (If the −m option is
+           specified, the value of the mkdir() mode argument is unspecified,
+           but the directory shall at no time have permissions less
+           restrictive than the −m mode option-argument.)

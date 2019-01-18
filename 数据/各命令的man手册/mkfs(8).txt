@@ -1,0 +1,14 @@
+
+       This mkfs frontend is deprecated in favour of filesystem specific
+       mkfs.<type> utils.
+       mkfs is used to build a Linux filesystem on a device, usually a hard
+       disk partition.  The device argument is either the device name (e.g.
+       /dev/hda1, /dev/sdb2), or a regular file that shall contain the
+       filesystem.  The size argument is the number of blocks to be used for
+       the filesystem.
+       The exit code returned by mkfs is 0 on success and 1 on failure.
+       In actuality, mkfs is simply a front-end for the various filesystem
+       builders (mkfs.fstype) available under Linux.  The filesystem-
+       specific builder is searched for via your PATH environment setting
+       only.  Please see the filesystem-specific builder manual pages for
+       further details.

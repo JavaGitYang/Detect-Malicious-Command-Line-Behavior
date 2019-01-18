@@ -1,0 +1,3 @@
+
+       The val utility shall determine whether the specified file is an SCCS
+       file meeting the characteristics specified by the options.

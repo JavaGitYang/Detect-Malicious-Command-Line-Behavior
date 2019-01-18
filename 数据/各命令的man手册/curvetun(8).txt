@@ -1,0 +1,28 @@
+
+       curvetun is a lightweight, high-speed ECDH multiuser IP tunnel for
+       Linux that is based on epoll(2). curvetun uses the Linux TUN/TAP
+       interface and supports {IPv4, IPv6} over {IPv4, IPv6} with UDP or TCP
+       as carrier protocols.
+       It has an integrated packet forwarding tree, thus multiple users with
+       different IPs can be handled via a single tunnel device on the server
+       side, and flows are scheduled for processing in a CPU efficient way,
+       at least in the case of TCP as the carrier protocol.
+       For key management, public-key cryptography based on elliptic curves
+       are used and packets are encrypted end-to-end by the symmetric stream
+       cipher Salsa20 and authenticated by the MAC Poly1305, where keys have
+       previously been computed with the ECDH key agreement protocol
+       Curve25519.
+       Cryptography is based on Daniel J. Bernstein's networking and
+       cryptography library “NaCl”. By design, curvetun does not provide any
+       particular pattern or default port numbers that gives certainty that
+       the connection from a particular flow is actually running curvetun.
+       However, if you have a further need to bypass censorship, you can try
+       using curvetun in combination with Tor's obfsproxy or Telex.
+       Furthermore, curvetun also protects you against replay attacks and DH
+       man-in-the-middle attacks.  Additionally, server-side syslog event
+       logging can also be disabled to avoid revealing critical user
+       connection data.
+        1. obfsproxy from the TOR project
+           https://www.torproject.org/projects/obfsproxy.html.en
+        2. Telex, anti-censorship in the network infrastructure
+           https://telex.cc/

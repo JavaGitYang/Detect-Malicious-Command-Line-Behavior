@@ -1,0 +1,6 @@
+
+       Show hardware watchdog status.  The default device is /dev/watchdog.
+       If more than one device is specified then the output is separated by
+       one blank line.
+       Note that the number of supported watchdog features is hardware
+       specific.

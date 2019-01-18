@@ -1,0 +1,18 @@
+
+       The status of a batch job, batch queue, or batch server is obtained
+       by a request to the server. The qstat utility is a user-accessible
+       batch client that requests the status of one or more batch jobs,
+       batch queues, or servers, and writes the status information to
+       standard output.
+       For each successfully processed batch job_identifier, the qstat
+       utility shall display information about the corresponding batch job.
+       For each successfully processed destination, the qstat utility shall
+       display information about the corresponding batch queue.
+       For each successfully processed server name, the qstat utility shall
+       display information about the corresponding server.
+       The qstat utility shall acquire batch job status information by
+       sending a Job Status Request to a batch server. The qstat utility
+       shall acquire batch queue status information by sending a Queue
+       Status Request to a batch server. The qstat utility shall acquire
+       server status information by sending a Server Status Request to a
+       batch server.

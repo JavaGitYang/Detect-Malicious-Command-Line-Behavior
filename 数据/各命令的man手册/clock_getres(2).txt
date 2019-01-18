@@ -1,0 +1,68 @@
+
+       The function clock_getres() finds the resolution (precision) of the
+       specified clock clk_id, and, if res is non-NULL, stores it in the
+       struct timespec pointed to by res.  The resolution of clocks depends
+       on the implementation and cannot be configured by a particular
+       process.  If the time value pointed to by the argument tp of
+       clock_settime() is not a multiple of res, then it is truncated to a
+       multiple of res.
+       The functions clock_gettime() and clock_settime() retrieve and set
+       the time of the specified clock clk_id.
+       The res and tp arguments are timespec structures, as specified in
+       <time.h>:
+           struct timespec {
+               time_t   tv_sec;        /* seconds */
+               long     tv_nsec;       /* nanoseconds */
+           };
+       The clk_id argument is the identifier of the particular clock on
+       which to act.  A clock may be system-wide and hence visible for all
+       processes, or per-process if it measures time only within a single
+       process.
+       All implementations support the system-wide real-time clock, which is
+       identified by CLOCK_REALTIME.  Its time represents seconds and
+       nanoseconds since the Epoch.  When its time is changed, timers for a
+       relative interval are unaffected, but timers for an absolute point in
+       time are affected.
+       More clocks may be implemented.  The interpretation of the corre‐
+       sponding time values and the effect on timers is unspecified.
+       Sufficiently recent versions of glibc and the Linux kernel support
+       the following clocks:
+       CLOCK_REALTIME
+              System-wide clock that measures real (i.e., wall-clock) time.
+              Setting this clock requires appropriate privileges.  This
+              clock is affected by discontinuous jumps in the system time
+              (e.g., if the system administrator manually changes the
+              clock), and by the incremental adjustments performed by
+              adjtime(3) and NTP.
+       CLOCK_REALTIME_COARSE (since Linux 2.6.32; Linux-specific)
+              A faster but less precise version of CLOCK_REALTIME.  Use when
+              you need very fast, but not fine-grained timestamps.  Requires
+              per-architecture support, and probably also architecture sup‐
+              port for this flag in the vdso(7).
+       CLOCK_MONOTONIC
+              Clock that cannot be set and represents monotonic time since
+              some unspecified starting point.  This clock is not affected
+              by discontinuous jumps in the system time (e.g., if the system
+              administrator manually changes the clock), but is affected by
+              the incremental adjustments performed by adjtime(3) and NTP.
+       CLOCK_MONOTONIC_COARSE (since Linux 2.6.32; Linux-specific)
+              A faster but less precise version of CLOCK_MONOTONIC.  Use
+              when you need very fast, but not fine-grained timestamps.
+              Requires per-architecture support, and probably also architec‐
+              ture support for this flag in the vdso(7).
+       CLOCK_MONOTONIC_RAW (since Linux 2.6.28; Linux-specific)
+              Similar to CLOCK_MONOTONIC, but provides access to a raw hard‐
+              ware-based time that is not subject to NTP adjustments or the
+              incremental adjustments performed by adjtime(3).
+       CLOCK_BOOTTIME (since Linux 2.6.39; Linux-specific)
+              Identical to CLOCK_MONOTONIC, except it also includes any time
+              that the system is suspended.  This allows applications to get
+              a suspend-aware monotonic clock without having to deal with
+              the complications of CLOCK_REALTIME, which may have disconti‐
+              nuities if the time is changed using settimeofday(2) or simi‐
+              lar.
+       CLOCK_PROCESS_CPUTIME_ID (since Linux 2.6.12)
+              Per-process CPU-time clock (measures CPU time consumed by all
+              threads in the process).
+       CLOCK_THREAD_CPUTIME_ID (since Linux 2.6.12)
+              Thread-specific CPU-time clock.

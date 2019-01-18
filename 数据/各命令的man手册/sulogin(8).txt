@@ -1,0 +1,13 @@
+
+       sulogin is invoked by init when the system goes into single-user
+       mode.
+       The user is prompted:
+            Give root password for system maintenance
+            (or type Control-D for normal startup):
+       If the root account is locked and --force is specified, no password
+       is required.
+       sulogin will be connected to the current terminal, or to the optional
+       tty device that can be specified on the command line (typically
+       /dev/console).
+       When the user exits from the single-user shell, or presses control-D
+       at the prompt, the system will continue to boot.

@@ -1,0 +1,15 @@
+
+       pmLocaltime is very similar to localtime(3), except the timezone used
+       is the current ``reporting timezone'' (rather than the default TZ
+       environment variable scheme), and the result is returned into a
+       caller-declared buffer (rather than a private buffer).
+       Like localtime(3) the time to be converted is passed via clock, and
+       the result contains the components broken out in the elements of the
+       tm struct.
+       pmLocaltime returns result as the value of the function.
+       The default current reporting timezone is as defined by the TZ
+       environment variable, so pmLocaltime and localtime(3) will initially
+       produce a similar encoding of the date and time.
+       Use pmNewZone(3), pmNewContextZone(3) or pmUseZone(3) to establish a
+       new current reporting timezone that will affect pmLocaltime but not
+       localtime(3).

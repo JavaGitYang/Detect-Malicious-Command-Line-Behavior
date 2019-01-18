@@ -1,0 +1,3 @@
+
+       This function will set the public parameters from the given public
+       key to the certificate. The  key can be deallocated after that.

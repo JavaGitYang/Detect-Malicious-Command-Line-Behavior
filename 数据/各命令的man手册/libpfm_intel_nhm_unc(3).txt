@@ -1,0 +1,6 @@
+
+       The library supports the Nehalem uncore PMU as implemented by
+       processors such as Intel Core i7, and Intel Core i5.
+       The PMU is located at the socket-level and is therefore shared
+       between the various cores. By construction it can only measure at all
+       privilege levels.

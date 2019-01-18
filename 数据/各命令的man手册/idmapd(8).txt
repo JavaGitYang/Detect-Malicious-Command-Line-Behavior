@@ -1,0 +1,31 @@
+
+     rpc.idmapd is the NFSv4 ID <-> name mapping daemon.  It provides func‐
+     tionality to the NFSv4 kernel client and server, to which it communi‐
+     cates via upcalls, by translating user and group IDs to names, and vice
+     versa.
+     The system derives the part of the string by performing a password or
+     group lookup.  The lookup mechanism is configured in /etc/idmapd.conf
+     By default, the part of the string is the system's DNS domain name.  It
+     can also be specified in /etc/idmapd.conf if the system is multi-homed,
+     or if the system's DNS domain name does not match the name of the sys‐
+     tem's Kerberos realm.
+     When the domain is not specified in /etc/idmapd.conf the local DNS
+     server will be queried for the _nfsv4idmapdomain text record. If the
+     record exists that will be used as the domain. When the record does not
+     exist, the domain part of the DNS domain will used.
+     Note that on more recent kernels only the NFSv4 server uses rpc.idmapd.
+     The NFSv4 client instead uses nfsidmap(8), and only falls back to
+     rpc.idmapd if there was a problem running the nfsidmap(8) program.
+     The options are as follows:
+     -h           Display usage message.
+     -v           Increases the verbosity level (can be specified multiple
+                  times).
+     -f           Runs rpc.idmapd in the foreground and prints all output to
+                  the terminal.
+     -p path      Specifies the location of the RPC pipefs to be path.  The
+                  default value is "/var/lib/nfs/rpc_pipefs".
+     -c path      Use configuration file path.  This option is deprecated.
+     -C           Client-only: perform no idmapping for any NFS server, even
+                  if one is detected.
+     -S           Server-only: perform no idmapping for any NFS client, even
+                  if one is detected.

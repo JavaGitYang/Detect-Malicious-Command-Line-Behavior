@@ -1,0 +1,8 @@
+
+     The acl_delete_perm() function deletes the permission contained in the
+     argument perm (one of ACL_READ, ACL_WRITE, ACL_EXECUTE) from the per‐
+     mission set referred to by the argument permset_d.  An attempt to
+     delete a permission that is not contained in the permission set is not
+     considered an error.
+     Any existing descriptors that refer to permset_d continue to refer to
+     that permission set.

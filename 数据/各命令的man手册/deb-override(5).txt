@@ -1,0 +1,18 @@
+
+       While most information about a package can be found in the control
+       file, some is managed centrally by the distribution czars rather than
+       by the maintainer in order to offer some global consistency.  This
+       information is found in the override file.
+       The override file has a simple whitespace-delimited format. Comments
+       are allowed (denoted with a #).
+            package priority section [maintainerinfo]
+       package is the name of the package. Entries in the override file for
+       packages not found in the tree of binary packages are ignored.
+       priority and section correspond to the respective control fields
+       available in the .deb. The allowed values are specific to each
+       distribution archive.
+       maintainerinfo, if present, can be either the name of a maintainer
+       for an unconditional override, or else oldmaintainer => newmaintainer
+       to perform a substitution.
+       The override files used to make the official Packages lists may be
+       found in the indices directory on any Debian mirror.

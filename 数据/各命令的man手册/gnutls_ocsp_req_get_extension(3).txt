@@ -1,0 +1,9 @@
+
+       This function will return all information about the requested
+       extension in the OCSP request.  The information returned is the OID,
+       the critical flag, and the data itself.  The extension OID will be
+       stored as a string.  Any of  oid ,  critical , and  data may be NULL
+       which means that the caller is not interested in getting that
+       information back.
+       The caller needs to deallocate memory by calling gnutls_free() on
+        oid ->data and  data ->data.

@@ -1,0 +1,16 @@
+
+       Because the modprobe command can add or remove more than one module,
+       due to modules having dependencies, we need a method of specifying
+       what options are to be used with those modules. All files underneath
+       the /etc/modprobe.d directory which end with the .conf extension
+       specify those options as required. They can also be used to create
+       convenient aliases: alternate names for a module, or they can
+       override the normal modprobe behavior altogether for those with
+       special requirements (such as inserting more than one module).
+       Note that module and alias names (like other module names) can have -
+       or _ in them: both are interchangeable throughout all the module
+       commands as underscore conversion happens automatically.
+       The format of and files under modprobe.d is simple: one command per
+       line, with blank lines and lines starting with '#' ignored (useful
+       for adding comments). A '\' at the end of a line causes it to
+       continue on the next line, which makes the file a bit neater.

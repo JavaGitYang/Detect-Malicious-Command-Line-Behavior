@@ -1,0 +1,4 @@
+
+       This function will return the MTU size as set with
+       gnutls_dtls_set_mtu(). This is not the actual MTU of data you can
+       transmit. Use gnutls_dtls_get_data_mtu() for that reason.

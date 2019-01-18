@@ -1,0 +1,5 @@
+
+       This function will export the pair of prime and generator for use in
+       the Diffie-Hellman key exchange.  The new parameters will be
+       allocated using gnutls_malloc() and will be stored in the appropriate
+       datum.

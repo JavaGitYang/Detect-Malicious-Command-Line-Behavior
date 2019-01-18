@@ -1,0 +1,3 @@
+
+       The usermod command modifies the system account files to reflect the
+       changes that are specified on the command line.

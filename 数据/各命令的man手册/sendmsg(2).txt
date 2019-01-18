@@ -1,0 +1,107 @@
+
+       The system calls send(), sendto(), and sendmsg() are used to transmit
+       a message to another socket.
+       The send() call may be used only when the socket is in a connected
+       state (so that the intended recipient is known).  The only difference
+       between send() and write(2) is the presence of flags.  With a zero
+       flags argument, send() is equivalent to write(2).  Also, the
+       following call
+           send(sockfd, buf, len, flags);
+       is equivalent to
+           sendto(sockfd, buf, len, flags, NULL, 0);
+       The argument sockfd is the file descriptor of the sending socket.
+       If sendto() is used on a connection-mode (SOCK_STREAM,
+       SOCK_SEQPACKET) socket, the arguments dest_addr and addrlen are
+       ignored (and the error EISCONN may be returned when they are not NULL
+       and 0), and the error ENOTCONN is returned when the socket was not
+       actually connected.  Otherwise, the address of the target is given by
+       dest_addr with addrlen specifying its size.  For sendmsg(), the
+       address of the target is given by msg.msg_name, with msg.msg_namelen
+       specifying its size.
+       For send() and sendto(), the message is found in buf and has length
+       len.  For sendmsg(), the message is pointed to by the elements of the
+       array msg.msg_iov.  The sendmsg() call also allows sending ancillary
+       data (also known as control information).
+       If the message is too long to pass atomically through the underlying
+       protocol, the error EMSGSIZE is returned, and the message is not
+       transmitted.
+       No indication of failure to deliver is implicit in a send().  Locally
+       detected errors are indicated by a return value of -1.
+       When the message does not fit into the send buffer of the socket,
+       send() normally blocks, unless the socket has been placed in
+       nonblocking I/O mode.  In nonblocking mode it would fail with the
+       error EAGAIN or EWOULDBLOCK in this case.  The select(2) call may be
+       used to determine when it is possible to send more data.
+   The flags argument
+       The flags argument is the bitwise OR of zero or more of the following
+       flags.
+       MSG_CONFIRM (since Linux 2.3.15)
+              Tell the link layer that forward progress happened: you got a
+              successful reply from the other side.  If the link layer
+              doesn't get this it will regularly reprobe the neighbor (e.g.,
+              via a unicast ARP).  Valid only on SOCK_DGRAM and SOCK_RAW
+              sockets and currently implemented only for IPv4 and IPv6.  See
+              arp(7) for details.
+       MSG_DONTROUTE
+              Don't use a gateway to send out the packet, send to hosts only
+              on directly connected networks.  This is usually used only by
+              diagnostic or routing programs.  This is defined only for
+              protocol families that route; packet sockets don't.
+       MSG_DONTWAIT (since Linux 2.2)
+              Enables nonblocking operation; if the operation would block,
+              EAGAIN or EWOULDBLOCK is returned.  This provides similar
+              behavior to setting the O_NONBLOCK flag (via the fcntl(2)
+              F_SETFL operation), but differs in that MSG_DONTWAIT is a per-
+              call option, whereas O_NONBLOCK is a setting on the open file
+              description (see open(2)), which will affect all threads in
+              the calling process and as well as other processes that hold
+              file descriptors referring to the same open file description.
+       MSG_EOR (since Linux 2.2)
+              Terminates a record (when this notion is supported, as for
+              sockets of type SOCK_SEQPACKET).
+       MSG_MORE (since Linux 2.4.4)
+              The caller has more data to send.  This flag is used with TCP
+              sockets to obtain the same effect as the TCP_CORK socket
+              option (see tcp(7)), with the difference that this flag can be
+              set on a per-call basis.
+              Since Linux 2.6, this flag is also supported for UDP sockets,
+              and informs the kernel to package all of the data sent in
+              calls with this flag set into a single datagram which is
+              transmitted only when a call is performed that does not
+              specify this flag.  (See also the UDP_CORK socket option
+              described in udp(7).)
+       MSG_NOSIGNAL (since Linux 2.2)
+              Don't generate a SIGPIPE signal if the peer on a stream-
+              oriented socket has closed the connection.  The EPIPE error is
+              still returned.  This provides similar behavior to using
+              sigaction(2) to ignore SIGPIPE, but, whereas MSG_NOSIGNAL is a
+              per-call feature, ignoring SIGPIPE sets a process attribute
+              that affects all threads in the process.
+       MSG_OOB
+              Sends out-of-band data on sockets that support this notion
+              (e.g., of type SOCK_STREAM); the underlying protocol must also
+              support out-of-band data.
+   sendmsg()
+       The definition of the msghdr structure employed by sendmsg() is as
+       follows:
+           struct msghdr {
+               void         *msg_name;       /* optional address */
+               socklen_t     msg_namelen;    /* size of address */
+               struct iovec *msg_iov;        /* scatter/gather array */
+               size_t        msg_iovlen;     /* # elements in msg_iov */
+               void         *msg_control;    /* ancillary data, see below */
+               size_t        msg_controllen; /* ancillary data buffer len */
+               int           msg_flags;      /* flags (unused) */
+           };
+       The msg_name field is used on an unconnected socket to specify the
+       target address for a datagram.  It points to a buffer containing the
+       address; the msg_namelen field should be set to the size of the
+       address.  For a connected socket, these fields should be specified as
+       NULL and 0, respectively.
+       The msg_iov and msg_iovlen fields specify scatter-gather locations,
+       as for writev(2).
+       You may send control information using the msg_control and msg_con‐
+       trollen members.  The maximum control buffer length the kernel can
+       process is limited per socket by the value in /proc/sys/net/core/opt‐
+       mem_max; see socket(7).
+       The msg_flags field is ignored.

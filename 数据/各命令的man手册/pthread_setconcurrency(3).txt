@@ -1,0 +1,10 @@
+
+       The pthread_setconcurrency() function informs the implementation of
+       the application's desired concurrency level, specified in new_level.
+       The implementation takes this only as a hint: POSIX.1 does not
+       specify the level of concurrency that should be provided as a result
+       of calling pthread_setconcurrency().
+       Specifying new_level as 0 instructs the implementation to manage the
+       concurrency level as it deems appropriate.
+       pthread_getconcurrency() returns the current value of the concurrency
+       level for this process.

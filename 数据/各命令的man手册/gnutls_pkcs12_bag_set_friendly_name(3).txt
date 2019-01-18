@@ -1,0 +1,5 @@
+
+       This function will add the given key friendly name, to the specified,
+       by the index, bag element. The name will be encoded as a 'Friendly
+       name' bag attribute, which is usually used to set a user name to the
+       local private key and the certificate pair.

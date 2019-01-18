@@ -1,0 +1,4 @@
+
+       This is an extension to the curses library.  It permits an
+       application to determine the string which is defined in the terminfo
+       for specific keycodes.

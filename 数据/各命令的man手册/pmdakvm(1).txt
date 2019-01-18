@@ -1,0 +1,5 @@
+
+       pmdakvm is a Performance Metrics Domain Agent (PMDA) which exports
+       metric values from the Linux KVM virtualisation subsystem.
+       Unlike many PMDAs it dynamically enumerates its metric hierarchy,
+       based entirely on the contents of /sys/kernel/debug/kvm.

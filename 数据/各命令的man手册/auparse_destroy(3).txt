@@ -1,0 +1,6 @@
+
+       auparse_destroy frees all data structures and closes file
+       descriptors.
+       auparse_destroy_ext frees data structures based on what. What can be
+       AUPARSE_DESTROY_ALL to release everything or AUPARSE_DESTROY_COMMON
+       to release everything but the uid and gid lookup cache.

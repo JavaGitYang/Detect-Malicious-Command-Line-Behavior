@@ -1,0 +1,5 @@
+
+       Use sepolicy communicate to examine SELinux Policy to if a source
+       SELinux Domain can communicate with a target SELinux Domain.  The
+       default command looks to see if there are any file types that the
+       source domain can write, which the target domain can read.

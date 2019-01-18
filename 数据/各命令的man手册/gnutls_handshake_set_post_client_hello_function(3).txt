@@ -1,0 +1,13 @@
+
+       This function will set a callback to be called after the client hello
+       has been received (callback valid in server side only). This allows
+       the server to adjust settings based on received extensions.
+       Those settings could be ciphersuites, requesting certificate, or
+       anything else except for version negotiation (this is done before the
+       hello message is parsed).
+       This callback must return 0 on success or a gnutls error code to
+       terminate the handshake.
+       Since GnuTLS 3.3.5 the callback is allowed to return GNUTLS_E_AGAIN
+       or GNUTLS_E_INTERRUPTED to put the handshake on hold. In that case
+       gnutls_handshake() will return GNUTLS_E_INTERRUPTED and can be
+       resumed when needed.

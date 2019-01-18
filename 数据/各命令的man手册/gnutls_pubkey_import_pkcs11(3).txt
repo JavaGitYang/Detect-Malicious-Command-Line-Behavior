@@ -1,0 +1,3 @@
+
+       Imports a public key from a pkcs11 key. This function will import the
+       given public key to the abstract gnutls_pubkey_t type.

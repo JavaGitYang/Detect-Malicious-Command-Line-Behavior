@@ -1,0 +1,33 @@
+
+       pmlogrewrite reads a set of Performance Co-Pilot (PCP) archive logs
+       identified by inlog and creates a PCP archive log in outlog.  Under
+       normal usage, the -c option will be used to nominate a configuration
+       file or files that contains specifications (see the REWRITING RULES
+       SYNTAX section below) that describe how the data and metadata from
+       inlog should be transformed to produce outlog.
+       The typical uses for pmlogrewrite would be to accommodate the
+       evolution of Performance Metric Domain Agents (PMDAs) where the
+       names, metadata and semantics of metrics and their associated
+       instance domains may change over time, e.g. promoting the type of a
+       metric from a 32-bit to a 64-bit integer, or renaming a group of
+       metrics.  Refer to the EXAMPLES section for some additional use
+       cases.
+       pmlogrewrite is most useful where PMDA changes, or errors in the
+       production environment, result in archives that cannot be combined
+       with pmlogextract(1).  By pre-processing the archives with
+       pmlogrewrite the resulting archives may be able to be merged with
+       pmlogextract(1).
+       The input inlog must be a set of PCP archive logs created by
+       pmlogger(1), or possibly one of the tools that read and create PCP
+       archives, e.g.  pmlogextract(1) and pmlogreduce(1).  inlog is a
+       comma-separated list of names, each of which may be the base name of
+       an archive or the name of a directory containing one or more
+       archives.
+       If no -c option is specified, then the default behavior simply
+       creates outlog as a copy of inlog.  This is a little more complicated
+       than cat(1), as each PCP archive is made up of several physical
+       files.
+       While pmlogrewrite may be used to repair some data consistency issues
+       in PCP archives, there is also a class of repair tasks that cannot be
+       handled by pmlogrewrite and pmloglabel(1) may be a useful tool in
+       these cases.

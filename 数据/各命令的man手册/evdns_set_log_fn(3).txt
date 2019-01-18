@@ -1,0 +1,75 @@
+
+     Welcome, gentle reader
+     Async DNS lookups are really a whole lot harder than they should be,
+     mostly stemming from the fact that the libc resolver has never been
+     very good at them. Before you use this library you should see if libc
+     can do the job for you with the modern async call getaddrinfo_a (see
+     http://www.imperialviolet.org/page25.html#e498). Otherwise, please
+     continue.
+     This code is based on libevent and you must call event_init before any
+     of the APIs in this file. You must also seed the OpenSSL random source
+     if you are using OpenSSL for ids (see below).
+     This library is designed to be included and shipped with your source
+     code. You statically link with it. You should also test for the
+     existence of strtok_r and define HAVE_STRTOK_R if you have it.
+     The DNS protocol requires a good source of id numbers and these numbers
+     should be unpredictable for spoofing reasons. There are three methods
+     for generating them here and you must define exactly one of them. In
+     increasing order of preference:
+           DNS_USE_GETTIMEOFDAY_FOR_ID  Using the bottom 16 bits of the usec
+                                        result from gettimeofday. This is a
+                                        pretty poor solution but should work
+                                        anywhere.
+           DNS_USE_CPU_CLOCK_FOR_ID     Using the bottom 16 bits of the nsec
+                                        result from the CPU's time counter.
+                                        This is better, but may not work
+                                        everywhere. Requires POSIX realtime
+                                        support and you'll need to link
+                                        against -lrt on glibc systems at
+                                        least.
+           DNS_USE_OPENSSL_FOR_ID       Uses the OpenSSL RAND_bytes call to
+                                        generate the data. You must have
+                                        seeded the pool before making any
+                                        calls to this library.
+     The library keeps track of the state of nameservers and will avoid them
+     when they go down. Otherwise it will round robin between them.
+     Quick start guide:
+       #include "evdns.h"
+       void callback(int result, char type, int count, int ttl,       void
+     *addresses, void *arg);
+       evdns_resolv_conf_parse(DNS_OPTIONS_ALL, "/etc/resolv.conf");
+       evdns_resolve("www.hostname.com", 0, callback, NULL);
+     When the lookup is complete the callback function is called. The first
+     argument will be one of the DNS_ERR_* defines in evdns.h.  Hopefully it
+     will be DNS_ERR_NONE, in which case type will be DNS_IPv4_A, count will
+     be the number of IP addresses, ttl is the time which the data can be
+     cached for (in seconds), addresses will point to an array of uint32_t's
+     and arg will be whatever you passed to evdns_resolve.
+     Searching:
+     In order for this library to be a good replacement for glibc's resolver
+     it supports searching. This involves setting a list of default domains,
+     in which names will be queried for. The number of dots in the query
+     name determines the order in which this list is used.
+     Searching appears to be a single lookup from the point of view of the
+     API, although many DNS queries may be generated from a single call to
+     evdns_resolve. Searching can also drastically slow down the resolution
+     of names.
+     To disable searching:
+           1.   Never set it up. If you never call
+                evdns_resolv_conf_parse,() evdns_init,() or
+                evdns_search_add() then no searching will occur.
+           2.   If you do call evdns_resolv_conf_parse() then don't pass
+                DNS_OPTION_SEARCH (or DNS_OPTIONS_ALL, which implies it).
+           3.   When calling evdns_resolve,() pass the DNS_QUERY_NO_SEARCH
+                flag.
+     The order of searches depends on the number of dots in the name. If the
+     number is greater than the ndots setting then the names is first tried
+     globally. Otherwise each search domain is appended in turn.
+     The ndots setting can either be set from a resolv.conf, or by calling
+     evdns_search_ndots_set.
+     For example, with ndots set to 1 (the default) and a search domain list
+     of ["myhome.net"]:
+      Query: www
+      Order: www.myhome.net, www.
+      Query: www.abc
+      Order: www.abc., www.abc.myhome.net

@@ -1,0 +1,38 @@
+
+       This script is used on Windows after building a MySQL distribution
+       from source to create executable programs. It packages the binaries
+       and support files into a ZIP archive that can be unpacked at the
+       location where you want to install MySQL.
+       make_win_bin_dist is a shell script, so you must have Cygwin
+       installed to use it.
+       This program´s use is subject to change. Currently, you invoke it as
+       follows from the root directory of your source distribution:
+           shell> make_win_bin_dist [options] package_basename [copy_def ...]
+       The package_basename argument provides the basename for the resulting
+       ZIP archive. This name will be the name of the directory that results
+       from unpacking the archive.
+       Because you might want to include files of directories from other
+       builds, you can instruct this script do copy them in for you, via
+       copy_def arguments, which of which is of the form
+       relative_dest_name=source_name.
+       Example:
+           bin/mysqld-max.exe=../my-max-build/sql/release/mysqld.exe
+       If you specify a directory, the entire directory will be copied.
+       make_win_bin_dist supports the following options.
+       ·   --debug
+           Pack the debug binaries and produce an error if they were not
+           built.
+       ·   --embedded
+           Pack the embedded server and produce an error if it was not
+           built. The default is to pack it if it was built.
+       ·   --exe-suffix=suffix
+           Add a suffix to the basename of the mysql binary. For example, a
+           suffix of -abc produces a binary named mysqld-abc.exe.
+       ·   --no-debug
+           Do not pack the debug binaries even if they were built.
+       ·   --no-embedded
+           Do not pack the embedded server even if it was built.
+       ·   --only-debug
+           Use this option when the target for this build was Debug, and you
+           just want to replace the normal binaries with debug versions
+           (that is, do not use separate debug directories).

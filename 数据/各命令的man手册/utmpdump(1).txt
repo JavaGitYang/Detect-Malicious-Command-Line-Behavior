@@ -1,0 +1,4 @@
+
+       utmpdump is a simple program to dump UTMP and WTMP files in raw
+       format, so they can be examined.  utmpdump reads from stdin unless a
+       filename is passed.

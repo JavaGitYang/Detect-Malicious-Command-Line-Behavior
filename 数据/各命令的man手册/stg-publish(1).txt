@@ -1,0 +1,34 @@
+
+       This command commits a set of changes on a separate (called public)
+       branch based on the modifications of the given or current stack. The
+       history of the public branch is not re-written, making it
+       merge-friendly and feasible for publishing. The heads of the stack
+       and public branch may be different but the corresponding tree objects
+       are always the same.
+       If the trees of the stack and public branch are different (otherwise
+       the command has no effect), StGit first checks for a rebase of the
+       stack since the last publishing. If a rebase is detected, StGit
+       creates a commit on the public branch corresponding to a merge
+       between the new stack base and the latest public head.
+       If no rebasing was detected, StGit checks for new patches that may
+       have been created on top of the stack since the last publishing. If
+       new patches are found and are not empty, they are checked into the
+       public branch keeping the same commit information (e.g. log message,
+       author, committer, date).
+       If the above tests fail (e.g. patches modified or removed), StGit
+       creates a new commit on the public branch having the same tree as the
+       stack but the public head as its parent. The editor will be invoked
+       if no "--message" option is given.
+       It is recommended that stack modifications falling in different
+       categories as described above are separated by a publish command in
+       order to keep the public branch history cleaner (otherwise StGit
+       would generate a big commit including several stack modifications).
+       The --unpublished option can be used to check if there are applied
+       patches that have not been published to the public branch. This is
+       done by trying to revert the patches in the public tree (similar to
+       the push --merged detection). The --last option tries to find the
+       last published patch by checking the SHA1 of the patch tree agains
+       the public tree. This may fail if the stack was rebased since the
+       last publish command.
+       The public branch name can be set via the branch.<branch>.public
+       configuration variable (defaulting to "<branch>.public").

@@ -1,0 +1,14 @@
+
+       The seccomp_export_bpf() and seccomp_export_pfc() functions generate
+       and output the current seccomp filter in either BPF (Berkley Packet
+       Filter) or PFC (Pseudo Filter Code).  The output of
+       seccomp_export_bpf() is suitable for loading into the kernel, while
+       the output of seccomp_export_pfc() is human readable and is intended
+       primarily as a debugging tool for developers using libseccomp.  Both
+       functions write the filter to the fd file descriptor.
+       The filter context ctx is the value returned by the call to
+       seccomp_init(3).
+       While the two output formats are guaranteed to be functionally
+       equivalent for the given seccomp filter configuration, the filter
+       instructions, and their ordering, are not guaranteed to be the same
+       in both the BPF and PFC formats.

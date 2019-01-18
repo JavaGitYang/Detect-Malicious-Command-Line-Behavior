@@ -1,0 +1,24 @@
+
+       These functions are provided in glibc as a compatibility interface
+       for programs that make use of the historical System V signal API.
+       This API is obsolete: new applications should use the POSIX signal
+       API (sigaction(2), sigprocmask(2), etc.)
+       The sigset() function modifies the disposition of the signal sig.
+       The disp argument can be the address of a signal handler function, or
+       one of the following constants:
+       SIG_DFL
+              Reset the disposition of sig to the default.
+       SIG_IGN
+              Ignore sig.
+       SIG_HOLD
+              Add sig to the process's signal mask, but leave the
+              disposition of sig unchanged.
+       If disp specifies the address of a signal handler, then sig is added
+       to the process's signal mask during execution of the handler.
+       If disp was specified as a value other than SIG_HOLD, then sig is
+       removed from the process's signal mask.
+       The dispositions for SIGKILL and SIGSTOP cannot be changed.
+       The sighold() function adds sig to the calling process's signal mask.
+       The sigrelse() function removes sig from the calling process's signal
+       mask.
+       The sigignore() function sets the disposition of sig to SIG_IGN.

@@ -1,0 +1,11 @@
+
+       e2label will display or change the volume label on the ext2, ext3, or
+       ext4 filesystem located on device.
+       If the optional argument volume-label is not present, e2label will
+       simply display the current volume label.
+       If the optional argument volume-label is present, then e2label will
+       set the volume label to be volume-label.  Ext2 volume labels can be
+       at most 16 characters long; if volume-label is longer than 16
+       characters, e2label will truncate it and print a warning message.
+       It is also possible to set the volume label using the -L option of
+       tune2fs(8).

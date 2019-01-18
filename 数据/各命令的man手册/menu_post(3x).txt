@@ -1,0 +1,7 @@
+
+       The function post_menu displays a menu to its associated subwindow.
+       To trigger physical display of the subwindow, use refresh(3X) or some
+       equivalent curses routine (the implicit doupdate triggered by an
+       curses input request will do). post_menu resets the selection status
+       of all items.
+       The function unpost_menu erases menu from its associated subwindow.

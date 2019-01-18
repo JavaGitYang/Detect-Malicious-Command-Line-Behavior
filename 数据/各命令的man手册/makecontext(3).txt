@@ -1,0 +1,19 @@
+
+       In a System V-like environment, one has the type ucontext_t defined
+       in <ucontext.h> and the four functions getcontext(3), setcontext(3),
+       makecontext() and swapcontext() that allow user-level context
+       switching between multiple threads of control within a process.
+       For the type and the first two functions, see getcontext(3).
+       The makecontext() function modifies the context pointed to by ucp
+       (which was obtained from a call to getcontext(3)).  Before invoking
+       makecontext(), the caller must allocate a new stack for this context
+       and assign its address to ucp->uc_stack, and define a successor
+       context and assign its address to ucp->uc_link.
+       When this context is later activated (using setcontext(3) or
+       swapcontext()) the function func is called, and passed the series of
+       integer (int) arguments that follow argc; the caller must specify the
+       number of these arguments in argc.  When this function returns, the
+       successor context is activated.  If the successor context pointer is
+       NULL, the thread exits.
+       The swapcontext() function saves the current context in the structure
+       pointed to by oucp, and then activates the context pointed to by ucp.

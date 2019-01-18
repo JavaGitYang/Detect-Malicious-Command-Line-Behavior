@@ -1,0 +1,8 @@
+
+       The ovsdb-server program provides RPC interfaces to one or more Open
+       vSwitch databases (OVSDBs).  It supports JSON-RPC client connections
+       over active or passive TCP/IP or Unix domain sockets.
+       Each OVSDB file may be specified on the command line as database.  If
+       none is specified, the default is /usr/local/etc/openvswitch/conf.db.
+       The database files must already have been created and initialized
+       using, for example, ovsdb-tool create.

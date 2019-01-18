@@ -1,0 +1,3 @@
+
+       auparse_get_num_records gets the number of records in the current
+       event.

@@ -1,0 +1,20 @@
+
+       The getenv() function searches the environment list to find the
+       environment variable name, and returns a pointer to the corresponding
+       value string.
+       The GNU-specific secure_getenv() function is just like getenv()
+       except that it returns NULL in cases where "secure execution" is
+       required.  Secure execution is required if one of the following
+       conditions was true when the program run by the calling process was
+       loaded:
+       *  the process's effective user ID did not match its real user ID or
+          the process's effective group ID did not match its real group ID
+          (typically this is the result of executing a set-user-ID or set-
+          group-ID program);
+       *  the effective capability bit was set on the executable file; or
+       *  the process has a nonempty permitted capability set.
+       Secure execution may also be required if triggered by some Linux
+       security modules.
+       The secure_getenv() function is intended for use in general-purpose
+       libraries to avoid vulnerabilities that could occur if set-user-ID or
+       set-group-ID programs accidentally trusted the environment.

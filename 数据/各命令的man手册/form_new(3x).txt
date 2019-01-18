@@ -1,0 +1,5 @@
+
+       The function new_form creates a new form connected to a specified
+       field pointer array (which must be NULL-terminated).
+       The function free_form disconnects form from its field array and
+       frees the storage allocated for the form.

@@ -1,0 +1,10 @@
+
+       systemd-udevd(8) expects its main configuration file at
+       /etc/udev/udev.conf. It consists of a set of variables allowing the
+       user to override default udev values. All empty lines or lines
+       beginning with '#' are ignored. The following variables can be set:
+       udev_log
+           The log level. Valid values are the numerical syslog priorities
+           or their textual representations: err, info and debug.
+       In addition, systemd-udevd can be configured by command line options
+       and the kernel command line (see systemd-udevd(8)).

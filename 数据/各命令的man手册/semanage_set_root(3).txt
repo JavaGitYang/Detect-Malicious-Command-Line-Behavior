@@ -1,0 +1,3 @@
+
+       The function semanage_set_root() sets an alternate root directory for
+       SELinux configuration paths to be used by the semanage library.

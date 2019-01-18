@@ -1,0 +1,6 @@
+
+       For each of the specified patches perform a three-way merge with the
+       same patch in the specified branch or series. The command can be used
+       for keeping patches on several branches in sync. Note that the
+       operation may fail for some patches because of conflicts. The patches
+       in the series must apply cleanly.

@@ -1,0 +1,5 @@
+
+       Rarp manipulates the kernel's RARP table in various ways.  The
+       primary options are clearing an address mapping entry and manually
+       setting up one.  For debugging purposes, the rarp program also allows
+       a complete dump of the RARP table.

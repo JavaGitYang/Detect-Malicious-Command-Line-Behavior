@@ -1,0 +1,3 @@
+
+       Get the list of supported elliptic curves.
+       This function is not thread safe.

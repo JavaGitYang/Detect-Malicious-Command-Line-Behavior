@@ -1,0 +1,9 @@
+
+       The continue utility shall return to the top of the smallest
+       enclosing for, while, or until loop, or to the top of the nth
+       enclosing loop, if n is specified. This involves repeating the
+       condition list of a while or until loop or performing the next
+       assignment of a for loop, and re-executing the loop if appropriate.
+       The value of n is a decimal integer greater than or equal to 1. The
+       default shall be equivalent to n=1.  If n is greater than the number
+       of enclosing loops, the outermost enclosing loop shall be used.

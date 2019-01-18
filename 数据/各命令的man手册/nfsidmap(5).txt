@@ -1,0 +1,29 @@
+
+       The NFSv4 protocol represents the local system's UID and GID values
+       on the wire as strings of the form user@domain.  The process of
+       translating from UID to string and string to UID is referred to as
+       "ID mapping."
+       The system derives the user part of the string by performing a
+       password or group lookup.  The lookup mechanism is configured in
+       /etc/idmapd.conf.
+       By default, the domain part of the string is the system's DNS domain
+       name.  It can also be specified in /etc/idmapd.conf if the system is
+       multi-homed, or if the system's DNS domain name does not match the
+       name of the system's Kerberos realm.
+       When the domain is not specified in /etc/idmapd.conf the local DNS
+       server will be queried for the _nfsv4idmapdomain text record. If the
+       record exists that will be used as the domain. When the record does
+       not exist, the domain part of the DNS domain will used.
+       The /usr/sbin/nfsidmap program performs translations on behalf of the
+       kernel.  The kernel uses the request-key mechanism to perform an
+       upcall.  /usr/sbin/nfsidmap is invoked by /sbin/request-key, performs
+       the translation, and initializes a key with the resulting
+       information.  The kernel then caches the translation results in the
+       key.
+       nfsidmap can also clear cached ID map results in the kernel, or
+       revoke one particular key.  An incorrect cached key can result in
+       file and directory ownership reverting to "nobody" on NFSv4 mount
+       points.
+       In addition, the -d and -l options are available to help diagnose
+       misconfigurations.  They have no effect on the keyring containing ID
+       mapping results.

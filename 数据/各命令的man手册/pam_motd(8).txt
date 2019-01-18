@@ -1,0 +1,4 @@
+
+       pam_motd is a PAM module that can be used to display arbitrary motd
+       (message of the day) files after a successful login. By default the
+       /etc/motd file is shown. The message size is limited to 64KB.

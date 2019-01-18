@@ -1,0 +1,10 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The fegetround() function shall get the current rounding direction.
+       The fesetround() function shall establish the rounding direction
+       represented by its argument round.  If the argument is not equal to
+       the value of a rounding direction macro, the rounding direction is
+       not changed.

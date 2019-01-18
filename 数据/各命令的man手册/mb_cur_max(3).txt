@@ -1,0 +1,5 @@
+
+       The MB_CUR_MAX macro defines an integer expression giving the maximum
+       number of bytes needed to represent a single wide character in the
+       current locale.  This value is locale dependent and therefore not a
+       compile-time constant.

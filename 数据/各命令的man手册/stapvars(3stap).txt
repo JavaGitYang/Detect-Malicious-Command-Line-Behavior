@@ -1,0 +1,25 @@
+
+       The following sections enumerate the public variables provided by
+       standard tapsets installed, (the installation path is show in the
+       stappaths (7) manual page).  Each variable is described with a type,
+       and its behavior/restrictions.  The syntax is the same as printed
+       with the stap option -p2.  Examples:
+       example1:long
+              Variable "example1" contains an integer.
+       example2:string [long]
+              Variable "example2" is an array of strings, indexed by
+              integers.
+   ARGV
+       argc:long
+              Contains the value of the  $# value: the number of command
+              line arguments passed to the systemtap script.  It is
+              initialized with an implicit begin(-1) probe.
+       argv:string [long]
+              Contains each command line argument as a string.  argv[1] will
+              equal @1 if there was at least one command line argument.
+              Arguments beyond #32 are not transcribed, and produce a
+              warning message within the begin(-1) probe that initializes
+              this array.
+   NULL
+       NULL:long
+              Simply defined as the number 0.

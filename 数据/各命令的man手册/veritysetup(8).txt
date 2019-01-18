@@ -1,0 +1,48 @@
+
+       Veritysetup is used to configure dm-verity managed device-mapper
+       mappings.
+       Device-mapper verity target provides read-only transparent integrity
+       checking of block devices using kernel crypto API.
+       The dm-verity devices are always read-only.
+       Veritysetup supports these operations:
+       format <data_device> <hash_device>
+              Calculates and permanently stores hash verification data for
+              data_device.  Hash area can be located on the same device
+              after data if specified by --hash-offset option.
+              Note you need to provide root hash string for device
+              verification or activation. Root hash must be trusted.
+              The data or hash device argument can be block device or file
+              image.  If hash device path doesn't exist, it will be created
+              as file.
+              <options> can be [--hash, --no-superblock, --format, --data-
+              block-size, --hash-block-size, --data-blocks, --hash-offset,
+              --salt, --uuid]
+       open <data_device> <name> <hash_device> <root_hash> create <name>
+       <data_device> <hash_device> <root_hash>
+              Creates a mapping with <name> backed by device <data_device>
+              and using <hash_device> for in-kernel verification.
+              The <root_hash> is a hexadecimal string.
+              <options> can be [--hash-offset, --no-superblock, --ignore-
+              corruption or --restart-on-corruption, --ignore-zero-blocks,
+              --check-at-most-once]
+              If option --no-superblock is used, you have to use as the same
+              options as in initial format operation.
+       verify <data_device> <hash_device> <root_hash>
+              Verifies data on data_device with use of hash blocks stored on
+              hash_device.
+              This command performs userspace verification, no kernel device
+              is created.
+              The <root_hash> is a hexadecimal string.
+              <options> can be [--hash-offset, --no-superblock]
+              If option --no-superblock is used, you have to use as the same
+              options as in initial format operation.
+       close <name>
+              Removes existing mapping <name>.
+              For backward compatibility there is remove command alias for
+              close command.
+       status <name>
+              Reports status for the active verity mapping <name>.
+       dump <hash_device>
+              Reports parameters of verity device from on-disk stored
+              superblock.
+              <options> can be [--no-superblock]

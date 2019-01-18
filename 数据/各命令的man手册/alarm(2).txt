@@ -1,0 +1,5 @@
+
+       alarm() arranges for a SIGALRM signal to be delivered to the calling
+       process in seconds seconds.
+       If seconds is zero, any pending alarm is canceled.
+       In any event any previously set alarm() is canceled.

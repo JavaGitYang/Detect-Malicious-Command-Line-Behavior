@@ -1,0 +1,9 @@
+
+       The setpgid() function shall either join an existing process group or
+       create a new process group within the session of the calling process.
+       The process group ID of a session leader shall not change.
+       Upon successful completion, the process group ID of the process with
+       a process ID that matches pid shall be set to pgid.
+       As a special case, if pid is 0, the process ID of the calling process
+       shall be used. Also, if pgid is 0, the process ID of the indicated
+       process shall be used.

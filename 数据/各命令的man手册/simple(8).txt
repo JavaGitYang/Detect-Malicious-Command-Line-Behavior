@@ -1,0 +1,4 @@
+
+       This is a pedagogical example rather than an actually useful action.
+       Upon every access, it prints the given STRING which may be of
+       arbitrary length.

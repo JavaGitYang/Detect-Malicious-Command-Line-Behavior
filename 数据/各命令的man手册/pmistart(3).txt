@@ -1,0 +1,37 @@
+
+       As part of the Performance Co-Pilot Log Import API (see
+       LOGIMPORT(3)), pmiStart creates a new context.  Each context
+       maintains the following state and metadata:
+       ·  The base name (archive) for the physical  files that constitute
+          the output PCP archive.
+       ·  The source hostname for the data that will be written to the PCP
+          archive.  Defaults to the hostname of the localhost, but can be
+          set using pmiSetHostname(3).
+       ·  The source timezone for the PCP archive.  Defaults to the timezone
+          of the localhost, but can be set using pmiSetTimezone(3).
+       ·  Metrics and instance domains, as defined by pmiAddMetric(3).
+       ·  Instances for each instance domain, as defined by
+          pmiAddInstance(3).
+       ·  Handles as defined by pmiGetHandle(3).  Each handle is a metric-
+          instance pair, and each metric-instance pair may have an
+          associated value in each record written to the output PCP archive.
+       ·  An optional set of data values for one or more metric-instance
+          pairs (ready for the next record to be written to the output PCP
+          archive) as defined by calls to pmPutValue(3) or
+          pmPutValuehandle(3).
+       If inherit is true, then the new context will inherit any and all
+       metadata (metrics, instance domains, instances and handles) from the
+       current context, otherwise the new context is created with no
+       metadata.  The basename for the output PCP archive, the source
+       hostname, the source timezone and any data values from the current
+       context are not inherited.  If this is the first call to pmiStart the
+       metadata will be empty independent of the value of inherit.
+       Since no physical files for the output PCP archive will be created
+       until the first call to pmiWrite(3) or pmiPutRecord(3), archive could
+       be NULL to create a convenience context that is populated with
+       metadata to be inherited by subsequent contexts.
+       The return value is a context identifier that could be used in a
+       subsequent call to pmUseContext(3) and the new context becomes the
+       current context which persists for all subsequent calls up to either
+       another pmiStart call or a call to pmiUseContext(3) or a call to
+       pmiEnd(3).

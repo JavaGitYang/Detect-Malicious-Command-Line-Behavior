@@ -1,0 +1,4 @@
+
+       This function will convert the key purposes type to a DER-encoded
+       PKIX ExtKeyUsageSyntax (2.5.29.37) extension. The output data in
+        ext will be allocated usin gnutls_malloc().

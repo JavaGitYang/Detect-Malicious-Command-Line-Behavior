@@ -1,0 +1,17 @@
+
+       The getpw() function reconstructs the password line entry for the
+       given user ID uid in the buffer buf.  The returned buffer contains a
+       line of format
+           name:passwd:uid:gid:gecos:dir:shell
+       The passwd structure is defined in <pwd.h> as follows:
+           struct passwd {
+               char   *pw_name;       /* username */
+               char   *pw_passwd;     /* user password */
+               uid_t   pw_uid;        /* user ID */
+               gid_t   pw_gid;        /* group ID */
+               char   *pw_gecos;      /* user information */
+               char   *pw_dir;        /* home directory */
+               char   *pw_shell;      /* shell program */
+           };
+       For more information about the fields of this structure, see
+       passwd(5).

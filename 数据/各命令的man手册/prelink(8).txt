@@ -1,0 +1,29 @@
+
+       prelink is a program that modifies ELF shared libraries and ELF
+       dynamically linked binaries in such a way that the time needed for
+       the dynamic linker to perform relocations at startup significantly
+       decreases.  Due to fewer relocations, the run-time memory consumption
+       decreases as well (especially the number of unshareable pages).  The
+       prelinking information is only used at startup time if none of the
+       dependent libraries have changed since prelinking; otherwise programs
+       are relocated normally.
+       prelink first collects ELF binaries to be prelinked and all the ELF
+       shared libraries they depend on. Then it assigns a unique virtual
+       address space slot to each library and relinks the shared library to
+       that base address.  When the dynamic linker attempts to load such a
+       library, unless that virtual address space slot is already occupied,
+       it maps the library into the given slot.  After this is done,
+       prelink, with the help of dynamic linker, resolves all relocations in
+       the binary or library against its dependent libraries and stores the
+       relocations into the ELF object.  It also stores a list of all
+       dependent libraries together with their checksums into the binary or
+       library.  For binaries, it also computes a list of conflicts
+       (relocations that resolve differently in the binary's symbol search
+       scope than in the smaller search scope in which the dependent library
+       was resolved) and stores it into a special ELF section.
+       At runtime, the dynamic linker first checks whether all dependent
+       libraries were successfully mapped into their designated address
+       space slots, and whether they have not changed since the prelinking
+       was done.  If all checks are successful, the dynamic linker just
+       replays the list of conflicts (which is usually significantly shorter
+       than total number of relocations) instead of relocating each library.

@@ -1,0 +1,7 @@
+
+       dumpkeys writes, to the standard output, the current contents of the
+       keyboard driver's translation tables, in the format specified by
+       keymaps(5).
+       Using the various options, the format of the output can be controlled
+       and also other information from the kernel and the programs
+       dumpkeys(1) and loadkeys(1) can be obtained.

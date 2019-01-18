@@ -1,0 +1,10 @@
+
+       The cupsd-helper programs perform long-running operations on behalf
+       of the scheduler, cupsd(8).  The cups-deviced helper program runs
+       each CUPS backend(7) with no arguments in order to discover the
+       available printers.
+       The cups-driverd helper program lists all available printer drivers,
+       a subset of "matching" printer drivers, or a copy of a specific
+       driver PPD file.
+       The cups-exec helper program runs backends, filters, and other
+       programs. On macOS these programs are run in a secure sandbox.

@@ -1,0 +1,5 @@
+
+       This function will set the key purpose OIDs of the Certificate.
+       These are stored in the Extended Key Usage extension (2.5.29.37) See
+       the GNUTLS_KP_* definitions for human readable names.
+       Subsequent calls to this function will append OIDs to the OID list.

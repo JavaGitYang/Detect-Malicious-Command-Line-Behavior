@@ -1,0 +1,9 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The fetestexcept() function shall determine which of a specified
+       subset of the floating-point exception flags are currently set. The
+       excepts argument specifies the floating-point status flags to be
+       queried.

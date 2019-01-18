@@ -1,0 +1,27 @@
+
+       The join utility shall perform an equality join on the files file1
+       and file2.  The joined files shall be written to the standard output.
+       The join field is a field in each file on which the files are
+       compared. The join utility shall write one line in the output for
+       each pair of lines in file1 and file2 that have identical join
+       fields. The output line by default shall consist of the join field,
+       then the remaining fields from file1, then the remaining fields from
+       file2.  This format can be changed by using the −o option (see
+       below). The −a option can be used to add unmatched lines to the
+       output. The −v option can be used to output only unmatched lines.
+       The files file1 and file2 shall be ordered in the collating sequence
+       of sort −b on the fields on which they shall be joined, by default
+       the first in each line. All selected output shall be written in the
+       same collating sequence.
+       The default input field separators shall be <blank> characters. In
+       this case, multiple separators shall count as one field separator,
+       and leading separators shall be ignored. The default output field
+       separator shall be a <space>.
+       The field separator and collating sequence can be changed by using
+       the −t option (see below).
+       If the same key appears more than once in either file, all
+       combinations of the set of remaining fields in file1 and the set of
+       remaining fields in file2 are output in the order of the lines
+       encountered.
+       If the input files are not in the appropriate collating sequence, the
+       results are unspecified.

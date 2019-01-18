@@ -1,0 +1,47 @@
+
+       This manual page describes the GNU -mwww macro package, which is part
+       of the groff document formatting system.  The manual page is very a
+       basic guide, and the HTML device driver (grohtml) has been completely
+       rewritten but still remains as in an alpha state.  It has been
+       included into the distribution so that a lot of people have a chance
+       to test it.  Note that this macro file is automatically called (via
+       the troffrc file) if you use -Thtml or -Txhtml.
+       To see the hyperlinks in action, please format this man page with the
+       grohtml device.
+       Here is a summary of the functions found in this macro set.
+       .JOBNAME     split output into multiple files
+       .HX          automatic heading level cut off
+       .BCL         specify colours on a web page
+       .BGIMG       specify background image
+       .URL         create a URL using two parameters
+       .FTP         create an FTP reference
+       .MTO         create an HTML email address
+       .FTP         create an FTP reference
+       .TAG         generate an HTML name
+       .IMG         include an image file
+       .PIMG        include PNG image
+       .MPIMG       place PNG on the margin and wrap text around it
+       .HnS         begin heading
+       .HnE         end heading
+       .LK          emit automatically collected links.
+       .HR          produce a horizontal rule
+       .NHR         suppress automatic generation of rules.
+       .HTL         only generate HTML title
+       .HEAD        add data to <head> block
+       .ULS         unorder list begin
+       .ULE         unorder list end
+       .OLS         ordered list begin
+       .OLE         ordered list end
+       .DLS         definition list begin
+       .DLE         definition list end
+       .LI          insert a list item
+       .DC          generate a drop capital
+       .HTML        pass an HTML raw request to the device driver
+       .CDS         code example begin
+       .CDE         code example end
+       .ALN         place links on left of main text.
+       .LNS         start a new two-column table with links in the left.
+       .LNE         end the two-column table.
+       .LINKSTYLE   initialize default URL attributes.
+       Output of the pic, eqn, refer, and tbl preprocessors is acceptable as
+       input.

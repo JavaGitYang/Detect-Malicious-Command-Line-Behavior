@@ -1,0 +1,17 @@
+
+       This function will renegotiate security parameters with the client.
+       This should only be called in case of a server.
+       This message informs the peer that we want to renegotiate parameters
+       (perform a handshake).
+       If this function succeeds (returns 0), you must call the
+       gnutls_handshake() function in order to negotiate the new parameters.
+       Since TLS is full duplex some application data might have been sent
+       during peer's processing of this message. In that case one should
+       call gnutls_record_recv() until GNUTLS_E_REHANDSHAKE is returned to
+       clear any pending data. Care must be taken, if rehandshake is
+       mandatory, to terminate if it does not start after some threshold.
+       If the client does not wish to renegotiate parameters he should reply
+       with an alert message, thus the return code will be
+       GNUTLS_E_WARNING_ALERT_RECEIVED and the alert will be
+       GNUTLS_A_NO_RENEGOTIATION.  A client may also choose to ignore this
+       message.

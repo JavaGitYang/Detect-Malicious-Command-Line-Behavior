@@ -1,0 +1,8 @@
+
+       lp submits files for printing or alters a pending job.  Use a
+       filename of "-" to force printing from the standard input.
+   THE DEFAULT DESTINATION
+       CUPS provides many ways to set the default destination. The LPDEST
+       and PRINTER environment variables are consulted first.  If neither
+       are set, the current default set using the lpoptions(1) command is
+       used, followed by the default set using the lpadmin(8) command.

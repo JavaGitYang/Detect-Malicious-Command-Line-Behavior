@@ -1,0 +1,50 @@
+
+       pmdacisco is a Performance Metrics Domain Agent (PMDA) which extracts
+       performance metrics from one or more Cisco routers.
+       A brief description of the pmdacisco command line options follows:
+       -d   It is absolutely crucial that the performance metrics domain
+            number specified here is unique and consistent.  That is, domain
+            should be different for every PMDA on the one host, and the same
+            domain number should be used for the same PMDA on all hosts.
+       -l   Location of the log file.  By default, a log file named
+            cisco.log is written in the current directory of pmcd(1) when
+            pmdacisco is started, i.e.  $PCP_LOG_DIR/pmcd.  If the log file
+            cannot be created or is not writable, output is written to the
+            standard error instead.
+       -P   By default, it is assumed that no user-level password is
+            required to access the Cisco's telnet port.  If user-level
+            passwords have been enabled on the Ciscos, then those passwords
+            must be specified to pmdacisco.  If specified with the -P
+            option, password will be used as the default user-level password
+            for all Ciscos.  See also the INTERFACE IDENTIFICATION section
+            below.
+       -r   pmdacisco will refresh the current values for all performance
+            metrics by contacting each Cisco router once every refresh
+            seconds.  The default refresh is 120 seconds.
+       -s   The Cisco command prompt ends with the string prompt.  The
+            default value is ``>''.  The only way pmdacisco can synchronize
+            the sending of commands and the parsing of output is by
+            recognizing prompt as a unique string that comes at the end of
+            all output, i.e. as the command prompt when waiting for the next
+            command.
+       -U   By default, it is assumed that no username login is required to
+            access the Cisco's telnet port.  If username login has been
+            enabled on the Ciscos, then the corresponding usernames must be
+            specified to pmdacisco.  If specified with the -U option,
+            username will be used as the default username login for all
+            Ciscos.  See also the INTERFACE IDENTIFICATION section below.
+       -M   User account under which to run the agent.  The default is the
+            unprivileged "pcp" account in current versions of PCP, but in
+            older versions the superuser account ("root") was used by
+            default.
+       -x   Connect to the Cisco via TCP port number port rather than the
+            default 23 for a telnet connection.
+       For each interface, once the telnet connection is established,
+       pmdacisco is willing to wait up to 5 seconds for the Cisco to provide
+       a new snapshot of the requested information.  If this does not
+       happen, the telnet connection is broken and no values are returned.
+       This prevents pmdacisco tying up the Cisco's telnet ports waiting
+       indefinitely when the response from the router is not what is
+       expected, e.g. if the format of the ``show int'' output changes, or
+       the command is in error because an interface is no longer configured
+       on the router.

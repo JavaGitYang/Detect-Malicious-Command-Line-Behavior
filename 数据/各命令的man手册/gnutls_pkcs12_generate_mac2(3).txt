@@ -1,0 +1,2 @@
+
+       This function will generate a MAC for the PKCS12 structure.

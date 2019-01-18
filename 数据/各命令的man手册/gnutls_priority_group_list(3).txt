@@ -1,0 +1,2 @@
+
+       Get a list of available groups in the priority structure.

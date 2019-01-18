@@ -1,0 +1,3 @@
+
+       The clock() function returns an approximation of processor time used
+       by the program.

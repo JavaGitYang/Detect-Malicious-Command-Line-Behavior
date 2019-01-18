@@ -1,0 +1,5 @@
+
+       audit_set_rate_limit will set the maximum number of messages that the
+       kernel will send per second. This can be used to throttle the rate if
+       systems become unresponsive. Of course the trade off is that events
+       will be dropped. The default value is 0, meaning no limit.

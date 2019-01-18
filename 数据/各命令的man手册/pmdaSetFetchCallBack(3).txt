@@ -1,0 +1,52 @@
+
+       pmdaFetch is a generic callback used by a PMDA(3) to process a fetch
+       request from pmcd(1).  The request from pmcd is initiated by a client
+       calling pmFetch(3).
+       This is one of the few generic callbacks in libpcp_pmda (see PMDA(3))
+       that is incomplete, requiring a further pmdaFetchCallBack method of
+       its own.  The additional callback should be registered using
+       pmdaSetFetchCallBack and the pmdaFetchCallBack method has the
+       following prototype:
+       int func(pmdaMetric *mdesc, unsigned int inst, pmAtomValue *avp)
+       pmdaFetch will allocate and resize the resp result structure, to
+       store values for the numpmid metrics listed in pmidlist.
+       For each instance listed in the profile (see pmdaProfile(3)) of each
+       metric listed in pmidlist, the pmdaFetchCallBack method is called to
+       fill the pmAtomValue structure identified by avp with a value for a
+       specific metric-instance pair identified by the metric descriptor
+       mdesc and the instance inst.  This value is then copied into the
+       pmResult structure.
+       The pmdaFetchCallBack method should return a value less than zero for
+       an error, and the most likely cases would be PM_ERR_PMID if the
+       metric identified by mdesc is not known to the method, or PM_ERR_INST
+       if the method believes the instance inst is not known for the metric
+       identified by mdesc.
+       The success error codes depend on the version of PMDA_INTERFACE the
+       PMDA is using.
+       If the PMDA is using PMDA_INTERFACE_2 then on success the
+       pmdaFetchCallBack method should return 0.
+       If the PMDA is using PMDA_INTERFACE_3 or PMDA_INTERFACE_4 then on
+       success the pmdaFetchCallBack method should return 1 if a value is
+       returned via avp, else 0 if no values are currently available for the
+       requested metric-instance pair although mdesc and inst both seem
+       reasonable.
+       If the PMDA is using PMDA_INTERFACE_5 or later then on success the
+       pmdaFetchCallBack method should return PMDA_FETCH_STATIC (1) if the
+       value returned via avp can be ignored by pmdaFetch once it has been
+       copied into the pmResult structure, else PMDA_FETCH_DYNAMIC (2) if
+       the value returned via avp uses the either the vp or cp fields of the
+       pmAtomValue and the associated value (buffer) was allocated using one
+       of malloc(3), calloc(3), realloc(3), strdup(3) etc. and pmdaFetch
+       should release the memory by calling free(3) once a new buffer has
+       been allocated and the value copied, else PMDA_FETCH_NOVALUES (0) if
+       no values are currently available for the requested metric-instance
+       pair although mdesc and inst both seem reasonable.
+       If the pmdaFetchCallBack method returns a value for an instance of a
+       metric of type PM_TYPE_STRING or PM_TYPE_AGGREGATE some special care
+       is needed – the method should either use a static buffer, set avp->cp
+       or avp->vp to the address of the buffer and return PMDA_FETCH_STATIC,
+       or use a dynamically allocated buffer, keep a static reference to the
+       buffer's address, return PMDA_FETCH_STATIC and free(3) or realloc(3)
+       or reuse the buffer the next time the pmdaFetchCallBack method is
+       called, else use a dynamically allocated buffer and return
+       PMDA_FETCH_DYNAMIC.

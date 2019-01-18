@@ -1,0 +1,6 @@
+
+       audit_set_backlog_limit sets the queue length for audit events
+       awaiting transfer to the audit daemon. The default value is 64 which
+       can potentially be overrun by bursts of activity. When the backlog
+       limit is reached, the kernel consults the failure_flag to see what
+       action to take.

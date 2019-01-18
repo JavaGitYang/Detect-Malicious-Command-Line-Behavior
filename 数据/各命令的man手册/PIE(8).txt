@@ -1,0 +1,9 @@
+
+       Proportional Integral controller-Enhanced (PIE) is a control
+       theoretic active queue management scheme. It is based on the
+       proportional integral controller but aims to control delay. The main
+       design goals are
+        o Low latency control
+        o High link utilization
+        o Simple implementation
+        o Guaranteed stability and fast responsiveness

@@ -1,0 +1,5 @@
+
+       Can be used to iterate all available priority strings.  Due to
+       internal implementation details, there are cases where this function
+       can return the empty string. In that case that string should be
+       ignored.  When no strings are available it returns NULL.

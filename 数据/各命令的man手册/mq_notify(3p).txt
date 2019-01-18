@@ -1,0 +1,24 @@
+
+       If the argument notification is not NULL, this function shall
+       register the calling process to be notified of message arrival at an
+       empty message queue associated with the specified message queue
+       descriptor, mqdes.  The notification specified by the notification
+       argument shall be sent to the process when the message queue
+       transitions from empty to non-empty. At any time, only one process
+       may be registered for notification by a message queue. If the calling
+       process or any other process has already registered for notification
+       of message arrival at the specified message queue, subsequent
+       attempts to register for that message queue shall fail.
+       If notification is NULL and the process is currently registered for
+       notification by the specified message queue, the existing
+       registration shall be removed.
+       When the notification is sent to the registered process, its
+       registration shall be removed. The message queue shall then be
+       available for registration.
+       If a process has registered for notification of message arrival at a
+       message queue and some thread is blocked in mq_receive() or
+       mq_timedreceive() waiting to receive a message when a message arrives
+       at the queue, the arriving message shall satisfy the appropriate
+       mq_receive() or mq_timedreceive(), respectively. The resulting
+       behavior is as if the message queue remains empty, and no
+       notification shall be sent.

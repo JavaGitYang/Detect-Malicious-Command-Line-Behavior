@@ -1,0 +1,3 @@
+
+       This function will insert the given CRL into the bag. This is just a
+       wrapper over gnutls_pkcs12_bag_set_data().

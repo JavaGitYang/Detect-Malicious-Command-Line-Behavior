@@ -1,0 +1,11 @@
+
+       This function will return the certificate information of the
+        indx 'ed request in the OCSP request.  The information returned
+       corresponds to the CertID structure:
+       <informalexample><programlisting> CertID      ::=     SEQUENCE {
+       hashAlgorithm       AlgorithmIdentifier, issuerNameHash      OCTET
+       STRING, -- Hash of Issuer's DN issuerKeyHash       OCTET STRING, --
+       Hash of Issuers public key serialNumber   CertificateSerialNumber }
+       </programlisting></informalexample>
+       Each of the pointers to output variables may be NULL to indicate that
+       the caller is not interested in that value.

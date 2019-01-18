@@ -1,0 +1,3 @@
+
+       verifytree is a program that verifies whether a local yum repository
+       is consistent.

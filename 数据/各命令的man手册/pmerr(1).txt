@@ -1,0 +1,9 @@
+
+       pmerr accepts standard Performance Co-Pilot (PCP) error codes via the
+       code argument(s) and generates the corresponding error text.
+       Each code may be an integer, a hexadecimal value or a hexadecimal
+       value prefixed by either ``0x'' or ``0X''.
+       Error codes must be less than zero, so if code is a positive number,
+       a warning message is produced, and the negated value is used.
+       The alternative use of the -l option causes all known error codes to
+       be listed, along with their symbolic names and error text.

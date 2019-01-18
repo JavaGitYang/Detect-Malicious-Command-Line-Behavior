@@ -1,0 +1,17 @@
+
+       The setenv() function shall update or add a variable in the
+       environment of the calling process. The envname argument points to a
+       string containing the name of an environment variable to be added or
+       altered. The environment variable shall be set to the value to which
+       envval points. The function shall fail if envname points to a string
+       which contains an '=' character. If the environment variable named by
+       envname already exists and the value of overwrite is non-zero, the
+       function shall return success and the environment shall be updated.
+       If the environment variable named by envname already exists and the
+       value of overwrite is zero, the function shall return success and the
+       environment shall remain unchanged.
+       The setenv() function shall update the list of pointers to which
+       environ points.
+       The strings described by envname and envval are copied by this
+       function.
+       The setenv() function need not be thread-safe.

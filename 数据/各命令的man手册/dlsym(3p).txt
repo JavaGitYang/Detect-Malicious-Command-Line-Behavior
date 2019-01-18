@@ -1,0 +1,19 @@
+
+       The dlsym() function shall obtain the address of a symbol (a function
+       identifier or a data object identifier) defined in the symbol table
+       identified by the handle argument. The handle argument is a symbol
+       table handle returned from a call to dlopen() (and which has not
+       since been released by a call to dlclose()), and name is the symbol's
+       name as a character string. The return value from dlsym(), cast to a
+       pointer to the type of the named symbol, can be used to call (in the
+       case of a function) or access the contents of (in the case of a data
+       object) the named symbol.
+       The dlsym() function shall search for the named symbol in the symbol
+       table referenced by handle.  If the symbol table was created with
+       lazy loading (see RTLD_LAZY in dlopen()), load ordering shall be used
+       in dlsym() operations to relocate executable object files needed to
+       resolve the symbol. The symbol resolution algorithm used shall be
+       dependency order as described in dlopen().
+       The RTLD_DEFAULT and RTLD_NEXT symbolic constants (which may be
+       defined in <dlfcn.h>) are reserved for future use as special values
+       that applications may be allowed to use for handle.

@@ -1,0 +1,3 @@
+
+       The pthread_self() function shall return the thread ID of the calling
+       thread.

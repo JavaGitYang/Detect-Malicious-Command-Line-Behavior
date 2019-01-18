@@ -1,0 +1,3 @@
+
+       This function will delete a certificate from a PKCS7 or RFC2630
+       certificate set.  Index starts from 0. Returns 0 on success.

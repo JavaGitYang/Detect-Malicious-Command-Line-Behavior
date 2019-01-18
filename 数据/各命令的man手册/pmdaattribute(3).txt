@@ -1,0 +1,23 @@
+
+       As part of the Performance Metrics Domain Agent (PMDA) API (see
+       PMDA(3)), pmdaAttribute is the generic callback for responding to
+       client connection attributes.  These attributes include client
+       credential information, such as user ID and group ID.
+       A PMDA that supports connection attributes will provide a private
+       pmdaAttribute callback by assignment to version.six.attribute of the
+       pmdaInterface structure, and implement custom logic for any of the
+       attribute key-value pairs of interest to it.
+       All attributes are associated with a specific client context, and
+       these can be uniquely identified using the ctx first argument.  The
+       PMDA should track client connections, and disconnections using the
+       pmdaSetEndContextCallBack(3) interface, as a result.  The
+       pmdaGetContext(3) interface may be particularly helpful also.
+       All attributes are passed as key-value pairs and the value is always
+       passed as a null-terminated string of given length.  This includes
+       numeric attributes like the user ID.
+       The most commonly used attributes would be PCP_ATTR_USERID and
+       PCP_ATTR_GROUPID but others may also be optionally passed (such as
+       PCP_ATTR_USERNAME) if they are available.  Some attributes will be
+       consumed by pmcd and never through passed to PMDAs, such as
+       PCP_ATTR_PASSWORD.  A complete list of all possible attributes can be
+       found in the headers listed above, all are prefixed by PCP_ATTR.

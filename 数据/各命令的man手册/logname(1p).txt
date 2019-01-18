@@ -1,0 +1,7 @@
+
+       The logname utility shall write the user's login name to standard
+       output. The login name shall be the string that would be returned by
+       the getlogin() function defined in the System Interfaces volume of
+       POSIX.1‐2008. Under the conditions where the getlogin() function
+       would fail, the logname utility shall write a diagnostic message to
+       standard error and exit with a non-zero exit status.

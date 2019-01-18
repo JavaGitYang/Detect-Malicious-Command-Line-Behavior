@@ -1,0 +1,9 @@
+
+       The iconv utility shall convert the encoding of characters in file
+       from one codeset to another and write the results to standard output.
+       When the options indicate that charmap files are used to specify the
+       codesets (see OPTIONS), the codeset conversion shall be accomplished
+       by performing a logical join on the symbolic character names in the
+       two charmaps. The implementation need not support the use of charmap
+       files for codeset conversion unless the POSIX2_LOCALEDEF symbol is
+       defined on the system.

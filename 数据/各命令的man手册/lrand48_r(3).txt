@@ -1,0 +1,7 @@
+
+       These functions are the reentrant analogs of the functions described
+       in drand48(3).  Instead of modifying the global random generator
+       state, they use the supplied data buffer.
+       Before the first use, this struct must be initialized, for example,
+       by filling it with zeros, or by calling one of the functions
+       srand48_r(), seed48_r(), or lcong48_r().

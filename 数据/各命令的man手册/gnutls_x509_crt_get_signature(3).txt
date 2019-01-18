@@ -1,0 +1,2 @@
+
+       This function will extract the signature field of a certificate.

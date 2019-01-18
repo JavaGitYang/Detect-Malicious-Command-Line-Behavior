@@ -1,0 +1,26 @@
+
+       The psiginfo() and psignal() functions shall print a message out on
+       stderr associated with a signal number. If message is not null and is
+       not the empty string, then the string pointed to by the message
+       argument shall be printed first, followed by a <colon>, a <space>,
+       and the signal description string indicated by signum, or by the
+       signal associated with pinfo.  If the message argument is null or
+       points to an empty string, then only the signal description shall be
+       printed. For psiginfo(), the argument pinfo references a valid
+       siginfo_t structure. For psignal(), if signum is not a valid signal
+       number, the behavior is implementation-defined.
+       The psiginfo() and psignal() functions shall not change the
+       orientation of the standard error stream.
+       The psiginfo() and psignal() functions shall mark for update the last
+       data modification and last file status change timestamps of the file
+       associated with the standard error stream at some time between their
+       successful completion and exit(), abort(), or the completion of
+       fflush() or fclose() on stderr.
+       The psiginfo() and psignal() functions shall not change the setting
+       of errno if successful.
+       On error, the psiginfo() and psignal() functions shall set the error
+       indicator for the stream to which stderr points, and shall set errno
+       to indicate the error.
+       Since no value is returned, an application wishing to check for error
+       situations should set errno to 0, then call psiginfo() or psignal(),
+       then check errno.

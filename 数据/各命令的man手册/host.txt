@@ -1,0 +1,27 @@
+
+       The file /etc/host.conf contains configuration information specific
+       to the resolver library.  It should contain one configuration keyword
+       per line, followed by appropriate configuration information.  The
+       following keywords are recognized:
+       trim   This keyword may be listed more than once.  Each time it
+              should be followed by a list of domains, separated by colons
+              (':'), semicolons (';') or commas (','), with the leading dot.
+              When set, the resolver library will automatically trim the
+              given domain name from the end of any hostname resolved via
+              DNS.  This is intended for use with local hosts and domains.
+              (Related note: trim will not affect hostnames gathered via NIS
+              or the hosts(5) file.  Care should be taken to ensure that the
+              first hostname for each entry in the hosts file is fully
+              qualified or unqualified, as appropriate for the local
+              installation.)
+       multi  Valid values are on and off.  If set to on, the resolver
+              library will return all valid addresses for a host that
+              appears in the /etc/hosts file, instead of only the first.
+              This is off by default, as it may cause a substantial
+              performance loss at sites with large hosts files.
+       reorder
+              Valid values are on and off.  If set to on, the resolver
+              library will attempt to reorder host addresses so that local
+              addresses (i.e., on the same subnet) are listed first when a
+              gethostbyname(3) is performed.  Reordering is done for all
+              lookup methods.  The default value is off.

@@ -1,0 +1,8 @@
+
+       The look utility displays any lines in file which contain string.  As
+       look performs a binary search, the lines in file must be sorted
+       (where sort(1) was given the same options -d and/or -f that look is
+       invoked with).
+       If file is not specified, the file /usr/share/dict/words is used,
+       only alphanumeric characters are compared and the case of alphabetic
+       characters is ignored.

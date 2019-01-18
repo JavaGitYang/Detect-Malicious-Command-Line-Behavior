@@ -1,0 +1,4 @@
+
+       auparse_next_event will position the cursors at the first field of
+       the first record of the next event in a file or buffer. It does not
+       skip events or honor any search criteria that may be stored.

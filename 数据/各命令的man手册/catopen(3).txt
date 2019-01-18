@@ -1,0 +1,24 @@
+
+       The function catopen() opens a message catalog and returns a catalog
+       descriptor.  The descriptor remains valid until catclose() or
+       execve(2).  If a file descriptor is used to implement catalog
+       descriptors, then the FD_CLOEXEC flag will be set.
+       The argument name specifies the name of the message catalog to be
+       opened.  If name specifies an absolute path (i.e., contains a '/'),
+       then name specifies a pathname for the message catalog.  Otherwise,
+       the environment variable NLSPATH is used with name substituted for %N
+       (see locale(7)).  It is unspecified whether NLSPATH will be used when
+       the process has root privileges.  If NLSPATH does not exist in the
+       environment, or if a message catalog cannot be opened in any of the
+       paths specified by it, then an implementation defined path is used.
+       This latter default path may depend on the LC_MESSAGES locale setting
+       when the flag argument is NL_CAT_LOCALE and on the LANG environment
+       variable when the flag argument is 0.  Changing the LC_MESSAGES part
+       of the locale may invalidate open catalog descriptors.
+       The flag argument to catopen() is used to indicate the source for the
+       language to use.  If it is set to NL_CAT_LOCALE, then it will use the
+       current locale setting for LC_MESSAGES.  Otherwise, it will use the
+       LANG environment variable.
+       The function catclose() closes the message catalog identified by
+       catalog.  It invalidates any subsequent references to the message
+       catalog defined by catalog.

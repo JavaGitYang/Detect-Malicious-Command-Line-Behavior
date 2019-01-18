@@ -1,0 +1,11 @@
+
+       The function set_item_opts sets all the given item's option bits
+       (menu option bits may be logically-OR'ed together).
+       The function item_opts_on turns on the given option bits, and leaves
+       others alone.
+       The function item_opts_off turns off the given option bits, and
+       leaves others alone.
+       The function item_opts returns the item's current option bits.
+       There is only one defined option bit mask, O_SELECTABLE.  When this
+       is on, the item may be selected during menu processing.  This option
+       defaults to on.

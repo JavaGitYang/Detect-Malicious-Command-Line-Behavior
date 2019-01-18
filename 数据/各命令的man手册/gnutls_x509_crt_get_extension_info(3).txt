@@ -1,0 +1,10 @@
+
+       This function will return the requested extension OID in the
+       certificate, and the critical flag for it.  The extension OID will be
+       stored as a string in the provided buffer.  Use
+       gnutls_x509_crt_get_extension() to extract the data.
+       If the buffer provided is not long enough to hold the output, then
+        oid_size is updated and GNUTLS_E_SHORT_MEMORY_BUFFER will be
+       returned. The  oid returned will be null terminated, although
+        oid_size will not account for the trailing null (the latter is not
+       true for GnuTLS prior to 3.6.0).

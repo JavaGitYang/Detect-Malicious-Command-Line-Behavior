@@ -1,0 +1,4 @@
+
+       audit_request_rules_list_data sends a request to the kernel to list
+       the current audit rules. The rules are sent back one after another
+       after this request is issued.

@@ -1,0 +1,31 @@
+
+       systemd-mount may be used to create and start a transient .mount or
+       .automount unit of the file system WHAT on the mount point WHERE.
+       In many ways, systemd-mount is similar to the lower-level mount(8)
+       command, however instead of executing the mount operation directly
+       and immediately, systemd-mount schedules it through the service
+       manager job queue, so that it may pull in further dependencies (such
+       as parent mounts, or a file system checker to execute a priori), and
+       may make use of the auto-mounting logic.
+       The command takes either one or two arguments. If only one argument
+       is specified it should refer to a block device containing a file
+       system (e.g.  "/dev/sdb1"), which is then probed for a label and
+       other metadata, and is mounted to a directory whose name is generated
+       from the label. In this mode the block device must exist at the time
+       of invocation of the command, so that it may be probed. If the device
+       is found to be a removable block device (e.g. a USB stick) an
+       automount point instead of a regular mount point is created (i.e. the
+       --automount= option is implied, see below).
+       If two arguments are specified the first indicates the mount source
+       (the WHAT) and the second indicates the path to mount it on (the
+       WHERE). In this mode no probing of the source is attempted, and a
+       backing device node doesn't have to exist yet. However, if this mode
+       is combined with --discover, device node probing for additional
+       metadata is enabled, and – much like in the single-argument case
+       discussed above – the specified device has to exist at the time of
+       invocation of the command.
+       Use the --list command to show a terse table of all local, known
+       block devices with file systems that may be mounted with this
+       command.
+       systemd-umount can be used to unmount a mount or automount point. It
+       is the same as systemd-mount--unmount.

@@ -1,0 +1,28 @@
+
+       The shell shall give the export attribute to the variables
+       corresponding to the specified names, which shall cause them to be in
+       the environment of subsequently executed commands. If the name of a
+       variable is followed by =word, then the value of that variable shall
+       be set to word.
+       The export special built-in shall support the Base Definitions volume
+       of POSIX.1‐2008, Section 12.2, Utility Syntax Guidelines.
+       When −p is specified, export shall write to the standard output the
+       names and values of all exported variables, in the following format:
+           "export %s=%s\n", <name>, <value>
+       if name is set, and:
+           "export %s\n", <name>
+       if name is unset.
+       The shell shall format the output, including the proper use of
+       quoting, so that it is suitable for reinput to the shell as commands
+       that achieve the same exporting results, except:
+        1. Read-only variables with values cannot be reset.
+        2. Variables that were unset at the time they were output need not
+           be reset to the unset state if a value is assigned to the
+           variable between the time the state was saved and the time at
+           which the saved output is reinput to the shell.
+       When no arguments are given, the results are unspecified. If a
+       variable assignment precedes the command name of export but that
+       variable is not also listed as an operand of export, then that
+       variable shall be set in the current shell execution environment
+       after the completion of the export command, but it is unspecified
+       whether that variable is marked for export.

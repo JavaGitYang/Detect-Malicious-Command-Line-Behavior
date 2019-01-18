@@ -1,0 +1,4 @@
+
+       This function will return a pointer to the DER encoded DN structure
+       and the length. This points to allocated data that must be free'd
+       using gnutls_free().

@@ -1,0 +1,7 @@
+
+       The pfifo and bfifo qdiscs are unadorned First In, First Out queues.
+       They are the simplest queues possible and therefore have no overhead.
+       pfifo constrains the queue size as measured in packets.  bfifo does
+       so as measured in bytes.
+       Like all non-default qdiscs, they maintain statistics. This might be
+       a reason to prefer pfifo or bfifo over the default.

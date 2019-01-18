@@ -1,0 +1,39 @@
+
+       selinux_restorecon_xattr() returns a linked list of dir_xattr
+       structures containing information described below based on:
+              pathname containing a directory tree to be searched for
+              security.restorecon_last extended attribute entries.
+              xattr_flags contains options as follows:
+                     SELINUX_RESTORECON_XATTR_RECURSE recursively descend
+                     directories.
+                     SELINUX_RESTORECON_XATTR_DELETE_NONMATCH_DIGESTS delete
+                     non-matching digests from each directory in pathname.
+                     SELINUX_RESTORECON_XATTR_DELETE_ALL_DIGESTS delete all
+                     digests from each directory in pathname.
+                     SELINUX_RESTORECON_XATTR_IGNORE_MOUNTS do not read
+                     /proc/mounts to obtain a list of non-seclabel mounts to
+                     be excluded from the search.
+                     Setting SELINUX_RESTORECON_XATTR_IGNORE_MOUNTS is
+                     useful where there is a non-seclabel fs mounted with a
+                     seclabel fs mounted on a directory below this.
+              xattr_list is the returned pointer to a linked list of
+              dir_xattr structures, each containing the following
+              information:
+                     struct dir_xattr {
+                         char *directory;
+                         char *digest;    /* Printable hex encoded string */
+                         enum digest_result result;
+                         struct dir_xattr *next;
+                     };
+              The result entry is enumerated as follows:
+                     enum digest_result {
+                         MATCH = 0,
+                         NOMATCH,
+                         DELETED_MATCH,
+                         DELETED_NOMATCH,
+                         ERROR
+                     };
+              xattr_list must be set to NULL before calling
+              selinux_restorecon_xattr(3).  The caller is responsible for
+              freeing the returned xattr_list entries in the linked list.
+       See the NOTES section for more information.

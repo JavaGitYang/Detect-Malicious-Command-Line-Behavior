@@ -1,0 +1,14 @@
+
+       lxc-create creates a system object where is stored the configuration
+       information and where can be stored user information. The identifier
+       name is used to specify the container to be used with the different
+       lxc commands.
+       The object is a directory created in /usr/local/var/lib/lxc and
+       identified by its name.
+       The object is the definition of the different resources an
+       application can use or can see. The more the configuration file
+       contains information, the more the container is isolated and the more
+       the application is jailed.
+       If the configuration file config_file is not specified, the container
+       will be created with the default isolation: processes, sysv ipc and
+       mount points.

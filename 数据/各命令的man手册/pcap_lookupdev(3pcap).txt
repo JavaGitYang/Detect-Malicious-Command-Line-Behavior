@@ -1,0 +1,12 @@
+
+       This interface is obsoleted by pcap_findalldevs(3PCAP).  To find a
+       default device on which to capture, call pcap_findalldevs() and, if
+       the list it returns is not empty, use the first device in the list.
+       (If the list is empty, there are no devices on which capture is
+       possible.)
+       pcap_lookupdev() returns a pointer to a string giving the name of a
+       network device suitable for use with pcap_create() and
+       pcap_activate(), or with pcap_open_live(), and with pcap_lookupnet().
+       If there is an error, NULL is returned and errbuf is filled in with
+       an appropriate error message.  errbuf is assumed to be able to hold
+       at least PCAP_ERRBUF_SIZE chars.

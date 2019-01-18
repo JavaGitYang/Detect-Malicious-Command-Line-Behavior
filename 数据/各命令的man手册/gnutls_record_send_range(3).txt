@@ -1,0 +1,9 @@
+
+       This function operates like gnutls_record_send() but, while
+       gnutls_record_send() adds minimal padding to each TLS record, this
+       function uses the TLS extra-padding feature to conceal the real data
+       size within the range of lengths provided.  Some TLS sessions do not
+       support extra padding (e.g. stream ciphers in standard TLS or SSL3
+       sessions). To know whether the current session supports extra
+       padding, and hence length hiding, use the
+       gnutls_record_can_use_length_hiding() function.

@@ -1,0 +1,16 @@
+
+       The vtep-ctl program configures a VTEP database.  See vtep(5) for
+       comprehensive documentation of the database schema.
+       vtep-ctl connects to an ovsdb-server process that maintains a VTEP
+       configuration database.  Using this connection, it queries and
+       possibly applies changes to the database, depending on the supplied
+       commands.
+       vtep-ctl can perform any number of commands in a single run,
+       implemented as a single atomic transaction against the database.
+       The vtep-ctl command line begins with global options (see OPTIONS
+       below for details).  The global options are followed by one or more
+       commands.  Each command should begin with -- by itself as a command-
+       line argument, to separate it from the following commands.  (The --
+       before the first command is optional.)  The command itself starts
+       with command-specific options, if any, followed by the command name
+       and any arguments.  See EXAMPLES below for syntax examples.

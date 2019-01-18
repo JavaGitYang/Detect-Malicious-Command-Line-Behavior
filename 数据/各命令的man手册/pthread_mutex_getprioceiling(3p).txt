@@ -1,0 +1,12 @@
+
+       The pthread_mutex_getprioceiling() function shall return the current
+       priority ceiling of the mutex.
+       The pthread_mutex_setprioceiling() function shall attempt to lock the
+       mutex as if by a call to pthread_mutex_lock(), except that the
+       process of locking the mutex need not adhere to the priority protect
+       protocol. On acquiring the mutex it shall change the mutex's priority
+       ceiling and then release the mutex as if by a call to
+       pthread_mutex_unlock().  When the change is successful, the previous
+       value of the priority ceiling shall be returned in old_ceiling.
+       If the pthread_mutex_setprioceiling() function fails, the mutex
+       priority ceiling shall not be changed.

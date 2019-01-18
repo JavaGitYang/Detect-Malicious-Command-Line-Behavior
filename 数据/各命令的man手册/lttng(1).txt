@@ -1,0 +1,51 @@
+
+       The Linux Trace Toolkit: next generation <http://lttng.org/> is an
+       open source software package used for correlated tracing of the Linux
+       kernel, user applications, and user libraries.
+       LTTng consists of Linux kernel modules (for Linux kernel tracing) and
+       dynamically loaded libraries (for user application and library
+       tracing).
+       An LTTng session daemon, lttng-sessiond(8), receives commands from
+       the command-line interface lttng to control the LTTng tracers. All
+       interactions with the LTTng tracers happen through the lttng tool or
+       through the liblttng-ctl library shipped with the LTTng-tools
+       package.
+       A tracing domain is a tracer category. There are five available
+       domains. For some commands, the domain needs to be specified with a
+       command-line option. The domain options are:
+       -j, --jul
+           Apply command to the java.util.logging (JUL) domain.
+       -k, --kernel
+           Apply command to the Linux kernel domain.
+       -l, --log4j
+           Apply command to the Apache log4j 1.2
+           <https://logging.apache.org/log4j/1.2/> (Java) domain.
+       -p, --python
+           Apply command to the Python <https://www.python.org/> domain.
+       -u, --userspace
+           Apply command to the user space domain (application using
+           liblttng-ust directly; see lttng-ust(3)).
+       The LTTng session daemon is a tracing registry which allows the user
+       to interact with multiple tracers (kernel and user space) within the
+       same container, a tracing session. Traces can be gathered from the
+       Linux kernel and/or from instrumented applications (see
+       lttng-ust(3)). You can aggregate and read the events of LTTng traces
+       using babeltrace(1).
+       To trace the Linux kernel, the session daemon needs to be running as
+       root. LTTng uses a tracing group to allow specific users to interact
+       with the root session daemon. The default tracing group name is
+       tracing. You can use the --group option to set the tracing group name
+       to use.
+       Session daemons can coexist. You can have a session daemon running as
+       user Alice that can be used to trace her applications alongside a
+       root session daemon or a session daemon running as user Bob.
+           Note
+           It is highly recommended to start the session daemon at boot time
+           for stable and long-term tracing.
+       User applications instrumented with LTTng automatically register to
+       the root session daemon and to user session daemons. This allows any
+       session daemon to list the available traceable applications and event
+       sources (see lttng-list(1)).
+       By default, the lttng-create(1) command automatically spawns a user
+       session daemon if none is currently running. The --no-sessiond
+       general option can be set to avoid this.

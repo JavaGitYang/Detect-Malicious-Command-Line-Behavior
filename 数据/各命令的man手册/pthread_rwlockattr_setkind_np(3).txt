@@ -1,0 +1,23 @@
+
+       The pthread_rwlockattr_setkind_np() function sets the "lock kind"
+       attribute of the read-write lock attribute object referred to by attr
+       to the value specified in pref.  The argument pref may be set to one
+       of the following:
+       PTHREAD_RWLOCK_PREFER_READER_NP
+              This is the default.  A thread may hold multiple read locks;
+              that is, read locks are recursive.  According to The Single
+              Unix Specification, the behavior is unspecified when a reader
+              tries to place a lock, and there is no write lock but writers
+              are waiting.  Giving preference to the reader, as is set by
+              PTHREAD_RWLOCK_PREFER_READER_NP, implies that the reader will
+              receive the requested lock, even if a writer is waiting.  As
+              long as there are readers, the writer will be starved.
+       PTHREAD_RWLOCK_PREFER_WRITER_NP
+              This is intended as the write lock analog of
+              PTHREAD_RWLOCK_PREFER_READER_NP.  But see BUGS.
+       PTHREAD_RWLOCK_PREFER_WRITER_NONRECURSIVE_NP
+              Setting the lock kind to this avoids writer starvation as long
+              as any read locking is not done in a recursive fashion.
+       The pthread_rwlockattr_getkind_np() function returns the value of the
+       lock kind attribute of the read-write lock attribute object referred
+       to by attr in the pointer pref.

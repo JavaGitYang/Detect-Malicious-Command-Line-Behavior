@@ -1,0 +1,15 @@
+
+       These routines provide various interfaces to the LDAP bind operation.
+       After an association with an LDAP server is made using ldap_init(3),
+       an LDAP bind operation should be performed before other operations
+       are attempted over the connection.  An LDAP bind is required when
+       using Version 2 of the LDAP protocol; it is optional for Version 3
+       but is usually needed due to security considerations.
+       There are three types of bind calls, ones providing simple
+       authentication, ones providing SASL authentication, and general
+       routines capable of doing either simple or SASL authentication.
+       SASL (Simple Authentication and Security Layer) can negotiate one of
+       many different kinds of authentication.  Both synchronous and
+       asynchronous versions of each variant of the bind call are provided.
+       All routines take ld as their first parameter, as returned from
+       ldap_init(3).

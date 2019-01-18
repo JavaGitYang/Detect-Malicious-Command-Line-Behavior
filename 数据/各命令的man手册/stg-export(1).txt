@@ -1,0 +1,17 @@
+
+       Export a range of applied patches to a given directory (defaults to
+       patches-<branch>) in a standard unified GNU diff format. A template
+       file (defaulting to .git/patchexport.tmpl or
+       ~/.stgit/templates/patchexport.tmpl or
+       /usr/share/stgit/templates/patchexport.tmpl) can be used for the
+       patch format. The following variables are supported in the template
+       file:
+           %(description)s - patch description
+           %(shortdescr)s  - the first line of the patch description
+           %(longdescr)s   - the rest of the patch description, after the first line
+           %(diffstat)s    - the diff statistics
+           %(authname)s    - author's name
+           %(authemail)s   - author's e-mail
+           %(authdate)s    - patch creation date
+           %(commname)s    - committer's name
+           %(commemail)s   - committer's e-mail

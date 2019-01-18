@@ -1,0 +1,7 @@
+
+       capng_save_state is a function that returns a pointer to the internal
+       state of the libcap-ng library. It should be considered opaque and
+       not for alteration directly. This function should be used when you
+       suspect a third party library may use libcap-ng also and want to make
+       sure it doesn't alter something important. This function is not
+       available in the python bindings.

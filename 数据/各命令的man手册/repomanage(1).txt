@@ -1,0 +1,4 @@
+
+       repomanage is a program to manage a directory of RPM packages. It
+       displays a list of the newest or oldest packages in a directory for
+       easy piping to xargs or similar programs.

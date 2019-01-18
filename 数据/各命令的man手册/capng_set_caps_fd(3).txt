@@ -1,0 +1,6 @@
+
+       This function will write the file based capabilities to the extended
+       attributes of the file that the descriptor was opened against. The
+       bounding set is not included in file based capabilities operations.
+       Note that this function will only work if compiled on a kernel that
+       supports file based capabilities such as 2.6.2 6 and later.

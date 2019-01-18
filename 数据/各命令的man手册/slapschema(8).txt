@@ -1,0 +1,20 @@
+
+       Slapschema is used to check schema compliance of the contents of a
+       slapd(8) database.  It opens the given database determined by the
+       database number or suffix and checks the compliance of its contents
+       with the corresponding schema. Errors are written to standard output
+       or the specified file.  Databases configured as subordinate of this
+       one are also output, unless -g is specified.
+       Administrators may need to modify existing schema items, including
+       adding new required attributes to objectClasses, removing existing
+       required or allowed attributes from objectClasses, entirely removing
+       objectClasses, or any other change that may result in making
+       perfectly valid entries no longer compliant with the modified schema.
+       The execution of the slapschema tool after modifying the schema can
+       point out inconsistencies that would otherwise surface only when
+       inconsistent entries need to be modified.
+       The entry records are checked in database order, not superior first
+       order.  The entry records will be checked considering all (user and
+       operational) attributes stored in the database.  Dynamically
+       generated attributes (such as subschemaSubentry) will not be
+       considered.

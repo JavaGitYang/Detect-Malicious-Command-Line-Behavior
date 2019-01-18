@@ -1,0 +1,29 @@
+
+       socketcall() is a common kernel entry point for the socket system
+       calls.  call determines which socket function to invoke.  args points
+       to a block containing the actual arguments, which are passed through
+       to the appropriate call.
+       User programs should call the appropriate functions by their usual
+       names.  Only standard library implementors and kernel hackers need to
+       know about socketcall().
+       call              Man page
+       SYS_SOCKET        socket(2)
+       SYS_BIND          bind(2)
+       SYS_CONNECT       connect(2)
+       SYS_LISTEN        listen(2)
+       SYS_ACCEPT        accept(2)
+       SYS_GETSOCKNAME   getsockname(2)
+       SYS_GETPEERNAME   getpeername(2)
+       SYS_SOCKETPAIR    socketpair(2)
+       SYS_SEND          send(2)
+       SYS_RECV          recv(2)
+       SYS_SENDTO        sendto(2)
+       SYS_RECVFROM      recvfrom(2)
+       SYS_SHUTDOWN      shutdown(2)
+       SYS_SETSOCKOPT    setsockopt(2)
+       SYS_GETSOCKOPT    getsockopt(2)
+       SYS_SENDMSG       sendmsg(2)
+       SYS_RECVMSG       recvmsg(2)
+       SYS_ACCEPT4       accept4(2)
+       SYS_RECVMMSG      recvmmsg(2)
+       SYS_SENDMMSG      sendmmsg(2)

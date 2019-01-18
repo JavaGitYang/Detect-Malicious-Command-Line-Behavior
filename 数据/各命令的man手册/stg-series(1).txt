@@ -1,0 +1,7 @@
+
+       Show all the patches in the series, or just those in the given range,
+       ordered from top to bottom.
+       The applied patches are prefixed with a + (except the current patch,
+       which is prefixed with a >), the unapplied patches with a -, and the
+       hidden patches with a !.
+       Empty patches are prefixed with a 0.

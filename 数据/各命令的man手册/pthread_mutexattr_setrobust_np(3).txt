@@ -1,0 +1,37 @@
+
+       The pthread_mutexattr_getrobust() function places the value of the
+       robustness attribute of the mutex attributes object referred to by
+       attr in *robustness.  The pthread_mutexattr_setrobust() function sets
+       the value of the robustness attribute of the mutex attributes object
+       referred to by attr to the value specified in *robustness.
+       The robustness attribute specifies the behavior of the mutex when the
+       owning thread dies without unlocking the mutex.  The following values
+       are valid for robustness:
+       PTHREAD_MUTEX_STALLED
+              This is the default value for a mutex attributes object.  If a
+              mutex is initialized with the PTHREAD_MUTEX_STALLED attribute
+              and its owner dies without unlocking it, the mutex remains
+              locked afterwards and any future attempts to call
+              pthread_mutex_lock(3) on the mutex will block indefinitely.
+       PTHREAD_MUTEX_ROBUST
+              If a mutex is initialized with the PTHREAD_MUTEX_ROBUST
+              attribute and its owner dies without unlocking it, any future
+              attempts to call pthread_mutex_lock(3) on this mutex will
+              succeed and return EOWNERDEAD to indicate that the original
+              owner no longer exists and the mutex is in an inconsistent
+              state.  Usually after EOWNERDEAD is returned, the next owner
+              should call pthread_mutex_consistent(3) on the acquired mutex
+              to make it consistent again before using it any further.
+              If the next owner unlocks the mutex using
+              pthread_mutex_unlock(3) before making it consistent, the mutex
+              will be permanently unusable and any subsequent attempts to
+              lock it using pthread_mutex_lock(3) will fail with the error
+              ENOTRECOVERABLE.  The only permitted operation on such a mutex
+              is pthread_mutex_destroy(3).
+              If the next owner terminates before calling
+              pthread_mutex_consistent(3), further pthread_mutex_lock(3)
+              operations on this mutex will still return EOWNERDEAD.
+       Note that the attr argument of pthread_mutexattr_getrobust() and
+       pthread_mutexattr_setrobust() should refer to a mutex attributes
+       object that was initialized by pthread_mutexattr_init(3), otherwise
+       the behavior is undefined.

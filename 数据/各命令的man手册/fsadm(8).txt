@@ -1,0 +1,4 @@
+
+       fsadm utility checks or resizes the filesystem on a device.  It tries
+       to use the same API for ext2, ext3, ext4, ReiserFS and XFS
+       filesystem.

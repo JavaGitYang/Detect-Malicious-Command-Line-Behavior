@@ -1,0 +1,6 @@
+
+       The function menu_request_name returns the printable name of a menu
+       request code.
+       The function menu_request_by_name searches in the name-table for a
+       request with the given name and returns its request code.  Otherwise
+       E_NO_MATCH is returned.

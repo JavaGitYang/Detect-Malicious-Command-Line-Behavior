@@ -1,0 +1,41 @@
+
+       security_compute_av() queries whether the policy permits the source
+       context scon to access the target context tcon via class tclass with
+       the requested access vector.  The decision is returned in avd.
+       security_compute_av_flags() is identical to security_compute_av but
+       additionally sets the flags field of avd.  Currently one flag is
+       supported: SELINUX_AVD_FLAGS_PERMISSIVE, which indicates the decision
+       is computed on a permissive domain.
+       security_compute_create() is used to compute a context to use for
+       labeling a new object in a particular class based on a SID pair.
+       security_compute_create_name() is identical to
+       security_compute_create() but also takes name of the new object in
+       creation as an argument.  When TYPE_TRANSITION rule on the given
+       class and a SID pair has object name extension, we shall be able to
+       obtain a correct newcon according to the security policy. Note that
+       this interface is only supported on the linux 2.6.40 or later.  In
+       the older kernel, the object name will be simply ignored.
+       security_compute_relabel() is used to compute the new context to use
+       when relabeling an object, it is used in the pam_selinux.so source
+       and the newrole source to determine the correct label for the tty at
+       login time, but can be used for other things.
+       security_compute_member() is used to compute the context to use when
+       labeling a polyinstantiated object instance.
+       security_compute_user() is used to determine the set of user contexts
+       that can be reached from a source context. It is mainly used by
+       get_ordered_context_list().
+       security_get_initial_context() is used to get the context of a kernel
+       initial security identifier specified by name
+       security_compute_av_raw(), security_compute_av_flags_raw(),
+       security_compute_create_raw(), security_compute_create_name_raw(),
+       security_compute_relabel_raw(), security_compute_member_raw(),
+       security_compute_user_raw() and security_get_initial_context_raw()
+       behave identically to their non-raw counterparts but do not perform
+       context translation.
+       selinux_check_access() is used to check if the source context has the
+       access permission for the specified class on the target context.
+       selinux_check_passwd_access() is used to check for a permission in
+       the passwd class.  selinux_check_passwd_access() uses getprevcon()
+       for the source and target security contexts.
+       checkPasswdAccess() is a deprecated alias of the
+       selinux_check_passwd_access() function.

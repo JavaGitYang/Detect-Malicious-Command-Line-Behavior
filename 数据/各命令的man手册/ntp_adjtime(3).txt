@@ -1,0 +1,168 @@
+
+       Linux uses David L. Mills' clock adjustment algorithm (see RFC 5905).
+       The system call adjtimex() reads and optionally sets adjustment
+       parameters for this algorithm.  It takes a pointer to a timex
+       structure, updates kernel parameters from (selected) field values,
+       and returns the same structure updated with the current kernel
+       values.  This structure is declared as follows:
+           struct timex {
+               int  modes;      /* Mode selector */
+               long offset;     /* Time offset; nanoseconds, if STA_NANO
+                                   status flag is set, otherwise
+                                   microseconds */
+               long freq;       /* Frequency offset; see NOTES for units */
+               long maxerror;   /* Maximum error (microseconds) */
+               long esterror;   /* Estimated error (microseconds) */
+               int  status;     /* Clock command/status */
+               long constant;   /* PLL (phase-locked loop) time constant */
+               long precision;  /* Clock precision
+                                   (microseconds, read-only) */
+               long tolerance;  /* Clock frequency tolerance (read-only);
+                                   see NOTES for units */
+               struct timeval time;
+                                /* Current time (read-only, except for
+                                   ADJ_SETOFFSET); upon return, time.tv_usec
+                                   contains nanoseconds, if STA_NANO status
+                                   flag is set, otherwise microseconds */
+               long tick;       /* Microseconds between clock ticks */
+               long ppsfreq;    /* PPS (pulse per second) frequency
+                                   (read-only); see NOTES for units */
+               long jitter;     /* PPS jitter (read-only); nanoseconds, if
+                                   STA_NANO status flag is set, otherwise
+                                   microseconds */
+               int  shift;      /* PPS interval duration
+                                   (seconds, read-only) */
+               long stabil;     /* PPS stability (read-only);
+                                   see NOTES for units */
+               long jitcnt;     /* PPS count of jitter limit exceeded
+                                   events (read-only) */
+               long calcnt;     /* PPS count of calibration intervals
+                                   (read-only) */
+               long errcnt;     /* PPS count of calibration errors
+                                   (read-only) */
+               long stbcnt;     /* PPS count of stability limit exceeded
+                                   events (read-only) */
+               int tai;         /* TAI offset, as set by previous ADJ_TAI
+                                   operation (seconds, read-only,
+                                   since Linux 2.6.26) */
+               /* Further padding bytes to allow for future expansion */
+           };
+       The modes field determines which parameters, if any, to set.  (As
+       described later in this page, the constants used for ntp_adjtime()
+       are equivalent but differently named.)  It is a bit mask containing a
+       bitwise-or combination of zero or more of the following bits:
+       ADJ_OFFSET
+              Set time offset from buf.offset.  Since Linux 2.6.26, the sup‐
+              plied value is clamped to the range (-0.5s, +0.5s).  In older
+              kernels, an EINVAL error occurs if the supplied value is out
+              of range.
+       ADJ_FREQUENCY
+              Set frequency offset from buf.freq.  Since Linux 2.6.26, the
+              supplied value is clamped to the range (-32768000, +32768000).
+              In older kernels, an EINVAL error occurs if the supplied value
+              is out of range.
+       ADJ_MAXERROR
+              Set maximum time error from buf.maxerror.
+       ADJ_ESTERROR
+              Set estimated time error from buf.esterror.
+       ADJ_STATUS
+              Set clock status bits from buf.status.  A description of these
+              bits is provided below.
+       ADJ_TIMECONST
+              Set PLL time constant from buf.constant.  If the STA_NANO sta‐
+              tus flag (see below) is clear, the kernel adds 4 to this
+              value.
+       ADJ_SETOFFSET (since Linux 2.6.39)
+              Add buf.time to the current time.  If buf.status includes the
+              ADJ_NANO flag, then buf.time.tv_usec is interpreted as a
+              nanosecond value; otherwise it is interpreted as microseconds.
+       ADJ_MICRO (since Linux 2.6.26)
+              Select microsecond resolution.
+       ADJ_NANO (since Linux 2.6.26)
+              Select nanosecond resolution.  Only one of ADJ_MICRO and
+              ADJ_NANO should be specified.
+       ADJ_TAI (since Linux 2.6.26)
+              Set TAI (Atomic International Time) offset from buf.constant.
+              ADJ_TAI should not be used in conjunction with ADJ_TIMECONST,
+              since the latter mode also employs the buf.constant field.
+              For a complete explanation of TAI and the difference between
+              TAI and UTC, see BIPM 
+              ⟨http://www.bipm.org/en/bipm/tai/tai.html⟩
+       ADJ_TICK
+              Set tick value from buf.tick.
+       Alternatively, modes can be specified as either of the following
+       (multibit mask) values, in which case other bits should not be speci‐
+       fied in modes:
+       ADJ_OFFSET_SINGLESHOT
+              Old-fashioned adjtime(): (gradually) adjust time by value
+              specified in buf.offset, which specifies an adjustment in
+              microseconds.
+       ADJ_OFFSET_SS_READ (functional since Linux 2.6.28)
+              Return (in buf.offset) the remaining amount of time to be
+              adjusted after an earlier ADJ_OFFSET_SINGLESHOT operation.
+              This feature was added in Linux 2.6.24, but did not work cor‐
+              rectly until Linux 2.6.28.
+       Ordinary users are restricted to a value of either 0 or ADJ_OFF‐
+       SET_SS_READ for modes.  Only the superuser may set any parameters.
+       The buf.status field is a bit mask that is used to set and/or
+       retrieve status bits associated with the NTP implementation.  Some
+       bits in the mask are both readable and settable, while others are
+       read-only.
+       STA_PLL (read-write)
+              Enable phase-locked loop (PLL) updates via ADJ_OFFSET.
+       STA_PPSFREQ (read-write)
+              Enable PPS (pulse-per-second) frequency discipline.
+       STA_PPSTIME (read-write)
+              Enable PPS time discipline.
+       STA_FLL (read-write)
+              Select frequency-locked loop (FLL) mode.
+       STA_INS (read-write)
+              Insert a leap second after the last second of the UTC day,
+              thus extending the last minute of the day by one second.
+              Leap-second insertion will occur each day, so long as this
+              flag remains set.
+       STA_DEL (read-write)
+              Delete a leap second at the last second of the UTC day.  Leap
+              second deletion will occur each day, so long as this flag
+              remains set.
+       STA_UNSYNC (read-write)
+              Clock unsynchronized.
+       STA_FREQHOLD (read-write)
+              Hold frequency.  Normally adjustments made via ADJ_OFFSET
+              result in dampened frequency adjustments also being made.  So
+              a single call corrects the current offset, but as offsets in
+              the same direction are made repeatedly, the small frequency
+              adjustments will accumulate to fix the long-term skew.
+              This flag prevents the small frequency adjustment from being
+              made when correcting for an ADJ_OFFSET value.
+       STA_PPSSIGNAL (read-only)
+              A valid PPS (pulse-per-second) signal is present.
+       STA_PPSJITTER (read-only)
+              PPS signal jitter exceeded.
+       STA_PPSWANDER (read-only)
+              PPS signal wander exceeded.
+       STA_PPSERROR (read-only)
+              PPS signal calibration error.
+       STA_CLOCKERR (read-only)
+              Clock hardware fault.
+       STA_NANO (read-only; since Linux 2.6.26)
+              Resolution (0 = microsecond, 1 = nanoseconds).  Set via
+              ADJ_NANO, cleared via ADJ_MICRO.
+       STA_MODE (since Linux 2.6.26)
+              Mode (0 = Phase Locked Loop, 1 = Frequency Locked Loop).
+       STA_CLK (read-only; since Linux 2.6.26)
+              Clock source (0 = A, 1 = B); currently unused.
+       Attempts to set read-only status bits are silently ignored.
+   ntp_adjtime ()
+       The ntp_adjtime() library function (described in the NTP "Kernel
+       Application Program API", KAPI) is a more portable interface for per‐
+       forming the same task as adjtimex().  Other than the following
+       points, it is identical to adjtime():
+       *  The constants used in modes are prefixed with "MOD_" rather than
+          "ADJ_", and have the same suffixes (thus, MOD_OFFSET, MOD_FRE‐
+          QUENCY, and so on), other than the exceptions noted in the follow‐
+          ing points.
+       *  MOD_CLKA is the synonym for ADJ_OFFSET_SINGLESHOT.
+       *  MOD_CLKB is the synonym for ADJ_TICK.
+       *  The is no synonym for ADJ_OFFSET_SS_READ, which is not described
+          in the KAPI.

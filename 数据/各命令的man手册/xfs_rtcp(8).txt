@@ -1,0 +1,4 @@
+
+       xfs_rtcp copies a file to the realtime partition on an XFS
+       filesystem.  If there is more than one source and target, the final
+       argument (the target) must be a directory which already exists.

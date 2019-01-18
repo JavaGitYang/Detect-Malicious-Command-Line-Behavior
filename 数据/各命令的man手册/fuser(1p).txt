@@ -1,0 +1,11 @@
+
+       The fuser utility shall write to standard output the process IDs of
+       processes running on the local system that have one or more named
+       files open.  For block special devices, all processes using any file
+       on that device are listed.
+       The fuser utility shall write to standard error additional
+       information about the named files indicating how the file is being
+       used.
+       Any output for processes running on remote systems that have a named
+       file open is unspecified.
+       A user may need appropriate privileges to invoke the fuser utility.

@@ -1,0 +1,5 @@
+
+       The function set_menu_items changes the item pointer array of the
+       given menu.  The array must be terminated by a NULL.
+       The function menu_items returns the item array of the given menu.
+       The function item_count returns the count of items in menu.

@@ -1,0 +1,10 @@
+
+       The catgets() function shall attempt to read message msg_id, in set
+       set_id, from the message catalog identified by catd.  The catd
+       argument is a message catalog descriptor returned from an earlier
+       call to catopen().  The results are undefined if catd is not a value
+       returned by catopen() for a message catalog still open in the
+       process. The s argument points to a default message string which
+       shall be returned by catgets() if it cannot retrieve the identified
+       message.
+       The catgets() function need not be thread-safe.

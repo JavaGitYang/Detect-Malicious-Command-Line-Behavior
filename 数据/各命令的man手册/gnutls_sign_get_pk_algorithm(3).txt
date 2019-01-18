@@ -1,0 +1,5 @@
+
+       This function returns the public key algorithm corresponding to the
+       given signature algorithms. Note that there may be multiple public
+       key algorithms supporting a particular signature type; when dealing
+       with such algorithms use instead gnutls_sign_supports_pk_algorithm().

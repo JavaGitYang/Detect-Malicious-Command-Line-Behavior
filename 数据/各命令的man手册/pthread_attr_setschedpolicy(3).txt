@@ -1,0 +1,14 @@
+
+       The pthread_attr_setschedpolicy() function sets the scheduling policy
+       attribute of the thread attributes object referred to by attr to the
+       value specified in policy.  This attribute determines the scheduling
+       policy of a thread created using the thread attributes object attr.
+       The supported values for policy are SCHED_FIFO, SCHED_RR, and
+       SCHED_OTHER, with the semantics described in sched(7).
+       The pthread_attr_getschedpolicy() returns the scheduling policy
+       attribute of the thread attributes object attr in the buffer pointed
+       to by policy.
+       In order for the policy setting made by pthread_attr_setschedpolicy()
+       to have effect when calling pthread_create(3), the caller must use
+       pthread_attr_setinheritsched(3) to set the inherit-scheduler
+       attribute of the attributes object attr to PTHREAD_EXPLICIT_SCHED.

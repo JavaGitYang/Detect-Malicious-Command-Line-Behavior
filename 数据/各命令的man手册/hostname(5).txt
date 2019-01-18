@@ -1,0 +1,12 @@
+
+       The /etc/hostname file configures the name of the local system that
+       is set during boot using the sethostname(2) system call. It should
+       contain a single newline-terminated hostname string. Comments (lines
+       starting with a `#') are ignored. The hostname may be a free-form
+       string up to 64 characters in length; however, it is recommended that
+       it consists only of 7-bit ASCII lower-case characters and no spaces
+       or dots, and limits itself to the format allowed for DNS domain name
+       labels, even though this is not a strict requirement.
+       You may use hostnamectl(1) to change the value of this file during
+       runtime from the command line. Use systemd-firstboot(1) to initialize
+       it on mounted (but not booted) system images.

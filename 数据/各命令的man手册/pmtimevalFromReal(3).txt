@@ -1,0 +1,17 @@
+
+       pmtimevalNow is a platform-independent method that returns the
+       current system time since the Epoch in tv.
+       pmtimevalInc adds the time in ap to the time in bp and stores the
+       result in ap.  Similarly pmtimevalDec subtracts the time in bp from
+       the time in ap and stores the result in ap.
+       pmtimevalAdd (and pmtimevalSub) add (and subtract) times and return
+       the result as a double value.  The time in the ap argument is not
+       changed.
+       pmtimevalToReal converts the time in tp to an equivalent double
+       value.  pmtimevalFromReal provides the reverse conversion, taking the
+       time in secs and returning the equivalent time in val.
+       pmPrintStamp prints the timestamp from tp on the stream f in the
+       local time (as returned by pmLocaltime(3)) in the format
+       HH:MM:SS.XXX.  pmPrintHighResStamp performs a similar service, but
+       for a struct timespec and reports the timestamp to nanosecond
+       precision.

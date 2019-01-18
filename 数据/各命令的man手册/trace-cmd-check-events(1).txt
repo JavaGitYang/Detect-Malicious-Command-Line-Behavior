@@ -1,0 +1,10 @@
+
+       The trace-cmd(1) check-events parses format strings for all the
+       events on the local system. It returns whether all the format strings
+       can be parsed correctly. It will load plugins unless specified
+       otherwise.
+       This is useful to check for any trace event format strings which may
+       contain some internal kernel function references which cannot be
+       decoded outside of the kernel. This may mean that either the unparsed
+       format strings of the trace events need to be changed or that a
+       plugin needs to be created to parse them.

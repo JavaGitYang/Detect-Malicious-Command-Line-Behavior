@@ -1,0 +1,3 @@
+
+       The if_nametoindex() function shall return the interface index
+       corresponding to name ifname.

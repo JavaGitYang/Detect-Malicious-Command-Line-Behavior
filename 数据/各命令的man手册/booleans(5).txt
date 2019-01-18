@@ -1,0 +1,25 @@
+
+       The booleans file, if present contains booleans to support a specific
+       distribution.
+       The booleans.local file, if present contains locally generated
+       booleans.
+       Both files contain a list of boolean names and their associated
+       values.
+       Generally the booleans and/or booleans.local files are not present
+       (they have been deprecated). However if there is an SELinux-aware
+       application that uses the libselinux functions listed below, then
+       these files may be present:
+              security_set_boolean_list(3)
+                     Writes a booleans.local file if flag permanent = 1.
+              security_load_booleans(3)
+                     Looks for a booleans and/or booleans.local file at
+                     selinux_booleans_path(3) unless a specific path is
+                     specified as a parameter.
+       booleans(8) has details on booleans and setsebool(8) describes how
+       booleans can now be set persistent across reboots.
+       selinux_booleans_path(3) will return the active policy path to these
+       files. The default boolean files are:
+              /etc/selinux/{SELINUXTYPE}/booleans
+              /etc/selinux/{SELINUXTYPE}/booleans.local
+       Where {SELINUXTYPE} is the entry from the selinux configuration file
+       config (see selinux_config(5)).

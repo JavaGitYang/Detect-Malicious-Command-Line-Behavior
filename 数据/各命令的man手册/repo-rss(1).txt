@@ -1,0 +1,3 @@
+
+       repo-rss is a program for generating RSS feeds for one or more Yum
+       repositories.

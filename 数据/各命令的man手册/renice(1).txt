@@ -1,0 +1,8 @@
+
+       renice alters the scheduling priority of one or more running
+       processes.  The first argument is the priority value to be used.  The
+       other arguments are interpreted as process IDs (by default), process
+       group IDs, user IDs, or user names.  renice'ing a process group
+       causes all processes in the process group to have their scheduling
+       priority altered.  renice'ing a user causes all processes owned by
+       the user to have their scheduling priority altered.

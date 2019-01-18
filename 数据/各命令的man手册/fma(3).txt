@@ -1,0 +1,4 @@
+
+       These functions compute x * y + z.  The result is rounded as one
+       ternary operation according to the current rounding mode (see
+       fenv(3)).

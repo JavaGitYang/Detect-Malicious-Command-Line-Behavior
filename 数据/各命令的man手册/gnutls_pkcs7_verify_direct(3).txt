@@ -1,0 +1,13 @@
+
+       This function will verify the provided data against the signature
+       present in the SignedData of the PKCS 7 structure. If the data
+       provided are NULL then the data in the encapsulatedContent field will
+       be used instead.
+       Note that, unlike gnutls_pkcs7_verify() this function does not verify
+       the key purpose of the signer. It is expected for the caller to
+       verify the intended purpose of the signer -e.g., via
+       gnutls_x509_crt_get_key_purpose_oid(), or
+       gnutls_x509_crt_check_key_purpose().
+       Note also, that since GnuTLS 3.5.6 this function introduces checks in
+       the end certificate ( signer ), including time checks and key usage
+       checks.

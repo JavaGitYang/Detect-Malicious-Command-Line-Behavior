@@ -1,0 +1,8 @@
+
+       Provides the internal ciphersuite index to be used with
+       gnutls_cipher_suite_info(). The index  idx provided is an index kept
+       at the priorities structure. It might be that a valid priorities
+       index does not correspond to a ciphersuite and in that case
+       GNUTLS_E_UNKNOWN_CIPHER_SUITE will be returned.  Once the last
+       available index is crossed then GNUTLS_E_REQUESTED_DATA_NOT_AVAILABLE
+       will be returned.

@@ -1,0 +1,6 @@
+
+       Generate a core dump of a running program with process ID pid.
+       Produced file is equivalent to a kernel produced core file as if the
+       process crashed (and if "ulimit -c" were used to set up an
+       appropriate core dump limit).  Unlike after a crash, after gcore the
+       program remains running without any change.

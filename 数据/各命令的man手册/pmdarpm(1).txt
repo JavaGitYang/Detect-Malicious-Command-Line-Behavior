@@ -1,0 +1,25 @@
+
+       pmdarpm is a Performance Metrics Domain Agent (PMDA) which extracts
+       performance metrics reflecting the state of the RPM package database
+       managed by rpm(1).
+       The rpm PMDA exports metrics that describe each package installed on
+       a system, as well as some cumulative totals.  When the RPM database
+       changes the PMDA automatically detects this and uses a background
+       thread to asynchronously refresh its values.
+       A brief description of the pmdarpm command line options follows:
+       -C   Verify the package iteration code by scanning the RPM database
+            once, then exiting.  Only useful for problem diagnosis and
+            testing.
+       -d   It is absolutely crucial that the performance metrics domain
+            number specified here is unique and consistent.  That is, domain
+            should be different for every PMDA on the one host, and the same
+            domain number should be used for the same PMDA on all hosts.
+       -l   Location of the log file.  By default, a log file named rpm.log
+            is written in the current directory of pmcd(1) when pmdarpm is
+            started, i.e.  $PCP_LOG_DIR/pmcd.  If the log file cannot be
+            created or is not writable, output is written to the standard
+            error instead.
+       -r   Specify an alternate path to the RPM database (default is
+            /var/lib/rpm/Packages).
+       -U   User account under which to run the agent.  The default is the
+            unprivileged "pcp" account.

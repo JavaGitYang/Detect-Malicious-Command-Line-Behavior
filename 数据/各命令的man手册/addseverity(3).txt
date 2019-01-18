@@ -1,0 +1,9 @@
+
+       This function allows the introduction of new severity classes which
+       can be addressed by the severity argument of the fmtmsg(3) function.
+       By default, that function knows only how to print messages for
+       severity 0-4 (with strings (none), HALT, ERROR, WARNING, INFO).  This
+       call attaches the given string s to the given value severity.  If s
+       is NULL, the severity class with the numeric value severity is
+       removed.  It is not possible to overwrite or remove one of the
+       default severity classes.  The severity value must be nonnegative.

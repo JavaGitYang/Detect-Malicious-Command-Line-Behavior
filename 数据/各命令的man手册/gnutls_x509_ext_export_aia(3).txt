@@ -1,0 +1,4 @@
+
+       This function will DER encode the Authority Information Access (AIA)
+       extension; see RFC 5280 section 4.2.2.1 for more information on the
+       extension.

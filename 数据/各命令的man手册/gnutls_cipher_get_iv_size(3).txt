@@ -1,0 +1,2 @@
+
+       Get block size for encryption algorithm.

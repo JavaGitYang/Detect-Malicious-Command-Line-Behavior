@@ -1,0 +1,3 @@
+
+       This function will copy a certificate into a PKCS 11 token specified
+       by a URL. The certificate can be marked as trusted or not.

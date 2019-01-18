@@ -1,0 +1,12 @@
+
+       This function will sign the certificate request with a private key.
+       This must be the same key as the one used in
+       gnutls_x509_crt_set_key() since a certificate request is self signed.
+       This must be the last step in a certificate request generation since
+       all the previously set parameters are now signed.
+       A known limitation of this function is, that a newly-signed request
+       will not be fully functional (e.g., for signature verification),
+       until it is exported an re-imported.
+       After GnuTLS 3.6.1 the value of  dig may be GNUTLS_DIG_UNKNOWN, and
+       in that case, a suitable but reasonable for the key algorithm will be
+       selected.

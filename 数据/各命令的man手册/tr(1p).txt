@@ -1,0 +1,6 @@
+
+       The tr utility shall copy the standard input to the standard output
+       with substitution or deletion of selected characters. The options
+       specified and the string1 and string2 operands shall control
+       translations that occur while copying characters and single-character
+       collating elements.

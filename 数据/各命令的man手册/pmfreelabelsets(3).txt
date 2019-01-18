@@ -1,0 +1,13 @@
+
+       The array of label sets returned by pmLookupLabels(3) and related
+       APIs are allocated below the Performance Metrics Application
+       Programming Interface (PMAPI) using a variety of calls to the
+       system's dynamic memory allocation (i.e. malloc(3)) interfaces.
+       Applications should call pmFreeLabelSets to release the storage
+       previously allocated for the label sets array when access to the
+       structure is no longer needed.  The return value from pmLookupLabels
+       indicates the number of elements in the label sets array, and this
+       should be passed in using the nsets parameter.
+       Under no circumstances should an application use free(labelset) to
+       release storage previously allocated for a pmLabelSet by
+       pmLookupLabels(3) or related APIs.

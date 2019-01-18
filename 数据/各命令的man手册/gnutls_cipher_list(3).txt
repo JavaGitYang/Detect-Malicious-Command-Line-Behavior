@@ -1,0 +1,6 @@
+
+       Get a list of supported cipher algorithms.  Note that not necessarily
+       all ciphers are supported as TLS cipher suites.  For example, DES is
+       not supported as a cipher suite, but is supported for other purposes
+       (e.g., PKCS8 or similar).
+       This function is not thread safe.

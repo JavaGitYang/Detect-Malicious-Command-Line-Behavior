@@ -1,0 +1,4 @@
+
+       show-changed-rco gives a compact description of the changes to a
+       packages Requires, Conflicts and Obsoletes data from the installed
+       (or old) to a specified rpm file.

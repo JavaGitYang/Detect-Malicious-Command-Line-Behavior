@@ -1,0 +1,2 @@
+
+       This command interacts with lvmlockd(8).

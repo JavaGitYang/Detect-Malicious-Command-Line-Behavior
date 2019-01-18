@@ -1,0 +1,6 @@
+
+       The function post_form displays a form to its associated subwindow.
+       To trigger physical display of the subwindow, use refresh(3X) or some
+       equivalent curses routine (the implicit doupdate triggered by an
+       curses input request will do).
+       The function unpost_form erases form from its associated subwindow.

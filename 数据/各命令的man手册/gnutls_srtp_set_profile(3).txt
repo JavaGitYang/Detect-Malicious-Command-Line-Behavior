@@ -1,0 +1,3 @@
+
+       This function is to be used by both clients and servers, to declare
+       what SRTP profiles they support, to negotiate with the peer.

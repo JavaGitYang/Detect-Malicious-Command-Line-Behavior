@@ -1,0 +1,12 @@
+
+       findmnt will list all mounted filesystems or search for a filesystem.
+       The findmnt command is able to search in /etc/fstab, /etc/mtab or
+       /proc/self/mountinfo.  If device or mountpoint is not given, all
+       filesystems are shown.
+       The device may be specified by device name, major:minor numbers,
+       filesystem label or UUID, or partition label or UUID.  Note that
+       findmnt follows mount(8) behavior where a device name may be
+       interpreted as a mountpoint (and vice versa) if the --target,
+       --mountpoint or --source options are not specified.
+       The command prints all mounted filesystems in the tree-like format by
+       default.

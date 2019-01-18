@@ -1,0 +1,6 @@
+
+       These functions calculate the complex arc cosine of z.  If
+       y = cacos(z), then z = ccos(y).  The real part of y is chosen in the
+       interval [0,pi].
+       One has:
+           cacos(z) = -i * clog(z + i * csqrt(1 - z * z))

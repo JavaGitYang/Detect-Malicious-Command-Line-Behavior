@@ -1,0 +1,10 @@
+
+       lxc-monitor monitors the state of containers. The name argument may
+       be used to specify which containers to monitor. It is a regular
+       expression, conforming with posix2, so it is possible to monitor all
+       the containers, several of them or just one. If not specified, name
+       will default to '.*' which will monitor all containers in lxcpath.
+       The -P, --lxcpath=PATH option may be specified multiple times to
+       monitor more than one container path. Note however that containers
+       with the same name in multiple paths will be indistinguishable in the
+       output.

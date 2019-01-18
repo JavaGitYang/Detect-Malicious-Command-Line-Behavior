@@ -1,0 +1,12 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The wmemset() function shall copy the value of wc into each of the
+       first n wide characters of the object pointed to by ws.  This
+       function shall not be affected by locale and all wchar_t values shall
+       be treated identically. The null wide character and wchar_t values
+       not corresponding to valid characters shall not be treated specially.
+       If n is zero, the application shall ensure that ws is a valid
+       pointer, and the function shall copy zero wide characters.

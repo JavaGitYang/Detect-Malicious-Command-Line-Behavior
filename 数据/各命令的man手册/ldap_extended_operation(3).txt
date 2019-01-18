@@ -1,0 +1,20 @@
+
+       The ldap_extended_operation_s() routine is used to synchronously
+       perform an LDAP extended operation.  It takes requestoid, which
+       points to a dotted-decimal OID string identifying the extended
+       operation to perform. requestdata is the data required for the
+       request, sctrls is an array of LDAPControl structures to use with
+       this extended operation, cctrls is an array of LDAPControl structures
+       that list the client controls to use with this extended operation.
+       The output parameter retoidp points to a dotted-decimal OID string
+       returned by the LDAP server.  The memory used by the string should be
+       freed with the ldap_memfree(3) function.  The output parameter
+       retdatap points to a pointer to a berval structure that contains the
+       returned data.  If no data is returned by the server, the pointer is
+       set this to NULL.  The memory used by this structure should be freed
+       with the ber_bvfree(3) function.
+       The ldap_extended_operation() works just like
+       ldap_extended_operation_s(), but the operation is asynchronous.  It
+       provides the message id of the request it initiated in the integer
+       pointed to be msgidp.  The result of this operation can be obtained
+       by calling ldap_result(3).

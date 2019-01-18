@@ -1,0 +1,4 @@
+
+       This function will convert the provided key identifier to a
+       DER-encoded PKIX AuthorityKeyIdentifier extension.  The output data
+       in  ext will be allocated using gnutls_malloc().

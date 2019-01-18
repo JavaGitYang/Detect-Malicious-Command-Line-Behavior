@@ -1,0 +1,5 @@
+
+       The sact utility shall inform the user of any impending deltas to a
+       named SCCS file by writing a list to standard output. This situation
+       occurs when get −e has been executed previously without a subsequent
+       execution of delta, unget, or sccs unedit.

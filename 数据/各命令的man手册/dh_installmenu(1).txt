@@ -1,0 +1,7 @@
+
+       dh_installmenu is a debhelper program that is responsible for
+       installing files used by the Debian menu package into package build
+       directories.
+       It also automatically generates the postinst and postrm commands
+       needed to interface with the Debian menu package. These commands are
+       inserted into the maintainer scripts by dh_installdeb(1).

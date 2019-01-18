@@ -1,0 +1,25 @@
+
+       The popen() function opens a process by creating a pipe, forking, and
+       invoking the shell.  Since a pipe is by definition unidirectional,
+       the type argument may specify only reading or writing, not both; the
+       resulting stream is correspondingly read-only or write-only.
+       The command argument is a pointer to a null-terminated string
+       containing a shell command line.  This command is passed to /bin/sh
+       using the -c flag; interpretation, if any, is performed by the shell.
+       The type argument is a pointer to a null-terminated string which must
+       contain either the letter 'r' for reading or the letter 'w' for
+       writing.  Since glibc 2.9, this argument can additionally include the
+       letter 'e', which causes the close-on-exec flag (FD_CLOEXEC) to be
+       set on the underlying file descriptor; see the description of the
+       O_CLOEXEC flag in open(2) for reasons why this may be useful.
+       The return value from popen() is a normal standard I/O stream in all
+       respects save that it must be closed with pclose() rather than
+       fclose(3).  Writing to such a stream writes to the standard input of
+       the command; the command's standard output is the same as that of the
+       process that called popen(), unless this is altered by the command
+       itself.  Conversely, reading from the stream reads the command's
+       standard output, and the command's standard input is the same as that
+       of the process that called popen().
+       Note that output popen() streams are block buffered by default.
+       The pclose() function waits for the associated process to terminate
+       and returns the exit status of the command as returned by wait4(2).

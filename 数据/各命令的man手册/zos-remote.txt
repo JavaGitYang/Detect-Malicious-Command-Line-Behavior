@@ -1,0 +1,29 @@
+
+       zos-remote.conf controls the configuration for the
+       audispd-zos-remote(8) Audit dispatcher plugin. The default location
+       for this file is /etc/audisp/zos-remote.conf, however, a different
+       file can be specified as the first argument to the audispd-zos-remote
+       plugin. See audispd-zos-remote(8) and auditd(8).  The options
+       available are as follows:
+       server This is the IBM z/OS ITDS server hostname or IP address
+       port   The port number where ITDS is running on the z/OS server.
+              Default is 389 (ldap port)
+       user   The z/OS RACF user ID which the audispd-zos-remote plugin will
+              use to perform Remote Audit requests. This user needs READ
+              access to FACILITY Class resource IRR.LDAP.REMOTE.AUDIT (See
+              audispd-zos-remote(8)).
+       password
+              The password associated the the z/OS user ID configured above.
+       timeout
+              The number in seconds that audispd-zos-remote plugin will wait
+              before giving up in connection attempts and event submissions.
+              The default value is 15
+       q_depth
+              The audispd-zos-remote plugin will queue inputed events to the
+              maximum of q_depth events while trying to submit those
+              remotely. This can handle burst of events or in case of a slow
+              network connection. However, the audispd-zos-remote plugin
+              will drop events in case the queue is full. The default queue
+              depth is 64 - Increase this value in case you are experiencing
+              event drop due to full queue (audispd-zos-remote will log this
+              to syslog).

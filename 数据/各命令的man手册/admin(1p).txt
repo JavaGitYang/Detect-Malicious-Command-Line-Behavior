@@ -1,0 +1,21 @@
+
+       The admin utility shall create new SCCS files or change parameters of
+       existing ones. If a named file does not exist, it shall be created,
+       and its parameters shall be initialized according to the specified
+       options.  Parameters not initialized by an option shall be assigned a
+       default value. If a named file does exist, parameters corresponding
+       to specified options shall be changed, and other parameters shall be
+       left as is.
+       All SCCS filenames supplied by the application shall be of the form
+       s.filename. New SCCS files shall be given read-only permission mode.
+       Write permission in the parent directory is required to create a
+       file. All writing done by admin shall be to a temporary x-file, named
+       x.filename (see get(1p)) created with read-only mode if admin is
+       creating a new SCCS file, or created with the same mode as that of
+       the SCCS file if the file already exists. After successful execution
+       of admin, the SCCS file shall be removed (if it exists), and the x-
+       file shall be renamed with the name of the SCCS file. This ensures
+       that changes are made to the SCCS file only if no errors occur.
+       The admin utility shall also use a transient lock file (named
+       z.filename), which is used to prevent simultaneous updates to the
+       SCCS file; see get(1p).

@@ -1,0 +1,3 @@
+
+       The certificate type is by default X.509, unless it is negotiated as
+       a TLS extension.

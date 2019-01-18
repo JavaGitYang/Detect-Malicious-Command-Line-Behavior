@@ -1,0 +1,3 @@
+
+       This function will add or update an nonce extension to the OCSP
+       request with a newly generated random value.

@@ -1,0 +1,6 @@
+
+       These functions calculate the complex arc hyperbolic sine of z.  If
+       y = casinh(z), then z = csinh(y).  The imaginary part of y is chosen
+       in the interval [-pi/2,pi/2].
+       One has:
+           casinh(z) = clog(z + csqrt(z * z + 1))

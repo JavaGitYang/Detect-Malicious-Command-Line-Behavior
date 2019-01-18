@@ -1,0 +1,75 @@
+
+       The ioctl(2) system call can be used to read and write metadata of
+       FAT filesystems that are not accessible using other system calls.
+   Reading and setting file attributes
+       Files and directories in the FAT filesystem possess an attribute bit
+       mask that can be read with FAT_IOCTL_GET_ATTRIBUTES and written with
+       FAT_IOCTL_SET_ATTRIBUTES.
+       The fd argument contains a file descriptor for a file or directory.
+       It is sufficient to create the file descriptor by calling open(2)
+       with the O_RDONLY flag.
+       The attr argument contains a pointer to a bit mask.  The bits of the
+       bit mask are:
+       ATTR_RO
+              This bit specifies that the file or directory is read-only.
+       ATTR_HIDDEN
+              This bit specifies that the file or directory is hidden.
+       ATTR_SYS
+              This bit specifies that the file is a system file.
+       ATTR_VOLUME
+              This bit specifies that the file is a volume label.  This
+              attribute is read-only.
+       ATTR_DIR
+              This bit specifies that this is a directory.  This attribute
+              is read-only.
+       ATTR_ARCH
+              This bit indicates that this file or directory should be
+              archived.  It is set when a file is created or modified.  It
+              is reset by an archiving system.
+       The zero value ATTR_NONE can be used to indicate that no attribute
+       bit is set.
+   Reading the volume ID
+       FAT filesystems are identified by a volume ID.  The volume ID can be
+       read with FAT_IOCTL_GET_VOLUME_ID.
+       The fd argument can be a file descriptor for any file or directory of
+       the filesystem.  It is sufficient to create the file descriptor by
+       calling open(2) with the O_RDONLY flag.
+       The id argument is a pointer to the field that will be filled with
+       the volume ID.  Typically the volume ID is displayed to the user as a
+       group of two 16-bit fields:
+           printf("Volume ID %04x-%04x\n", id >> 16, id & 0xFFFF);
+   Reading short file names of a directory
+       A file or directory on a FAT filesystem always has a short filename
+       consisting of up to 8 capital letters, optionally followed by a
+       period and up to 3 capital letters for the file extension.  If the
+       actual filename does not fit into this scheme, it is stored as a long
+       filename of up to 255 UTF-16 characters.
+       The short filenames in a directory can be read with VFAT_IOCTL_READ‐
+       DIR_SHORT.  VFAT_IOCTL_READDIR_BOTH reads both the short and the long
+       filenames.
+       The fd argument must be a file descriptor for a directory.  It is
+       sufficient to create the file descriptor by calling open(2) with the
+       O_RDONLY flag.  The file descriptor can be used only once to iterate
+       over the directory entries by calling ioctl(2) repeatedly.
+       The entry argument is a two-element array of the following struc‐
+       tures:
+           struct __fat_dirent {
+               long            d_ino;
+               __kernel_off_t  d_off;
+               uint32_t short  d_reclen;
+               char            d_name[256];
+           };
+       The first entry in the array is for the short filename.  The second
+       entry is for the long filename.
+       The d_ino and d_off fields are filled only for long filenames.  The
+       d_ino field holds the inode number of the directory.  The d_off field
+       holds the offset of the file entry in the directory.  As these values
+       are not available for short filenames, the user code should simply
+       ignore them.
+       The field d_reclen contains the length of the filename in the field
+       d_name.  To keep backward compatibility, a length of 0 for the short
+       filename signals that the end of the directory has been reached.
+       However, the preferred method for detecting the end of the directory
+       is to test the ioctl(2) return value.  If no long filename exists,
+       field d_reclen is set to 0 and d_name is a character string of length
+       0 for the long filename.

@@ -1,0 +1,9 @@
+
+       This document attempts to write down and motivate some of the
+       workflow elements used for git.git itself. Many ideas apply in
+       general, though the full workflow is rarely required for smaller
+       projects with fewer people involved.
+       We formulate a set of rules for quick reference, while the prose
+       tries to motivate each of them. Do not always take them literally;
+       you should value good reasons for your actions higher than manpages
+       such as this one.

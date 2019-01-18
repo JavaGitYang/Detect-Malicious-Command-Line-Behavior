@@ -1,0 +1,50 @@
+
+       hpsa is a SCSI driver for HP Smart Array RAID controllers.
+   Options
+       hpsa_allow_any=1: This option allows the driver to attempt to operate
+       on any HP Smart Array hardware RAID controller, even if it is not
+       explicitly known to the driver.  This allows newer hardware to work
+       with older drivers.  Typically this is used to allow installation of
+       operating systems from media that predates the RAID controller,
+       though it may also be used to enable hpsa to drive older controllers
+       that would normally be handled by the cciss(4) driver.  These older
+       boards have not been tested and are not supported with hpsa, and
+       cciss(4) should still be used for these.
+   Supported hardware
+       The hpsa driver supports the following Smart Array boards:
+           Smart Array P700M
+           Smart Array P212
+           Smart Array P410
+           Smart Array P410i
+           Smart Array P411
+           Smart Array P812
+           Smart Array P712m
+           Smart Array P711m
+           StorageWorks P1210m
+       Since Linux 4.14, the following Smart Array boards are also
+       supported:
+           Smart Array 5300
+           Smart Array 5312
+           Smart Array 532
+           Smart Array 5i
+           Smart Array 6400
+           Smart Array 6400 EM
+           Smart Array 641
+           Smart Array 642
+           Smart Array 6i
+           Smart Array E200
+           Smart Array E200i
+           Smart Array E200i
+           Smart Array E200i
+           Smart Array E200i
+           Smart Array E500
+           Smart Array P400
+           Smart Array P400i
+           Smart Array P600
+           Smart Array P700m
+           Smart Array P800
+   Configuration details
+       To configure HP Smart Array controllers, use the HP Array
+       Configuration Utility (either hpacuxe(8) or hpacucli(8)) or the
+       Offline ROM-based Configuration Utility (ORCA) run from the Smart
+       Array's option ROM at boot time.

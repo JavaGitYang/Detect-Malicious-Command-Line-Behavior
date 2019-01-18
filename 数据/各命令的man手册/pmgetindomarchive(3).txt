@@ -1,0 +1,22 @@
+
+       Provided the current Performance Metrics Application Programming
+       Interface (PMAPI) context is associated with a set of archive logs,
+       pmGetInDomArchive will scan the union of all the instance domain
+       metadata for the instance domain indom, and return via instlist the
+       internal instance identifiers for all instances, and via namelist the
+       full external identifiers for all instances.
+       This routine is a specialized version of the more general PMAPI
+       routine pmGetInDom.
+       The number of instances found is returned as the function value (else
+       less than zero to indicate an error).
+       The value for the instance domain indom is typically extracted from a
+       pmDesc structure, following a call to pmLookupDesc(3) for a
+       particular performance metric.
+       The resulting lists of instance identifiers (instlist and namelist),
+       and the names that the elements of namelist point to, will have been
+       allocated by pmGetInDomArchive with two calls to malloc(3), and it is
+       the responsibility of the caller to free(instlist) and free(namelist)
+       to release the space when it is no longer required.
+       When the result of pmGetInDomArchive is less than one, both instlist
+       and namelist are undefined (no space will have been allocated, and so
+       calling free(3) is a singularly bad idea).

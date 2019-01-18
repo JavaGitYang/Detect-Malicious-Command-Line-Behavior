@@ -1,0 +1,5 @@
+
+       Print CRC checksum and byte counts of each FILE.
+       --help display this help and exit
+       --version
+              output version information and exit

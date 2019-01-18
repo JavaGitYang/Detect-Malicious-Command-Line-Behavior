@@ -1,0 +1,27 @@
+
+       Run a new shell in a new context.  The new context is derived from
+       the old context in which newrole is originally executed.  If the -r
+       or --role option is specified, then the new context will have the
+       role specified by ROLE.  If the -t or --type option is specified,
+       then the new context will have the type (domain) specified by TYPE.
+       If a role is specified, but no type is specified, the default type is
+       derived from the specified role.  If the -l or --level option is
+       specified, then the new context will have the sensitivity level
+       specified by LEVEL.  If LEVEL is a range, the new context will have
+       the sensitivity level and clearance specified by that range.  If the
+       -p or --preserve-environment option is specified, the shell with the
+       new SELinux context will preserve environment variables, otherwise a
+       new minimal enviroment is created.
+       Additional arguments ARGS may be provided after a -- option, in which
+       case they are supplied to the new shell.  In particular, an argument
+       of -- -c will cause the next argument to be treated as a command by
+       most command interpreters.
+       If a command argument is specified to newrole and the command name is
+       found in /etc/selinux/newrole_pam.conf, then the pam service name
+       listed in that file for the command will be used rather than the
+       normal newrole pam configuration.  This allows for per-command pam
+       configuration when invoked via newrole, e.g. to skip the interactive
+       re-authentication phase.
+       The new shell will be the shell specified in the user's entry in the
+       /etc/passwd file.
+       The -V or --version shows the current version of newrole

@@ -1,0 +1,70 @@
+
+       update-alternatives creates, removes, maintains and displays
+       information about the symbolic links comprising the Debian
+       alternatives system.
+       It is possible for several programs fulfilling the same or similar
+       functions to be installed on a single system at the same time.  For
+       example, many systems have several text editors installed at once.
+       This gives choice to the users of a system, allowing each to use a
+       different editor, if desired, but makes it difficult for a program to
+       make a good choice for an editor to invoke if the user has not
+       specified a particular preference.
+       Debian's alternatives system aims to solve this problem.  A generic
+       name in the filesystem is shared by all files providing
+       interchangeable functionality.  The alternatives system and the
+       system administrator together determine which actual file is
+       referenced by this generic name.  For example, if the text editors
+       ed(1) and nvi(1) are both installed on the system, the alternatives
+       system will cause the generic name /usr/bin/editor to refer to
+       /usr/bin/nvi by default. The system administrator can override this
+       and cause it to refer to /usr/bin/ed instead, and the alternatives
+       system will not alter this setting until explicitly requested to do
+       so.
+       The generic name is not a direct symbolic link to the selected
+       alternative.  Instead, it is a symbolic link to a name in the
+       alternatives directory, which in turn is a symbolic link to the
+       actual file referenced.  This is done so that the system
+       administrator's changes can be confined within the /usr/local/etc
+       directory: the FHS (q.v.) gives reasons why this is a Good Thing.
+       When each package providing a file with a particular functionality is
+       installed, changed or removed, update-alternatives is called to
+       update information about that file in the alternatives system.
+       update-alternatives is usually called from the postinst (configure)
+       or prerm (remove and deconfigure) scripts in Debian packages.
+       It is often useful for a number of alternatives to be synchronized,
+       so that they are changed as a group; for example, when several
+       versions of the vi(1) editor are installed, the man page referenced
+       by /usr/share/man/man1/vi.1 should correspond to the executable
+       referenced by /usr/bin/vi.  update-alternatives handles this by means
+       of master and slave links; when the master is changed, any associated
+       slaves are changed too.  A master link and its associated slaves make
+       up a link group.
+       Each link group is, at any given time, in one of two modes: automatic
+       or manual.  When a group is in automatic mode, the alternatives
+       system will automatically decide, as packages are installed and
+       removed, whether and how to update the links.  In manual mode, the
+       alternatives system will retain the choice of the administrator and
+       avoid changing the links (except when something is broken).
+       Link groups are in automatic mode when they are first introduced to
+       the system.  If the system administrator makes changes to the
+       system's automatic settings, this will be noticed the next time
+       update-alternatives is run on the changed link's group, and the group
+       will automatically be switched to manual mode.
+       Each alternative has a priority associated with it.  When a link
+       group is in automatic mode, the alternatives pointed to by members of
+       the group will be those which have the highest priority.
+       When using the --config option, update-alternatives will list all of
+       the choices for the link group of which given name is the master
+       alternative name.  The current choice is marked with a ‘*’.  You will
+       then be prompted for your choice regarding this link group.
+       Depending on the choice made, the link group might no longer be in
+       auto mode. You will need to use the --auto option in order to return
+       to the automatic mode (or you can rerun --config and select the entry
+       marked as automatic).
+       If you want to configure non-interactively you can use the --set
+       option instead (see below).
+       Different packages providing the same file need to do so
+       cooperatively.  In other words, the usage of update-alternatives is
+       mandatory for all involved packages in such case. It is not possible
+       to override some file in a package that does not employ the
+       update-alternatives mechanism.

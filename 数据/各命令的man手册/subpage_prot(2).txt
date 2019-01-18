@@ -1,0 +1,14 @@
+
+       The PowerPC-specific subpage_prot() system call provides the facility
+       to control the access permissions on individual 4 kB subpages on
+       systems configured with a page size of 64 kB.
+       The protection map is applied to the memory pages in the region
+       starting at addr and continuing for len bytes.  Both of these
+       arguments must be aligned to a 64-kB boundary.
+       The protection map is specified in the buffer pointed to by map.  The
+       map has 2 bits per 4 kB subpage; thus each 32-bit word specifies the
+       protections of 16 4 kB subpages inside a 64 kB page (so, the number
+       of 32-bit words pointed to by map should equate to the number of
+       64-kB pages specified by len).  Each 2-bit field in the protection
+       map is either 0 to allow any access, 1 to prevent writes, or 2 or 3
+       to prevent all accesses.

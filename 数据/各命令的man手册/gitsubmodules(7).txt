@@ -1,0 +1,48 @@
+
+       A submodule is a repository embedded inside another repository. The
+       submodule has its own history; the repository it is embedded in is
+       called a superproject.
+       On the filesystem, a submodule usually (but not always - see FORMS
+       below) consists of (i) a Git directory located under the
+       $GIT_DIR/modules/ directory of its superproject, (ii) a working
+       directory inside the superproject’s working directory, and a .git
+       file at the root of the submodule’s working directory pointing to
+       (i).
+       Assuming the submodule has a Git directory at $GIT_DIR/modules/foo/
+       and a working directory at path/to/bar/, the superproject tracks the
+       submodule via a gitlink entry in the tree at path/to/bar and an entry
+       in its .gitmodules file (see gitmodules(5)) of the form
+       submodule.foo.path = path/to/bar.
+       The gitlink entry contains the object name of the commit that the
+       superproject expects the submodule’s working directory to be at.
+       The section submodule.foo.* in the .gitmodules file gives additional
+       hints to Git’s porcelain layer. For example, the submodule.foo.url
+       setting specifies where to obtain the submodule.
+       Submodules can be used for at least two different use cases:
+        1. Using another project while maintaining independent history.
+           Submodules allow you to contain the working tree of another
+           project within your own working tree while keeping the history of
+           both projects separate. Also, since submodules are fixed to an
+           arbitrary version, the other project can be independently
+           developed without affecting the superproject, allowing the
+           superproject project to fix itself to new versions only when
+           desired.
+        2. Splitting a (logically single) project into multiple repositories
+           and tying them back together. This can be used to overcome
+           current limitations of Git’s implementation to have finer grained
+           access:
+           ·   Size of the Git repository: In its current form Git scales up
+               poorly for large repositories containing content that is not
+               compressed by delta computation between trees. For example,
+               you can use submodules to hold large binary assets and these
+               repositories can be shallowly cloned such that you do not
+               have a large history locally.
+           ·   Transfer size: In its current form Git requires the whole
+               working tree present. It does not allow partial trees to be
+               transferred in fetch or clone. If the project you work on
+               consists of multiple repositories tied together as submodules
+               in a superproject, you can avoid fetching the working trees
+               of the repositories you are not interested in.
+           ·   Access control: By restricting user access to submodules,
+               this can be used to implement read/write policies for
+               different users.

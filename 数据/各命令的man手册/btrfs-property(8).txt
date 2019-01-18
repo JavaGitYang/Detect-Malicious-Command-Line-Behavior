@@ -1,0 +1,8 @@
+
+       btrfs property is used to get/set/list property for given filesystem
+       object. The object can be an inode (file or directory), subvolume or
+       the whole filesystem. See the description of get subcommand for more
+       information about both btrfs object and property.
+       btrfs property provides an unified and user-friendly method to tune
+       different btrfs properties instead of using the traditional method
+       like chattr(1) or lsattr(1).

@@ -1,0 +1,12 @@
+
+       This function will return an intermediate type containing the name
+       constraints of the provided NameConstraints extension. That can be
+       used in combination with gnutls_x509_name_constraints_check() to
+       verify whether a server's name is in accordance with the constraints.
+       When the  flags is set to GNUTLS_NAME_CONSTRAINTS_FLAG_APPEND, then
+       if the  nc type is empty this function will behave identically as if
+       the flag was not set.  Otherwise if there are elements in the  nc
+       structure then the constraints will be merged with the existing
+       constraints following RFC5280 p6.1.4 (excluded constraints will be
+       appended, permitted will be intersected).
+       Note that  nc must be initialized prior to calling this function.

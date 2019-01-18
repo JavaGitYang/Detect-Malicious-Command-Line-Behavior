@@ -1,0 +1,10 @@
+
+       rfkill lists, enabling and disabling wireless devices.
+       The command "list" output format is deprecated and maintained for
+       backward compatibility only. The new output format is the default
+       when no command is specified or when the option --output is used.
+       The default output is subject to change.  So whenever possible, you
+       should avoid using default outputs in your scripts.  Always
+       explicitly define expected columns by using the --output option
+       together with a columns list in environments where a stable output is
+       required.

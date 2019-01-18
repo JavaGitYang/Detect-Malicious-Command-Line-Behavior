@@ -1,0 +1,31 @@
+
+       This manual page lists the standard groff glyph names and the default
+       input mapping, latin1.  The glyphs in this document look different
+       depending on which output device was chosen (with option -T for the
+       man(1) program or the roff formatter).  Glyphs not available for the
+       device that is being used to print or view this manual page are
+       marked with ‘(N/A)’; the device currently used is ‘utf8’.
+       In the actual version, groff provides only 8-bit characters for
+       direct input and named entities for further glyphs.  On ASCII
+       platforms, input character codes in the range 0 to 127 (decimal)
+       represent the usual 7-bit ASCII characters, while codes between 127
+       and 255 are interpreted as the corresponding characters in the latin1
+       (ISO-8859-1) code set by default.  This mapping is contained in the
+       file latin1.tmac and can be changed by loading a different input
+       encoding.  Note that some of the input characters are reserved by
+       groff, either for internal use or for special input purposes.  On
+       EBCDIC platforms, only code page cp1047 is supported (which contains
+       the same characters as latin1; the input encoding file is called
+       cp1047.tmac).  Again, some input characters are reserved for internal
+       and special purposes.
+       All roff systems provide the concept of named glyphs.  In traditional
+       roff systems, only names of length 2 were used, while groff also
+       provides support for longer names.  It is strongly suggested that
+       only named glyphs are used for all character representations outside
+       of the printable 7-bit ASCII range.
+       Some of the predefined groff escape sequences (with names of
+       length 1) also produce single glyphs; these exist for historical
+       reasons or are printable versions of syntactical characters.  They
+       include ‘\\’, ‘\'’, ‘\`’, ‘\-’, ‘\.’, and ‘\e’; see groff(7).
+       In groff, all of these different types of characters and glyphs can
+       be tested positively with the ‘.if c’ conditional.

@@ -1,0 +1,4 @@
+
+       opgprof outputs gprof-format profile data for a given binary image,
+       from an OProfile session. See oprofile(1) for how to write profile
+       specifications.

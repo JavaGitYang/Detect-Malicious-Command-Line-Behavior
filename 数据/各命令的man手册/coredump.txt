@@ -1,0 +1,5 @@
+
+       These files configure the behavior of systemd-coredump(8), a handler
+       for core dumps invoked by the kernel. Whether systemd-coredump is
+       used is determined by the kernel's kernel.core_pattern sysctl(8)
+       setting. See systemd-coredump(8) and core(5) pages for the details.

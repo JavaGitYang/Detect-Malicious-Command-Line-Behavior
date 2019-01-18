@@ -1,0 +1,12 @@
+
+       The lex utility shall generate C programs to be used in lexical
+       processing of character input, and that can be used as an interface
+       to yacc.  The C programs shall be generated from lex source code and
+       conform to the ISO C standard, without depending on any undefined,
+       unspecified, or implementation-defined behavior, except in cases
+       where the code is copied directly from the supplied source, or in
+       cases that are documented by the implementation. Usually, the lex
+       utility shall write the program it generates to the file lex.yy.c;
+       the state of this file is unspecified if lex exits with a non-zero
+       exit status. See the EXTENDED DESCRIPTION section for a complete
+       description of the lex input language.

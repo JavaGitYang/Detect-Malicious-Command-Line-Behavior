@@ -1,0 +1,21 @@
+
+       The posix_trace_start() and posix_trace_stop() functions,
+       respectively, shall start and stop the trace stream identified by the
+       argument trid.
+       The effect of calling the posix_trace_start() function shall be
+       recorded in the trace stream as the POSIX_TRACE_START system trace
+       event and the status of the trace stream shall become
+       POSIX_TRACE_RUNNING.  If the trace stream is in progress when this
+       function is called, the POSIX_TRACE_START system trace event shall
+       not be recorded and the trace stream shall continue to run. If the
+       trace stream is full, the POSIX_TRACE_START system trace event shall
+       not be recorded and the status of the trace stream shall not be
+       changed.
+       The effect of calling the posix_trace_stop() function shall be
+       recorded in the trace stream as the POSIX_TRACE_STOP system trace
+       event and the status of the trace stream shall become
+       POSIX_TRACE_SUSPENDED.  If the trace stream is suspended when this
+       function is called, the POSIX_TRACE_STOP system trace event shall not
+       be recorded and the trace stream shall remain suspended. If the trace
+       stream is full, the POSIX_TRACE_STOP system trace event shall not be
+       recorded and the status of the trace stream shall not be changed.

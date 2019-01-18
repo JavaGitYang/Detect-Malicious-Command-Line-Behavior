@@ -1,0 +1,51 @@
+
+       The newgrp utility shall create a new shell execution environment
+       with a new real and effective group identification. Of the attributes
+       listed in Section 2.12, Shell Execution Environment, the new shell
+       execution environment shall retain the working directory, file
+       creation mask, and exported variables from the previous environment
+       (that is, open files, traps, unexported variables, alias definitions,
+       shell functions, and set options may be lost). All other aspects of
+       the process environment that are preserved by the exec family of
+       functions defined in the System Interfaces volume of POSIX.1‐2008
+       shall also be preserved by newgrp; whether other aspects are
+       preserved is unspecified.
+       A failure to assign the new group identifications (for example, for
+       security or password-related reasons) shall not prevent the new shell
+       execution environment from being created.
+       The newgrp utility shall affect the supplemental groups for the
+       process as follows:
+        *  On systems where the effective group ID is normally in the
+           supplementary group list (or whenever the old effective group ID
+           actually is in the supplementary group list):
+           --  If the new effective group ID is also in the supplementary
+               group list, newgrp shall change the effective group ID.
+           --  If the new effective group ID is not in the supplementary
+               group list, newgrp shall add the new effective group ID to
+               the list, if there is room to add it.
+        *  On systems where the effective group ID is not normally in the
+           supplementary group list (or whenever the old effective group ID
+           is not in the supplementary group list):
+           --  If the new effective group ID is in the supplementary group
+               list, newgrp shall delete it.
+           --  If the old effective group ID is not in the supplementary
+               list, newgrp shall add it if there is room.
+       Note:     The System Interfaces volume of POSIX.1‐2008 does not
+                 specify whether the effective group ID of a process is
+                 included in its supplementary group list.
+       With no operands, newgrp shall change the effective group back to the
+       groups identified in the user's user entry, and shall set the list of
+       supplementary groups to that set in the user's group database
+       entries.
+       If the first argument is '−', the results are unspecified.
+       If a password is required for the specified group, and the user is
+       not listed as a member of that group in the group database, the user
+       shall be prompted to enter the correct password for that group. If
+       the user is listed as a member of that group, no password shall be
+       requested.  If no password is required for the specified group, it is
+       implementation-defined whether users not listed as members of that
+       group can change to that group. Whether or not a password is
+       required, implementation-defined system accounting or security
+       mechanisms may impose additional authorization restrictions that may
+       cause newgrp to write a diagnostic message and suppress the changing
+       of the group identification.

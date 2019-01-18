@@ -1,0 +1,32 @@
+
+       The Lightweight Directory Access Protocol (LDAP) (RFC 4510) provides
+       access to X.500 directory services.  These services may be
+       stand-alone or part of a distributed directory service.  This client
+       API supports LDAP over TCP (RFC 4511), LDAP over TLS/SSL, and LDAP
+       over IPC (UNIX domain sockets).  This API supports SASL (RFC 4513)
+       and Start TLS (RFC 4513) as well as a number of protocol extensions.
+       This API is loosely based upon IETF/LDAPEXT C LDAP API draft
+       specification, a (orphaned) work in progress.
+       The OpenLDAP Software package includes a stand-alone server in
+       slapd(8), various LDAP clients, and an LDAP client library used to
+       provide programmatic access to the LDAP protocol. This man page gives
+       an overview of the LDAP library routines.
+       Both synchronous and asynchronous APIs are provided.  Also included
+       are various routines to parse the results returned from these
+       routines.  These routines are found in the -lldap library.
+       The basic interaction is as follows.  A session handle is created
+       using ldap_initialize(3) and set the protocol version to 3 by calling
+       ldap_set_option(3).  The underlying session is established first
+       operation is issued.  This would generally be a Start TLS or Bind
+       operation, or a Search operation to read attributes of the Root DSE.
+       A Start TLS operation is performed by calling ldap_start_tls_s(3).  A
+       LDAP bind operation is performed by calling ldap_sasl_bind(3) or one
+       of its friends.  A Search operation is performed by calling
+       ldap_search_ext_s(3) or one of its friends.
+       Subsequently, additional operations are performed by calling one of
+       the synchronous or asynchronous routines (e.g., ldap_compare_ext_s(3)
+       or ldap_compare_ext(3) followed by ldap_result(3)).  Results returned
+       from these routines are interpreted by calling the LDAP parsing
+       routines such as ldap_parse_result(3).  The LDAP association and
+       underlying connection is terminated by calling ldap_unbind_ext(3).
+       Errors can be interpreted by calling ldap_err2string(3).

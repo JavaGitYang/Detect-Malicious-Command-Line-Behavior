@@ -1,0 +1,39 @@
+
+       The lttng-gen-tp tool simplifies the generation of LTTng-UST
+       tracepoint provider files. It takes a simple template file, TEMPLATE,
+       and generates the necessary C code to use the defined tracepoints in
+       your application. See the Template file format section below for more
+       information about the format of TEMPLATE.
+       Currently, lttng-gen-tp can generate the .h, .c, and .o files
+       associated with your tracepoint provider. The generated .h file can
+       be included directly in your application. You can let lttng-gen-tp
+       generate the .o file or compile the .c file yourself. See
+       lttng-ust(3) for more information about compiling LTTng-UST
+       tracepoint providers.
+       By default, lttng-gen-tp generates the .h, .c, and .o files, their
+       basename being the basename of TEMPLATE. You can generate one or more
+       specific file types with the --output option, repeated if needed.
+   Template file format
+       The template file, which usually has the .tp extension, contains a
+       list of TRACEPOINT_EVENT() definitions and other optional definition
+       entries, like TRACEPOINT_LOGLEVEL(). See lttng-ust(3) for the
+       complete list of available definitions.
+       The TRACEPOINT_EVENT() definitions are written as you would write
+       them in an LTTng-UST template provider header file. C comments are
+       supported (/* */ and //), as well as lines starting with #.
+           Note
+           The provider name (the first argument of TRACEPOINT_EVENT()) must
+           be the same in all the TRACEPOINT_EVENT() macros of TEMPLATE.
+       Here’s an example:
+           TRACEPOINT_EVENT(
+               // Tracepoint provider name
+               my_provider,
+               // Tracepoint/event name
+               my_event,
+               // Tracepoint arguments (input)
+               TP_ARGS(char *, text),
+               // Tracepoint/event fields (output)
+               TP_FIELDS(
+                   ctf_string(message, text)
+               )
+           )

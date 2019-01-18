@@ -1,0 +1,26 @@
+
+       The dlclose() function shall inform the system that the symbol table
+       handle specified by handle is no longer needed by the application.
+       An application writer may use dlclose() to make a statement of intent
+       on the part of the process, but this statement does not create any
+       requirement upon the implementation. When the symbol table handle is
+       closed, the implementation may unload the executable object files
+       that were loaded by dlopen() when the symbol table handle was opened
+       and those that were loaded by dlsym() when using the symbol table
+       handle identified by handle.
+       Once a symbol table handle has been closed, an application should
+       assume that any symbols (function identifiers and data object
+       identifiers) made visible using handle, are no longer available to
+       the process.
+       Although a dlclose() operation is not required to remove any
+       functions or data objects from the address space, neither is an
+       implementation prohibited from doing so. The only restriction on such
+       a removal is that no function nor data object shall be removed to
+       which references have been relocated, until or unless all such
+       references are removed. For instance, an executable object file that
+       had been loaded with a dlopen() operation specifying the RTLD_GLOBAL
+       flag might provide a target for dynamic relocations performed in the
+       processing of other relocatable objects—in such environments, an
+       application may assume that no relocation, once made, shall be undone
+       or remade unless the executable object file containing the relocated
+       object has itself been removed.

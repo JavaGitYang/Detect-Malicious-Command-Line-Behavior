@@ -1,0 +1,7 @@
+
+       Never use this function; see BUGS.
+       The mktemp() function generates a unique temporary filename from
+       template.  The last six characters of template must be XXXXXX and
+       these are replaced with a string that makes the filename unique.
+       Since it will be modified, template must not be a string constant,
+       but should be declared as a character array.

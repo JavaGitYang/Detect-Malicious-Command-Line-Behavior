@@ -1,0 +1,12 @@
+
+       The function clearerr() clears the end-of-file and error indicators
+       for the stream pointed to by stream.
+       The function feof() tests the end-of-file indicator for the stream
+       pointed to by stream, returning nonzero if it is set.  The end-of-
+       file indicator can be cleared only by the function clearerr().
+       The function ferror() tests the error indicator for the stream
+       pointed to by stream, returning nonzero if it is set.  The error
+       indicator can be reset only by the clearerr() function.
+       The function fileno() examines the argument stream and returns its
+       integer file descriptor.
+       For nonlocking counterparts, see unlocked_stdio(3).

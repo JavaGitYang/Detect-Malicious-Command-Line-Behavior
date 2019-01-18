@@ -1,0 +1,3 @@
+
+       The string functions perform operations on null-terminated strings.
+       See the individual man pages for descriptions of each function.

@@ -1,0 +1,6 @@
+
+       The killpg() function shall send the signal specified by sig to the
+       process group specified by pgrp.
+       If pgrp is greater than 1, killpg(pgrp, sig) shall be equivalent to
+       kill(−pgrp, sig). If pgrp is less than or equal to 1, the behavior of
+       killpg() is undefined.

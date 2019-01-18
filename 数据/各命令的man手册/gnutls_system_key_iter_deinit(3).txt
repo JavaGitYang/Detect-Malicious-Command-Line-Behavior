@@ -1,0 +1,2 @@
+
+       This function will deinitialize the iterator.

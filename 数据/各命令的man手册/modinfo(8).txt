@@ -1,0 +1,10 @@
+
+       modinfo extracts information from the Linux Kernel modules given on
+       the command line. If the module name is not a filename, then the
+       /lib/modules/version directory is searched, as is also done by
+       modprobe(8) when loading kernel modules.
+       modinfo by default lists each attribute of the module in form
+       fieldname : value, for easy reading. The filename is listed the same
+       way (although it's not really an attribute).
+       This version of modinfo can understand modules of any Linux Kernel
+       architecture.

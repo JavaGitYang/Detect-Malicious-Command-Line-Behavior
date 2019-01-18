@@ -1,0 +1,9 @@
+
+       This manual page documents the dpkg-name program which provides an
+       easy way to rename Debian packages into their full package names. A
+       full package name consists of package_version_architecture.package-
+       type as specified in the control file of the package. The version
+       part of the filename consists of the upstream version information
+       optionally followed by a hyphen and the revision information. The
+       package-type part comes from that field if present or fallbacks to
+       deb.

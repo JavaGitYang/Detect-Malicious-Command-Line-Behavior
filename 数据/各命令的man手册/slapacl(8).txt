@@ -1,0 +1,8 @@
+
+       slapacl is used to check the behavior of slapd(8) by verifying access
+       to directory data according to the access control list directives
+       defined in its configuration.  It opens the slapd.conf(5)
+       configuration file or the slapd-config(5) backend, reads in the
+       access/olcAccess directives, and then parses the attr list given on
+       the command-line; if none is given, access to the entry pseudo-
+       attribute is tested.

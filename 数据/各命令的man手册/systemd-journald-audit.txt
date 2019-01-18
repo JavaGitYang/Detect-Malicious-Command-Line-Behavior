@@ -1,0 +1,25 @@
+
+       systemd-journald is a system service that collects and stores logging
+       data. It creates and maintains structured, indexed journals based on
+       logging information that is received from a variety of sources:
+       ·   Kernel log messages, via kmsg
+       ·   Simple system log messages, via the libc syslog(3) call
+       ·   Structured system log messages via the native Journal API, see
+           sd_journal_print(4)
+       ·   Standard output and standard error of system services
+       ·   Audit records, via the audit subsystem
+       The daemon will implicitly collect numerous metadata fields for each
+       log messages in a secure and unfakeable way. See
+       systemd.journal-fields(7) for more information about the collected
+       metadata.
+       Log data collected by the journal is primarily text-based but can
+       also include binary data where necessary. All objects stored in the
+       journal can be up to 2^64-1 bytes in size.
+       By default, the journal stores log data in /run/log/journal/. Since
+       /run/ is volatile, log data is lost at reboot. To make the data
+       persistent, it is sufficient to create /var/log/journal/ where
+       systemd-journald will then store the data:
+           mkdir -p /var/log/journal
+           systemd-tmpfiles --create --prefix /var/log/journal
+       See journald.conf(5) for information about the configuration of this
+       service.

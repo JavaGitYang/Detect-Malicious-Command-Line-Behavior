@@ -1,0 +1,19 @@
+
+       The functionality described on this reference page is aligned with
+       the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of
+       POSIX.1‐2008 defers to the ISO C standard.
+       The fgetwc() function shall obtain the next character (if present)
+       from the input stream pointed to by stream, convert that to the
+       corresponding wide-character code, and advance the associated file
+       position indicator for the stream (if defined).
+       If an error occurs, the resulting value of the file position
+       indicator for the stream is unspecified.
+       The fgetwc() function may mark the last data access timestamp of the
+       file associated with stream for update. The last data access
+       timestamp shall be marked for update by the first successful
+       execution of fgetwc(), fgetws(), fwscanf(), getwc(), getwchar(),
+       vfwscanf(), vwscanf(), or wscanf() using stream that returns data not
+       supplied by a prior call to ungetwc().
+       The fgetwc() function shall not change the setting of errno if
+       successful.

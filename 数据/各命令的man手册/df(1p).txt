@@ -1,0 +1,12 @@
+
+       The df utility shall write the amount of available space and file
+       slots for file systems on which the invoking user has appropriate
+       read access. File systems shall be specified by the file operands;
+       when none are specified, information shall be written for all file
+       systems. The format of the default output from df is unspecified, but
+       all space figures are reported in 512-byte units, unless the −k
+       option is specified. This output shall contain at least the file
+       system names, amount of available space on each of these file
+       systems, and, if no options other than −t are specified, the number
+       of free file slots, or inodes, available; when −t is specified, the
+       output shall contain the total allocated space as well.

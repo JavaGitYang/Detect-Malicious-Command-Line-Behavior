@@ -1,0 +1,15 @@
+
+       The ldap_modrdn() and ldap_modrdn_s() routines perform an LDAP modify
+       RDN operation.  They both take dn, the DN of the entry whose RDN is
+       to be changed, and newrdn, the new RDN to give the entry.  The old
+       RDN of the entry is never kept as an attribute of the entry.
+       ldap_modrdn() is asynchronous, returning the message id of the
+       operation it initiates.  ldap_modrdn_s() is synchronous, returning
+       the LDAP error code indicating the success or failure of the
+       operation.  Use of these routines is deprecated.  Use the versions
+       described below instead.
+       The ldap_modrdn2() and ldap_modrdn2_s() routines also perform an LDAP
+       modify RDN operation, taking the same parameters as above.  In
+       addition, they both take the deleteoldrdn parameter which is used as
+       a boolean value to indicate whether the old RDN values should be
+       deleted from the entry or not.

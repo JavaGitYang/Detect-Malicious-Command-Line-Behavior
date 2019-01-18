@@ -1,0 +1,2 @@
+
+       This function will return the public key algorithm of a private key.

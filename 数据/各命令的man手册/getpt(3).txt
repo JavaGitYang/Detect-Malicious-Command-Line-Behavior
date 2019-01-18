@@ -1,0 +1,6 @@
+
+       getpt() opens a pseudoterminal master and returns its file
+       descriptor.  It is equivalent to
+           open(/dev/ptmx, O_RDWR | O_NOCTTY);
+       on Linux systems, though the pseudoterminal master is located else‐
+       where on some systems that use GNU Libc.

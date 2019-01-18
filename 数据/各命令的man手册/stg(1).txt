@@ -1,0 +1,72 @@
+
+       StGit (Stacked Git) is an application that provides a convenient way
+       to maintain a patch stack on top of a Git branch:
+       ·   The topmost (most recent) commits of a branch are given names.
+           Such a named commit is called a patch.
+       ·   After making changes to the worktree, you can incorporate the
+           changes into an existing patch; this is called refreshing. You
+           may refresh any patch, not just the topmost one.
+       ·   You can pop a patch: temporarily putting it aside, so that the
+           patch below it becomes the topmost patch. Later you may push it
+           onto the stack again. Pushing and popping can be used to reorder
+           patches.
+       ·   You can easily rebase your patch stack on top of any other Git
+           commit. (The base of a patch stack is the most recent Git commit
+           that is not an StGit patch.) For example, if you started making
+           patches on top of someone else’s branch, and that person
+           publishes an updated branch, you can take all your patches and
+           apply them on top of the updated branch.
+       ·   As you would expect, changing what is below a patch can cause
+           that patch to no longer apply cleanly — this can occur when you
+           reorder patches, rebase patches, or refresh a non-topmost patch.
+           StGit uses Git’s rename-aware three-way merge capability to
+           automatically fix up what it can; if it still fails, it lets you
+           manually resolve the conflict just like you would resolve a merge
+           conflict in Git.
+       ·   The patch stack is just some extra metadata attached to regular
+           Git commits, so you can continue to use most Git tools along with
+           StGit.
+   Typical uses
+       Tracking branch
+           Tracking changes from a remote branch, while maintaining local
+           modifications against that branch, possibly with the intent of
+           sending some patches upstream. You can modify your patch stack as
+           much as you want, and when your patches are finally accepted
+           upstream, the permanent recorded Git history will contain just
+           the final sequence of patches, and not the messy sequence of
+           edits that produced them.
+           Commands of interest in this workflow are e.g. rebase and mail.
+       Development branch
+           Even if you have no "upstream" to send patches to, you can use
+           StGit as a convenient way to modify the recent history of a Git
+           branch. For example, instead of first committing change A, then
+           change B, and then A2 to fix A because it wasn’t quite right, you
+           could incorporate the fix directly into A. This way of working
+           results in a much more readable Git history than if you had
+           immortalized every misstep you made on your way to the right
+           solution.
+           Commands of interest in this workflow are e.g. uncommit, which
+           can be used to move the patch stack base downwards — i.e., turn
+           Git commits into StGit patches after the fact — and commit, its
+           inverse.
+       For more information, see the tutorial[1].
+   Specifying patches
+       Many StGit commands take references to StGit patches as arguments.
+       Patches in the stack are identified with short names, each of which
+       must be unique in the stack.
+       Patches in the current branch are simply referred to by their name.
+       Some commands allow you to specify a patch in another branch of the
+       repository; this is done by prefixing the patch name with the branch
+       name and a colon (e.g. otherbranch:thatpatch).
+   Specifying commits
+       Some StGit commands take Git commits as arguments. StGit accepts all
+       commit expressions that Git does; and in addition, a patch name
+       (optionally prefixed by a branch name and a colon) is allowed in this
+       context. The usual Git modifiers ^ and ~ are also allowed; e.g.,
+       abranch:apatch~2 is the grandparent of the commit that is the patch
+       apatch on branch abranch.
+       Instead of a patch name, you can say {base} to refer to the stack
+       base (the commit just below the bottommost patch); so, abranch:{base}
+       is the base of the stack in branch abranch.
+       If you need to pass a given StGit reference to a Git command,
+       stg-id(1) will convert it to a Git commit id for you.

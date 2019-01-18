@@ -1,0 +1,4 @@
+
+       This function is defined to complement the pam_getenvlist(3)
+       function. It liberates the memory associated with env, overwriting
+       with 0 all memory before free()ing it.

@@ -1,0 +1,4 @@
+
+       The library supports all Intel P6-based processors all the way back
+       to the Pentium Pro. Although all those processors offers the same PMU
+       architecture, they differ in the events they provide.

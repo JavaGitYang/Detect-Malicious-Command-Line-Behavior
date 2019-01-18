@@ -1,0 +1,21 @@
+
+       The pthread_attr_setguardsize() function sets the guard size
+       attribute of the thread attributes object referred to by attr to the
+       value specified in guardsize.
+       If guardsize is greater than 0, then for each new thread created
+       using attr the system allocates an additional region of at least
+       guardsize bytes at the end of the thread's stack to act as the guard
+       area for the stack (but see BUGS).
+       If guardsize is 0, then new threads created with attr will not have a
+       guard area.
+       The default guard size is the same as the system page size.
+       If the stack address attribute has been set in attr (using
+       pthread_attr_setstack(3) or pthread_attr_setstackaddr(3)), meaning
+       that the caller is allocating the thread's stack, then the guard size
+       attribute is ignored (i.e., no guard area is created by the system):
+       it is the application's responsibility to handle stack overflow
+       (perhaps by using mprotect(2) to manually define a guard area at the
+       end of the stack that it has allocated).
+       The pthread_attr_getguardsize() function returns the guard size
+       attribute of the thread attributes object referred to by attr in the
+       buffer pointed to by guardsize.

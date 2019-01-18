@@ -1,0 +1,6 @@
+
+       Used to bootstrap a new Galera Cluster when all nodes are down.  Run
+       galera_new_cluster on the first node only.  On the remaining nodes
+       simply run 'service @DAEMON_NAME@ start'.
+       ·   --help, -h
+           Display a help message and exit.

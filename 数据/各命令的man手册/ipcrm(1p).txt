@@ -1,0 +1,7 @@
+
+       The ipcrm utility shall remove zero or more message queues, semaphore
+       sets, or shared memory segments. The interprocess communication
+       facilities to be removed are specified by the options.
+       Only a user with appropriate privileges shall be allowed to remove an
+       interprocess communication facility that was not created by or owned
+       by the user invoking ipcrm.
